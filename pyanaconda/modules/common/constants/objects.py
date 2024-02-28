@@ -28,6 +28,11 @@ USER_INTERFACE = DBusObjectIdentifier(
     basename="UserInterface"
 )
 
+SCRIPTS = DBusObjectIdentifier(
+    namespace=RUNTIME_NAMESPACE,
+    basename="ScriptsInterface"
+)
+
 # Storage objects.
 
 BOOTLOADER = DBusObjectIdentifier(

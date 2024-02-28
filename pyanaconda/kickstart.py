@@ -38,17 +38,17 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.constants.objects import SCRIPTS
+from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 
 from pykickstart.base import KickstartCommand, RemovedCommand
-from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK
 from pykickstart.errors import KickstartError, KickstartParseWarning
 from pykickstart.ko import KickstartObject
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PostScriptSection, PreScriptSection, \
-    PreInstallScriptSection, OnErrorScriptSection, TracebackScriptSection, Section
+from pykickstart.sections import NullSection, PreScriptSection, PostScriptSection, OnErrorScriptSection, TracebackScriptSection, Section
 from pykickstart.version import returnClassForVersion
 
 log = get_module_logger(__name__)
@@ -259,6 +259,9 @@ class AnacondaKSHandler(superclass):
         # The %packages section is handled by the DBus module.
         self.packages = UselessObject()
 
+        # The %pre, %pre-install sections are handled by the DBus module.
+        self.scripts = UselessObject()
+
     def __str__(self):
         proxy = BOSS.get_proxy()
         modules = proxy.GenerateKickstart().strip()
@@ -296,11 +299,11 @@ class AnacondaKSParser(KickstartParser):
         return KickstartParser.handleCommand(self, lineno, args)
 
     def setupSections(self):
-        self.registerSection(PreScriptSection(self.handler, dataObj=self.scriptClass))
-        self.registerSection(PreInstallScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
+        self.registerSection(UselessSection(self.handler, sectionOpen="%pre"))
+        self.registerSection(UselessSection(self.handler, sectionOpen="%pre-install"))
         self.registerSection(UselessSection(self.handler, sectionOpen="%packages"))
         self.registerSection(UselessSection(self.handler, sectionOpen="%addon"))
 
@@ -309,13 +312,9 @@ def preScriptPass(f):
     # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
     # generates an included file that has commands for later.
-    ksparser = AnacondaPreParser(AnacondaKSHandler())
-
-    with check_kickstart_error():
-        ksparser.readKickstart(f)
 
     # run %pre scripts
-    runPreScripts(ksparser.handler.scripts)
+    runPreScripts()
 
 
 def parseKickstart(handler, f, strict_mode=False):
@@ -406,33 +405,18 @@ def runPostScripts(scripts):
     script_log.info("All kickstart %%post script(s) have been run")
 
 
-def runPreScripts(scripts):
-    preScripts = [s for s in scripts if s.type == KS_SCRIPT_PRE]
+def runPreScripts():
+    runtime_proxy = RUNTIME.get_proxy(SCRIPTS)
+    task = runtime_proxy.RunPreScriptsWithTask()
 
-    if len(preScripts) == 0:
-        return
-
-    script_log.info("Running kickstart %%pre script(s)")
-    stdoutLog.info(_("Running pre-installation scripts"))
-
-    for script in preScripts:
-        script.run("/")
-
-    script_log.info("All kickstart %%pre script(s) have been run")
+    return task
 
 
-def runPreInstallScripts(scripts):
-    preInstallScripts = [s for s in scripts if s.type == KS_SCRIPT_PREINSTALL]
+def runPreInstallScripts():
+    runtime_proxy = RUNTIME.get_proxy(SCRIPTS)
+    task = runtime_proxy.RunPreInstallScriptsWithTask()
 
-    if len(preInstallScripts) == 0:
-        return
-
-    script_log.info("Running kickstart %%pre-install script(s)")
-
-    for script in preInstallScripts:
-        script.run("/")
-
-    script_log.info("All kickstart %%pre-install script(s) have been run")
+    return task
 
 
 def runTracebackScripts(scripts):

@@ -81,3 +81,17 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         ks_in = "driverdisk --source=nfs:host:/path/to/img\n"
         ks_out = "driverdisk --source=nfs:host:/path/to/img\n"
         self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_pre_script(self):
+        """Test saving the pre script via kickstart."""
+        ks_in = dedent("""
+            %pre
+            echo "Hello, world!"
+            %end
+        """)
+        ks_out = dedent("""
+            %pre
+            echo "Hello, world!"
+            %end
+        """)
+        self._test_kickstart(ks_in, ks_out)
