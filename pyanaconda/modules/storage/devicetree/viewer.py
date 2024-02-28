@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from abc import abstractmethod, ABC
+from functools import partial
 
 from blivet.formats import get_format
 from blivet.size import Size
@@ -104,6 +105,8 @@ class DeviceTreeViewer(ABC):
             self._set_device_data_fcoe(device, data)
         elif device.type == "iscsi":
             self._set_device_data_iscsi(device, data)
+        elif device.type == "nvme-fabrics":
+            self._set_device_data_nvme_fabrics(device, data)
         elif device.type == "zfcp":
             self._set_device_data_zfcp(device, data)
 
@@ -149,6 +152,18 @@ class DeviceTreeViewer(ABC):
         data.attrs["lun"] = self._get_attribute(device, "lun")
         data.attrs["target"] = self._get_attribute(device, "target")
         data.attrs["path-id"] = self._get_attribute(device, "id_path")
+
+    def _set_device_data_nvme_fabrics(self, device, data):
+        """Set data for an NVMe Fabrics device."""
+        data.attrs["nsid"] = self._get_attribute(device, "nsid")
+        data.attrs["eui64"] = self._get_attribute(device, "eui64")
+        data.attrs["nguid"] = self._get_attribute(device, "nguid")
+
+        get_attrs = partial(self._get_attribute_list, device.controllers)
+        data.attrs["controllers-id"] = get_attrs("id")
+        data.attrs["transports-type"] = get_attrs("transport")
+        data.attrs["transports-address"] = get_attrs("transport_address")
+        data.attrs["subsystems-nqn"] = get_attrs("subsysnqn")
 
     def _set_device_data_zfcp(self, device, data):
         """Set data for a ZFCP device."""
@@ -270,6 +285,25 @@ class DeviceTreeViewer(ABC):
             return None
 
         return str(value)
+
+    def _get_attribute_list(self, iterable, name):
+        """Get a list of attributes of the given objects.
+
+        Create a comma-separated list of sorted unique attribute values.
+        See the _get_attribute method for more info.
+
+        :param iterable: a list of objects
+        :param name: an attribute name
+        :return: a string or None
+        """
+        # Collect values.
+        values = [self._get_attribute(obj, name) for obj in iterable]
+
+        # Skip duplicates and unset values.
+        values = set(filter(None, values))
+
+        # Format sorted values if any.
+        return ", ".join(sorted(values)) or None
 
     def _prune_attributes(self, attrs):
         """Prune the unset values of attributes.

@@ -219,6 +219,8 @@ Requires: f2fs-tools
 Requires: xfsprogs
 Requires: dosfstools
 Requires: e2fsprogs
+# External tooling for managing NVMe-FC devices in the installation environment
+Recommends: nvme-cli
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment
@@ -262,6 +264,8 @@ Requires: rpm-ostree >= %{rpmostreever}
 Requires: ostree
 # used by ostree command for native containers
 Requires: skopeo
+# External tooling for managing NVMe-FC devices in the installation environment
+Requires: nvme-cli
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
