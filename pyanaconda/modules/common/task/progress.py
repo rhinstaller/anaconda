@@ -34,7 +34,6 @@ class ProgressReporter(ABC):
 
         self.__progress_lock = Lock()
         self.__progress_step = 0
-        self.__progress_category = None
         self.__progress_msg = ""
 
     @property

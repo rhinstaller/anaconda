@@ -36,9 +36,11 @@ def exitHandler(rebootData):
     from pyanaconda.core.process_watchers import WatchProcesses
     WatchProcesses.unwatch_all_processes()
 
+    # pylint: disable=used-before-assignment
     if flags.usevnc:
         vnc.shutdownServer()
 
+    # pylint: disable=used-before-assignment
     if "nokill" in kernel_arguments:
         util.vtActivate(1)
         print("anaconda halting due to nokill flag.")
@@ -67,7 +69,7 @@ def exitHandler(rebootData):
 
     # Tear down the storage module.
     storage_proxy = STORAGE.get_proxy()
-    from pyanaconda.modules.common.task import sync_run_task
+    from pyanaconda.modules.common.task import sync_run_task  # pylint: disable=redefined-outer-name
 
     for task_path in storage_proxy.TeardownWithTasks():
         task_proxy = STORAGE.get_proxy(task_path)
@@ -148,7 +150,7 @@ def setup_environment():
     if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
     else:
-        os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
+        os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER  # pylint: disable=used-before-assignment
 
     # We mostly don't run from bash, so it won't load the file for us, and libreport will then
     # show vi instead of nano. Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1889674
