@@ -38,7 +38,7 @@ def exitHandler(rebootData):
 
     # pylint: disable=used-before-assignment
     if flags.use_rd:
-        vnc.shutdownServer()
+        gnome_remote_destop.shutdown_server()
 
     # pylint: disable=used-before-assignment
     if "nokill" in kernel_arguments:
@@ -294,7 +294,7 @@ if __name__ == "__main__":
         opts.display_mode = constants.DisplayModes.TUI
         opts.noninteractive = True
 
-    from pyanaconda import vnc
+    from pyanaconda import gnome_remote_destop
     from pyanaconda import kickstart
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical

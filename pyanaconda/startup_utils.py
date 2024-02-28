@@ -254,7 +254,7 @@ def prompt_for_ssh(options):
     if options.ksfile:
         return False
 
-    if options.vnc:
+    if options.rdp:
         return False
 
     # Do some work here to get the ip addr / hostname to pass
