@@ -35,7 +35,18 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        assert self.interface.KickstartCommands == ["driverdisk", "mediacheck", "sshpw", "updates"]
+        commands = ["driverdisk",
+                    "mediacheck",
+                    "sshpw",
+                    "updates",
+                    "logging",
+                    "rescue",
+                    "eula",
+                    "graphical",
+                    "text",
+                    "cmdline",
+                    "vnc"]
+        assert self.interface.KickstartCommands == commands
         assert self.interface.KickstartSections == []
         assert self.interface.KickstartAddons == []
 
@@ -80,4 +91,47 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         """Test saving the driver disk via kickstart."""
         ks_in = "driverdisk --source=nfs:host:/path/to/img\n"
         ks_out = "driverdisk --source=nfs:host:/path/to/img\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_logging(self):
+        """Test controls the error logging via kickstart."""
+        ks_in = "logging --host=localhost --port=514\n"
+        ks_out = "logging --host=localhost --port=514\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_rescue(self):
+        """Test rescue mode via kickstart."""
+        ks_in = "rescue --nomount\n"
+        ks_out = "rescue --nomount\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_eula(self):
+        """Test for eula accepting via kickstart."""
+        ks_in = "eula --agreed\n"
+        ks_out = "eula --agreed\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_graphical(self):
+        """Test graphical mode via kickstart."""
+        ks_in = "graphical\n"
+        ks_out = "graphical\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_text(self):
+        """Test text mode via kickstart."""
+        ks_in = "text\n"
+        ks_out = "text\n"
+        self._test_kickstart(ks_in, ks_out)
+
+
+    def test_kickstart_cmdline(self):
+        """Test graphical mode via kickstart."""
+        ks_in = "cmdline\n"
+        ks_out = "cmdline\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_vnc(self):
+        """Test vnc via kickstart."""
+        ks_in = "vnc --password=testpassword\n"
+        ks_out = "vnc --password=testpassword\n"
         self._test_kickstart(ks_in, ks_out)
