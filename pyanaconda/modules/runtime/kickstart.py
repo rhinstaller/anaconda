@@ -29,6 +29,13 @@ class RuntimeKickstartSpecification(KickstartSpecification):
         "mediacheck": COMMANDS.MediaCheck,
         "sshpw": COMMANDS.SshPw,
         "updates": COMMANDS.Updates,
+        "logging": COMMANDS.Logging,
+        "rescue": COMMANDS.Rescue,
+        "eula": COMMANDS.Eula,
+        "graphical": COMMANDS.DisplayMode,
+        "text": COMMANDS.DisplayMode,
+        "cmdline": COMMANDS.DisplayMode,
+        "vnc": COMMANDS.Vnc
     }
 
     commands_data = {
