@@ -204,17 +204,10 @@ class AnacondaKickstartSpecification(KickstartSpecification):
     """The kickstart specification of the main process."""
 
     commands = {
-        "cmdline": COMMANDS.DisplayMode,
-        "eula": COMMANDS.Eula,
-        "graphical": COMMANDS.DisplayMode,
         "halt": COMMANDS.Reboot,
-        "logging": COMMANDS.Logging,
         "poweroff": COMMANDS.Reboot,
         "reboot": COMMANDS.Reboot,
-        "rescue": COMMANDS.Rescue,
         "shutdown": COMMANDS.Reboot,
-        "text": COMMANDS.DisplayMode,
-        "vnc": COMMANDS.Vnc,
     }
 
     @classmethod
