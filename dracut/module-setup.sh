@@ -22,6 +22,8 @@ installkernel() {
 }
 
 install() {
+    # binaries for easier debugging (requested by https://issues.redhat.com/browse/RHEL-5719)
+    dracut_install ping
     # binaries we want in initramfs
     dracut_install eject -o pigz
     dracut_install depmod blkid
