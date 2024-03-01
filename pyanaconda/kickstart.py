@@ -30,6 +30,7 @@ from contextlib import contextmanager
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
+from pyanaconda.core.path import open_with_perm
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.core.kickstart.specification import KickstartSpecification
@@ -110,7 +111,7 @@ class AnacondaKSScript(KSScript):
             # chroot later.
             messages = "/tmp/%s.log" % os.path.basename(path)
 
-        with open(messages, "w") as fp:
+        with open_with_perm(messages, "w", 0o600) as fp:
             rc = util.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                        stdout=fp,
                                        root=scriptRoot)
