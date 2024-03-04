@@ -22,6 +22,7 @@ from pykickstart.parser import KickstartParser
 
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.core.kickstart.addon import AddonSection, AddonRegistry
+from pyanaconda.core.kickstart.script import PreScriptSection, PreInstallScriptSection
 
 __all__ = ["KickstartSpecification", "NoKickstartSpecification",
            "KickstartSpecificationHandler", "KickstartSpecificationParser"]
@@ -59,8 +60,8 @@ class KickstartSpecification(object):
     version = VERSION
     commands = {}
     commands_data = {}
-    sections = {}
-    sections_data = {}
+    sections = { "scripts": [] }
+    sections_data = { "scripts": [] }
     addons = {}
 
 
@@ -83,6 +84,9 @@ class KickstartSpecificationHandler(KickstartHandler):
             self.registerData(name, data)
 
         for name, data in specification.sections_data.items():
+            if name is "scripts":
+                name, data = specification.sections_data.scripts.values()
+
             self.registerSectionData(name, data)
 
         if specification.addons:
@@ -93,7 +97,12 @@ class KickstartSpecificationHandler(KickstartHandler):
 
     def registerSectionData(self, name, data):
         """Register data used by a section."""
-        obj = data()
+        if type(data) is tuple:
+            class_name, data = data
+            obj = class_name(data)
+        else:
+            obj = data()
+
         setattr(self, name, obj)
         self._registerWriteOrder(obj)
 
@@ -119,8 +128,17 @@ class KickstartSpecificationParser(KickstartParser):
     def __init__(self, handler, specification):
         super().__init__(handler)
 
-        for section in specification.sections.values():
-            self.registerSection(section(handler))
+        for sectionObj in specification.sections.values():
+            if "scripts" in specification.sections.keys():
+                sectionObj = specification.sections.scripts.values()
+
+            if type(sectionObj) is tuple:
+                section, dataObj = sectionObj
+            else:
+                section = sectionObj
+                dataObj = None
+
+            self.registerSection(section(handler, dataObj=dataObj))
 
         if specification.addons:
             self.registerSection(AddonSection(handler))

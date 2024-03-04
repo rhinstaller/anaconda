@@ -24,12 +24,13 @@ import warnings
 from textwrap import dedent
 
 from pykickstart.base import RemovedCommand
-from pykickstart.errors import KickstartParseError
 from pykickstart.commands.skipx import FC3_SkipX
 from pykickstart.commands.user import F24_User, F19_UserData
+from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_PREINSTALL
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.parser import Packages
-from pykickstart.sections import PackageSection
+from pykickstart.parser import Packages, Script
+from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection
 from pykickstart.version import F30, isRHEL as is_rhel
 
 from pyanaconda import kickstart
@@ -48,6 +49,26 @@ from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpeci
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
+
+class TestPreScript(Script):
+    def __init__(self, *args, **kwargs):
+        script = """
+        %pre
+        echo "Hello, world!"
+        %end
+        """
+        super(TestPreScript, self).__init__(script, *args, **kwargs)
+        self.type = KS_SCRIPT_PRE
+
+class TestPreInstallScript(Script):
+    def __init__(self, *args, **kwargs):
+        script = """
+        %pre-install
+        echo "Hello, world!"
+        %end
+        """
+        super(TestPreInstallScript, self).__init__(script, *args, **kwargs)
+        self.type = KS_SCRIPT_PREINSTALL
 
 
 class TestData1(AddonData):
@@ -208,6 +229,26 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         addons = {
             "my_test_1": TestData1,
             "my_test_2": TestData2
+        }
+
+    class SpecificationG(KickstartSpecification):
+
+        sections = {
+            "scripts": [(PreScriptSection, Script)],
+        }
+
+        sections_data = {
+            "scripts": [TestPreScript],
+        }
+
+    class SpecificationG(KickstartSpecification):
+
+        sections = {
+            "scripts": [(PreInstallScriptSection, Script)]
+        }
+
+        sections_data = {
+            "scripts": [TestPreInstallScript]
         }
 
     def setUp(self):
@@ -387,6 +428,26 @@ class KickstartSpecificationTestCase(unittest.TestCase):
            %addon my_test_unknown
            %end
            """)
+
+    def test_pre_script_specification(self):
+        specification = self.SpecificationG
+
+        ks_in = """
+        %pre
+        echo "Hello, world!"
+        %end
+        """
+        self.parse_kickstart(specification, ks_in)
+
+    def test_pre_install_script_specification(self):
+        specification = self.SpecificationG
+
+        ks_in = """
+        %pre-install
+        echo "Hello, world!"
+        %end
+        """
+        self.parse_kickstart(specification, ks_in)
 
 
 class ModuleSpecificationsTestCase(unittest.TestCase):
