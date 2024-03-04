@@ -415,6 +415,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 04 2024 Radek Vykydal <rvykydal@redhat.com> - 34.25.4.8-1
+- Update translations
+  Resolves: RHEL-24945
+
 * Fri Feb 16 2024 Jiri Konecny <jkonecny@redhat.com> - 34.25.4.7-1
 - Lower log file permission in /tmp (jkonecny)
   Resolves: RHEL-23345
