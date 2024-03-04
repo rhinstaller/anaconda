@@ -154,7 +154,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
                                               escape_markup(kernel_labels[i][1]))])
         self._combo_kernel_page_size.set_model(self._model_kernel_page_size)
         self._combo_kernel_version.set_model(self._model_kernel_version)
-        self._available_kernels = get_available_kernel_features(self.payload)
+
+        # Will be initialized during the screen refresh
+        self._available_kernels = {}
 
     # Payload event handlers
     def _downloading_package_md(self):
@@ -381,6 +383,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self._kickstarted:
             # Set the environment.
             self.set_default_environment()
+
+            # Find out if alternative kernel packages are available
+            self._available_kernels = get_available_kernel_features(self.payload)
 
             # Apply the initial selection.
             self.apply()
