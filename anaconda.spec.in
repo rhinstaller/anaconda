@@ -472,6 +472,32 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 05 2024 github-actions <github-actions@github.com> - 41.4-1
+- Update translations from Weblate for master (github-actions)
+- Add release note for new ping command in Dracut (jkonecny)
+- Add ping tool to Dracut (jkonecny)
+- tests: Run pylint again (vslavik)
+- tests: pylint: ignore problematic file for astroid (kkoukiou)
+- pylint: add new false positive (kkoukiou)
+- tests: pylint: remove unused false positive (kkoukiou)
+- pyanaconda: task: remove unused variable (kkoukiou)
+- maint: fix: W0707(raise-missing-from):pyanaconda/ui/webui/__init__.py:168,12
+  (kkoukiou)
+- pylint: Disable new warnings found by 3.x (vslavik)
+- tests: pylint: fix concat string (kkoukiou)
+- Gather also newly added virt-install command log. (rvykydal)
+- Copy /etc/resolv.conf to system only if there is no systemd-resolved
+  (rvykydal)
+- Revert "Do not copy /etc/resolv.conf to chroot before installation"
+  (rvykydal)
+- Add release note for NVMe-oF (vslavik)
+- Add a NVMe-FC tab to the Advanced Storage screen (vslavik)
+- Do not write LVM devices file during image installation (vtrefny)
+- Update the .glade file for the Advanced Storage screen (vponcova)
+- Filter out NVMe over Fibre Channel from local disks (vslavik)
+- Install nvme-cli on boot.iso (vslavik)
+- Lower permissions for kickstart logs in /tmp (jkonecny)
+
 * Tue Feb 27 2024 github-actions <github-actions@github.com> - 41.3-1
 - Update translations from Weblate for master (github-actions)
 - Add riscv64 support (U2FsdGVkX1)
