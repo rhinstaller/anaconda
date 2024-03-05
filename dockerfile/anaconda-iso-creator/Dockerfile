@@ -43,6 +43,8 @@ RUN set -ex; \
 COPY ["lorax-build", "/"]
 COPY ["lorax-build-webui", "/"]
 COPY ["adjust-templates-for-webui.patch", "/"]
+COPY ["keep-GNOME-remote-desktop-dependencies-drop-Tiger-VNC.patch", "/"]
+COPY ["do-not-remove-GNOME-remote-desktop-dependencies.patch", "/"]
 
 RUN mkdir /lorax /anaconda-rpms /images
 
