@@ -441,8 +441,13 @@ if __name__ == "__main__":
     initialize_network()
     # If required by user, wait for connection before starting the installation.
     if opts.waitfornet:
-        log.info("network: waiting for connectivity requested by inst.waitfornet=%d", opts.waitfornet)
-        wait_for_connected_NM(timeout=opts.waitfornet)
+        log.info("network: waiting for connectivity requested by inst.waitfornet=%d",
+                 opts.waitfornet)
+        wait_for_connected_NM(timeout=opts.waitfornet, globally=False)
+    if opts.waitfornet_global:
+        log.info("network: waiting for connectivity requested by inst.waitfornet.global=%d",
+                 opts.waitfornet_global)
+        wait_for_connected_NM(timeout=opts.waitfornet_global, globally=True)
 
     # In any case do some actions only after NM finishes its connecting.
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM,

@@ -339,7 +339,7 @@ def _set_ntp_servers_from_dhcp():
         )
 
 
-def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False):
+def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False, globally=False):
     """Wait for NM being connected.
 
     If only_connecting is set, wait only if NM is in connecting state and
@@ -350,12 +350,18 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
     :type timeout: int
     :parm only_connecting: wait only for the result of NM being connecting
     :type only_connecting: bool
+    :parm globally: wait for global connectivity
+    :type globally: bool
     :return: NM is connected
     :rtype: bool
     """
 
     network_proxy = NETWORK.get_proxy()
-    if network_proxy.Connected:
+
+    def _connected(globally):
+        return network_proxy.ConnectedGlobal if globally else network_proxy.Connected
+
+    if _connected(globally):
         return True
 
     if only_connecting:
@@ -370,7 +376,7 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
     while i < timeout:
         i += constants.NETWORK_CONNECTED_CHECK_INTERVAL
         time.sleep(constants.NETWORK_CONNECTED_CHECK_INTERVAL)
-        if network_proxy.Connected:
+        if _connected(globally):
             log.debug("NM connected, waited %d seconds", i)
             return True
         elif only_connecting:

@@ -454,6 +454,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
 
     ap.add_argument("--waitfornet", dest="waitfornet", metavar="TIMEOUT_IN_SECONDS",
                     action=SetWaitfornet, help=help_parser.help_text("waitfornet"))
+    ap.add_argument("--waitfornet.global", dest="waitfornet_global", metavar="TIMEOUT_IN_SECONDS",
+                    action=SetWaitfornet, help=help_parser.help_text("waitfornet_global"))
 
     # Method of operation
     ap.add_argument("-d", "--debug", dest="debug", action="store_true",

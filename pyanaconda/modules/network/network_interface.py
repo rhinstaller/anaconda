@@ -50,6 +50,7 @@ class NetworkInterface(KickstartModuleInterface):
         self.watch_property("Hostname", self.implementation.hostname_changed)
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.watch_property("Connected", self.implementation.connected_changed)
+        self.watch_property("ConnectedGlobal", self.implementation.connected_global_changed)
         self.implementation.configurations_changed.connect(self._device_configurations_changed)
 
     @property
@@ -93,6 +94,15 @@ class NetworkInterface(KickstartModuleInterface):
         NM_STATE_CONNECTED_LOCAL, NM_STATE_CONNECTED_SITE or NM_STATE_CONNECTED_GLOBAL.
         """
         return self.implementation.connected
+
+    @property
+    def ConnectedGlobal(self) -> Bool:
+        """Is the system connected globally to the network?
+
+        The system is considered to be connected globally if being in
+        NM_STATE_CONNECTED_GLOBAL state.
+        """
+        return self.implementation.connected_global
 
     def IsConnecting(self) -> Bool:
         """Is NewtorkManager in connecting state?

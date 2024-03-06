@@ -69,12 +69,14 @@ class NetworkService(KickstartService):
         self._hostname_service_proxy = None
 
         self.connected_changed = Signal()
+        self.connected_global_changed = Signal()
         # TODO fallback solution - use Gio/GNetworkMonitor ?
         self.nm_client = get_new_nm_client()
         if self.nm_client:
             self.nm_client.connect("notify::%s" % NM.CLIENT_STATE, self._nm_state_changed)
             initial_state = self.nm_client.get_state()
             self.set_connected(self._nm_state_connected(initial_state))
+            self.set_connected_global(initial_state == NM.State.CONNECTED_GLOBAL)
 
         self._original_network_data = []
         self._device_configurations = None
@@ -255,7 +257,21 @@ class NetworkService(KickstartService):
         self._connected = connected
         self.connected_changed.emit()
         self.module_properties_changed.emit()
-        log.debug("Connected to network: %s", connected)
+
+    @property
+    def connected_global(self):
+        """Is the system connected globally to the network?"""
+        if self.nm_available:
+            return self._connected_global
+        else:
+            log.debug("Connectivity state can't be determined, assuming connected globally.")
+            return True
+
+    def set_connected_global(self, connected):
+        """Set network connectivity status."""
+        self._connected_global = connected
+        self.connected_global_changed.emit()
+        self.module_properties_changed.emit()
 
     def is_connecting(self):
         """Is NM in connecting state?"""
@@ -273,8 +289,8 @@ class NetworkService(KickstartService):
 
     def _nm_state_changed(self, *args):
         state = self.nm_client.get_state()
-        log.debug("NeworkManager state changed to %s", state)
         self.set_connected(self._nm_state_connected(state))
+        self.set_connected_global(state == NM.State.CONNECTED_GLOBAL)
 
     @property
     def disable_ipv6(self):
