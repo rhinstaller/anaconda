@@ -1,0 +1,25 @@
+From f708d2a6aecf15c95c162017dfcdba41a2fc014c Mon Sep 17 00:00:00 2001
+From: Radek Vykydal <rvykydal@redhat.com>
+Date: Thu, 7 Mar 2024 12:21:26 +0100
+Subject: [PATCH 2/2] lorax
+
+---
+ src/pylorax/__init__.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/pylorax/__init__.py b/src/pylorax/__init__.py
+index 75b015ba..c82f25dd 100644
+--- a/src/pylorax/__init__.py
++++ b/src/pylorax/__init__.py
+@@ -387,7 +387,7 @@ class Lorax(BaseLoraxClass):
+             for arg in user_dracut_args:
+                 dracut_args += arg.split(" ", 1)
+ 
+-        anaconda_args = dracut_args + ["--add", "anaconda pollcdrom qemu qemu-net"]
++        anaconda_args = dracut_args + ["--add", "anaconda pollcdrom qemu qemu-net prefixdevname-tools"]
+ 
+         logger.info("dracut args = %s", dracut_args)
+         logger.info("anaconda args = %s", anaconda_args)
+-- 
+2.43.0
+
