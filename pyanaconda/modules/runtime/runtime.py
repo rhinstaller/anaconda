@@ -19,6 +19,9 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.logging import LoggingData
+from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.containers import TaskContainer
@@ -51,6 +54,16 @@ class RuntimeService(KickstartService):
         self._ui_module = UIModule()
         self._modules.add_module(self._ui_module)
 
+        self.logging_changed = Signal()
+        self._logging = LoggingData()
+
+        self.rescue_changed = Signal()
+        self._rescue = RescueData()
+
+        self.eula_agreed_changed = Signal()
+        self._eula_agreed = False
+
+
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(RUNTIME.namespace)
@@ -69,9 +82,28 @@ class RuntimeService(KickstartService):
         """Process the kickstart data."""
         self._modules.process_kickstart(data)
 
+        logging = LoggingData()
+        logging.host = data.logging.host
+        logging.port = data.logging.port
+        self.set_logging(logging)
+
+        rescue = RescueData()
+        rescue.rescue = data.rescue.rescue
+        rescue.nomount = data.rescue.nomount
+        rescue.romount = data.rescue.romount
+        self.set_rescue(rescue)
+
+        self.set_eula_agreed(data.eula.agreed)
+
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         self._modules.setup_kickstart(data)
+        data.logging.host = self.logging.host
+        data.logging.port = self.logging.port
+        data.rescue.rescue = self.rescue.rescue
+        data.rescue.nomount = self.rescue.nomount
+        data.rescue.romount = self.rescue.romount
+        data.eula.agreed = self._eula_agreed
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -81,3 +113,58 @@ class RuntimeService(KickstartService):
         requirements = []
         requirements.extend(self._modules.collect_requirements())
         return requirements
+
+    @property
+    def logging(self):
+        """The logging data.
+
+        :return: an instance of LoggingData
+        """
+        return self._logging
+
+    def set_logging(self, logging):
+        """Set the LoggingData structure.
+
+        :param logging: LoggingData structure.
+        :type logging: object
+        """
+        self._logging = logging
+        self.logging_changed.emit()
+        log.debug("Logging set to: %s", logging)
+
+    @property
+    def rescue(self):
+        """The rescue data.
+
+        :return: an instance of RescueData
+        """
+        return self._rescue
+
+    def set_rescue(self, rescue):
+        """Set the RescueData structure.
+
+        :param rescue: RescueData structure .
+        :type rescue: object
+        """
+        self._rescue = rescue
+        self.rescue_changed.emit()
+        log.debug("Rescue mode set to: %s", str(rescue))
+
+    @property
+    def eula_agreed(self):
+        """Flag indicating whether EULA was agreed to.
+
+        :return: True if EULA was agreed to, else False.
+        :rtype: bool
+        """
+        return self._eula_agreed
+
+    def set_eula_agreed(self, agreed):
+        """Set the EULA agreement flag.
+
+        :param agreed: True if the EULA was agreed to, else False.
+        :type agreed: bool
+        """
+        self._eula_agreed = agreed
+        self.eula_agreed_changed.emit()
+        log.debug("EULA agreement set to: %s", str(agreed))
