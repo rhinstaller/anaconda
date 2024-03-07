@@ -777,8 +777,8 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             exec_mock.assert_has_calls([
                 call(
                     "bootupctl",
-                    ["backend", "install", "--auto", "--write-uuid", "--device",
-                     "/dev/btldr-drv", "/"],
+                    ["backend", "install", "--auto", "--write-uuid", "--update-firmware",
+                     "--device", "/dev/btldr-drv", "/"],
                     root=sysroot
                 ),
                 call(
