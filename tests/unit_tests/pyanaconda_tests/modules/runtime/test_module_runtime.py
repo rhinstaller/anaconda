@@ -96,33 +96,32 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
     def test_kickstart_logging(self):
         """Test controls the error logging via kickstart."""
         ks_in = "logging --host=localhost --port=514\n"
-        ks_out = "logging --host=localhost --port=514\n"
+        ks_out = "# Installation logging level\nlogging --host=localhost --port=514\n"
         self._test_kickstart(ks_in, ks_out)
 
     def test_kickstart_rescue(self):
         """Test rescue mode via kickstart."""
         ks_in = "rescue --nomount\n"
-        ks_out = "rescue --nomount\n"
+        ks_out = "# Start rescue mode\nrescue --nomount\n"
         self._test_kickstart(ks_in, ks_out)
 
     def test_kickstart_eula(self):
         """Test for eula accepting via kickstart."""
         ks_in = "eula --agreed\n"
-        ks_out = "eula --agreed\n"
+        ks_out = "# License agreement\neula --agreed\n"
         self._test_kickstart(ks_in, ks_out)
 
     def test_kickstart_graphical(self):
         """Test graphical mode via kickstart."""
         ks_in = "graphical\n"
-        ks_out = "graphical\n"
+        ks_out = "# Use graphical install\ngraphical\n"
         self._test_kickstart(ks_in, ks_out)
 
     def test_kickstart_text(self):
         """Test text mode via kickstart."""
         ks_in = "text\n"
-        ks_out = "text\n"
+        ks_out = "# Use text mode install\ntext\n"
         self._test_kickstart(ks_in, ks_out)
-
 
     def test_kickstart_cmdline(self):
         """Test graphical mode via kickstart."""

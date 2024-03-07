@@ -19,6 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.modules.runtime.runtime_commands import RuntimeCommandsModule
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
 from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
@@ -54,6 +55,9 @@ class RuntimeService(KickstartService):
 
         self._ui_commands = UICommandsModule()
         self._modules.add_module(self._ui_commands)
+
+        self._runtime_commands = RuntimeCommandsModule()
+        self._modules.add_module(self._runtime_commands)
 
     def publish(self):
         """Publish the module."""
