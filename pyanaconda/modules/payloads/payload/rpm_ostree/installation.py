@@ -437,6 +437,7 @@ class ConfigureBootloader(Task):
                 "install",
                 "--auto",
                 "--write-uuid",
+                "--update-firmware",
                 "--device",
                 dev_data.path,
                 "/",
