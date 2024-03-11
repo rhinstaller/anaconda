@@ -37,7 +37,7 @@ def exitHandler(rebootData):
     WatchProcesses.unwatch_all_processes()
 
     # pylint: disable=used-before-assignment
-    if flags.usevnc:
+    if flags.use_rd:
         vnc.shutdownServer()
 
     # pylint: disable=used-before-assignment
