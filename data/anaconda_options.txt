@@ -100,16 +100,19 @@ vnc
 Enable VNC-based installation. You will need to connect to the machine using a VNC client application.
 A VNC install implies that the installed system will boot up in runlevel 3 instead of to the graphical
 login screen. The VNC session will be shared. Consider setting a VNC password using the vncpassword
-option.
+option. This option is deprecated and will be removed in future releases. Use rdp and related options
+instead.
 
 vncconnect
 Once installation is up and running, connect to the VNC client named HOST, and optionally use port PORT.
+This option is deprecated and will be removed in future releases.
 
 vncpassword
 Enable a password for the VNC connection. This will prevent someone from inadvertently connecting
 to the vnc-based installation. Requires the VNC option to be specified as well. If you have specified
 vncconnect the PASSWORD will not be used unless connection to host is not possible. Please note that
-the password needs to be 6 to 8 characters long (limitation of the VNC protocol).
+the password needs to be 6 to 8 characters long (limitation of the VNC protocol).This option is deprecated
+and will be removed in future releases. Use rdp and related options instead.
 
 xdriver
 Use DRIVER as the X driver to use during installation as well as on the installed system.
@@ -117,6 +120,17 @@ Use DRIVER as the X driver to use during installation as well as on the installe
 xtimeout
 Specify the timeout in seconds for starting X server.
 
+rdp
+Enable Remote Desktop Protocol-controlled installation. You will need to connect to the machine using an RDP
+client application. An RDP install implies that the installed system will boot up in in multiuser.target
+instead of to the graphical login screen. Multiple RDP clients can connect. When using rdp you also need to set
+RDP username and password using the rdp.username and rdp.password options.
+
+rdp.username
+Set password for the RDP session. To enable RDP access, also use the rdp and rdp.password options.
+
+rdp.password
+Set password for the RDP session. To enable RDP access, also use the rdp and rdp.username options.
 keymap
 Keyboard layout to use during installation and on the installed system. Valid KEYMAP values
 are those which can be used for the keyboard kickstart command.
