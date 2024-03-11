@@ -514,6 +514,36 @@ Specify screen size for the installer. Use format nxm, where n is the
 number of horizontal pixels, m the number of vertical pixels. The lowest
 supported resolution is 800x600.
 
+.. inst.rdp:
+
+inst.rdp
+^^^^^^^^
+
+Enable Remote Desktop Protocol-controlled installation. You will need to connect to
+the machine using an RDP client application. An RDP install implies that the installed
+system will boot up in in multiuser.target instead of to the graphical login screen.
+
+Multiple RDP clients can connect.
+
+When using ``inst.rdp``, you also need to set RDP username and password using the
+``inst.rdp.username`` and ``inst.rdp.password`` boot options.
+
+.. inst.rdp.username:
+
+inst.rdp.username
+^^^^^^^^^^^^^^^^^
+
+Set username for the RDP session. To enable RDP access, also use the
+``inst.rdp`` and ``inst.rdp.password`` boot options.
+
+.. inst.rdp.password:
+
+inst.rdp.password
+^^^^^^^^^^^^^^^^^
+
+Set password for the RDP session. To enable RDP access, also use the
+``inst.rdp`` and ``inst.rdp.username`` boot options.
+
 .. inst.vnc:
 
 inst.vnc
@@ -525,12 +555,19 @@ may connect.
 
 A system installed with VNC will start in text mode (runlevel 3).
 
+This option is deprecated and will be removed in future releases.
+Use ``inst.rdp`` instead.
+
+
 .. inst.vncpassword:
 
 inst.vncpassword
 ^^^^^^^^^^^^^^^^
 
 Set a password on the VNC server used by the installer.
+
+This option is deprecated and will be removed in future releases.
+Use ``inst.rdp.password`` and related boot options instead.
 
 .. inst.vncconnect:
 
@@ -542,6 +579,8 @@ inst.vncconnect
     Default port is 5900.
 
     Use with ``vncviewer -listen``.
+
+This option is deprecated and will be removed in future releases.
 
 .. inst.xdriver:
 

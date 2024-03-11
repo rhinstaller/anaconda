@@ -170,6 +170,21 @@ def setup_environment():
         os.environ["EDITOR"] = "/usr/bin/nano"
 
 
+# pylint: disable=redefined-outer-name
+def warn_on_deprecated_options(opts, log):
+    """Check if deprecated options have been used & log a warning."""
+
+    if opts.vnc:
+        log.warning("The vnc option has been deprecated, use the rdp and "
+                    "related options instead.")
+    if opts.vncconnect:
+        log.warning("The vncconnect option has been deprecated, use the rdp and "
+                    "related options instead.")
+    if opts.vncpassword:
+        log.warning("The vncpassword option has been deprecated, use the rdp and "
+                    "related options instead.")
+
+
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
     # without importing random stuff and spamming stdout
@@ -247,6 +262,9 @@ if __name__ == "__main__":
 
     if opts.updates_url:
         log.info("Using updates from: %s", opts.updates_url)
+
+    # log warning when deprecated options are used
+    warn_on_deprecated_options(opts, log)
 
     # print errors encountered during boot
     startup_utils.print_dracut_errors(stdout_log)
