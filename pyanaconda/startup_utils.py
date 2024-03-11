@@ -137,7 +137,7 @@ def check_memory(anaconda, options, display_mode=None):
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode != DisplayModes.TUI and not flags.usevnc:
+    if display_mode != DisplayModes.TUI and not flags.use_rd:
         needed_ram = minimal_memory_needed(with_gui=True, with_squashfs=with_squashfs)
         log.info("check_memory(): total:%s, graphical:%s", total_ram, needed_ram)
         reason_args["needed_ram"] = needed_ram
@@ -563,8 +563,9 @@ def initialize_default_systemd_target(text_mode):
 
     services_proxy = SERVICES.get_proxy()
 
-    if not services_proxy.DefaultTarget and (text_mode or flags.usevnc):
-        log.debug("no default systemd target set & in text/vnc mode - setting multi-user.target.")
+    if not services_proxy.DefaultTarget and (text_mode or flags.use_rd):
+        log.debug("no default systemd target set & in text/remote desktop mode - "
+                  "setting multi-user.target.")
         services_proxy.DefaultTarget = TEXT_ONLY_TARGET
 
 

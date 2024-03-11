@@ -40,7 +40,7 @@ def exitHandler(rebootData):
 
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
-    if flags.usevnc:
+    if flags.use_rd:
         vnc.shutdownServer()
 
     # pylint: disable=possibly-used-before-assignment

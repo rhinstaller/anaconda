@@ -66,7 +66,7 @@ class AskVNCSpoke(NormalTUISpoke):
         loop = App.get_event_loop()
         loop.register_signal_handler(ExceptionSignal, exception_msg_handler_and_exit)
         self._message = message
-        self._usevnc = False
+        self._use_rd = False
         self.initialize_done()
 
     @property
@@ -89,12 +89,12 @@ class AskVNCSpoke(NormalTUISpoke):
         self.window.add_with_separator(self._container)
 
     def _use_vnc_callback(self, data):
-        self._usevnc = True
-        new_spoke = VNCPassSpoke(self.data, self.storage, self.payload, vnc_data=self.vnc_data)
+        self._use_rd = True
+        new_spoke = VNCPassSpoke(self.data, self.storage, self.payload, self.vnc_data)
         ScreenHandler.push_screen_modal(new_spoke)
 
     def _use_text_callback(self, data):
-        self._usevnc = False
+        self._use_rd = False
 
     def input(self, args, key):
         """Override input so that we can launch the VNC password spoke"""
@@ -115,7 +115,7 @@ class AskVNCSpoke(NormalTUISpoke):
                 return super().input(args, key)
 
     def apply(self):
-        self.vnc_data.enabled = self._usevnc
+        self.vnc_data.enabled = self._use_rd
         ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
         struct_vnc = VncData.to_structure(self.vnc_data)
         ui_proxy.Vnc = struct_vnc
