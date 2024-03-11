@@ -358,7 +358,7 @@ class KeyboardSpoke(NormalSpoke):
         # Below are checks if we want users attention when the spoke wasn't confirmed (visited)
 
         # Not an issue for VNC, since VNC keymaps are weird and more on the client side.
-        if flags.flags.usevnc:
+        if flags.flags.use_rd:
             return True
 
         # Not an issue where system keyboard configuration is not allowed
@@ -489,7 +489,7 @@ class KeyboardSpoke(NormalSpoke):
 
     def _refresh_switching_info(self):
         switch_options = self._l12_module.LayoutSwitchOptions
-        if flags.flags.usevnc:
+        if flags.flags.use_rd:
             self._layoutSwitchLabel.set_text(_("Keyboard layouts are not "
                                                "supported when using VNC.\n"
                                                "However the settings will be used "

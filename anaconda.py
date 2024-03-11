@@ -36,7 +36,7 @@ def exitHandler(rebootData):
     from pyanaconda.core.process_watchers import WatchProcesses
     WatchProcesses.unwatch_all_processes()
 
-    if flags.usevnc:
+    if flags.use_rd:
         vnc.shutdownServer()
 
     if "nokill" in kernel_arguments:
