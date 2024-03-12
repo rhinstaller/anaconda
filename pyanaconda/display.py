@@ -31,13 +31,11 @@ from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda import startup_utils
 from pyanaconda.core import util, constants, hw
-from pyanaconda import vnc
+from pyanaconda.gnome_remote_destop import GRDServer
 from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import USER_INTERFACE
-from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
-from pyanaconda.modules.common.structures.vnc import VncData
-from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
 from pyanaconda.ui.tui import tui_quit_callback
 # needed for checking if the pyanaconda.ui.gui modules are available
 import pyanaconda.ui
@@ -59,7 +57,6 @@ WAYLAND_TIMEOUT_ADVICE = \
     "time.\n" \
     "Enforce text mode when installing from remote media with the inst.text boot option."
 #  on RHEL also: "Use the customer portal download URL in ilo/drac devices for greater speed."
-
 
 def start_user_systemd():
     """Start the user instance of systemd.
@@ -105,85 +102,106 @@ def start_spice_vd_agent():
         log.info("Started spice-vdagent.")
 
 
-# VNC
+# RDP
 
-def ask_vnc_question(anaconda, vnc_server, message):
-    """ Ask the user if TUI or GUI-over-VNC should be started.
+def ask_rd_question(anaconda, grd_server, message):
+    """ Ask the user if TUI or GUI-over-RDP should be started.
 
     :param anaconda: instance of the Anaconda class
-    :param vnc_server: instance of the VNC server object
+    :param grd_server: instance of the GRD server object
     :param str message: a message to show to the user together
                         with the question
+    :return: if remote desktop should be used
+    :rtype: bool
     """
     App.initialize()
     loop = App.get_event_loop()
     loop.set_quit_callback(tui_quit_callback)
     # Get current vnc data from DBUS
-    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
-    vnc_data = VncData.from_structure(ui_proxy.Vnc)
-    spoke = AskVNCSpoke(anaconda.ksdata, vnc_data, message=message)
+    spoke = AskRDSpoke(anaconda.ksdata, message=message)
     ScreenHandler.schedule_screen(spoke)
     App.run()
 
-    # Update vnc data from DBUS
-    vnc_data = VncData.from_structure(ui_proxy.Vnc)
-
-    if vnc_data.enabled:
+    if spoke.use_remote_desktop:
         if not anaconda.gui_mode:
-            log.info("VNC requested via VNC question, switching Anaconda to GUI mode.")
+            log.info("RDP requested via RDP question, switching Anaconda to GUI mode.")
         anaconda.display_mode = constants.DisplayModes.GUI
         flags.use_rd = True
-        vnc_server.password = vnc_data.password.value
+        grd_server.rdp_username = spoke.rdp_username
+        grd_server.rdp_password = spoke.rdp_password
+
+    return spoke.use_remote_desktop
 
 
-def check_vnc_can_be_started(anaconda):
-    """Check if we can start VNC in the current environment.
+def ask_for_rd_credentials(anaconda, grd_server, username=None, password=None):
+    """ Ask the user to provide RDP credentials interactively.
 
-    :returns: if VNC can be started and list of possible reasons
-              why VNC can't be started
+    :param anaconda: instance of the Anaconda class
+    :param grd_server: instance of the GRD server object
+    :param str username: user set username (if any)
+    :param str password: user set password (if any)
+    """
+    App.initialize()
+    loop = App.get_event_loop()
+    loop.set_quit_callback(tui_quit_callback)
+    spoke = RDPAuthSpoke(anaconda.ksdata, username=username, password=password)
+    ScreenHandler.schedule_screen(spoke)
+    App.run()
+
+    log.info("RDP credentials set")
+    anaconda.display_mode = constants.DisplayModes.GUI
+    flags.use_rd = True
+    grd_server.rdp_username = spoke._username
+    grd_server.rdp_password = spoke._password
+
+
+def check_rd_can_be_started(anaconda):
+    """Check if we can start an RDP session in the current environment.
+
+    :returns: if RDP session can be started and list of possible reasons
+              why the session can't be started
     :rtype: (boot, list)
     """
 
     error_messages = []
-    vnc_startup_possible = True
+    rd_startup_possible = True
 
-    # disable VNC over text question when not enough memory is available
+    # disable remote desktop over text question when not enough memory is available
     min_gui_ram = hw.minimal_memory_needed(with_gui=True)
     if blivet.util.total_memory() < min_gui_ram:
-        error_messages.append("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" %
+        error_messages.append("Not asking for remote desktop session because current memory "
+                              "(%d) < MIN_GUI_RAM (%d)" %
                               (blivet.util.total_memory(), min_gui_ram))
-        vnc_startup_possible = False
+        rd_startup_possible = False
 
-    # if running in text mode, we might sometimes skip showing the VNC question
-    if anaconda.tui_mode:
-        # disable VNC question if we were explicitly asked for text mode in kickstart
-        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
-        if ui_proxy.DisplayModeTextKickstarted:
-            error_messages.append(
-                "Not asking for VNC because text mode was explicitly asked for in kickstart"
-            )
-            vnc_startup_possible = False
-        # disable VNC question if text mode is requested and this is an automated kickstart
-        # installation
-        elif flags.automatedInstall:
-            error_messages.append("Not asking for VNC because of an automated install")
-            vnc_startup_possible = False
+    # disable remote desktop question if text mode is requested and this is a ks install
+    if anaconda.tui_mode and flags.automatedInstall:
+        error_messages.append(
+            "Not asking for remote desktop session because of an automated install"
+        )
+        rd_startup_possible = False
 
-    # disable VNC question if we don't have network
+    # disable remote desktop question if we were explicitly asked for text in kickstart
+    if anaconda.display_mode == constants.DisplayModes.TUI:
+        error_messages.append("Not asking for remote desktop session because text mode "
+                              "was explicitly asked for in kickstart")
+        rd_startup_possible = False
+
+    # disable remote desktop question if we don't have network
     network_proxy = NETWORK.get_proxy()
     if not network_proxy.IsConnecting() and not network_proxy.Connected:
         error_messages.append("Not asking for VNC because we don't have a network")
-        vnc_startup_possible = False
+        rd_startup_possible = False
 
-    # disable VNC question if we don't have Xvnc
-    if not os.access('/usr/bin/Xvnc', os.X_OK):
-        error_messages.append("Not asking for VNC because we don't have Xvnc")
-        vnc_startup_possible = False
+    # disable remote desktop question if we don't have GNOME remote desktop
+    if not os.access('/usr/bin/grdctl', os.X_OK):
+        error_messages.append("Not asking for remote desktop because we don't have grdctl")
+        rd_startup_possible = False
 
-    return vnc_startup_possible, error_messages
+    return rd_startup_possible, error_messages
 
 
-def do_startup_wl_actions(timeout):
+def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
     """Start the window manager.
 
     When window manager actually connects to the X server is unknowable, but
@@ -193,6 +211,9 @@ def do_startup_wl_actions(timeout):
     fingers crossed.
     Add XDG_DATA_DIRS to the environment to pull in our overridden schema
     files.
+
+    :param bool headless: start a headless session (used for RDP access)
+    :param str headless_resolution: headless virtual monitor resolution in WxH format
     """
     datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
     if 'XDG_DATA_DIRS' in os.environ:
@@ -205,21 +226,39 @@ def do_startup_wl_actions(timeout):
         xdg_config_dirs = datadir + ':' + os.environ['XDG_CONFIG_DIRS']
     # pylint: disable=environment-modify
     os.environ['XDG_CONFIG_DIRS'] = xdg_config_dirs
-
     os.environ["XDG_SESSION_TYPE"] = "wayland"
 
     def wl_preexec():
         # to set GUI subprocess SIGINT handler
         signal.signal(signal.SIGINT, signal.SIG_IGN)
 
+    # lets compile arguments for the run-in-new-session script
     argv = ["/usr/libexec/anaconda/run-in-new-session",
             "--user", "root",
             "--service", "anaconda",
-            "--vt", "6",
             "--session-type", "wayland",
-            "--session-class", "user",
-            "gnome-kiosk", "--sm-disable", "--wayland", "--no-x11",
-            "--wayland-display", constants.WAYLAND_SOCKET_NAME]
+            "--session-class", "user"]
+
+    if headless:
+        # headless (remote connection) - stay on VT1 where connection info is
+        argv.extend(["--vt", "1"])
+    else:
+        # local display - switch to VT6 & show GUI there
+        argv.extend(["--vt", "6"])
+
+    # add the generic GNOME Kiosk invocation
+    argv.extend(["gnome-kiosk", "--sm-disable",
+                 "--wayland", "--no-x11",
+                 "--wayland-display", constants.WAYLAND_SOCKET_NAME])
+
+    # remote access needs gnome-kiosk to start in headless mode &
+    # configure a virtual monitor
+    if headless:
+        # check virtual monitor  resolution has been set
+        if headless_resolution is None:
+            # use default value
+            headless_resolution = "1280x1024"
+        argv.extend(["--headless", "--virtual-monitor", headless_resolution])
 
     childproc = util.startProgram(argv, env_add={'XDG_DATA_DIRS': xdg_data_dirs},
                                   preexec_fn=wl_preexec)
@@ -287,45 +326,21 @@ def setup_display(anaconda, options):
         log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
         xtimeout = constants.X_TIMEOUT
 
-    vnc_server = vnc.VncServer()  # The vnc Server object.
-    vnc_server.anaconda = anaconda
-    vnc_server.timeout = xtimeout
+    grd_server = GRDServer(anaconda)  # The RDP server object
+    rdp_credentials_sufficient = False
 
-    if options.vnc:
+    if options.rdp_enabled:
         flags.use_rd = True
         if not anaconda.gui_mode:
-            log.info("VNC requested via boot/CLI option, switching Anaconda to GUI mode.")
+            log.info("RDP requested via boot/CLI option, switching Anaconda to GUI mode.")
             anaconda.display_mode = constants.DisplayModes.GUI
-        vnc_server.password = options.vncpassword
-
-        # Only consider vncconnect when vnc is a param
-        if options.vncconnect:
-            cargs = options.vncconnect.split(":")
-            vnc_server.vncconnecthost = cargs[0]
-            if len(cargs) > 1 and len(cargs[1]) > 0:
-                if len(cargs[1]) > 0:
-                    vnc_server.vncconnectport = cargs[1]
+        grd_server.rdp_username = options.rdp_username
+        grd_server.rdp_password = options.rdp_password
+        # note if we have both set
+        rdp_credentials_sufficient = options.rdp_username and options.rdp_password
 
     if options.xdriver:
         write_xdriver(options.xdriver, root="/")
-
-    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
-    vnc_data = VncData.from_structure(ui_proxy.Vnc)
-
-    if vnc_data.enabled:
-        flags.use_rd = True
-        if not anaconda.gui_mode:
-            log.info("VNC requested via kickstart, switching Anaconda to GUI mode.")
-            anaconda.display_mode = constants.DisplayModes.GUI
-
-        if vnc_server.password == "":
-            vnc_server.password = vnc_data.password.value
-
-        if vnc_server.vncconnecthost == "":
-            vnc_server.vncconnecthost = vnc_data.host
-
-        if vnc_server.vncconnectport == "":
-            vnc_server.vncconnectport = vnc_data.port
 
     # check if GUI without WebUI
     if anaconda.gui_mode and not anaconda.is_webui_supported:
@@ -336,23 +351,32 @@ def setup_display(anaconda, options):
             flags.use_rd = False
             flags.rd_question = False
 
-    # check if VNC can be started
-    vnc_can_be_started, vnc_error_messages = check_vnc_can_be_started(anaconda)
-    if not vnc_can_be_started:
-        # VNC can't be started - disable the VNC question and log
-        # all the errors that prevented VNC from being started
+    # check if remote desktop mode can be started
+    rd_can_be_started, rd_error_messages = check_rd_can_be_started(anaconda)
+
+    if rd_can_be_started:
+        # if remote desktop can be started & only inst.rdp
+        # or inst.rdp and insufficient credentials are provided
+        # via boot options, ask interactively.
+        if options.rdp_enabled and not rdp_credentials_sufficient:
+            ask_for_rd_credentials(anaconda,
+                                   grd_server,
+                                   options.rdp_username,
+                                   options.rdp_password)
+    else:
+        # RDP can't be started - disable the RDP question and log
+        # all the errors that prevented RDP from being started
         flags.rd_question = False
-        for error_message in vnc_error_messages:
+        for error_message in rd_error_messages:
             stdout_log.warning(error_message)
 
     if anaconda.tui_mode and flags.rd_question:
-        # we prefer vnc over text mode, so ask about that
+        # we prefer remote desktop over text mode, so ask about that
         message = _("Text mode provides a limited set of installation "
                     "options. It does not offer custom partitioning for "
                     "full control over the disk layout. Would you like "
-                    "to use VNC mode instead?")
-        ask_vnc_question(anaconda, vnc_server, message)
-        if not vnc_data.enabled:
+                    "to use remote graphical access via the RDP protocol instead?")
+        if not ask_rd_question(anaconda, grd_server, message):
             # user has explicitly specified text mode
             flags.rd_question = False
 
@@ -394,17 +418,17 @@ def setup_display(anaconda, options):
                 mutter_display = MutterDisplay()
                 mutter_display.on_service_ready(on_mutter_ready)
 
-    if anaconda.tui_mode and anaconda.gui_startup_failed and \
-            flags.rd_question and not vnc_data.enabled:
+    if anaconda.tui_mode and anaconda.gui_startup_failed and flags.rd_question:
+
         message = _("X was unable to start on your machine. Would you like to start VNC to connect to "
                     "this computer from another computer and perform a graphical installation or continue "
                     "with a text mode installation?")
-        ask_vnc_question(anaconda, vnc_server, message)
+        ask_rd_question(anaconda, grd_server, message)
 
-    # if they want us to use VNC do that now
+    # if they want us to use RDP do that now
     if anaconda.gui_mode and flags.use_rd:
-        vnc_server.startServer()
-        do_startup_wl_actions(xtimeout)
+        do_startup_wl_actions(xtimeout, headless=True, headless_resolution=options.runres)
+        grd_server.start_grd_rdp()
 
     # with X running we can initialize the UI interface
     anaconda.initialize_interface()

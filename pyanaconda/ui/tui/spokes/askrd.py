@@ -1,6 +1,8 @@
-# Ask vnc text spoke
+# Ask Remote Desktop text spoke
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Asks the user if a text mode or remote desktop based access should be used.
+#
+# Copyright (C) 2024  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -19,11 +21,8 @@
 import sys
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.objects import USER_INTERFACE
-from pyanaconda.modules.common.constants.services import RUNTIME
-from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.constants import USEVNC, USETEXT, QUIT_MESSAGE
+from pyanaconda.core.constants import USERDP, USETEXT, QUIT_MESSAGE
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.core.util import execWithRedirect, ipmi_abort
@@ -44,18 +43,17 @@ def exception_msg_handler_and_exit(signal, data):
     sys.exit(1)
 
 
-class AskVNCSpoke(NormalTUISpoke):
+class AskRDSpoke(NormalTUISpoke):
     """
-       .. inheritance-diagram:: AskVNCSpoke
+       .. inheritance-diagram:: AskRDPSpoke
           :parts: 3
     """
-    title = N_("VNC")
+    title = N_("RDP")
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
-    def __init__(self, data, vnc_data, storage=None, payload=None, message=""):
+    def __init__(self, data, storage=None, payload=None, message=""):
         super().__init__(data, storage, payload)
-        self.vnc_data = vnc_data
         self.input_required = True
         self.initialize_start()
         self._container = None
@@ -66,8 +64,25 @@ class AskVNCSpoke(NormalTUISpoke):
         loop = App.get_event_loop()
         loop.register_signal_handler(ExceptionSignal, exception_msg_handler_and_exit)
         self._message = message
+        self._rdp_username = ""
+        self._rdp_password = ""
         self._use_rd = False
         self.initialize_done()
+
+    @property
+    def use_remote_desktop(self):
+        """Should a remote desktop solution be used instead of text mode ?"""
+        return self._use_rd
+
+    @property
+    def rdp_username(self):
+        """User provided RDP user name (if any)."""
+        return self._rdp_username
+
+    @property
+    def rdp_password(self):
+        """User provided RDP password (if any)."""
+        return self._rdp_password
 
     @property
     def indirect(self):
@@ -81,23 +96,25 @@ class AskVNCSpoke(NormalTUISpoke):
         self._container = ListColumnContainer(1, spacing=1)
 
         # choices are
-        # USE VNC
-        self._container.add(TextWidget(_(USEVNC)), self._use_vnc_callback)
+        # USE RDP
+        self._container.add(TextWidget(_(USERDP)), self._use_rdp_callback)
         # USE TEXT
         self._container.add(TextWidget(_(USETEXT)), self._use_text_callback)
 
         self.window.add_with_separator(self._container)
 
-    def _use_vnc_callback(self, data):
+    def _use_rdp_callback(self, data):
         self._use_rd = True
-        new_spoke = VNCPassSpoke(self.data, self.storage, self.payload, self.vnc_data)
-        ScreenHandler.push_screen_modal(new_spoke)
+        new_rdp_spoke = RDPAuthSpoke(self.data)
+        ScreenHandler.push_screen_modal(new_rdp_spoke)
+        self._rdp_username = new_rdp_spoke._username
+        self._rdp_password = new_rdp_spoke._password
 
     def _use_text_callback(self, data):
         self._use_rd = False
 
     def input(self, args, key):
-        """Override input so that we can launch the VNC password spoke"""
+        """Override input so that we can launch the RDP user name & password spoke"""
         if self._container.process_user_input(key):
             self.apply()
             return InputState.PROCESSED_AND_CLOSE
@@ -115,28 +132,28 @@ class AskVNCSpoke(NormalTUISpoke):
                 return super().input(args, key)
 
     def apply(self):
-        self.vnc_data.enabled = self._use_rd
-        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
-        struct_vnc = VncData.to_structure(self.vnc_data)
-        ui_proxy.Vnc = struct_vnc
+        pass
 
 
-class VNCPassSpoke(NormalTUISpoke):
+class RDPAuthSpoke(NormalTUISpoke):
     """
        .. inheritance-diagram:: VNCPassSpoke
           :parts: 3
     """
 
-    def __init__(self, data, storage, payload, message=None, vnc_data=None):
-        super().__init__(data, storage, payload)
-        self.vnc_data = vnc_data
-        self.title = N_("VNC Password")
-        self._password = ""
-        if message:
-            self._message = message
+    def __init__(self, data, username=None, password=None):
+        super().__init__(data, storage=None, payload=None)
+        self.title = N_("RDP User name & Password")
+
+        if username is not None:
+            self._username = username
         else:
-            self._message = _("Please provide VNC password (must be six to eight characters long).\n"
-                              "You will have to type it twice. Leave blank for no password")
+            self._username = ""
+
+        if password is not None:
+            self._password = password
+        else:
+            self._password = ""
 
     @property
     def indirect(self):
@@ -144,27 +161,59 @@ class VNCPassSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        return True # We're always complete
+        return True  # We're always complete
 
     def refresh(self, args=None):
         super().refresh(args)
-        self.window.add_with_separator(TextWidget(self._message))
+        self.window.add_with_separator(TextWidget(self.message))
+
+    @property
+    def message(self):
+        text = ""
+        if not self._username and not self._password:
+            text = _("Please provide RDP user name & password.")
+        elif self._username:
+            text = _("Please provide RDP password.")
+        else:
+            text = _("Please provide RDP user name.")
+
+        # if we want the password, add a note about typing it twice
+        if not self._password:
+            text = text + "\n" + _("You will have to type the password twice.")
+
+        return text
 
     def prompt(self, args=None):
         """Override prompt as password typing is special."""
-        p1 = self.get_user_input(_("Password: "), True)
-        p2 = self.get_user_input(_("Password (confirm): "), True)
+        # first make sure username is set
+        if not self._username:
+            username = self.get_user_input(_("User name: "), False)
+            if username:
+                self._username = username
+            else:
+                self._print_error_and_redraw(_("User name not set!"))
+                return None
 
-        if p1 != p2:
-            self._print_error_and_redraw(_("Passwords do not match!"))
-        elif 0 < len(p1) < 6:
-            self._print_error_and_redraw((_("The password must be at least "
-                                            "six characters long.")))
-        elif len(p1) > 8:
-            self._print_error_and_redraw(_("The password cannot be more than "
-                                           "eight characters long."))
-        else:
-            self._password = p1
+        # next try to get the password
+        if not self._password:
+            p1 = self.get_user_input(_("Password: "), True)
+            p2 = self.get_user_input(_("Password (confirm): "), True)
+
+            if p1 != p2:
+                self._print_error_and_redraw(_("Passwords do not match!"))
+                return None
+            elif not p1:
+                self._print_error_and_redraw((_("The password must not be empty.")))
+                return None
+            elif 0 < len(p1) < 6:
+                self._print_error_and_redraw((_("The password must be at least "
+                                                "six characters long.")))
+                return None
+            else:
+                self._password = p1
+
+        # do we finally have everything ?
+        if self._username and self._password:
             self.apply()
             self.close()
 
@@ -176,7 +225,4 @@ class VNCPassSpoke(NormalTUISpoke):
         self.redraw()
 
     def apply(self):
-        self.vnc_data.password.set_secret(self._password)
-        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
-        struct_vnc = VncData.to_structure(self.vnc_data)
-        ui_proxy.Vnc = struct_vnc
+        pass
