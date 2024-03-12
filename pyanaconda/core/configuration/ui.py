@@ -74,6 +74,7 @@ class UserInterfaceSection(Section):
             name        The name of the policy.
             quality     The minimum quality score (see libpwquality).
             length      The minimum length of the password.
+            class       The minimum class of the password characters.
             empty       Allow an empty password.
             strict      Require the minimum quality.
 
@@ -98,7 +99,7 @@ class UserInterfaceSection(Section):
             if not value and name in ("strict", "empty"):
                 # Handle a boolean attribute.
                 attrs[name] = True
-            elif value and name in ("length", "quality"):
+            elif value and name in ("length", "class", "quality"):
                 # Handle an integer attribute.
                 attrs[name] = int(value)
             else:
@@ -118,6 +119,9 @@ class UserInterfaceSection(Section):
 
         if "length" not in attrs:
             raise ValueError("The minimal length is not specified.")
+
+        if "class" not in attrs:
+            raise ValueError("The minimal class is not specified.")
 
         if "quality" not in attrs:
             raise ValueError("The minimal quality is not specified.")

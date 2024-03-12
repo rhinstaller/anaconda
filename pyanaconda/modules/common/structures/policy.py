@@ -33,6 +33,7 @@ class PasswordPolicy(DBusData):
     def __init__(self):
         self._min_quality = UInt16(0)
         self._min_length = UInt16(0)
+        self._min_class = UInt16(0)
         self._allow_empty = True
         self._is_strict = False
 
@@ -59,6 +60,18 @@ class PasswordPolicy(DBusData):
     @min_length.setter
     def min_length(self, value):
         self._min_length = UInt16(value)
+
+    @property
+    def min_class(self) -> UInt16:
+        """The minimum class of the password characters.
+
+        :return: a number of type of password characters
+        """
+        return self._min_class
+
+    @min_class.setter
+    def min_class(self, value):
+        self._min_class = UInt16(value)
 
     @property
     def allow_empty(self) -> Bool:
@@ -99,6 +112,7 @@ class PasswordPolicy(DBusData):
 
             policy.min_quality = attrs.get("quality")
             policy.min_length = attrs.get("length")
+            policy.min_class = attrs.get("class")
             policy.allow_empty = attrs.get("empty", False)
             policy.is_strict = attrs.get("strict", False)
             break

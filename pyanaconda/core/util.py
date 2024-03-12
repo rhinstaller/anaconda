@@ -985,6 +985,14 @@ def restorecon(paths, root, skip_nonexistent=False):
         return True
 
 
+def get_password_character_class(password):
+    lower = bool(re.search('[a-z]', password))
+    upper = bool(re.search('[A-Z]', password))
+    digit = bool(re.search('[0-9]', password))
+    special = bool(re.search(r'[?![\]{}*/\\<>":+\-@$%^&()=_#~,\';.`]', password))
+    return lower + upper + digit + special
+
+
 def get_image_packages_info(max_string_chars=0):
     """List of strings containing versions of installer image packages.
 
