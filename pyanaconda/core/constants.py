@@ -84,7 +84,7 @@ DEFAULT_KEYBOARD = "us"
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
 # VNC questions
-USEVNC = N_("Start VNC")
+USERDP = N_("Use graphical mode via Remote Desktop Protocol")
 USETEXT = N_("Use text mode")
 
 # Quit message
