@@ -266,6 +266,8 @@ Requires: ostree
 Requires: skopeo
 # External tooling for managing NVMe-FC devices in the installation environment
 Requires: nvme-cli
+# Needed for bootc
+Requires: podman
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
