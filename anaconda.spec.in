@@ -415,6 +415,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 14 2024 Radek Vykydal <rvykydal@redhat.com> - 34.25.4.9-1
+- Do not initialize kernel features in init (jkonecny)
+  Resolves: RHEL-27076
+
 * Mon Mar 04 2024 Radek Vykydal <rvykydal@redhat.com> - 34.25.4.8-1
 - Update translations
   Resolves: RHEL-24945
