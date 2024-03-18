@@ -585,7 +585,7 @@ def vtActivate(num):
     """
 
     try:
-        ret = execWithRedirect("chvt", [str(num)])
+        ret = execWithRedirect("chvt", [str(num)], do_preexec=False)
     except OSError as oserr:
         ret = -1
         log.error("Failed to run chvt: %s", oserr.strerror)
