@@ -1546,6 +1546,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             if repo_item[REPO_OBJ].treeinfo_origin:
                 removal_repo_list.append(repo_item.path)
 
+        # Using reverse order to ensure that the previous repositories
+        # will not be removed before _remove_repository(), otherwise it
+        # will get a wrong index to use after the first loop.
+        removal_repo_list.reverse()
+
         for path in removal_repo_list:
             self._remove_repository(path)
 
