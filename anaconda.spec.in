@@ -474,6 +474,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 19 2024 github-actions <github-actions@github.com> - 41.6-1
+- install-img-deps: Require podman (walters)
+
 * Tue Mar 12 2024 github-actions <github-actions@github.com> - 41.5-1
 - Add release notes for flatpak_remote conf key (jkonecny)
 - Move hardcoded flatpak remote to configuration (jkonecny)
