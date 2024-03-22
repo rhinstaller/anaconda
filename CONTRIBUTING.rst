@@ -146,6 +146,57 @@ The resulting ISO will be stored in ``./result/iso`` directory.
 
 Note: You can put additional RPMs to ``./result/build/01-rpm-build`` and these will be automatically used for the ISO build.
 
+Local development workflow
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This workflow makes it possible to test changes to the Anaconda source code locally on your machine without any dependencies
+on external infrastructure. It uses two scripts, one called ``scripts/rebuild_boot_iso`` to build a fresh bootable installation image (boot.iso)
+from Anaconda source code on the given branch and corresponding Fedora/CentOS Stream packages. The second script, called ``scripts/update_boot_iso``
+uses the Anaconda updates image mechanism together with the ``mkksiso`` command provided by the Lorax project to very quickly
+create an updated version of the boot.iso when Anaconda code is changed. The updated boot.iso can then be booted on a VM or bare metal.
+
+The ``rebuild_boot_iso`` script
+"""""""""""""""""""""""""""""""
+
+This is just a simple script that rebuilds the boot.iso from Anaconda source code on the current branch & corresponding Fedora
+(on Fedora branches) or CentOS Stream (on RHEL branches) packages. The script makes sure to remove the old images first
+and also records Anaconda Git revision that was used to build the image.
+
+This should take about 15 minutes on modern hardware.
+
+The ``update_boot_iso`` script
+""""""""""""""""""""""""""""""
+
+This is the main script that enables local development by quickly updating a boot iso with local changes.
+This should take a couple seconds on modern hardware.
+
+For the most common use case ("I have changed the Anaconda source and want to see what it does.") just do this:
+
+1. run ``scripts/rebuild_boot_iso`` first, this creates ``result/iso/boot.iso``
+2. change the Anaconda source code
+3. run ``scripts/update_boot_iso`` which creates the ``result/iso/updated_boot.iso``
+4. start the ``result/iso/updated_boot.iso`` in a VM or on bare metal
+
+The script also has a few command line options that might come handy:
+
+* ``-b, --boot-options`` makes it possible to add additional boot options to the boot.iso boot menu
+* ``-k, --ks-file`` add the specified kickstart file to the updated boot.iso and use it for installation
+* ``-v, --virt-install`` boot the updated iso in a temporary VM for super fast & simple debugging
+* ``-t, --tag`` use a specific Git revision when generating the updates image
+
+Running the updated boot.iso
+""""""""""""""""""""""""""""
+
+The ``updated_boot.iso`` is just a regular bootable image, but there are a couple things to note:
+
+* Due to how ``mkksiso`` works the image will fail the image checksum test - so always use the first option
+  in the image boot menu that skips the checksum verification.
+* Make sure to shut down VMs before booting them again after re-generating the ``updated_boot.iso`` file.
+  Otherwise the VM software might continue using the previous file version & your changes might not be visible.
+  There is also a dummy boot options added to ``updated_boot.iso`` called ``build_time`` that records when the
+  currently running image has been updated. You can check this boot option either in the image boot menu
+  or by checking ``/proc/cmdline`` on a running system.
+
 Anaconda Installer Branching Policy (the long version)
 -------------------------------------------------------
 

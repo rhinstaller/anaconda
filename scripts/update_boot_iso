@@ -1,0 +1,273 @@
+#!/usr/bin/python3
+#
+# update_boot_iso
+#
+# This script is used to quickly update a boot.iso
+# via the mkksiso tool. See CONTRIBUTING.rst for more information
+# about how this works & --help for available boot options.
+
+import argparse
+import os
+import shutil
+import time
+import sys
+import subprocess
+
+# Absolute path to the main project directory
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Relative path to the ISO folder within the project
+ISO_FOLDER = os.path.join(PROJECT_DIR, "result", "iso")
+
+# Initial boot ISO we will update
+INPUT_ISO = os.path.join(ISO_FOLDER, "boot.iso")
+INPUT_ISO_REVISION_FILE = os.path.join(ISO_FOLDER, "boot.iso.git_rev")
+
+# Updated boot ISO (including Anaconda updates image and possibly other bits)
+UPDATED_ISO = os.path.join(ISO_FOLDER, "updated_boot.iso")
+
+# Folder needed to include updates image into the updated ISO
+UPDATES_FOLDER = os.path.join(ISO_FOLDER, "images")
+UPDATES_IMAGE = "updates.img"
+# For inst.sshd = https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-sshd
+# For inst.nokill = https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-nokill
+BOOT_OPTIONS = "inst.sshd inst.nokill"
+
+# Command names
+MKKSISO = "mkksiso"
+VIRT_INSTALL = "virt-install"
+
+def warmup_sudo():
+    """Get sudo right after invocation, for use later (mkksiso needs it).
+    otherwise we might get into the situation where sudo is requested in the
+    middle of execution of this script (e.g., after a long makeupdates run if widget compilation
+    is necessary), destroying the UX.
+    """
+    os.system('sudo echo "we need sudo later, so lets get it now"')
+
+def get_first_non_upstream_commit():
+    """Get the first commit that is not upstream."""
+    try:
+        result = subprocess.run(['git', 'rev-list', '--no-merges', '--first-parent', 'HEAD'], capture_output=True, text=True, check=True)
+        commits = result.stdout.strip().split('\n')
+        if commits:
+            return commits[-1]
+    except subprocess.CalledProcessError:
+        print("** error: could not determine the first non-upstream commit")
+        sys.exit(1)
+
+    return None
+
+def make_updates_image(git_id):
+    """Build an updates image based on tag/hash and prepare it for inclusion in boot ISO.
+
+    :param str git_id: git revision id (hash, tag, etc.)
+    """
+    if git_id is None:
+        print("** make updates:git_id is None, falling back to finding first non-upstream commit id")
+        git_id = get_first_non_upstream_commit()
+        if git_id is None:
+            print("** error: could not determine a valid commit id")
+            sys.exit(1)
+
+    print("** preparing updates image via tag/hash: %s" % git_id)
+    # Create the necessary folder structure
+    os.makedirs(UPDATES_FOLDER, exist_ok=True)
+    # Prepare updates image
+    os.system("./scripts/makeupdates -k -c -t %s" % git_id)
+    # Move it next to the ISOs
+    shutil.move(UPDATES_IMAGE, os.path.join(UPDATES_FOLDER, UPDATES_IMAGE))
+    print("** updates image is ready in: %s" % UPDATES_FOLDER)
+
+def check_input_iso_available():
+    """Check if we have the input ISO.
+
+    If yes, print which ISO is being used.
+    If not, notify the user and exit.
+    """
+    if os.path.exists(INPUT_ISO):
+        print("** using input boot ISO: %s" % INPUT_ISO)
+    else:
+        print("** error: input boot ISO (%s) not found" % INPUT_ISO)
+        sys.exit(1)
+
+def get_boot_iso_revision():
+    """Check if we have a Git revision for the input boot.iso.
+
+    :return: revision string or None if revision file was not found
+    :rtype: bool
+    """
+    if os.path.exists(INPUT_ISO_REVISION_FILE):
+        with open(INPUT_ISO_REVISION_FILE, "rt") as f:
+            boot_iso_git_rev = f.read().strip()
+            print("** found Git revision for boot.iso:")
+            print(boot_iso_git_rev)
+            return boot_iso_git_rev
+    else:
+        return None
+
+def check_updated_iso_available():
+    """Check if the output ISO has been created.
+
+    If yes, then tell the user where to find it.
+    If no, notify the user and exit.
+    """
+    if os.path.exists(UPDATED_ISO):
+        print("** updated boot ISO is available, run with VM of choice: %s" % UPDATED_ISO)
+    else:
+        print("** error: updated boot ISO (%s) not found" % UPDATED_ISO)
+        sys.exit(1)
+
+def check_updates_image_available():
+    """Check if the updates image is in place.
+
+    If not, report an error and exit.
+    """
+
+    if not os.path.exists(os.path.join(UPDATES_FOLDER, UPDATES_IMAGE)):
+        print(f"** error: updates image not found in: {UPDATES_FOLDER}")
+        sys.exit(1)
+
+def check_mkksiso_available():
+    """Check if mkksiso is available on the system.
+
+    Print an error & exit if not.
+    """
+    if shutil.which(MKKSISO) is None:
+        print("** error: mkksiso tool not found, please install the lorax package first")
+        sys.exit(1)
+
+def generate_image_timestamp_option():
+    """Generate a dummy time stamp option to easily check what image has been booted.
+
+    This way the user can easily check which updated image they are running, by checking
+    /proc/cmdline or boot options at boot time.
+
+    :return: timesptamp boot option string
+    :rtype: str
+    """
+    timestamp = "build_time=%s" % time.strftime("%d/%m/%Y_%H:%M:%S")
+    print("** using time stamp option: %s" % timestamp)
+    return timestamp
+
+def generate_updated_iso(ks_file, custom_boot_options):
+    """Generate an updated boot ISO with an optional kickstart file and custom boot options.
+
+    :param str ks_file: path a kickstart file
+    :param str custom_boot_options: custom boot optiuons to be added
+    """
+    # Prepare time stamp
+    timestamp_option = generate_image_timestamp_option()
+
+    # Get absolute path for kickstart file
+    ks_file_path = os.path.abspath(ks_file) if ks_file else None
+
+    # Combine boot options
+    combined_boot_options = f'{timestamp_option} {custom_boot_options}' if custom_boot_options else timestamp_option
+
+    # Build the mkksiso command
+    if ks_file_path:
+        command = f'sudo {MKKSISO} -a "{UPDATES_FOLDER}" -c "{combined_boot_options}" --ks "{ks_file_path}" "{INPUT_ISO}" "{UPDATED_ISO}"'
+    else:
+        command = f'sudo {MKKSISO} -a "{UPDATES_FOLDER}" -c "{combined_boot_options}" "{INPUT_ISO}" "{UPDATED_ISO}"'
+
+    # Execute the command
+    os.system(command)
+
+def check_virt_install_available():
+    """Check if virt-install is available on the system.
+
+    Print an error & exit if not.
+    """
+    if shutil.which(VIRT_INSTALL) is None:
+        print("** error: virt-install tool not found, please install the virt-install package first")
+        sys.exit(1)
+
+def get_virt_install_command_line():
+    """Get appropriate command line options for virt-install.
+
+    These options start a simple transient VM that is deleted
+    once shut down.
+
+    :return: virt-install command line as a list of strings
+    :rtype: list of str
+    """
+    cmd = [VIRT_INSTALL, "--wait", "--connect=qemu:///session",
+           "--name", "anaconda-updated-iso", "--os-variant=detect=on",
+           "--memory", "4096", "--graphics", "vnc,listen=127.0.0.2",
+           "--transient",
+           "--location", UPDATED_ISO]
+    return cmd
+
+def run_updated_iso_with_virt_install():
+    """Run the updated boot iso with virt-install."""
+    # first check if we have virt-install
+    check_virt_install_available()
+    # then try to run it
+    cmd = get_virt_install_command_line()
+    print("** running virt-install")
+    print(cmd)
+    subprocess.run(cmd, check=True)
+    print("** virt-install finished running")
+
+def main():
+    parser = argparse.ArgumentParser(description="update Anaconda boot.iso")
+    parser.add_argument('-t', '--tag', action='store', type=str,
+                        help='add commits from TAG to HEAD to the image (NOTE: also works with commit hashes)')
+    parser.add_argument('-k', '--ks-file', action='store', type=str,
+                        help='path to the kickstart file')
+    parser.add_argument('-b', '--boot-options', action='store', type=str,
+                        help='custom boot options to include in the updated ISO')
+    parser.add_argument('-v', '--virt-install', action='store_true',
+                        help='boot the updated iso with virt-install')
+    args = parser.parse_args()
+
+    # Check if we have the input ISO
+    check_input_iso_available()
+
+    # Check if we have the mkksiso tool
+    check_mkksiso_available()
+
+    # Get sudo, needed for later (mkksiso)
+    warmup_sudo()
+
+    # Check if we know git revision for the boot.iso
+    boot_iso_git_rev = get_boot_iso_revision()
+
+    # Now we need to get the base Git revision for building the updates image.
+    # Every commit after this revision + uncommitted changes will be included
+    # in the updates image, which will then be itself added to the updated boot.iso
+    base_git_revision = None
+    if args.tag:
+        print("** using user specified Git revision for the updates image")
+        base_git_revision = args.tag
+    elif boot_iso_git_rev:
+        print("** using Git revision from the input boot.iso for the updates image")
+        base_git_revision = boot_iso_git_rev
+    else:
+        print("** error: git revision not specified - please use --tag or make "
+              "sure the input boot.iso has a matching Git revision file")
+        sys.exit(1)
+
+    # Generate updates image
+    make_updates_image(base_git_revision)
+
+    # Check updates image has been generated and is in place
+    check_updates_image_available()
+
+    # Remove previous updated boot ISO (if it exists)
+    if os.path.exists(UPDATED_ISO):
+        os.remove(UPDATED_ISO)
+
+    # Generate updated boot ISO
+    generate_updated_iso(args.ks_file, args.boot_options)
+
+    # Check the updated ISO has been generated
+    check_updated_iso_available()
+
+    # check if we should run the image in virt-install
+    if args.virt_install:
+        run_updated_iso_with_virt_install()
+
+if __name__ == "__main__":
+    main()
