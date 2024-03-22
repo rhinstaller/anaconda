@@ -1529,8 +1529,9 @@ class StorageTasksTestCase(unittest.TestCase):
             WriteConfigurationTask(storage).run()
             assert os.path.exists("{}/etc".format(d))
 
+    @patch("pyanaconda.modules.storage.installation.conf")
     @patch("pyanaconda.modules.storage.installation.os.path.exists", return_value=False)
-    def test_lvm_devices_file(self, exists_mock):
+    def test_lvm_devices_file(self, exists_mock, patched_conf):
         """Test writing the LVM devices file"""
         dev1 = Mock()
         dev1.format.type = "lvmpv"
@@ -1543,8 +1544,9 @@ class StorageTasksTestCase(unittest.TestCase):
         storage = Mock(devices=[dev1, dev2], devicetree=Mock(_hidden=[dev3, dev4]))
 
         with tempfile.TemporaryDirectory() as tmp:
-            # lvm devices file: disabled
+            # lvm devices file: disabled, image installation: False
             with patch("pyanaconda.modules.storage.installation.HAVE_LVMDEVICES", new=False):
+                patched_conf.target.is_image = False
                 WriteConfigurationTask._write_lvm_devices_file(storage, tmp)
                 dev1.format.lvmdevices_add.assert_not_called()
                 dev2.format.lvmdevices_add.assert_not_called()
@@ -1552,8 +1554,19 @@ class StorageTasksTestCase(unittest.TestCase):
                 dev4.format.lvmdevices_add.assert_not_called()
                 exists_mock.assert_not_called()
 
-            # lvm devices file: enabled
+            # lvm devices file: enabled, image installation: True
             with patch("pyanaconda.modules.storage.installation.HAVE_LVMDEVICES", new=True):
+                patched_conf.target.is_image = True
+                WriteConfigurationTask._write_lvm_devices_file(storage, tmp)
+                dev1.format.lvmdevices_add.assert_not_called()
+                dev2.format.lvmdevices_add.assert_not_called()
+                dev3.format.lvmdevices_add.assert_not_called()
+                dev4.format.lvmdevices_add.assert_not_called()
+                exists_mock.assert_not_called()
+
+            # lvm devices file: enabled, image installation: False
+            with patch("pyanaconda.modules.storage.installation.HAVE_LVMDEVICES", new=True):
+                patched_conf.target.is_image = False
                 WriteConfigurationTask._write_lvm_devices_file(storage, tmp)
                 dev1.format.lvmdevices_add.assert_called_once_with()
                 dev2.format.lvmdevices_add.assert_not_called()
