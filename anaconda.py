@@ -388,7 +388,7 @@ if __name__ == "__main__":
     log.info("Found a kickstart file: %s", kspath)
 
     # Run %pre scripts.
-    startup_utils.run_pre_scripts(kspath)
+    startup_utils.run_pre_scripts()
 
     # Parse the kickstart file.
     ksdata = startup_utils.parse_kickstart(kspath, strict_mode=opts.ksstrict)

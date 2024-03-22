@@ -1,7 +1,5 @@
 #
-# Kickstart handler for runtime settings.
-#
-# Copyright (C) 2023 Red Hat, Inc.
+# Copyright (C) 2024 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,25 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
-from pykickstart.sections import PreScriptSection
+from pyanaconda.modules.runtime.scripts.scripts import ScriptsModule
 
-
-class RuntimeKickstartSpecification(KickstartSpecification):
-    """Kickstart specification of the runtime module."""
-
-    commands = {
-        "driverdisk": COMMANDS.DriverDisk,
-        "mediacheck": COMMANDS.MediaCheck,
-        "sshpw": COMMANDS.SshPw,
-        "updates": COMMANDS.Updates,
-    }
-
-    commands_data = {
-        "DriverDiskData": COMMANDS.DriverDiskData,
-        "SshPwData": COMMANDS.SshPwData,
-    }
-
-    sections = {
-        "pre": PreScriptSection,
-    }
+__all__ = ["ScriptsModule"]

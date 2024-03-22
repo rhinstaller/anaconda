@@ -399,14 +399,9 @@ def find_kickstart(options):
     return None
 
 
-def run_pre_scripts(ks_path):
-    """Run %pre scripts.
-
-    :param ks_path: a path to a kickstart file or None
-    """
-    if ks_path is not None:
-        kickstart.preScriptPass(ks_path)
-
+def run_pre_scripts():
+    """Run %pre scripts."""
+    kickstart.runPreScripts()
 
 def parse_kickstart(ks_path, strict_mode=False):
     """Parse the given kickstart file.

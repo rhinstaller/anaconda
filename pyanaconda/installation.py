@@ -378,7 +378,7 @@ class RunInstallationTask(InstallationTask):
         )
         pre_install_scripts.append(Task(
             "Run %pre-install scripts",
-            runPreInstallScripts, (ksdata.scripts,)
+            runPreInstallScripts, ()
         ))
         installation_queue.append(pre_install_scripts)
 
