@@ -306,6 +306,8 @@ jobs:
           path: |
             kickstart-tests/data/logs/kstest*.log
             kickstart-tests/data/logs/kstest-*/*.log
+            kickstart-tests/data/logs/kstest-*/original-ks.cfg
+            kickstart-tests/data/logs/kstest-list-substituted/
             kickstart-tests/data/additional_repo/*.rpm
             permian/permian.log
 
