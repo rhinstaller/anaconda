@@ -19,8 +19,8 @@ jobs:
       max-parallel: 1
       matrix:
         {% if branched_fedora_version is defined and branched_fedora_version %}
-        #branch: ['master', 'fedora-{$ branched_fedora_version $}']
-        branch: ['master']
+        branch: ['master', 'fedora-{$ branched_fedora_version $}']
+        #branch: ['master']
         {% else %}
         branch: ['master']
         {% endif %}
