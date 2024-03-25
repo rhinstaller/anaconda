@@ -81,6 +81,8 @@ class TransactionProgress(dnf.callback.TransactionProgress):
         :param ts_done: the number of actions processed in the whole transaction
         :param ts_total: the total number of actions in the whole transaction
         """
+        del ti_total # unused
+
         # Process DNF actions, communicating with anaconda via the queue
         # A normal installation consists of 'install' messages followed by
         # the 'post' message.

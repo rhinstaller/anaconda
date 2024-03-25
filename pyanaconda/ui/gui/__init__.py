@@ -363,6 +363,8 @@ class MainWindow(Gtk.Window):
         return True
 
     def _on_overlay_get_child_position(self, overlay_container, overlayed_widget, allocation, user_data=None):
+        del allocation # unused
+
         overlay_allocation = overlay_container.get_allocation()
 
         # Scale the overlayed image's pixbuf to the size of the GtkOverlay
@@ -875,6 +877,8 @@ class GraphicalUserInterface(UserInterface):
         self._actions.pop(0)
 
     def _on_quit_clicked(self, win, userData=None):
+        del userData # unused
+
         if not win.get_quit_button():
             return
 

@@ -76,6 +76,7 @@ class SetEuidFromPkexec():
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
+        del exc_type, exc_value, exc_traceback # unused
         if self.old_euid is not None:
             os.seteuid(self.old_euid)
             self.old_euid = None

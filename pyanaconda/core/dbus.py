@@ -96,18 +96,26 @@ class DefaultNameErrorRule(AbstractErrorRule):
 
     def match_type(self, exception_type):
         """Match every Python exception raised on the server side."""
+        del exception_type
+
         return True
 
     def get_name(self, exception_type):
         """Return a default error name for every matched exception."""
+        del exception_type
+
         return self._default_name
 
     def match_name(self, error_name):
         """Don't apply this rule on the client side."""
+        del error_name
+
         return False
 
     def get_type(self, error_name):
         """There is no default error type in this rule."""
+        del error_name
+
         return None
 
 

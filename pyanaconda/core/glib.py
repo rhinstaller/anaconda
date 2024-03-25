@@ -133,6 +133,8 @@ def sync_call_glib(context, async_call, async_call_finish, timeout, *call_args):
     callbacks.append(timeout_source.destroy)
 
     def _finish_cb(source_object, async_result):
+        del source_object
+
         log.debug("sync_call_glib[%s]: call %s",
                   info,
                   async_call_finish.get_symbol())
