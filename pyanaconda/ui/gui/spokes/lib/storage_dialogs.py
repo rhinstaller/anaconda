@@ -59,7 +59,7 @@ class InstallOptionsDialogBase(GUIObject):
         self.window.destroy()
         return rc
 
-    def _modify_sw_link_clicked(self, label, uri):
+    def _modify_sw_link_clicked(self, _label, _uri):
         if self._software_is_ready():
             self.window.response(RESPONSE_MODIFY_SW)
 

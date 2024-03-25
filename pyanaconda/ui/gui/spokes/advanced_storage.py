@@ -668,7 +668,7 @@ class FilterSpoke(NormalSpoke):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
             entry.set_text("")
 
-    def on_page_switched(self, notebook, new_page, new_page_num, *args):
+    def on_page_switched(self, notebook, _new_page, new_page_num, *args):
         # Disable all filters.
         for page in self._pages.values():
             page.is_active = False
