@@ -94,22 +94,20 @@ class DefaultNameErrorRule(AbstractErrorRule):
         """
         self._default_name = default_name
 
-    def match_type(self, exception_type):
+    def match_type(self, _exception_type):
         """Match every Python exception raised on the server side."""
         return True
 
-    def get_name(self, exception_type):
+    def get_name(self, _exception_type):
         """Return a default error name for every matched exception."""
         return self._default_name
 
-    def match_name(self, error_name):
+    def match_name(self, _error_name):
         """Don't apply this rule on the client side."""
         return False
 
-    def get_type(self, error_name):
+    def get_type(self, _error_name):
         """There is no default error type in this rule."""
-        return None
-
 
 # System bus.
 SystemBus = SystemMessageBus()

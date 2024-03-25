@@ -65,7 +65,7 @@ class DasdFormatDialog(GUIObject):
                 self._epoch += 1
         return rc
 
-    def on_return_to_hub_link_clicked(self, label, uri):
+    def on_return_to_hub_link_clicked(self, _label, _uri):
         """
         The user clicked on the link that takes them back to the hub.  We need
         to kill the _check_format watcher and then emit a special response ID

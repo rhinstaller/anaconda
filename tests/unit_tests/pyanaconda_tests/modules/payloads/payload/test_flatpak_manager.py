@@ -254,7 +254,7 @@ class FlatpakTest(unittest.TestCase):
             flatpak._operation_stopped_callback(
                 transaction=Mock(),
                 operation=OperationMock("app/org.test"),
-                commit=Mock(),
+                _commit=Mock(),
                 result=Mock(),
             )
 

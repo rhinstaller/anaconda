@@ -202,14 +202,14 @@ class FlatpakManager(object):
         self._log_operation(operation, "started")
         self._report_progress(_("Installing {}").format(operation.get_ref()))
 
-    def _operation_stopped_callback(self, transaction, operation, commit, result):
+    def _operation_stopped_callback(self, transaction, operation, _commit, result):
         """Existing operation ended.
 
         :param transaction: the main transaction object
         :type transaction: Flatpak.Transaction instance
         :param operation: object describing the operation
         :type operation: Flatpak.TransactionOperation instance
-        :param str commit: operation was committed this is a commit id
+        :param str _commit: operation was committed this is a commit id
         :param result: object containing details about the result of the operation
         :type result: Flatpak.TransactionResult instance
         """

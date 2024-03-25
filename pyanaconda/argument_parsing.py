@@ -411,7 +411,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument('--version', action='version', version="%(prog)s " + version_string)
 
     class SetCmdlineMode(Action):
-        def __call__(self, parser, namespace, values, option_string=None):
+        def __call__(self, parser, namespace, values, _option_string=None):
             # We need to save both display mode to TEXT and set noninteractive flag
             setattr(namespace, "display_mode", DisplayModes.TUI)
             setattr(namespace, "noninteractive", True)
@@ -434,7 +434,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--proxy", metavar='PROXY_URL', help=help_parser.help_text("proxy"))
 
     class SetWaitfornet(Action):
-        def __call__(self, parser, namespace, values, option_string=None):
+        def __call__(self, parser, namespace, values, _option_string=None):
             value = None
             try:
                 ivalue = int(values)
@@ -475,7 +475,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("stage2"))
 
     class ParseAddRepo(Action):
-        def __call__(self, parser, namespace, values, option_string=None):
+        def __call__(self, parser, namespace, values, _option_string=None):
             try:
                 name, rest = values.split(',', maxsplit=1)
             except ValueError:
@@ -529,7 +529,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Use a custom action to convert --selinux=0 and --selinux=1 into the
     # appropriate constants
     class ParseSelinux(Action):
-        def __call__(self, parser, namespace, values, option_string=None):
+        def __call__(self, parser, namespace, values, _option_string=None):
             if values == "0":
                 setattr(namespace, self.dest, SELINUX_DISABLED)
             else:
@@ -557,7 +557,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Kickstart and log saving
     # - use a custom action to convert the values of the nosave option into appropriate flags
     class ParseNosave(Action):
-        def __call__(self, parser, namespace, values, option_string=None):
+        def __call__(self, parser, namespace, values, _option_string=None):
             options = []
             if values:
                 options = values.split(",")

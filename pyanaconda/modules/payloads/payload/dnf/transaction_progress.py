@@ -71,13 +71,13 @@ class TransactionProgress(dnf.callback.TransactionProgress):
         self._postinst_phase = False
         self.cnt = 0
 
-    def progress(self, package, action, ti_done, ti_total, ts_done, ts_total):
+    def progress(self, package, action, ti_done, _ti_total, ts_done, ts_total):
         """Report ongoing progress on the given transaction item.
 
         :param package: the DNF package object
         :param action: the ID of the current action
         :param ti_done: the number of processed bytes of the transaction item
-        :param ti_total: the total number of bytes of the transaction item
+        :param _ti_total: the total number of bytes of the transaction item
         :param ts_done: the number of actions processed in the whole transaction
         :param ts_total: the total number of actions in the whole transaction
         """
