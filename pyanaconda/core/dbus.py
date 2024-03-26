@@ -116,8 +116,6 @@ class DefaultNameErrorRule(AbstractErrorRule):
         """There is no default error type in this rule."""
         del error_name
 
-        return None
-
 
 # System bus.
 SystemBus = SystemMessageBus()
