@@ -474,6 +474,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 26 2024 github-actions <github-actions@github.com> - 41.7-1
+- Update translations from Weblate for master (github-actions)
+- Disable preexec for vtActivate() (mkolman)
+
 * Tue Mar 19 2024 github-actions <github-actions@github.com> - 41.6-1
 - install-img-deps: Require podman (walters)
 
