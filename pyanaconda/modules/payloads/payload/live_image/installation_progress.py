@@ -61,6 +61,8 @@ class InstallationProgress(Cancellable):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Stop to monitor the progress."""
+        del exc_type, exc_val, exc_tb # Unused
+
         # Cancel the progress reporting.
         self.cancel()
 

@@ -65,7 +65,7 @@ class RefreshDialog(GUIObject):
         self._notebook.set_current_page(3)
         return False
 
-    def on_return_to_hub_link_clicked(self, label, uri):
+    def on_return_to_hub_link_clicked(self, _label, _uri):
         # The user clicked on the link that takes them back to the hub.  We need
         # to kill the _check_rescan watcher and then emit a special response ID
         # indicating the user did not press OK.
