@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.core.dbus import SystemBus, DBus
+from pyanaconda.core.dbus import SystemBus, SessionBus, DBus
 from dasbus.identifier import DBusServiceIdentifier
 from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZONE_NAMESPACE, \
     NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, \
@@ -106,4 +106,11 @@ RHSM = DBusServiceIdentifier(
 NETWORK_MANAGER = DBusServiceIdentifier(
     namespace=NETWORK_MANAGER_NAMESPACE,
     message_bus=SystemBus
+)
+
+# Session services.
+
+MUTTER_DISPLAY_CONFIG = DBusServiceIdentifier(
+    namespace=("org", "gnome", "Mutter", "DisplayConfig"),
+    message_bus=SessionBus
 )
