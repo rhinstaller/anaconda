@@ -37,11 +37,24 @@ Anaconda
    :alt: Update translations
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/l10n-po-update.yml
 
+.. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
+
+Anaconda Web UI
+---------------
+
 .. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml/badge.svg
-   :alt: Updates Cockpit library for Web UI repository
+   :alt: Updates Cockpit library
    :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml
 
-.. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
+.. |weblate-sync-po| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-po.yml/badge.svg
+   :alt: Sync translations from Weblate repository
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-po.yml
+
+.. |weblate-sync-pot| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml/badge.svg
+   :alt: Sync pot (source) files to Weblate repository
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml
+
+.. _Dependabot: https://github.com/rhinstaller/anaconda-webui/network/updates
 
 |container-autoupdate-fedora|
   Fedora CI test container images, built daily. The containers are used in unit and rpm tests.
