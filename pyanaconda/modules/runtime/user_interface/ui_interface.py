@@ -21,6 +21,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.core.constants import DisplayModes
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
@@ -36,6 +37,10 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         """Connect the signals."""
         super().connect_signals()
         self.watch_property("PasswordPolicies", self.implementation.password_policies_changed)
+        self.watch_property("DisplayMode", self.implementation.display_mode_changed)
+        self.watch_property("DisplayModeNonInteractive", self.implementation.display_mode_nonInteractive_changed)
+        self.watch_property("VncEnabled", self.implementation.vnc_enabled_changed)
+        self.watch_property("VncPassword", self.implementation.vnc_password_changed)
 
     @property
     def PasswordPolicies(self) -> Dict[Str, Structure]:
@@ -59,6 +64,71 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.set_password_policies(
             PasswordPolicy.from_structure_dict(policies)
+        )
+
+    @property
+    def DisplayMode(self) -> Str:
+        """The display mode for the installation.
+
+        Possible values are "TUI" and "GUI".
+        """
+        return self.implementation.display_mode
+
+    @DisplayMode.setter
+    @emits_properties_changed
+    def DisplayMode(self, mode: Str):
+        """Set the display mode for the installation.
+
+        :param mode: The display mode as a string.
+        """
+        self.implementation.set_display_mode(
+            DisplayModes[mode]
+        )
+
+    @property
+    def DisplayModeNonInteractive(self) -> Bool:
+        """The non-interactive flag for display mode."""
+        return self.implementation.display_mode_non_interactive
+
+    @DisplayModeNonInteractive.setter
+    @emits_properties_changed
+    def DisplayModeNonInteractive(self, non_interactive: Bool):
+        """Set the non-interactive flag for display mode.
+
+        :param non_interactive: A boolean value.
+        """
+        self.implementation.set_display_mode_non_interactive(non_interactive)
+
+    @property
+    def VncEnabled(self) -> Bool:
+        """Check if VNC is enabled."""
+        return self.implementation.vnc_enabled
+
+    @VncEnabled.setter
+    @emits_properties_changed
+    def VncEnabled(self, enabled: Bool):
+        """Enable or disable VNC.
+
+        :param enabled: A boolean value.
+        """
+        self.implementation.set_vnc_enabled(
+            enabled
+        )
+
+    @property
+    def VncPassword(self) -> Str:
+        """The VNC password."""
+        return self.implementation.vnc_password
+
+    @VncPassword.setter
+    @emits_properties_changed
+    def VncPassword(self, password: Str):
+        """Set the VNC password.
+
+        :param password: A string representing the password.
+        """
+        self.implementation.set_vnc_password(
+            password
         )
 
     @property
