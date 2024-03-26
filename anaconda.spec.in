@@ -167,7 +167,6 @@ BuildArchitectures: noarch
 BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
-Requires: usermode
 Requires: zenity
 Requires: xisxwayland
 Recommends: xhost
