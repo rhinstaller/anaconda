@@ -19,7 +19,6 @@
 #define _LAYOUT_INDICATOR_H
 
 #include <gtk/gtk.h>
-#include <libxklavier/xklavier.h>
 
 G_BEGIN_DECLS
 
@@ -52,15 +51,9 @@ struct _AnacondaLayoutIndicator {
  *                the widget class structure in order for the class mechanism
  *                to work correctly.  This allows an AnacondaLayoutIndicatorClass
  *                pointer to be cast to a #GtkEventBox pointer.
- * @engine: A singleton XklEngine instance that is used by all instances of
- *          LayoutIndicator.
  */
 struct _AnacondaLayoutIndicatorClass {
     GtkEventBoxClass parent_class;
-
-    /* this has to be a class attribute, because XklEngine is a singleton that
-       should be used by all instances */
-    XklEngine *engine;
 };
 
 GType       anaconda_layout_indicator_get_type (void);

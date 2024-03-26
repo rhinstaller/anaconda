@@ -35,6 +35,7 @@ class Flags(object):
         self.__dict__['_in_init'] = True
         self.usevnc = False
         self.vncquestion = True
+        self.preexisting_wayland = False
         self.preexisting_x11 = False
         self.automatedInstall = False
         self.eject = True

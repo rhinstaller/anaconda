@@ -5,6 +5,6 @@ Wants=anaconda-noshell.service
 
 [Service]
 Type=forking
-Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin LANG=en_US.UTF-8 GDK_BACKEND=x11 XDG_RUNTIME_DIR=/tmp GIO_USE_VFS=local
+Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin LANG=en_US.UTF-8 GDK_BACKEND=wayland XDG_RUNTIME_DIR=/run/user/0 GIO_USE_VFS=local
 WorkingDirectory=/root
 ExecStart=/usr/bin/tmux -u -f /usr/share/anaconda/tmux.conf start
