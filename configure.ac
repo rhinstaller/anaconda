@@ -179,8 +179,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/payloads/source/url/Makefile
                  pyanaconda/modules/runtime/Makefile
                  pyanaconda/modules/runtime/dracut_commands/Makefile
-                 pyanaconda/modules/runtime/ui_commands/Makefile
-                 pyanaconda/modules/runtime/runtime_commands/Makefile
                  pyanaconda/modules/runtime/user_interface/Makefile
                  pyanaconda/modules/storage/Makefile
                  pyanaconda/modules/storage/bootloader/Makefile

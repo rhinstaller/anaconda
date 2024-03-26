@@ -19,6 +19,7 @@
 #
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.base import KickstartModuleInterface

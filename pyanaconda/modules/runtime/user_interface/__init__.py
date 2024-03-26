@@ -16,6 +16,5 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.runtime.user_interface.ui import UIModule
-from pyanaconda.modules.runtime.user_interface.ui_commands import UICommandsModule
 
-__all__ = ["UIModule", "UICommandsModule"]
+__all__ = ["UIModule"]
