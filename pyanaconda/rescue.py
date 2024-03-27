@@ -20,8 +20,9 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.constants.services import STORAGE, RUNTIME
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
+from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.core.threads import thread_manager
@@ -558,12 +559,14 @@ class RootSelectionSpoke(NormalTUISpoke):
 
 def start_rescue_mode_ui(anaconda):
     """Start the rescue mode UI."""
+    runtime_proxy = RUNTIME.get_proxy()
+    rescue_data = RescueData.from_structure(runtime_proxy.Rescue)
 
     ksdata_rescue = None
-    if anaconda.ksdata.rescue.seen:
-        ksdata_rescue = anaconda.ksdata.rescue
+    if rescue_data.rescue:
+        ksdata_rescue = rescue_data
     scripts = anaconda.ksdata.scripts
-    rescue_nomount = anaconda.opts.rescue_nomount
+    rescue_nomount = rescue_data.nomount
     reboot = True
     if conf.target.is_image:
         reboot = False
