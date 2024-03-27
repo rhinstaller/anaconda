@@ -34,7 +34,8 @@ from pyanaconda.core import util, constants, hw
 from pyanaconda import vnc
 from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
 from pyanaconda.ui.tui import tui_quit_callback
 # needed for checking if the pyanaconda.ui.gui modules are available
@@ -121,8 +122,9 @@ def ask_vnc_question(anaconda, vnc_server, message):
     spoke = AskVNCSpoke(anaconda.ksdata, message=message)
     ScreenHandler.schedule_screen(spoke)
     App.run()
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
 
-    if anaconda.ksdata.vnc.enabled:
+    if ui_proxy.VncEnabled:
         if not anaconda.gui_mode:
             log.info("VNC requested via VNC question, switching Anaconda to GUI mode.")
         anaconda.display_mode = constants.DisplayModes.GUI
@@ -154,7 +156,14 @@ def check_vnc_can_be_started(anaconda):
         vnc_startup_possible = False
 
     # disable VNC question if we were explicitly asked for text in kickstart
-    if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+    from pykickstart import constants as pykickstart_constants
+    display_mode_coversion_table = {
+        constants.DisplayModes.GUI: pykickstart_constants.DISPLAY_MODE_GRAPHICAL,
+        constants.DisplayModes.TUI: pykickstart_constants.DISPLAY_MODE_TEXT
+    }
+    display_mode = display_mode_coversion_table[anaconda.display_mode]
+
+    if display_mode == DISPLAY_MODE_TEXT:
         error_messages.append("Not asking for VNC because text mode was explicitly asked for in kickstart")
         vnc_startup_possible = False
 
@@ -306,7 +315,9 @@ def setup_display(anaconda, options):
     if options.xdriver:
         write_xdriver(options.xdriver, root="/")
 
-    if anaconda.ksdata.vnc.enabled:
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+
+    if ui_proxy.VncEnabled:
         flags.usevnc = True
         if not anaconda.gui_mode:
             log.info("VNC requested via kickstart, switching Anaconda to GUI mode.")
@@ -357,7 +368,8 @@ def setup_display(anaconda, options):
                     "full control over the disk layout. Would you like "
                     "to use VNC mode instead?")
         ask_vnc_question(anaconda, vnc_server, message)
-        if not anaconda.ksdata.vnc.enabled:
+        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+        if not ui_proxy.VncEnabled:
             # user has explicitly specified text mode
             flags.vncquestion = False
 
@@ -394,7 +406,7 @@ def setup_display(anaconda, options):
         if not anaconda.gui_startup_failed:
             do_extra_x11_actions(options.runres, gui_mode=anaconda.gui_mode)
 
-    if anaconda.tui_mode and anaconda.gui_startup_failed and flags.vncquestion and not anaconda.ksdata.vnc.enabled:
+    if anaconda.tui_mode and anaconda.gui_startup_failed and flags.vncquestion and not ui_proxy.VncEnabled:
         message = _("X was unable to start on your machine. Would you like to start VNC to connect to "
                     "this computer from another computer and perform a graphical installation or continue "
                     "with a text mode installation?")

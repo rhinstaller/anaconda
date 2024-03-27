@@ -19,7 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PASSWORD_POLICY_LUKS, PASSWORD_POLICY_ROOT, \
-    PASSWORD_POLICY_USER
+    PASSWORD_POLICY_USER, DisplayModes
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.signal import Signal
@@ -42,7 +42,7 @@ class UIModule(KickstartBaseModule):
         self.password_policies_changed = Signal()
 
         self.display_mode_changed = Signal()
-        self._displayMode = None
+        self._displayMode = DisplayModes.TUI
 
         self.display_mode_nonInteractive_changed = Signal()
         self._displayMode_nonInteractive = False
@@ -89,7 +89,7 @@ class UIModule(KickstartBaseModule):
         """
         self._displayMode = display_mode
         self.display_mode_changed.emit()
-        log.debug("Firewall mode will be: %s", display_mode)
+        log.debug("Display mode will be: %s", display_mode)
 
     @property
     def display_mode_non_interactive(self):
