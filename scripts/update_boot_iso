@@ -1,0 +1,48 @@
+#!/bin/bash
+
+INPUT_ISO="result/iso/boot.iso"
+OUTPUT_ISO="result/iso/updated_boot.iso"
+ANACONDA_TAG="anaconda-41.6-1 "
+BOOT_OPTIONS="inst.sshd inst.nokill"
+
+sudo echo "we need sudo later, so lets get it now"
+
+# prepare updates image
+./scripts/makeupdates -k -c -t ${ANACONDA_TAG}
+
+mkdir -p result/iso/images
+cp updates.img result/iso/images/
+
+# remove previous image, if any
+if [ -f ${OUTPUT_ISO} ]; then
+    echo "** removing previous output iso"
+    rm -f ${OUTPUT_ISO}
+fi
+
+# Generate image with grd deps + embedded updates image
+# and also add the inst.vnc boot option.
+cd result/iso/
+echo "** generating output iso with updates image"
+dt=`date '+%d/%m/%Y_%H:%M:%S'`
+sudo mkksiso -a images -c "debug_time=${dt} ${BOOT_OPTIONS}" boot.iso updated_boot.iso
+
+#TODO: make this based on CLI option
+#echo "text" > kickstart.cfg
+#sudo mkksiso -a images --ks kickstart.cfg -c "debug_time=${dt} ${BOOT_OPTIONS}" boot.iso updated_boot.iso
+
+echo "** output iso ready, boot it with a VM runner of your choice:"
+echo ${dt}
+echo ${OUTPUT_ISO}
+
+echo "! skipping virt-install !"
+exit
+
+virt-install \
+    --wait --connect qemu:///session \
+    --name fedora-vm-xwayland-test \
+    --os-variant=detect=on --memory 4096 \
+    --noautoconsole --graphics vnc,listen=127.0.0.2 \
+    --extra-args 'inst.sshd inst.loglevel=debug inst.keymap=es inst.vnc' \
+    --network none \
+    --qemu-commandline='-netdev user,id=hostnet0,hostfwd=tcp:127.0.0.2:2301-:22,hostfwd=:127.0.0.2:13389-:3389 -device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x16' \
+    --location ${OUTPUT_ISO}

@@ -1,0 +1,9 @@
+#!/bin/bash
+# ask for sudo now, so we have it when we get to the image build
+sudo echo "warming up sudo!"
+# remove any previous package and iso build
+rm -rf result/build/
+rm -rf result/iso/
+make -f ./Makefile.am container-rpms-scratch
+make -f ./Makefile.am anaconda-iso-creator-build
+make -f ./Makefile.am container-iso-build
