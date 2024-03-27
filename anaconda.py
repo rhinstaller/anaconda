@@ -31,6 +31,8 @@ import time
 
 import pid
 
+from pyanaconda.modules.common.structures.rescue import RescueData
+
 
 def exitHandler(rebootData):
     # Clear the list of watched PIDs.
@@ -402,8 +404,11 @@ if __name__ == "__main__":
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
     from pyanaconda.modules.common.constants.objects import BOOTLOADER
-    from pyanaconda.modules.common.constants.services import STORAGE
+    from pyanaconda.modules.common.constants.services import STORAGE, RUNTIME
+
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    runtime_proxy = RUNTIME.get_proxy()
+    rescue_data = RescueData.from_structure(runtime_proxy.Rescue)
 
     if opts.leavebootorder:
         bootloader_proxy.KeepBootOrder = True
@@ -411,7 +416,7 @@ if __name__ == "__main__":
     if opts.nombr:
         bootloader_proxy.KeepMBR = True
 
-    if ksdata.rescue.rescue:
+    if rescue_data.rescue:
         flags.rescue_mode = True
 
     # reboot with kexec
@@ -419,7 +424,7 @@ if __name__ == "__main__":
         flags.kexec = True
 
     # Change the logging configuration based on the kickstart.
-    startup_utils.setup_logging_from_kickstart(ksdata)
+    startup_utils.setup_logging_from_kickstart()
 
     anaconda.ksdata = ksdata
 
@@ -468,15 +473,6 @@ if __name__ == "__main__":
 
     # now start the interface
     display.setup_display(anaconda, opts)
-
-    # we now know in which mode we are going to run so store the information
-    from pykickstart import constants as pykickstart_constants
-    display_mode_coversion_table = {
-        constants.DisplayModes.GUI: pykickstart_constants.DISPLAY_MODE_GRAPHICAL,
-        constants.DisplayModes.TUI: pykickstart_constants.DISPLAY_MODE_TEXT
-    }
-    ksdata.displaymode.displayMode = display_mode_coversion_table[anaconda.display_mode]
-    ksdata.displaymode.nonInteractive = not anaconda.interactive_mode
 
     # Initialize the default systemd target.
     startup_utils.initialize_default_systemd_target(text_mode=anaconda.tui_mode)
