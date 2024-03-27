@@ -255,7 +255,7 @@ class AddDialog(GUIObject):
         self._warning_label = self.builder.get_object("mountPointWarningLabel")
 
         self._size_entry = self.builder.get_object("addSizeEntry")
-        self._size_entry.set_tooltip_text(DESIRED_CAPACITY_HINT)
+        self._size_entry.set_tooltip_text(_(DESIRED_CAPACITY_HINT))
 
         self._populate_mount_points()
 
