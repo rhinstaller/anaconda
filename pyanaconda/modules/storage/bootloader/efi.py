@@ -182,13 +182,11 @@ class EFIGRUB(EFIBase, GRUB2):
 
         with open(config_path, "w") as fd:
             grub_dir = self.config_dir
-            if self.stage2_device.format.type != "btrfs":
-                fs_uuid = self.stage2_device.format.uuid
-            else:
-                fs_uuid = self.stage2_device.format.vol_uuid
 
-            if fs_uuid is None:
-                raise BootLoaderError("Could not get stage2 filesystem UUID")
+            fs_uuid = util.execWithCapture("grub2-probe", ["--target", "fs_uuid", grub_dir],
+                                           root=conf.target.system_root)
+            if not fs_uuid:
+                raise BootLoaderError("Could not get GRUB filesystem UUID")
 
             grub_dir = util.execWithCapture("grub2-mkrelpath", [grub_dir],
                                             root=conf.target.system_root)
