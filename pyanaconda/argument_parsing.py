@@ -509,6 +509,12 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
     ap.add_argument("--xtimeout", dest="xtimeout", action="store", type=int, default=X_TIMEOUT,
                     metavar="TIMEOUT_IN_SECONDS", help=help_parser.help_text("xtimeout"))
+    ap.add_argument("--rdp", action="store_true", default=False, dest="rdp_enabled",
+                    help=help_parser.help_text("rdp"))
+    ap.add_argument("--rdp.username", default="", metavar="USERNAME", dest="rdp_username",
+                    help=help_parser.help_text("rdp.username"))
+    ap.add_argument("--rdp.password", default="", metavar="PASSWORD", dest="rdp_password",
+                    help=help_parser.help_text("rdp.password"))
 
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))

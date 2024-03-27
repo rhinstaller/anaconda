@@ -37,8 +37,8 @@ def exitHandler(rebootData):
     WatchProcesses.unwatch_all_processes()
 
     # pylint: disable=used-before-assignment
-    if flags.usevnc:
-        vnc.shutdownServer()
+    if flags.use_rd:
+        gnome_remote_destop.shutdown_server()
 
     # pylint: disable=used-before-assignment
     if "nokill" in kernel_arguments:
@@ -146,6 +146,12 @@ def setup_environment():
     if "LD_PRELOAD" in os.environ:
         del os.environ["LD_PRELOAD"]
 
+    # Go ahead and set $WAYLAND_DISPLAY whether we're going to use Wayland or not
+    if "WAYLAND_DISPLAY" in os.environ:
+        flags.preexisting_wayland = True
+    else:
+        os.environ["WAYLAND_DISPLAY"] = constants.WAYLAND_SOCKET_NAME
+
     # Go ahead and set $DISPLAY whether we're going to use X or not
     if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
@@ -156,6 +162,20 @@ def setup_environment():
     # show vi instead of nano. Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1889674
     if "EDITOR" not in os.environ and os.path.isfile("/etc/profile.d/nano-default-editor.sh"):
         os.environ["EDITOR"] = "/usr/bin/nano"
+
+
+def warn_on_deprecated_options(opts, log):
+    """Check if deprecated options have been used & log a warning."""
+
+    if opts.vnc:
+        log.warning("The vnc option has been deprecated, use the rdp and "
+                    "related options instead.")
+    if opts.vncconnect:
+        log.warning("The vncconnect option has been deprecated, use the rdp and "
+                    "related options instead.")
+    if opts.vncpassword:
+        log.warning("The vncpassword option has been deprecated, use the rdp and "
+                    "related options instead.")
 
 
 if __name__ == "__main__":
@@ -245,6 +265,9 @@ if __name__ == "__main__":
         stdout_log.warning("All Anaconda kernel boot arguments are now required to use "
                            "'inst.' prefix!")
 
+    # log warning when deprecated options are used
+    warn_on_deprecated_options(opts, log)
+
     # print errors encountered during boot
     startup_utils.print_dracut_errors(stdout_log)
 
@@ -271,7 +294,7 @@ if __name__ == "__main__":
         opts.display_mode = constants.DisplayModes.TUI
         opts.noninteractive = True
 
-    from pyanaconda import vnc
+    from pyanaconda import gnome_remote_destop
     from pyanaconda import kickstart
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical
@@ -309,10 +332,11 @@ if __name__ == "__main__":
     except pid.PidFileError as e:
         log.error("Unable to create %s, exiting", pidfile.filename)
 
-        # If we had a $DISPLAY at start and zenity is available, we may be
-        # running in a live environment and we can display an error dialog.
+        # If we had a Wayland/X11 display at start and zenity is available, we may
+        # be running in a live environment and we can display an error dialog.
         # Otherwise just print an error.
-        if flags.preexisting_x11 and os.access("/usr/bin/zenity", os.X_OK):
+        preexisting_graphics = flags.preexisting_wayland or flags.preexisting_x11
+        if preexisting_graphics and os.access("/usr/bin/zenity", os.X_OK):
             # The module-level _() calls are ok here because the language may
             # be set from the live environment in this case, and anaconda's
             # language setup hasn't happened yet.

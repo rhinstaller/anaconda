@@ -255,7 +255,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
             log.debug("Exception handler test suspended to prevent accidental activation by "
                       "delayed Xorg start. Next SIGUSR1 will be handled as delayed Xorg start.")
             # Raise an exception to notify the caller that things went wrong. This affects
-            # particularly pyanaconda.display.do_startup_x11_actions(), where the window manager
+            # particularly pyanaconda.display.do_startup_wl_actions(), where the window manager
             # is started immediately after this. The WM would just wait forever.
             raise TimeoutError("Timeout trying to start %s" % argv[0])
 
@@ -354,8 +354,8 @@ def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune
                         log_output=log_output, binary_output=binary_output, do_preexec=do_preexec)[0]
 
 
-def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False,
-                    do_preexec=True):
+def execWithCapture(command, argv, stdin=None, root='/', env_prune=None,
+                    log_output=True, filter_stderr=False, do_preexec=True):
     """ Run an external program and capture standard out and err.
 
         :param command: The command to run
@@ -369,7 +369,7 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     """
     argv = [command] + argv
 
-    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output, env_prune=env_prune,
                         filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
 
 

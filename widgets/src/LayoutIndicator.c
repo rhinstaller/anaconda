@@ -20,13 +20,14 @@
 #include "config.h"
 
 #include <atk/atk.h>
+#include <gio/gio.h>
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <libxklavier/xklavier.h>
 
 #include "LayoutIndicator.h"
+#include "an-localization.h"
 #include "intl.h"
 #include "widgets-common.h"
 
@@ -34,6 +35,8 @@
 #define SINGLE_LAYOUT_TIP _("Current layout: '%s'. Add more layouts to enable switching.")
 #define DEFAULT_LAYOUT "us"
 #define DEFAULT_LABEL_MAX_CHAR_WIDTH 8
+#define ANACONDA_BUS_ADDR_FILE "/run/anaconda/bus.address"
+#define DBUS_ANACONDA_SESSION_ADDRESS "DBUS_ANACONDA_SESSION_BUS_ADDRESS"
 
 /**
  * SECTION: AnacondaLayoutIndicator
@@ -77,11 +80,7 @@ struct _AnacondaLayoutIndicatorPrivate {
     GtkWidget *icon;
     GtkLabel *layout_label;
     GdkCursor *cursor;
-    XklConfigRec *config_rec;
-    gulong state_changed_handler_id;
-    gboolean state_changed_handler_id_set;
-    gulong config_changed_handler_id;
-    gboolean config_changed_handler_id_set;
+    AnLocalization *localization_proxy;
 };
 
 G_DEFINE_TYPE(AnacondaLayoutIndicator, anaconda_layout_indicator, GTK_TYPE_EVENT_BOX)
@@ -96,13 +95,6 @@ static void anaconda_layout_indicator_clicked(GtkWidget *widget, GdkEvent *event
 static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicator *indicator);
 static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *indicator);
 static void anaconda_layout_indicator_refresh_tooltip(AnacondaLayoutIndicator *indicator);
-
-/* helper functions */
-static gchar* get_current_layout(XklEngine *engine, XklConfigRec *conf_rec);
-static void x_state_changed(XklEngine *engine, XklEngineStateChange type,
-                            gint arg2, gboolean arg3, gpointer indicator);
-static void x_config_changed(XklEngine *engine, gpointer indicator);
-static GdkFilterReturn handle_xevent(GdkXEvent *xev, GdkEvent *event, gpointer engine);
 
 static void anaconda_layout_indicator_class_init(AnacondaLayoutIndicatorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
@@ -160,29 +152,132 @@ GtkWidget *anaconda_layout_indicator_new() {
     return g_object_new(ANACONDA_TYPE_LAYOUT_INDICATOR, NULL);
 }
 
+static void anaconda_localization_on_layouts_changed(AnLocalization *proxy,
+                                                     const gchar *const *layouts,
+                                                     AnacondaLayoutIndicator *self) {
+    anaconda_layout_indicator_refresh_layout(self);
+}
+
+static void anaconda_localization_on_selected_layout_changed(AnLocalization *proxy,
+                                                     const gchar *layout,
+                                                     AnacondaLayoutIndicator *self) {
+    anaconda_layout_indicator_refresh_layout(self);
+}
+
+static gchar *anaconda_localization_get_bus_addr(void) {
+    gchar *bus_addr;
+    gboolean res;
+
+    bus_addr = (gchar *)g_getenv(DBUS_ANACONDA_SESSION_ADDRESS);
+    if (bus_addr) {
+        return g_strdup(bus_addr);
+    }
+
+    res = g_file_get_contents(ANACONDA_BUS_ADDR_FILE,
+                              &bus_addr,
+                              NULL,
+                              NULL);
+    if (res) {
+        return bus_addr;
+    }
+
+    return NULL;
+}
+
+static void anaconda_localization_connect(AnacondaLayoutIndicator *self) {
+    gchar *bus_addr;
+    GDBusConnection *bus;
+    AnLocalization *proxy;
+    g_autoptr(GError) error = NULL;
+
+    bus_addr = anaconda_localization_get_bus_addr();
+    if (!bus_addr) {
+        g_warning("Error getting Anaconda bus address");
+        return;
+    }
+
+    bus = g_dbus_connection_new_for_address_sync(bus_addr,
+                                                 G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT | G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION,
+                                                 NULL,
+                                                 NULL,
+                                                 &error);
+    g_free(bus_addr);
+    if (!bus) {
+        g_warning("Error getting Anaconda bus: %s", error->message);
+        return;
+    }
+
+    proxy = an_localization_proxy_new_sync(bus,
+                                           G_DBUS_PROXY_FLAGS_NONE,
+                                           "org.fedoraproject.Anaconda.Modules.Localization",
+                                           "/org/fedoraproject/Anaconda/Modules/Localization",
+                                           NULL,
+                                           &error);
+    if (!proxy) {
+        g_warning("Failed to connect to Anaconda's localization module: %s", error->message);
+        return;
+    }
+
+    g_signal_connect_object(G_OBJECT(proxy),
+                            "compositor-layouts-changed",
+                            G_CALLBACK(anaconda_localization_on_layouts_changed),
+                            self,
+                            G_CONNECT_DEFAULT);
+    g_signal_connect_object(G_OBJECT(proxy),
+                            "compositor-selected-layout-changed",
+                            G_CALLBACK(anaconda_localization_on_selected_layout_changed),
+                            self,
+                            G_CONNECT_DEFAULT);
+
+    self->priv->localization_proxy = proxy;
+}
+
+static gchar *anaconda_localization_get_current_layout(AnacondaLayoutIndicator *self) {
+    gboolean result;
+    gchar *layout = NULL;
+    g_autoptr(GError) error = NULL;
+
+    result = an_localization_call_get_compositor_selected_layout_sync(self->priv->localization_proxy,
+                                                                      &layout,
+                                                                      NULL,
+                                                                      &error);
+    if (!result || g_str_equal(layout, "")) {
+        if (layout)
+            g_free(layout);
+        return g_strdup(DEFAULT_LAYOUT);
+    }
+
+    return layout;    
+}
+
+static int anaconda_localization_get_num_layouts(AnacondaLayoutIndicator *self) {
+    gboolean result;
+    gchar **layouts = NULL;
+    g_autoptr(GError) error = NULL;
+    int n_groups;
+
+    result = an_localization_call_get_compositor_layouts_sync(self->priv->localization_proxy,
+                                                              &layouts,
+                                                              NULL,
+                                                              &error);
+    if (!result) {
+        g_warning("Error getting compositor layouts: %s", error->message);
+        return -1;
+    }
+
+    n_groups = g_strv_length(layouts);
+    g_strfreev(layouts);
+    return n_groups;
+}
+
+static void anaconda_localization_select_next_layout(AnacondaLayoutIndicator *self) {
+    an_localization_call_select_next_compositor_layout_sync(self->priv->localization_proxy,
+                                                            NULL,
+                                                            NULL);
+}
+
 static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
     AtkObject *atk;
-    GdkDisplay *display;
-    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
-
-    if (!klass->engine) {
-        /* This code cannot go to class_init because that way it would be called
-           when GObject type system is initialized and Gdk won't give us the
-           display. Thus the first instance being created has to populate this
-           class-wide stuff */
-
-        /* initialize XklEngine instance that will be used by all LayoutIndicator instances */
-        display = gdk_display_get_default();
-        klass->engine = xkl_engine_get_instance(GDK_DISPLAY_XDISPLAY(display));
-
-        /* make XklEngine listening */
-        xkl_engine_start_listen(klass->engine, XKLL_TRACK_KEYBOARD_STATE);
-
-        /* hook up X events with XklEngine
-         * (passing NULL as the first argument means we want X events from all windows)
-         */
-        gdk_window_add_filter(NULL, (GdkFilterFunc) handle_xevent, klass->engine);
-    }
 
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE(self,
                                              ANACONDA_TYPE_LAYOUT_INDICATOR,
@@ -208,22 +303,9 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
                      G_CALLBACK(anaconda_layout_indicator_realize),
                      NULL);
 
-    /* initialize XklConfigRec instance providing data */
-    self->priv->config_rec = xkl_config_rec_new();
-    xkl_config_rec_get_from_server(self->priv->config_rec, klass->engine);
-
-    /* hook up handler for "X-state-changed" and "X-config-changed" signals */
-    self->priv->state_changed_handler_id = g_signal_connect(klass->engine, "X-state-changed",
-                                                              G_CALLBACK(x_state_changed),
-                                                              g_object_ref(self));
-    self->priv->state_changed_handler_id_set = TRUE;
-    self->priv->config_changed_handler_id = g_signal_connect(klass->engine, "X-config-changed",
-                                                             G_CALLBACK(x_config_changed),
-                                                             g_object_ref(self));
-    self->priv->config_changed_handler_id_set = TRUE;
-
     /* init layout attribute with the current layout */
-    self->priv->layout = get_current_layout(klass->engine, self->priv->config_rec);
+    anaconda_localization_connect(self);
+    self->priv->layout = anaconda_localization_get_current_layout(self);
 
     /* create layout label and set desired properties */
     self->priv->layout_label = GTK_LABEL(gtk_label_new(NULL));
@@ -266,20 +348,6 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
 
 static void anaconda_layout_indicator_dispose(GObject *object) {
     AnacondaLayoutIndicator *self = ANACONDA_LAYOUT_INDICATOR(object);
-    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
-
-    /* disconnect signals (XklEngine will outlive us) */
-    if (self->priv->state_changed_handler_id_set)
-    {
-        g_signal_handler_disconnect(klass->engine, self->priv->state_changed_handler_id);
-        self->priv->state_changed_handler_id_set = FALSE;
-    }
-
-    if (self->priv->config_changed_handler_id_set)
-    {
-        g_signal_handler_disconnect(klass->engine, self->priv->config_changed_handler_id);
-        self->priv->config_changed_handler_id_set = FALSE;
-    }
 
     /* unref all objects we reference (may be called multiple times) */
     if (self->priv->layout_label) {
@@ -290,13 +358,12 @@ static void anaconda_layout_indicator_dispose(GObject *object) {
         g_object_unref(self->priv->cursor);
         self->priv->cursor = NULL;
     }
-    if (self->priv->config_rec) {
-        g_object_unref(self->priv->config_rec);
-        self->priv->config_rec = NULL;
-    }
     if (self->priv->layout) {
         g_free(self->priv->layout);
         self->priv->layout = NULL;
+    }
+    if (self->priv->localization_proxy) {
+        g_clear_object(&self->priv->localization_proxy);
     }
 
     G_OBJECT_CLASS(anaconda_layout_indicator_parent_class)->dispose(object);
@@ -338,19 +405,13 @@ static void anaconda_layout_indicator_set_property(GObject *object, guint prop_i
 
 static void anaconda_layout_indicator_clicked(GtkWidget *widget, GdkEvent *event, gpointer data) {
     AnacondaLayoutIndicator *self = ANACONDA_LAYOUT_INDICATOR(widget);
-    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
 
     if (event->type != GDK_BUTTON_RELEASE)
         return;
 
-    XklState *state = xkl_engine_get_current_state(klass->engine);
-    guint n_groups = xkl_engine_get_num_groups(klass->engine);
-
-    /* cycle over groups */
-    guint next_group = (state->group + 1) % n_groups;
-
-    /* activate next group */
-    xkl_engine_lock_group(klass->engine, next_group);
+    int n_groups = anaconda_localization_get_num_layouts(self);
+    if (n_groups > 1)
+        anaconda_localization_select_next_layout(self);
 }
 
 static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicator *self) {
@@ -361,10 +422,9 @@ static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicato
 
 static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *self) {
     AtkObject *atk;
-    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
 
     g_free(self->priv->layout);
-    self->priv->layout = get_current_layout(klass->engine, self->priv->config_rec);
+    self->priv->layout = anaconda_localization_get_current_layout(self);
 
     atk = gtk_widget_get_accessible(GTK_WIDGET(self));
     atk_object_set_description(atk, self->priv->layout);
@@ -373,8 +433,7 @@ static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *se
 }
 
 static void anaconda_layout_indicator_refresh_tooltip(AnacondaLayoutIndicator *self) {
-    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
-    guint n_groups = xkl_engine_get_num_groups(klass->engine);
+    int n_groups = anaconda_localization_get_num_layouts(self);
     gchar *tooltip;
 
     if (n_groups > 1)
@@ -384,71 +443,6 @@ static void anaconda_layout_indicator_refresh_tooltip(AnacondaLayoutIndicator *s
 
     gtk_widget_set_tooltip_text(GTK_WIDGET(self), tooltip);
     g_free(tooltip);
-}
-
-/**
- * get_current_layout:
- *
- * Returns: newly allocated string with the currently activated layout as
- *          'layout (variant)'
- */
-static gchar* get_current_layout(XklEngine *engine, XklConfigRec *conf_rec) {
-    /* engine has to be listening with XKLL_TRACK_KEYBOARD_STATE mask */
-    gchar *layout = NULL;
-    gchar *variant = NULL;
-    gint32 cur_group;
-
-    /* returns statically allocated buffer, shouldn't be freed */
-    XklState *state = xkl_engine_get_current_state(engine);
-    cur_group = state->group;
-
-    guint n_groups = xkl_engine_get_num_groups(engine);
-
-    /* BUG?: if the last layout in the list is activated and removed,
-             state->group may be equal to n_groups that would result in
-             layout being NULL
-    */
-    if (cur_group >= n_groups)
-        cur_group = n_groups - 1;
-
-    layout = conf_rec->layouts[cur_group];
-
-    /* variant defined for the current layout */
-    variant = conf_rec->variants[cur_group];
-
-    /* variant may be NULL or "" if not defined */
-    if (variant && g_strcmp0("", variant))
-        return g_strdup_printf("%s (%s)", layout, variant);
-    else
-        return g_strdup(layout);
-}
-
-static GdkFilterReturn handle_xevent(GdkXEvent *xev, GdkEvent *event, gpointer data) {
-    XklEngine *engine = XKL_ENGINE(data);
-    XEvent *xevent = (XEvent *) xev;
-
-    xkl_engine_filter_events(engine, xevent);
-
-    return GDK_FILTER_CONTINUE;
-}
-
-static void x_state_changed(XklEngine *engine, XklEngineStateChange type,
-                            gint arg2, gboolean arg3, gpointer data) {
-    g_return_if_fail(data);
-    AnacondaLayoutIndicator *indicator = ANACONDA_LAYOUT_INDICATOR(data);
-
-    anaconda_layout_indicator_refresh_layout(indicator);
-}
-
-static void x_config_changed(XklEngine *engine, gpointer data) {
-    g_return_if_fail(data);
-    AnacondaLayoutIndicator *indicator = ANACONDA_LAYOUT_INDICATOR(data);
-    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(indicator);
-
-    /* load current configuration from the X server */
-    xkl_config_rec_get_from_server(indicator->priv->config_rec, klass->engine);
-
-    anaconda_layout_indicator_refresh_layout(indicator);
 }
 
 /**

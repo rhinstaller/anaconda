@@ -1,0 +1,8 @@
+#%PAM-1.0
+auth       sufficient  pam_permit.so
+account    sufficient  pam_permit.so
+password   sufficient  pam_permit.so
+session    required    pam_loginuid.so
+-session   optional    pam_keyinit.so revoke
+-session   optional    pam_limits.so
+session    required    pam_systemd.so
