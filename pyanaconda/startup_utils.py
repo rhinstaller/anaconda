@@ -48,7 +48,7 @@ from pyanaconda.modules.common.task import wait_for_task
 from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
-    SECURITY, STORAGE
+    SECURITY, STORAGE, RUNTIME
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.core.threads import thread_manager
 
@@ -197,8 +197,9 @@ def setup_logging_from_kickstart(data):
 
     :param data: kickstart data
     """
-    host = data.logging.host
-    port = data.logging.port
+    runtime_proxy = RUNTIME.get_proxy()
+    host = runtime_proxy.LoggingHost
+    port = runtime_proxy.LoggingPort
 
     if anaconda_logging.logger.remote_syslog is None and len(host) > 0:
         # not set from the command line, ok to use kickstart
