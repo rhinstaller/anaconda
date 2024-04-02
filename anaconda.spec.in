@@ -473,6 +473,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 02 2024 github-actions <github-actions@github.com> - 41.8-1
+- docs: seperate section for ci-status of the anaconda-webui repository
+  (kkoukiou)
+- docs: Remove / Update CI status badges for removed / moved workflows
+  (vslavik)
+- maint: anaconda.spec.in: drop unused usermode (consolehelper) (kkoukiou)
+- desired capacity tooltip text adapt language (bbrucezhang)
+- network: do not crash on destroyed device object in GUI (rvykydal)
+
 * Tue Mar 26 2024 github-actions <github-actions@github.com> - 41.7-1
 - Update translations from Weblate for master (github-actions)
 - Disable preexec for vtActivate() (mkolman)
