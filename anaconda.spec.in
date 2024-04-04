@@ -47,6 +47,11 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define utillinuxver 2.15.1
 %define rpmostreever 2023.2
 
+# we generally want Fedora ELN packages to be like RHEL; special cases need to check %{fedora} explicitly
+%if "0%{?fedora}" == "eln"
+%define rhel %{fedora}
+%endif
+
 BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
 BuildRequires: gtk3-devel >= %{gtk3ver}
