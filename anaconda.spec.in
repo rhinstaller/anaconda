@@ -122,7 +122,7 @@ Requires: NetworkManager-team
 Requires: kbd
 Requires: chrony
 Requires: systemd
-%if ! 0%{?rhel}
+%if 0%{?rhel} > 10 || 0%{?fedora}
 Requires: systemd-resolved
 %endif
 Requires: python3-pid
