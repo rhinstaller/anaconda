@@ -51,6 +51,7 @@ class NetworkInterface(KickstartModuleInterface):
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.watch_property("Connected", self.implementation.connected_changed)
         self.implementation.configurations_changed.connect(self._device_configurations_changed)
+        self.watch_property("Capabilities", self.implementation.capabilities_changed)
 
     @property
     def Hostname(self) -> Str:
@@ -107,6 +108,15 @@ class NetworkInterface(KickstartModuleInterface):
         To be removed after reworking the synchronization.
         """
         return self.implementation.is_connecting()
+
+    @property
+    def Capabilities(self) -> List[Int]:
+        """The network backend capabilities
+
+        Supported capabilities:
+        team capability = 1
+        """
+        return self.implementation.capabilities
 
     def GetSupportedDevices(self) -> List[Structure]:
         """Get info about existing network devices supported by the module.

@@ -25,6 +25,7 @@ from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.constants import NETWORK_CAPABILITY_TEAM
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -69,6 +70,9 @@ class NetworkService(KickstartService):
         self.current_hostname_changed = Signal()
         self._hostname_service_proxy = self._get_hostname_proxy()
 
+        self._capabilities = []
+        self.capabilities_changed = Signal()
+
         self.connected_changed = Signal()
         # TODO fallback solution - use Gio/GNetworkMonitor ?
         self.nm_client = get_new_nm_client()
@@ -76,6 +80,10 @@ class NetworkService(KickstartService):
             self.nm_client.connect("notify::%s" % NM.CLIENT_STATE, self._nm_state_changed)
             initial_state = self.nm_client.get_state()
             self.set_connected(self._nm_state_connected(initial_state))
+            self.nm_client.connect("notify::%s" % NM.CLIENT_CAPABILITIES,
+                                   self._nm_capabilities_changed)
+            nm_capabilities = self.nm_client.get_capabilities()
+            self.set_capabilities(self._get_capabilities_from_nm(nm_capabilities))
 
         self._original_network_data = []
         self._device_configurations = None
@@ -305,6 +313,35 @@ class NetworkService(KickstartService):
         else:
             log.debug("Connectivity state can't be determined, assuming not connecting.")
             return False
+
+    @property
+    def capabilities(self):
+        """Capabilities of the network backend."""
+        if not self.nm_available:
+            log.debug("Capabilities can't be determined.")
+            return []
+
+        return self._capabilities
+
+    def set_capabilities(self, capabilities):
+        """Set network capabilities."""
+        self._capabilities = capabilities
+        self.capabilities_changed.emit()
+        self.module_properties_changed.emit()
+        log.debug("Capabilities: %s", capabilities)
+
+    @staticmethod
+    def _get_capabilities_from_nm(nm_capabilities):
+        capabilities = []
+        if NM.Capability.TEAM in nm_capabilities:
+            capabilities.append(NETWORK_CAPABILITY_TEAM)
+
+        return capabilities
+
+    def _nm_capabilities_changed(self, *args):
+        nm_capabilities = self.nm_client.get_capabilities()
+        log.debug("NeworkManager capabilities changed to %s", nm_capabilities)
+        self.set_capabilities(self._get_capabilities_from_nm(nm_capabilities))
 
     @staticmethod
     def _nm_state_connected(state):
