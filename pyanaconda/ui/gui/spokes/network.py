@@ -40,7 +40,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.constants import ANACONDA_ENVIRON
+from pyanaconda.core.constants import ANACONDA_ENVIRON, NETWORK_CAPABILITY_TEAM
 from pyanaconda.core import glib
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
@@ -363,6 +363,18 @@ class NetworkControlBox(GObject.GObject):
         self.label_current_hostname = self.builder.get_object("label_current_hostname")
         self.button_apply_hostname = self.builder.get_object("button_apply_hostname")
         self.button_apply_hostname.connect("clicked", self.on_apply_hostname)
+
+        if NETWORK_CAPABILITY_TEAM not in self._network_module.Capabilities:
+            self._remove_team_selection()
+
+    def _remove_team_selection(self):
+        log.debug("team functionality is not supported")
+        model = self.builder.get_object("liststore_add_device")
+        for row in model:
+            if row[1] == "team":
+                model.remove(row.iter)
+                return True
+        return False
 
     @property
     def vbox(self):
