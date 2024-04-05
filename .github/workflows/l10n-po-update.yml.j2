@@ -18,12 +18,7 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        {% if branched_fedora_version is defined and branched_fedora_version %}
-        #branch: ['master', 'fedora-{$ branched_fedora_version $}']
-        branch: ['master']
-        {% else %}
-        branch: ['master']
-        {% endif %}
+        branch: ['master'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
 
     steps:
       - name: Set up dependencies

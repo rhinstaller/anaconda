@@ -226,6 +226,8 @@ anaconda-iso-creator-build:
 	$(ISO_CREATOR_DOCKERFILE)
 
 anaconda-live-iso-creator-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
+
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
 	sudo $(CONTAINER_ENGINE) build \
@@ -382,10 +384,14 @@ container-iso-build:
 
 # Build WebUI ISO from Anaconda RPM files build here
 container-webui-iso-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The webui ISO builds are not supported on rhel-10!"; exit 99 )
+
 	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
 
 # Build LIVE ISO from Anaconda RPM files build here
 container-live-iso-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
+
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
 
 	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \

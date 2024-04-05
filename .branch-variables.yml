@@ -10,5 +10,9 @@ distro_name: "fedora" # "fedora" or "rhel"
 distro_release: 40 # "rawhide" or a number without quotation marks
 
 # The following only applies for rawhide.
-branched_fedora_version: 39 # number without quotation marks, or nothing if CI should not run for branched Fedora
-rawhide_fedora_version: 40 # ditto
+rawhide_fedora_version:  # number without quotation marks, or nothing if CI should not run for branched Fedora
+
+# List of all the branches which are currently supported and CI should be executed on these.
+supported_branches:
+  - rhel-10:
+    variant: "rhel"

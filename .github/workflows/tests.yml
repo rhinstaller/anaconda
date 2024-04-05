@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   unit-tests:
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, kstest]
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -26,8 +26,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'fedora-40'
-            ci_tag: 'fedora-40'
+            target_branch: 'rhel-10'
+            ci_tag: 'rhel-10'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -52,17 +52,7 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
-      - name: Check if rebuild of the container image is required
-        id: check-dockerfile-changed
-        run: |
-          changes=$(git diff $TARGET_BRANCH_NAME..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in scripts/testing/install_dependencies.sh)
-          # print for debugging
-          echo "$changes"
-          [ -z "$changes" ] || echo "changed=true" >> $GITHUB_OUTPUT
-
-      # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
-        if: steps.check-dockerfile-changed.outputs.changed
         run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
@@ -83,7 +73,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rpm-tests:
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, kstest]
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -91,8 +81,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'fedora-40'
-            ci_tag: 'fedora-40'
+            target_branch: 'rhel-10'
+            ci_tag: 'rhel-10'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'

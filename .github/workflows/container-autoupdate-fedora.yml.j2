@@ -20,12 +20,12 @@ jobs:
       container-tag: master
       branch: master
 
-  {% if branched_fedora_version is defined and branched_fedora_version %}
-  fedora-{$ branched_fedora_version $}:
+  {% for branch in supported_branches if branch.variant == "fedora" %}
+  {$ branch|first $}:
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: fedora-{$ branched_fedora_version $}
-      branch: fedora-{$ branched_fedora_version $}
-  {% endif %}
+      container-tag: {$ branch|first $}
+      branch: {$ branch|first $}
+  {% endfor %}
 {% endif %}

@@ -28,9 +28,9 @@ jobs:
         # * This is still a matrix because we might re-enable ELN one day and then we will need
         #   a matrix here.
         #}
-        {% if distro_name == "fedora" and distro_release == "rawhide" %}
         release: ['']
         include:
+        {% if distro_name == "fedora" and distro_release == "rawhide" %}
           - release: ''
             target_branch: 'master'
             ci_tag: 'master'
@@ -40,14 +40,10 @@ jobs:
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
         {% elif distro_name == "fedora" and distro_release is number %}
-        release: ['']
-        include:
           - release: ''
             target_branch: 'fedora-{$ distro_release $}'
             ci_tag: 'fedora-{$ distro_release $}'
         {% elif distro_name == "rhel" %}
-        release: ['']
-        include:
           - release: ''
             target_branch: 'rhel-{$ distro_release $}'
             ci_tag: 'rhel-{$ distro_release $}'

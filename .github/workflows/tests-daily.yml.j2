@@ -43,11 +43,7 @@ jobs:
         # * This is still a matrix because we might re-enable ELN one day and then we will need
         #   a matrix here.
         #}
-        {% if branched_fedora_version is defined and branched_fedora_version %}
-        release: ['master', 'fedora-{$ branched_fedora_version $}']
-        {% else %}
-        release: ['master']
-        {% endif %}
+        release: ['master'{% for branch in supported_branches if branch.variant == "fedora" %}, '{$ branch|first $}'{% endfor %}]
         include:
           - release: 'master'
             target_branch: 'master'
@@ -57,11 +53,11 @@ jobs:
           #  target_branch: 'master'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% if branched_fedora_version is defined and branched_fedora_version %}
-          - release: 'fedora-{$ branched_fedora_version $}'
-            target_branch: 'fedora-{$ branched_fedora_version $}'
-            ci_tag: 'fedora-{$ branched_fedora_version $}'
-        {% endif %}
+        {% for branch in supported_branches if branch.variant == "fedora" %}
+          - release: '{$ branch|first $}'
+            target_branch: '{$ branch|first $}'
+            ci_tag: '{$ branch|first $}'
+        {% endfor %}
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -95,20 +91,16 @@ jobs:
       fail-fast: false
       matrix:
         {# For matrix details, see comments for the unit tests above. #}
-        {% if branched_fedora_version is defined and branched_fedora_version %}
-        release: ['master', 'fedora-{$ branched_fedora_version $}']
-        {% else %}
-        release: ['master']
-        {% endif %}
+        release: ['master'{% for branch in supported_branches if branch.variant == "fedora" %}, '{$ branch|first $}'{% endfor %}]
         include:
           - release: 'master'
             target_branch: 'master'
             ci_tag: 'master'
-        {% if branched_fedora_version is defined and branched_fedora_version %}
-          - release: 'fedora-{$ branched_fedora_version $}'
-            target_branch: 'fedora-{$ branched_fedora_version $}'
-            ci_tag: 'fedora-{$ branched_fedora_version $}'
-        {% endif %}
+        {% for branch in supported_branches if branch.variant == "fedora" %}
+          - release: '{$ branch|first $}'
+            target_branch: '{$ branch|first $}'
+            ci_tag: '{$ branch|first $}'
+        {% endfor %}
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
