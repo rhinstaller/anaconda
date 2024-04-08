@@ -27,6 +27,10 @@
 # /images (Where the boot.iso will be stored)
 #
 
+#
+# WARNING: this solution is not supported on RHEL/CentOS Stream
+#
+
 set -eux
 
 # pre-create loop devices manually. In the container you can't use losetup for that.

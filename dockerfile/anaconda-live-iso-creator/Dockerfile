@@ -23,6 +23,10 @@
 #   repositories (VPN for example)
 #
 
+#
+# WARNING: this solution is not supported on RHEL/CentOS Stream
+#
+
 # The `image` arg will set base image for the build.
 # possible values:
 #   registry.fedoraproject.org/fedora:35

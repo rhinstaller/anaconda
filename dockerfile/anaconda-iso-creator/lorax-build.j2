@@ -33,16 +33,26 @@ createrepo_c $REPO_DIR
 . /etc/os-release
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
+{% if distro_name == "fedora" %}
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
 {% if distro_release == "rawhide" %}
       --volid Fedora-S-dvd-x86_64-rawh \
 {% else %}
       --volid Fedora-S-dvd-x86_64-f{$ distro_release $} \
-{% endif %}
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/{$ distro_release $}/Everything/x86_64/os/ \
+{% endif %}
+{% elif distro_name == "rhel" %}
+MAJOR_VERSION=${VERSION_ID%%.*}
+MINOR_VERSION=${VERSION_ID#*.}
+
+lorax -p RHEL -v "$MAJOR_VERSION" -r "$MINOR_VERSION" \
+      --volid "RHEL-$MAJOR_VERSION-$MINOR_VERSION-BaseOS-x86_64" \
+      -s http://download.devel.redhat.com/rhel-{$ distro_release $}/nightly/RHEL-{$ distro_release $}-Public-Beta/latest-RHEL-{$ distro_release $}/compose/BaseOS/x86_64/os/ \
+      -s http://download.devel.redhat.com/rhel-{$ distro_release $}/nightly/RHEL-{$ distro_release $}-Public-Beta/latest-RHEL-{$ distro_release $}/compose/AppStream/x86_64/os/ \
       -s file://$REPO_DIR/ \
       "$@" \
       output || cp *.log "$OUT_DIR"
+{% endif %}
 
 cp output/images/boot.iso "$OUT_DIR"
 

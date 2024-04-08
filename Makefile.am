@@ -82,6 +82,8 @@ CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --secur
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
 CONTAINER_ADD_ARGS ?=
+# Glade was removed in RHEL from RHEL-10 -- let's put that as condition to container runs on CentOS or RHEL
+CONTAINER_CONFIGURE_ARGS ?= $(shell test $(GIT_BRANCH) == "rhel-10" && echo "--env=CONFIGURE_ARGS=--disable-glade")
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
@@ -169,6 +171,7 @@ container-release:
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
+	$(CONTAINER_CONFIGURE_ARGS) \
 	$(RELEASE_NAME):$(CI_TAG) \
 	sh -exc './autogen.sh && ./configure && make release'
 
@@ -310,6 +313,7 @@ container-ci:
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
+	$(CONTAINER_CONFIGURE_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_NAME):$(CI_TAG) \
@@ -323,6 +327,7 @@ container-shell:
 	$(CONTAINER_ADD_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_CONFIGURE_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CI_NAME):$(CI_TAG)
 
@@ -338,6 +343,7 @@ container-rpm-test:
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
+	$(CONTAINER_CONFIGURE_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
 	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
@@ -349,6 +355,7 @@ container-rpms:
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_CONFIGURE_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \

@@ -20,6 +20,12 @@
 # /images (Where the boot.iso will be stored)
 #
 
+{% if distro_name == "rhel" %}
+#
+# WARNING: this solution is not supported on RHEL/CentOS Stream
+#
+{% endif %}
+
 set -eux
 
 # pre-create loop devices manually. In the container you can't use losetup for that.

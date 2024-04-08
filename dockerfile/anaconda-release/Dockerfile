@@ -7,6 +7,9 @@ ARG image
 FROM ${image}
 LABEL maintainer=anaconda-list@redhat.com
 
+RUN rm -rf /etc/yum.repos.d/*.repo
+COPY *.repo /etc/yum.repos.d/
+
 # Add missing dependencies required to do the build.
 RUN set -e; \
   dnf update -y; \

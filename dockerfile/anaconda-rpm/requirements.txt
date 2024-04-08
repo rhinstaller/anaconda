@@ -1,0 +1,8 @@
+# pip package install list
+# storing it as an independent file enables Dependabot to bump versions with noise and attention
+# silent updates of pylint and astroid usually cause breakages
+# for format details see https://pip.pypa.io/en/stable/reference/requirements-file-format/
+
+# unit tests of all kinds
+pocketlint
+polib  # translatable strings and translations, used by pylint and glade tests
