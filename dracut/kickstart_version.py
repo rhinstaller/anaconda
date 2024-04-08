@@ -22,6 +22,7 @@
 # Red Hat, Inc.
 
 # Import the kickstart version.
-from pykickstart.version import F40 as VERSION
+# WARNING: template does not switch commands to rhel-specific versions, you must do this manually
+from pykickstart.version import RHEL10 as VERSION
 
 __all__ = ["VERSION"]

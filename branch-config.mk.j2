@@ -45,7 +45,8 @@ COPR_REPO ?= \@rhinstaller/Anaconda-devel
 
 GIT_BRANCH ?= rhel-{$ distro_release $}
 L10N_DIR ?= rhel-{$ distro_release $}
-BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi{$ distro_release $}:latest
+#BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi{$ distro_release $}:latest
+BASE_CONTAINER ?= quay.io/centos/centos:stream10-development
 COPR_REPO ?= rhinstaller-group/Anaconda
 
 {% endif %}

@@ -26,8 +26,9 @@
 # conflicts on multiple places.
 
 
-GIT_BRANCH ?= fedora-40
-L10N_DIR ?= f40
-BASE_CONTAINER ?= registry.fedoraproject.org/fedora:40
-COPR_REPO ?= \@rhinstaller/Anaconda-devel
+GIT_BRANCH ?= rhel-10
+L10N_DIR ?= rhel-10
+#BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi10:latest
+BASE_CONTAINER ?= quay.io/centos/centos:stream10-development
+COPR_REPO ?= rhinstaller-group/Anaconda
 

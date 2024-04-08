@@ -67,8 +67,8 @@ popd
 mkdir /var/tmp/lmc-build
 pushd /var/tmp/lmc-build
 git clone --depth 1 https://github.com/cockpit-project/bots.git
-./bots/image-download fedora-40-boot
-cp -L ./bots/images/fedora-40-boot /lorax/fedora-boot.iso
+./bots/image-download fedora-10-boot
+cp -L ./bots/images/fedora-10-boot /lorax/fedora-boot.iso
 rm -rf ./bots
 popd
 
@@ -111,7 +111,7 @@ livemedia-creator \
     --iso-name="Fedora-Workstation.iso" \
     --macboot \
     --project=Fedora-Workstation-Live \
-    --releasever=40 \
+    --releasever=10 \
     --vcpus=$proposed_cpu \
     --ram=$proposed_mem \
     --iso=/lorax/fedora-boot.iso \

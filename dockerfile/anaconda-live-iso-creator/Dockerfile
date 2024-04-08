@@ -56,7 +56,7 @@ RUN set -ex; \
 # required for ksflatten
   pykickstart; \
   mkdir /fedora-kickstarts; \
-  git clone -b f40 https://pagure.io/fedora-kickstarts.git /fedora-kickstarts; \
+  git clone -b f10 https://pagure.io/fedora-kickstarts.git /fedora-kickstarts; \
   cd /fedora-kickstarts; \
   ksflatten -o /lorax/workstation.ks -c fedora-live-workstation.ks; \
 # cleanups of parts which don't need to be part of the container
