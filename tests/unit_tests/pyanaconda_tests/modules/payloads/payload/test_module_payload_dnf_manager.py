@@ -113,6 +113,7 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever": "rawhide",
             "releasever_major": "rawhide",
             "releasever_minor": "",
+            "stream": "10-stream",
         })
 
     @patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.get_os_release_value")
@@ -615,6 +616,7 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever": "123",
             "releasever_major": "123",
             "releasever_minor": "",
+            "stream": "10-stream",
         })
 
         # Ignore an undefined release version.
@@ -627,6 +629,7 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever": "123",
             "releasever_major": "123",
             "releasever_minor": "",
+            "stream": "10-stream",
         })
 
     @patch("dnf.subject.Subject.get_best_query")
