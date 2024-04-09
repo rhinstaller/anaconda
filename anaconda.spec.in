@@ -416,6 +416,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 09 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.1-1
+- anaconda-diskroot: wait before dying on media check fail (awilliam)
+  Resolves: RHEL-4790
+- Add ping tool to Dracut (jkonecny)
+  Resolves: RHEL-5719
+- gui:Fix index error for _remove_treeinfo_repositories() (liuwenyu.0311)
+  Resolves: RHEL-29561
+
 * Thu Mar 14 2024 Radek Vykydal <rvykydal@redhat.com> - 34.25.4.9-1
 - Do not initialize kernel features in init (jkonecny)
   Resolves: RHEL-27076
