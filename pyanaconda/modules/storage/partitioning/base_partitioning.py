@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from abc import abstractmethod, ABCMeta
-from blivet.errors import StorageError, InconsistentPVSectorSize
+from blivet.errors import StorageError, InconsistentParentSectorSize
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -51,7 +51,7 @@ class PartitioningTask(Task, metaclass=ABCMeta):
         """Do the partitioning and handle the errors."""
         try:
             self._run(self._storage)
-        except InconsistentPVSectorSize as e:
+        except InconsistentParentSectorSize as e:
             self._handle_storage_error(e, "\n\n".join([
                 _("Failed to proceed with the installation."),
                 str(e).strip(),
