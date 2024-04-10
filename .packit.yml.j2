@@ -34,7 +34,9 @@ actions:
     - "make release"
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
+{% if distro_name != "rhel" %}
 jobs:
+{% endif %}
 
 {% if distro_release == "rawhide" %}
 
