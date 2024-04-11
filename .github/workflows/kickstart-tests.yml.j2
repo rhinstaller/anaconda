@@ -69,7 +69,7 @@ jobs:
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-9(\.[[:digit:]]+)?$"; then
             echo "skip_tests=skip-on-rhel,skip-on-rhel-9" >> $GITHUB_OUTPUT
             echo "platform=rhel9" >> $GITHUB_OUTPUT
-          elif echo "$TARGET_BRANCH! | grep -qE "rhel-10(\.[[:digit:]]+)?$"; then
+          elif echo "$TARGET_BRANCH" | grep -qE "rhel-10(\.[[:digit:]]+)?$"; then
             echo "skip_tests=skip-on-rhel,skip-on-rhel-10" >> $GITHUB_OUTPUT
             echo "platform=rhel10" >> $GITHUB_OUTPUT
           else
