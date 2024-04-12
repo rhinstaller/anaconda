@@ -649,6 +649,7 @@ class NetworkService(KickstartService):
         supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = ApplyKickstartTask(self._original_network_data,
                                   supported_devices,
+                                  self.capabilities,
                                   self.bootif,
                                   self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
