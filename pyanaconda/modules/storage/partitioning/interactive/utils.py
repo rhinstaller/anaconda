@@ -94,6 +94,7 @@ def collect_unused_devices(storage):
         and not d.partitioned
         and (d.direct or d.isleaf)
         and d not in used_devices
+        and d.format.type != "iso9660"
     ]
 
     # Add incomplete VGs and MDs
