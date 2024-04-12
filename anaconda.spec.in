@@ -416,6 +416,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 12 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.2-1
+- network: do not crash on destroyed device object in GUI (rvykydal)
+  Resolves: RHEL-20891
+
 * Tue Apr 09 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.1-1
 - anaconda-diskroot: wait before dying on media check fail (awilliam)
   Resolves: RHEL-4790
