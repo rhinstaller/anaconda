@@ -37,7 +37,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.structures.storage import DeviceFormatData
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
@@ -543,10 +543,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if not device_name:
             return
 
-        device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+        device_format_data = DeviceFormatData.from_structure(
+            self._device_tree.GetFormatData(device_name)
         )
-        device_label = device_data.attrs.get("label", "")
+        device_label = device_format_data.attrs.get("label", "")
         self._show_cdrom_box(device_name, device_label)
 
     def _show_cdrom_box(self, device_name, device_label):
