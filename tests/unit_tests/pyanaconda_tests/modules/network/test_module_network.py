@@ -32,7 +32,7 @@ from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_d
     check_kickstart_interface, check_task_creation, PropertiesChangedCallback
 
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
-        FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+        FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS, NETWORK_CAPABILITY_TEAM
 from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
@@ -60,13 +60,28 @@ class MockedNMClient():
     def __init__(self):
         self.state = NM.State.DISCONNECTED
         self.state_callback = None
+        self.capabilities = []
+        self.capabilities_callback = None
+
     def _connect_state_changed(self, callback):
         self.state_callback = callback
+
     def _set_state(self, state):
         self.state = state
         self.state_callback(state)
+
     def get_state(self):
         return self.state
+
+    def _connect_capabilities_changed(self, callback):
+        self.capabilities_callback = callback
+
+    def _set_capabilities(self, caps):
+        self.capabilities = caps
+        self.capabilities_callback(caps)
+
+    def get_capabilities(self):
+        return self.capabilities
 
 
 class NetworkInterfaceTestCase(unittest.TestCase):
@@ -210,6 +225,25 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         assert self.network_interface.Connected
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
         assert not self.network_interface.IsConnecting()
+
+    def test_capabilities_default(self):
+        """Test getting capabilities does not fail."""
+        assert self.network_interface.Capabilities == []
+
+    def test_capabilities(self):
+        """Test capabilities property with mocked NMClient."""
+        nm_client = MockedNMClient()
+        nm_client._connect_capabilities_changed(self.network_module._nm_capabilities_changed)
+        self.network_module.nm_client = nm_client
+
+        nm_client._set_capabilities([NM.Capability.TEAM, NM.Capability.OVS])
+        assert self.network_interface.Capabilities == [NETWORK_CAPABILITY_TEAM]
+
+        nm_client._set_capabilities([])
+        assert self.network_interface.Capabilities == []
+
+        self.network_module.nm_client = None
+        assert self.network_interface.Capabilities == []
 
     def test_nm_availability(self):
         self.network_module.nm_client = None
