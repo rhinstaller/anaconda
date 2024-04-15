@@ -85,39 +85,6 @@ class InvalidSelectionError(DNFManagerError):
     """The software selection couldn't be resolved."""
 
 
-class DNFConfigWrapper(object):
-    """This is a temporary wrapper of a DNF config object."""
-
-    def __init__(self, config):
-        """Wrap the DNF config object."""
-        self._config = config
-
-    def __getattr__(self, name):
-        """Get the attribute.
-
-        Called when an attribute lookup has not found
-        the attribute in the usual places.
-        """
-        option = getattr(self._config, name)()
-        return option.get_value()
-
-    def __setattr__(self, name, value):
-        """Set the attribute.
-
-        Called when an attribute assignment is attempted.
-        """
-        if name in ["_config"]:
-            return super().__setattr__(name, value)
-
-        option = getattr(self._config, name)()
-        option.set(value)
-
-
-def simplify_config(config):
-    """Simplify the specified DNF config object."""
-    return DNFConfigWrapper(config)
-
-
 class DNFManager(object):
     """The abstraction of the DNF base."""
 
@@ -160,7 +127,7 @@ class DNFManager(object):
         base = libdnf5.base.Base()
         base.load_config_from_file()
 
-        config = simplify_config(base.get_config())
+        config = base.get_config()
         config.reposdir = DNF_REPO_DIRS
         config.cachedir = DNF_CACHE_DIR
         config.pluginconfpath = DNF_PLUGINCONF_DIR
@@ -222,7 +189,7 @@ class DNFManager(object):
 
         :param data: a packages configuration data
         """
-        config = simplify_config(self._base.get_config())
+        config = self._base.get_config()
         config.multilib_policy = data.multilib_policy
 
         if data.timeout != DNF_DEFAULT_TIMEOUT:
@@ -410,7 +377,7 @@ class DNFManager(object):
 
         :param url: a proxy URL or None
         """
-        config = simplify_config(self._base.get_config())
+        config = self._base.get_config()
 
         # Reset the proxy configuration.
         config.proxy = ""
@@ -830,7 +797,7 @@ class DNFManager(object):
         """
         repo_sack = self._base.get_repo_sack()
         repo = repo_sack.create_repo(data.name)
-        config = simplify_config(repo.get_config())
+        config = repo.get_config()
 
         # Disable the repo if requested.
         if not data.enabled:
@@ -1017,7 +984,7 @@ class DNFManager(object):
         log.debug("Load metadata for the '%s' repository.", repo_id)
 
         repo = self._get_repository(repo_id)
-        config = simplify_config(repo.get_config())
+        config = repo.get_config()
         url = config.baseurl or config.mirrorlist or config.metalink
 
         if not repo.is_enabled():
@@ -1085,8 +1052,7 @@ class DNFManager(object):
         :param repo: a DNF repo
         :return: a content of the repomd.xml file
         """
-        config = simplify_config(repo.get_config())
-        urls = config.baseurl
+        urls = repo.get_config().baseurl
 
         for url in urls:
             try:

@@ -45,7 +45,7 @@ from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, Com
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, \
-    InvalidSelectionError, BrokenSpecsError, MissingSpecsError, MetadataError, simplify_config
+    InvalidSelectionError, BrokenSpecsError, MissingSpecsError, MetadataError
 
 
 class DNFManagerTestCase(unittest.TestCase):
