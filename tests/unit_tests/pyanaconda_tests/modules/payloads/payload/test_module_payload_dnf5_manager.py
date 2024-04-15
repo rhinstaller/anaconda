@@ -265,7 +265,7 @@ class DNFManagerTestCase(unittest.TestCase):
         for i in range(1, packages+1):
             # Create a package.
             pkg = Mock(spec=libdnf5.rpm.Package)
-            pkg.get_package_size.return_value = 1024 * 1024 * 100 * i
+            pkg.get_download_size.return_value = 1024 * 1024 * 100 * i
             pkg.get_install_size.return_value = 1024 * 100 * i
             pkg.get_files.return_value = ["/file"] * 10 * i
 
