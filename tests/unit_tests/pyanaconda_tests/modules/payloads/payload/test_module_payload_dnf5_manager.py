@@ -37,7 +37,6 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
     DNFManager,
-    simplify_config,
     MetadataError,
 )
 
@@ -97,12 +96,10 @@ class DNF5TestCase(unittest.TestCase):
         weak_ref = repos.get()
         return weak_ref.get()
 
-    def test_simplify_config(self):
-        """Test the simplify_config function."""
+    def test_config(self):
+        """Test accessing the dnf config."""
         base = libdnf5.base.Base()
-        config = simplify_config(
-            base.get_config()
-        )
+        config = base.get_config()
 
         config.installroot = "/my/install/root"
         assert config.installroot == "/my/install/root"
@@ -117,7 +114,7 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def _get_configuration(self):
         """Get the configuration of the DNF base."""
-        return simplify_config(self.dnf_manager._base.get_config())
+        return self.dnf_manager._base.get_config()
 
     def _check_variables(self, **expected_variables):
         """Check values of the expected substitution variables."""
@@ -453,8 +450,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
     def _get_configuration(self, repo_id):
         """Get a configuration of the DNF repository."""
-        repo = self._get_repository(repo_id)
-        return simplify_config(repo.get_config())
+        return self._get_repository(repo_id).get_config()
 
     def test_repositories(self):
         """Test the repositories property."""
