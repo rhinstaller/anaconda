@@ -153,7 +153,7 @@ class DNFManager:
         config.skip_if_unavailable = False
 
         # Set the default release version.
-        base.conf.releasever = get_product_release_version()
+        base.get_vars().set("releasever", get_product_release_version())
 
         # Load variables from the host (rhbz#1920735).
         base.conf.substitutions.update_from_etc("/")
