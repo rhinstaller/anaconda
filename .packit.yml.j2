@@ -37,9 +37,7 @@ actions:
 {% if distro_name != "rhel" %}
 jobs:
 {% endif %}
-
 {% if distro_release == "rawhide" %}
-
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
