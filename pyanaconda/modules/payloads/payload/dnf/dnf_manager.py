@@ -86,31 +86,227 @@ class InvalidSelectionError(DNFManagerError):
 
 
 class DNFConfigWrapper(object):
-    """This is a temporary wrapper of a DNF config object."""
+    """This is a wrapper of a DNF config object."""
 
     def __init__(self, config):
         """Wrap the DNF config object."""
         self._config = config
 
-    def __getattr__(self, name):
-        """Get the attribute.
+    @property
+    def baseurl(self):
+        return self._config.get_baseurl_option().get_value()
 
-        Called when an attribute lookup has not found
-        the attribute in the usual places.
-        """
-        option = getattr(self._config, name)()
-        return option.get_value()
+    @baseurl.setter
+    def baseurl(self, value):
+        self._config.get_baseurl_option().set(value)
 
-    def __setattr__(self, name, value):
-        """Set the attribute.
+    @property
+    def cachedir(self):
+        return self._config.get_cachedir_option().get_value()
 
-        Called when an attribute assignment is attempted.
-        """
-        if name in ["_config"]:
-            return super().__setattr__(name, value)
+    @cachedir.setter
+    def cachedir(self, value):
+        self._config.get_cachedir_option().set(value)
 
-        option = getattr(self._config, name)()
-        option.set(value)
+    @property
+    def cost(self):
+        return self._config.get_cost_option().get_value()
+
+    @cost.setter
+    def cost(self, value):
+        self._config.get_cost_option().set(value)
+
+    @property
+    def excludepkgs(self):
+        return self._config.get_excludepkgs_option().get_value()
+
+    @excludepkgs.setter
+    def excludepkgs(self, value):
+        self._config.get_excludepkgs_option().set(value)
+
+    @property
+    def gpgcheck(self):
+        return self._config.get_gpgcheck_option().get_value()
+
+    @gpgcheck.setter
+    def gpgcheck(self, value):
+        self._config.get_gpgcheck_option().set(value)
+
+    @property
+    def includepkgs(self):
+        return self._config.get_includepkgs_option().get_value()
+
+    @includepkgs.setter
+    def includepkgs(self, value):
+        self._config.get_includepkgs_option().set(value)
+
+    @property
+    def install_weak_deps(self):
+        return self._config.get_install_weak_deps_option().get_value()
+
+    @install_weak_deps.setter
+    def install_weak_deps(self, value):
+        self._config.get_install_weak_deps_option().set(value)
+
+    @property
+    def installroot(self):
+        return self._config.get_installroot_option().get_value()
+
+    @installroot.setter
+    def installroot(self, value):
+        self._config.get_installroot_option().set(value)
+
+    @property
+    def logdir(self):
+        return self._config.get_logdir_option().get_value()
+
+    @logdir.setter
+    def logdir(self, value):
+        self._config.get_logdir_option().set(value)
+
+    @property
+    def metalink(self):
+        return self._config.get_metalink_option().get_value()
+
+    @metalink.setter
+    def metalink(self, value):
+        self._config.get_metalink_option().set(value)
+
+    @property
+    def mirrorlist(self):
+        return self._config.get_mirrorlist_option().get_value()
+
+    @mirrorlist.setter
+    def mirrorlist(self, value):
+        self._config.get_mirrorlist_option().set(value)
+
+    @property
+    def module_platform_id(self):
+        return self._config.get_module_platform_id_option().get_value()
+
+    @module_platform_id.setter
+    def module_platform_id(self, value):
+        self._config.get_module_platform_id_option().set(value)
+
+    @property
+    def multilib_policy(self):
+        return self._config.get_multilib_policy_option().get_value()
+
+    @multilib_policy.setter
+    def multilib_policy(self, value):
+        self._config.get_multilib_policy_option().set(value)
+
+    @property
+    def persistdir(self):
+        return self._config.get_persistdir_option().get_value()
+
+    @persistdir.setter
+    def persistdir(self, value):
+        self._config.get_persistdir_option().set(value)
+
+    @property
+    def pluginconfpath(self):
+        return self._config.get_pluginconfpath_option().get_value()
+
+    @pluginconfpath.setter
+    def pluginconfpath(self, value):
+        self._config.get_pluginconfpath_option().set(value)
+
+    @property
+    def proxy(self):
+        return self._config.get_proxy_option().get_value()
+
+    @proxy.setter
+    def proxy(self, value):
+        self._config.get_proxy_option().set(value)
+
+    @property
+    def proxy_username(self):
+        return self._config.get_proxy_username_option().get_value()
+
+    @proxy_username.setter
+    def proxy_username(self, value):
+        self._config.get_proxy_username_option().set(value)
+
+    @property
+    def proxy_password(self):
+        return self._config.get_proxy_password_option().get_value()
+
+    @proxy_password.setter
+    def proxy_password(self, value):
+        self._config.get_proxy_password_option().set(value)
+
+    @property
+    def reposdir(self):
+        return self._config.get_reposdir_option().get_value()
+
+    @reposdir.setter
+    def reposdir(self, value):
+        self._config.get_reposdir_option().set(value)
+
+    @property
+    def retries(self):
+        return self._config.get_retries_option().get_value()
+
+    @retries.setter
+    def retries(self, value):
+        self._config.get_retries_option().set(value)
+
+    @property
+    def skip_broken(self):
+        return self._config.get_skip_broken_option().get_value()
+
+    @skip_broken.setter
+    def skip_broken(self, value):
+        self._config.get_skip_broken_option().set(value)
+
+    @property
+    def skip_if_unavailable(self):
+        return self._config.get_skip_if_unavailable_option().get_value()
+
+    @skip_if_unavailable.setter
+    def skip_if_unavailable(self, value):
+        self._config.get_skip_if_unavailable_option().set(value)
+
+    @property
+    def sslverify(self):
+        return self._config.get_sslverify_option().get_value()
+
+    @sslverify.setter
+    def sslverify(self, value):
+        self._config.get_sslverify_option().set(value)
+
+    @property
+    def sslcacert(self):
+        return self._config.get_sslcacert_option().get_value()
+
+    @sslcacert.setter
+    def sslcacert(self, value):
+        self._config.get_sslcacert_option().set(value)
+
+    @property
+    def sslclientcert(self):
+        return self._config.get_sslclientcert_option().get_value()
+
+    @sslclientcert.setter
+    def sslclientcert(self, value):
+        self._config.get_sslclientcert_option().set(value)
+
+    @property
+    def sslclientkey(self):
+        return self._config.get_sslclientkey_option().get_value()
+
+    @sslclientkey.setter
+    def sslclientkey(self, value):
+        self._config.get_sslclientkey_option().set(value)
+
+    @property
+    def timeout(self):
+        return self._config.get_timeout_option().get_value()
+
+    @timeout.setter
+    def timeout(self, value):
+        self._config.get_timeout_option().set(value)
 
 
 def simplify_config(config):
