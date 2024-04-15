@@ -58,7 +58,6 @@ from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
     InvalidSelectionError,
     MetadataError,
     MissingSpecsError,
-    simplify_config,
 )
 
 
