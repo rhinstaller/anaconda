@@ -416,6 +416,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 15 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.3-1
+- Fix Source0 in spec to point to upstream source URL (kkoukiou)
+- Do not try to load sha256 module in intramfs (rvykydal)
+  Resolves: RHEL-4747
+- Do not try to load the floppy kernel module (jstodola)
+  Resolves: RHEL-4747
+- anaconda-modprobe: don't try and load cramfs (awilliam)
+  Resolves: RHEL-4747
+
 * Fri Apr 12 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.2-1
 - network: do not crash on destroyed device object in GUI (rvykydal)
   Resolves: RHEL-20891
