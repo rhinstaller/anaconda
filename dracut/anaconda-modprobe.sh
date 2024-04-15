@@ -7,7 +7,7 @@
 ARCH=$(uname -m)
 KERNEL=$(uname -r)
 
-MODULE_LIST="cramfs squashfs iscsi_tcp "
+MODULE_LIST="squashfs iscsi_tcp "
 
 # if no file matches the glob expand it to the empty string
 # we need this when any ko file cannot be found
@@ -24,7 +24,7 @@ done
 shopt -u nullglob
 
 if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
-    MODULE_LIST+=" floppy edd iscsi_ibft "
+    MODULE_LIST+=" edd iscsi_ibft "
 else
     MODULE_LIST+=" hmcdrv "
 fi
@@ -35,7 +35,7 @@ fi
 
 MODULE_LIST+=" raid0 raid1 raid5 raid6 raid456 raid10 linear dm-mod dm-zero  \
               dm-mirror dm-snapshot dm-multipath dm-round-robin dm-crypt cbc \
-              sha256 lrw xts "
+              lrw xts "
 
 for m in $MODULE_LIST; do
     if ! modinfo $m >/dev/null 2>&1 ; then
