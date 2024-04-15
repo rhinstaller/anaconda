@@ -1003,50 +1003,22 @@ class DNFManager:
             except UnknownRepositoryError:
                 log.debug("There is no '%s' repository to enable.", repo_id)
 
-    def load_repository(self, repo_id):
-        """Download repo metadata.
+    def load_repositories(self):
+        """Load all enabled repositories.
 
-        If the repo is enabled, load its metadata to verify that
-        the repo is valid. An invalid repo will be disabled.
+        Load all enabled repositories, including system repositories, and
+        process their metadata. It will update the cache that provides
+        information about available packages, modules, groups and environments.
 
-        This method will by default not try to refresh already
-        loaded data if called repeatedly.
-
-        :param str repo_id: an identifier of a repository
-        :raise: MetadataError if the metadata cannot be loaded
+        Can be called only once per each RepoSack.
         """
-        log.debug("Load metadata for the '%s' repository.", repo_id)
-
-        repo = self._get_repository(repo_id)
-        config = repo.get_config()
-        url = config.baseurl or config.mirrorlist or config.metalink
-
-        if not repo.is_enabled():
-            log.debug("Don't load metadata from a disabled repository.")
-            return
-
-        try:
-            repo.fetch_metadata()
-            repo.load()
-        except RuntimeError as e:
-            log.debug("Failed to load metadata from '%s': %s", url, str(e))
-            repo.disable()
-            raise MetadataError(str(e)) from None
-
-        log.info("Loaded metadata from '%s'.", url)
-
-    def load_packages_metadata(self):
-        """Load metadata about packages in available repositories.
-
-        Load all enabled repositories and process their metadata.
-        It will update the cache that provides information about
-        available packages, modules, groups and environments.
-        """
-        repositories = libdnf5.repo.RepoQuery(self._base)
-        repositories.filter_enabled(True)
         repo_sack = self._base.get_repo_sack()
-        repo_sack.update_and_load_repos(repositories)
-        log.info("Loaded packages and group metadata.")
+        try:
+            repo_sack.load_repos(False)
+        except RuntimeError as e:
+            log.warning(str(e))
+            raise MetadataError(str(e)) from None
+        log.info("Loaded repositories.")
 
     def load_repomd_hashes(self):
         """Load a hash of the repomd.xml file for each enabled repository."""
