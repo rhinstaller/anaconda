@@ -80,15 +80,13 @@ class DNF5TestCase(unittest.TestCase):
         sack.create_repo("r1")
         base.setup()
 
+        # First check that load_repos fails (because of missing baseurl of the r1 repo)
+        with pytest.raises(RuntimeError):
+            sack.load_repos()
+        # When the repo is disabled, load_repos succeeds
         repo = self._get_repo(base, "r1")
-
-        try:
-            repo.fetch_metadata()
-            repo.load()
-        except RuntimeError:
-            print("Print something")
-            # It will crash here.
-            repo.disable()
+        repo.disable()
+        sack.load_repos()
 
     def _get_repo(self, base, repo_id):
         repos = libdnf5.repo.RepoQuery(base)
@@ -822,46 +820,31 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self.dnf_manager._enabled_system_repositories.append("r1")
         self.dnf_manager.restore_system_repositories()
 
-    def test_load_repository_unknown(self):
-        """Test the load_repository method with an unknown repo."""
-        self._check_base_setup()
-
-        with pytest.raises(UnknownRepositoryError):
-            self.dnf_manager.load_repository("r1")
-
     def test_load_repository_failed(self):
-        """Test the load_repository method with a failure."""
+        """Test the load_repositories method with a failure."""
         self._add_repository("r1")
 
         with pytest.raises(MetadataError, match="Failed to download metadata"):
-            self.dnf_manager.load_repository("r1")
+            self.dnf_manager.load_repositories()
 
-        repo = self._get_repository("r1")
-        assert repo.is_enabled() is False
-
-    def test_load_repository_disabled(self):
-        """Test the load_repository method with a disabled repo."""
+    def test_load_repositories_disabled(self):
+        """Test the load_repositories method with a disabled repo."""
         repo = self._add_repository("r1")
         repo.disable()
 
-        self.dnf_manager.load_repository("r1")
+        self.dnf_manager.load_repositories()
 
         repo = self._get_repository("r1")
         assert repo.is_enabled() is False
 
-    def test_load_repository(self):
-        """Test the load_repository method."""
+    def test_load_repositories(self):
+        """Test the load_repositories method."""
         with TemporaryDirectory() as d:
             self._add_repository("r1", repo_dir=d)
-            self.dnf_manager.load_repository("r1")
+            self.dnf_manager.load_repositories()
 
         repo = self._get_repository("r1")
         assert repo.is_enabled() is True
-
-    def test_load_packages_metadata(self):
-        """Test the load_packages_metadata method."""
-        self._check_base_setup()
-        self.dnf_manager.load_packages_metadata()
 
     def test_load_no_repomd_hashes(self):
         """Test the load_repomd_hashes method with no repositories."""
