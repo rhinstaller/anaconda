@@ -98,8 +98,8 @@ class DNF5TestCase(unittest.TestCase):
             base.get_config()
         )
 
-        config.installroot = "/my/install/root"
-        assert config.installroot == "/my/install/root"
+        config.get_installroot_option = "/my/install/root"
+        assert config.get_installroot_option == "/my/install/root"
 
 
 class DNFManagerTestCase(unittest.TestCase):
@@ -148,14 +148,14 @@ class DNFManagerTestCase(unittest.TestCase):
     def test_set_default_configuration(self):
         """Test the default configuration of the DNF base."""
         config = self._get_configuration()
-        assert config.gpgcheck is False
-        assert config.skip_if_unavailable is False
-        assert config.cachedir == "/tmp/dnf.cache"
-        assert config.pluginconfpath == "/tmp/dnf.pluginconf"
-        assert config.logdir == "/tmp/"
-        assert config.installroot == "/mnt/sysroot"
-        assert config.persistdir == "/mnt/sysroot/var/lib/dnf"
-        assert config.reposdir == (
+        assert config.get_gpgcheck_option is False
+        assert config.get_skip_if_unavailable_option is False
+        assert config.get_cachedir_option == "/tmp/dnf.cache"
+        assert config.get_pluginconfpath_option == "/tmp/dnf.pluginconf"
+        assert config.get_logdir_option == "/tmp/"
+        assert config.get_installroot_option == "/mnt/sysroot"
+        assert config.get_persistdir_option == "/mnt/sysroot/var/lib/dnf"
+        assert config.get_reposdir_option == (
             "/etc/yum.repos.d",
             "/etc/anaconda.repos.d"
         )
@@ -169,31 +169,31 @@ class DNFManagerTestCase(unittest.TestCase):
         self.dnf_manager.reset_base()
         config = self._get_configuration()
 
-        assert config.module_platform_id == "platform:f32"
+        assert config.get_module_platform_id_option == "platform:f32"
 
     def test_configure_proxy(self):
         """Test the proxy configuration."""
         config = self._get_configuration()
 
         self.dnf_manager.configure_proxy("http://user:pass@example.com/proxy")
-        assert config.proxy == "http://example.com:3128"
-        assert config.proxy_username == "user"
-        assert config.proxy_password == "pass"
+        assert config.get_proxy_option == "http://example.com:3128"
+        assert config.get_proxy_username_option == "user"
+        assert config.get_proxy_password_option == "pass"
 
         self.dnf_manager.configure_proxy("@:/invalid")
-        assert config.proxy == ""
-        assert config.proxy_username == ""
-        assert config.proxy_password == ""
+        assert config.get_proxy_option == ""
+        assert config.get_proxy_username_option == ""
+        assert config.get_proxy_password_option == ""
 
         self.dnf_manager.configure_proxy("http://example.com/proxy")
-        assert config.proxy == "http://example.com:3128"
-        assert config.proxy_username == ""
-        assert config.proxy_password == ""
+        assert config.get_proxy_option == "http://example.com:3128"
+        assert config.get_proxy_username_option == ""
+        assert config.get_proxy_password_option == ""
 
         self.dnf_manager.configure_proxy(None)
-        assert config.proxy == ""
-        assert config.proxy_username == ""
-        assert config.proxy_password == ""
+        assert config.get_proxy_option == ""
+        assert config.get_proxy_username_option == ""
+        assert config.get_proxy_password_option == ""
 
     def test_configure_base_default(self):
         """Test the default configuration of the DNF base."""
@@ -201,10 +201,10 @@ class DNFManagerTestCase(unittest.TestCase):
         self.dnf_manager.configure_base(data)
         config = self._get_configuration()
 
-        assert config.multilib_policy == "best"
-        assert config.timeout == 30
-        assert config.retries == 10
-        assert config.install_weak_deps is True
+        assert config.get_multilib_policy_option == "best"
+        assert config.get_timeout_option == 30
+        assert config.get_retries_option == 10
+        assert config.get_install_weak_deps_option is True
 
         assert self.dnf_manager._ignore_broken_packages is False
         assert self.dnf_manager._ignore_missing_packages is False
@@ -222,10 +222,10 @@ class DNFManagerTestCase(unittest.TestCase):
         self.dnf_manager.configure_base(data)
         config = self._get_configuration()
 
-        assert config.multilib_policy == "all"
-        assert config.timeout == 100
-        assert config.retries == 5
-        assert config.install_weak_deps is False
+        assert config.get_multilib_policy_option == "all"
+        assert config.get_timeout_option == 100
+        assert config.get_retries_option == 5
+        assert config.get_install_weak_deps_option is False
 
         assert self.dnf_manager._ignore_broken_packages is True
         assert self.dnf_manager._ignore_missing_packages is True
@@ -441,9 +441,9 @@ class DNFManagerReposTestCase(unittest.TestCase):
             subprocess.run(["createrepo_c", "."], cwd=repo_dir)
 
             # Update the baseurl.
-            baseurl = kwargs.get("baseurl", [])
+            baseurl = kwargs.get("get_baseurl_option", [])
             baseurl.append("file://" + repo_dir)
-            kwargs["baseurl"] = baseurl
+            kwargs["get_baseurl_option"] = baseurl
 
         config = self._get_configuration(repo_id)
         for name, value in kwargs.items():
@@ -542,15 +542,15 @@ class DNFManagerReposTestCase(unittest.TestCase):
         assert repo.get_name() == ""
         assert repo.is_enabled()
 
-        assert config.baseurl == ("", )
-        assert config.proxy == ""
-        assert config.sslverify is True
-        assert config.sslcacert == ""
-        assert config.sslclientcert == ""
-        assert config.sslclientkey == ""
-        assert config.cost == 1000
-        assert config.includepkgs == ()
-        assert config.excludepkgs == ()
+        assert config.get_baseurl_option == ("", )
+        assert config.get_proxy_option == ""
+        assert config.get_sslverify_option is True
+        assert config.get_sslcacert_option == ""
+        assert config.get_sslclientcert_option == ""
+        assert config.get_sslclientkey_option == ""
+        assert config.get_cost_option == 1000
+        assert config.get_includepkgs_option == ()
+        assert config.get_excludepkgs_option == ()
 
     def test_add_repository_enabled(self):
         """Test the add_repository method with enabled repo."""
@@ -581,7 +581,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.baseurl == ("http://repo", )
+        assert config.get_baseurl_option == ("http://repo", )
 
     def test_add_repository_mirrorlist(self):
         """Test the add_repository method with mirrorlist."""
@@ -592,7 +592,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.mirrorlist == "http://mirror"
+        assert config.get_mirrorlist_option == "http://mirror"
 
     def test_add_repository_metalink(self):
         """Test the add_repository method with metalink."""
@@ -603,7 +603,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.metalink == "http://metalink"
+        assert config.get_metalink_option == "http://metalink"
 
     def test_add_repository_no_ssl_configuration(self):
         """Test the add_repository method without the ssl configuration."""
@@ -613,7 +613,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.sslverify is False
+        assert config.get_sslverify_option is False
 
     def test_add_repository_ssl_configuration(self):
         """Test the add_repository method with the ssl configuration."""
@@ -626,10 +626,10 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.sslverify is True
-        assert config.sslcacert == "file:///ca-cert"
-        assert config.sslclientcert == "file:///client-cert"
-        assert config.sslclientkey == "file:///client-key"
+        assert config.get_sslverify_option is True
+        assert config.get_sslcacert_option == "file:///ca-cert"
+        assert config.get_sslclientcert_option == "file:///client-cert"
+        assert config.get_sslclientkey_option == "file:///client-key"
 
     def test_add_repository_invalid_proxy(self):
         """Test the add_repository method the invalid proxy configuration."""
@@ -639,7 +639,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.proxy == ""
+        assert config.get_proxy_option == ""
 
     def test_add_repository_no_auth_proxy(self):
         """Test the add_repository method the no auth proxy configuration."""
@@ -649,7 +649,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.proxy == "http://example.com:1234"
+        assert config.get_proxy_option == "http://example.com:1234"
 
     def test_add_repository_proxy(self):
         """Test the add_repository method with the proxy configuration."""
@@ -659,9 +659,9 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.proxy == "http://example.com:1234"
-        assert config.proxy_username == "user"
-        assert config.proxy_password == "pass"
+        assert config.get_proxy_option == "http://example.com:1234"
+        assert config.get_proxy_username_option == "user"
+        assert config.get_proxy_password_option == "pass"
 
     def test_add_repository_cost(self):
         """Test the add_repository method with a cost."""
@@ -671,7 +671,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.cost == 256
+        assert config.get_cost_option == 256
 
     def test_add_repository_packages(self):
         """Test the add_repository method with packages."""
@@ -682,8 +682,8 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.includepkgs == ("p1", "p2")
-        assert config.excludepkgs == ("p3", "p4")
+        assert config.get_includepkgs_option == ("p1", "p2")
+        assert config.get_excludepkgs_option == ("p3", "p4")
 
     @pytest.mark.skip("Not implemented")
     def test_add_repository_replace(self):
@@ -694,13 +694,13 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.baseurl == ("http://u1",)
+        assert config.get_baseurl_option == ("http://u1",)
 
         data.url = "http://u2"
 
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
-        assert config.baseurl == ("http://u2",)
+        assert config.get_baseurl_option == ("http://u2",)
 
     @pytest.mark.skip("Not implemented")
     def test_remove_repository(self):
@@ -917,7 +917,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
         with TemporaryDirectory() as d:
             self._add_repository(
                 repo_id="r1",
-                baseurl=[
+                get_baseurl_option=[
                     "file://nonexistent/1",
                     "file://nonexistent/2",
                     "file://nonexistent/3",
@@ -926,7 +926,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
             )
             self._add_repository(
                 repo_id="r2",
-                baseurl=[
+                get_baseurl_option=[
                     "file://nonexistent/1",
                     "file://nonexistent/2",
                     "file://nonexistent/3",
@@ -934,11 +934,11 @@ class DNFManagerReposTestCase(unittest.TestCase):
             )
             self._add_repository(
                 repo_id="r3",
-                metalink="file://metalink"
+                get_metalink_option="file://metalink"
             )
             self._add_repository(
                 repo_id="r4",
-                mirrorlist="file://mirrorlist"
+                get_mirrorlist_option="file://mirrorlist"
             )
             self.dnf_manager.load_repomd_hashes()
             assert self.dnf_manager._md_hashes == {

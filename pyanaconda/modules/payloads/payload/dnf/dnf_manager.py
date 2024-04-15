@@ -161,14 +161,14 @@ class DNFManager(object):
         base.load_config_from_file()
 
         config = simplify_config(base.get_config())
-        config.reposdir = DNF_REPO_DIRS
-        config.cachedir = DNF_CACHE_DIR
-        config.pluginconfpath = DNF_PLUGINCONF_DIR
-        config.logdir = '/tmp/'
+        config.get_reposdir_option = DNF_REPO_DIRS
+        config.get_cachedir_option = DNF_CACHE_DIR
+        config.get_pluginconfpath_option = DNF_PLUGINCONF_DIR
+        config.get_logdir_option = '/tmp/'
 
         # Set installer defaults
-        config.gpgcheck = False
-        config.skip_if_unavailable = False
+        config.get_gpgcheck_option = False
+        config.get_skip_if_unavailable_option = False
 
         # Set the default release version.
         base.conf.releasever = get_product_release_version()
@@ -177,10 +177,10 @@ class DNFManager(object):
         base.conf.substitutions.update_from_etc("/")
 
         # Set the installation root.
-        config.installroot = conf.target.system_root
-        config.persistdir = join_paths(
+        config.get_installroot_option = conf.target.system_root
+        config.get_persistdir_option = join_paths(
             conf.target.system_root,
-            config.persistdir
+            config.get_persistdir_option
         )
 
         # Set the platform id based on the /os/release present
@@ -188,7 +188,7 @@ class DNFManager(object):
         platform_id = get_os_release_value("PLATFORM_ID")
 
         if platform_id is not None:
-            config.module_platform_id = platform_id
+            config.get_module_platform_id_option = platform_id
 
         # Load vars and do other initialization based on the
         # configuration. The method is supposed to be called
@@ -223,19 +223,19 @@ class DNFManager(object):
         :param data: a packages configuration data
         """
         config = simplify_config(self._base.get_config())
-        config.multilib_policy = data.multilib_policy
+        config.get_multilib_policy_option = data.multilib_policy
 
         if data.timeout != DNF_DEFAULT_TIMEOUT:
-            config.timeout = data.timeout
+            config.get_timeout_option = data.timeout
 
         if data.retries != DNF_DEFAULT_RETRIES:
-            config.retries = data.retries
+            config.get_retries_option = data.retries
 
         self._ignore_missing_packages = data.missing_ignored
         self._ignore_broken_packages = data.broken_ignored
 
         # FIXME: Set up skip broken?
-        # config.skip_broken = data.broken_ignored
+        # config.get_skip_broken_option = data.broken_ignored
 
         if self._ignore_broken_packages:
             log.warning(
@@ -248,7 +248,7 @@ class DNFManager(object):
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
         # 2. Installs aren't reproducible due to weak deps. failing silently.
-        config.install_weak_deps = not data.weakdeps_excluded
+        config.get_install_weak_deps_option = not data.weakdeps_excluded
 
     @property
     def default_environment(self):
@@ -413,9 +413,9 @@ class DNFManager(object):
         config = simplify_config(self._base.get_config())
 
         # Reset the proxy configuration.
-        config.proxy = ""
-        config.proxy_username = ""
-        config.proxy_password = ""
+        config.get_proxy_option = ""
+        config.get_proxy_username_option = ""
+        config.get_proxy_password_option = ""
 
         # Parse the given URL.
         proxy = self._parse_proxy(url)
@@ -425,9 +425,9 @@ class DNFManager(object):
 
         # Set the proxy configuration.
         log.info("Using '%s' as a proxy.", url)
-        config.proxy = proxy.noauth_url
-        config.proxy_username = proxy.username or ""
-        config.proxy_password = proxy.password or ""
+        config.get_proxy_option = proxy.noauth_url
+        config.get_proxy_username_option = proxy.username or ""
+        config.get_proxy_password_option = proxy.password or ""
 
     def _parse_proxy(self, url):
         """Parse the given proxy URL.
@@ -840,43 +840,43 @@ class DNFManager(object):
         url = self.substitute(data.url)
 
         if data.type == URL_TYPE_BASEURL:
-            config.baseurl = [url]
+            config.get_baseurl_option = [url]
 
         if data.type == URL_TYPE_MIRRORLIST:
-            config.mirrorlist = url
+            config.get_mirrorlist_option = url
 
         if data.type == URL_TYPE_METALINK:
-            config.metalink = url
+            config.get_metalink_option = url
 
         # Set the proxy configuration.
         proxy = self._parse_proxy(data.proxy)
 
         if proxy:
-            config.proxy = proxy.noauth_url
-            config.proxy_username = proxy.username or ""
-            config.proxy_password = proxy.password or ""
+            config.get_proxy_option = proxy.noauth_url
+            config.get_proxy_username_option = proxy.username or ""
+            config.get_proxy_password_option = proxy.password or ""
 
         # Set the repo configuration.
         if data.cost != DNF_DEFAULT_REPO_COST:
-            config.cost = data.cost
+            config.get_cost_option = data.cost
 
         if data.included_packages:
-            config.includepkgs = data.included_packages
+            config.get_includepkgs_option = data.included_packages
 
         if data.excluded_packages:
-            config.excludepkgs = data.excluded_packages
+            config.get_excludepkgs_option = data.excluded_packages
 
         # Set up the SSL configuration.
-        config.sslverify = conf.payload.verify_ssl and data.ssl_verification_enabled
+        config.get_sslverify_option = conf.payload.verify_ssl and data.ssl_verification_enabled
 
         if data.ssl_configuration.ca_cert_path:
-            config.sslcacert = data.ssl_configuration.ca_cert_path
+            config.get_sslcacert_option = data.ssl_configuration.ca_cert_path
 
         if data.ssl_configuration.client_cert_path:
-            config.sslclientcert = data.ssl_configuration.client_cert_path
+            config.get_sslclientcert_option = data.ssl_configuration.client_cert_path
 
         if data.ssl_configuration.client_key_path:
-            config.sslclientkey = data.ssl_configuration.client_key_path
+            config.get_sslclientkey_option = data.ssl_configuration.client_key_path
 
         return repo
 
@@ -1018,7 +1018,7 @@ class DNFManager(object):
 
         repo = self._get_repository(repo_id)
         config = simplify_config(repo.get_config())
-        url = config.baseurl or config.mirrorlist or config.metalink
+        url = config.get_baseurl_option or config.get_mirrorlist_option or config.get_metalink_option
 
         if not repo.is_enabled():
             log.debug("Don't load metadata from a disabled repository.")
@@ -1086,7 +1086,7 @@ class DNFManager(object):
         :return: a content of the repomd.xml file
         """
         config = simplify_config(repo.get_config())
-        urls = config.baseurl
+        urls = config.get_baseurl_option
 
         for url in urls:
             try:
