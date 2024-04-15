@@ -304,7 +304,6 @@ class DNFRepositoriesUtilsTestCase(unittest.TestCase):
 
         create_repository(dnf_manager, repository)
         dnf_manager.add_repository.assert_called_once_with(repository)
-        dnf_manager.load_repository.assert_called_once_with("test")
 
     def test_enable_existing_repository(self):
         """Test the enable_existing_repository function."""

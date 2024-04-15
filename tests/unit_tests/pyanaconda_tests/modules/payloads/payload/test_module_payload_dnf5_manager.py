@@ -78,8 +78,10 @@ class DNF5TestCase(unittest.TestCase):
         repo = self._get_repo(base, "r1")
 
         try:
-            repo.fetch_metadata()
-            repo.load()
+            # These methods were removed from API
+            #repo.fetch_metadata()
+            #repo.load()
+            sack.update_and_load_enabled_repos(False)
         except RuntimeError:
             print("Print something")
             # It will crash here.
