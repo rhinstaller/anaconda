@@ -501,7 +501,7 @@ class DNFManager:
         # Calculate the download size.
         for tspkg in self._transaction.get_transaction_packages():
             package = tspkg.get_package()
-            download_size += package.get_package_size()
+            download_size += package.get_download_size()
 
         # Get the total size. Reserve extra space.
         total_space = download_size + Size("150 MiB")
