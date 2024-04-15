@@ -1,7 +1,12 @@
 specfile_path: anaconda.spec
 upstream_package_name: anaconda
 upstream_tag_template: anaconda-{version}-1
+{% if distro_name == "rhel" %}
+sync_changelog: true
+{% elif distro_name == "fedora" %}
 copy_upstream_release_description: true
+{% endif %}
+downstream_package_name: anaconda
 
 srpm_build_deps:
   - automake
@@ -18,6 +23,13 @@ srpm_build_deps:
   - nss_wrapper
   - nodejs-npm
 
+packages:
+  anaconda-fedora:
+    specfile_path: anaconda.spec
+  anaconda-centos:
+    specfile_path: anaconda.spec
+    pkg_tool: centpkg
+
 actions:
   post-upstream-clone:
     - ./autogen.sh
@@ -32,21 +44,25 @@ jobs:
 
   - job: propose_downstream
     trigger: release
+    packages: [anaconda-fedora]
     dist_git_branches: main
 
   - job: tests
     trigger: pull_request
+    packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
+    packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
       - fedora-eln
 
   - job: copr_build
     trigger: commit
+    packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
       - fedora-eln
@@ -59,15 +75,18 @@ jobs:
 
   - job: propose_downstream
     trigger: release
+    packages: [anaconda-fedora]
     dist_git_branches: f{$ distro_release $}
 
   - job: tests
     trigger: pull_request
+    packages: [anaconda-fedora]
     targets:
       - fedora-{$ distro_release $}
 
   - job: copr_build
     trigger: commit
+    packages: [anaconda-fedora]
     targets:
       - fedora-{$ distro_release $}
     branch: fedora-{$ distro_release $}
@@ -79,5 +98,12 @@ jobs:
       # This repository contains fixup of Rawhide broken environment.
       # Mainly useful when there is a package which is not yet in Rawhide but build is available.
       - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
+
+{% elif distro_name == "rhel" %}
+
+  - job: propose_downstream
+    trigger: release
+    packages: [anaconda-centos]
+    dist_git_branches: c{$ distro_release $}s
 
 {% endif %}
