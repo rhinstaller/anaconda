@@ -19,11 +19,9 @@ enabled=1
 gpgcheck=0
 install_weak_deps=0
 
-# This is a workaround because of missing pykickstart build with rhel-10 support
-# TODO: Remove this when it's not necessary
-[test-fallback-repository]
-name=test-fallback
-baseurl=http://10.43.136.2/trees/tests_fallback_repos/rhel10/
+[COPR-pam]
+name=Fallback for python-pam
+baseurl=https://download.copr.fedorainfracloud.org/results/m4rtink/python-pam-rebuild/centos-stream-10-x86_64/
 enabled=1
 gpgcheck=0
 install_weak_deps=0

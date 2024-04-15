@@ -18,3 +18,10 @@ baseurl=http://download.devel.redhat.com/rhel-10/nightly/RHEL-10-Public-Beta/lat
 enabled=1
 gpgcheck=0
 install_weak_deps=0
+
+[COPR-pam]
+name=Fallback for python-pam
+baseurl=https://download.copr.fedorainfracloud.org/results/m4rtink/python-pam-rebuild/centos-stream-10-x86_64/
+enabled=1
+gpgcheck=0
+install_weak_deps=0
