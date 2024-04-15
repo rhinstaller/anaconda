@@ -796,6 +796,9 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
             s_ip4.props.gateway = network_data.gateway
     if network_data.nodefroute:
         s_ip4.props.never_default = True
+    if network_data.dhcpclass:
+        s_ip4.set_property(NM.SETTING_IP4_CONFIG_DHCP_VENDOR_CLASS_IDENTIFIER,
+                           network_data.dhcpclass)
     connection.add_setting(s_ip4)
 
     # ipv6 settings
@@ -1606,6 +1609,10 @@ def _update_ip4_config_kickstart_network_data(connection, network_data):
     ip4_dns_search = ",".join(ip4_domains)
     if ip4_dns_search:
         network_data.ipv4_dns_search = ip4_dns_search
+
+    ip4_dhcpclass = s_ip4_config.get_dhcp_vendor_class_identifier()
+    if ip4_dhcpclass:
+        network_data.dhcpclass = ip4_dhcpclass
 
 
 def _update_ip6_config_kickstart_network_data(connection, network_data):
