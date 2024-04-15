@@ -210,18 +210,13 @@ def enable_matching_repositories(dnf_manager, patterns, enabled=True):
 
 
 def create_repository(dnf_manager, repository):
-    """Create a new repository and check its validity.
+    """Create a new repository.
 
     :param DNFManager dnf_manager: a configured DNF manager
     :param RepoConfigurationData repository: a resolved repository data
     """
     log.debug("Add the '%s' repository (%s).", repository.name, repository)
-    try:
-        dnf_manager.add_repository(repository)
-        dnf_manager.load_repository(repository.name)
-    except MetadataError as e:
-        msg = _("Failed to add the '{name}' repository: {details}")
-        raise SourceSetupError(msg.format(name=repository.name, details=str(e))) from None
+    dnf_manager.add_repository(repository)
 
 
 def enable_existing_repository(dnf_manager, repository):

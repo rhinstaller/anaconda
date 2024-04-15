@@ -121,12 +121,15 @@ class SetUpDNFSourcesTask(SetUpSourcesTask):
         # Load additional sources.
         self._load_additional_sources(dnf_manager, sources, repositories)
 
-        # Validate enabled repositories.
-        self._validate_repositories(dnf_manager)
+        # Check there are enabled repositories.
+        self._check_enabled_repositories(dnf_manager)
 
-        # Load package and group metadata.
-        self.report_progress(_("Downloading group metadata..."))
-        self._load_metadata(dnf_manager)
+        # Load repositories.
+        self.report_progress(_("Loading repositories..."))
+        try:
+            self._load_repositories(dnf_manager)
+        except MetadataError as e:
+            raise SourceSetupError(str(e)) from None
 
         return SetUpDNFSourcesResult(
             dnf_manager=dnf_manager,
@@ -242,35 +245,23 @@ class SetUpDNFSourcesTask(SetUpSourcesTask):
                 enable_existing_repository(dnf_manager, repository)
 
     @staticmethod
-    def _validate_repositories(dnf_manager):
-        """Validate all enabled repositories.
-
-        Collect error messages about invalid repositories.
-        All invalid repositories are disabled.
-
-        The user repositories are validated when we add them
-        to DNF, so this covers invalid system repositories.
+    def _check_enabled_repositories(dnf_manager):
+        """Check there is at least one enabled repository.
 
         :param DNFManager dnf_manager: a configured DNF manager
         """
-        # Check if there is at least one enabled repository.
         if not dnf_manager.enabled_repositories:
             raise SourceSetupError(_("No repository is configured."))
 
-        # Load all enabled repositories and report warnings if any.
-        for repo_id in dnf_manager.enabled_repositories:
-            try:
-                dnf_manager.load_repository(repo_id)
-            except MetadataError as e:
-                log.warning(str(e))
-
     @staticmethod
-    def _load_metadata(dnf_manager):
+    def _load_repositories(dnf_manager):
         """Load metadata of configured repositories.
+
+        Can be called only once per each RepoSack.
 
         :param DNFManager dnf_manager: a configured DNF manager
         """
-        dnf_manager.load_packages_metadata()
+        dnf_manager.load_repositories()
         dnf_manager.load_repomd_hashes()
 
 
