@@ -155,6 +155,8 @@ class Rescue(object):
         self.mount = False
         self.ro = False
 
+        self.autorelabel = False
+
         self.status = RescueModeStatus.NOT_SET
         self.error = None
 
@@ -213,6 +215,7 @@ class Rescue(object):
             try:
                 fd = open("%s/.autorelabel" % conf.target.system_root, "w+")
                 fd.close()
+                self.autorelabel = True
             except IOError as e:
                 log.warning("Error turning on selinux: %s", e)
 
@@ -432,11 +435,18 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                     finish_msg = exit_reboot_msg
                 else:
                     finish_msg = umount_msg
+
+                autorelabel_msg = (_("Warning: The rescue shell will trigger SELinux autorelabel "
+                                     "on the subsequent boot. Add \"enforcing=0\" on the kernel "
+                                     "command line for autorelabel to work properly.\n")
+                                   if self._rescue.autorelabel else "")
+
                 text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
                                     "\tchroot %(mountpoint)s\n\n")
-                                  % {"mountpoint": conf.target.system_root} + finish_msg)
+                                  % {"mountpoint": conf.target.system_root} + autorelabel_msg
+                                  + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
                     finish_msg = exit_reboot_msg
