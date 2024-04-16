@@ -473,6 +473,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 16 2024 github-actions <github-actions@github.com> - 41.10-1
+- network gui: use Capabilites API to guard adding of team device (rvykydal)
+- network: add Capabilities property to API (rvykydal)
+- Fix glade disable in Makefile (jkonecny)
+- build: Install systemd-resolved in ELN aka RHEL-11 (kkoukiou)
+
 * Tue Apr 09 2024 github-actions <github-actions@github.com> - 41.9-1
 - Update translations from Weblate for master (github-actions)
 
