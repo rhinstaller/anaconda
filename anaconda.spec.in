@@ -473,6 +473,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 17 2024 github-actions <github-actions@github.com> - 41.11-1
+- The RPM tooling generates the compiled python so having automake do it is
+  redundant (kkoukiou)
+
 * Tue Apr 16 2024 github-actions <github-actions@github.com> - 41.10-1
 - network gui: use Capabilites API to guard adding of team device (rvykydal)
 - network: add Capabilities property to API (rvykydal)
