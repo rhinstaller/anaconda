@@ -77,17 +77,25 @@ locations="$locations"
 
 info "anaconda: kickstart locations are: \$locations"
 
+sleep=0
 for kickstart in \$locations; do
     info "anaconda: fetching kickstart from \$kickstart"
 
     if fetch_url "\$kickstart" /tmp/ks.cfg; then
         info "anaconda: successfully fetched kickstart from \$kickstart"
+	sleep=0
         parse_kickstart /tmp/ks.cfg
         run_kickstart
         break
     else
         warn_critical "anaconda: failed to fetch kickstart from \$kickstart"
+	sleep=1
     fi
 done
+
+if [[ \$sleep -eq 1 ]]; then
+    sleep 30
+end
+
 rm \$job # remove self from initqueue
 __EOT__
