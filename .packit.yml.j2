@@ -1,11 +1,7 @@
 specfile_path: anaconda.spec
 upstream_package_name: anaconda
 upstream_tag_template: anaconda-{version}-1
-{% if distro_name == "rhel" %}
-sync_changelog: true
-{% elif distro_name == "fedora" %}
 copy_upstream_release_description: true
-{% endif %}
 downstream_package_name: anaconda
 
 srpm_build_deps:
