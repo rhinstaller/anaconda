@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 usersdir = $(pkgpyexecdir)/modules/users
-users_PYTHON = $(srcdir)/*.py
+dist_users_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

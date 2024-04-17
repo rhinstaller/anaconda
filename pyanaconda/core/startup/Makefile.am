@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 core_startupdir = $(pkgpyexecdir)/core/startup
-core_startup_PYTHON = $(srcdir)/*.py
+dist_core_startup_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

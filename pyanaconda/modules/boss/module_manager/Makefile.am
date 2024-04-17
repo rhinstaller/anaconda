@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 module_managerdir = $(pkgpyexecdir)/modules/boss/module_manager
-module_manager_PYTHON = $(srcdir)/*.py
+dist_module_manager_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

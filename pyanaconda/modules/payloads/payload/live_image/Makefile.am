@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 dnf_moduledir = $(pkgpyexecdir)/modules/payloads/payload/live_image
-dnf_module_PYTHON = $(srcdir)/*.py
+dist_dnf_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 core_configdir = $(pkgpyexecdir)/core/configuration
-core_config_PYTHON = $(srcdir)/*.py
+dist_core_config_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

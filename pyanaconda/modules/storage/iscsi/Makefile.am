@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 iscsi_moduledir = $(pkgpyexecdir)/modules/storage/iscsi
-iscsi_module_PYTHON = $(srcdir)/*.py
+dist_iscsi_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -18,6 +18,6 @@
 #
 
 overridesdir    = $(pyexecdir)/gi/overrides
-dist_overrides_PYTHON = AnacondaWidgets.py
+dist_overrides_DATA = AnacondaWidgets.py
 
 MAINTAINERCLEANFILES = Makefile.in

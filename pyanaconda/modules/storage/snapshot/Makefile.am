@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 snapshot_moduledir = $(pkgpyexecdir)/modules/storage/snapshot
-snapshot_module_PYTHON = $(srcdir)/*.py
+dist_snapshot_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

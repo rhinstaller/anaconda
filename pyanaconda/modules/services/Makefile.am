@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 servicesdir = $(pkgpyexecdir)/modules/services
-services_PYTHON = $(srcdir)/*.py
+dist_services_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

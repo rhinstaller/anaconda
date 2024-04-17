@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 disk_init_moduledir = $(pkgpyexecdir)/modules/storage/disk_initialization
-disk_init_module_PYTHON = $(srcdir)/*.py
+dist_disk_init_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
