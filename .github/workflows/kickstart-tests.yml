@@ -5,7 +5,25 @@
 # ======================================
 # The template is located in: kickstart-tests.yml.j2
 
-# Run kickstart tests in a PR triggered by a "/kickstart-test <launch args>" comment from an organization member.
+# Run kickstart tests in a PR triggered by a comment from an organization member.
+#
+# /kickstart-test keyboard lang
+# ... run the tests specified by names (space separated)
+#
+# /kickstart-test --skip-testtypes gh123,gh765 keyboard lang
+# ... run the tests specified by names while skipping tests with given types (comma separated)
+#
+# /kickstart-test --testtype network
+# ... run all the tests of type network
+#
+# /kickstart-test --testtype network --skip-testtypes gh123,gh765
+# ... run all the tests of type network while skipping tests with given types (comma separated)
+#
+# /kickstart-test --skip-testtypes gh123,gh765
+# ... run all the tests while skipping tests with given types (comma separated)
+#
+# By default all tests of type 'knownfailure' and 'manual' are skipped.
+
 name: kickstart-tests
 on:
   issue_comment:
