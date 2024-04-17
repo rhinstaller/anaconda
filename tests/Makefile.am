@@ -58,7 +58,8 @@ dist_check_SCRIPTS = \
 	$(srcdir)/*_tests/*/*/*/*.py \
 	$(srcdir)/unit_tests/*_tests/*.py \
 	shellcheck/*.sh \
-	ruff/run_ruff.sh
+	ruff/run_ruff.sh \
+	vulture/run_vulture.sh
 
 # TODO: Return back pylint/runpylint.py when it works on python 3.12
 TESTS = \
@@ -71,6 +72,7 @@ TESTS = \
 	shellcheck/run_shellcheck.sh \
 	ruff/run_ruff.sh \
 	pylint/runpylint.py \
+	vulture/run_vulture.sh \
 	unit_tests/unit_tests.sh
 
 clean-local:

@@ -92,6 +92,6 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         self.downloads[nevra] = done
         self._report_progress()
 
-    def start(self, total_files, total_size, total_drpms=0):
+    def start(self, total_files, total_size, _total_drpms=0):
         self.total_files = total_files
         self.total_size = Size(total_size)

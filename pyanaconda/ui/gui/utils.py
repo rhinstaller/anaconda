@@ -247,7 +247,7 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
         # converts a regular function into an instance method. Bind to the
         # instance of whatever is being decorated by returning a curried version
         # of ourself with the instance applied as the first argument.
-        def __get__(self, instance, owner):
+        def __get__(self, instance, _owner):
             if instance not in self._instance_map:
                 self._instance_map[instance] = functools.partial(self, instance)
 
