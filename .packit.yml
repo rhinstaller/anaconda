@@ -9,6 +9,7 @@ specfile_path: anaconda.spec
 upstream_package_name: anaconda
 upstream_tag_template: anaconda-{version}-1
 copy_upstream_release_description: true
+downstream_package_name: anaconda
 
 srpm_build_deps:
   - automake
@@ -25,6 +26,13 @@ srpm_build_deps:
   - nss_wrapper
   - nodejs-npm
 
+packages:
+  anaconda-fedora:
+    specfile_path: anaconda.spec
+  anaconda-centos:
+    specfile_path: anaconda.spec
+    pkg_tool: centpkg
+
 actions:
   post-upstream-clone:
     - ./autogen.sh
@@ -38,21 +46,25 @@ jobs:
 
   - job: propose_downstream
     trigger: release
+    packages: [anaconda-fedora]
     dist_git_branches: main
 
   - job: tests
     trigger: pull_request
+    packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
+    packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
       - fedora-eln
 
   - job: copr_build
     trigger: commit
+    packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
       - fedora-eln
