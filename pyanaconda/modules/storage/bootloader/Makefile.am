@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 bootloader_moduledir = $(pkgpyexecdir)/modules/storage/bootloader
-bootloader_module_PYTHON = $(srcdir)/*.py
+dist_bootloader_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 ostree_moduledir = $(pkgpyexecdir)/modules/payloads/payload/rpm_ostree
-ostree_module_PYTHON = $(srcdir)/*.py
+dist_ostree_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -17,6 +17,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 timezonedir = $(pkgpyexecdir)/modules/timezone
-timezone_PYTHON = $(srcdir)/*.py
+dist_timezone_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

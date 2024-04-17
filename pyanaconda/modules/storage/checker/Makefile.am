@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 checker_moduledir = $(pkgpyexecdir)/modules/storage/checker
-checker_module_PYTHON = $(srcdir)/*.py
+dist_checker_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

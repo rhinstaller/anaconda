@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 modules_errorsdir = $(pkgpyexecdir)/modules/common/errors
-modules_errors_PYTHON = $(srcdir)/*.py
+dist_modules_errors_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

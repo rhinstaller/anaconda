@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 flatpak_moduledir = $(pkgpyexecdir)/modules/payloads/source/flatpak
-flatpak_module_PYTHON = $(srcdir)/*.py
+dist_flatpak_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -17,6 +17,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 payloaddir = $(pkgpyexecdir)/payload/live
-payload_PYTHON = $(srcdir)/*.py
+dist_payload_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

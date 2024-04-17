@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 custom_moduledir = $(pkgpyexecdir)/modules/storage/partitioning/custom
-custom_module_PYTHON = $(srcdir)/*.py
+dist_custom_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

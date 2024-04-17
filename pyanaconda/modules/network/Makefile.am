@@ -21,6 +21,6 @@ SUBDIRS = firewall
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
 networkdir = $(pkgpyexecdir)/modules/network
-network_PYTHON = $(srcdir)/*.py
+dist_network_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

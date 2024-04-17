@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 core_kickstartdir = $(pkgpyexecdir)/core/kickstart
-core_kickstart_PYTHON = $(srcdir)/*.py
+dist_core_kickstart_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

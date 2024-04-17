@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 kickstart_managerdir = $(pkgpyexecdir)/modules/boss/kickstart_manager
-kickstart_manager_PYTHON = $(srcdir)/*.py
+dist_kickstart_manager_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

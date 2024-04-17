@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 devicetree_moduledir = $(pkgpyexecdir)/modules/storage/devicetree
-devicetree_module_PYTHON = $(srcdir)/*.py
+dist_devicetree_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
