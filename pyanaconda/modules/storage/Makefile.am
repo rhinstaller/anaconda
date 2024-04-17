@@ -19,6 +19,6 @@ SUBDIRS = disk_initialization disk_selection bootloader partitioning dasd zfcp f
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 storage_moduledir = $(pkgpyexecdir)/modules/storage
-storage_module_PYTHON = $(srcdir)/*.py
+dist_storage_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

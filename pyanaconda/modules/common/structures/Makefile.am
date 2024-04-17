@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 structures_commondir = $(pkgpyexecdir)/modules/common/structures
-structures_common_PYTHON = $(srcdir)/*.py
+dist_structures_common_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

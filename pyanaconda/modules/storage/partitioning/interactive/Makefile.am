@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 interactive_moduledir = $(pkgpyexecdir)/modules/storage/partitioning/interactive
-interactive_module_PYTHON = $(srcdir)/*.py
+dist_interactive_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

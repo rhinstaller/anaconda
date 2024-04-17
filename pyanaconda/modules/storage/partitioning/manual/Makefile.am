@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 manual_moduledir = $(pkgpyexecdir)/modules/storage/partitioning/manual
-manual_module_PYTHON = $(srcdir)/*.py
+dist_manual_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 fcoe_moduledir = $(pkgpyexecdir)/modules/storage/fcoe
-fcoe_module_PYTHON = $(srcdir)/*.py
+dist_fcoe_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

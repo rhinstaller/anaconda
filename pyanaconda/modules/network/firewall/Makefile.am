@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 firewall_moduledir = $(pkgpyexecdir)/modules/network/firewall
-firewall_module_PYTHON = $(srcdir)/*.py
+dist_firewall_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 modules_basedir = $(pkgpyexecdir)/modules/common/base
-modules_base_PYTHON = $(srcdir)/*.py
+dist_modules_base_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

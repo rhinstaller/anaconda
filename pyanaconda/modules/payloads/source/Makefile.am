@@ -19,6 +19,6 @@ SUBDIRS = hmc cdrom repo_files nfs url harddrive cdn closest_mirror rpm_ostree \
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 payload_moduledir = $(pkgpyexecdir)/modules/payloads/source
-payload_module_PYTHON = $(srcdir)/*.py
+dist_payload_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 subscriptiondir = $(pkgpyexecdir)/modules/subscription
-subscription_PYTHON = $(srcdir)/*.py
+dist_subscription_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

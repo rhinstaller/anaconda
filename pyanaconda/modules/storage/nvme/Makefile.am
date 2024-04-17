@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 nvme_moduledir = $(pkgpyexecdir)/modules/storage/nvme
-nvme_module_PYTHON = $(srcdir)/*.py
+dist_nvme_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

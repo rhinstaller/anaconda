@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 zfcp_moduledir = $(pkgpyexecdir)/modules/storage/zfcp
-zfcp_module_PYTHON = $(srcdir)/*.py
+dist_zfcp_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

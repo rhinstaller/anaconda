@@ -19,6 +19,6 @@ SUBDIRS = install_manager kickstart_manager module_manager
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 bossdir = $(pkgpyexecdir)/modules/boss
-boss_PYTHON = $(srcdir)/*.py
+dist_boss_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

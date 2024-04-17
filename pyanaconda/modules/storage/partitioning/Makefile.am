@@ -18,6 +18,6 @@ SUBDIRS = automatic blivet custom interactive manual
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 partitioning_moduledir = $(pkgpyexecdir)/modules/storage/partitioning
-partitioning_module_PYTHON = $(srcdir)/*.py
+dist_partitioning_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

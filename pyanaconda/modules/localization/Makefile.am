@@ -15,6 +15,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 localizationdir = $(pkgpyexecdir)/modules/localization
-localization_PYTHON = $(srcdir)/*.py
+dist_localization_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

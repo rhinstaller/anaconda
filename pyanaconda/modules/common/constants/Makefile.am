@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 modules_constantsdir = $(pkgpyexecdir)/modules/common/constants
-modules_constants_PYTHON = $(srcdir)/*.py
+dist_modules_constants_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

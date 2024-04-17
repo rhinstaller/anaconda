@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 securitydir = $(pkgpyexecdir)/modules/security
-security_PYTHON = $(srcdir)/*.py
+dist_security_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
