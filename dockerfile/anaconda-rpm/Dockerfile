@@ -24,8 +24,13 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
-RUN rm -rf /etc/yum.repos.d/*.repo
+# Add our own repositories
 COPY *.repo /etc/yum.repos.d/
+# Enable CRB repository
+RUN set -ex; \
+  dnf install -y dnf-plugins-core; \
+  dnf config-manager --enable crb; \
+  dnf remove -y dnf-plugins-core
 
 # Prepare environment and install build dependencies
 RUN set -ex; \

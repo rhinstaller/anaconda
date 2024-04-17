@@ -30,9 +30,6 @@ FROM ${image}
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
-RUN rm -rf /etc/yum.repos.d/*.repo
-COPY *.repo /etc/yum.repos.d/
-
 # Prepare environment and install build dependencies
 RUN set -ex; \
   dnf update -y; \
