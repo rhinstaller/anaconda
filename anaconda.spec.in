@@ -473,6 +473,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 17 2024 github-actions <github-actions@github.com> - 41.12-1
+- Mark unused variables with underscore when possible (kkoukiou)
+- Setup vulture for tests (akankovs)
+- Fix kickstart --dhcpclass option application (rvykydal)
+- packit: never sync changelog in the propose_downstream job (kkoukiou)
+- packit: Land a new upstream release automatically to centos-stream c9s
+  (kkoukiou)
+- Do not try to load sha256 module in intramfs (rvykydal)
+
 * Wed Apr 17 2024 github-actions <github-actions@github.com> - 41.11-1
 - The RPM tooling generates the compiled python so having automake do it is
   redundant (kkoukiou)
