@@ -475,6 +475,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 18 2024 github-actions <github-actions@github.com> - 41.13-1
+- Fix signature of the method passed to DNF (jkonecny)
+- Do not include teamd on RHEL (rvykydal)
+- network: guard team devices configuration in kickstart by capabilities
+  (rvykydal)
+
 * Wed Apr 17 2024 github-actions <github-actions@github.com> - 41.12-1
 - Mark unused variables with underscore when possible (kkoukiou)
 - Setup vulture for tests (akankovs)
