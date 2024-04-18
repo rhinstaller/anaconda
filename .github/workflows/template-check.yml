@@ -1,0 +1,103 @@
+# Test if the committed files match templates.
+# This checks each commit sequentially, so each commit must be correct.
+
+name: Template check
+on:
+  pull_request
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  infra-reload-check:
+    runs-on: ubuntu-20.04
+    name: Templates match results
+
+    steps:
+      - name: Clone Anaconda repository
+        uses: actions/checkout@v4
+        with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
+          git rebase origin/${{ github.event.pull_request.base.ref }}
+
+      - name: Determine commits to check
+        id: get_commits
+        run: |
+          COMMITS=$(git rev-list origin/${{ github.event.pull_request.base.ref }}..HEAD | tac)
+          # rev-list provides one hash per line, starting at HEAD, adding backwards.
+          # Why `tac` - commits are listed from HEAD backwards, which is reversed order, and need
+          # re-applying in the correct order.
+          echo -e "Commits found:\n$COMMITS"
+          COMMITS_ONELINE=$(echo $COMMITS | tr '\n' ' ')
+          # GH actions truncates plain multiline variables to first line when passing as output/input,
+          # so make it one line on our end and save the trouble.
+          echo "commits=$COMMITS_ONELINE" >> $GITHUB_OUTPUT
+
+      - name: Check all commits
+        run: |
+          git checkout -b temp origin/${{ github.event.pull_request.base.ref }}
+          for COMMIT in ${{ steps.get_commits.outputs.commits }} ; do
+            echo "Checking $COMMIT"
+            git cherry-pick "$COMMIT"
+            make -f Makefile.am reload-infra
+            CHANGES=$(git status -s)
+            if [[ -n $CHANGES ]] ; then
+              echo "Templates out of sync after commit $COMMIT:"
+              git log -1 "$COMMIT"
+              git status
+              exit 1
+            fi
+          done
+
+  infra-template-master-match-check:
+    runs-on: ubuntu-20.04
+    name: Compare templates files with master branch
+    if: github.event.pull_request.base.ref != 'master'
+
+    steps:
+      - name: Clone Anaconda repository
+        uses: actions/checkout@v3
+        with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
+          git rebase origin/${{ github.event.pull_request.base.ref }}
+
+      - name: Check if all changed template files are matching master branch
+        run: |
+          changed_template_files_in_pr=$(git diff --diff-filter=M --name-only origin/${{ github.event.pull_request.base.ref }} *.yml.j2)
+          if [ -z "$changed_template_files_in_pr" ]; then
+            echo "----- No template files changed -----"
+
+            exit 0
+          fi
+
+          changed_files=$(git diff --diff-filter=M --name-only origin/master *.yml.j2)
+
+          if [ -n "$changed_files" ]; then
+            # print for debugging
+            echo "----- Template files differ with mater branch -----"
+            echo "$changed_files"
+            echo "-------------------------"
+
+            exit 1
+          fi
