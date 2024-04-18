@@ -43,7 +43,6 @@ actions:
 
 jobs:
 
-
   - job: propose_downstream
     trigger: release
     packages: [anaconda-centos]
