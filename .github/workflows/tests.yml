@@ -107,7 +107,29 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
+      - name: Check if container rebuild is needed
+        id: need_rebuild
+        run: |
+          changed_files=$(git diff --name-only ${{ env.TARGET_BRANCH_NAME }}..HEAD)
+          echo -e "Changed files: \n$changed_files\n"
+
+          . .structure-config
+
+          echo "Paths forcing the rebuild:"
+          rebuild="false"
+          for iter_f in $changed_files ; do
+                  for rebuild_f in "${RPM_REBUILD_PATHS[@]}"; do
+                          if [[ "$iter_f" =~ "$rebuild_f" ]]; then
+                                  echo "$iter_f"
+                                  rebuild="true"
+                                  break
+                          fi
+                  done
+          done
+          echo "rebuild=$rebuild" >> $GITHUB_OUTPUT
+
       - name: Build RPM test container
+        if: ${{ steps.need_rebuild.outputs.rebuild == 'true' }}
         run: make -f Makefile.am anaconda-rpm-build
 
       - name: Run RPM tests in container
