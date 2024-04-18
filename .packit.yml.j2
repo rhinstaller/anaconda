@@ -35,9 +35,7 @@ actions:
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
 jobs:
-
 {% if distro_release == "rawhide" %}
-
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
