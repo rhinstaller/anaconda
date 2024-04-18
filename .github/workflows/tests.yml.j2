@@ -4,18 +4,63 @@ on: pull_request
 permissions:
   contents: read
 
+# when force pushing the pr, cancel previous tests if still running
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   unit-tests:
+    {% if distro_name == "fedora" %}
+    runs-on: ubuntu-20.04
+    {% elif distro_name == "rhel" %}
     runs-on: [self-hosted, kstest]
+    {% endif %}
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        {#
+        # * The same matrix is below in rpm tests, always change both places!
+        # * Replace current branch in "release" with empty string. This makes name of the check for
+        #   the current branch always have the same name, so that it can be added to required
+        #   checks on GitHub.
+        # * This is still a matrix because we might re-enable ELN one day and then we will need
+        #   a matrix here.
+        #}
+        release: ['']
+        include:
+        {% if distro_name == "fedora" and distro_release == "rawhide" %}
+          - release: ''
+            target_branch: 'master'
+            ci_tag: 'master'
+          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
+          #- release: eln
+          #  target_branch: 'master'
+          #  ci_tag: 'eln'
+          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+        {% elif distro_name == "fedora" and distro_release is number %}
+          - release: ''
+            target_branch: 'fedora-{$ distro_release $}'
+            ci_tag: 'fedora-{$ distro_release $}'
+        {% elif distro_name == "rhel" %}
+          - release: ''
+            target_branch: 'rhel-{$ distro_release $}'
+            ci_tag: 'rhel-{$ distro_release $}'
+        {% endif %}
+
     env:
-      CI_TAG: 'rhel-{$ distro_release $}'
-      TARGET_BRANCH_NAME: 'origin/rhel-{$ distro_release $}'
+      CI_TAG: '${{ matrix.ci_tag }}'
+      # Always avoid using cache because cache is not correctly invalidated.
+      CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
+      TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -27,9 +72,23 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
+      {% if distro_name == "fedora" %}
+      - name: Check if rebuild of the container image is required
+        id: check-dockerfile-changed
+        run: |
+          changes=$(git diff $TARGET_BRANCH_NAME..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in scripts/testing/install_dependencies.sh)
+          # print for debugging
+          echo "$changes"
+          [ -z "$changes" ] || echo "changed=true" >> $GITHUB_OUTPUT
+
       # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
+        if: steps.check-dockerfile-changed.outputs.changed
         run: make -f Makefile.am anaconda-ci-build
+      {% elif distro_name == "rhel" %}
+      - name: Build anaconda-ci container
+        run: make -f Makefile.am anaconda-ci-build
+      {% endif %}
 
       - name: Run tests in anaconda-ci container
         run: |
@@ -38,22 +97,64 @@ jobs:
 
       - name: Upload test and coverage logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: 'logs (rhel-{$ distro_release $})'
+          name: 'logs (${{ matrix.ci_tag }})'
           path: test-logs/*
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   rpm-tests:
+    {% if distro_name == "fedora" %}
+    runs-on: ubuntu-20.04
+    {% elif distro_name == "rhel" %}
     runs-on: [self-hosted, kstest]
+    {% endif %}
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        {# For matrix details, see comments for the unit tests above. #}
+        {% if distro_name == "fedora" and distro_release == "rawhide" %}
+        release: ['']
+        include:
+          - release: ''
+            target_branch: 'master'
+            ci_tag: 'master'
+          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
+          #- release: eln
+          #  target_branch: 'master'
+          #  ci_tag: 'eln'
+          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+        {% elif distro_name == "fedora" and distro_release is number %}
+        release: ['']
+        include:
+          - release: ''
+            target_branch: 'fedora-{$ distro_release $}'
+            ci_tag: 'fedora-{$ distro_release $}'
+        {% elif distro_name == "rhel" %}
+        release: ['']
+        include:
+          - release: ''
+            target_branch: 'rhel-{$ distro_release $}'
+            ci_tag: 'rhel-{$ distro_release $}'
+        {% endif %}
+
     env:
-      CI_TAG: 'rhel-{$ distro_release $}'
-      TARGET_BRANCH_NAME: 'origin/rhel-{$ distro_release $}'
+      CI_TAG: '${{ matrix.ci_tag }}'
+      # Always avoid using cache because cache is not correctly invalidated.
+      CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
+      TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -65,15 +166,42 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
+      {% if distro_name == "fedora" %}
+      - name: Check if container rebuild is needed
+        id: need_rebuild
+        run: |
+          changed_files=$(git diff --name-only ${{ env.TARGET_BRANCH_NAME }}..HEAD)
+          echo -e "Changed files: \n$changed_files\n"
+
+          . .structure-config
+
+          echo "Paths forcing the rebuild:"
+          rebuild="false"
+          for iter_f in $changed_files ; do
+                  for rebuild_f in "${RPM_REBUILD_PATHS[@]}"; do
+                          if [[ "$iter_f" =~ "$rebuild_f" ]]; then
+                                  echo "$iter_f"
+                                  rebuild="true"
+                                  break
+                          fi
+                  done
+          done
+          echo "rebuild=$rebuild" >> $GITHUB_OUTPUT
+
+      - name: Build RPM test container
+        if: ${{ steps.need_rebuild.outputs.rebuild == 'true' }}
+        run: make -f Makefile.am anaconda-rpm-build
+      {% elif distro_name == "rhel" %}
       - name: Build RPM test container
         run: make -f Makefile.am anaconda-rpm-build
+      {% endif %}
 
       - name: Run RPM tests in container
         run: make -f Makefile.am container-rpm-test
 
       - name: Upload test logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: 'logs-rpm-test (rhel-{$ distro_release $})'
+          name: 'logs-rpm-test (${{ matrix.ci_tag }})'
           path: test-logs/*

@@ -11,18 +11,36 @@ on: pull_request
 permissions:
   contents: read
 
+# when force pushing the pr, cancel previous tests if still running
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   unit-tests:
     runs-on: [self-hosted, kstest]
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        release: ['']
+        include:
+          - release: ''
+            target_branch: 'rhel-9'
+            ci_tag: 'rhel-9'
+
     env:
-      CI_TAG: 'rhel-9'
-      TARGET_BRANCH_NAME: 'origin/rhel-9'
+      CI_TAG: '${{ matrix.ci_tag }}'
+      # Always avoid using cache because cache is not correctly invalidated.
+      CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
+      TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -34,7 +52,6 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
-      # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
         run: make -f Makefile.am anaconda-ci-build
 
@@ -45,22 +62,40 @@ jobs:
 
       - name: Upload test and coverage logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: 'logs (rhel-9)'
+          name: 'logs (${{ matrix.ci_tag }})'
           path: test-logs/*
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   rpm-tests:
     runs-on: [self-hosted, kstest]
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        release: ['']
+        include:
+          - release: ''
+            target_branch: 'rhel-9'
+            ci_tag: 'rhel-9'
+
     env:
-      CI_TAG: 'rhel-9'
-      TARGET_BRANCH_NAME: 'origin/rhel-9'
+      CI_TAG: '${{ matrix.ci_tag }}'
+      # Always avoid using cache because cache is not correctly invalidated.
+      CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
+      TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -80,7 +115,7 @@ jobs:
 
       - name: Upload test logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: 'logs-rpm-test (rhel-9)'
+          name: 'logs-rpm-test (${{ matrix.ci_tag }})'
           path: test-logs/*
