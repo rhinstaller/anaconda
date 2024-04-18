@@ -1,5 +1,23 @@
 {% if distro_release == "rawhide" %}
-# Run kickstart tests in a PR triggered by a "/kickstart-test <launch args>" comment from an organization member.
+# Run kickstart tests in a PR triggered by a comment from an organization member.
+#
+# /kickstart-test keyboard lang
+# ... run the tests specified by names (space separated)
+#
+# /kickstart-test --skip-testtypes gh123,gh765 keyboard lang
+# ... run the tests specified by names while skipping tests with given types (comma separated)
+#
+# /kickstart-test --testtype network
+# ... run all the tests of type network
+#
+# /kickstart-test --testtype network --skip-testtypes gh123,gh765
+# ... run all the tests of type network while skipping tests with given types (comma separated)
+#
+# /kickstart-test --skip-testtypes gh123,gh765
+# ... run all the tests while skipping tests with given types (comma separated)
+#
+# By default all tests of type 'knownfailure' and 'manual' are skipped.
+
 name: kickstart-tests
 on:
   issue_comment:
@@ -69,6 +87,9 @@ jobs:
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-9(\.[[:digit:]]+)?$"; then
             echo "skip_tests=skip-on-rhel,skip-on-rhel-9" >> $GITHUB_OUTPUT
             echo "platform=rhel9" >> $GITHUB_OUTPUT
+          elif echo "$TARGET_BRANCH" | grep -qE "rhel-10(\.[[:digit:]]+)?$"; then
+            echo "skip_tests=skip-on-rhel,skip-on-rhel-10" >> $GITHUB_OUTPUT
+            echo "platform=rhel10" >> $GITHUB_OUTPUT
           else
             echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
             exit 1
@@ -298,8 +319,10 @@ jobs:
           name: 'logs'
           # skip the /anaconda subdirectories, too large
           path: |
-            kickstart-tests/data/logs/kstest.log
+            kickstart-tests/data/logs/kstest*.log
             kickstart-tests/data/logs/kstest-*/*.log
+            kickstart-tests/data/logs/kstest-*/original-ks.cfg
+            kickstart-tests/data/logs/kstest-list-substituted/
             kickstart-tests/data/additional_repo/*.rpm
             permian/permian.log
 

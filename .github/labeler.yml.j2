@@ -9,11 +9,16 @@ f{$ distro_release $}:
 {% elif distro_name == "rhel" %}
 rhel-{$ distro_release $}:
 {% endif %}
-- '**'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['**']
 
 documentation:
-- 'docs/**'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**']
 
 infrastructure:
-- '.github/**'
-- 'dockerfile/**'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['.github/**', 'dockerfile/**']
