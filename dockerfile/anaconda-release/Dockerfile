@@ -18,7 +18,6 @@ RUN set -e; \
   dnf update -y; \
   dnf install -y \
   git \
-  python3-polib \
   python3-pip; \
   dnf clean all;
 
