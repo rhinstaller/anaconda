@@ -16,19 +16,21 @@ permissions:
   contents: read
 
 jobs:
+  matrix-builder:
+    uses: ./.github/workflows/matrix-builder.yml
 
-  master:
+  container-rebuild-matrix:
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
+    needs: matrix-builder
     uses: ./.github/workflows/container-rebuild-action.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.matrix-builder.outputs.matrix) }}
+        exclude:
+          - variant: "rhel"
     secrets: inherit
     with:
-      container-tag: master
-      branch: master
-
-  fedora-40:
-    uses: ./.github/workflows/container-rebuild-action.yml
-    secrets: inherit
-    with:
-      container-tag: fedora-40
-      branch: fedora-40
+      container-tag: ${{ matrix.branch }}
+      branch: ${{ matrix.branch }}

@@ -1,0 +1,20 @@
+name: Matrix builder
+on:
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    outputs:
+      matrix:
+        description: "Matrix of configurations"
+        value: ${{ jobs.matrix-builder.outputs.matrix }}
+
+jobs:
+  matrix-builder:
+    runs-on: ubuntu-20.04
+    outputs:
+      matrix: ${{ steps.convert.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Assign the matrix from .supported-branches.json
+      id: convert
+      run: |
+        echo "matrix=$(yq -P -o=json .supported-branches.json | jq -c .)" >> $GITHUB_OUTPUT
