@@ -467,6 +467,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 19 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.1-1
+- Get latests changes from fedora-40 branch to RHEL-10, Resolves: RHEL-33385)
+- Set up CI for rhel-10 branch
+
 * Mon Mar 25 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3-1
 - Disable preexec for vtActivate() (mkolman)
 - Lower permissions for kickstart logs in /tmp (jkonecny)
