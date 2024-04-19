@@ -1,4 +1,6 @@
-{% if distro_release == "rawhide" %}
+# Notes: the scheduled workflow will only run on the default branch
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+
 name: Refresh Fedora container images
 on:
   schedule:
@@ -28,4 +30,3 @@ jobs:
       container-tag: {$ branch|first $}
       branch: {$ branch|first $}
   {% endfor %}
-{% endif %}

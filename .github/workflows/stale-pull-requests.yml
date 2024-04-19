@@ -5,6 +5,9 @@
 # ======================================
 # The template is located in: stale-pull-requests.yml.j2
 
+# Notes: the scheduled workflow will only run on the default branch
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+
 name: Close stale pull requests
 on:
   schedule:

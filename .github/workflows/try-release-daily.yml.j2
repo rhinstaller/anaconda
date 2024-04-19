@@ -1,4 +1,6 @@
-{% if distro_release == "rawhide" %}
+# Notes: the scheduled workflow will only run on the default branch
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+
 name: Try building a release daily
 # Build a release tarball for all supported branches to verify the code is releasable.
 
@@ -72,4 +74,3 @@ jobs:
           else
             exit 1
           fi
-{% endif %}

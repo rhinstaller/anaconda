@@ -1,4 +1,6 @@
-{% if distro_release == "rawhide" %}
+# Notes: the scheduled workflow will only run on the default branch
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+
 name: Close stale pull requests
 on:
   schedule:
@@ -25,4 +27,3 @@ jobs:
             Remove stale label or comment or this will be closed in 30 days.
           close-pr-message: |
             This PR was closed because it has been stalled for 30 days with no activity.
-{% endif %}
