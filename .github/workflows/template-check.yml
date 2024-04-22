@@ -84,14 +84,14 @@ jobs:
 
       - name: Check if all changed template files are matching master branch
         run: |
-          changed_template_files_in_pr=$(git diff --diff-filter=M --name-only origin/${{ github.event.pull_request.base.ref }} *.yml.j2)
+          changed_template_files_in_pr=$(git diff --diff-filter=M --name-only origin/${{ github.event.pull_request.base.ref }} "*.j2")
           if [ -z "$changed_template_files_in_pr" ]; then
             echo "----- No template files changed -----"
 
             exit 0
           fi
 
-          changed_files=$(git diff --diff-filter=M --name-only origin/master *.yml.j2)
+          changed_files=$(git diff --diff-filter=M --name-only origin/master "*.j2")
 
           if [ -n "$changed_files" ]; then
             # print for debugging
