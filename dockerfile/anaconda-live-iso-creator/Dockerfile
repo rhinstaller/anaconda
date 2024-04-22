@@ -22,7 +22,6 @@
 # - add `--network=slirp4netns` if you need to share network with host computer to reach
 #   repositories (VPN for example)
 #
-
 #
 # WARNING: this solution is not supported on RHEL/CentOS Stream
 #
