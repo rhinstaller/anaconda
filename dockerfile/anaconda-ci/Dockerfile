@@ -1,14 +1,17 @@
-ARG image=registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest
+ARG image
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG git_branch=rhel-9
-ARG copr_repo=rhinstaller-group/Anaconda
-LABEL maintainer=anaconda-list@redhat.com
+ARG git_branch
+ARG copr_repo
+LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
-# Enable our repositories (RHEL 9 and overlays)
-RUN rm -f /etc/yum.repos.d/*.repo
-COPY *.repo /etc/yum.repos.d/
+# Enable CRB repository
+RUN set -ex; \
+  dnf install -y dnf-plugins-core; \
+  dnf config-manager --enable crb; \
+  dnf remove -y dnf-plugins-core
+
 
 # Prepare environment and install build dependencies
 RUN set -e; \

@@ -28,6 +28,6 @@
 
 GIT_BRANCH ?= rhel-9
 L10N_DIR ?= rhel-9
-BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest
+BASE_CONTAINER ?= quay.io/centos/centos:stream9
 COPR_REPO ?= rhinstaller-group/Anaconda
 
