@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['master', 'fedora-40']
+        release: ['master']
         include:
           - release: 'master'
             target_branch: 'master'
@@ -52,9 +52,6 @@ jobs:
           #  target_branch: 'master'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          - release: 'fedora-40'
-            target_branch: 'fedora-40'
-            ci_tag: 'fedora-40'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -87,14 +84,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['master', 'fedora-40']
+        release: ['master']
         include:
           - release: 'master'
             target_branch: 'master'
             ci_tag: 'master'
-          - release: 'fedora-40'
-            target_branch: 'fedora-40'
-            ci_tag: 'fedora-40'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
