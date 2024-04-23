@@ -28,7 +28,6 @@
 
 GIT_BRANCH ?= rhel-10
 L10N_DIR ?= rhel-10
-#BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi10:latest
 BASE_CONTAINER ?= quay.io/centos/centos:stream10-development
 COPR_REPO ?= rhinstaller-group/Anaconda
 
