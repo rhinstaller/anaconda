@@ -15,7 +15,7 @@ on:
     inputs:
       tag-ref:
         # it might be possible to release from arbitrary ref, but only tags work
-        description: Name of the tag to release from, such as "anaconda-33.12-1". Branch names or arbitrary commit hashes are not supported. Make sure to trim whitespace when copying.
+        description: Name of the tag to release from, such as "anaconda-41.13". Branch names or arbitrary commit hashes are not supported. Make sure to trim whitespace when copying.
         type: string
         required: true
 
@@ -41,11 +41,11 @@ jobs:
 
       - name: Extract version from the tag
         id: get_version
-        # Get the actual version number from the tag, eg. anaconda-33.12-1 -> 33.12
+        # Get the actual version number from the tag, eg. anaconda-41.13 -> 41.13
         # If the version does not fit the regexp, we'll just fail. TODO maybe abort instead?
         run: |
           echo "Checking if ref ${{ steps.get_ref.outputs.ref }} is a valid release tag."
-          VER=$(echo ${{ steps.get_ref.outputs.ref }} | perl -ne '/^(?:refs\/tags\/)?anaconda-([0-9]+(?:\.[0-9]+){1,3})-1$/ && print "$1\n";')
+          VER=$(echo ${{ steps.get_ref.outputs.ref }} | perl -ne '/^(?:refs\/tags\/)?anaconda-([0-9]+(?:\.[0-9]+){1,3})$/ && print "$1\n";')
           if [ -z "$VER" ] ; then
             echo "Tag ref ${{ steps.get_ref.outputs.ref }} is not a valid release tag."
             exit 1
