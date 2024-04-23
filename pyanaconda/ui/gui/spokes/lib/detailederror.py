@@ -48,17 +48,14 @@ class DetailedErrorDialog(GUIObject):
             widget = self.window.add_button(C_("GUI|Detailed Error Dialog", "_Cancel"), 0)
         else:
             buttonbox = self.builder.get_object("detailedButtonBox")
-            i = 0
 
-            for button in buttons:
+            for i, button in enumerate(buttons):
                 widget = self.window.add_button(button, i)
 
                 # Quit buttons should always appear left-most, unless it's the
                 # only button.  Then it should appear on the right.
                 if button == C_("GUI|Detailed Error Dialog", "_Quit") and len(buttons) > 1:
                     buttonbox.set_child_secondary(widget, True)
-
-                i += 1
 
         widget.set_can_default(True)
         widget.grab_default()

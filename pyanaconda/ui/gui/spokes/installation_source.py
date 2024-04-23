@@ -578,7 +578,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         store.clear()
 
         added = False
-        idx = 0
 
         active_idx = 0
         active_name = None
@@ -589,7 +588,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if source_type == SOURCE_TYPE_HDD:
             active_name = source_proxy.GetDevice()
 
-        for device_name in find_potential_hdiso_sources():
+        for idx, device_name in enumerate(find_potential_hdiso_sources()):
             device_info = get_hdiso_source_info(self._device_tree, device_name)
             device_desc = get_hdiso_source_description(device_info)
             store.append([device_name, device_desc])
@@ -598,7 +597,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 active_idx = idx
 
             added = True
-            idx += 1
 
         # Again, only display these widgets if an HDISO source was found.
         self._iso_box.set_no_show_all(not added)
