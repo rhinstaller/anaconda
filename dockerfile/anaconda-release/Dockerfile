@@ -9,8 +9,7 @@ LABEL maintainer=anaconda-list@redhat.com
 # Add missing dependencies required to do the build.
 RUN set -e; \
   dnf update -y; \
-  dnf install -y \
-  git \
+  dnf install -y git; \
   dnf clean all;
 
 RUN pip3 install --no-cache-dir --upgrade pip; \
