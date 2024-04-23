@@ -18,11 +18,11 @@
 m4_define(python_required_version, 3.4)
 
 AC_PREREQ([2.63])
-AC_INIT([anaconda], [41.14], [anaconda-devel@lists.fedoraproject.org])
+AC_INIT([anaconda], [41.15], [anaconda-devel@lists.fedoraproject.org])
 
 # make it possible to set build info at build time
 # (patch only builds, modular builds, mass-rebuilds, etc.)
-AC_ARG_VAR(ANACONDA_RELEASE, [1])
+AC_ARG_VAR(ANACONDA_RELEASE, [-None])
 
 # default release to 1 if not set by option
 AS_IF([test $ANACONDA_RELEASE],
