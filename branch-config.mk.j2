@@ -41,11 +41,17 @@ L10N_DIR ?= f{$ distro_release $}
 BASE_CONTAINER ?= registry.fedoraproject.org/fedora:{$ distro_release $}
 COPR_REPO ?= \@rhinstaller/Anaconda-devel
 
-{% elif distro_name == "rhel" %}
+{% elif distro_name == "rhel" and distro_release != 10 %}
 
 GIT_BRANCH ?= rhel-{$ distro_release $}
 L10N_DIR ?= rhel-{$ distro_release $}
-#BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi{$ distro_release $}:latest
+BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi{$ distro_release $}:latest
+COPR_REPO ?= rhinstaller-group/Anaconda
+
+{% elif distro_name == "rhel" and distro_release == 10 %}
+
+GIT_BRANCH ?= rhel-{$ distro_release $}
+L10N_DIR ?= rhel-{$ distro_release $}
 BASE_CONTAINER ?= quay.io/centos/centos:stream10-development
 COPR_REPO ?= rhinstaller-group/Anaconda
 

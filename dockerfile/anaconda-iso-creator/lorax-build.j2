@@ -39,9 +39,9 @@ lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       --volid Fedora-S-dvd-x86_64-rawh \
 {% else %}
       --volid Fedora-S-dvd-x86_64-f{$ distro_release $} \
-      -s http://dl.fedoraproject.org/pub/fedora/linux/development/{$ distro_release $}/Everything/x86_64/os/ \
 {% endif %}
-{% elif distro_name == "rhel" %}
+      -s http://dl.fedoraproject.org/pub/fedora/linux/development/{$ distro_release $}/Everything/x86_64/os/ \
+{% elif distro_name == "rhel" and distro_release == 10 %}
 MAJOR_VERSION=${VERSION_ID%%.*}
 MINOR_VERSION=${VERSION_ID#*.}
 
@@ -52,10 +52,10 @@ lorax -p RHEL -v "$MAJOR_VERSION" -r "$MINOR_VERSION" \
       -s http://download.devel.redhat.com/rhel-{$ distro_release $}/nightly/RHEL-{$ distro_release $}-Public-Beta/latest-RHEL-{$ distro_release $}/compose/BaseOS/x86_64/os/ \
       -s http://download.devel.redhat.com/rhel-{$ distro_release $}/nightly/RHEL-{$ distro_release $}-Public-Beta/latest-RHEL-{$ distro_release $}/compose/AppStream/x86_64/os/ \
       -s https://download.copr.fedorainfracloud.org/results/m4rtink/python-pam-rebuild/centos-stream-10-x86_64/ \
+{% endif %}
       -s file://$REPO_DIR/ \
       "$@" \
       output || cp *.log "$OUT_DIR"
-{% endif %}
 
 cp output/images/boot.iso "$OUT_DIR"
 
