@@ -211,6 +211,7 @@ class SetUpDNFSourcesTask(SetUpSourcesTask):
         dnf_manager.configure_base(self._configuration)
         dnf_manager.configure_proxy(self._proxy)
         dnf_manager.configure_substitution(self._release_version)
+        dnf_manager.setup_base()
         dnf_manager.dump_configuration()
         dnf_manager.read_system_repositories()
         return dnf_manager
