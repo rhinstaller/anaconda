@@ -195,7 +195,7 @@ class DNFManager(object):
         # after configuration is updated, but before repositories
         # are loaded or any query created.
         # FIXME: Should we do that here?
-        #base.setup()
+        base.setup()
 
         log.debug("The DNF base has been created.")
         return base
