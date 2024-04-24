@@ -125,7 +125,6 @@ class DNFManagerTestCase(unittest.TestCase):
         # FIXME: Figure this out on the manager level.
         base = self.dnf_manager._base
         assert base
-        base.setup()
 
     def test_create_base(self):
         """Test the creation of the DNF base."""
@@ -394,7 +393,6 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         # FIXME: Figure this out on the manager level.
         base = self.dnf_manager._base
         assert base
-        base.setup()
 
     @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_groups(self):
@@ -427,7 +425,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
         # FIXME: Figure this out on the manager level.
         base = self.dnf_manager._base
         assert base
-        base.setup()
 
     def _add_repository(self, repo_id, repo_dir=None, **kwargs):
         """Add the DNF repository with the specified id."""
