@@ -165,15 +165,25 @@ class DNFManager:
             config.persistdir
         )
 
-        # Load vars and do other initialization based on the
-        # configuration. The method is supposed to be called
-        # after configuration is updated, but before repositories
-        # are loaded or any query created.
-        # FIXME: Should we do that here?
-        #base.setup()
-
         log.debug("The DNF base has been created.")
         return base
+
+    def setup_base(self):
+        """Set up the DNF base system.
+
+        This method performs necessary initialization based on the current configuration.
+        It must be called after:
+          - Configuration and variables have been updated
+          - Application plugins have been applied
+          - Plugins have made any pre-configuration changes
+
+        It must be called before:
+          - Any repositories are loaded
+          - Any package or advisory queries are created
+
+        :raise: RuntimeError: If called more than once
+        """
+        self._base.setup()
 
     def reset_base(self):
         """Reset the DNF base.
@@ -440,8 +450,6 @@ class DNFManager:
         """
         if not text:
             return ""
-
-        # FIXME: Call base.setup() to set up all variables.
 
         variables = self._base.get_vars()
         return variables.substitute(text)

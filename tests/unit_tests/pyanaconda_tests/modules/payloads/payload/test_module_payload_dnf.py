@@ -698,6 +698,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             payload=self.module,
             payload_intf=self.interface
         )
+        self.interface.implementation._dnf_manager.setup_base()
 
     def test_type(self):
         """Test the Type property."""
