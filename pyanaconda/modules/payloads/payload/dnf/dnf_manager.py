@@ -172,15 +172,21 @@ class DNFManager:
         if platform_id is not None:
             config.module_platform_id = platform_id
 
-        # Load vars and do other initialization based on the
-        # configuration. The method is supposed to be called
-        # after configuration is updated, but before repositories
-        # are loaded or any query created.
-        # FIXME: Should we do that here?
-        #base.setup()
-
         log.debug("The DNF base has been created.")
         return base
+
+    def setup_base(self):
+        """Set up the DNF base.
+
+        Load vars and do other initialization based on the configuration.
+
+        Must be called after configuration and vars are updated, application plugins applied, their
+        pre configuration modification in configuration, but before repositories are loaded or any
+        Package r Advisory query created.
+
+        :raise: RuntimeError if called the second time
+        """
+        self._base.setup()
 
     def reset_base(self):
         """Reset the DNF base.
@@ -447,8 +453,6 @@ class DNFManager:
         """
         if not text:
             return ""
-
-        # FIXME: Call base.setup() to set up all variables.
 
         variables = self._base.get_vars()
         return variables.substitute(text)
