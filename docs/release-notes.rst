@@ -5,6 +5,204 @@ This document describes major installer-related changes in Fedora releases.
 
 A guide on adding new entries is in the release documentation.
 
+Fedora 40
+#########
+
+Changes in the graphical interface
+----------------------------------
+
+Dir and image installations run only in the non-interactive text mode now
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda now requires a fully defined kickstart file for installations into a local image
+(via the ``--image`` cmdline option) or a local directory (via the ``--dirinstall`` cmdline
+option) and these installations can run only in a non-interactive text-based user interface.
+The ``anaconda`` and ``livemedia-creator`` tools can be used for these types of installations
+with the following changes:
+
+- If a user requests a dir or image installation, Anaconda runs in the text mode.
+- If the user doesn't specify a kickstart file, Anaconda reports an error and aborts.
+- If the specified kickstart file is incomplete, Anaconda reports an error and aborts.
+- All options for specifying the user interface are ignored.
+
+See also:
+    - https://fedoraproject.org/wiki/Changes/Anaconda_dir_and_image_installations_in_automated_text_mode
+    - https://github.com/rhinstaller/anaconda/pull/5447
+
+Remove support for additional repositories from GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The widget that allowed users to specify and edit additional repositories for the package
+installation was removed from the "Installation Source" screen of the GTK-based graphical
+user interface. Use the kickstart support or the ``inst.addrepo`` boot option to specify
+additional repositories.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5448
+
+Redesign the Time & Date spoke in GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The timezone map was removed from the Time & Date spoke in the GTK-based user interface
+and the spoke was redesigned to accommodate the changes. The installer no longer depends
+on the the ``libtimezonemap`` package.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/issues/5404
+    - https://github.com/rhinstaller/anaconda/discussions/5355
+
+Remove support for the LUKS version selection from GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All widgets for the LUKS version selection were removed from the "Manual Partitioning"
+screen of the GTK-based graphical user interface. The installer will use the ``luks2``
+version by default for all new devices and keep the LUKS version of existing ones. Use
+the kickstart support or Blivet GUI to select the LUKS version.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5395
+
+Remove libgnomekbd
+^^^^^^^^^^^^^^^^^^
+
+The library used by Anaconda to display the keyboard preview widget,
+was switched from libgnomekdb to Tecla.
+libgnomekdb is stuck in GTK 3 and X11 (libxklavier).
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5417
+
+Remove screenshot support
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It was previously possible to take a screenshot of the
+Anaconda GUI by pressing a global hotkey. This was
+never widely advertised & rather hard to use for anything
+useful, as it was also necessary to manually extract the
+resulting screenshots from the installation environment.
+
+Furthermore, with many installations happening in VMs,
+it is usually more convenient to take a screenshot using
+the VM software anyway.
+
+By dropping screenshot support, we can remove dependency
+on the ``keybinder3`` library as well as the necessary
+screenshot code in the GUI.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5255
+
+Changes in kickstart support
+----------------------------
+
+Remove support for NVDIMM namespaces
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All additional support for NVDIMM is being deprecated and removed, especially the support
+for the namespace reconfiguration. However, namespaces configured in the block/storage mode
+can be still used for the installation.
+
+The ``nvdimm`` kickstart command is deprecated and will be removed in future releases.
+
+See also:
+    - https://github.com/storaged-project/blivet/pull/1172
+    - https://github.com/pykickstart/pykickstart/pull/469
+    - https://github.com/rhinstaller/anaconda/pull/5353
+
+The installation program now correctly processes the proxy configuration (#2177219)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, the installation program did not correctly process the ``--proxy`` option of the
+``url`` Kickstart command or ``inst.proxy`` kernel boot parameter. As a consequence, you could
+not use the specified proxy to fetch the installation image. With this update, the issue
+is fixed and proxy works as expected.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2177219
+    - https://github.com/rhinstaller/anaconda/pull/4828
+
+Remove and deprecate selected kickstart commands and options
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following deprecated kickstart commands and options are removed:
+
+- ``autostep``
+- ``method``
+- ``logging --level``
+- ``repo --ignoregroups``
+
+The following kickstart options are deprecated:
+
+- ``timezone --isUtc``
+- ``timezone --ntpservers``
+- ``timezone --nontp``
+- ``%packages --instLangs``
+- ``%packages --excludeWeakdeps``
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5436
+    - https://github.com/rhinstaller/anaconda/pull/5438
+    - https://github.com/pykickstart/pykickstart/pull/475
+
+Changes in Anaconda configuration files
+---------------------------------------
+
+Architecture and hardware support changes
+-----------------------------------------
+
+General changes
+---------------
+
+Remove the ``inst.nompath`` boot option
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``inst.nompath`` boot option was deprecated in Fedora 36. It is now marked as removed.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5439
+
+Preliminary support for bootable ostree containers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda can now correctly detect and use the bootupd bootloader used in
+bootable ostree containers. When the installed container includes the ``bootupctl`` tool, it
+is used instead of installing the ``grub2`` bootloader by Anaconda.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5342
+
+Discoverable GPT partitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda now creates discoverable GPT partitions. This means that the partitions use correct
+type UUIDs according to the Discoverable Partitions Specification.
+
+This behavior can be controlled using the new ``gpt_discoverable_partitions`` configuration
+option in the ``Storage`` section, which defaults to ``True``.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2178043
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2160074
+    - https://github.com/rhinstaller/anaconda/pull/4974
+    - https://uapi-group.org/specifications/specs/discoverable_partitions_specification/
+    - https://www.freedesktop.org/software/systemd/man/systemd-gpt-auto-generator.html
+
+Remove all support of the built-in help system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The support of the built-in help accessible from spokes and hubs of all user interfaces
+is removed. The ``help_directory`` Anaconda configuration option is deprecated and removed.
+The ``anaconda-user-help`` package will be deprecated and removed.
+
+Anaconda will aim to make user interfaces self-descriptive and encourage users to use the
+official documentation of specific Linux distributions available on-line.
+
+See also:
+    - https://docs.fedoraproject.org/en-US/fedora/latest/getting-started/
+    - https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/
+    - https://src.fedoraproject.org/rpms/anaconda-user-help/
+
+
 Fedora 39
 #########
 
