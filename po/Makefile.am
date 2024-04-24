@@ -71,6 +71,11 @@
 COPYRIGHT_HOLDER = Red Hat, Inc.
 MSGID_BUGS_ADDRESS = anaconda-devel-list@redhat.com
 
+include $(top_srcdir)/branch-config.mk
+include ./l10n-config.mk
+
+PO_DOWNLOADED_FLAG = $(srcdir)/.po_downloaded
+
 # What kind of files are we looking for?
 POTFILE_SUFFIXES = py c glade desktop js
 
@@ -192,6 +197,18 @@ extra.pot: $(POTFILE_EXTRA)
 
 $(POTFILE): main.pot extra.pot
 	$(AM_V_GEN)$(MSGCAT) -o $@ --use-first main.pot extra.pot
+
+# Request po files download before collecting them in the POFILES variable.
+$(POFILES): $(PO_DOWNLOADED_FLAG)
+
+$(PO_DOWNLOADED_FLAG):
+	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
+	git clone --depth 1 -b $(GIT_L10N_BRANCH) --no-checkout -- $(L10N_REPOSITORY) $$TEMP_DIR && \
+	(cd $$TEMP_DIR && git fetch --depth 1 origin $(GIT_L10N_SHA) && git checkout $(GIT_L10N_SHA)) && \
+	cp $$TEMP_DIR/$(L10N_DIR)/*.po $(srcdir)/ && \
+	rm -rf $$TEMP_DIR && \
+	find $(srcdir)/ -type f -exec sed -ri '/^\"Plural-Forms:/ s/;(\\n")$$/\1/' {} +
+	touch $(PO_DOWNLOADED_FLAG)
 
 # Force a rebuild of the .pot file. Useful if something got removed, for
 # example.

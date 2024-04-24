@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 include ./branch-config.mk
+include ./po/l10n-config.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -134,7 +135,7 @@ pot-update-check: pot
 # - copy pot file to this repository
 # - check if pot file is changed (ignore the POT-Creation-Date otherwise it's always changed)
 	@TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 5 ; \
-	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
+	git clone --depth 1 -b $(GIT_L10N_SHA) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
 	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/$(L10N_DIR)/ || exit 7 ; \
 	pushd $$TEMP_DIR/$(L10N_DIR) ; \
 	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
@@ -353,10 +354,10 @@ check-branching:
 	@echo "===================================="
 	@echo "Testing localization for $(L10N_DIR)"
 	@echo "===================================="
-	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_BRANCH)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
+	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_SHA)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
 		(echo "*** Can't download translations from a localization repository"; \
 		 echo "repository: $(L10N_REPOSITORY)"; \
-		 echo "branch:     $(GIT_L10N_BRANCH)"; \
+		 echo "sha:        $(GIT_L10N_SHA)"; \
 		 echo "directory:  $(L10N_DIR)"; \
 		 exit 2)
 
@@ -427,3 +428,15 @@ reload-infra:
 	@for template in $$(find . -type f -name '*.j2'); do \
 		$(TEMPLATE_RENDERER) $${template} $${template%.j2}; \
 	done
+
+bump-l10n-sha:
+	@new_sha=$$(git ls-remote "$(L10N_REPOSITORY)" "refs/heads/$(GIT_L10N_BRANCH)" | cut -f 1); \
+	echo "New SHA: $$new_sha"; \
+	old_sha=$$(grep "GIT_L10N_SHA" po/l10n-config.mk | FS="?=" awk '{print $$3}'); \
+	echo "Old SHA: $$old_sha"; \
+	if [ "$$old_sha" != "$$new_sha" ] ; then \
+		echo "Writing new SHA."; \
+		sed -i "s/GIT_L10N_SHA ?= $$old_sha/GIT_L10N_SHA ?= $$new_sha/g" po/l10n-config.mk; \
+	else \
+		echo "Nothing to do."; \
+	fi
