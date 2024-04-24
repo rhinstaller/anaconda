@@ -469,6 +469,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 24 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.2-1
+- network: guard team devices configuration from kickstart by capabilities
+  (rvykydal)
+  Resolves: INSTALLER-3946
+- network gui: use Capabilites API to guard adding of team device (rvykydal)
+  Resolves: INSTALLER-3945
+- network: add Capabilities property to API (rvykydal)
+  Related: INSTALLER-3945
+- Do not include teamd on RHEL (rvykydal)
+  Resolves: INSTALLER-3896
+  Resolves: RHEL-33892
+- Update translations from Weblate for rhel-10 (github-actions)
+
 * Fri Apr 19 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.1-1
 - Get latests changes from fedora-40 branch to RHEL-10, Resolves: RHEL-33385)
 - Set up CI for rhel-10 branch
