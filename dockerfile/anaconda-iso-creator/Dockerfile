@@ -38,6 +38,11 @@ RUN set -ex; \
 # required for lorax-build-webui script
   patch \
   lorax; \
+# FIXME: Remove this part when lorax-templates-rhel version 44 will get to CentOS Stream 10 
+#        otherwise builds are failing
+  if grep -q 'ID=.*centos' /etc/os-release && grep -q 'VERSION_ID=.*10' /etc/os-release ; then \
+    dnf install -y https://kojihub.stream.centos.org/kojifiles/vol/koji02/packages/lorax-templates-rhel/10.0/44.el10/noarch/lorax-templates-rhel-10.0-44.el10.noarch.rpm; \
+  fi; \
   dnf clean all
 
 COPY ["lorax-build", "/"]
