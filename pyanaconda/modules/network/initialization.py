@@ -19,6 +19,7 @@ import copy
 import re
 
 from pyanaconda.core.regexes import NM_MAC_INITRAMFS_CONNECTION
+from pyanaconda.core.constants import NETWORK_CAPABILITY_TEAM
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
@@ -41,13 +42,16 @@ from gi.repository import NM
 class ApplyKickstartTask(Task):
     """Task for application of kickstart network configuration."""
 
-    def __init__(self, network_data, supported_devices, bootif, ifname_option_values):
+    def __init__(self, network_data, supported_devices, capabilities,
+                 bootif, ifname_option_values):
         """Create a new task.
 
         :param network_data: kickstart network data to be applied
         :type: list(NetworkData)
         :param supported_devices: list of names of supported network devices
         :type supported_devices: list(str)
+        :param capabilities: list of capabilities supported by the network backend
+        :type capabilities: list(int)
         :param bootif: MAC addres of device to be used for --device=bootif specification
         :type bootif: str
         :param ifname_option_values: list of ifname boot option values
@@ -56,6 +60,7 @@ class ApplyKickstartTask(Task):
         super().__init__()
         self._network_data = network_data
         self._supported_devices = supported_devices
+        self._capabilities = capabilities
         self._bootif = bootif
         self._ifname_option_values = ifname_option_values
 
@@ -92,6 +97,10 @@ class ApplyKickstartTask(Task):
             # Wireless is not supported
             if network_data.essid:
                 log.info("%s: Wireless devices configuration is not supported.", self.name)
+                continue
+
+            if network_data.teamslaves and NETWORK_CAPABILITY_TEAM not in self._capabilities:
+                log.info("%s: Team devices configuration is not supported.", self.name)
                 continue
 
             device_name = get_device_name_from_network_data(nm_client,

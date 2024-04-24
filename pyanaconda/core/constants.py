@@ -102,6 +102,8 @@ GRAPHICAL_TARGET = 'graphical.target'
 NETWORK_CONNECTION_TIMEOUT = 46  # in seconds
 NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 
+NETWORK_CAPABILITY_TEAM = 1
+
 # Anaconda user agent
 USER_AGENT = "%s (anaconda)/%s" % (get_product_name(), get_product_version())
 
