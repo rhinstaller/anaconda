@@ -123,13 +123,6 @@ class DNFManagerTestCase(unittest.TestCase):
         for name, value in expected_variables.items():
             assert variables.get_value(name) == value
 
-    def _check_base_setup(self):
-        """Make sure that the base is set up."""
-        # FIXME: Figure this out on the manager level.
-        base = self.dnf_manager._base
-        assert base
-        base.setup()
-
     def test_create_base(self):
         """Test the creation of the DNF base."""
         assert self.dnf_manager._base is not None
@@ -281,6 +274,8 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def test_apply_specs(self):
         """Test the apply_specs method."""
+        self.dnf_manager.setup_base()
+
         self.dnf_manager.apply_specs(
             include_list=["@g1", "p1"],
             exclude_list=["@g2", "p2"]
@@ -291,7 +286,7 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def test_resolve_no_selection(self):
         """Test the resolve_selection method with no selection."""
-        self._check_base_setup()
+        self.dnf_manager.setup_base()
 
         with self.assertLogs(level="INFO") as cm:
             report = self.dnf_manager.resolve_selection()
@@ -303,7 +298,7 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def test_resolve_missing_selection(self):
         """Test the resolve selection method with missing selection."""
-        self._check_base_setup()
+        self.dnf_manager.setup_base()
 
         self.dnf_manager.apply_specs(
             include_list=["@g1", "p1"],
@@ -329,7 +324,8 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def test_clear_selection(self):
         """Test the clear_selection method."""
-        self._check_base_setup()
+        self.dnf_manager.setup_base()
+
         self.dnf_manager.resolve_selection()
 
         g = self.dnf_manager._goal
@@ -341,6 +337,8 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def test_substitute(self):
         """Test the substitute method."""
+        self.dnf_manager.setup_base()
+
         # No variables.
         assert self.dnf_manager.substitute(None) == ""
         assert self.dnf_manager.substitute("") == ""
@@ -356,7 +354,6 @@ class DNFManagerTestCase(unittest.TestCase):
         assert self.dnf_manager.substitute("/$releasever") != "/$releasever"
 
         # Supported variables.
-        self._check_base_setup()
         assert self.dnf_manager.substitute("/$arch") != "/$arch"
         assert self.dnf_manager.substitute("/$basearch") != "/$basearch"
         assert self.dnf_manager.substitute("/$releasever") != "/$releasever"
@@ -381,30 +378,21 @@ class DNFManagerCompsTestCase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.dnf_manager = DNFManager()
-
-    def _check_base_setup(self):
-        """Make sure that the base is set up."""
-        # FIXME: Figure this out on the manager level.
-        base = self.dnf_manager._base
-        assert base
-        base.setup()
+        self.dnf_manager.setup_base()
 
     @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_groups(self):
         """Test the groups property."""
-        self._check_base_setup()
         assert self.dnf_manager.groups == []
 
     @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_no_default_environment(self):
         """Test the default_environment property with no environments."""
-        self._check_base_setup()
         assert self.dnf_manager.default_environment is None
 
     @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_environments(self):
         """Test the environments property."""
-        self._check_base_setup()
         assert self.dnf_manager.environments == []
 
 
@@ -414,13 +402,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.dnf_manager = DNFManager()
-
-    def _check_base_setup(self):
-        """Make sure that the base is set up."""
-        # FIXME: Figure this out on the manager level.
-        base = self.dnf_manager._base
-        assert base
-        base.setup()
+        self.dnf_manager.setup_base()
 
     def _add_repository(self, repo_id, repo_dir=None, **kwargs):
         """Add the DNF repository with the specified id."""
@@ -849,7 +831,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
     def test_load_repository_failed(self):
         """Test the load_repository method with a failure."""
-        self._check_base_setup()
         self._add_repository("r1")
 
         with pytest.raises(MetadataError, match="Failed to download metadata"):
@@ -860,8 +841,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
     def test_load_repository_disabled(self):
         """Test the load_repository method with a disabled repo."""
-        self._check_base_setup()
-
         repo = self._add_repository("r1")
         repo.disable()
 
@@ -872,8 +851,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
     def test_load_repository(self):
         """Test the load_repository method."""
-        self._check_base_setup()
-
         with TemporaryDirectory() as d:
             self._add_repository("r1", repo_dir=d)
             self.dnf_manager.load_repository("r1")
