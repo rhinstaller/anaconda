@@ -11,11 +11,7 @@ concurrency:
 
 jobs:
   unit-tests:
-    {% if distro_name == "fedora" %}
-    runs-on: ubuntu-20.04
-    {% elif distro_name == "rhel" %}
-    runs-on: [self-hosted, kstest]
-    {% endif %}
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
