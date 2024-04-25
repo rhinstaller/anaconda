@@ -30,6 +30,11 @@ FROM ${image}
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
+# Add development repositories instead of the production ones
+# We need development repositories to get our dependencies sooner
+RUN rm -f /etc/yum.repos.d/*.repo
+COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
+
 # Prepare environment and install build dependencies
 RUN set -ex; \
   dnf update -y; \
