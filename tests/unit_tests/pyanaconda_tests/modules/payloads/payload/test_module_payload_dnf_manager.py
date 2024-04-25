@@ -99,7 +99,8 @@ class DNFMangerTestCase(unittest.TestCase):
         self._check_substitutions({
             "arch": "x86_64",
             "basearch": "x86_64",
-            "releasever": "rawhide"
+            "releasever": "rawhide",
+            "stream": "9-stream",
         })
 
     @patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.get_os_release_value")
