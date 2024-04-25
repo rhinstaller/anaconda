@@ -27,6 +27,11 @@ LABEL maintainer=anaconda-list@redhat.com
 RUN rm -f /etc/yum.repos.d/*.repo
 COPY *.repo /etc/yum.repos.d/
 
+# Add development repositories instead of the production ones
+# We need development repositories to get our dependencies sooner
+RUN rm -f /etc/yum.repos.d/*.repo
+COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
+
 # Prepare environment and install build dependencies
 RUN set -ex; \
   dnf update -y; \
