@@ -652,7 +652,7 @@ def setup_locale_environment(locale=None, text_mode=False, prefer_environment=Fa
     # to a locale set at install time and saved in the kickstart.
     if not locale or prefer_environment:
         for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES", "LANG"):
-            if varname in os.environ and os.environ[varname]:
+            if os.environ.get(varname):
                 locale = os.environ[varname]
                 break
 
