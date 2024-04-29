@@ -49,6 +49,7 @@ fi
 # is defined
 cppcheck_output="$(echo "$filelist" |
     xargs cppcheck -q -v --error-exitcode=1 \
+        --check-level=exhaustive \
         --template='{id}:{file}:{line}: {message}' \
         --inline-suppr \
         --enable=warning,unusedFunction \
