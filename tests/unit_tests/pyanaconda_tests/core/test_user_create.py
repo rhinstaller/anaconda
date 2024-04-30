@@ -22,8 +22,12 @@ from unittest.mock import patch
 import tempfile
 import shutil
 import os
-import crypt  # pylint: disable=deprecated-module
 import pytest
+
+try:
+    import crypt_r
+except ImportError:
+    import crypt as crypt_r  # pylint: disable=deprecated-module
 
 from pyanaconda.core import users
 from pyanaconda.core.path import make_directories, touch
@@ -192,7 +196,7 @@ class UserCreateTest(unittest.TestCase):
         shadow_fields = self._readFields("/etc/shadow", "test_user1")
         assert shadow_fields is not None
         # Make sure the password works
-        assert crypt.crypt("password", shadow_fields[1]) == shadow_fields[1]
+        assert crypt_r.crypt("password", shadow_fields[1]) == shadow_fields[1]
 
         # Set the encrypted password for another user with is_crypted
         cryptpw = shadow_fields[1]
@@ -221,7 +225,7 @@ class UserCreateTest(unittest.TestCase):
         shadow_fields = self._readFields("/etc/shadow", "test_user2")
         assert shadow_fields is not None
         assert shadow_fields[1].startswith("!")
-        assert crypt.crypt("password", shadow_fields[1][1:]) == shadow_fields[1][1:]
+        assert crypt_r.crypt("password", shadow_fields[1][1:]) == shadow_fields[1][1:]
 
     def test_create_user_uid(self):
         """Create a user with a specific UID."""
@@ -300,14 +304,14 @@ class UserCreateTest(unittest.TestCase):
 
         users.set_root_password(password, root=self.tmpdir)
         shadow_fields = self._readFields("/etc/shadow", "root")
-        assert crypt.crypt(password, shadow_fields[1]) == shadow_fields[1]
+        assert crypt_r.crypt(password, shadow_fields[1]) == shadow_fields[1]
 
         # Try a different password with lock=True
         password = "password2"
         users.set_root_password(password, lock=True, root=self.tmpdir)
         shadow_fields = self._readFields("/etc/shadow", "root")
         assert shadow_fields[1].startswith("!")
-        assert crypt.crypt(password, shadow_fields[1][1:]) == shadow_fields[1][1:]
+        assert crypt_r.crypt(password, shadow_fields[1][1:]) == shadow_fields[1][1:]
 
         # Try an encrypted password
         password = "$1$asdf$password"

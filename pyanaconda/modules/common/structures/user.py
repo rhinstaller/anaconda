@@ -234,7 +234,7 @@ class UserData(DBusData):
 
         To create an encrypted password you can use python:
 
-        python3 -c 'import crypt; print(crypt.crypt("My Password", "$y$j9T$My Sault"))'
+        python3 -c 'import crypt_r; print(crypt_r.crypt("My Password", "$y$j9T$My Sault"))'
 
         This will compute a hash of your password using the yescrypt hasing method and
         your provided salt.
@@ -242,7 +242,7 @@ class UserData(DBusData):
         If the yescrypt method is not supported by your system, you can use the
         sha512crypt hashing method:
 
-        python3 -c 'import crypt; print(crypt.crypt("My Password", "$6$My Sault"))'
+        python3 -c 'import crypt_r; print(crypt_r.crypt("My Password", "$6$My Sault"))'
 
         This will compute a hash of your password using the sha512crypt hasing method
         and your provided salt.
