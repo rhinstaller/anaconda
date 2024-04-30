@@ -100,7 +100,7 @@ vnc
 Enable VNC-based installation. You will need to connect to the machine using a VNC client application.
 A VNC install implies that the installed system will boot up in runlevel 3 instead of to the graphical
 login screen. The VNC session will be shared. Consider setting a VNC password using the vncpassword
-option.
+option. This option is not supported for live installations.
 
 vncconnect
 Once installation is up and running, connect to the VNC client named HOST, and optionally use port PORT.
