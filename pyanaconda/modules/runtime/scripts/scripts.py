@@ -1,0 +1,60 @@
+#
+# The script module
+#
+# Copyright (C) 2021 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.runtime.scripts.scripts_interface import ScriptsInterface
+from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.common.constants.objects import SCRIPTS
+from pyanaconda.modules.runtime.scripts.runtime import RunScriptsTask
+
+log = get_module_logger(__name__)
+
+__all__ = ["ScriptsModule"]
+
+
+class ScriptsModule(KickstartBaseModule):
+    """The scripts module."""
+
+    def __init__(self):
+        super().__init__()
+        self._scripts = []
+
+    def publish(self):
+        """Publish the module."""
+        DBus.publish_object(SCRIPTS.object_path, ScriptsInterface(self))
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        log.debug("DDDDD process_kickstart %s", data.scripts)
+        self._scripts = data.scripts
+
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
+        log.debug("DDDDD setup_kickstart %s", data)
+        data.scripts = self._scripts
+
+    def run_scripts_with_task(self, script_type):
+        """Run all scripts of given type sequentially."""
+        log.debug("DDDDD running %s scripts with task", script_type)
+        return RunScriptsTask(
+            script_type=script_type,
+            scripts=self._scripts
+        )

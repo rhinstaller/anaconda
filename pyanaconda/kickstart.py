@@ -38,7 +38,9 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.constants.objects import SCRIPTS
+from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 
 from pykickstart.base import KickstartCommand, RemovedCommand
