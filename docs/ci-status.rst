@@ -13,9 +13,9 @@ The status badges are organized by repository where the github workflow is store
 Anaconda
 --------
 
-.. |container-autoupdate-fedora| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-fedora.yml/badge.svg
-   :alt: Refresh Fedora container images
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-fedora.yml
+.. |container-autoupdate| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate.yml/badge.svg
+   :alt: Refresh Fedora and CentOS Stream container images
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate.yml
 
 .. |container-autoupdate-eln| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml/badge.svg
    :alt: Refresh ELN container images
