@@ -116,6 +116,17 @@ for opt in $(cat /proc/cmdline) "$@"; do
          fi
          exit 1
         ;;
+    vnc|--vnc)
+        title="Configuration not supported"
+        text="VNC is not supported on live media."
+        if which zenity &> /dev/null; then
+            zenity --warning --title="$title" --text="$text"
+         else
+            echo "$title" >&2
+            echo "$text" >&2
+         fi
+         exit 1
+        ;;
     esac
 done
 
