@@ -135,7 +135,7 @@ pot-update-check: pot
 # - copy pot file to this repository
 # - check if pot file is changed (ignore the POT-Creation-Date otherwise it's always changed)
 	@TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 5 ; \
-	git clone --depth 1 -b $(GIT_L10N_SHA) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
+	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
 	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/$(L10N_DIR)/ || exit 7 ; \
 	pushd $$TEMP_DIR/$(L10N_DIR) ; \
 	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
