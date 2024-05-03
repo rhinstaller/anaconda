@@ -34,6 +34,7 @@ from pyanaconda.core.path import open_with_perm
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.core.kickstart.specification import KickstartSpecification
+from pyanaconda.core.kickstart.scripts import run_script
 from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
@@ -74,63 +75,19 @@ def check_kickstart_error():
 
 
 class AnacondaKSScript(KSScript):
-    """ Execute a kickstart script
-
-        This will write the script to a file named /tmp/ks-script- before
-        execution.
-        Output is logged by the program logger, the path specified by --log
-        or to /tmp/ks-script-\\*.log
-    """
     def run(self, chroot):
-        """ Run the kickstart script
-            @param chroot directory path to chroot into before execution
-        """
-        if self.inChroot:
-            scriptRoot = chroot
-        else:
-            scriptRoot = "/"
+        rc, log_file = run_script(self, chroot)
+        if self.errorOnFail and rc != 0:
+            err = ""
+            with open(log_file, "r") as fp:
+                err = "".join(fp.readlines())
 
-        (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
+            # Show error dialog even for non-interactive
+            flags.ksprompt = True
 
-        os.write(fd, self.script.encode("utf-8"))
-        os.close(fd)
-        os.chmod(path, 0o700)
-
-        # Always log stdout/stderr from scripts.  Using --log just lets you
-        # pick where it goes.  The script will also be logged to program.log
-        # because of execWithRedirect.
-        if self.logfile:
-            if self.inChroot:
-                messages = "%s/%s" % (scriptRoot, self.logfile)
-            else:
-                messages = self.logfile
-
-            d = os.path.dirname(messages)
-            if not os.path.exists(d):
-                os.makedirs(d)
-        else:
-            # Always log outside the chroot, we copy those logs into the
-            # chroot later.
-            messages = "/tmp/%s.log" % os.path.basename(path)
-
-        with open_with_perm(messages, "w", 0o600) as fp:
-            rc = util.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
-                                       stdout=fp,
-                                       root=scriptRoot)
-
-        if rc != 0:
-            script_log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
-            if self.errorOnFail:
-                err = ""
-                with open(messages, "r") as fp:
-                    err = "".join(fp.readlines())
-
-                # Show error dialog even for non-interactive
-                flags.ksprompt = True
-
-                errorHandler.cb(ScriptError(self.lineno, err))
-                util.ipmi_report(IPMI_ABORTED)
-                sys.exit(0)
+            errorHandler.cb(ScriptError(self.lineno, err))
+            util.ipmi_report(IPMI_ABORTED)
+            sys.exit(0)
 
 
 class AnacondaInternalScript(AnacondaKSScript):
