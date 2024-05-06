@@ -84,6 +84,9 @@ Summary: Core of the Anaconda installer
 # core/signal.py is under MIT
 License: GPL-2.0-or-later AND MIT
 Requires: python3-libs
+%if 0%{?rhel} > 10 || 0%{?fedora} > 40
+Requires: python3-crypt-r
+%endif
 Requires: python3-dnf >= %{dnfver}
 Requires: python3-blivet >= %{pythonblivetver}
 Requires: python3-blockdev >= %{libblockdevver}

@@ -28,10 +28,16 @@ from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.core.string import strip_accents
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, \
     GROUPLIST_SIMPLE_VALID
-import crypt  # pylint: disable=deprecated-module
 from pyanaconda.core.i18n import _
 import re
 from random import SystemRandom as sr
+
+try:
+    # Use the standalone (not deprecated) package when available
+    import crypt_r
+except ImportError:
+    # Fallback to the deprecated standard library module
+    import crypt as crypt_r  # pylint: disable=deprecated-module
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -53,17 +59,17 @@ def crypt_password(password):
 
     # and try to compute the password hash using our yescrypt setting
     try:
-        cryptpw = crypt.crypt(password, setting)
+        cryptpw = crypt_r.crypt(password, setting)
 
     # Fallback to sha512crypt, if yescrypt is not supported
     except OSError:
         log.info("yescrypt is not supported, falling back to sha512crypt")
         try:
-            cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
+            cryptpw = crypt_r.crypt(password, crypt_r.METHOD_SHA512)
         except OSError as exc:
             raise RuntimeError(_(
                 "Unable to encrypt password: unsupported "
-                "algorithm {}").format(crypt.METHOD_SHA512)
+                "algorithm {}").format(crypt_r.METHOD_SHA512)
             ) from exc
 
     return cryptpw
