@@ -20,7 +20,7 @@ import subprocess
 import unittest
 from tempfile import TemporaryDirectory
 from textwrap import dedent
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, call
 
 import libdnf5
 import pytest
@@ -379,6 +379,103 @@ class DNFManagerTestCase(unittest.TestCase):
 
         self.dnf_manager.reset_substitution()
         self._check_variables(releasever="rawhide")
+
+
+    # For this test, mocked Transaction is needed, but it can't be easily
+    # created, because it doesn't have a public constructor, it's supposed
+    # to be taken from resolved Goal.
+    @pytest.mark.skip("There is no transaction to use")
+    @patch("dnf.base.Base.download_packages")
+    @patch("dnf.base.Base.transaction")
+    def test_download_packages(self, transaction, download_packages):
+        """Test the download_packages method."""
+        callback = Mock()
+        transaction.install_set = ["p1", "p2", "p3"]
+        download_packages.side_effect = self._download_packages
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.'),
+            call('Downloading 3 RPMs, 100 B / 300 B (33%) done.'),
+            call('Downloading 3 RPMs, 125 B / 300 B (41%) done.'),
+            call('Downloading 3 RPMs, 175 B / 300 B (58%) done.'),
+            call('Downloading 3 RPMs, 200 B / 300 B (66%) done.'),
+            call('Downloading 3 RPMs, 225 B / 300 B (75%) done.'),
+            call('Downloading 3 RPMs, 275 B / 300 B (91%) done.'),
+            call('Downloading 3 RPMs, 300 B / 300 B (100%) done.')
+        ])
+
+    def _download_packages(self, packages, progress):
+        """Simulate the download of packages."""
+        progress.start(total_files=3, total_size=300)
+
+        for name in packages:
+            payload = Mock()
+            payload.__str__ = Mock(return_value=name)
+            payload.download_size = 100
+
+            progress.last_time = 0
+            progress.progress(payload, 25)
+
+            progress.last_time += 3600
+            progress.progress(payload, 50)
+
+            progress.last_time = 0
+            progress.progress(payload, 75)
+
+            progress.last_time = 0
+            progress.end(
+                payload, libdnf5.repo.DownloadCallbacks_TransferStatus_SUCCESSFUL, "Message!"
+            )
+
+        assert progress.downloads == {
+            "p1": 100,
+            "p2": 100,
+            "p3": 100
+        }
+
+    # For this test, mocked Transaction is needed, but it can't be easily
+    # created, because it doesn't have a public constructor, it's supposed
+    # to be taken from resolved Goal.
+    @pytest.mark.skip("There is no transaction to use")
+    @patch("dnf.base.Base.download_packages")
+    @patch("dnf.base.Base.transaction")
+    def test_download_packages_failed(self, transaction, download_packages):
+        """Test the download_packages method with failed packages."""
+        callback = Mock()
+        transaction.install_set = ["p1", "p2", "p3"]
+        download_packages.side_effect = self._download_packages_failed
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 50 B / 300 B (16%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.')
+        ])
+
+    def _download_packages_failed(self, packages, progress):
+        """Simulate the failed download of packages."""
+        progress.start(total_files=3, total_size=300)
+
+        for name in packages:
+            payload = Mock()
+            payload.__str__ = Mock(return_value=name)
+            payload.download_size = 100
+
+            progress.last_time = 0
+            progress.progress(payload, 25)
+
+            progress.last_time = 0
+            progress.end(payload, libdnf5.repo.DownloadCallbacks_TransferStatus_ERROR, "Message!")
+
+        assert progress.downloads == {
+            "p1": 25,
+            "p2": 25,
+            "p3": 25
+        }
 
 
 class DNFManagerCompsTestCase(unittest.TestCase):

@@ -658,7 +658,7 @@ class DNFManager(object):
         self._set_download_callbacks(progress)
 
         # Prepare packages for download.
-        downloader = libdnf5.repo.PackageDownloader()
+        downloader = libdnf5.repo.PackageDownloader(self._base)
         packages = self._get_download_packages()
         destination = self.download_location
 
