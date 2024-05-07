@@ -1,0 +1,95 @@
+#!/usr/bin/python3
+#
+# generate_changelog - Generate changelog from the git history, so this could
+#                      be used to describe new releases.
+#
+# Copyright (C) 2009-2024  Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import argparse
+import subprocess
+
+VERBOSE = False
+
+
+def parse_args():
+    """Parse arguments"""
+    parser = argparse.ArgumentParser(description="""Generate changelog from a git history between
+                                     two commits.""",
+                                     epilog="""Without arguments the changelog is generated from
+                                     last two versions. Otherwise versions could be specified as
+                                     arguments.""")
+
+    parser.add_argument("-f", "--start-version", dest="start_version", default=None,
+                        metavar="START PACKAGE VERSION",
+                        help="From package version number (e.g. anaconda-41.15)")
+    parser.add_argument("-t", "--stop-version", dest="stop_version", default=None,
+                        metavar="STOP PACKAGE VERSION",
+                        help="Target package version number (e.g. anaconda-41.16)")
+    parser.add_argument("-v", dest="verbose", action="store_true", default=False,
+                        help="Enable verbose mode")
+
+    return parser.parse_args()
+
+
+def git_describe_call(from_commit=None):
+    """Call git describe command.
+
+    :returns: latest tag name
+    """
+    cmd_args = ["git", "describe", "--tags", "--abbrev=0"]
+    if from_commit:
+        cmd_args.append(from_commit)
+
+    ret = subprocess.run(cmd_args, capture_output=True, check=True)
+    return ret.stdout.decode().strip()
+
+
+def get_start_version(commit):
+    """Find start version from a git.
+
+    This version will be used as start for the changelog generation.
+
+    :param str commit: Start looking for version from the given commit.
+    """
+    to_version = commit
+    # Get last version starting from commit before the last version.
+    return git_describe_call(f"{to_version}~")
+
+
+def get_stop_version():
+    """Find last version from a git.
+
+    Detect version which will be end for the changelog generation.
+    """
+    return git_describe_call()
+
+
+def main():
+    """Main functions."""
+    global VERBOSE
+    args = parse_args()
+
+    VERBOSE = args.verbose
+
+    stop_version = args.stop_version or get_stop_version()
+    start_version = args.start_version or get_start_version(stop_version)
+
+    if VERBOSE:
+        print(f"Starting changelog generation from: {start_version} to: {stop_version}")
+
+
+if __name__ == "__main__":
+    main()
