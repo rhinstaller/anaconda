@@ -20,6 +20,7 @@
 
 import argparse
 import subprocess
+import re
 
 VERBOSE = False
 
@@ -77,6 +78,114 @@ def get_stop_version():
     return git_describe_call()
 
 
+def get_git_history(start_version, stop_version):
+    """Get log between given commits.
+
+    :returns: list of lines for each commit
+    """
+    ret = subprocess.run(['git', 'log', '--no-merges', '--pretty=oneline',
+                          f"{start_version}..{stop_version}~"],
+                         capture_output=True, check=True)
+    return ret.stdout.decode().strip().split('\n')
+
+
+def get_git_commit(commit, field):
+    """Get commit detail."""
+    ret = subprocess.run(['git', 'log', '-1', f"--pretty=format:{field}", commit],
+                         capture_output=True, check=True)
+    return ret.stdout.decode().strip('\n').split('\n')
+
+
+def get_commit_detail(commit, field):
+    """Get git commit detail."""
+    commit = get_git_commit(commit, field)
+
+    if len(commit) == 1 and commit[0].find('@') != -1:
+        commit = [commit[0].split('@')[0]]
+    elif len(commit) == 1:
+        commit = [commit[0]]
+    else:
+        commit = [x for x in commit if x != '']
+
+    return commit
+
+
+def extract_bugs_from_commit(body):
+    """Extract bugs from the commit."""
+    issues = set()
+
+    for bodyline in body:
+        # based on recommendation
+        # https://source.redhat.com/groups/public/release-engineering/release_engineering_rcm_wiki/using_gitbz
+        m = re.search(r"^(Resolves|Related|Reverts):\ +(\w+-\d+).*$", bodyline)
+        if not m:
+            continue
+
+        action = m.group(1)
+        bug = m.group(2)
+
+        if action and bug:
+            # store the bug to output list if checking is disabled and continue
+            issues.add(f"{action}: {bug}")
+
+    return issues
+
+
+def pretify_line(summary, author, bugs):
+    """Return line for the output generator."""
+    ret = f"- {summary.strip()} ({author})"
+
+    for b in bugs:
+        ret += f"\n  {b}"
+
+    return ret
+
+
+def generate_changelog(start_version, stop_version):
+    """Generate changelog from a git history.
+
+    Changelog will be in format:
+    summary (author)
+    """
+    commits = get_git_history(start_version, stop_version)
+
+    if VERBOSE:
+        print(f"Processing commits: \n{'\n'.join(commits)}\n")
+
+    rpm_log = []
+
+    for line in commits:
+        if not line:
+            continue
+        fields = line.split(' ')
+        commit = fields[0]
+
+        summary = get_commit_detail(commit, "%s")[0]
+        body = get_commit_detail(commit, "%b")
+        author = get_commit_detail(commit, "%aE")[0]
+
+        if re.match(r".*(#infra).*", summary) or re.match(r"infra: .*", summary):
+            if VERBOSE:
+                print(f"*** Ignoring (#infra) commit {commit}\n")
+            continue
+
+        if re.match(r".*(build\(deps-dev\)).*", summary):
+            if VERBOSE:
+                print(f"*** Ignoring (deps-dev) commit {commit}\n")
+            continue
+
+        if re.match(r".*(#test).*", summary):
+            if VERBOSE:
+                print(f"*** Ignoring (#test) commit {commit}\n")
+            continue
+
+        bugs = extract_bugs_from_commit(body)
+
+        rpm_log.append(pretify_line(summary, author, bugs))
+
+    return rpm_log
+
+
 def main():
     """Main functions."""
     global VERBOSE
@@ -89,6 +198,8 @@ def main():
 
     if VERBOSE:
         print(f"Starting changelog generation from: {start_version} to: {stop_version}")
+
+    print("\n".join(generate_changelog(start_version, stop_version)))
 
 
 if __name__ == "__main__":
