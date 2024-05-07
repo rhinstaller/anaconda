@@ -29,7 +29,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, simplify_config
 from pyanaconda.modules.payloads.payload.dnf.initialization import SetUpDNFSourcesResult, \
     SetUpDNFSourcesTask, TearDownDNFSourcesTask
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -146,7 +146,8 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
 
             dnf_manager = result.dnf_manager
             # The DNF manager should use the proxy of the source.
-            assert dnf_manager._base.conf.proxy == "http://proxy:3128"
+            config = simplify_config(dnf_manager._base.get_config())
+            assert config.get_proxy_option == "http://proxy:3128"
 
     def test_invalid_source(self):
         """Set up an invalid source."""
@@ -162,8 +163,8 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             with pytest.raises(SourceSetupError) as cm:
                 self._run_task(source)
 
-        msg = "Failed to add the 'anaconda' repository:"
-        assert str(cm.value).startswith(msg)
+        assert str(cm.value).startswith("Failed to download metadata")
+        assert str(cm.value).endswith("for repository \"anaconda\"")
 
     def test_valid_repository(self):
         """Set up a valid additional repository."""
@@ -200,8 +201,8 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             with pytest.raises(SourceSetupError) as cm:
                 self._run_task(source, [repository])
 
-            msg = "Failed to add the 'test' repository:"
-            assert str(cm.value).startswith(msg)
+            assert str(cm.value).startswith("Failed to download metadata")
+            assert str(cm.value).endswith("for repository \"test\"")
 
     def test_system_repository(self):
         """Set up a system repository."""
@@ -254,16 +255,17 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             dnf_manager = result.dnf_manager
 
             # The treeinfo release version is used.
-            assert dnf_manager._base.conf.releasever == "8.5"
+            assert dnf_manager._base.get_vars().get_value("releasever") == "8.5"
 
             # The treeinfo repositories are configured.
             assert dnf_manager.enabled_repositories == [
-                "anaconda", "AppStream"
+                "AppStream", "anaconda"
             ]
 
             # The treeinfo base repository is configured.
             repo_object = dnf_manager._get_repository("anaconda")
-            assert repo_object.baseurl == ["file://{}/baseos".format(path)]
+            repo_config = simplify_config(repo_object.get_config())
+            assert repo_config.get_baseurl_option == ("file://{}/baseos".format(path),)
 
             # Check the generated treeinfo repository.
             repository = RepoConfigurationData()
