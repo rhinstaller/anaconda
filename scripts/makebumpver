@@ -167,7 +167,6 @@ class MakeBumpVer:
         current_bug_reporting_mail = values[2]
         # also get the current release number
         regexp = re.compile(r"ANACONDA_RELEASE, \[(.*)\]")
-        self.current_release = re.search(regexp, config_ac).groups()[0]
 
         # argument parsing
         parser = argparse.ArgumentParser(description="Increments version number and adds the RPM spec file changelog block. "
@@ -180,10 +179,6 @@ class MakeBumpVer:
                             metavar="PACKAGE NAME", help="Package name.")
         parser.add_argument("-v", "--version", dest="version", default=current_version, metavar="CURRENT PACKAGE VERSION",
                             help="Current package version number.")
-        parser.add_argument("-r", "--release", dest="release", default=None, metavar="PACKAGE RELEASE NUMBER",
-                            help="Package release number.")
-        parser.add_argument("--newrelease", dest="new_release", default=None,
-                            help="Value for release in the .spec file.")
         parser.add_argument("-b", "--bugreport", dest="bugreporting_email", default=current_bug_reporting_mail, metavar="EMAIL ADDRESS",
                             help="Bug reporting email address.")
         parser.add_argument("-i", "--ignore", dest="ignored_commits", default=[], action=ParseCommaSeparatedList,
@@ -232,9 +227,6 @@ class MakeBumpVer:
 
         self.name = self.args.name
         self.version = self.args.version
-        self.release = self.args.release
-        self.new_release = self.args.new_release or self.release
-        self.new_release = f"-{self.new_release}" if self.new_release else ""
         self.bugreport = self.args.bugreporting_email
         self.ignore = self.args.ignored_commits
         self.skip = self.args.skip_all_checks
@@ -275,7 +267,7 @@ class MakeBumpVer:
         return ret
 
     def _rpm_log(self, fixedIn):
-        git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
+        git_range = "%s-%s.." % (self.name, self.version)
         proc = run_program(['git', 'log', '--no-merges', '--pretty=oneline', git_range])
         lines = proc[0].strip('\n').split('\n')
 
@@ -387,9 +379,6 @@ class MakeBumpVer:
                                                 newVersion,
                                                 self.bugreport)
 
-        i = l.index("AC_ARG_VAR(ANACONDA_RELEASE, [%s])\n" % self.current_release)
-        l[i] = "AC_ARG_VAR(ANACONDA_RELEASE, [%s])\n" % self.new_release
-
         f = open(self.configure, 'w')
         f.writelines(l)
         f.close()
@@ -409,8 +398,8 @@ class MakeBumpVer:
         f.write("%changelog\n")
         today = datetime.date.today()
         stamp = today.strftime("%a %b %d %Y")
-        f.write("* %s %s <%s> - %s-%s\n" % (stamp, self.gituser, self.gitemail,
-                                            newVersion, self.new_release or "1"))
+        f.write("* %s %s <%s> - %s-1\n" % (stamp, self.gituser,
+                                           self.gitemail, newVersion))
 
         for msg, bugs in rpmlog:
             msg = re.sub('(?<!%)%%(?!%)|(?<!%%)%(?!%%)', '%%', msg)
@@ -432,7 +421,7 @@ class MakeBumpVer:
     def _do_release_commit(self, new_version):
         log.info("creating a tagged release commit")
         commit_message = "New version - %s" % new_version
-        release_tag = "anaconda-%s%s" % (new_version, self.new_release)
+        release_tag = "anaconda-%s" % (new_version)
         # stage configure.ac and the spec file
         run_program(['git', 'add', self.configure, self.spec])
         # log the changes that will be commited
@@ -450,7 +439,7 @@ class MakeBumpVer:
     def run(self):
         newVersion = self._increment_version(bump_major_version=self.args.bump_major_version,
                                             add_version_number=self.args.add_version_number)
-        fixedIn = "%s-%s%s" % (self.name, newVersion, self.new_release)
+        fixedIn = "%s-%s" % (self.name, newVersion)
         rpmlog = self._rpm_log(fixedIn)
 
         if not self.dry_run:
