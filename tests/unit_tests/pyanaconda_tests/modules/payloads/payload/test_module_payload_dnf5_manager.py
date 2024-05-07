@@ -20,7 +20,7 @@ import subprocess
 import unittest
 from tempfile import TemporaryDirectory
 from textwrap import dedent
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, call, patch
 
 import libdnf5
 import pytest
@@ -109,6 +109,7 @@ class DNFManagerTestCase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.dnf_manager = DNFManager()
+        self.download_progress = None
 
     def _get_configuration(self):
         """Get the configuration of the DNF base."""
@@ -368,6 +369,128 @@ class DNFManagerTestCase(unittest.TestCase):
 
         self.dnf_manager.reset_substitution()
         self._check_variables(releasever="rawhide")
+
+    @patch.object(DNFManager, '_set_download_callbacks')
+    @patch("libdnf5.repo.PackageDownloader.download")
+    @patch("libdnf5.repo.PackageDownloader.add")
+    def test_download_packages(self, add_package, download_packages, set_download_callbacks):
+        """Test the download_packages method."""
+        self.dnf_manager.setup_base()
+
+        tspkg = Mock(spec=libdnf5.base.TransactionPackage)
+        tspkg.get_package.return_value = Mock(spec=libdnf5.rpm.Package)
+        tspkg.get_action.return_value = libdnf5.transaction.TransactionItemAction_INSTALL
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.get_transaction_packages.return_value = [tspkg]
+
+        callback = Mock()
+        add_package.return_value = None
+        download_packages.side_effect = self._download_packages
+        # The DNFManager._set_download_callbacks method needs to be mocked, because otherwise
+        # we wouldn't have access to the DownloadProgress.last_time attribute.
+        set_download_callbacks.side_effect = self._set_download_callbacks
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 1 RPMs, 0 B / 100 B (0%) done.'),
+            call('Downloading 2 RPMs, 0 B / 200 B (0%) done.'),
+            call('Downloading 3 RPMs, 0 B / 300 B (0%) done.'),
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.'),
+            call('Downloading 3 RPMs, 100 B / 300 B (33%) done.'),
+            call('Downloading 3 RPMs, 125 B / 300 B (41%) done.'),
+            call('Downloading 3 RPMs, 175 B / 300 B (58%) done.'),
+            call('Downloading 3 RPMs, 200 B / 300 B (66%) done.'),
+            call('Downloading 3 RPMs, 225 B / 300 B (75%) done.'),
+            call('Downloading 3 RPMs, 275 B / 300 B (91%) done.'),
+            call('Downloading 3 RPMs, 300 B / 300 B (100%) done.')
+        ])
+
+    def _download_packages(self):
+        """Simulate the download of packages."""
+        download_size = 100
+
+        for i, name in enumerate(["p1", "p2", "p3"]):
+            self.download_progress.last_time = 0
+            self.download_progress.add_new_download(i, name, download_size)
+
+        for i in range(3):
+            self.download_progress.last_time = 0
+            self.download_progress.progress(i, download_size, 25)
+            self.download_progress.last_time += 3600
+            self.download_progress.progress(i, download_size, 50)
+            self.download_progress.last_time = 0
+            self.download_progress.progress(i, download_size, 75)
+            self.download_progress.last_time = 0
+            self.download_progress.progress(i, download_size, 100)
+            self.download_progress.end(i, libdnf5.repo.DownloadCallbacks.TransferStatus_SUCCESSFUL, "Message!")
+
+        assert self.download_progress.downloads == {
+            "p1": 100,
+            "p2": 100,
+            "p3": 100
+        }
+
+    def _set_download_callbacks(self, callbacks):
+        """Mock the DNFManager._set_download_callbacks, so that we can store the
+        DownloadProgress and can set DownloadProgress.last_time attribute later.
+        """
+        self.dnf_manager._base.set_download_callbacks(
+            libdnf5.repo.DownloadCallbacksUniquePtr(callbacks)
+        )
+        self.download_progress = callbacks
+
+    @patch.object(DNFManager, '_set_download_callbacks')
+    @patch("libdnf5.repo.PackageDownloader.download")
+    @patch("libdnf5.repo.PackageDownloader.add")
+    def test_download_packages_failed(self, add_package, download_packages, set_download_callbacks):
+        """Test the download_packages method with failed packages."""
+        self.dnf_manager.setup_base()
+
+        tspkg = Mock(spec=libdnf5.base.TransactionPackage)
+        tspkg.get_package.return_value = Mock(spec=libdnf5.rpm.Package)
+        tspkg.get_action.return_value = libdnf5.transaction.TransactionItemAction_INSTALL
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.get_transaction_packages.return_value = [tspkg]
+
+        callback = Mock()
+        add_package.return_value = None
+        download_packages.side_effect = self._download_packages_failed
+        # The DNFManager._set_download_callbacks method needs to be mocked, because otherwise
+        # we wouldn't have access to the DownloadProgress.last_time attribute.
+        set_download_callbacks.side_effect = self._set_download_callbacks
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 1 RPMs, 0 B / 100 B (0%) done.'),
+            call('Downloading 2 RPMs, 0 B / 200 B (0%) done.'),
+            call('Downloading 3 RPMs, 0 B / 300 B (0%) done.'),
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 50 B / 300 B (16%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.'),
+        ])
+
+    def _download_packages_failed(self):
+        """Simulate the failed download of packages."""
+        download_size = 100
+
+        for i, name in enumerate(["p1", "p2", "p3"]):
+            self.download_progress.last_time = 0
+            self.download_progress.add_new_download(i, name, download_size)
+
+        for i in range(3):
+            self.download_progress.last_time = 0
+            self.download_progress.progress(i, download_size, 25)
+            self.download_progress.last_time = 0
+            self.download_progress.end(i, libdnf5.repo.DownloadCallbacks.TransferStatus_ERROR, "Message!")
+
+        assert self.download_progress.downloads == {
+            "p1": 25,
+            "p2": 25,
+            "p3": 25
+        }
 
 
 class DNFManagerCompsTestCase(unittest.TestCase):
