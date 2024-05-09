@@ -347,11 +347,6 @@ class DNFManagerTestCase(unittest.TestCase):
         # Unknown variables.
         assert self.dnf_manager.substitute("/$unknown") == "/$unknown"
 
-        # FIXME: Some variables are defined by base.setup().
-        assert self.dnf_manager.substitute("/$arch") == "/$arch"
-        assert self.dnf_manager.substitute("/$basearch") == "/$basearch"
-        assert self.dnf_manager.substitute("/$releasever") != "/$releasever"
-
         # Supported variables.
         assert self.dnf_manager.substitute("/$arch") != "/$arch"
         assert self.dnf_manager.substitute("/$basearch") != "/$basearch"
