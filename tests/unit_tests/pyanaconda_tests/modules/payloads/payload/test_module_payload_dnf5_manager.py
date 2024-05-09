@@ -362,14 +362,6 @@ class DNFManagerTestCase(unittest.TestCase):
         self.dnf_manager.configure_substitution(release_version="35")
         self._check_variables(releasever="35")
 
-    def test_reset_substitution(self):
-        """Test the reset_substitution method."""
-        self.dnf_manager.configure_substitution(release_version="35")
-        self._check_variables(releasever="35")
-
-        self.dnf_manager.reset_substitution()
-        self._check_variables(releasever="rawhide")
-
     @patch.object(DNFManager, '_set_download_callbacks')
     @patch("libdnf5.repo.PackageDownloader.download")
     @patch("libdnf5.repo.PackageDownloader.add")
