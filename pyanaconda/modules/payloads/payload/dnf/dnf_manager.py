@@ -174,7 +174,7 @@ class DNFManager(object):
         base.get_vars().set("releasever", get_product_release_version())
 
         # Load variables from the host (rhbz#1920735).
-        base.conf.substitutions.update_from_etc("/")
+        # Vars are now loaded during base.setup()
 
         # Set the installation root.
         config.get_installroot_option = conf.target.system_root
