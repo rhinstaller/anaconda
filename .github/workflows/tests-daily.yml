@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['master']
+        release: ['master', 'rhel-9', 'rhel-10']
         include:
           - release: 'master'
             target_branch: 'master'
@@ -52,6 +52,12 @@ jobs:
           #  target_branch: 'master'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+          - release: 'rhel-9'
+            target_branch: 'rhel-9'
+            ci_tag: 'rhel-9'
+          - release: 'rhel-10'
+            target_branch: 'rhel-10'
+            ci_tag: 'rhel-10'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -84,11 +90,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['master']
+        release: ['master', 'rhel-9', 'rhel-10']
         include:
           - release: 'master'
             target_branch: 'master'
             ci_tag: 'master'
+          - release: 'rhel-9'
+            target_branch: 'rhel-9'
+            ci_tag: 'rhel-9'
+          - release: 'rhel-10'
+            target_branch: 'rhel-10'
+            ci_tag: 'rhel-10'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'

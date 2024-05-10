@@ -43,7 +43,7 @@ jobs:
         # * This is still a matrix because we might re-enable ELN one day and then we will need
         #   a matrix here.
         #}
-        release: ['master'{% for branch in supported_branches if branch.variant == "fedora" %}, '{$ branch|first $}'{% endfor %}]
+        release: ['master'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
         include:
           - release: 'master'
             target_branch: 'master'
@@ -53,7 +53,7 @@ jobs:
           #  target_branch: 'master'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% for branch in supported_branches if branch.variant == "fedora" %}
+        {% for branch in supported_branches %}
           - release: '{$ branch|first $}'
             target_branch: '{$ branch|first $}'
             ci_tag: '{$ branch|first $}'
@@ -91,12 +91,12 @@ jobs:
       fail-fast: false
       matrix:
         {# For matrix details, see comments for the unit tests above. #}
-        release: ['master'{% for branch in supported_branches if branch.variant == "fedora" %}, '{$ branch|first $}'{% endfor %}]
+        release: ['master'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
         include:
           - release: 'master'
             target_branch: 'master'
             ci_tag: 'master'
-        {% for branch in supported_branches if branch.variant == "fedora" %}
+        {% for branch in supported_branches %}
           - release: '{$ branch|first $}'
             target_branch: '{$ branch|first $}'
             ci_tag: '{$ branch|first $}'
