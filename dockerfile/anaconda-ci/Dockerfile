@@ -33,7 +33,7 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 # Prepare environment and install build dependencies
 RUN set -ex; \
   dnf install -y \
-  'dnf-command(copr)'; \
+  'dnf5-command(copr)'; \
   # Enable COPR repositories
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     BRANCH="${git_branch}"; \
