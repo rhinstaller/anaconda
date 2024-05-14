@@ -354,7 +354,7 @@ class DNFManager(object):
     def _create_base(cls):
         """Create a new DNF base."""
         base = libdnf5.base.Base()
-        base.load_config_from_file()
+        base.load_config()
 
         config = simplify_config(base.get_config())
         config.reposdir = DNF_REPO_DIRS
