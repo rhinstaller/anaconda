@@ -89,7 +89,7 @@ jobs:
           set -eux
           # comment on PR
           pr_num="${{ github.event.issue.number }}"
-          timestamp=${{ steps.teimstamp.outputs.timestamp }}
+          timestamp=${{ steps.timestamp.outputs.timestamp }}
           sha="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
           echo "image_description=pr$pr_num-$timestamp-$sha" >> $GITHUB_OUTPUT
           fi
@@ -100,6 +100,7 @@ jobs:
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      kstest_run_description: ${{steps.kstest_run_description.outputs.image_description}}
 
   run:
     needs: pr-info

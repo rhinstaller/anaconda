@@ -94,7 +94,7 @@ jobs:
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
-      timestamp: ${{steps.kstest_run_description.outputs.image_description}}
+      kstest_run_description: ${{steps.kstest_run_description.outputs.image_description}}
 
   run:
     needs: pr-info
