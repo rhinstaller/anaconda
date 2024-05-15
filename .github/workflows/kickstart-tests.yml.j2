@@ -24,8 +24,8 @@
 
 name: kickstart-tests
 on:
-  issue_comment:
-    types: [created]
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
@@ -33,45 +33,15 @@ permissions:
 
 jobs:
   pr-info:
-    if: startsWith(github.event.comment.body, '/kickstart-test')
     runs-on: ubuntu-latest
     steps:
-      - name: Query comment author repository permissions
-        uses: octokit/request-action@v2.x
-        id: user_permission
-        with:
-          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # restrict running of tests to users with admin or write permission for the repository
-      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
-      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
-      - name: Check if user does have correct permissions
-        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
-        id: check_user_perm
-        run: |
-          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
-          echo "allowed_user=true" >> $GITHUB_OUTPUT
-
       - name: Get information for pull request
         uses: octokit/request-action@v2.x
         id: pr_api
         with:
-          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Parse comment arguments
-        id: parse_comment_args
-        # Do not use comment body directly in the shell command to avoid possible code injection.
-        env:
-          BODY: ${{ github.event.comment.body }}
-        run: |
-          # extract first line and cut out the "/kickstart-tests" first word
-          ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
-          echo "workflow arguments are: $ARGS"
-          echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
 
       - name: Get timestamp
         id: timestamp
@@ -82,47 +52,33 @@ jobs:
         run: |
           set -eux
           # comment on PR
-          pr_num="${{ github.event.issue.number }}"
+          pr_num="${{ github.event.number }}"
           timestamp=${{ steps.timestamp.outputs.timestamp }}
           sha="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
           echo "image_description=pr$pr_num-$timestamp-$sha" >> $GITHUB_OUTPUT
-          fi
 
     outputs:
-      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
+      allowed_user: 'true'
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
-      comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
+      comment_args: '--testtype smoke'
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       kstest_run_description: ${{steps.kstest_run_description.outputs.image_description}}
 
   run:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != '' && ! contains(github.event.comment.body, '--waive')
+    if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
        STATUS_NAME: kickstart-test
-       TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
+       TARGET_BRANCH: 'master'
        CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
     steps:
-      # we post statuses manually as this does not run from a pull_request event
-      # https://developer.github.com/v3/repos/statuses/#create-a-status
-      - name: Create in-progress status
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.comment_args }}'
-          description: 'gathering repositories [${{ runner.name }}]'
-          state: pending
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
       # need to run sudo as the launch script and the container create root/other user owned files
       - name: Clean up previous run
@@ -137,14 +93,6 @@ jobs:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
           path: anaconda
-
-      - name: Rebase to current ${{ env.TARGET_BRANCH }}
-        working-directory: ./anaconda
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git log --oneline -1 origin/${{ env.TARGET_BRANCH }}
-          git rebase origin/${{ env.TARGET_BRANCH }}
 
       - name: Check out kickstart-tests
         uses: actions/checkout@v4
@@ -203,17 +151,6 @@ jobs:
         run: |
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
-      - name: Post status building artifacts
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.comment_args }}'
-          description: 'building artifacts [${{ runner.name }}]'
-          state: pending
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
         run: |
@@ -260,17 +197,6 @@ jobs:
           [library]
           directPath=${{ github.workspace }}/kickstart-tests/testlib
           EOF
-
-      - name: Post status running tests
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.comment_args }}'
-          description: 'running tests [${{ runner.name }}]'
-          state: pending
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run kickstart tests in container
         working-directory: ./permian
@@ -319,41 +245,4 @@ jobs:
             kickstart-tests/data/logs/kstest-list-substituted/
             kickstart-tests/data/additional_repo/*.rpm
             permian/permian.log
-
-      - name: Set result status
-        if: always()
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.comment_args }}'
-          description: 'finished [${{ runner.name }}]'
-          state: ${{ job.status }}
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  waive:
-    runs-on: ubuntu-latest
-    needs: pr-info
-    if: needs.pr-info.outputs.allowed_user == 'true' && contains(github.event.comment.body, '--waive')
-    steps:
-
-      - name: Get the waiving reason
-        id: get_reason
-        env:
-          BODY: ${{ github.event.comment.body }}
-        run: |
-          REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##" | sed 's/[[:space:]]*$//')
-          echo "reason=Waived, $REASON" >> $GITHUB_OUTPUT
-
-      - name: Set status
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: 'kickstart-test --testtype smoke'
-          description: '${{ steps.get_reason.outputs.reason }}'
-          state: ${{ job.status }}
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 {% endif %}
