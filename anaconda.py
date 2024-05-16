@@ -21,7 +21,7 @@
 
 # This toplevel file is a little messy at the moment... (2001-06-22)
 # ...still messy (2013-07-12)
-# A lot less messy now. :) (2016-10-13)
+# A lot less messy now. :( (2016-10-13)
 
 import os
 import atexit
