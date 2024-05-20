@@ -474,6 +474,23 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 20 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.3-1
+- Update translations from Weblate for rhel-10 (github-actions)
+- Add release note for NVMe-oF (vslavik)
+  Related: RHEL-27200
+- Add a NVMe-FC tab to the Advanced Storage screen (vslavik)
+  Resolves: RHEL-27200
+- Update the .glade file for the Advanced Storage screen (vponcova)
+  Related: RHEL-27200
+- Filter out NVMe over Fibre Channel from local disks (vslavik)
+  Resolves: RHEL-27200
+- Install nvme-cli on boot.iso (vslavik)
+  Resolves: RHEL-27200
+- Add release note for new ping command in Dracut (jkonecny)
+  Related: RHEL-32760
+- Add ping tool to Dracut (jkonecny)
+  Resolves: RHEL-32760
+
 * Wed Apr 24 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.2-1
 - network: guard team devices configuration from kickstart by capabilities
   (rvykydal)
