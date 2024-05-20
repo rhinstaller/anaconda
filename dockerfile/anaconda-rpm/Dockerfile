@@ -17,6 +17,7 @@ RUN set -e; \
   dnf update -y; \
   dnf install -y \
   curl-minimal \
+  git \
   python3-pip \
   /usr/bin/xargs \
   rpm-build; \
