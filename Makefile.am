@@ -50,7 +50,6 @@ uninstall-hook:
 # Set environment if 'make -f Makefile.am' is called to avoid autotools
 srcdir ?= $(CURDIR)
 
-ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 # Set this to "true" if you want to have SRPM archive with test version
 TEST_BUILD	?= "false"
 
@@ -116,10 +115,6 @@ dist-hook:
 	    break ; \
 	done
 
-tag:
-	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
-	@echo "Tagged as $(ARCHIVE_TAG)"
-
 pot:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 	rm -f $(srcdir)/po/{main,main_js}.pot
@@ -176,10 +171,6 @@ container-release:
 	$(CONTAINER_CONFIGURE_ARGS) \
 	$(RELEASE_NAME):$(CI_TAG) \
 	sh -exc './autogen.sh && ./configure && make release'
-
-release-and-tag:
-	$(MAKE) dist
-	$(MAKE) tag
 
 anaconda-ci-build:
 	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
