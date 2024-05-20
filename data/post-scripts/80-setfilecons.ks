@@ -8,6 +8,13 @@
 #   responsibility (see https://github.com/ostreedev/ostree/pull/872 )
 # - OSTree variants of the traditional mounts if present
 
+RESCUE_MODE=/tmp/RESCUE_MODE
+
+# Do not automatically modify files on the system being rescued.
+if [ -e ${RESCUE_MODE} ]; then
+    exit 0
+fi
+
 echo "Restoring SElinux contexts..."
 
 restorecon -ir \

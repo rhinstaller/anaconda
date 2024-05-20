@@ -405,6 +405,11 @@ if __name__ == "__main__":
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
 
+    # Check if we are running in rescue mode to avoid running some post
+    # scripts later.
+    if flags.rescue_mode:
+        util.touch(constants.RESCUE_MODE_PATH)
+
     # reboot with kexec
     if ksdata.reboot.kexec:
         flags.kexec = True
