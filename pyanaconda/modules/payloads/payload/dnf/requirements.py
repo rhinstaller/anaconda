@@ -21,7 +21,8 @@ import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
+from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP, \
+    MULTILIB_POLICY_BEST
 from pyanaconda.core.hw import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
@@ -76,6 +77,29 @@ def collect_language_requirements(dnf_manager):
             package_name="langpacks-" + best_locale,
             reason="Required to support the locale '{}'.".format(locale)
         ))
+
+    return requirements
+
+
+def collect_dnf_requirements(dnf_manager, packages_configuration):
+    """Collect the requirements for the current dnf.
+
+    :param dnf_manager: a DNF manager
+    :param package_configuration: packages selection
+    :return: a list of requirements
+    """
+    requirements = []
+
+    # Detect if dnf plugin is required
+    if dnf_manager.is_package_available("dnf5"):
+        plugins_name = "dnf5-modules"
+    else:
+        plugins_name = "dnf-plugins-core"
+
+    if packages_configuration.multilib_policy != MULTILIB_POLICY_BEST:
+        requirements.append(
+            Requirement.for_package(plugins_name, reason="Needed to enable multilib support.")
+        )
 
     return requirements
 

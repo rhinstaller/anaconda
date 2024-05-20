@@ -19,14 +19,16 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
+from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP, \
+    MULTILIB_POLICY_ALL, MULTILIB_POLICY_BEST
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
-    apply_requirements
+    apply_requirements, collect_dnf_requirements
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 
 
 class DNFRequirementsTestCase(unittest.TestCase):
@@ -117,6 +119,40 @@ class DNFRequirementsTestCase(unittest.TestCase):
         )
 
         self._compare_requirements(requirements, [r1])
+
+    @patch('pyanaconda.core.hw.execWithCapture')
+    def test_collect_dnf_requirements(self, execute):
+        """Test the function collect_dnf_requirements."""
+
+        data = PackagesConfigurationData()
+        data.multilib_policy = MULTILIB_POLICY_BEST
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.is_package_available.return_value = True
+
+        # No need for dnf config
+        execute.return_value = None
+        requirements = collect_dnf_requirements(dnf_manager, data)
+        assert requirements == []
+
+        data.multilib_policy = MULTILIB_POLICY_ALL
+
+        # Require dnf-5 version of plugins
+        dnf_manager.is_package_available.return_value = True
+        requirements = collect_dnf_requirements(dnf_manager, data)
+        r = self._create_requirement(
+            name="dnf5-modules",
+            reason="Needed to enable multilib support."
+        )
+        self._compare_requirements(requirements, [r])
+
+        # Require dnf-4 version of plugins
+        dnf_manager.is_package_available.return_value = False
+        requirements = collect_dnf_requirements(dnf_manager, data)
+        r = self._create_requirement(
+            name="dnf-plugins-core",
+            reason="Needed to enable multilib support."
+        )
+        self._compare_requirements(requirements, [r])
 
     def test_collect_driver_disk_requirements(self):
         """Test the function collect_driver_disk_requirements."""

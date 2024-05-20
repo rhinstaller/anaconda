@@ -22,7 +22,8 @@ import rpm
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL, MULTILIB_POLICY_BEST
+from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL, \
+    MULTILIB_POLICY_BEST
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
@@ -30,7 +31,7 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_remote_requirements, \
-    collect_language_requirements, collect_platform_requirements, \
+    collect_language_requirements, collect_platform_requirements, collect_dnf_requirements, \
     collect_driver_disk_requirements, apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location, \
     get_kernel_version_list
@@ -100,6 +101,18 @@ class SetRPMMacrosTask(Task):
 class ResolvePackagesTask(CheckPackagesSelectionTask):
     """Installation task to resolve the software selection."""
 
+    def __init__(self, dnf_manager, selection, configuration):
+        """Resolve packages task
+
+        :param dnf_manager: a DNF manager
+        :param selection: a package selection data
+        :param configuration: a packages configuration data
+        """
+        super().__init__(dnf_manager, selection)
+        self._dnf_manager = dnf_manager
+        self._selection = selection
+        self._configuration = configuration
+
     @property
     def name(self):
         """The name of the task."""
@@ -132,6 +145,7 @@ class ResolvePackagesTask(CheckPackagesSelectionTask):
         return collect_remote_requirements() \
             + collect_language_requirements(self._dnf_manager) \
             + collect_platform_requirements(self._dnf_manager) \
+            + collect_dnf_requirements(self._dnf_manager, self._configuration) \
             + collect_driver_disk_requirements()
 
     def _collect_required_specs(self):
@@ -377,7 +391,7 @@ class ImportRPMKeysTask(Task):
 class UpdateDNFConfigurationTask(Task):
     """The installation task to update the dnf.conf file."""
 
-    def __init__(self, sysroot, configuration: PackagesConfigurationData):
+    def __init__(self, sysroot, configuration: PackagesConfigurationData, dnf_manager):
         """Create a new task.
 
         :param sysroot: a path to the system root
@@ -386,6 +400,7 @@ class UpdateDNFConfigurationTask(Task):
         super().__init__()
         self._sysroot = sysroot
         self._data = configuration
+        self._dnf_manager = dnf_manager
 
     @property
     def name(self):
@@ -405,11 +420,18 @@ class UpdateDNFConfigurationTask(Task):
         log.debug("Setting '%s' to '%s'.", option, value)
 
         cmd = "dnf"
-        args = [
-            "config-manager",
-            "--save",
-            "--setopt={}={}".format(option, value),
-        ]
+        if self._dnf_manager.is_package_available("dnf5"):
+            args = [
+                "config-manager",
+                "setopt",
+                "{}={}".format(option, value)
+            ]
+        else:
+            args = [
+                "config-manager",
+                "--save",
+                "--setopt={}={}".format(option, value)
+            ]
 
         try:
             rc = util.execWithRedirect(cmd, args, root=self._sysroot)
