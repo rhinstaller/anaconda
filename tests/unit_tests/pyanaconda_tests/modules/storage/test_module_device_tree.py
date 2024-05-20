@@ -22,11 +22,11 @@ import unittest
 import pytest
 
 from unittest.mock import patch, Mock, PropertyMock
-
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
-    LUKSDevice, iScsiDiskDevice, FcoeDiskDevice, OpticalDevice
+    LUKSDevice, iScsiDiskDevice, FcoeDiskDevice, OpticalDevice, NVMeFabricsNamespaceDevice
+from blivet.devices.disk import NVMeController
 from blivet.errors import StorageError, FSError
 from blivet.formats import get_format, device_formats, DeviceFormat
 from blivet.formats.fs import FS, Iso9660FS
@@ -69,6 +69,46 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
     def _add_device(self, device):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
+
+    def test_get_attribute(self):
+        """Test the _get_attribute method."""
+        value = None
+        assert self.module._get_attribute(value, "x") is None
+
+        value = Mock(x=None)
+        assert self.module._get_attribute(value, "x") is None
+
+        value = Mock(x="")
+        assert self.module._get_attribute(value, "x") is None
+
+        value = Mock(x=0)
+        assert self.module._get_attribute(value, "x") == "0"
+
+        value = Mock(x=1)
+        assert self.module._get_attribute(value, "x") == "1"
+
+        value = Mock(x="test")
+        assert self.module._get_attribute(value, "x") == "test"
+
+    def test_get_attribute_list(self):
+        """Test the _get_attribute_list method."""
+        values = []
+        assert self.module._get_attribute_list(values, "x") is None
+
+        values = [None, Mock(x=None), Mock(x="")]
+        assert self.module._get_attribute_list(values, "x") is None
+
+        values = [Mock(x=0)]
+        assert self.module._get_attribute_list(values, "x") == "0"
+
+        values = [Mock(x=1), Mock(x=0)]
+        assert self.module._get_attribute_list(values, "x") == "0, 1"
+
+        values = [Mock(x=1), Mock(x=0), Mock(x=2)]
+        assert self.module._get_attribute_list(values, "x") == "0, 1, 2"
+
+        values = [Mock(x=1), Mock(x=0), Mock(x=2), Mock(x=0), Mock(x=1)]
+        assert self.module._get_attribute_list(values, "x") == "0, 1, 2"
 
     def test_get_root_device(self):
         """Test GetRootDevice."""
@@ -226,6 +266,58 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "lun": "0",
             "target": "iqn.2014-08.com.example:t1",
             "path-id": "pci-0000:00:00.0-bla-1"
+        })
+
+    def test_get_nvme_fabrics_device_data(self):
+        """Test GetDeviceData for NVMe Fabrics."""
+        dev = NVMeFabricsNamespaceDevice(
+            "nvme4n1",
+            fmt=get_format("ext4"),
+            size=Size("10 GiB"),
+            nsid=5,
+            eui64="eui.f04xxxxxxxxx0000000100000001",
+            nguid="0xf04xxxxxxxxx0000000100000001"
+        )
+        ctrl1 = NVMeController(
+            id=124,
+            name='nvme1',
+            nvme_ver='1.0',
+            serial='80BgLFM7xMoBLABLABLA',
+            transport='fc',
+            transport_address='0x10000000',
+            subsysnqn='nqn.1992-08.com.example:blabla:subsystem.nvme_4',
+        )
+        ctrl2 = NVMeController(
+            id=123,
+            name='nvme2',
+            nvme_ver='1.0',
+            serial='80BgLFM7xMoBLABLABLA',
+            transport='fc',
+            transport_address='0x20000000',
+            subsysnqn='nqn.1992-08.com.example:blabla:subsystem.nvme_4',
+        )
+        ctrl3 = NVMeController(
+            id=126,
+            name='nvme3',
+            nvme_ver='1.0',
+            serial='80BgLFM7xMoBLABLABLA',
+            transport='fc',
+            transport_address='0x30000000',
+            subsysnqn='nqn.1992-08.com.example:blabla:subsystem.nvme_4',
+        )
+        dev._controllers = [ctrl1, ctrl2, ctrl3]
+        self._add_device(dev)
+
+        data = self.interface.GetDeviceData("nvme4n1")
+        assert data['type'] == get_variant(Str, 'nvme-fabrics')
+        assert data['attrs'] == get_variant(Dict[Str, Str], {
+            "nsid": "5",
+            "eui64": "eui.f04xxxxxxxxx0000000100000001",
+            "nguid": "0xf04xxxxxxxxx0000000100000001",
+            "controllers-id": "123, 124, 126",
+            "transports-type": "fc",
+            "transports-address": "0x10000000, 0x20000000, 0x30000000",
+            "subsystems-nqn": "nqn.1992-08.com.example:blabla:subsystem.nvme_4",
         })
 
     def test_get_zfcp_device_data(self):
