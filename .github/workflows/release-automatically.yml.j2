@@ -41,7 +41,7 @@ jobs:
         run: |
           # expected retvals and outputs for `git describe`:
           # 128 -> fatal: no tag exactly matches 'c88a1272ffbc002042fd62ed409734c1c150cc5f'
-          # 0 -> anaconda-38.6-1
+          # 0 -> anaconda-41.13
           if git describe --tags --exact-match ; then
             echo "::warning:: Already tagged at HEAD, will not push a release commit."
           else
