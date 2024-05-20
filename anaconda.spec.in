@@ -416,6 +416,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 20 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.4-1
+- Update translations from Weblate for rhel-9
+- Do not rewrite logs in rescue mode (jstodola)
+  Resolves: RHEL-4794
+- Write a warning rescue selinux (akankovs)
+  Resolves: RHEL-14005
+- Fix kickstart --dhcpclass option application (rvykydal)
+  Resolves: RHEL-30406
+
 * Mon Apr 15 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.3-1
 - Fix Source0 in spec to point to upstream source URL (kkoukiou)
 - Do not try to load sha256 module in intramfs (rvykydal)
