@@ -1,6 +1,7 @@
 #
 # Anaconda main DBus module & module manager.
 #
+#
 # Copyright (C) 2017 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
