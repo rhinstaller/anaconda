@@ -120,7 +120,7 @@ tag:
 
 pot:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
-	rm -f $(srcdir)/po/{main,main_js}.pot
+	rm -f $(srcdir)/po/main.pot
 
 pot-update-check: pot
 # This check is used by github action for auto update of pot file

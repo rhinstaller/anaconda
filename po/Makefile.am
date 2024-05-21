@@ -115,8 +115,6 @@ sr@latin.mpo: $(srcdir)/sr.po
 XGETTEXT = $(top_srcdir)/translation-canary/xgettext_werror.sh
 XGETTEXT_OPTIONS = --keyword=_ --keyword=N_ --keyword=P_:1,2 \
 		   --keyword=C_:1c,2 --keyword=CN_:1c,2 --keyword=CP_:1c,2,3 \
-		   --keyword=gettext:1,1t --keyword=gettext:1c,2,2t \
-		   --keyword=ngettext:1,2,3t --keyword=ngettext:1c,2,3,4t \
 		   --add-comments=TRANSLATORS: \
 		   --sort-output \
 		   --from-code=UTF-8 --package-name=$(PACKAGE) \
