@@ -416,6 +416,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 22 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.5-1
+- infra: Sync po directory build scripts with master
+
 * Mon May 20 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.4-1
 - Update translations from Weblate for rhel-9
 - Do not rewrite logs in rescue mode (jstodola)
