@@ -8,8 +8,20 @@
 # File to automatically label pull requests
 # See https://github.com/actions/labeler
 
-# Always apply target fedora version to any changes
-f41:
+rawhide:
+- base-branch: master
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['**']
+
+rhel-9:
+- base-branch: rhel-9
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['**']
+
+rhel-10:
+- base-branch: rhel-10
 - any:
   - changed-files:
     - any-glob-to-any-file: ['**']
