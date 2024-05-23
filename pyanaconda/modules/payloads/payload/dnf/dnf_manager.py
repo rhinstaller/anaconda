@@ -258,7 +258,7 @@ class DNFManager:
         :return: a list of ids
         """
         environments = libdnf5.comps.EnvironmentQuery(self._base)
-        return [env.get_environmentid() for env in environments.list()]
+        return [env.get_environmentid() for env in environments]
 
     def _get_environment(self, environment_name):
         """Translate the given environment name to a DNF object.
@@ -271,7 +271,7 @@ class DNFManager:
 
         environments = libdnf5.comps.EnvironmentQuery(self._base)
         environments.filter_name(environment_name)
-        return next(iter(environments.list()), None)
+        return next(iter(environments), None)
 
     def resolve_environment(self, environment_name):
         """Translate the given environment name to a group ID.
@@ -338,7 +338,7 @@ class DNFManager:
         :return: a list of IDs
         """
         groups = libdnf5.comps.GroupQuery(self._base)
-        return [g.get_groupid() for g in groups.list()]
+        return [g.get_groupid() for g in groups]
 
     def _get_group(self, group_name):
         """Translate the given group name into a DNF object.
@@ -348,7 +348,7 @@ class DNFManager:
         """
         groups = libdnf5.comps.GroupQuery(self._base)
         groups.filter_name(group_name)
-        return next(iter(groups.list()), None)
+        return next(iter(groups), None)
 
     def resolve_group(self, group_name):
         """Translate the given group name into a group ID.
