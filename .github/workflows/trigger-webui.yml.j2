@@ -50,7 +50,7 @@ jobs:
           COPR_NAME="${{ github.event.pull_request.base.user.login }}-${{ github.event.pull_request.base.repo.name }}-${{ github.event.number }}"
           for _ in $(seq 60); do
               sleep 60;
-              if dnf copr enable -y packit/$COPR_NAME &&
+              if dnf copr enable -y packit/$COPR_NAME fedora-rawhide-x86_64 &&
                  out=$(dnf info --refresh --repo='copr:*anaconda*' anaconda) &&
                  stamp=$(echo "$out" | awk '/^Release/ { split($3, v, "."); print substr(v[2], 0, 14)}' | head -1) &&
                  [ "$stamp" -gt "$PUSH_TIME" ]; then
