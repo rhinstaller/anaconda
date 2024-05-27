@@ -168,7 +168,7 @@ class GRDServer(object):
         # extend the base argv by the caller provided arguments
         combined_argv = base_argv + argv
         # make sure HOME is set to /root or else settings might not be saved
-        execWithCapture("grdctl", combined_argv, env_prune=['HOME'])
+        execWithCapture("grdctl", combined_argv, env_add={"HOME": "/root"})
 
     def _open_grd_log_file(self):
         # FIXME: redirect to journal ?
@@ -187,7 +187,7 @@ class GRDServer(object):
             global grd_process
             grd_process = startProgram([GRD_BINARY_PATH, "--headless"],
                                        stdout=self._open_grd_log_file(),
-                                       env_prune=['HOME'])
+                                       env_add={"HOME": "/root"})
             self.log.info("GNOME remote desktop is now running.")
         except OSError:
             stdoutLog.critical("Could not start GNOME remote desktop. Aborting.")
