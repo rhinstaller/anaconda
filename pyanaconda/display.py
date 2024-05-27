@@ -251,14 +251,9 @@ def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
                  "--wayland", "--no-x11",
                  "--wayland-display", constants.WAYLAND_SOCKET_NAME])
 
-    # remote access needs gnome-kiosk to start in headless mode &
-    # configure a virtual monitor
+    # remote access needs gnome-kiosk to start in headless mode
     if headless:
-        # check virtual monitor  resolution has been set
-        if headless_resolution is None:
-            # use default value
-            headless_resolution = "1280x1024"
-        argv.extend(["--headless", "--virtual-monitor", headless_resolution])
+        argv.extend(["--headless"])
 
     childproc = util.startProgram(argv, env_add={'XDG_DATA_DIRS': xdg_data_dirs},
                                   preexec_fn=wl_preexec)
