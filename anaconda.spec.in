@@ -478,6 +478,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 28 2024 github-actions <github-actions@github.com> - 41.18-1
+- Do not imply that Fedora ELN has an EULA (sgallagh)
+- Update translations from Weblate for master (github-actions)
+- Deprecate kickstart modularity module (marusak.matej)
+- Remove Javascript leftovers from Makefile (jkonecny)
+- Revert "Ignore npm packages files for translation" (jkonecny)
+- Update translations from Weblate for master (github-actions)
+- docs: Add guide how to debug/develop GH workflows (jkonecny)
+
 * Tue May 21 2024 github-actions <github-actions@github.com> - 41.17-1
 - RHEL moved from Bugzilla to Jira (jstodola)
 
