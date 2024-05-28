@@ -540,4 +540,4 @@ TIMEZONE_PRIORITY_KICKSTART = 70
 TIMEZONE_PRIORITY_USER = 90
 
 # A flag file indicated the installation is running in rescue mode
-RESCUE_MODE_PATH = "/tmp/RESCUE_MODE"
+RESCUE_MODE_PATH = "/run/install/RESCUE_MODE"
