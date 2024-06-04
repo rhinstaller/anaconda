@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from blivet import devicefactory
-from blivet.errors import StorageError, InconsistentPVSectorSize
+from blivet.errors import StorageError, InconsistentParentSectorSize
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -66,7 +66,7 @@ class AddDeviceTask(Task):
             # Trying to use a new container.
             self._add_device(self._storage, self._request, use_existing_container=False)
             return
-        except InconsistentPVSectorSize as e:
+        except InconsistentParentSectorSize as e:
             exception = e
             message = "\n\n".join([
                 _("Failed to add a device."),

@@ -15,7 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.errors import StorageError, InconsistentPVSectorSize
+from blivet.errors import StorageError, InconsistentParentSectorSize
 from blivet.size import Size
 
 from dasbus.structure import compare_data
@@ -82,7 +82,7 @@ class ChangeDeviceTask(Task):
             else:
                 self._change_device()
 
-        except InconsistentPVSectorSize as e:
+        except InconsistentParentSectorSize as e:
             self._handle_storage_error(e, "\n\n".join([
                 _("Failed to change a device."),
                 str(e).strip(),
