@@ -478,6 +478,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 04 2024 github-actions <github-actions@github.com> - 41.19-1
+- dracut: Remove 'linear' from modules to load (vtrefny)
+- Remove 'linear' from list of expected MD RAID levels (vtrefny)
+
 * Tue May 28 2024 github-actions <github-actions@github.com> - 41.18-1
 - Do not imply that Fedora ELN has an EULA (sgallagh)
 - Update translations from Weblate for master (github-actions)
