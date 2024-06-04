@@ -18,14 +18,71 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.base import KickstartModuleInterface
 
 __all__ = ["RuntimeInterface"]
 
+from pyanaconda.modules.common.structures.logging import LoggingData
+from pyanaconda.modules.common.structures.rescue import RescueData
+
 
 @dbus_interface(RUNTIME.interface_name)
 class RuntimeInterface(KickstartModuleInterface):
     """DBus interface for the Runtime module."""
-    pass
+
+    def connect_signals(self):
+        """Connect the signals for runtime command module properties."""
+        super().connect_signals()
+        self.watch_property("Logging", self.implementation.logging_changed)
+        self.watch_property("Rescue", self.implementation.rescue_changed)
+        self.watch_property("EULAAgreed", self.implementation.eula_agreed_changed)
+
+    @property
+    def Logging(self) -> Structure:
+        """Specification of the logging configuration"""
+        return LoggingData.to_structure(self.implementation.logging)
+
+    @Logging.setter
+    @emits_properties_changed
+    def Logging(self, logging: Structure):
+        """Specify of the logging configuration.
+
+        The DBus structure is defined by LoggingData.
+
+        :param logging: a dictionary with specification.
+        """
+        self.implementation.set_logging(LoggingData.from_structure(logging))
+
+    @property
+    def Rescue(self) -> Structure:
+        """Specification of the rescue configuration."""
+        return RescueData.to_structure(self.implementation.rescue)
+
+    @Rescue.setter
+    @emits_properties_changed
+    def Rescue(self, rescue: Structure):
+        """Specify of the rescue configuration.
+
+        The DBus structure is defined by RescueData.
+
+        :param rescue: a dictionary with specification.
+        """
+        self.implementation.set_rescue(RescueData.from_structure(rescue))
+
+    @property
+    def EULAAgreed(self) -> Bool:
+        """Flag indicating whether EULA was agreed to."""
+        return self.implementation.eula_agreed
+
+    @EULAAgreed.setter
+    @emits_properties_changed
+    def EULAAgreed(self, agreed: Bool):
+        """Set the EULA agreement flag.
+
+        :param agreed: A boolean value.
+        """
+        self.implementation.set_eula_agreed(agreed)

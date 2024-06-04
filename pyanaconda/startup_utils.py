@@ -43,12 +43,13 @@ from pyanaconda.core.product import get_product_is_final_release, get_product_na
 from pyanaconda.core.service import start_service
 from pyanaconda.flags import flags
 from pyanaconda.localization import get_territory_locales, setup_locale, locale_has_translation
+from pyanaconda.modules.common.structures.logging import LoggingData
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.task import wait_for_task
 from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
-    SECURITY, STORAGE
+    SECURITY, STORAGE, RUNTIME
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.core.threads import thread_manager
 
@@ -192,13 +193,13 @@ def setup_logging_from_options(options):
             log.error("Could not setup remotelog with %s", options.remotelog)
 
 
-def setup_logging_from_kickstart(data):
+def setup_logging_from_kickstart():
     """Configure logging according to the kickstart.
-
-    :param data: kickstart data
     """
-    host = data.logging.host
-    port = data.logging.port
+    runtime_proxy = RUNTIME.get_proxy()
+    logging_data = LoggingData.from_structure(runtime_proxy.Logging)
+    host = logging_data.host
+    port = logging_data.port
 
     if anaconda_logging.logger.remote_syslog is None and len(host) > 0:
         # not set from the command line, ok to use kickstart

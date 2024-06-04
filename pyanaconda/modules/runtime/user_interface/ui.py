@@ -19,10 +19,11 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PASSWORD_POLICY_LUKS, PASSWORD_POLICY_ROOT, \
-    PASSWORD_POLICY_USER
+    PASSWORD_POLICY_USER, DisplayModes
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
@@ -41,9 +42,94 @@ class UIModule(KickstartBaseModule):
         self._password_policies = self.get_default_password_policies()
         self.password_policies_changed = Signal()
 
+        self.display_mode_changed = Signal()
+        self._displayMode = DisplayModes.TUI
+
+        self.display_mode_nonInteractive_changed = Signal()
+        self._displayMode_nonInteractive = False
+
+        self.vnc_changed = Signal()
+        self._vnc = VncData()
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USER_INTERFACE.object_path, UIInterface(self))
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        self.set_display_mode(data.displaymode.displayMode)
+        self.set_display_mode_non_interactive(data.displaymode.nonInteractive)
+        vnc = VncData()
+        vnc.enabled = data.vnc.enabled
+        vnc.host = data.vnc.host
+        vnc.port = data.vnc.port
+        vnc.password.set_secret(data.vnc.password)
+        self.set_vnc(vnc)
+
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
+        data.displaymode.displayMode = self._displayMode
+        data.displaymode.nonInteractive = self._displayMode_nonInteractive
+        data.vnc.enabled = self.vnc.enabled
+        data.vnc.host = self.vnc.host
+        data.vnc.port = self.vnc.port
+        data.vnc.password = self.vnc.password.value
+
+    @property
+    def display_mode(self):
+        """DisplayMode mode for the installation.
+
+        :return: the displayMode mode for the installation
+        :rtype: DisplayModes enum
+        """
+        return self._displayMode
+
+    def set_display_mode(self, display_mode):
+        """Set displayMode mode for the installation.
+
+        :param display_mode: the displayMode mode for the installation
+        :type display_mode: DisplayModes enum
+        """
+        self._displayMode = display_mode
+        self.display_mode_changed.emit()
+        log.debug("Display mode will be: %s", display_mode)
+
+    @property
+    def display_mode_non_interactive(self):
+        """Non-interactive flag for display mode.
+
+        :return: the non-interactive flag for display mode
+        :rtype: bool
+        """
+        return self._displayMode_nonInteractive
+
+    def set_display_mode_non_interactive(self, non_interactive):
+        """Set the non-interactive flag for display mode.
+
+        :param non_interactive: the non-interactive flag for display mode.
+        :type non_interactive: bool
+        """
+        self._displayMode_nonInteractive = non_interactive
+        self.display_mode_nonInteractive_changed.emit()
+        log.debug("Display mode non-interactive set to: %s", str(non_interactive))
+
+    @property
+    def vnc(self):
+        """The VncData.
+
+        :return: an instance of VncData
+        """
+        return self._vnc
+
+    def set_vnc(self, vnc):
+        """Set the VncData structure.
+
+        :param vnc: VncData structure.
+        :type vnc: object
+        """
+        self._vnc = vnc
+        self.vnc_changed.emit()
+        log.debug("VNC enabled set to: %s", vnc)
 
     @property
     def password_policies(self):
