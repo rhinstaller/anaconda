@@ -850,6 +850,8 @@ class BootLoader(object):
                 if device != dep and not device.depends_on(dep):
                     continue
 
+                setup_args = None
+
                 if isinstance(dep, blivet.devices.FcoeDiskDevice):
                     log.debug("Getting dracut arguments for FCoE device %s", dep)
                     setup_args = fcoe_proxy.GetDracutArguments(dep.nic)

@@ -316,6 +316,8 @@ class Accordion(Gtk.Box):
         gi.require_version("Gdk", "3.0")
         from gi.repository import Gdk
 
+        old_selector = self.current_selector
+
         if event:
             if event.type not in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE,
                                   Gdk.EventType.FOCUS_CHANGE]:
@@ -325,7 +327,6 @@ class Accordion(Gtk.Box):
                event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
                 return
 
-            old_selector = self.current_selector
             # deal with multiselection
             state = event.get_state()
             if state & Gdk.ModifierType.CONTROL_MASK: # holding CTRL

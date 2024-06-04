@@ -36,10 +36,12 @@ def exitHandler(rebootData):
     from pyanaconda.core.process_watchers import WatchProcesses
     WatchProcesses.unwatch_all_processes()
 
+    # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
     if flags.usevnc:
         vnc.shutdownServer()
 
+    # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
     if "nokill" in kernel_arguments:
         util.vtActivate(1)
@@ -52,13 +54,14 @@ def exitHandler(rebootData):
     uninhibit_screensaver()
 
     # Unsetup the payload, which most usefully unmounts live images
+    # pylint: disable=possibly-used-before-assignment
     if anaconda.payload:
         anaconda.payload.unsetup()
 
     # Collect all optical media.
     from pyanaconda.modules.common.constants.objects import DEVICE_TREE
     from pyanaconda.modules.common.structures.storage import DeviceData
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)  # pylint: disable=possibly-used-before-assignment
     optical_media = []
 
     for device_name in device_tree.FindOpticalMedia():
@@ -79,15 +82,16 @@ def exitHandler(rebootData):
     anaconda.dbus_launcher.stop()
 
     # Clean up the PID file
-    if pidfile:
+    if pidfile:  # pylint: disable=possibly-used-before-assignment
         pidfile.close()
 
     # Reboot the system.
-    if conf.system.can_reboot:
+    if conf.system.can_reboot:  # pylint: disable=possibly-used-before-assignment
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
             for device_path in optical_media:
+                # pylint: disable=possibly-used-before-assignment
                 if path.get_mount_paths(device_path):
                     util.dracut_eject(device_path)
 
@@ -150,7 +154,9 @@ def setup_environment():
     if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
     else:
-        os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER  # pylint: disable=used-before-assignment
+        # This line is too long, unfortunately this disable won't work when used on above line
+        # pylint: disable=used-before-assignment
+        os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER  # pylint: disable=possibly-used-before-assignment
 
     # We mostly don't run from bash, so it won't load the file for us, and libreport will then
     # show vi instead of nano. Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1889674
