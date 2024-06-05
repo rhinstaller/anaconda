@@ -476,6 +476,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 05 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.4-1
+- Do not require libreport on RHEL 10 (mkolman)
+  Resolves: RHEL-35676
+- Update translations from Weblate for rhel-10 (github-actions)
+- Update translations from Weblate for rhel-10 (github-actions)
+
 * Mon May 20 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.3-1
 - Update translations from Weblate for rhel-10 (github-actions)
 - Add release note for NVMe-oF (vslavik)
