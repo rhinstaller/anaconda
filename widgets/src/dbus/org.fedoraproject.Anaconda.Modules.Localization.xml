@@ -1,0 +1,168 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+                      "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get">
+      <arg type="s" name="interface_name" direction="in"/>
+      <arg type="s" name="property_name" direction="in"/>
+      <arg type="v" name="value" direction="out"/>
+    </method>
+    <method name="GetAll">
+      <arg type="s" name="interface_name" direction="in"/>
+      <arg type="a{sv}" name="properties" direction="out"/>
+    </method>
+    <method name="Set">
+      <arg type="s" name="interface_name" direction="in"/>
+      <arg type="s" name="property_name" direction="in"/>
+      <arg type="v" name="value" direction="in"/>
+    </method>
+    <signal name="PropertiesChanged">
+      <arg type="s" name="interface_name"/>
+      <arg type="a{sv}" name="changed_properties"/>
+      <arg type="as" name="invalidated_properties"/>
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg type="s" name="xml_data" direction="out"/>
+    </method>
+  </interface>
+  <interface name="org.freedesktop.DBus.Peer">
+    <method name="Ping"/>
+    <method name="GetMachineId">
+      <arg type="s" name="machine_uuid" direction="out"/>
+    </method>
+  </interface>
+  <interface name="org.fedoraproject.Anaconda.Modules.Localization">
+    <method name="ApplyKeyboardWithTask">
+      <arg type="o" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetCommonLocales">
+      <arg type="as" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetCompositorLayouts">
+      <arg type="as" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetCompositorSelectedLayout">
+      <arg type="s" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetLanguageData">
+      <arg type="s" name="language_id" direction="in">
+      </arg>
+      <arg type="a{sv}" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetLanguages">
+      <arg type="as" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetLocaleData">
+      <arg type="s" name="locale_id" direction="in">
+      </arg>
+      <arg type="a{sv}" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GetLocales">
+      <arg type="s" name="language_id" direction="in">
+      </arg>
+      <arg type="as" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="PopulateMissingKeyboardConfigurationWithTask">
+      <arg type="o" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="SelectNextCompositorLayout">
+    </method>
+    <method name="SetCompositorLayouts">
+      <arg type="as" name="layout_variants" direction="in">
+      </arg>
+      <arg type="as" name="options" direction="in">
+      </arg>
+    </method>
+    <method name="SetCompositorSelectedLayout">
+      <arg type="s" name="layout_variant" direction="in">
+      </arg>
+      <arg type="b" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="SetKeyboard">
+      <arg type="s" name="keyboard" direction="in">
+      </arg>
+    </method>
+    <signal name="CompositorLayoutsChanged">
+      <arg type="as" name="layouts">
+      </arg>
+    </signal>
+    <signal name="CompositorSelectedLayoutChanged">
+      <arg type="s" name="layout">
+      </arg>
+    </signal>
+    <property type="b" name="KeyboardKickstarted" access="readwrite">
+    </property>
+    <property type="s" name="Language" access="readwrite">
+    </property>
+    <property type="b" name="LanguageKickstarted" access="readwrite">
+    </property>
+    <property type="as" name="LanguageSupport" access="readwrite">
+    </property>
+    <property type="as" name="LayoutSwitchOptions" access="readwrite">
+    </property>
+    <property type="s" name="VirtualConsoleKeymap" access="readwrite">
+    </property>
+    <property type="as" name="XLayouts" access="readwrite">
+    </property>
+  </interface>
+  <interface name="org.fedoraproject.Anaconda.Modules">
+    <method name="CollectRequirements">
+      <arg type="aa{sv}" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="ConfigureBootloaderWithTasks">
+      <arg type="as" name="kernel_versions" direction="in">
+      </arg>
+      <arg type="ao" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="ConfigureWithTasks">
+      <arg type="ao" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="GenerateKickstart">
+      <arg type="s" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="InstallWithTasks">
+      <arg type="ao" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="Quit">
+    </method>
+    <method name="ReadKickstart">
+      <arg type="s" name="kickstart" direction="in">
+      </arg>
+      <arg type="a{sv}" name="ret" direction="out">
+      </arg>
+    </method>
+    <method name="SetLocale">
+      <arg type="s" name="locale" direction="in">
+      </arg>
+    </method>
+    <method name="TeardownWithTasks">
+      <arg type="ao" name="ret" direction="out">
+      </arg>
+    </method>
+    <property type="as" name="KickstartAddons" access="read">
+    </property>
+    <property type="as" name="KickstartCommands" access="read">
+    </property>
+    <property type="as" name="KickstartSections" access="read">
+    </property>
+    <property type="b" name="Kickstarted" access="readwrite">
+    </property>
+  </interface>
+</node>

@@ -35,6 +35,7 @@ from pyanaconda.modules.localization.installation import LanguageInstallationTas
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask, AssignGenericKeyboardSettingTask
 from pyanaconda.modules.localization.localed import LocaledWrapper
+from pyanaconda.modules.localization.gk_keyboard_manager import GkKeyboardManager
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -66,7 +67,11 @@ class LocalizationService(KickstartService):
         self.keyboard_seen_changed = Signal()
         self._keyboard_seen = False
 
+        self.compositor_selected_layout_changed = Signal()
+        self.compositor_layouts_changed = Signal()
+
         self._localed_wrapper = None
+        self._compositor_keyboard_manager = None
 
     def publish(self):
         """Publish the module."""
@@ -315,3 +320,31 @@ class LocalizationService(KickstartService):
         )
         result = task.run()
         self._update_settings_from_task(result)
+
+    @property
+    def compositor_keyboard_manager(self):
+        if not self._compositor_keyboard_manager:
+            self._compositor_keyboard_manager = GkKeyboardManager()
+            self._compositor_keyboard_manager.compositor_selected_layout_changed.connect(
+                lambda layout: self.compositor_selected_layout_changed.emit(layout)
+            )
+            self._compositor_keyboard_manager.compositor_layouts_changed.connect(
+                lambda layouts: self.compositor_layouts_changed.emit(layouts)
+            )
+
+        return self._compositor_keyboard_manager
+
+    def get_compositor_selected_layout(self):
+        return self.compositor_keyboard_manager.get_compositor_selected_layout()
+
+    def set_compositor_selected_layout(self, layout_variant):
+        return self.compositor_keyboard_manager.set_compositor_selected_layout(layout_variant)
+
+    def select_next_compositor_layout(self):
+        return self.compositor_keyboard_manager.select_next_compositor_layout()
+
+    def get_compositor_layouts(self):
+        return self.compositor_keyboard_manager.get_compositor_layouts()
+
+    def set_compositor_layouts(self, layout_variants, options):
+        self.compositor_keyboard_manager.set_compositor_layouts(layout_variants, options)
