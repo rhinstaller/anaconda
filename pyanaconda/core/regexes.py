@@ -197,3 +197,6 @@ MAC_OCTET = re.compile(r'[a-fA-F0-9][a-fA-F0-9]')
 
 # Name of initramfs connection created by NM based on MAC
 NM_MAC_INITRAMFS_CONNECTION = re.compile(r'^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$')
+
+# Screen resolution format for the boot option "inst.resolution"
+SCREEN_RESOLUTION_CONFIG = re.compile(r'^[0-9]+x[0-9]+$')
