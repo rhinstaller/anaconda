@@ -114,6 +114,9 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             homedir = self.user.homedir
         elif self.user.name:
             homedir = "/home/" + self.user.name
+        else:
+            # this state shouldn't happen
+            raise ValueError("Can't resolve home directory")
 
         self._tHome.set_text(homedir)
         self._origHome = homedir
