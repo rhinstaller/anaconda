@@ -255,7 +255,6 @@ jobs:
           mkdir -p images
           make -f Makefile.am container-live-iso-build CI_TAG=$CONTAINER_TAG
           mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
-          mv result/iso/logs images/
 
       - name: Make artefacts created by sudo cleanable
         if: always()
@@ -267,8 +266,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'logs'
-          path: |
-           images/logs/*
+          path: result/iso/logs/*
 
       - name: Upload image artifacts
         uses: actions/upload-artifact@v4
