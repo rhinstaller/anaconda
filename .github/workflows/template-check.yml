@@ -95,7 +95,7 @@ jobs:
 
           if [ -n "$changed_files" ]; then
             # print for debugging
-            echo "----- Template files differ with mater branch -----"
+            echo "----- Template files differ with master branch -----"
             echo "$changed_files"
             echo "-------------------------"
 
