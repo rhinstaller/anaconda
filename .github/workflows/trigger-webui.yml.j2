@@ -26,16 +26,16 @@ jobs:
     runs-on: ubuntu-22.04
     # the default workflow token cannot read our org membership, for deciding who is allowed to trigger tests
     environment: gh-cockpituous
-    container: registry.fedoraproject.org/fedora:rawhide
+    container: registry.fedoraproject.org/fedora:40
     # this polls for a COPR build, which can take long
     timeout-minutes: 120
 
     steps:
       - name: Install dependencies
         run: |
-          dnf install -y git-core dnf-plugins-core || {
+          dnf install -y git-core 'dnf-plugins-core' || {
             sleep 60
-            dnf install -y git-core dnf-plugins-core
+            dnf install -y git-core 'dnf-plugins-core'
           }
 
       # Naively this should wait for github.event.pull_request.head.sha, but
@@ -50,8 +50,8 @@ jobs:
           COPR_NAME="${{ github.event.pull_request.base.user.login }}-${{ github.event.pull_request.base.repo.name }}-${{ github.event.number }}"
           for _ in $(seq 60); do
               sleep 60;
-              if dnf copr enable -y packit/$COPR_NAME &&
-                 out=$(dnf info --refresh --repo='copr:*anaconda*' anaconda) &&
+              if dnf copr enable -y packit/$COPR_NAME fedora-rawhide-x86_64 &&
+                 out=$(dnf info --refresh --repo='copr:*anaconda*' --releasever=rawhide anaconda) &&
                  stamp=$(echo "$out" | awk '/^Release/ { split($3, v, "."); print substr(v[2], 0, 14)}' | head -1) &&
                  [ "$stamp" -gt "$PUSH_TIME" ]; then
                   exit 0

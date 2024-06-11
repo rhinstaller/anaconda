@@ -68,7 +68,6 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
-      {% if distro_name == "fedora" %}
       - name: Check if rebuild of the container image is required
         id: check-dockerfile-changed
         run: |
@@ -81,10 +80,6 @@ jobs:
       - name: Build anaconda-ci container
         if: steps.check-dockerfile-changed.outputs.changed
         run: make -f Makefile.am anaconda-ci-build
-      {% elif distro_name == "rhel" %}
-      - name: Build anaconda-ci container
-        run: make -f Makefile.am anaconda-ci-build
-      {% endif %}
 
       - name: Run tests in anaconda-ci container
         run: |
@@ -104,11 +99,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rpm-tests:
-    {% if distro_name == "fedora" %}
-    runs-on: ubuntu-20.04
-    {% elif distro_name == "rhel" %}
-    runs-on: [self-hosted, kstest]
-    {% endif %}
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -162,7 +153,6 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
-      {% if distro_name == "fedora" %}
       - name: Check if container rebuild is needed
         id: need_rebuild
         run: |
@@ -187,10 +177,6 @@ jobs:
       - name: Build RPM test container
         if: ${{ steps.need_rebuild.outputs.rebuild == 'true' }}
         run: make -f Makefile.am anaconda-rpm-build
-      {% elif distro_name == "rhel" %}
-      - name: Build RPM test container
-        run: make -f Makefile.am anaconda-rpm-build
-      {% endif %}
 
       - name: Run RPM tests in container
         run: make -f Makefile.am container-rpm-test
