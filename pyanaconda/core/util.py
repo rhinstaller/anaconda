@@ -354,8 +354,8 @@ def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune
                         log_output=log_output, binary_output=binary_output, do_preexec=do_preexec)[0]
 
 
-def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False,
-                    do_preexec=True):
+def execWithCapture(command, argv, stdin=None, root='/', env_prune=None, env_add=None,
+                    log_output=True, filter_stderr=False, do_preexec=True):
     """ Run an external program and capture standard out and err.
 
         :param command: The command to run
@@ -369,8 +369,8 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     """
     argv = [command] + argv
 
-    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
-                        filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output, env_prune=env_prune,
+                        env_add=env_add, filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
 
 
 def execWithCaptureAsLiveUser(command, argv, stdin=None, root='/', log_output=True,
