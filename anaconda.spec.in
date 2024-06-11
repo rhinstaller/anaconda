@@ -480,6 +480,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 11 2024 github-actions <github-actions@github.com> - 41.20-1
+- Update translations from Weblate for master (github-actions)
+- Fix issues for new pylint check (jkonecny)
+- Use InconsistentParentSectorSize instead of InconsistentPVSectorSize
+  (vtrefny)
+- Do not require libreport on RHEL 10 (mkolman)
+- Update translations from Weblate for master (github-actions)
+- Get kickstart data via DBus (akankovs)
+- Adding a implementation for runtime and ui commands (akankovs)
+- Update tests for kickstart commands (akankovs)
+- Migration of the remaining kickstart commands to the Runtime module
+  (akankovs)
+
 * Tue Jun 04 2024 github-actions <github-actions@github.com> - 41.19-1
 - dracut: Remove 'linear' from modules to load (vtrefny)
 - Remove 'linear' from list of expected MD RAID levels (vtrefny)
