@@ -480,6 +480,40 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 11 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.5-1
+- Adjust to freerdp and GNOME package changes (mkolman)
+  Resolves: RHEL-38407
+- Replace VNC support with GNOME remote desktop (mkolman)
+  Resolves: RHEL-38407
+- Rebuild Ask VNC spoke (mkolman)
+  Resolves: RHEL-38407
+- Update translations from Weblate for rhel-10 (github-actions)
+- Add RDP boot options & deprecate VNC boot options (mkolman)
+  Resolves: RHEL-38407
+- Introduce GNOME remote desktop support (mkolman)
+  Resolves: RHEL-38407
+- Rename usevnc flag & similar variables (mkolman)
+  Resolves: RHEL-38407
+- Add unit tests for GkKeyboardManager and its API in localization module
+  (rvykydal)
+  Resolves: RHEL-38399
+- Drop the X.Org server dependency (jexposit)
+  Resolves: RHEL-38399
+- Drop xrdb (jexposit)
+  Resolves: RHEL-38399
+- Drop xrandr (jexposit)
+  Resolves: RHEL-38399
+- Drop libxklavier (jexposit)
+  Resolves: RHEL-38399
+- Use GNOME Kiosk's API in LayoutIndicator (jexposit)
+  Resolves: RHEL-38399
+- Setup gdbus-codegen (jexposit)
+  Resolves: RHEL-38399
+- Use GNOME Kiosk's API in XklWrapper (jexposit)
+  Resolves: RHEL-38399
+- Add GNOME Kiosk keyboard manager class (jexposit)
+  Resolves: RHEL-38399
+
 * Wed Jun 05 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.4-1
 - Do not require libreport on RHEL 10 (mkolman)
   Resolves: RHEL-35676
