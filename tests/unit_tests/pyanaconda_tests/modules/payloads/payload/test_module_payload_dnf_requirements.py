@@ -42,12 +42,6 @@ from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 class DNFRequirementsTestCase(unittest.TestCase):
 
-    def _create_group(self, name):
-        """Create a mocked group object."""
-        group = Mock()
-        group.id = name
-        return group
-
     def _create_requirement(self, name, reason, req_type=REQUIREMENT_TYPE_PACKAGE):
         """Create a new requirement."""
         requirement = Requirement()
