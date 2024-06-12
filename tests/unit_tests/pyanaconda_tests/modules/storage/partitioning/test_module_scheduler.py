@@ -169,7 +169,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def test_get_supported_raid_levels(self):
         """Test GetSupportedRaidLevels."""
         assert self.interface.GetSupportedRaidLevels(DEVICE_TYPE_MD) == \
-            ['linear', 'raid0', 'raid1', 'raid10', 'raid4', 'raid5', 'raid6']
+            ['raid0', 'raid1', 'raid10', 'raid4', 'raid5', 'raid6']
 
     @patch('pyanaconda.modules.storage.partitioning.interactive.utils.get_format')
     @patch('pyanaconda.modules.storage.partitioning.interactive.utils.platform', new_callable=EFI)
