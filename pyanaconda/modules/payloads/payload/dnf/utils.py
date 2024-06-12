@@ -21,7 +21,7 @@ import os
 
 import rpm
 from blivet.size import Size
-from libdnf.transaction import TransactionItemState_ERROR
+from libdnf5.transaction import TransactionItemState_ERROR
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
