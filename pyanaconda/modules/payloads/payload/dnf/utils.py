@@ -19,7 +19,7 @@ import fnmatch
 import hashlib
 import os
 import rpm
-from libdnf.transaction import TransactionItemState_ERROR
+from libdnf5.transaction import TransactionItemState_ERROR
 
 from blivet.size import Size
 
