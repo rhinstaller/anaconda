@@ -251,14 +251,19 @@ class DumpMissingConfigFilesTask(Task):
                 # We have to dump persistent ifcfg files for slaves created in initramfs
                 # Filter out potenital connection created for BOOTIF option rhbz#2175664
                 slave_cons = [c for c in available_cons if not is_bootif_connection(c)]
-                if len(slave_cons) == 1 and initramfs_cons:
-                    log.debug("%s: device %s has an initramfs slave connection",
-                              self.name, iface)
-                    dumped_con = self._select_persistent_connection_for_device(
-                        device, slave_cons, allow_slaves=True)
+                if initramfs_cons:
+                    if len(slave_cons) == 1:
+                        log.debug("%s: slave device %s has an initramfs slave connection",
+                                  self.name, iface)
+                        dumped_con = self._select_persistent_connection_for_device(
+                            device, slave_cons, allow_slaves=True)
+                    else:
+                        log.debug("%s: slave device %s has an initramfs connection",
+                                  self.name, iface)
                 else:
-                    log.debug("%s: creating default connection for slave device %s",
+                    log.debug("%s: not creating default connection for slave device %s",
                               self.name, iface)
+                    continue
 
             if not dumped_con:
                 dumped_con = self._select_persistent_connection_for_device(device, available_cons)
