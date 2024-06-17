@@ -45,6 +45,8 @@ jobs:
 
   - job: propose_downstream
     trigger: release
+    # Tarballs are not uploaded to GitLab PR on CentOS (https://github.com/packit/packit-service/issues/2436)
+    manual_trigger: True
     packages: [anaconda-centos]
     dist_git_branches: c9s
 
