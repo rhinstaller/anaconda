@@ -75,7 +75,7 @@ confidence=
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
 # TODO: Remove protected access and fix usages. We really want to have it enabled!
-# TODO: Try to remove C (conventions) and R (refactoring) or make them smaller.
+# TODO: Try to remove R (refactoring) or make them smaller.
 disable=protected-access,
         fixme,
         global-statement,
@@ -85,7 +85,36 @@ disable=protected-access,
         locally-disabled,
         file-ignored,
         unspecified-encoding,
-        C,
+        # Start C extension whitelist
+        consider-iterating-dictionary,
+        consider-using-dict-items,
+        consider-using-enumerate,
+        consider-using-f-string,
+        disallowed-name,
+        import-outside-toplevel,
+        invalid-name,
+        line-too-long,
+        missing-class-docstring,
+        missing-function-docstring,
+        missing-module-docstring,
+        multiple-imports,
+        multiple-statements,
+        no-name-in-module,
+        superfluous-parens,
+        too-many-lines,
+        ungrouped-imports,
+        unidiomatic-typecheck,
+        unknown-option-value,
+        unnecessary-dunder-call,
+        unnecessary-lambda-assignment,
+        unnecessary-negation,
+        unnecessary-parens,
+        unspecified-encoding,
+        use-implicit-booleaness-not-comparison,
+        use-maxsplit-arg,
+        wrong-import-order,
+        wrong-import-position,
+        # End C extension whitelist
         R
 
 # Enable the message, report, category or checker with the given id(s). You can
