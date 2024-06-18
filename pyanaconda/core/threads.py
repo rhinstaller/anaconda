@@ -202,7 +202,7 @@ class ThreadManager(object):
         """
 
         with self._errors_lock:
-            for thread_name in self._errors.keys():
+            for thread_name in self._errors:
                 thread = self._objs[thread_name]
                 thread.join()
 
