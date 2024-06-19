@@ -119,6 +119,8 @@ class DNFManager:
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+        self._query_environments = None
+        self._query_groups = None
 
     @property
     def _base(self):
@@ -255,13 +257,18 @@ class DNFManager:
         return None
 
     @property
+    def _environments(self):
+        if self._query_environments is None:
+            self._query_environments = libdnf5.comps.EnvironmentQuery(self._base)
+        return self._query_environments
+
+    @property
     def environments(self):
         """Environments defined in comps.xml file.
 
         :return: a list of ids
         """
-        environments = libdnf5.comps.EnvironmentQuery(self._base)
-        return [env.get_environmentid() for env in environments]
+        return [env.get_environmentid() for env in self._environments]
 
     def _get_environment(self, environment_name):
         """Translate the given environment name to a DNF object.
@@ -272,9 +279,13 @@ class DNFManager:
         if not environment_name:
             return None
 
-        environments = libdnf5.comps.EnvironmentQuery(self._base)
-        environments.filter_name(environment_name)
-        return next(iter(environments), None)
+        for env in self._environments:
+            if environment_name == env.get_name():
+                return env
+            if environment_name == env.get_environmentid():
+                return env
+
+        return None
 
     def resolve_environment(self, environment_name):
         """Translate the given environment name to a group ID.
@@ -314,7 +325,7 @@ class DNFManager:
         data.name = env.get_translated_name() or ""
         data.description = env.get_translated_description() or ""
 
-        available_groups = libdnf5.comps.GroupQuery(self._base)
+        available_groups = self._groups
         optional_groups = set(env.get_optional_groups())
 
         for group in available_groups:
@@ -335,13 +346,18 @@ class DNFManager:
         return data
 
     @property
+    def _groups(self):
+        if self._query_groups is None:
+            self._query_groups = libdnf5.comps.GroupQuery(self._base)
+        return self._query_groups
+
+    @property
     def groups(self):
         """Groups defined in comps.xml file.
 
         :return: a list of IDs
         """
-        groups = libdnf5.comps.GroupQuery(self._base)
-        return [g.get_groupid() for g in groups]
+        return [g.get_groupid() for g in self._groups]
 
     def _get_group(self, group_name):
         """Translate the given group name into a DNF object.
@@ -349,9 +365,13 @@ class DNFManager:
         :param group_name: an identifier of a group
         :return libdnf5.comps.Group: a DNF object or None
         """
-        groups = libdnf5.comps.GroupQuery(self._base)
-        groups.filter_name(group_name)
-        return next(iter(groups), None)
+        for group in self._groups:
+            if group_name == group.get_name():
+                return group
+            if group_name == group.get_groupid():
+                return group
+
+        return None
 
     def resolve_group(self, group_name):
         """Translate the given group name into a group ID.
