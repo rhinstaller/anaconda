@@ -62,6 +62,10 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
         assert localization.locale_supported_in_console("en")
         assert localization.locale_supported_in_console("en_US")
 
+        with patch("pyanaconda.localization.get_locale_scripts") as locale_scripts_mock:
+            locale_scripts_mock.return_value = []
+            assert localization.locale_supported_in_console("en") is False
+
     def test_native_name(self):
         assert localization.get_native_name("de") == "Deutsch"
         assert localization.get_native_name("cs_CZ") == "Čeština (Česko)"

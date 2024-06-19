@@ -106,7 +106,11 @@ def locale_supported_in_console(locale):
     :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
     """
     locale_scripts = get_locale_scripts(locale)
-    return set(locale_scripts).issubset(SCRIPTS_SUPPORTED_BY_CONSOLE)
+
+    if not locale_scripts:
+        return False
+
+    return locale_scripts[0] in SCRIPTS_SUPPORTED_BY_CONSOLE
 
 
 def find_best_locale_match(locale, langcodes):
