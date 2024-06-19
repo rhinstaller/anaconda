@@ -679,13 +679,16 @@ class DNFManager(object):
         destination = self.download_location
 
         for package in packages:
-            downloader.add(package, destination=destination)
+            downloader.add(package, destination)
+
+        downloader.set_fail_fast(True)
+        downloader.set_resume(False)
 
         # Download the packages.
         log.info("Downloading packages to %s.", destination)
 
         try:
-            downloader.download(fail_fast=True, resume=False)
+            downloader.download()
         except RuntimeError as e:
             msg = "Failed to download the following packages: " + str(e)
             raise PayloadInstallationError(msg) from None
