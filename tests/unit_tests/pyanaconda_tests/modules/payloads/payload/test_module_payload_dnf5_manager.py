@@ -488,17 +488,14 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         self.dnf_manager = DNFManager()
         self.dnf_manager.setup_base()
 
-    @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_groups(self):
         """Test the groups property."""
         assert self.dnf_manager.groups == []
 
-    @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_no_default_environment(self):
         """Test the default_environment property with no environments."""
         assert self.dnf_manager.default_environment is None
 
-    @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_environments(self):
         """Test the environments property."""
         assert self.dnf_manager.environments == []
