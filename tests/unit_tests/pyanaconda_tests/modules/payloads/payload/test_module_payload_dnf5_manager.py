@@ -32,8 +32,7 @@ from pyanaconda.core.constants import MULTILIB_POLICY_ALL, URL_TYPE_BASEURL, URL
 from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, simplify_config, \
-    MetadataError
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, simplify_config
 
 
 class DNF5TestCase(unittest.TestCase):
