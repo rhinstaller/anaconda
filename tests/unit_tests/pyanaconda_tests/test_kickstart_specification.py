@@ -487,7 +487,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
 
-            for name in specification.commands.keys():
+            for name in specification.commands:
                 if name in self.IGNORED_SHARED_NAMES:
                     warnings.warn("Skipping the shared name {}.".format(name))
                     continue
@@ -504,7 +504,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
 
-            for name in specification.commands_data.keys():
+            for name in specification.commands_data:
                 if name in specified:
                     self.fail("Data object {} is specified more then once!".format(name))
 
@@ -517,7 +517,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
 
-            for name in specification.sections.keys():
+            for name in specification.sections:
                 if name in specified:
                     self.fail("Section {} is specified more then once!".format(name))
 

@@ -89,14 +89,14 @@ class WatchProcesses(object):
         exited_pids = []
         exit_statuses = []
 
-        for child_pid in cls._forever_pids:
+        for child_pid, proc in cls._forever_pids.items():
             try:
                 pid_result, status = os.waitpid(child_pid, os.WNOHANG)
             except ChildProcessError:
                 continue
 
             if pid_result:
-                proc_name = cls._forever_pids[child_pid][0]
+                proc_name = proc[0]
                 exited_pids.append(child_pid)
 
                 # Convert the wait-encoded status to the format used by subprocess
@@ -175,7 +175,7 @@ class WatchProcesses(object):
     @classmethod
     def unwatch_all_processes(cls):
         """Clear the watched process list."""
-        for child_pid in cls._forever_pids:
-            if cls._forever_pids[child_pid][1]:
-                source_remove(cls._forever_pids[child_pid][1])
+        for proc in cls._forever_pids.values():
+            if proc[1]:
+                source_remove(proc[1])
         cls._forever_pids = {}

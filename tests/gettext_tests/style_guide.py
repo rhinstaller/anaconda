@@ -92,7 +92,7 @@ msgs = {e.msgid: e for e in pofile}
 
 # Look for each of the bad regexes
 success = True
-for badre in bad_strings.keys():
+for badre, suggestion in bad_strings.items():
     regex = re.compile(badre)
     for msg in msgs.keys():
         # Remove underscores to avoid trouble with underline-based accelerators
@@ -115,14 +115,14 @@ for badre in bad_strings.keys():
                 print("Bad string %(bad)s found at %(occurrences)s. Try %(suggestion)s instead." %
                         {"bad": badstr,
                          "occurrences": " ".join(("%s:%s" % (o[0], o[1]) for o in remainder)),
-                         "suggestion": bad_strings[badre]})
+                         "suggestion": suggestion})
                 success = False
 
 if expected_badness:
-    for filename in expected_badness.keys():
-        for badstr in expected_badness[filename].keys():
+    for filename, badness_file in expected_badness.items():
+        for badstr, badness_nmr in badness_file.items():
             print("Did not find %d occurrences of %s in %s" %
-                    (expected_badness[filename][badstr], badstr, filename))
+                    (badness_nmr, badstr, filename))
     success = False
 
 sys.exit(0 if success else 1)

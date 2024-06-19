@@ -141,17 +141,17 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE):
                 words = match.group(3).lower().split()
                 skip_argument = False
 
-                for i in range(len(words)):
+                for i, word in enumerate(words):
                     if skip_argument:
                         skip_argument = False
                         continue
-                    if words[i] in SRV_NOARG_OPTIONS:
-                        server.options.append(words[i])
-                    elif words[i] in SRV_ARG_OPTIONS and i + 1 < len(words):
+                    if word in SRV_NOARG_OPTIONS:
+                        server.options.append(word)
+                    elif word in SRV_ARG_OPTIONS and i + 1 < len(words):
                         server.options.append(' '.join(words[i:i+2]))
                         skip_argument = True
                     else:
-                        log.debug("Unknown NTP server option %s", words[i])
+                        log.debug("Unknown NTP server option %s", word)
 
                 servers.append(server)
 
