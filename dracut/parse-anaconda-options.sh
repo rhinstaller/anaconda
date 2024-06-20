@@ -130,9 +130,9 @@ if updates=$(getarg inst.updates); then
     fi
 fi
 
-# for vnc bring network up in initramfs so that cmdline configuration is used
-check_removed_no_inst_arg "vnc" "inst.vnc"
-getargbool 0 inst.vnc && warn "anaconda requiring network for vnc" && set_neednet
+# for rdp bring network up in initramfs so that cmdline configuration is used
+check_removed_no_inst_arg "rdp" "inst.rdp"
+getargbool 0 inst.rdp && warn "anaconda requiring network for RDP" && set_neednet
 
 # Driver Update Disk
 check_removed_no_inst_arg "dd" "inst.dd"

@@ -133,7 +133,7 @@ Requires: python3-pid
 Requires: crypto-policies
 Requires: /usr/bin/update-crypto-policies
 
-# required because of the rescue mode and VNC question
+# required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
 
 # Make sure we get the en locale one way or another
@@ -251,7 +251,6 @@ Requires: zram-generator
 # needed for proper driver disk support - if RPMs must be installed, a repo is needed
 Requires: createrepo_c
 # Display stuff moved from lorax templates
-Requires: dbus-x11
 Requires: gsettings-desktop-schemas
 Requires: nm-connection-editor
 Requires: librsvg2

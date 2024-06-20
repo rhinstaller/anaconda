@@ -502,7 +502,7 @@ class MainWindow(Gtk.Window):
 
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
-       It is suitable for use both directly and via VNC.
+       It is suitable for use both directly and via RDP.
     """
     def __init__(self, storage, payload,
                  distributionText=get_distribution_text,
