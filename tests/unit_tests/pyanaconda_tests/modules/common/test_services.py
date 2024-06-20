@@ -140,7 +140,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         skipx
         """
         ks_out = """
-        # Do not configure the X Window System
+        # Do not configure the Wayland compositor
         skipx
         """
         self._test_kickstart(ks_in, ks_out)
@@ -151,7 +151,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         xconfig --defaultdesktop GNOME --startxonboot
         """
         ks_out = """
-        # X Window System configuration information
+        # Wayland compositor configuration information
         xconfig  --defaultdesktop=GNOME --startxonboot
         """
         self._test_kickstart(ks_in, ks_out)

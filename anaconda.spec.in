@@ -133,7 +133,7 @@ Requires: python3-pid
 Requires: crypto-policies
 Requires: /usr/bin/update-crypto-policies
 
-# required because of the rescue mode and VNC question
+# required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
 
 # Make sure we get the en locale one way or another

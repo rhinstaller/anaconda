@@ -590,6 +590,8 @@ inst.xdriver
 Specify the X driver that should be used during installation and on the
 installed system.
 
+This boot options is deprecated and has no effect.
+
 .. inst.usefbx
 
 inst.usefbx
@@ -598,6 +600,9 @@ inst.usefbx
 Use the framebuffer X driver (``fbdev``) rather than a hardware-specific driver.
 
 Equivalent to ``inst.xdriver=fbdev``.
+
+
+This boot options is deprecated and has no effect.
 
 .. inst.xtimeout:
 

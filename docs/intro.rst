@@ -16,7 +16,7 @@ Anaconda is a fairly sophisticated installer. It supports installation from
 local and remote sources such as CDs and DVDs, images stored on a hard drive,
 NFS, HTTP, and FTP. Installation can be scripted with kickstart to provide a
 fully unattended installation that can be duplicated on scores of machines. It
-can also be run over VNC on headless machines. A variety of advanced storage
+can also be run over RDP on headless machines. A variety of advanced storage
 devices including LVM, RAID, iSCSI, and multipath are supported from the
 partitioning program. Anaconda provides advanced debugging features such as
 remote logging, access to the python interactive debugger, and remote saving of

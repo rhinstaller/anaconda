@@ -202,7 +202,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
         "rescue": COMMANDS.Rescue,
         "shutdown": COMMANDS.Reboot,
         "text": COMMANDS.DisplayMode,
-        "vnc": COMMANDS.Vnc,
     }
 
     @classmethod
