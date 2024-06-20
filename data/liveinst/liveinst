@@ -69,9 +69,6 @@ fi
 # Process cmdline args
 for opt in $(cat /proc/cmdline) "$@"; do
     case $opt in
-    xdriver=*)
-        ANACONDA="$ANACONDA --$opt"
-        ;;
     updates=*)
         UPDATES="${opt#updates=}"
         ;;

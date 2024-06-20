@@ -190,7 +190,7 @@ def check_rd_can_be_started(anaconda):
     # disable remote desktop question if we don't have network
     network_proxy = NETWORK.get_proxy()
     if not network_proxy.IsConnecting() and not network_proxy.Connected:
-        error_messages.append("Not asking for VNC because we don't have a network")
+        error_messages.append("Not asking for RDP mode because we don't have a network")
         rd_startup_possible = False
 
     # disable remote desktop question if we don't have GNOME remote desktop
@@ -202,13 +202,8 @@ def check_rd_can_be_started(anaconda):
 
 
 def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
-    """Start the window manager.
+    """Start the Wayland compositor.
 
-    When window manager actually connects to the X server is unknowable, but
-    fortunately it doesn't matter. Wm does not need to be the first
-    connection to Xorg, and if anaconda starts up before wm, wm
-    will just take over and maximize the window and make everything right,
-    fingers crossed.
     Add XDG_DATA_DIRS to the environment to pull in our overridden schema
     files.
 
@@ -284,19 +279,6 @@ def set_resolution(runres):
         log.error("The resolution was not set: %s", error)
 
 
-def write_xdriver(driver, root=None):
-    """Write the X driver."""
-    if root is None:
-        root = conf.target.system_root
-
-    if not os.path.isdir("%s/etc/X11" % (root,)):
-        os.makedirs("%s/etc/X11" % (root,), mode=0o755)
-
-    f = open("%s/etc/X11/xorg.conf" % (root,), 'w')
-    f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % driver)
-    f.close()
-
-
 # general display startup
 def setup_display(anaconda, options):
     """Setup the display for the installation environment.
@@ -333,9 +315,6 @@ def setup_display(anaconda, options):
         grd_server.rdp_password = options.rdp_password
         # note if we have both set
         rdp_credentials_sufficient = options.rdp_username and options.rdp_password
-
-    if options.xdriver:
-        write_xdriver(options.xdriver, root="/")
 
     # check if GUI without WebUI
     if anaconda.gui_mode and not anaconda.is_webui_supported:
@@ -415,9 +394,10 @@ def setup_display(anaconda, options):
 
     if anaconda.tui_mode and anaconda.gui_startup_failed and flags.rd_question:
 
-        message = _("X was unable to start on your machine. Would you like to start VNC to connect to "
-                    "this computer from another computer and perform a graphical installation or continue "
-                    "with a text mode installation?")
+        message = _("Wayland was unable to start on your machine. Would you like to start "
+                    "an RDP session to connect to this computer from another computer and "
+                    "perform a graphical installation or continue with a text mode "
+                    "installation?")
         ask_rd_question(anaconda, grd_server, message)
 
     # if they want us to use RDP do that now
@@ -425,7 +405,7 @@ def setup_display(anaconda, options):
         do_startup_wl_actions(xtimeout, headless=True, headless_resolution=options.runres)
         grd_server.start_grd_rdp()
 
-    # with X running we can initialize the UI interface
+    # with Wayland running we can initialize the UI interface
     anaconda.initialize_interface()
 
     if anaconda.gui_startup_failed:

@@ -552,7 +552,7 @@ def initialize_default_systemd_target(text_mode):
 
     NOTE:
 
-        Installation controlled via VNC is considered to be
+        Installation controlled via RDP is considered to be
         a text mode installation, as the installation run itself
         is effectively headless.
 

@@ -38,9 +38,8 @@ from requests_ftp import FTPAdapter
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm, join_paths
-from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
-    IPMI_ABORTED, X_TIMEOUT, PACKAGES_LIST_FILE
+    IPMI_ABORTED, PACKAGES_LIST_FILE
 from pyanaconda.core.live_user import get_live_user
 from pyanaconda.errors import RemovedModuleError
 
@@ -163,101 +162,6 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
             preexec_fn()
 
     return partsubp(preexec_fn=preexec)
-
-
-class X11Status:
-    """Status of Xorg launch.
-
-    Values of an instance can be modified from the handler functions.
-    """
-    def __init__(self):
-        self.started = False
-        self.timed_out = False
-
-    def needs_waiting(self):
-        return not (self.started or self.timed_out)
-
-
-def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
-    """ Start X and return once X is ready to accept connections.
-
-        X11, if SIGUSR1 is set to SIG_IGN, will send SIGUSR1 to the parent
-        process once it is ready to accept client connections. This method
-        sets that up and waits for the signal or bombs out if nothing happens
-        for a minute. The process will also be added to the list of watched
-        processes.
-
-        :param argv: The command line to run, as a list
-        :param output_redirect: file or file descriptor to redirect stdout and stderr to
-        :param timeout: Number of seconds to timing out.
-    """
-    x11_status = X11Status()
-
-    # Handle successful start before timeout
-    def sigusr1_success_handler(num, frame):
-        log.debug("X server has signalled a successful start.")
-        x11_status.started = True
-
-    # Fail after, let's say a minute, in case something weird happens
-    # and we don't receive SIGUSR1
-    def sigalrm_handler(num, frame):
-        # Check that it didn't make it under the wire
-        if x11_status.started:
-            return
-        x11_status.timed_out = True
-        log.error("Timeout trying to start %s", argv[0])
-
-    # Handle delayed start after timeout
-    def sigusr1_too_late_handler(num, frame):
-        if x11_status.timed_out:
-            log.debug("SIGUSR1 received after X server timeout. Switching back to tty1. "
-                      "SIGUSR1 now again initiates test of exception reporting.")
-            signal.signal(signal.SIGUSR1, old_sigusr1_handler)
-
-    # preexec_fn to add the SIGUSR1 handler in the child we are starting
-    # see man page XServer(1), section "signals"
-    def sigusr1_preexec():
-        signal.signal(signal.SIGUSR1, signal.SIG_IGN)
-
-    old_sigalrm_handler = None
-    old_sigusr1_handler = None
-    childproc = None
-    try:
-        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_success_handler)
-        old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
-
-        # Start the timer
-        log.debug("Setting timeout %s seconds for starting X.", timeout)
-        signal.alarm(timeout)
-
-        childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
-                                 preexec_fn=sigusr1_preexec)
-        WatchProcesses.watch_process(childproc, argv[0])
-
-        # Wait for SIGUSR1 or SIGALRM
-        while x11_status.needs_waiting():
-            signal.pause()
-
-    finally:
-        # Stop the timer
-        signal.alarm(0)
-        signal.signal(signal.SIGALRM, old_sigalrm_handler)
-
-        # Handle outcome of X start attempt
-        if x11_status.started:
-            signal.signal(signal.SIGUSR1, old_sigusr1_handler)
-        elif x11_status.timed_out:
-            signal.signal(signal.SIGUSR1, sigusr1_too_late_handler)
-            # Kill Xorg because from now on we will not use it. It will exit only after sending
-            # the signal, but at least we don't have to track that.
-            WatchProcesses.unwatch_process(childproc)
-            childproc.terminate()
-            log.debug("Exception handler test suspended to prevent accidental activation by "
-                      "delayed Xorg start. Next SIGUSR1 will be handled as delayed Xorg start.")
-            # Raise an exception to notify the caller that things went wrong. This affects
-            # particularly pyanaconda.display.do_startup_wl_actions(), where the window manager
-            # is started immediately after this. The WM would just wait forever.
-            raise TimeoutError("Timeout trying to start %s" % argv[0])
 
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,

@@ -71,7 +71,7 @@ AS_IF([test "x$enable_glade" != "xno"],
        AC_CONFIG_FILES([glade/Makefile])],
       [AC_SUBST(GLADE_SUBDIR, "")])
 
-ANACONDA_PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.11.3])
+ANACONDA_PKG_CHECK_MODULES([GTK], [gtk+-wayland-3.0 >= 3.11.3])
 ANACONDA_PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
 
 # Use AM_PATH_GLIB_2_0 to define some extra glib-related variables

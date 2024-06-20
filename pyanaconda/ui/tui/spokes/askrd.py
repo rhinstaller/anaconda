@@ -137,7 +137,7 @@ class AskRDSpoke(NormalTUISpoke):
 
 class RDPAuthSpoke(NormalTUISpoke):
     """
-       .. inheritance-diagram:: VNCPassSpoke
+       .. inheritance-diagram:: RDPAuthSpoke
           :parts: 3
     """
 

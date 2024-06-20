@@ -106,8 +106,8 @@ if updates=$(getarg inst.updates); then
     fi
 fi
 
-# for vnc bring network up in initramfs so that cmdline configuration is used
-getargbool 0 inst.vnc && warn "anaconda requiring network for vnc" && set_neednet
+# for rdp bring network up in initramfs so that cmdline configuration is used
+getargbool 0 inst.rdp && warn "anaconda requiring network for RDP" && set_neednet
 
 # re-read the commandline args
 unset CMDLINE
