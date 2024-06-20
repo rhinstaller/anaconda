@@ -498,15 +498,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Display
     ap.add_argument("--resolution", dest="runres", default=None, metavar="WIDTHxHEIGHT",
                     help=help_parser.help_text("resolution"))
-    ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev",
-                    help=help_parser.help_text("usefbx"))
-    ap.add_argument("--vnc", action="store_true", default=False,
-                    help=help_parser.help_text("vnc"))
-    ap.add_argument("--vncconnect", metavar="HOST:PORT", help=help_parser.help_text("vncconnect"))
-    ap.add_argument("--vncpassword", default="", metavar="PASSWORD",
-                    help=help_parser.help_text("vncpassword"))
-    ap.add_argument("--xdriver", dest="xdriver", action="store", type=str,
-                    default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
     ap.add_argument("--xtimeout", dest="xtimeout", action="store", type=int, default=X_TIMEOUT,
                     metavar="TIMEOUT_IN_SECONDS", help=help_parser.help_text("xtimeout"))
     ap.add_argument("--rdp", action="store_true", default=False, dest="rdp_enabled",

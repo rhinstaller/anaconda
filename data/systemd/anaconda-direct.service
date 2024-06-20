@@ -7,7 +7,7 @@ ConditionPathIsDirectory=|/sys/hypervisor/s390
 ConditionKernelCommandLine=|inst.notmux
 
 [Service]
-Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/sbin:/usr GDK_BACKEND=x11 XDG_RUNTIME_DIR=/tmp LANG=en_US.UTF-8
+Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/sbin:/usr GDK_BACKEND=wayland XDG_RUNTIME_DIR=/run/user/0 GIO_USE_VFS=local LANG=en_US.UTF-8
 Type=oneshot
 WorkingDirectory=/root
 ExecStart=/usr/sbin/anaconda
