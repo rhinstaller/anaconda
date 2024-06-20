@@ -60,7 +60,7 @@ jobs:
       - name: Check if rebuild of the container image is required
         id: check-dockerfile-changed
         run: |
-          changes=$(git diff $TARGET_BRANCH_NAME..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in scripts/testing/install_dependencies.sh)
+          changes=$(git diff $TARGET_BRANCH_NAME..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in)
           # print for debugging
           echo "$changes"
           [ -z "$changes" ] || echo "changed=true" >> $GITHUB_OUTPUT
