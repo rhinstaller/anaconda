@@ -1406,9 +1406,9 @@ def get_ports_from_connections(nm_client, port_types, controller_specs):
     """
     ports = set()
     for con in nm_client.get_connections():
-        if con.get_setting_connection().get_slave_type() not in port_types:
+        if con.get_setting_connection().get_port_type() not in port_types:
             continue
-        if con.get_setting_connection().get_master() in controller_specs:
+        if con.get_setting_connection().get_controller() in controller_specs:
             iface = get_iface_from_connection(nm_client, con.get_uuid())
             name = con.get_id()
             ports.add((name, iface, con.get_uuid()))
@@ -1441,7 +1441,7 @@ def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=N
         if con_type == NM_CONNECTION_TYPE_ETHERNET:
 
             # Ignore ports
-            if con.get_setting_connection().get_master():
+            if con.get_setting_connection().get_controller():
                 continue
 
             interface_name = con.get_interface_name()
@@ -1502,7 +1502,7 @@ def get_kickstart_network_data(connection, nm_client, network_data_class):
     """
     # no network command for non-virtual device ports
     if connection.get_connection_type() not in (NM_CONNECTION_TYPE_BOND, NM_CONNECTION_TYPE_TEAM):
-        if connection.get_setting_connection().get_master():
+        if connection.get_setting_connection().get_controller():
             return None
 
     # no support for wireless

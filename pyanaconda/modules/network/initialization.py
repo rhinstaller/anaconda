@@ -183,14 +183,14 @@ class DumpMissingConfigFilesTask(Task):
         if ac:
             con = ac.get_connection()
             if con.get_interface_name() == iface and con in cons:
-                if allow_ports or not con.get_setting_connection().get_master():
+                if allow_ports or not con.get_setting_connection().get_controller():
                     return con
             else:
                 log.debug("%s: active connection for %s can't be used as persistent",
                           self.name, iface)
         for con in cons:
             if con.get_interface_name() == iface:
-                if allow_ports or not con.get_setting_connection().get_master():
+                if allow_ports or not con.get_setting_connection().get_controller():
                     return con
         return None
 
@@ -254,7 +254,7 @@ class DumpMissingConfigFilesTask(Task):
 
             dumped_con = None
 
-            device_is_port = any(con.get_setting_connection().get_master()
+            device_is_port = any(con.get_setting_connection().get_controller()
                                  for con in available_cons)
             if device_is_port:
                 # We have to dump persistent ifcfg files for ports created in initramfs
