@@ -480,6 +480,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 21 2024 github-actions <github-actions@github.com> - 41.21-1
+- Do not create default wired connections for bond ports (rvykydal)
+- Consolidate code for dumping network connections (rvykydal)
+- docs: Remove wrong test doc for /kickstart-tests (jkonecny)
+- Fix broken locale support in console check (jkonecny)
+- Migrate vnc tui spokes to runtime DBUS (akankovs)
+- tests: pylint: enable consider-iterating-dictionary rule and implement
+  suggestions (kkoukiou)
+- tests: pylint: enable consider-using-enumerate rule and implement suggestions
+  (kkoukiou)
+- tests: pylint: enable consider-using-dict-items rule and implement
+  suggestions (kkoukiou)
+- tests: explicitely whitelist violated pylint conventions (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- Support leavebootorder for bootupd (jkonecny)
+- bootupd: call bootupctl with --update-firmware (awilliam)
+- gui: fix setting timezone from locale in the Welcome spoke (kkoukiou)
+
 * Tue Jun 11 2024 github-actions <github-actions@github.com> - 41.20-1
 - Update translations from Weblate for master (github-actions)
 - Fix issues for new pylint check (jkonecny)
