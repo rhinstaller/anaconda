@@ -36,6 +36,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
+from pyanaconda.modules.common.structures.secret import SecretData
 from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
 from pyanaconda.ui.tui import tui_quit_callback
@@ -118,10 +119,14 @@ def ask_vnc_question(anaconda, vnc_server, message):
     App.initialize()
     loop = App.get_event_loop()
     loop.set_quit_callback(tui_quit_callback)
-    spoke = AskVNCSpoke(anaconda.ksdata, message=message)
+    # Get current vnc data from DBUS
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    vnc_data = VncData.from_structure(ui_proxy.Vnc)
+    spoke = AskVNCSpoke(anaconda.ksdata, vnc_data, message=message)
     ScreenHandler.schedule_screen(spoke)
     App.run()
-    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+
+    # Update vnc data from DBUS
     vnc_data = VncData.from_structure(ui_proxy.Vnc)
 
     if vnc_data.enabled:
@@ -295,7 +300,8 @@ def setup_display(anaconda, options):
         if not anaconda.gui_mode:
             log.info("VNC requested via boot/CLI option, switching Anaconda to GUI mode.")
             anaconda.display_mode = constants.DisplayModes.GUI
-        vnc_server.password = options.vncpassword
+        vnc_server.password = SecretData()
+        vnc_server.password.value = options.vncpassword
 
         # Only consider vncconnect when vnc is a param
         if options.vncconnect:

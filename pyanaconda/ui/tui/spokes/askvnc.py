@@ -19,6 +19,10 @@
 import sys
 
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.structures.secret import SecretData
+from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.constants import USEVNC, USETEXT, QUIT_MESSAGE
 from pyanaconda.core.i18n import N_, _
@@ -50,8 +54,9 @@ class AskVNCSpoke(NormalTUISpoke):
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
-    def __init__(self, data, storage=None, payload=None, message=""):
+    def __init__(self, data, vnc_data, storage=None, payload=None, message=""):
         super().__init__(data, storage, payload)
+        self.vnc_data = vnc_data
         self.input_required = True
         self.initialize_start()
         self._container = None
@@ -86,7 +91,7 @@ class AskVNCSpoke(NormalTUISpoke):
 
     def _use_vnc_callback(self, data):
         self._usevnc = True
-        new_spoke = VNCPassSpoke(self.data, self.storage, self.payload)
+        new_spoke = VNCPassSpoke(self.data, self.storage, self.payload, self.vnc_data)
         ScreenHandler.push_screen_modal(new_spoke)
 
     def _use_text_callback(self, data):
@@ -111,7 +116,10 @@ class AskVNCSpoke(NormalTUISpoke):
                 return super().input(args, key)
 
     def apply(self):
-        self.data.vnc.enabled = self._usevnc
+        self.vnc_data.enabled = self._usevnc
+        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+        struct_vnc = VncData.to_structure(self.vnc_data)
+        ui_proxy.Vnc(struct_vnc)
 
 
 class VNCPassSpoke(NormalTUISpoke):
@@ -120,10 +128,11 @@ class VNCPassSpoke(NormalTUISpoke):
           :parts: 3
     """
 
-    def __init__(self, data, storage, payload, message=None):
+    def __init__(self, data, storage, payload, message=None, vnc_data=None):
         super().__init__(data, storage, payload)
+        self.vnc_data = vnc_data
         self.title = N_("VNC Password")
-        self._password = ""
+        self._password = SecretData()
         if message:
             self._message = message
         else:
@@ -156,7 +165,7 @@ class VNCPassSpoke(NormalTUISpoke):
             self._print_error_and_redraw(_("The password cannot be more than "
                                            "eight characters long."))
         else:
-            self._password = p1
+            self._password.value = p1
             self.apply()
             self.close()
 
@@ -168,4 +177,7 @@ class VNCPassSpoke(NormalTUISpoke):
         self.redraw()
 
     def apply(self):
-        self.data.vnc.password = self._password
+        self.vnc_data.password = self._password
+        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+        struct_vnc = VncData.to_structure(self.vnc_data)
+        ui_proxy.Vnc(struct_vnc)
