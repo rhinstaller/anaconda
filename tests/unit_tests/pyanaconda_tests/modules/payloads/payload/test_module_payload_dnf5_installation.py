@@ -30,6 +30,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
     PackagesSelectionData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MissingSpecsError, \
     InvalidSelectionError
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
@@ -375,6 +376,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager = Mock()
         dnf_manager.default_environment = None
         data = PackagesConfigurationData()
+        dnf_manager.resolve_selection.return_value = ValidationReport()
 
         task = ResolvePackagesTask(dnf_manager, selection, data)
         task.run()
@@ -383,7 +385,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager.apply_specs.assert_called_once_with(
             ["@core", "@r1", "@r2", "r4", "r5"], ["@r3", "r6"]
         )
-        dnf_manager.resolve_selection.assert_called_once_with()
+        dnf_manager.resolve_selection.assert_called_once()
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_driver_disk_requirements")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_platform_requirements")
@@ -403,7 +405,9 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager = Mock()
         dnf_manager.default_environment = None
 
-        dnf_manager.apply_specs.side_effect = MissingSpecsError("e2")
+        report = ValidationReport()
+        report.warning_messages = ["e2"]
+        dnf_manager.resolve_selection.return_value = report
 
         with pytest.raises(NonCriticalInstallationError) as cm:
             data = PackagesConfigurationData()
@@ -413,7 +417,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         expected = "e2"
         assert str(cm.value) == expected
 
-        dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
+        report.error_messages = ["e4"]
 
         with pytest.raises(PayloadInstallationError) as cm:
             data = PackagesConfigurationData()
