@@ -114,16 +114,14 @@ def parse_arguments(argv=None, boot_cmdline=None):
 
     :param argv: command like arguments
     :param boot_cmdline: boot options
-    :returns: namespace of parsed options and a list of deprecated
-              anaconda options that have been found
+    :returns: namespace of parsed options.
     """
     from pyanaconda.argument_parsing import getArgumentParser
     from pyanaconda.core.util import get_anaconda_version_string
 
     ap = getArgumentParser(get_anaconda_version_string(), boot_cmdline)
 
-    namespace = ap.parse_args(argv, boot_cmdline=boot_cmdline)
-    return (namespace, ap.removed_no_inst_bootargs)
+    return ap.parse_args(argv, boot_cmdline=boot_cmdline)
 
 
 def setup_environment():
@@ -204,7 +202,7 @@ if __name__ == "__main__":
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
     from pyanaconda.core.kernel import kernel_arguments
-    (opts, removed_no_inst_args) = parse_arguments(boot_cmdline=kernel_arguments)
+    opts = parse_arguments(boot_cmdline=kernel_arguments)
 
     from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
@@ -243,15 +241,6 @@ if __name__ == "__main__":
 
     if opts.updates_url:
         log.info("Using updates from: %s", opts.updates_url)
-
-    # warn users that they should use inst. prefix all the time
-    for arg in removed_no_inst_args:
-        stdout_log.warning("Kernel boot argument '%s' detected. "
-                           "Did you want to use 'inst.%s' for the installer instead?",
-                           arg, arg)
-    if removed_no_inst_args:
-        stdout_log.warning("All Anaconda kernel boot arguments are now required to use "
-                           "'inst.' prefix!")
 
     # print errors encountered during boot
     startup_utils.print_dracut_errors(stdout_log)
