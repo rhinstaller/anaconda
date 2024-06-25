@@ -249,7 +249,7 @@ class DeviceConfigurations(object):
 
             for c in cons:
                 # Ignore port connections
-                if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
+                if c.get_setting_connection() and c.get_setting_connection().get_port_type():
                     continue
                 candidate_uuid = c.get_uuid()
                 # In case of multiple connections choose the config connection
@@ -345,7 +345,7 @@ class DeviceConfigurations(object):
 
         # Ignore port connections
         elif device_type == NM.DeviceType.ETHERNET:
-            if con_setting and con_setting.get_master():
+            if con_setting and con_setting.get_controller():
                 decline_reason = "port connection"
 
         # Wireless settings are handled in scope of configuration of its device
