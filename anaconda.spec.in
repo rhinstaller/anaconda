@@ -480,6 +480,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 25 2024 github-actions <github-actions@github.com> - 41.22-1
+- Update translations from Weblate for master (github-actions)
+
 * Fri Jun 21 2024 github-actions <github-actions@github.com> - 41.21-1
 - Do not create default wired connections for bond ports (rvykydal)
 - Consolidate code for dumping network connections (rvykydal)
