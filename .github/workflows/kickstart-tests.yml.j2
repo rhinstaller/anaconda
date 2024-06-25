@@ -21,6 +21,13 @@
 #
 # /kickstart-test --force rpm-ostree
 # ... run rpm-ostree test even if it is disabled
+#
+#
+# It is possible to run updated tests via a PR in kickstart-tests repository
+#
+# /kickstart-test --kstest-pr 1233 --testtype harddrive
+# ... run the tests of type harddrive with
+# https://github.com/rhinstaller/kickstart-tests/pull/1233 update of kickstart tests
 
 name: kickstart-tests
 on:
@@ -70,8 +77,15 @@ jobs:
         run: |
           # extract first line and cut out the "/kickstart-tests" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
+          OPTS="$(getopt -q -o "" --long kstest-pr: -- $ARGS)" || true
+          PR=${OPTS#" --kstest-pr '"}
+          PR=$(echo $PR | cut -d " " -f1)
+          PR=${PR%"'"}
+          PR=${PR%"--"}
           echo "workflow arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
+          echo "kickstart-tests PR: $PR"
+          echo "kstest_pr=${PR}" >> $GITHUB_OUTPUT
 
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
@@ -79,6 +93,7 @@ jobs:
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      kstest_pr: ${{ steps.parse_comment_args.outputs.kstest_pr }}
 
   run:
     needs: pr-info
@@ -134,7 +149,23 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: rhinstaller/kickstart-tests
+          fetch-depth: 0
           path: kickstart-tests
+
+      - name: Pull the request and rebase to the upstream target
+        working-directory: ./kickstart-tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "${{ needs.pr-info.outputs.kstest_pr }}" ]; then
+              gh pr checkout ${{ needs.pr-info.outputs.kstest_pr }}
+              BASE_REF=$(gh pr view --json baseRefName --template '{{.baseRefName}}' ${{ needs.pr-info.outputs.kstest_pr }})
+              git config user.name github-actions
+              git config user.email github-actions@github.com
+              git log --oneline -1 $BASE_REF
+              git rebase $BASE_REF
+              echo "Rebasing PR ${{ needs.pr-info.outputs.kstest_pr }} to upstream $BASE_REF"
+          fi
 
       - name: Generate test cases
         working-directory: ./kickstart-tests

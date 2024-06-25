@@ -171,10 +171,11 @@ ________________________
 
 The `kickstart-tests.yml workflow`_ allows rhinstaller organization members to
 run kickstart-tests_ against an anaconda PR (only ``master`` for now). Send a
-comment that starts with ``/kickstart-tests <launch options>`` to the pull
-request to trigger this. See the `kickstart launch script`_ documentation and
-its ``--help`` for details what is supported. For more information see
-comments in the `kickstart-tests.yml workflow`_.
+comment that starts with ``/kickstart-tests <options>`` to the pull request to
+trigger it. It is possible to use tests updated via a kickstart-tests
+repository PR. See the `kickstart-tests.yml workflow`_ for supported
+options. For more detailed information on tests selection see the
+`kickstart launch script`_ documentation and-its ``--help``
 
 Container maintenance
 ---------------------
