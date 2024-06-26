@@ -13,6 +13,8 @@
       <column type="gboolean"/>
       <!-- column-name diskName -->
       <column type="gchararray"/>
+      <!-- column-name diskDeviceId -->
+      <column type="gchararray"/>
       <!-- column-name diskType -->
       <column type="gchararray"/>
       <!-- column-name diskModel -->
@@ -54,6 +56,35 @@
       <!-- column-name diskNamespaceId -->
       <column type="gchararray"/>
     </columns>
+    <data>
+      <row>
+        <col id="0">False</col>
+        <col id="1">False</col>
+        <col id="2">False</col>
+        <col id="3"/>
+        <col id="4"/>
+        <col id="5"/>
+        <col id="6"/>
+        <col id="7"/>
+        <col id="8"/>
+        <col id="9"/>
+        <col id="10"/>
+        <col id="11"/>
+        <col id="12"/>
+        <col id="13"/>
+        <col id="14"/>
+        <col id="15"/>
+        <col id="16"/>
+        <col id="17"/>
+        <col id="18"/>
+        <col id="19"/>
+        <col id="20"/>
+        <col id="21"/>
+        <col id="22"/>
+        <col id="23"/>
+        <col id="24"/>
+      </row>
+    </data>
   </object>
   <object class="GtkTreeModelFilter" id="multipathModel">
     <property name="child-model">diskStore</property>
@@ -93,6 +124,12 @@
                 <property name="margin-start">18</property>
                 <property name="margin-end">18</property>
                 <property name="margin-top">6</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
               </object>
             </child>
           </object>

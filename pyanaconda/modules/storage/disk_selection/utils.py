@@ -29,15 +29,15 @@ def check_disk_selection(storage, selected_disks):
     """
     errors = []
 
-    for name in selected_disks:
-        selected = storage.devicetree.get_device_by_name(name, hidden=True)
+    for disk_id in selected_disks:
+        selected = storage.devicetree.get_device_by_device_id(disk_id, hidden=True)
 
         if not selected:
-            errors.append(_("The selected disk {} is not recognized.").format(name))
+            errors.append(_("The selected disk {} is not recognized.").format(disk_id))
             continue
 
-        related = sorted(storage.devicetree.get_related_disks(selected), key=lambda d: d.name)
-        missing = [r.name for r in related if r.name not in selected_disks]
+        related = sorted(storage.devicetree.get_related_disks(selected), key=lambda d: d.device_id)
+        missing = [r for r in related if r.device_id not in selected_disks]
 
         if not missing:
             continue
@@ -53,7 +53,7 @@ def check_disk_selection(storage, selected_disks):
             "these disks as a set.",
             len(missing)) % {
             "selected": selected.name,
-            "unselected": ", ".join(missing)
+            "unselected": ", ".join([m.name for m in missing])
         })
 
     return errors

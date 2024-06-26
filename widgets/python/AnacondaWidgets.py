@@ -29,7 +29,7 @@ Anaconda = modules['AnacondaWidgets']._introspection_module
 __all__ = []
 
 class MountpointSelector(Anaconda.MountpointSelector):
-    def __init__(self, name=None, size=None, mountpoint=None):
+    def __init__(self, name=None, size=None, mountpoint=None, device_id=None):
         Anaconda.MountpointSelector.__init__(self)
 
         if name:
@@ -40,6 +40,8 @@ class MountpointSelector(Anaconda.MountpointSelector):
 
         if mountpoint:
             self.set_property("mountpoint", mountpoint)
+
+        self.device_id = device_id
 
 MountpointSelector = override(MountpointSelector)
 __all__.append('MountpointSelector')
@@ -61,13 +63,15 @@ SpokeSelector = override(SpokeSelector)
 __all__.append('SpokeSelector')
 
 class DiskOverview(Anaconda.DiskOverview):
-    def __init__(self, description, kind, capacity, free, name, popup=None):
+    def __init__(self, description, kind, capacity, free, name, device_id, popup=None):
         Anaconda.DiskOverview.__init__(self)
         self.set_property("description", description)
         self.set_property("kind", kind)
         self.set_property("free", free)
         self.set_property("capacity", capacity)
         self.set_property("name", name)
+
+        self.device_id = device_id
 
         if popup:
             self.set_property("popup-info", popup)

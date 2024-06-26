@@ -325,11 +325,11 @@ class ConfirmDeleteDialog(GUIObject):
     mainWidgetName = "confirmDeleteDialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    def __init__(self, data, device_tree, root_name, device_name, is_multiselection):
+    def __init__(self, data, device_tree, root_name, device_id, is_multiselection):
         super().__init__(data)
         self._device_tree = device_tree
         self._root_name = root_name
-        self._device_name = device_name
+        self._device_id = device_id
         self._is_multiselection = is_multiselection
 
         self._label = self.builder.get_object("confirmLabel")
@@ -370,17 +370,17 @@ class ConfirmDeleteDialog(GUIObject):
 
     def _get_label_text(self):
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(self._device_name)
+            self._device_tree.GetDeviceData(self._device_id)
         )
 
         format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(self._device_name)
+            self._device_tree.GetFormatData(self._device_id)
         )
-        device_name = self._device_name
+        device_name = device_data.name
         mount_point = format_data.attrs.get("mount-point", "")
 
         if mount_point:
-            device_name = "{} ({})".format(mount_point, self._device_name)
+            device_name = "{} ({})".format(mount_point, device_data.name)
 
         if format_data.type in PROTECTED_FORMAT_TYPES:
             return _(
@@ -398,7 +398,7 @@ class ConfirmDeleteDialog(GUIObject):
                 "Are you sure you want to delete all of the data on {}, including snapshots?"
             ).format(device_name)
 
-        return _("Are you sure you want to delete all of the data on {}?").format(device_name)
+        return _("Are you sure you want to delete all of the data on {}?").format(device_data.name)
 
     def run(self):
         return self.window.run()
@@ -437,12 +437,12 @@ class DisksDialog(GUIObject):
                                               "If you select multiple, only 1 drive will be used."))
 
     def _populate_disks(self):
-        for device_name in self._disks:
+        for disk_id in self._disks:
             device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
+                self._device_tree.GetDeviceData(disk_id)
             )
             device_free_space = self._device_tree.GetDiskFreeSpace(
-                [device_name]
+                [disk_id]
             )
             self._store.append([
                 "{} ({})".format(
@@ -451,7 +451,8 @@ class DisksDialog(GUIObject):
                 ),
                 str(Size(device_data.size)),
                 str(Size(device_free_space)),
-                device_name
+                device_data.name,
+                device_data.device_id
             ])
 
     def _select_disks(self):
@@ -460,8 +461,8 @@ class DisksDialog(GUIObject):
         selection = self._view.get_selection()
 
         while itr:
-            device_name = model.get_value(itr, 3)
-            if device_name in self._selected_disks:
+            device_id = model.get_value(itr, 4)
+            if device_id in self._selected_disks:
                 selection.select_iter(itr)
 
             itr = model.iter_next(itr)
@@ -476,8 +477,8 @@ class DisksDialog(GUIObject):
 
         for path in paths:
             itr = model.get_iter(path)
-            device_name = model.get_value(itr, 3)
-            self._selected_disks.append(device_name)
+            device_id = model.get_value(itr, 4)
+            self._selected_disks.append(device_id)
 
         self.window.destroy()
 
@@ -546,12 +547,12 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._dialog_label.set_text(dialog_text)
 
     def _populate_disks(self):
-        for device_name in self._disks:
+        for disk_id in self._disks:
             device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
+                self._device_tree.GetDeviceData(disk_id)
             )
             device_free_space = self._device_tree.GetDiskFreeSpace(
-                [device_name]
+                [disk_id]
             )
             self._store.append([
                 "{} ({})".format(
@@ -560,7 +561,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
                 ),
                 str(Size(device_data.size)),
                 str(Size(device_free_space)),
-                device_name
+                device_data.name,
+                device_data.device_id
             ])
 
     def _select_disks(self):
@@ -569,8 +571,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         selection = self._treeview.get_selection()
 
         while itr:
-            device_name = model.get_value(itr, 3)
-            if device_name in self._request.disks:
+            device_id = model.get_value(itr, 4)
+            if device_id in self._request.disks:
                 selection.select_iter(itr)
 
             itr = model.iter_next(itr)
@@ -729,8 +731,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         for path in paths:
             itr = model.get_iter(path)
-            device_name = model.get_value(itr, 3)
-            disks.append(device_name)
+            device_id = model.get_value(itr, 4)
+            disks.append(device_id)
 
         return disks
 
