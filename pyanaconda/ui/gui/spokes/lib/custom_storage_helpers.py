@@ -325,11 +325,11 @@ class ConfirmDeleteDialog(GUIObject):
     mainWidgetName = "confirmDeleteDialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    def __init__(self, data, device_tree, root_name, device_name, is_multiselection):
+    def __init__(self, data, device_tree, root_name, device_id, is_multiselection):
         super().__init__(data)
         self._device_tree = device_tree
         self._root_name = root_name
-        self._device_name = device_name
+        self._device_id = device_id
         self._is_multiselection = is_multiselection
 
         self._label = self.builder.get_object("confirmLabel")
@@ -370,17 +370,17 @@ class ConfirmDeleteDialog(GUIObject):
 
     def _get_label_text(self):
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(self._device_name)
+            self._device_tree.GetDeviceData(self._device_id)
         )
 
         format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(self._device_name)
+            self._device_tree.GetFormatData(self._device_id)
         )
-        device_name = self._device_name
+        device_name = device_data.name
         mount_point = format_data.attrs.get("mount-point", "")
 
         if mount_point:
-            device_name = "{} ({})".format(mount_point, self._device_name)
+            device_name = "{} ({})".format(mount_point, device_data.name)
 
         if format_data.type in PROTECTED_FORMAT_TYPES:
             return _(
@@ -398,7 +398,7 @@ class ConfirmDeleteDialog(GUIObject):
                 "Are you sure you want to delete all of the data on {}, including snapshots?"
             ).format(device_name)
 
-        return _("Are you sure you want to delete all of the data on {}?").format(device_name)
+        return _("Are you sure you want to delete all of the data on {}?").format(device_data.name)
 
     def run(self):
         return self.window.run()

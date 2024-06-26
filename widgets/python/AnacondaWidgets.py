@@ -29,7 +29,7 @@ Anaconda = modules['AnacondaWidgets']._introspection_module
 __all__ = []
 
 class MountpointSelector(Anaconda.MountpointSelector):
-    def __init__(self, name=None, size=None, mountpoint=None):
+    def __init__(self, name=None, size=None, mountpoint=None, device_id=None):
         Anaconda.MountpointSelector.__init__(self)
 
         if name:
@@ -40,6 +40,8 @@ class MountpointSelector(Anaconda.MountpointSelector):
 
         if mountpoint:
             self.set_property("mountpoint", mountpoint)
+
+        self.device_id = device_id
 
 MountpointSelector = override(MountpointSelector)
 __all__.append('MountpointSelector')

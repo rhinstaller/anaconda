@@ -368,7 +368,7 @@ def validate_device_factory_request(storage, request: DeviceFactoryRequest):
     :param request: a device factory request to validate
     :return: an error message
     """
-    device = storage.devicetree.resolve_device(request.device_spec)
+    device = storage.devicetree.get_device_by_device_id(request.device_spec)
     device_type = request.device_type
     reformat = request.reformat
     fs_type = request.format_type
