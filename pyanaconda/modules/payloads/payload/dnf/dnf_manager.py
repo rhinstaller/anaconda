@@ -706,7 +706,7 @@ class DNFManager(object):
             if transaction_has_errors(base.transaction):
                 display.error("The transaction process has ended with errors.")
         except BaseException as e:  # pylint: disable=broad-except
-            display.error(f"The transaction process has ended abruptly: {str(e)}\n{traceback.format_exc()}")
+            display.error(f"The transaction process has ended abruptly: {e!s}\n{traceback.format_exc()}")
         finally:
             log.debug("The transaction has ended.")
             base.close()  # Always close this base.

@@ -795,7 +795,7 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=
 
     log.debug(
         "Generated factory arguments: {\n%s\n}",
-        ",\n".join(f"{name} = {repr(value)}" for name, value in args.items())
+        ",\n".join(f"{name} = {value!r}" for name, value in args.items())
     )
 
     return args

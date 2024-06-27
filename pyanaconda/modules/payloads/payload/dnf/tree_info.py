@@ -209,7 +209,7 @@ class TreeInfoMetadata(object):
 
         except configparser.Error as e:
             log.debug("Failed to load treeinfo metadata: %s", e)
-            raise InvalidTreeInfoError(f"Invalid metadata: {str(e)}") from None
+            raise InvalidTreeInfoError(f"Invalid metadata: {e!s}") from None
 
         # Update this treeinfo representation.
         self._repositories = repo_list

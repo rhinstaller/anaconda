@@ -379,7 +379,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         try:
             _connection, result = client.add_connection2_finish(result)
         except Exception as e:  # pylint: disable=broad-except
-            msg = f"adding default connection {connection_uuid} from {iface} failed: {str(e)}"
+            msg = f"adding default connection {connection_uuid} from {iface} failed: {e!s}"
             log.error(msg)
             self.errors.append(msg)
             self.redraw()

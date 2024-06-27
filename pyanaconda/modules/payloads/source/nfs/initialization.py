@@ -94,7 +94,7 @@ class SetUpNFSSourceTask(Task):
         try:
             self._mount_nfs(host, options, path, self._device_mount)
         except OSError as e:
-            msg = f"Failed to mount the NFS source at '{self._url}': {str(e)}"
+            msg = f"Failed to mount the NFS source at '{self._url}': {e!s}"
             raise SourceSetupError(msg) from None
 
         # Mount an ISO if any.

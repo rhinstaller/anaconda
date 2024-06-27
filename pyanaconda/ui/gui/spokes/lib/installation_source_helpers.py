@@ -95,7 +95,7 @@ def generate_repository_description(repo_data):
 
     for name, field in fields.items():
         value = field.get_data(repo_data)
-        attribute = f"{name} = {repr(value)}"
+        attribute = f"{name} = {value!r}"
         attributes.append(attribute)
 
     return "\n".join(["{"] + attributes + ["}"])

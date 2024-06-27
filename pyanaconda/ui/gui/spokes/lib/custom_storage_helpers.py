@@ -107,9 +107,9 @@ def generate_request_description(request, original=None):
         old_value = field.get_data(original)
 
         if new_value == old_value:
-            attribute = f"{name} = {repr(new_value)}"
+            attribute = f"{name} = {new_value!r}"
         else:
-            attribute = f"{name} = {repr(old_value)} -> {repr(new_value)}"
+            attribute = f"{name} = {old_value!r} -> {new_value!r}"
 
         attributes.append(attribute)
 

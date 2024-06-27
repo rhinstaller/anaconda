@@ -221,7 +221,7 @@ class SubscriptionService(KickstartService):
                     subscription_request.server_proxy_password.set_secret(proxy.password)
             except ProxyStringError as e:
                 # should not be fatal, but definitely logged as error
-                message = f"Failed to parse proxy for the rhsm command: {str(e)}"
+                message = f"Failed to parse proxy for the rhsm command: {e!s}"
                 warnings.warn(message, KickstartParseWarning)
 
         # set the resulting subscription request
