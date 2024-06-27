@@ -35,7 +35,7 @@ class SourcesTestCase(unittest.TestCase):
     def test_find_rw_mounts(self):
         """Test that only RO mounts of install sources are in Dracut."""
         # everything what starts by string in this list will not be tested
-        ignore_prefixes = ("Makefile", "README", "python-deps", "module-setup.sh")
+        ignore_prefixes = ("Makefile", "README", "python-deps", "module-setup.sh", "dd")
         # define false positives
         false_positives = (re.compile(r'\bmount +(--move|--make-rprivate)'),
                            re.compile(r'\bmount /dev/mapper/live-rw'),

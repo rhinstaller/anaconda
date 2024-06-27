@@ -265,7 +265,7 @@ represents a different class of tests. They are
 
 - *cppcheck/* - static C/C++ code analysis using the *cppcheck* tool;
 - *shellcheck/* - shell code analyzer config;
-- *dd_tests/* - Python unit tests for driver disk utilities (utils/dd);
+- *dd_tests/* - Python unit tests for driver disk utilities (dracut/dd);
 - *unit_tests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
   installation environment and load Anaconda;
 - *gettext/* - sanity tests of files used for translation; Written in Python and

@@ -20,7 +20,7 @@ include ./po/l10n-config.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
+SUBDIRS = data docs dracut po pyanaconda scripts tests widgets
 
 EXTRA_DIST = COPYING
 

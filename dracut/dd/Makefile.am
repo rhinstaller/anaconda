@@ -1,4 +1,4 @@
-# utils/Makefile.am for anaconda
+# dracut/dd/Makefile.am for anaconda
 #
 # Copyright (C) 2009-2013  Red Hat, Inc.
 #
