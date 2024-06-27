@@ -210,4 +210,4 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     epoch_seconds = int(set_date.timestamp())
 
     log.info("Setting system time to %s UTC", time.asctime(time.gmtime(epoch_seconds)))
-    execWithRedirect("/usr/bin/date", ['--set=@{}'.format(epoch_seconds)])
+    execWithRedirect("/usr/bin/date", [f'--set=@{epoch_seconds}'])

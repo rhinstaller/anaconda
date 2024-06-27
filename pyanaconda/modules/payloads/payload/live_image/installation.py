@@ -85,7 +85,7 @@ class DownloadImageTask(Task):
 
             except requests.exceptions.RequestException as e:
                 raise PayloadInstallationError(
-                    "Error while downloading the image: {}".format(e)
+                    f"Error while downloading the image: {e}"
                 ) from e
 
         return self._download_path
@@ -266,7 +266,7 @@ class MountImageTask(Task):
 
         if rc != 0:
             raise PayloadInstallationError(
-                "Failed to make the '/' mount rprivate: {}".format(rc)
+                f"Failed to make the '/' mount rprivate: {rc}"
             )
 
     def _mount_image(self, image_path, mount_point):
@@ -283,7 +283,7 @@ class MountImageTask(Task):
 
         if rc != 0:
             raise PayloadInstallationError(
-                "Failed to mount '{}' at '{}': {}".format(image_path, mount_point, rc)
+                f"Failed to mount '{image_path}' at '{mount_point}': {rc}"
             )
 
     def _find_live_os_image(self):
@@ -372,7 +372,7 @@ class InstallFromTarTask(Task):
         try:
             execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
-            msg = "Failed to install tar: {}".format(e)
+            msg = f"Failed to install tar: {e}"
             raise PayloadInstallationError(msg) from None
 
 
@@ -438,13 +438,13 @@ class InstallFromImageTask(Task):
                 self._parse_rsync_update(line)
 
         except (OSError, RuntimeError) as e:
-            msg = "Failed to install image: {}".format(e)
+            msg = f"Failed to install image: {e}"
             raise PayloadInstallationError(msg) from None
 
         if reader.rc == 11:
             raise PayloadInstallationError(
                 "Failed to install image: "
-                "{} exited with code {}".format(cmd, reader.rc)
+                f"{cmd} exited with code {reader.rc}"
             )
 
     def _parse_rsync_update(self, line):

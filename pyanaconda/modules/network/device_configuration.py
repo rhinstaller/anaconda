@@ -514,7 +514,7 @@ class DeviceConfigurations(object):
         return str(self._device_configurations)
 
     def __repr__(self):
-        return "DeviceConfigurations({})".format(self.nm_client)
+        return f"DeviceConfigurations({self.nm_client})"
 
 
 def is_libvirt_device(iface):

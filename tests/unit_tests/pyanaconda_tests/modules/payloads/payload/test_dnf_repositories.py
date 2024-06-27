@@ -65,7 +65,7 @@ class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
 
             assert rs == []
             assert r.name == "DD-1"
-            assert r.url == "file://{}/DD-1".format(d)
+            assert r.url == f"file://{d}/DD-1"
             assert os.path.exists(join_paths(d, "DD-1", "repodata"))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
@@ -81,7 +81,7 @@ class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
 
             assert rs == []
             assert r.name == "DD-1"
-            assert r.url == "file://{}/DD-1".format(d)
+            assert r.url == f"file://{d}/DD-1"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
     def test_repositories(self, conf_mock):
@@ -101,13 +101,13 @@ class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
 
             assert rs == []
             assert r1.name == "DD-1"
-            assert r1.url == "file://{}/DD-1".format(d)
+            assert r1.url == f"file://{d}/DD-1"
 
             assert r2.name == "DD-2"
-            assert r2.url == "file://{}/DD-2".format(d)
+            assert r2.url == f"file://{d}/DD-2"
 
             assert r3.name == "DD-3"
-            assert r3.url == "file://{}/DD-3".format(d)
+            assert r3.url == f"file://{d}/DD-3"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
     def test_disabled(self, conf_mock):

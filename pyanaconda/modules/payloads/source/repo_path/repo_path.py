@@ -125,7 +125,4 @@ class RepoPathSourceModule(PayloadSourceBase, RPMSourceMixin):
 
     def __repr__(self):
         """Return a string representation of the source."""
-        return "Source(type='{}', path='{}')".format(
-            self.type.value,
-            self.path
-        )
+        return f"Source(type='{self.type.value}', path='{self.path}')"

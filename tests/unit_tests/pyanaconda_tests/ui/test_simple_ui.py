@@ -151,7 +151,7 @@ class SimpleUITestCase(unittest.TestCase):
             name = spoke.__name__
 
             if priority in res:
-                msg = "Spokes {} and {} have the same priority!".format(res[priority], name)
+                msg = f"Spokes {res[priority]} and {name} have the same priority!"
                 assert priority not in res, msg
             res[priority] = name
 

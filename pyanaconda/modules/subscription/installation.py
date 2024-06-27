@@ -72,7 +72,7 @@ class ConnectToInsightsTask(Task):
         # check the insights client utility is available
         if not os.path.isfile(insights_path):
             raise InsightsClientMissingError(
-                "The insight-client tool ({}) is not available.".format(self.INSIGHTS_TOOL_PATH)
+                f"The insight-client tool ({self.INSIGHTS_TOOL_PATH}) is not available."
             )
 
         # tell the insights client to connect to insights
@@ -192,7 +192,7 @@ class TransferSubscriptionTokensTask(Task):
         log.debug("subscription: transferring %s", target_name)
         target_repo_file_path = join_paths(self._sysroot, target_path)
         if not self._copy_file(target_path, target_repo_file_path):
-            msg = "{} ({}) is missing".format(target_name, self.RHSM_REPO_FILE_PATH)
+            msg = f"{target_name} ({self.RHSM_REPO_FILE_PATH}) is missing"
             raise SubscriptionTokenTransferError(msg)
 
     def _transfer_system_purpose(self):
@@ -214,8 +214,7 @@ class TransferSubscriptionTokensTask(Task):
         log.debug("subscription: transferring entitlement keys")
         target_entitlement_keys_path = self._sysroot + self.RHSM_ENTITLEMENT_KEYS_PATH
         if not self._copy_pem_files(self.RHSM_ENTITLEMENT_KEYS_PATH, target_entitlement_keys_path):
-            msg = "RHSM entitlement keys (from {}) are missing.".format(
-                self.RHSM_ENTITLEMENT_KEYS_PATH)
+            msg = f"RHSM entitlement keys (from {self.RHSM_ENTITLEMENT_KEYS_PATH}) are missing."
             raise SubscriptionTokenTransferError(msg)
 
     def run(self):

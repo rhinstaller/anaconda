@@ -57,7 +57,7 @@ class PartitioningFactory(object):
                 BlivetPartitioningModule
             return BlivetPartitioningModule()
 
-        raise ValueError("Unknown partitioning method: {}".format(method))
+        raise ValueError(f"Unknown partitioning method: {method}")
 
     @staticmethod
     def get_method_for_kickstart(data):

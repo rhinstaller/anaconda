@@ -352,7 +352,7 @@ class DownloadImageTaskTestCase(unittest.TestCase):
     def _download_local_file_as_remote(self, set_content_length):
         """Run the task with a local file as a remote."""
         with self._create_directory():
-            self.data.url = "fake://{}".format(self.image_path)
+            self.data.url = f"fake://{self.image_path}"
 
             # Create a 4MB source image.
             with open(self.image_path, "wb") as f:
@@ -376,25 +376,25 @@ class DownloadImageTaskTestCase(unittest.TestCase):
     def test_local_file(self):
         """Download a local file."""
         with self._create_directory():
-            self.data.url = "file://{}".format(self.image_path)
+            self.data.url = f"file://{self.image_path}"
             assert self._run_task() == self.image_path
 
     def test_local_file_as_remote_direct(self):
         """Download a local file as a remote file directly."""
         self._download_local_file_as_remote(set_content_length=False)
         self.callback.assert_called_once_with(
-            0, 'Downloading {}'.format(self.data.url)
+            0, f'Downloading {self.data.url}'
         )
 
     def test_local_file_as_remote_stream(self):
         """Download a local file as a remote stream."""
         self._download_local_file_as_remote(set_content_length=True)
         assert self.callback.mock_calls == [
-            call(0, 'Downloading {} (0%)'.format(self.data.url)),
-            call(0, 'Downloading {} (25%)'.format(self.data.url)),
-            call(0, 'Downloading {} (50%)'.format(self.data.url)),
-            call(0, 'Downloading {} (75%)'.format(self.data.url)),
-            call(0, 'Downloading {} (100%)'.format(self.data.url)),
+            call(0, f'Downloading {self.data.url} (0%)'),
+            call(0, f'Downloading {self.data.url} (25%)'),
+            call(0, f'Downloading {self.data.url} (50%)'),
+            call(0, f'Downloading {self.data.url} (75%)'),
+            call(0, f'Downloading {self.data.url} (100%)'),
         ]
 
     @patch_requests()
@@ -568,7 +568,7 @@ class MountImageTaskTestCase(unittest.TestCase):
             with pytest.raises(PayloadInstallationError) as cm:
                 self._run_task()
 
-            msg = "Failed to mount '{}' at '{}': {}".format(self.image_path, self.image_mount, 1)
+            msg = f"Failed to mount '{self.image_path}' at '{self.image_mount}': {1}"
             assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.blivet.util.mount")

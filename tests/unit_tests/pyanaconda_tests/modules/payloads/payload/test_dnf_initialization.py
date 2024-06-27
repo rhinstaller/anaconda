@@ -247,7 +247,7 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             )
 
             configuration = RepoConfigurationData()
-            configuration.url = "file://{}/unified".format(path)
+            configuration.url = f"file://{path}/unified"
             source.set_configuration(configuration)
 
             result = self._run_task(source)
@@ -263,13 +263,13 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
 
             # The treeinfo base repository is configured.
             repo_object = dnf_manager._get_repository("anaconda")
-            assert repo_object.baseurl == ["file://{}/baseos".format(path)]
+            assert repo_object.baseurl == [f"file://{path}/baseos"]
 
             # Check the generated treeinfo repository.
             repository = RepoConfigurationData()
             repository.name = "AppStream"
             repository.origin = REPO_ORIGIN_TREEINFO
-            repository.url = "file://{}/appstream".format(path)
+            repository.url = f"file://{path}/appstream"
 
             assert len(result.repositories) == 1
             assert compare_data(result.repositories[0], repository)

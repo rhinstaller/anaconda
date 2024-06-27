@@ -101,7 +101,7 @@ class PayloadSection(Section):
         value = self._get_option("default_source", str)
 
         if value not in (SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN):
-            raise ValueError("Invalid value: {}".format(value))
+            raise ValueError(f"Invalid value: {value}")
 
         return value
 
@@ -122,7 +122,7 @@ class PayloadSection(Section):
         """Convert flatpak remote from string to tuple."""
         value = value.split()
         if len(value) != 2:
-            raise ValueError("Flatpak remote needs to be in format 'name URL': {}".format(value))
+            raise ValueError(f"Flatpak remote needs to be in format 'name URL': {value}")
 
         return tuple(value)
 

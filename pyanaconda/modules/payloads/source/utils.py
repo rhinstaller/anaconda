@@ -322,10 +322,6 @@ class MountPointGenerator:
         :return:
         :rtype: str
         """
-        path = "{}/mount-{:0>4}-{}".format(
-            SOURCES_DIR,
-            cls._counter,
-            suffix
-        )
+        path = f"{SOURCES_DIR}/mount-{cls._counter:0>4}-{suffix}"
         cls._counter = cls._counter + 1
         return path

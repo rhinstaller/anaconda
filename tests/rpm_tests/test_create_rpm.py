@@ -232,7 +232,7 @@ class InstalledFilesTestCase(RPMTestCase):
         rpm_files = self._check_and_return_as_list(rpm_files)
 
         for f in src_files:
-            self.assertIn(f, rpm_files, "File '{}' is not packaged in rpm".format(f))
+            self.assertIn(f, rpm_files, f"File '{f}' is not packaged in rpm")
 
     def _check_and_return_as_list(self, files_list):
         li = list(files_list)

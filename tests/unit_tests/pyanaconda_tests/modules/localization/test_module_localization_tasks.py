@@ -508,7 +508,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             # Check the result.
             with open(fpath) as f:
                 assert f.read() == \
-                    'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, DEFAULT_VC_FONT)
+                    f'KEYMAP="{vc_keymap}"\nFONT="{DEFAULT_VC_FONT}"\n'
 
     @patch.dict(os.environ, {"LANG": "ru_RU.UTF-8"})
     def test_write_vc_configuration_env(self):
@@ -522,7 +522,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             # Check the result.
             with open(fpath) as f:
                 assert f.read() == \
-                    'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, vc_font)
+                    f'KEYMAP="{vc_keymap}"\nFONT="{vc_font}"\n'
 
     def test_write_x_configuration(self):
         """Test write_x_configuration_test."""

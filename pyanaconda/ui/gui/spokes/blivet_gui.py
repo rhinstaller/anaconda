@@ -28,7 +28,7 @@ try:
     from blivetgui.communication.client import BlivetGUIClient  # pylint: disable=import-error
     from blivetgui.config import config  # pylint: disable=import-error
 except ImportError as e:
-    raise RemovedModuleError("This module is not supported: {}".format(e)) from None
+    raise RemovedModuleError(f"This module is not supported: {e}") from None
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.ui.gui.spokes import NormalSpoke

@@ -121,8 +121,8 @@ class DASDFormatTask(Task):
     def _do_format(self, disk_name):
         """Format the specified DASD disk."""
         try:
-            self.report_progress("Formatting {}".format(disk_name))
+            self.report_progress(f"Formatting {disk_name}")
             blockdev.s390.dasd_format(disk_name)
         except blockdev.S390Error as err:
-            self.report_progress("Failed formatting {}".format(disk_name))
+            self.report_progress(f"Failed formatting {disk_name}")
             log.error(err)

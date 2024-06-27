@@ -89,9 +89,9 @@ INCLUDE_LEVEL_1_FILENAME = "ks.manager.test.include1.cfg"
 INCLUDE_LEVEL_2_FILENAME = "ks.manager.test.include2.cfg"
 kickstart_include = [
     ("ks.manager.test.include.cfg", KICKSTART1.format(INCLUDE_LEVEL_1_FILENAME).strip()),
-    (INCLUDE_LEVEL_1_FILENAME, """
+    (INCLUDE_LEVEL_1_FILENAME, f"""
 network --device=ens51 --activate
-%include {}
+%include {INCLUDE_LEVEL_2_FILENAME}
 network --device=ens55 --activate
 network --device=ens56 --activate
 network --hostname=PARSE_ERROR
@@ -99,7 +99,7 @@ repo --name=repo1 --baseurl=http://bla.bla/repo1
 %post
 echo "POST_include1"
 %end
-""".format(INCLUDE_LEVEL_2_FILENAME).strip()),
+""".strip()),
     (INCLUDE_LEVEL_2_FILENAME, """
 repo --name=repo1 --baseurl=http://bla.bla/repo1
 network --device=ens541 --activate

@@ -319,7 +319,7 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         options, host, path = self._get_nfs()
         self._nfs_opts = options
-        self._nfs_server = "{}:{}".format(host, path) if host else ""
+        self._nfs_server = f"{host}:{path}" if host else ""
 
     def _get_nfs(self):
         """Get the NFS options, host and path of the current source."""

@@ -145,7 +145,7 @@ class StartModulesTask(Task):
             returned = call()
         except Exception as error:  # pylint: disable=broad-except
             raise UnavailableModuleError(
-                "Service {} has failed to start: {}".format(observer, error)
+                f"Service {observer} has failed to start: {error}"
             ) from error
 
         if returned != DBUS_START_REPLY_SUCCESS:

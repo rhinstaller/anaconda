@@ -235,7 +235,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
 
         self._check_detection(profile_id, *os_release_values)
         self._check_partitioning(config, partitioning)
-        assert "{}.conf".format(profile_id) == file_names[-1]
+        assert f"{profile_id}.conf" == file_names[-1]
 
     def _get_config(self, profile_id):
         """Get parsed config file."""

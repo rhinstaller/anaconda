@@ -85,9 +85,7 @@ class SetUpNFSSourceTask(Task):
         # Check the mount points.
         for mount_point in [self._device_mount, self._iso_mount]:
             if os.path.ismount(mount_point):
-                raise SourceSetupError("The mount point {} is already in use.".format(
-                    mount_point
-                ))
+                raise SourceSetupError(f"The mount point {mount_point} is already in use.")
 
         # Mount the NFS.
         options, host, path = parse_nfs_url(self._url)
@@ -96,7 +94,7 @@ class SetUpNFSSourceTask(Task):
         try:
             self._mount_nfs(host, options, path, self._device_mount)
         except OSError as e:
-            msg = "Failed to mount the NFS source at '{}': {}".format(self._url, str(e))
+            msg = f"Failed to mount the NFS source at '{self._url}': {str(e)}"
             raise SourceSetupError(msg) from None
 
         # Mount an ISO if any.
@@ -115,7 +113,7 @@ class SetUpNFSSourceTask(Task):
         unmount(self._device_mount)
 
         raise SourceSetupError(
-            "Nothing useful found for the NFS source at '{}'.".format(self._url)
+            f"Nothing useful found for the NFS source at '{self._url}'."
         )
 
     @staticmethod
@@ -143,4 +141,4 @@ class SetUpNFSSourceTask(Task):
         elif "nolock" not in options:
             options += ",nolock"
 
-        mount("{}:{}".format(host, path), mount_point, fstype="nfs", options=options)
+        mount(f"{host}:{path}", mount_point, fstype="nfs", options=options)

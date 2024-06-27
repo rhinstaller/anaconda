@@ -10,6 +10,7 @@ select = [
     "ICN", # flake8-import-conventions
     "G", # flake8-logging-format
     "RUF", # Ruff-specific rules
+    "UP032", # f-string
     "SIM", # flake8-simplify
 ]
 

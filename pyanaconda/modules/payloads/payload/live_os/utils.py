@@ -33,7 +33,7 @@ def get_kernel_version_list(root_path):
     """
     efi_dir = conf.bootloader.efi_dir
     files = glob.glob(root_path + "/boot/vmlinuz-*")
-    files.extend(glob.glob(root_path + "/boot/efi/EFI/{}/vmlinuz-*".format(efi_dir)))
+    files.extend(glob.glob(root_path + f"/boot/efi/EFI/{efi_dir}/vmlinuz-*"))
 
     kernel_version_list = [
         f.split("/")[-1][8:] for f in files

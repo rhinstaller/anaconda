@@ -58,7 +58,7 @@ class StorageCheckerModule(KickstartBaseModule):
             storage_checker.set_constraint(name, value)
         else:
             raise UnsupportedValueError(
-                "Constraint '{}' is not supported.".format(name)
+                f"Constraint '{name}' is not supported."
             )
 
         log.debug("Constraint '%s' is set to '%s'.", name, value)

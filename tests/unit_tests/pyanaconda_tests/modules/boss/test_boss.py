@@ -65,7 +65,7 @@ class BossInterfaceTestCase(unittest.TestCase):
         """Add a DBus module with a package requirement."""
         requirement = Requirement.for_package(
             package_name=package_name,
-            reason="Required by {}.".format(service_name)
+            reason=f"Required by {service_name}."
         )
 
         module_proxy = Mock()

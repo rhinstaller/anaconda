@@ -239,10 +239,10 @@ class PasswordDialog(Dialog):
         if not self._dialog_message:
             return self._title
 
-        return "{}\n\n{}".format(self._dialog_message, self._title)
+        return f"{self._dialog_message}\n\n{self._title}"
 
     def _get_confim_prompt(self):
-        return "{} (confirm)".format(self._title)
+        return f"{self._title} (confirm)"
 
     def _ask_pass_modal(self, prompt, no_separator):
         pass_screen = GetPasswordInputScreen(prompt)
@@ -286,10 +286,10 @@ class PasswordDialog(Dialog):
 
             if password_check.result.error_message:
                 weak_prefix = _(constants.SECRET_WEAK_WITH_ERROR[self._secret_type])
-                error = "{} {} {}".format(weak_prefix, password_check.result.error_message, done_msg)
+                error = f"{weak_prefix} {password_check.result.error_message} {done_msg}"
             else:
                 weak_prefix = _(constants.SECRET_WEAK[self._secret_type])
-                error = "{} {}".format(weak_prefix, done_msg)
+                error = f"{weak_prefix} {done_msg}"
 
             if not self._policy.is_strict:
                 question_window = YesNoDialog(error)

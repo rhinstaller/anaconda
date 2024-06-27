@@ -173,9 +173,7 @@ class ServicesService(KickstartService):
         :param target: a string with the target
         """
         if target not in self.SUPPORTED_SYSTEMD_TARGETS:
-            msg = "Unsupported systemd default target: {} Specify one of: {}".format(
-                target, self.SUPPORTED_SYSTEMD_TARGETS
-            )
+            msg = f"Unsupported systemd default target: {target} Specify one of: {self.SUPPORTED_SYSTEMD_TARGETS}"
             raise ValueError(msg)
 
         self._default_target = target

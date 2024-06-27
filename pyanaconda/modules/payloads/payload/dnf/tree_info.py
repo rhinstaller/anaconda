@@ -209,7 +209,7 @@ class TreeInfoMetadata(object):
 
         except configparser.Error as e:
             log.debug("Failed to load treeinfo metadata: %s", e)
-            raise InvalidTreeInfoError("Invalid metadata: {}".format(str(e))) from None
+            raise InvalidTreeInfoError(f"Invalid metadata: {str(e)}") from None
 
         # Update this treeinfo representation.
         self._repositories = repo_list
@@ -226,7 +226,7 @@ class TreeInfoMetadata(object):
         self._reset()
 
         if data.type != URL_TYPE_BASEURL:
-            raise NoTreeInfoError("Unsupported type of URL ({}).".format(data.type))
+            raise NoTreeInfoError(f"Unsupported type of URL ({data.type}).")
 
         if not data.url:
             raise NoTreeInfoError("No URL specified.")
@@ -313,7 +313,7 @@ class TreeInfoMetadata(object):
 
             # Download the metadata file.
             for name in self.TREE_INFO_NAMES:
-                file_url = "{}/{}".format(url, name)
+                file_url = f"{url}/{name}"
 
                 try:
                     with downloader(file_url) as r:
@@ -347,7 +347,7 @@ class TreeInfoMetadata(object):
             return False
 
         if not repo_md.url.startswith("file://"):
-            raise ValueError("Unexpected type of URL: {}".format(repo_md.url))
+            raise ValueError(f"Unexpected type of URL: {repo_md.url}")
 
         repo_path = repo_md.url.removeprefix("file://")
         data_path = os.path.join(repo_path, "repodata")

@@ -221,7 +221,7 @@ class SubscriptionService(KickstartService):
                     subscription_request.server_proxy_password.set_secret(proxy.password)
             except ProxyStringError as e:
                 # should not be fatal, but definitely logged as error
-                message = "Failed to parse proxy for the rhsm command: {}".format(str(e))
+                message = f"Failed to parse proxy for the rhsm command: {str(e)}"
                 warnings.warn(message, KickstartParseWarning)
 
         # set the resulting subscription request
@@ -572,7 +572,7 @@ class SubscriptionService(KickstartService):
         flat_dict = {}
         for category_key, category_dict in nested_dict.items():
             for key, value in category_dict.items():
-                flat_key = "{}.{}".format(category_key, key)
+                flat_key = f"{category_key}.{key}"
                 flat_dict[flat_key] = value
         return flat_dict
 

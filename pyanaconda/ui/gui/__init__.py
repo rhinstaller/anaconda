@@ -179,7 +179,7 @@ class GUIObject(common.UIObject):
             if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
                 return testPath
 
-        raise OSError("Could not load UI file '{}' for object '{}'".format(self.uiFile, self))
+        raise OSError(f"Could not load UI file '{self.uiFile}' for object '{self}'")
 
     @property
     def window(self):

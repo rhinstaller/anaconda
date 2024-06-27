@@ -169,10 +169,7 @@ class StorageService(KickstartService):
 
         Adds Blivet version to the output because most of the strings come from Blivet anyway.
         """
-        return "# Generated using Blivet version {}\n{}".format(
-            blivet_version,
-            super().generate_kickstart()
-        )
+        return f"# Generated using Blivet version {blivet_version}\n{super().generate_kickstart()}"
 
     @property
     def storage(self):

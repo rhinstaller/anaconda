@@ -753,8 +753,8 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         """Add a mocked group with the specified id."""
         group = Mock(spec=Group)
         group.id = grp_id
-        group.ui_name = "The '{}' group".format(grp_id)
-        group.ui_description = "This is the '{}' group.".format(grp_id)
+        group.ui_name = f"The '{grp_id}' group"
+        group.ui_description = f"This is the '{grp_id}' group."
         group.visible = visible
 
         self.comps.groups.append(group)
@@ -763,8 +763,8 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         """Add a mocked environment with the specified id."""
         environment = Mock(spec=Environment)
         environment.id = env_id
-        environment.ui_name = "The '{}' environment".format(env_id)
-        environment.ui_description = "This is the '{}' environment.".format(env_id)
+        environment.ui_name = f"The '{env_id}' environment"
+        environment.ui_description = f"This is the '{env_id}' environment."
         environment.option_ids = []
 
         for opt_id in optional:
@@ -1385,7 +1385,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         # Create the repomd.xml file.
         md_path = os.path.join(repo_dir, "repodata", "repomd.xml")
-        md_content = "Metadata for {}.".format(repo.id)
+        md_content = f"Metadata for {repo.id}."
 
         with open(md_path, 'w') as f:
             f.write(md_content)

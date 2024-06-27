@@ -139,7 +139,4 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
 
     def __repr__(self):
         """Return a string representation of the source."""
-        return "Source(type='{}', image='{}')".format(
-            self.type.value,
-            self.image_path,
-        )
+        return f"Source(type='{self.type.value}', image='{self.image_path}')"

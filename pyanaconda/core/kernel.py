@@ -177,7 +177,7 @@ class KernelArguments():
         """
         for key, val in self._data.items():
             if key in self._args_with_prefix:
-                yield ("{}{}".format(BOOT_ARG_PREFIX, key), val)
+                yield (f"{BOOT_ARG_PREFIX}{key}", val)
                 continue
 
             yield (key, val)

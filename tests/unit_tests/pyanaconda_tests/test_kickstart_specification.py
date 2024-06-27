@@ -101,13 +101,13 @@ class TestData1(AddonData):
         section = "\n%addon my_test_1"
 
         if self.foo is not None:
-            section += " --foo={}".format(self.foo)
+            section += f" --foo={self.foo}"
 
         if self.bar:
             section += " --bar"
 
         for line in self.lines:
-            section += "\n{}".format(line)
+            section += f"\n{line}"
 
         section += "\n%end\n"
         return section
@@ -146,7 +146,7 @@ class TestData2(AddonData):
         section = "\n%addon my_test_2"
 
         for arg in self.args:
-            section += " {}".format(arg)
+            section += f" {arg}"
 
         section += "\n%end\n"
         return section
@@ -432,20 +432,20 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
         for name in children:
             if name in self.IGNORED_NAMES:
-                warnings.warn("Skipping the ignored name: {}".format(name))
+                warnings.warn(f"Skipping the ignored name: {name}")
                 continue
 
             if name not in parents and name in self.IGNORED_MISSING_NAMES:
-                warnings.warn("Skipping the missing name: {}".format(name))
+                warnings.warn(f"Skipping the missing name: {name}")
                 continue
 
-            print("Checking command {}...".format(name))
+            print(f"Checking command {name}...")
             assert isinstance(children[name](), parents[name])
 
     def test_version(self):
         """Check versions of kickstart commands and data objects."""
         for specification in self.SPECIFICATIONS:
-            print("Checking specification {}...".format(specification.__name__))
+            print(f"Checking specification {specification.__name__}...")
 
             self.assert_compare_versions(specification.commands,
                                          self.pykickstart_commands)
@@ -473,7 +473,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         # Ignore specified names if missing.
         for name in self.IGNORED_MISSING_NAMES:
             if name in expected ^ specified:
-                warnings.warn("Skipping the missing name: {}".format(name))
+                warnings.warn(f"Skipping the missing name: {name}")
                 expected.discard(name)
                 specified.discard(name)
 
@@ -485,15 +485,15 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         specified = set()
 
         for specification in self.SPECIFICATIONS:
-            print("Checking specification {}...".format(specification.__name__))
+            print(f"Checking specification {specification.__name__}...")
 
             for name in specification.commands:
                 if name in self.IGNORED_SHARED_NAMES:
-                    warnings.warn("Skipping the shared name {}.".format(name))
+                    warnings.warn(f"Skipping the shared name {name}.")
                     continue
 
                 if name in specified:
-                    self.fail("Command {} is specified more then once!".format(name))
+                    self.fail(f"Command {name} is specified more then once!")
 
                 specified.add(name)
 
@@ -502,11 +502,11 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         specified = set()
 
         for specification in self.SPECIFICATIONS:
-            print("Checking specification {}...".format(specification.__name__))
+            print(f"Checking specification {specification.__name__}...")
 
             for name in specification.commands_data:
                 if name in specified:
-                    self.fail("Data object {} is specified more then once!".format(name))
+                    self.fail(f"Data object {name} is specified more then once!")
 
                 specified.add(name)
 
@@ -515,18 +515,18 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         specified = set()
 
         for specification in self.SPECIFICATIONS:
-            print("Checking specification {}...".format(specification.__name__))
+            print(f"Checking specification {specification.__name__}...")
 
             for name in specification.sections:
                 if name in specified:
-                    self.fail("Section {} is specified more then once!".format(name))
+                    self.fail(f"Section {name} is specified more then once!")
 
                 specified.add(name)
 
     def test_handler(self):
         """Check the specification handler."""
         for specification in self.SPECIFICATIONS:
-            print("Checking specification {}...".format(specification.__name__))
+            print(f"Checking specification {specification.__name__}...")
 
             # Create the kickstart handler.
             handler = KickstartSpecificationHandler(specification)
@@ -538,7 +538,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
     def test_parser(self):
         """Check the specification parser."""
         for specification in self.SPECIFICATIONS:
-            print("Checking specification {}...".format(specification.__name__))
+            print(f"Checking specification {specification.__name__}...")
 
             # Create the kickstart parser.
             handler = KickstartSpecificationHandler(specification)

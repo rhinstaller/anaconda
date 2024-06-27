@@ -65,7 +65,7 @@ class NFSSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
     def description(self):
         """Get description of this source."""
         nfs = parse_nfs_url(self.configuration.url)
-        url = "{}:{}".format(nfs.host, nfs.path)
+        url = f"{nfs.host}:{nfs.path}"
         return _("NFS server {}").format(url)
 
     @property
@@ -115,14 +115,14 @@ class NFSSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
         """Validate the specified source configuration."""
         if not configuration.url.startswith("nfs:"):
             raise InvalidValueError(
-                "Invalid protocol of an NFS source: '{}'"
-                "".format(configuration.url)
+                f"Invalid protocol of an NFS source: '{configuration.url}'"
+                ""
             )
 
         if configuration.type != URL_TYPE_BASEURL:
             raise InvalidValueError(
-                "Invalid URL type of an NFS source: '{}'"
-                "".format(configuration.type)
+                f"Invalid URL type of an NFS source: '{configuration.type}'"
+                ""
             )
 
     def set_up_with_tasks(self):
@@ -163,4 +163,4 @@ class NFSSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
 
     def __repr__(self):
         """Generate a string representation."""
-        return "Source(type='NFS', url='{}')".format(self.configuration.url)
+        return f"Source(type='NFS', url='{self.configuration.url}')"

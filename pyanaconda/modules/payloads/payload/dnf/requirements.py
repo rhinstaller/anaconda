@@ -74,7 +74,7 @@ def collect_language_requirements(dnf_manager):
 
         requirements.append(Requirement.for_package(
             package_name="langpacks-" + best_locale,
-            reason="Required to support the locale '{}'.".format(locale)
+            reason=f"Required to support the locale '{locale}'."
         ))
 
     return requirements
@@ -101,7 +101,7 @@ def collect_platform_requirements(dnf_manager):
 
     return [Requirement.for_group(
         group_name=group,
-        reason="Required for the {} platform.".format(platform)
+        reason=f"Required for the {platform} platform."
     )]
 
 
@@ -141,7 +141,7 @@ def apply_requirements(requirements, include_list, exclude_list):
         if r.type == REQUIREMENT_TYPE_PACKAGE:
             spec = r.name
         elif r.type == REQUIREMENT_TYPE_GROUP:
-            spec = "@{}".format(r.name)
+            spec = f"@{r.name}"
         else:
             log.warning("Unsupported type '%s' of the requirement.", r.type)
             continue

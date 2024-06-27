@@ -773,7 +773,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
 
             storage.create_device(request)
             if volgroup_data.reserved_space:
-                request.reserved_space = Size("{:d} MiB".format(volgroup_data.reserved_space))
+                request.reserved_space = Size(f"{volgroup_data.reserved_space:d} MiB")
             elif volgroup_data.reserved_percent:
                 request.reserved_percent = volgroup_data.reserved_percent
 
@@ -1204,7 +1204,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
     def _get_size(self, number, unit):
         """Get a size from the given number and unit."""
         try:
-            return Size("{} {}".format(number, unit))
+            return Size(f"{number} {unit}")
         except ValueError as e:
             raise StorageError(_("The size \"{}\" is invalid.").format(number)) from e
 

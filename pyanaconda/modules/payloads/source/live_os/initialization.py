@@ -144,7 +144,7 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
         device_path = device_data.path
 
         if not stat.S_ISBLK(os.stat(device_path)[stat.ST_MODE]):
-            raise SourceSetupError("{} is not a valid block device.".format(device_path))
+            raise SourceSetupError(f"{device_path} is not a valid block device.")
 
         return device_path
 

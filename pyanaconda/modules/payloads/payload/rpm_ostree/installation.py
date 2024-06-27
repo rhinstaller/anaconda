@@ -341,7 +341,7 @@ class CopyBootloaderDataTask(Task):
         try:
             self._run()
         except (OSError, RuntimeError) as e:
-            raise PayloadInstallationError("Failed to copy bootloader data: {}".format(e)) from e
+            raise PayloadInstallationError(f"Failed to copy bootloader data: {e}") from e
 
     def _run(self):
         """Copy bootloader data files from the deployment checkout to the target root.

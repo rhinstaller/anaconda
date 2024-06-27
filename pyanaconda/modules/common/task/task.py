@@ -177,11 +177,7 @@ class Task(AbstractTask):
         """Generate the name of the thread."""
         cls._thread_counter += 1
 
-        return "{}-{}-{}".format(
-            THREAD_DBUS_TASK,
-            cls.__name__,
-            cls._thread_counter
-        )
+        return f"{THREAD_DBUS_TASK}-{cls.__name__}-{cls._thread_counter}"
 
 
 class ValidationTask(Task):

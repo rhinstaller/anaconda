@@ -143,7 +143,7 @@ class DNFPayloadOptionsTests(unittest.TestCase):
 
     def _create_source(self, source_type, source_url):
         """Create a source from the specified URL and check its type."""
-        source_path = "/my/source/{}".format(str(self._generate_id()))
+        source_path = f"/my/source/{str(self._generate_id())}"
 
         payloads_proxy = PAYLOADS.get_proxy()
         payloads_proxy.CreateSource.return_value = source_path

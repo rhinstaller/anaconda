@@ -148,7 +148,7 @@ class ConfigureTimezoneTask(Task):
                 else:
                     fobj.write("LOCAL\n")
         except OSError as e:
-            msg = "Error while writing /etc/adjtime file: {}".format(e.strerror)
+            msg = f"Error while writing /etc/adjtime file: {e.strerror}"
             raise TimezoneConfigurationError(msg) from e
 
 

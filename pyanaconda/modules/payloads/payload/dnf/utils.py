@@ -114,9 +114,9 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
     # Handle the environment.
     if data.default_environment_enabled and default_environment:
         log.info("Selecting default environment '%s'.", default_environment)
-        include_list.append("@{}".format(default_environment))
+        include_list.append(f"@{default_environment}")
     elif data.environment:
-        include_list.append("@{}".format(data.environment))
+        include_list.append(f"@{data.environment}")
 
     # Handle the core group.
     if not data.core_group_enabled:
@@ -127,7 +127,7 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
 
     # Handle groups.
     for group_name in data.excluded_groups:
-        exclude_list.append("@{}".format(group_name))
+        exclude_list.append(f"@{group_name}")
 
     for group_name in data.groups:
         # Packages in groups can have different types
@@ -143,7 +143,7 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
             # If group is a regular group this is equal to
             # @group/mandatory,default,conditional (current
             # content of the DNF GROUP_PACKAGE_TYPES constant).
-            group_spec = "@{}".format(group_name)
+            group_spec = f"@{group_name}"
 
         include_list.append(group_spec)
 
@@ -323,7 +323,7 @@ def pick_download_location(dnf_manager):
     if not sufficient:
         raise RuntimeError(
             "Not enough disk space to download the "
-            "packages; size {}.".format(download_size)
+            f"packages; size {download_size}."
         )
 
     # Choose the biggest sufficient mount point.

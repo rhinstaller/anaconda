@@ -49,7 +49,7 @@ class PayloadFactory(object):
             from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
             return RPMOSTreeModule()
 
-        raise ValueError("Unknown payload type: {}".format(payload_type))
+        raise ValueError(f"Unknown payload type: {payload_type}")
 
     @classmethod
     def get_type_for_kickstart(cls, data):

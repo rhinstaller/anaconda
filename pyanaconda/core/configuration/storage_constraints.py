@@ -41,7 +41,7 @@ class DeviceType(Enum):
         except KeyError:
             pass
 
-        raise ValueError("'{}' is not a valid device typ".format(value))
+        raise ValueError(f"'{value}' is not a valid device typ")
 
 
 class StorageConstraints(Section):

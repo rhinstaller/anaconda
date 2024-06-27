@@ -93,5 +93,4 @@ class SourcesTestCase(unittest.TestCase):
 
                     # fail on every line which does not have 'mount -o ro'
                     assert re.search(r'\bmount +-o *[a-z,]*ro', line), \
-                        "Dracut mount in '{}' on line '{}' is not read-only!" \
-                        .format(path, num)
+                        f"Dracut mount in '{path}' on line '{num}' is not read-only!"

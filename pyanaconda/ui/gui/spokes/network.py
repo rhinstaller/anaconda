@@ -823,7 +823,7 @@ class NetworkControlBox(GObject.GObject):
             if con:
                 con_id = con.get_setting_connection().get_id()
                 if con_id:
-                    connection_name = " - {}".format(con_id)
+                    connection_name = f" - {con_id}"
         # pylint: disable=unescaped-markup
         title = '<span size="large">%s%s (%s%s)</span>' % \
                  (escape_markup(_(self.device_type_name.get(dev_cfg.device_type, ""))),

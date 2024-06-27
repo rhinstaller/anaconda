@@ -196,7 +196,7 @@ class PasswordCheckRequest(object):
         # this does no blow up later on once we try to access the status/error message
         # corresponding to the secret type.
         if new_type not in constants.SecretType:
-            raise RuntimeError("Unknown secret type: {}".format(new_type))
+            raise RuntimeError(f"Unknown secret type: {new_type}")
         self._secret_type = new_type
 
 
@@ -714,7 +714,7 @@ class PasswordChecker(object):
         # this does no blow up later on once we try to access the status/error message
         # corresponding to the secret type.
         if new_type not in constants.SecretType:
-            raise RuntimeError("Unknown secret type: {}".format(new_type))
+            raise RuntimeError(f"Unknown secret type: {new_type}")
         self._secret_type = new_type
 
     def add_check(self, check_instance):

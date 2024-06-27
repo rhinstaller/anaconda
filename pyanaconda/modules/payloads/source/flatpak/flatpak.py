@@ -105,6 +105,4 @@ class FlatpakSourceModule(PayloadSourceBase):
 
     def __repr__(self):
         """Return a string representation of the source."""
-        return "Source(type='{}')".format(
-            self.type.value
-        )
+        return f"Source(type='{self.type.value}')"

@@ -282,7 +282,7 @@ class AnacondaConfiguration(Configuration):
         if not loader.check_profile(profile_id):
             raise ConfigurationError(
                 "Unable to find any suitable configuration files "
-                "for the '{}' profile.".format(profile_id)
+                f"for the '{profile_id}' profile."
             )
 
         # Read the configuration files of the profile.

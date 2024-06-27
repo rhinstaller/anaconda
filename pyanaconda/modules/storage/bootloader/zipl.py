@@ -144,7 +144,7 @@ class ZIPL(BootLoader):
             self.use_bls = False
 
         if not self.use_bls:
-            config.write("default={}\n".format(self.image_label(self.default)))
+            config.write(f"default={self.image_label(self.default)}\n")
 
     #
     # installation

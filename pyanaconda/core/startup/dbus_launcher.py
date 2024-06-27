@@ -109,7 +109,7 @@ class AnacondaDBusLauncher(object):
             self.DBUS_LAUNCH_BIN,
             '--print-address',
             "--syslog",
-            "--config-file={}".format(ANACONDA_BUS_CONF_FILE)
+            f"--config-file={ANACONDA_BUS_CONF_FILE}"
         ]
 
         def dbus_preexec():

@@ -174,7 +174,7 @@ class FlatpakManager(object):
         try:
             self._transaction.run()
         except GError as e:
-            raise PayloadInstallationError("Failed to install flatpaks: {}".format(e)) from e
+            raise PayloadInstallationError(f"Failed to install flatpaks: {e}") from e
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_full_format():

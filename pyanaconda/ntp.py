@@ -68,10 +68,7 @@ def get_ntp_server_summary(server, states):
     :type states: an instance of NTPServerStatusCache
     :return: a string with a summary
     """
-    return "{} ({})".format(
-        server.hostname,
-        states.get_status_description(server)
-    )
+    return f"{server.hostname} ({states.get_status_description(server)})"
 
 
 def get_ntp_servers_summary(servers, states):

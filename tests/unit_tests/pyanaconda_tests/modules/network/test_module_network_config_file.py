@@ -44,7 +44,7 @@ class ConfigFileTestCase(unittest.TestCase):
                 os.makedirs(file_dir)
             content = dedent(content).strip()
             with open(file_path, "w") as f:
-                print("Dumping{}".format(file_path))
+                print(f"Dumping{file_path}")
                 f.write(content)
 
     def test_get_config_files_paths(self):
@@ -109,17 +109,17 @@ class ConfigFileTestCase(unittest.TestCase):
              content2
              """),
         ]
-        expected_content = """
-        {}/file1:
+        expected_content = f"""
+        {self._root_dir}/file1:
         content1
-        {}/dir/file2:
+        {self._root_dir}/dir/file2:
         content2
-        """.format(self._root_dir, self._root_dir)
+        """
         self._dump_files(files, root_path=self._root_dir)
 
         get_config_files_paths_mock.return_value = [
-            "{}/file1".format(self._root_dir),
-            "{}/dir/file2".format(self._root_dir),
+            f"{self._root_dir}/file1",
+            f"{self._root_dir}/dir/file2",
         ]
         content = get_config_files_content(self._root_dir)
         assert dedent(content).strip() == dedent(expected_content).strip()

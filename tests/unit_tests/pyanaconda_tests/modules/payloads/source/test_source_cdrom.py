@@ -153,8 +153,8 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
 
         for n in range(num_cdroms):
             device = DeviceData()
-            device.name = "test{}".format(n)
-            device.path = "/dev/cdrom-test{}".format(n)
+            device.name = f"test{n}"
+            device.path = f"/dev/cdrom-test{n}"
             devices.append(device)
 
         device_tree = Mock()
@@ -187,12 +187,12 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         for n in range(num_called):
             self._check_if_device_was_tried(device_tree_mock,
                                             mount_mock,
-                                            "test{}".format(n))
+                                            f"test{n}")
 
         for n in range(num_called, num_called + num_untouched):
             self._check_if_device_was_not_tried(device_tree_mock,
                                                 mount_mock,
-                                                "test{}".format(n))
+                                                f"test{n}")
 
         assert device_tree_mock.GetDeviceData.call_count == num_called
         assert mount_mock.call_count == num_called
@@ -203,7 +203,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
                                    device_name):
         assert call(device_name) in device_tree_mock.GetDeviceData.mock_calls
 
-        assert call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro") in \
+        assert call(f"/dev/cdrom-{device_name}", self.mount_location, "iso9660", "ro") in \
             mount_mock.mock_calls
 
     def _check_if_device_was_not_tried(self,
@@ -212,7 +212,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
                                        device_name):
         assert call(device_name) not in device_tree_mock.GetDeviceData.mock_calls
 
-        assert call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro") not in \
+        assert call(f"/dev/cdrom-{device_name}", self.mount_location, "iso9660", "ro") not in \
             mount_mock.mock_calls
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")

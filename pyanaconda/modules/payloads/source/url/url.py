@@ -128,14 +128,14 @@ class URLSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
 
         if not is_protocol_supported:
             raise InvalidValueError(
-                "Invalid protocol of an URL source: '{}'"
-                "".format(configuration.url)
+                f"Invalid protocol of an URL source: '{configuration.url}'"
+                ""
             )
 
         if configuration.type not in URL_TYPES:
             raise InvalidValueError(
-                "Invalid URL type of an URL source: '{}'"
-                "".format(configuration.type)
+                f"Invalid URL type of an URL source: '{configuration.type}'"
+                ""
             )
 
         if configuration.proxy:
@@ -143,8 +143,8 @@ class URLSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
                 ProxyString(configuration.proxy)
             except ProxyStringError:
                 raise InvalidValueError(
-                    "Invalid proxy of an URL source: '{}'"
-                    "".format(configuration.proxy)
+                    f"Invalid proxy of an URL source: '{configuration.proxy}'"
+                    ""
                 ) from None
 
     def get_state(self):
@@ -173,4 +173,4 @@ class URLSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
 
     def __repr__(self):
         """Generate a string representation."""
-        return "Source(type='URL', url='{}')".format(self.configuration.url)
+        return f"Source(type='URL', url='{self.configuration.url}')"

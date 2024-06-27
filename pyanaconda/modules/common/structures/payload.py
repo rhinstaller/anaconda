@@ -79,7 +79,7 @@ class SSLConfigurationData(DBusData):
             return super().__repr__()
 
         # Don't list attributes if none of them are set.
-        return "{}()".format(self.__class__.__name__)
+        return f"{self.__class__.__name__}()"
 
 
 class RepoConfigurationData(DBusData):

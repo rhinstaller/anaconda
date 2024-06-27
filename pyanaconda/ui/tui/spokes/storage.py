@@ -714,16 +714,16 @@ class MountPointAssignSpoke(NormalTUISpoke):
         )
 
         # Generate the description.
-        description = "{} ({})".format(request.device_spec, Size(device_data.size))
+        description = f"{request.device_spec} ({Size(device_data.size)})"
 
         if request.format_type:
-            description += "\n {}".format(request.format_type)
+            description += f"\n {request.format_type}"
 
             if request.reformat:
                 description += "*"
 
             if request.mount_point:
-                description += ", {}".format(request.mount_point)
+                description += f", {request.mount_point}"
 
         return description
 

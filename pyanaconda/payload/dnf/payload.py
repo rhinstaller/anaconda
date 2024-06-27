@@ -149,7 +149,7 @@ class DNFPayload(MigratedDBusPayload):
 
             return source_proxy
 
-        raise ValueError("Unknown type of the installation source: {}".format(url))
+        raise ValueError(f"Unknown type of the installation source: {url}")
 
     def _set_source_configuration_from_opts(self, opts):
         """Configure the source based on the Anaconda options."""

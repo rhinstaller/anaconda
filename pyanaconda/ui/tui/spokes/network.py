@@ -103,7 +103,7 @@ class WiredTUIConfigurationData():
         elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_MANUAL:
             if ip6_config.get_num_addresses() > 0:
                 addr = ip6_config.get_address(0)
-                self.ipv6 = "{}/{}".format(addr.get_address(), addr.get_prefix())
+                self.ipv6 = f"{addr.get_address()}/{addr.get_prefix()}"
             else:
                 log.error("No ip6 address found for manual method in %s", connection_uuid)
         else:
@@ -185,11 +185,8 @@ class WiredTUIConfigurationData():
         s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, self.onboot)
 
     def __str__(self):
-        return "WiredTUIConfigurationData ip:{} netmask:{} gateway:{} ipv6:{} ipv6gateway:{} " \
-            "nameserver:{} onboot:{} addr-gen-mode:{}".format(self.ip, self.netmask, self.gateway,
-                                                              self.ipv6, self.ipv6gateway,
-                                                              self.nameserver, self.onboot,
-                                                              self.ipv6addrgenmode)
+        return f"WiredTUIConfigurationData ip:{self.ip} netmask:{self.netmask} gateway:{self.gateway} ipv6:{self.ipv6} ipv6gateway:{self.ipv6gateway} " \
+            f"nameserver:{self.nameserver} onboot:{self.onboot} addr-gen-mode:{self.ipv6addrgenmode}"
 
 
 class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
@@ -382,8 +379,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         try:
             _connection, result = client.add_connection2_finish(result)
         except Exception as e:  # pylint: disable=broad-except
-            msg = "adding default connection {} from {} failed: {}".format(
-                connection_uuid, iface, str(e))
+            msg = f"adding default connection {connection_uuid} from {iface} failed: {str(e)}"
             log.error(msg)
             self.errors.append(msg)
             self.redraw()
@@ -407,7 +403,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self._apply = True
 
         self._network_module.LogConfigurationState(
-            "Settings of {} updated in TUI.".format(iface)
+            f"Settings of {iface} updated in TUI."
         )
 
         self.redraw()

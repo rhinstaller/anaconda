@@ -320,8 +320,8 @@ def _reown_homedir(root, homedir, username):
         gid = int(pwent[3])
 
         # Change owner UID and GID where matching
-        from_ids = "--from={}:{}".format(orig_uid, orig_gid)
-        to_ids = "{}:{}".format(uid, gid)
+        from_ids = f"--from={orig_uid}:{orig_gid}"
+        to_ids = f"{uid}:{gid}"
         util.execWithRedirect("chown", ["--recursive", "--no-dereference",
                                         from_ids, to_ids, root + homedir])
 

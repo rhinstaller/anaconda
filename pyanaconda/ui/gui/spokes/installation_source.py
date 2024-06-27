@@ -650,7 +650,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             )
             options, host, path = parse_nfs_url(configuration.url)
 
-            self._url_entry.set_text("{}:{}".format(host, path))
+            self._url_entry.set_text(f"{host}:{path}")
             self._update_url_entry_check()
             self.builder.get_object("nfsOptsEntry").set_text(options or "")
         elif source_type == SOURCE_TYPE_HDD:
@@ -681,7 +681,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._network_button.set_active(True)
             self._updates_enabled = source_proxy.UpdatesEnabled
         else:
-            raise ValueError("Unsupported source type: '{}'".format(source_type))
+            raise ValueError(f"Unsupported source type: '{source_type}'")
 
         self._setup_updates()
 

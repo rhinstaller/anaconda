@@ -87,7 +87,7 @@ class SourceFactory(object):
                 FlatpakSourceModule
             return FlatpakSourceModule()
 
-        raise ValueError("Unknown source type: {}".format(source_type))
+        raise ValueError(f"Unknown source type: {source_type}")
 
     @staticmethod
     def get_rpm_type_for_kickstart(ks_data):

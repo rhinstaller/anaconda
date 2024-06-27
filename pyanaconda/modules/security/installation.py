@@ -234,7 +234,7 @@ class ConfigureSELinuxTask(Task):
         """Process a line from the SELinux configuration file."""
         if line.strip().startswith("SELINUX="):
             log.debug("Found '%s'.", line.strip())
-            line = "SELINUX={}\n".format(self._selinux_state)
+            line = f"SELINUX={self._selinux_state}\n"
             log.debug("Setting '%s'.", line.strip())
             return line
 
@@ -390,7 +390,7 @@ def run_auth_tool(cmd, args, root, required=True):
     :raises: RuntimeError if the run of the tool fails
     """
     if not os.path.lexists(root + cmd):
-        msg = "{} is missing. Cannot setup authentication.".format(cmd)
+        msg = f"{cmd} is missing. Cannot setup authentication."
         if required:
             raise SecurityInstallationError(msg)
         else:

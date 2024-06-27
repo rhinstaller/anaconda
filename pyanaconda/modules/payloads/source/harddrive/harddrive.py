@@ -66,7 +66,7 @@ class HardDriveSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceM
     def description(self):
         """Get description of this source."""
         hdd = parse_hdd_url(self.configuration.url)
-        return "{}:{}".format(hdd.device, hdd.path)
+        return f"{hdd.device}:{hdd.path}"
 
     @property
     def network_required(self):
@@ -139,14 +139,14 @@ class HardDriveSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceM
         """Validate the specified source configuration."""
         if not configuration.url.startswith("hd:"):
             raise InvalidValueError(
-                "Invalid protocol of a HDD source: '{}'"
-                "".format(configuration.url)
+                f"Invalid protocol of a HDD source: '{configuration.url}'"
+                ""
             )
 
         if configuration.type != URL_TYPE_BASEURL:
             raise InvalidValueError(
-                "Invalid URL type of a HDD source: '{}'"
-                "".format(configuration.type)
+                f"Invalid URL type of a HDD source: '{configuration.type}'"
+                ""
             )
 
     def set_up_with_tasks(self):
@@ -188,4 +188,4 @@ class HardDriveSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceM
 
     def __repr__(self):
         """Generate a string representation."""
-        return "Source(type='HDD', url='{}')".format(self.configuration.url)
+        return f"Source(type='HDD', url='{self.configuration.url}')"

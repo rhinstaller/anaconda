@@ -738,10 +738,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             device_data = DeviceData.from_structure(
                 self._device_tree.GetDeviceData(disks[0])
             )
-            description = "{} ({})".format(
-                device_data.description,
-                device_data.name
-            )
+            description = f"{device_data.description} ({device_data.name})"
             num_disks = len(disks)
 
             if num_disks > 1:
@@ -1845,7 +1842,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._passphraseEntry.set_text("")
             self.set_detailed_warning(
                 _("Failed to unlock encrypted block device."),
-                "Failed to unlock {}.".format(device_name)
+                f"Failed to unlock {device_name}."
             )
             return
 

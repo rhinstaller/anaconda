@@ -65,7 +65,7 @@ def get_live_user():
     home_dir = passwd_entry.pw_dir
     env_prune = ("GDK_BACKEND",)
     env_add = {
-        "XDG_RUNTIME_DIR": "/run/user/{}".format(uid),
+        "XDG_RUNTIME_DIR": f"/run/user/{uid}",
         "USER": username,
         "HOME": home_dir,
     }

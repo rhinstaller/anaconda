@@ -795,7 +795,7 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=
 
     log.debug(
         "Generated factory arguments: {\n%s\n}",
-        ",\n".join("{} = {}".format(name, repr(value)) for name, value in args.items())
+        ",\n".join(f"{name} = {repr(value)}" for name, value in args.items())
     )
 
     return args
@@ -811,7 +811,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     device_type = devicefactory.get_device_type(device)
 
     if device_type is None:
-        raise UnsupportedDeviceError("Unsupported type of {}.".format(device.name))
+        raise UnsupportedDeviceError(f"Unsupported type of {device.name}.")
 
     # Generate the device data.
     request = DeviceFactoryRequest()
@@ -1146,7 +1146,7 @@ def get_container(storage, device_type, device=None):
     :return: a container device
     """
     if device_type not in CONTAINER_DEVICE_TYPES:
-        raise StorageError("Invalid device type {}".format(device_type))
+        raise StorageError(f"Invalid device type {device_type}")
 
     if device and devicefactory.get_device_type(device) != device_type:
         device = None

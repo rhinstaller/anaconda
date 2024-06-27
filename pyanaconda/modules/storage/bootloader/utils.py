@@ -215,7 +215,7 @@ def create_bls_entries(sysroot, storage, kernel_versions):
         log.info("Regenerating BLS info for %s", kernel)
         execWithRedirect(
             "kernel-install",
-            ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
+            ["add", kernel, f"/lib/modules/{kernel}/vmlinuz"],
             root=sysroot
         )
 

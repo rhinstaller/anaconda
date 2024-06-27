@@ -50,8 +50,7 @@ class ModuleObserver(DBusObserver):
     def proxy(self):
         """Returns a proxy of the remote object."""
         if not self._is_service_available:
-            raise DBusObserverError("Service {} is not available."
-                                    .format(self._service_name))
+            raise DBusObserverError(f"Service {self._service_name} is not available.")
 
         if not self._proxy:
             self._proxy = self._message_bus.get_proxy(self._service_name,
@@ -71,6 +70,4 @@ class ModuleObserver(DBusObserver):
 
     def __repr__(self):
         """Returns a string representation."""
-        return "{}({},{})".format(self.__class__.__name__,
-                                  self._service_name,
-                                  self._object_path)
+        return f"{self.__class__.__name__}({self._service_name},{self._object_path})"

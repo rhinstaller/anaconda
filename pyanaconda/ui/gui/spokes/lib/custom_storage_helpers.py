@@ -107,13 +107,9 @@ def generate_request_description(request, original=None):
         old_value = field.get_data(original)
 
         if new_value == old_value:
-            attribute = "{} = {}".format(
-                name, repr(new_value)
-            )
+            attribute = f"{name} = {repr(new_value)}"
         else:
-            attribute = "{} = {} -> {}".format(
-                name, repr(old_value), repr(new_value)
-            )
+            attribute = f"{name} = {repr(old_value)} -> {repr(new_value)}"
 
         attributes.append(attribute)
 
@@ -380,7 +376,7 @@ class ConfirmDeleteDialog(GUIObject):
         mount_point = format_data.attrs.get("mount-point", "")
 
         if mount_point:
-            device_name = "{} ({})".format(mount_point, self._device_name)
+            device_name = f"{mount_point} ({self._device_name})"
 
         if format_data.type in PROTECTED_FORMAT_TYPES:
             return _(

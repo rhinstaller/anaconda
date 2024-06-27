@@ -111,8 +111,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         for source in sources:
             if source.type not in self.supported_source_types:
-                raise IncompatibleSourceError("Source type {} is not supported by this payload."
-                                              .format(source.type.value))
+                raise IncompatibleSourceError(f"Source type {source.type.value} is not supported by this payload.")
 
         if any(source.get_state() == SourceState.READY for source in self.sources):
             raise SourceSetupError("Can't change list of sources if there is at least one source "

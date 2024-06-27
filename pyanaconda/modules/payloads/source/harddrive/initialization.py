@@ -91,13 +91,13 @@ class SetUpHardDriveSourceTask(Task):
         for mount_point in [self._device_mount, self._iso_mount]:
             if os.path.ismount(mount_point):
                 raise SourceSetupError(
-                    "The mount point {} is already in use.".format(mount_point)
+                    f"The mount point {mount_point} is already in use."
                 )
 
         # Mount the hard drive.
         if not find_and_mount_device(partition, self._device_mount):
             raise SourceSetupError(
-                "Failed to mount the '{}' HDD source.".format(partition)
+                f"Failed to mount the '{partition}' HDD source."
             )
 
         # Mount an ISO if any.
@@ -116,6 +116,6 @@ class SetUpHardDriveSourceTask(Task):
         unmount(self._device_mount)
 
         raise SourceSetupError(
-            "Nothing useful found for the HDD source at '{}:{}'."
-            "".format(partition, directory)
+            f"Nothing useful found for the HDD source at '{partition}:{directory}'."
+            ""
         )

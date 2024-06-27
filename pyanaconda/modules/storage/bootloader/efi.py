@@ -43,7 +43,7 @@ class EFIBase(object):
 
     @property
     def _efi_config_dir(self):
-        return "efi/EFI/{}".format(conf.bootloader.efi_dir)
+        return f"efi/EFI/{conf.bootloader.efi_dir}"
 
     def get_fw_platform_size(self):
         try:

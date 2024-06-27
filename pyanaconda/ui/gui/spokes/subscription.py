@@ -789,7 +789,7 @@ class SubscriptionSpoke(NormalSpoke):
         if proxy_hostname:
             proxy_url = proxy_hostname
             if proxy_port_set:
-                proxy_url = "{}:{}".format(proxy_url, proxy_port)
+                proxy_url = f"{proxy_url}:{proxy_port}"
             self._http_proxy_location_entry.set_text(proxy_url)
         # HTTP proxy username
         self._http_proxy_username_entry.set_text(proxy_username)

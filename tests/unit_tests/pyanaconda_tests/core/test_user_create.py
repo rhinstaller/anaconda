@@ -406,7 +406,7 @@ class ReownHomedirTest(unittest.TestCase):
 
             # now also run the same thing as was mocked, to make sure the expectations are met
             os.system("chown --recursive --no-dereference --from=1492:1492 2022:2022"
-                      " {}/home/sam".format(sysroot))
+                      f" {sysroot}/home/sam")
 
             self._check_path(sysroot, "/home/sam", 2022, 2022)
             self._check_path(sysroot, "/home/sam/Downloads", 2022, 2022)

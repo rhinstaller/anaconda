@@ -408,7 +408,7 @@ class UpdateDNFConfigurationTask(Task):
         args = [
             "config-manager",
             "--save",
-            "--setopt={}={}".format(option, value),
+            f"--setopt={option}={value}",
         ]
 
         try:

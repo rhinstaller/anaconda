@@ -44,7 +44,7 @@ class PartitioningScheme(Enum):
         except KeyError:
             pass
 
-        raise ValueError("'{}' is not a valid partitioning scheme".format(value))
+        raise ValueError(f"'{value}' is not a valid partitioning scheme")
 
 
 class StorageSection(Section):
@@ -145,7 +145,7 @@ class StorageSection(Section):
         value = self._get_option("luks_version", str)
 
         if value not in ("luks1", "luks2"):
-            raise ValueError("Invalid value: {}".format(value))
+            raise ValueError(f"Invalid value: {value}")
 
         return value
 

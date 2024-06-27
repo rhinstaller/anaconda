@@ -198,8 +198,8 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             # Fake the task results.
             task_id = task.__class__.__name__
             task._set_result([
-                "/path/{}/1".format(task_id),
-                "/path/{}/2".format(task_id)
+                f"/path/{task_id}/1",
+                f"/path/{task_id}/2"
             ])
 
             # Fake the task run.
@@ -220,8 +220,8 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             # Fake the task results.
             task_id = task.__class__.__name__
             task._set_result([
-                "/path/{}/1".format(task_id),
-                "/path/{}/2".format(task_id)
+                f"/path/{task_id}/1",
+                f"/path/{task_id}/2"
             ])
 
             # Fake the task run.

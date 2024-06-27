@@ -99,8 +99,7 @@ class KickstartElement(object):
         return self._type == self.KickstartElementType.ADDON
 
     def __repr__(self):
-        return "KickstartElement(args={}, lines={}, lineno={}, filename={})".format(
-            self._args, self._lines, self._lineno, self._filename)
+        return f"KickstartElement(args={self._args}, lines={self._lines}, lineno={self._lineno}, filename={self._filename})"
 
     def __str__(self):
         return self.content

@@ -209,7 +209,7 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
     elif spec == 'bootif':
         if bootif:
             device_name = get_iface_from_hwaddr(nm_client, bootif) or ""
-            msg = "existing device for {} found".format(bootif)
+            msg = f"existing device for {bootif} found"
         else:
             msg = "BOOTIF value is not specified in boot options"
     # First device with carrier (sorted lexicographically)
@@ -219,7 +219,7 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
 
     if device_name:
         if device_name not in supported_devices:
-            msg = "{} device found is not supported".format(device_name)
+            msg = f"{device_name} device found is not supported"
             device_name = ""
     # Virtual devices don't have to exist
     elif spec and any((network_data.vlanid,
@@ -1137,7 +1137,7 @@ def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
     cloned_connection = NM.SimpleConnection.new_clone(connection)
     s_con = cloned_connection.get_setting_connection()
     s_con.props.uuid = uuid or NM.utils_uuid_generate()
-    s_con.props.id = con_id or "{}-clone".format(connection.get_id())
+    s_con.props.id = con_id or f"{connection.get_id()}-clone"
 
     log.debug("cloning connection %s", connection.get_uuid())
     added_connection = add_connection_sync(nm_client, cloned_connection)
@@ -1231,20 +1231,20 @@ def _get_dracut_ipv6_argument(connection, iface, hostname):
     ip6_config = connection.get_setting_ip6_config()
     ip6_method = ip6_config.get_method()
     if ip6_method == NM.SETTING_IP6_CONFIG_METHOD_AUTO:
-        argument = "ip={}:auto6".format(iface)
+        argument = f"ip={iface}:auto6"
     elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_DHCP:
         # Most probably not working
-        argument = "ip={}:dhcp6".format(iface)
+        argument = f"ip={iface}:dhcp6"
     elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_MANUAL:
         ipaddr = ""
         if ip6_config.get_num_addresses() > 0:
             addr = ip6_config.get_address(0)
-            ipaddr = "[{}/{}]".format(addr.get_address(), addr.get_prefix())
+            ipaddr = f"[{addr.get_address()}/{addr.get_prefix()}]"
         gateway = ip6_config.get_gateway() or ""
         if gateway:
-            gateway = "[{}]".format(gateway)
+            gateway = f"[{gateway}]"
         if ipaddr or gateway:
-            argument = ("ip={}::{}::{}:{}:none".format(ipaddr, gateway, hostname, iface))
+            argument = (f"ip={ipaddr}::{gateway}::{hostname}:{iface}:none")
     return argument
 
 
@@ -1264,14 +1264,14 @@ def _get_dracut_ipv4_argument(connection, iface, hostname):
     ip4_config = connection.get_setting_ip4_config()
     ip4_method = ip4_config.get_method()
     if ip4_method == NM.SETTING_IP4_CONFIG_METHOD_AUTO:
-        argument = "ip={}:dhcp".format(iface)
+        argument = f"ip={iface}:dhcp"
     elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_MANUAL:
         if ip4_config.get_num_addresses() > 0:
             addr = ip4_config.get_address(0)
             ip = addr.get_address()
             netmask = prefix2netmask(addr.get_prefix())
             gateway = ip4_config.get_gateway() or ""
-            argument = "ip={}::{}:{}:{}:{}:none".format(ip, gateway, netmask, hostname, iface)
+            argument = f"ip={ip}::{gateway}:{netmask}:{hostname}:{iface}:none"
     return argument
 
 
@@ -1290,7 +1290,7 @@ def _get_dracut_ifname_argument_from_connection(connection, iface):
     if wired_setting:
         hwaddr = wired_setting.get_mac_address()
         if hwaddr:
-            argument = "ifname={}:{}".format(iface, hwaddr.lower())
+            argument = f"ifname={iface}:{hwaddr.lower()}"
     return argument
 
 
@@ -1357,7 +1357,7 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
                 parent_con = parent_cons[0]
 
         if parent:
-            argument = "vlan={}:{}".format(iface, parent)
+            argument = f"vlan={iface}:{parent}"
         else:
             log.error("can't find parent interface of vlan device %s specified by %s",
                       iface, parent_spec)
@@ -1386,8 +1386,8 @@ def _get_dracut_znet_argument_from_connection(connection):
             argument = "rd.znet={},{}".format(nettype, ",".join(subchannels))
             options = wired_setting.get_property(NM.SETTING_WIRED_S390_OPTIONS)
             if options:
-                options_string = ','.join("{}={}".format(key, val) for key, val in options.items())
-                argument += ",{}".format(options_string)
+                options_string = ','.join(f"{key}={val}" for key, val in options.items())
+                argument += f",{options_string}"
     return argument
 
 
@@ -1636,7 +1636,7 @@ def _update_ip6_config_kickstart_network_data(connection, network_data):
     elif ip6_method == NM.SETTING_IP6_CONFIG_METHOD_MANUAL:
         if s_ip6_config.get_num_addresses() > 0:
             addr = s_ip6_config.get_address(0)
-            network_data.ipv6 = "{}/{}".format(addr.get_address(), addr.get_prefix())
+            network_data.ipv6 = f"{addr.get_address()}/{addr.get_prefix()}"
         gateway = s_ip6_config.get_gateway()
         if gateway:
             network_data.ipv6gateway = gateway
@@ -1695,7 +1695,7 @@ def _update_bond_kickstart_network_data(nm_client, iface, connection, network_da
         for i in range(s_bond.get_num_options()):
             _result, _name, _value = s_bond.get_option(i)
             if _result:
-                option_list.append("{}={}".format(_name, _value))
+                option_list.append(f"{_name}={_value}")
         if option_list:
             network_data.bondopts = ",".join(option_list)
 
@@ -1722,7 +1722,7 @@ def _update_bridge_kickstart_network_data(nm_client, iface, connection, network_
         for setting, default_value in NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS.items():
             value = s_bridge.get_property(setting)
             if value != default_value:
-                bridge_options.append("{}={}".format(setting, value))
+                bridge_options.append(f"{setting}={value}")
         if bridge_options:
             network_data.bridgeopts = ",".join(bridge_options)
 

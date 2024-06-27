@@ -36,8 +36,7 @@ class Network(COMMANDS.Network):
         if retval.hostname:
             (result, reason) = is_valid_hostname(retval.hostname)
             if not result:
-                message = "Hostname '{}' given in network kickstart command is invalid: {}"\
-                    .format(retval.hostname, reason)
+                message = f"Hostname '{retval.hostname}' given in network kickstart command is invalid: {reason}"
                 raise KickstartParseError(message, lineno=self.lineno)
 
         return retval

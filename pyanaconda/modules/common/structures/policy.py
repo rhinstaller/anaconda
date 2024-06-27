@@ -119,7 +119,7 @@ class PasswordPolicy(DBusData):
         """
         if not isinstance(objects, dict):
             raise TypeError(
-                "Invalid type '{}'.".format(type(objects).__name__)
+                f"Invalid type '{type(objects).__name__}'."
             )
 
         return {k: PasswordPolicy.to_structure(v) for k, v in objects.items()}
@@ -133,7 +133,7 @@ class PasswordPolicy(DBusData):
         """
         if not isinstance(structures, dict):
             raise TypeError(
-                "Invalid type '{}'.".format(type(structures).__name__)
+                f"Invalid type '{type(structures).__name__}'."
             )
 
         return {k: PasswordPolicy.from_structure(v) for k, v in structures.items()}

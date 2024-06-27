@@ -34,8 +34,8 @@ class ConfigurationFileError(ConfigurationError):
         self._filename = filename
 
     def __str__(self):
-        return "The following error has occurred while handling the configuration file '{}': " \
-               "{}".format(self._filename, super().__str__())
+        return f"The following error has occurred while handling the configuration file '{self._filename}': " \
+               f"{super().__str__()}"
 
 
 class ConfigurationDataError(ConfigurationError):
@@ -47,8 +47,8 @@ class ConfigurationDataError(ConfigurationError):
         self._option = option
 
     def __str__(self):
-        return "The following error has occurred while handling the option '{}' in the section " \
-               "'{}': {}".format(self._option, self._section, super().__str__())
+        return f"The following error has occurred while handling the option '{self._option}' in the section " \
+               f"'{self._section}': {super().__str__()}"
 
 
 def create_parser():

@@ -230,20 +230,20 @@ class ISCSIModule(KickstartBaseModule):
         address = blivet_node.address
         # surround ipv6 addresses with []
         if ":" in address:
-            address = "[{}]".format(address)
+            address = f"[{address}]"
 
         netroot = "netroot=iscsi:"
         if blivet_node.username and blivet_node.password:
-            netroot += "{}:{}".format(blivet_node.username, blivet_node.password)
+            netroot += f"{blivet_node.username}:{blivet_node.password}"
             if blivet_node.r_username and blivet_node.r_password:
-                netroot += ":{}:{}".format(blivet_node.r_username, blivet_node.r_password)
+                netroot += f":{blivet_node.r_username}:{blivet_node.r_password}"
 
         iface_spec = ""
         interface = self.get_interface(blivet_node.iface) or blivet_node.iface
         if interface != "default":
-            iface_spec = ":{}:{}".format(blivet_node.iface, interface)
-        netroot += "@{}::{}{}::{}".format(address, blivet_node.port, iface_spec, blivet_node.name)
+            iface_spec = f":{blivet_node.iface}:{interface}"
+        netroot += f"@{address}::{blivet_node.port}{iface_spec}::{blivet_node.name}"
 
-        initiator = "rd.iscsi.initiator={}".format(self.initiator)
+        initiator = f"rd.iscsi.initiator={self.initiator}"
 
         return [netroot, initiator]

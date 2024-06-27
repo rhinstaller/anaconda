@@ -120,19 +120,19 @@ def _del_xdg_runtime_dir():
 
 def _get_timelog_path():
     log_dir = path.dirname(path.realpath(__file__))
-    return "{}/{}".format(log_dir, TIME_LOG)
+    return f"{log_dir}/{TIME_LOG}"
 
 
 def save_start_time():
     lt = time.localtime()
     with open(_get_timelog_path(), 'at') as f:
-        f.write("Start - {}:{}:{}\n".format(lt.tm_hour, lt.tm_min, lt.tm_sec))
+        f.write(f"Start - {lt.tm_hour}:{lt.tm_min}:{lt.tm_sec}\n")
 
 
 def save_end_time():
     lt = time.localtime()
     with open(_get_timelog_path(), 'at') as f:
-        f.write("End - {}:{}:{}\n".format(lt.tm_hour, lt.tm_min, lt.tm_sec))
+        f.write(f"End - {lt.tm_hour}:{lt.tm_min}:{lt.tm_sec}\n")
 
 
 if __name__ == "__main__":

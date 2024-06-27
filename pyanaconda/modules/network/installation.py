@@ -62,7 +62,7 @@ class HostnameConfigurationTask(Task):
     def run(self):
         _write_config_file(
             self._sysroot, self.HOSTNAME_CONF_FILE_PATH,
-            "{}\n".format(self._hostname),
+            f"{self._hostname}\n",
             "Cannot write hostname configuration file",
             self._overwrite
         )
@@ -89,7 +89,7 @@ def _write_config_file(root, path, content, error_msg, overwrite):
         with open(fpath, "w") as fobj:
             fobj.write(content)
     except OSError as e:
-        msg = "{}: {}".format(error_msg, e.strerror)
+        msg = f"{error_msg}: {e.strerror}"
         raise NetworkInstallationError(msg) from e
 
 
@@ -166,8 +166,7 @@ Name={}
         """
         return _write_config_file(root, self.SYSCONF_NETWORK_FILE_PATH,
                                   "# Created by anaconda\n",
-                                  "Cannot write {} configuration file".format(
-                                      self.SYSCONF_NETWORK_FILE_PATH),
+                                  f"Cannot write {self.SYSCONF_NETWORK_FILE_PATH} configuration file",
                                   overwrite)
 
     def _write_interface_rename_config(self, root, ifname_option_values, overwrite):
@@ -193,8 +192,7 @@ Name={}
                 root,
                 config_file_path,
                 content,
-                "Cannot write {} configuration file for ifname={} option.".format(
-                    config_file_path, ifname_value),
+                f"Cannot write {config_file_path} configuration file for ifname={ifname_value} option.",
                 overwrite
             )
 
@@ -212,7 +210,7 @@ Name={}
                 f.write("net.ipv6.conf.default.disable_ipv6=1\n")
 
         except OSError as e:
-            msg = "Cannot disable ipv6 on the system: {}".format(e.strerror)
+            msg = f"Cannot disable ipv6 on the system: {e.strerror}"
             raise NetworkInstallationError(msg) from e
 
     def _copy_file_to_root(self, root, config_file, overwrite=False, follow_symlinks=True):

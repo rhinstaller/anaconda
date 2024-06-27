@@ -53,7 +53,7 @@ def generate_driver_disk_repositories(path="/run/install"):
 
     # Iterate over all driver disk repositories.
     for i in count(start=1):
-        repo_name = "DD-{}".format(i)
+        repo_name = f"DD-{i}"
         repo_path = join_paths(path, repo_name)
 
         # Is there a directory of this name?

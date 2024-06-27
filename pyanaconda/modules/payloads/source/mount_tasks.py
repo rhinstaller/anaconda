@@ -56,9 +56,7 @@ class TearDownMountTask(Task):
     def _check_mount(self):
         """Check if the source is unmounted."""
         if os.path.ismount(self._target_mount):
-            raise SourceTearDownError("The mount point {} is still in use.".format(
-                self._target_mount
-            ))
+            raise SourceTearDownError(f"The mount point {self._target_mount} is still in use.")
 
 
 class SetUpMountTask(Task, ABC):
@@ -77,9 +75,7 @@ class SetUpMountTask(Task, ABC):
     def _check_mount(self):
         """Check if the source is unmounted."""
         if os.path.ismount(self._target_mount):
-            raise SourceSetupError("The mount point {} is already in use.".format(
-                self._target_mount
-            ))
+            raise SourceSetupError(f"The mount point {self._target_mount} is already in use.")
 
     @abstractmethod
     def _do_mount(self):

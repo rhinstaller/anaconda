@@ -136,7 +136,7 @@ def split_protocol(url):
     ret = url.split("://")
 
     if len(ret) > 2:
-        raise ValueError("Invalid url to split protocol '{}'".format(url))
+        raise ValueError(f"Invalid url to split protocol '{url}'")
 
     if len(ret) == 2:
         # return back part removed when splitting

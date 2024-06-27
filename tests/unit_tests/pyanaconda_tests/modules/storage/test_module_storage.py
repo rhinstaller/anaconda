@@ -1523,11 +1523,11 @@ class StorageTasksTestCase(unittest.TestCase):
 
             patched_conf.target.is_directory = True
             WriteConfigurationTask(storage).run()
-            assert not os.path.exists("{}/etc".format(d))
+            assert not os.path.exists(f"{d}/etc")
 
             patched_conf.target.is_directory = False
             WriteConfigurationTask(storage).run()
-            assert os.path.exists("{}/etc".format(d))
+            assert os.path.exists(f"{d}/etc")
 
     @patch("pyanaconda.modules.storage.installation.conf")
     @patch("pyanaconda.modules.storage.installation.os.path.exists", return_value=False)

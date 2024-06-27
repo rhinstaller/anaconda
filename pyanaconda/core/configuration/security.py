@@ -36,6 +36,6 @@ class SecuritySection(Section):
         value = self._get_option("selinux", int)
 
         if value not in (-1, 0, 1):
-            raise ValueError("Invalid value: {}".format(value))
+            raise ValueError(f"Invalid value: {value}")
 
         return value

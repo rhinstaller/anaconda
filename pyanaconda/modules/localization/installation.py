@@ -102,10 +102,10 @@ class LanguageInstallationTask(Task):
             log.debug("Writing the '%s' locale to %s.", lang, fpath)
 
             with open(fpath, "w") as fobj:
-                fobj.write('LANG="{}"\n'.format(lang))
+                fobj.write(f'LANG="{lang}"\n')
 
         except OSError as e:
-            msg = "Cannot write language configuration file: {}".format(e.strerror)
+            msg = f"Cannot write language configuration file: {e.strerror}"
             raise LanguageInstallationError(msg) from e
 
 
@@ -203,7 +203,7 @@ def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir
             if not os.path.isdir(rooted_xconf_dir):
                 os.makedirs(rooted_xconf_dir)
         except OSError:
-            errors.append("Cannot create directory {}".format(rooted_xconf_dir))
+            errors.append(f"Cannot create directory {rooted_xconf_dir}")
 
         # Copy the file to the chroot.
         xconf_file_path = os.path.normpath(x_conf_dir_path + "/" + X_CONF_FILE_NAME)
@@ -247,5 +247,5 @@ def write_vc_configuration(vc_keymap, root):
             fobj.write('FONT="%s"\n' % vc_font)
 
     except OSError as e:
-        msg = "Cannot write vconsole configuration file: {}".format(e.strerror)
+        msg = f"Cannot write vconsole configuration file: {e.strerror}"
         raise KeyboardInstallationError(msg) from e

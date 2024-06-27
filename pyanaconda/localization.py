@@ -65,7 +65,7 @@ def raise_on_invalid_locale(arg):
     :raise: InvalidLocaleSpec
     """
     if not is_valid_langcode(arg):
-        raise InvalidLocaleSpec("'{}' is not a valid locale".format(arg))
+        raise InvalidLocaleSpec(f"'{arg}' is not a valid locale")
 
 
 def get_language_id(locale):

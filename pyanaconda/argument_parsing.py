@@ -480,8 +480,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                 name, rest = values.split(',', maxsplit=1)
             except ValueError:
                 raise ValueError(
-                    "The addrepo option has incorrect format ('{}'). "
-                    "Use: inst.addrepo=<name>,<url>".format(values)
+                    f"The addrepo option has incorrect format ('{values}'). "
+                    "Use: inst.addrepo=<name>,<url>"
                 ) from None
 
             items = getattr(namespace, self.dest, self.default)

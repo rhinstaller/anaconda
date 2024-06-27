@@ -60,7 +60,7 @@ class SetUpLocalImageSourceTask(Task):
         path = get_local_image_path_from_url(self._url)
 
         if not os.path.exists(path):
-            raise SourceSetupError("File {} does not exist.".format(path))
+            raise SourceSetupError(f"File {path} does not exist.")
 
         size = self._get_required_space(path)
         return SetupImageResult(required_space=size)
@@ -112,7 +112,7 @@ class SetUpRemoteImageSourceTask(Task):
                 size = self._get_required_space(response)
 
             except RequestException as e:
-                msg = "Error while handling a request: {}".format(e)
+                msg = f"Error while handling a request: {e}"
                 raise SourceSetupError(msg) from e
 
         return SetupImageResult(required_space=size)
@@ -132,9 +132,7 @@ class SetUpRemoteImageSourceTask(Task):
 
         # Check the response.
         if response.status_code != 200:
-            msg = "The request has failed: {}".format(
-                response.status_code
-            )
+            msg = f"The request has failed: {response.status_code}"
             raise SourceSetupError(msg)
 
         return response

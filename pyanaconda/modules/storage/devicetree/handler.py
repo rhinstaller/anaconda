@@ -67,11 +67,7 @@ class DeviceTreeHandler(ABC):
         try:
             device.format.mount(mountpoint=mount_point, options=options or None)
         except FSError as e:
-            msg = "Failed to mount {} at {}: {}". format(
-                device_name,
-                mount_point,
-                str(e)
-            )
+            msg = f"Failed to mount {device_name} at {mount_point}: {str(e)}"
             raise MountFilesystemError(msg) from None
 
     def unmount_device(self, device_name, mount_point):
@@ -85,11 +81,7 @@ class DeviceTreeHandler(ABC):
         try:
             device.format.unmount(mountpoint=mount_point)
         except FSError as e:
-            msg = "Failed to unmount {} from {}: {}". format(
-                device_name,
-                mount_point,
-                str(e)
-            )
+            msg = f"Failed to unmount {device_name} from {mount_point}: {str(e)}"
             raise MountFilesystemError(msg) from None
 
     def unlock_device(self, device_name, passphrase):

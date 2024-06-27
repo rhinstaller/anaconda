@@ -60,7 +60,7 @@ def set_system_root(path):
     rc = execWithRedirect("mount", ["--rbind", path, sysroot])
 
     if rc != 0:
-        raise OSError("Failed to mount sysroot to {}.".format(path))
+        raise OSError(f"Failed to mount sysroot to {path}.")
 
 
 def make_directories(directory):

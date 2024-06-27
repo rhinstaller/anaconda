@@ -507,7 +507,7 @@ fake_enhancement = Driver(
 
 
 def dd_list_output(driver):
-    out='{0.source}\n{0.name}\n{0.flags}\n{0.description}\n---\n'.format(driver)
+    out=f'{driver.source}\n{driver.name}\n{driver.flags}\n{driver.description}\n---\n'
     return out
 
 

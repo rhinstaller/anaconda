@@ -299,7 +299,7 @@ def verify_swap(storage, constraints, report_error, report_warning):
 
     if not swaps:
         installed = util.total_memory()
-        required = constraints[STORAGE_MIN_RAM] + Size("{} MiB".format(NO_SWAP_EXTRA_RAM))
+        required = constraints[STORAGE_MIN_RAM] + Size(f"{NO_SWAP_EXTRA_RAM} MiB")
 
         if not constraints[STORAGE_SWAP_IS_RECOMMENDED]:
             if installed < required:
@@ -626,7 +626,7 @@ class StorageChecker(object):
         :param value: a value of the constraint
         """
         if name in self.constraints:
-            raise KeyError("The constraint {} already exists.".format(name))
+            raise KeyError(f"The constraint {name} already exists.")
 
         self.constraints[name] = value
 
@@ -639,7 +639,7 @@ class StorageChecker(object):
         :param value: a value of the constraint
         """
         if name not in self.constraints:
-            raise KeyError("The constraint {} does not exist.".format(name))
+            raise KeyError(f"The constraint {name} does not exist.")
 
         self.constraints[name] = value
 

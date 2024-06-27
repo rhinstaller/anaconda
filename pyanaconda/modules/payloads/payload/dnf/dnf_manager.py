@@ -706,8 +706,7 @@ class DNFManager(object):
             if transaction_has_errors(base.transaction):
                 display.error("The transaction process has ended with errors.")
         except BaseException as e:  # pylint: disable=broad-except
-            display.error("The transaction process has ended abruptly: {}\n{}".format(
-                str(e), traceback.format_exc()))
+            display.error(f"The transaction process has ended abruptly: {str(e)}\n{traceback.format_exc()}")
         finally:
             log.debug("The transaction has ended.")
             base.close()  # Always close this base.
@@ -843,8 +842,8 @@ class DNFManager(object):
         return str: a content of a .repo file
         """
         lines = [
-            "[{}]".format(data.name),
-            "name = {}".format(data.name),
+            f"[{data.name}]",
+            f"name = {data.name}",
         ]
 
         if data.enabled:
@@ -854,13 +853,13 @@ class DNFManager(object):
 
         # Set up the repo location.
         if data.type == URL_TYPE_BASEURL:
-            lines.append("baseurl = {}".format(data.url))
+            lines.append(f"baseurl = {data.url}")
 
         if data.type == URL_TYPE_MIRRORLIST:
-            lines.append("mirrorlist = {}".format(data.url))
+            lines.append(f"mirrorlist = {data.url}")
 
         if data.type == URL_TYPE_METALINK:
-            lines.append("metalink = {}".format(data.url))
+            lines.append(f"metalink = {data.url}")
 
         if not data.ssl_verification_enabled:
             lines.append("sslverify = 0")
@@ -869,17 +868,17 @@ class DNFManager(object):
         proxy = self._parse_proxy(data.proxy)
 
         if proxy:
-            lines.append("proxy = {}".format(proxy.noauth_url))
+            lines.append(f"proxy = {proxy.noauth_url}")
 
         if proxy and proxy.username:
-            lines.append("proxy_username = {}".format(proxy.username))
+            lines.append(f"proxy_username = {proxy.username}")
 
         if proxy and proxy.password:
-            lines.append("proxy_password = {}".format(proxy.password))
+            lines.append(f"proxy_password = {proxy.password}")
 
         # Set the repo configuration.
         if data.cost != DNF_DEFAULT_REPO_COST:
-            lines.append("cost = {}".format(data.cost))
+            lines.append(f"cost = {data.cost}")
 
         if data.included_packages:
             lines.append("includepkgs = {}".format(", ".join(data.included_packages)))
@@ -1035,7 +1034,7 @@ class DNFManager(object):
         """
         for url in repo.baseurl:
             try:
-                repomd_url = "{}/repodata/repomd.xml".format(url)
+                repomd_url = f"{url}/repodata/repomd.xml"
 
                 with self._base.urlopen(repomd_url, repo=repo, mode="w+t") as f:
                     return f.read()

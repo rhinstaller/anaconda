@@ -88,9 +88,4 @@ class RPMOSTreeContainerSourceModule(RPMOSTreeSourceModule):
 
     def __repr__(self):
         """Return a string representation of the source."""
-        return "Source(type='{}', stateroot='{}', transport='{}', url='{}')".format(
-            self.type.value,
-            self.configuration.stateroot,
-            self.configuration.transport,
-            self.configuration.url
-        )
+        return f"Source(type='{self.type.value}', stateroot='{self.configuration.stateroot}', transport='{self.configuration.transport}', url='{self.configuration.url}')"

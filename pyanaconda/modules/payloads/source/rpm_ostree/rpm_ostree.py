@@ -131,8 +131,4 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
 
     def __repr__(self):
         """Return a string representation of the source."""
-        return "Source(type='{}', osname='{}', url='{}')".format(
-            self.type.value,
-            self.configuration.osname,
-            self.configuration.url
-        )
+        return f"Source(type='{self.type.value}', osname='{self.configuration.osname}', url='{self.configuration.url}')"

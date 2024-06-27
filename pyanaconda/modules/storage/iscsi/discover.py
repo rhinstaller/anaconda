@@ -88,8 +88,7 @@ class ISCSIDiscoverTask(Task):
             created = set(iscsi.ifaces.values())
             iscsi.create_interfaces(activated - created)
         else:
-            raise StorageDiscoveryError('Requiring "{}" mode while "{}" is already set.'.format(
-                                        interfaces_mode, iscsi.mode))
+            raise StorageDiscoveryError(f'Requiring "{interfaces_mode}" mode while "{iscsi.mode}" is already set.')
 
     def _discover_nodes(self, portal, credentials):
         """Discover iSCSI nodes.

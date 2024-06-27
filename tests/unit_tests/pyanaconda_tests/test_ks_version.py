@@ -43,7 +43,7 @@ class CommandVersionTestCase(unittest.TestCase):
 
         for name in children:
             if name in self.IGNORED_NAMES:
-                warnings.warn("Skipping the kickstart name {}.".format(name))
+                warnings.warn(f"Skipping the kickstart name {name}.")
                 continue
 
             # Print info about the command for better debugging.

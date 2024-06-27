@@ -33,7 +33,7 @@ def get_config_files_content(root_path=""):
     """Get content of all network device config files."""
     fragments = []
     for file_path in get_config_files_paths(root_path):
-        fragments.append("{}:".format(file_path))
+        fragments.append(f"{file_path}:")
         with open(file_path, "r") as f:
             fragments.append(f.read().strip("\n"))
     return "\n".join(fragments)

@@ -112,9 +112,7 @@ class ResizeDialog(GUIObject):
         for root in self._roots:
             for mount_point, device_name in root.mount_points.items():
                 if device_name == device_data.name:
-                    return "{mount_point} ({os_name})".format(
-                        mount_point=mount_point, os_name=root.os_name
-                    )
+                    return f"{mount_point} ({root.os_name})"
 
         # Otherwise, fall back on increasingly vague information.
         if device_data.children:
@@ -180,10 +178,7 @@ class ResizeDialog(GUIObject):
             fs_type = format_data.description
             disk_reclaimable_space = Size(device_data.size)
 
-        description = "{} {}".format(
-            Size(device_data.size).human_readable(max_places=1),
-            device_data.description
-        )
+        description = f"{Size(device_data.size).human_readable(max_places=1)} {device_data.description}"
 
         itr = self._disk_store.append(None, [
             device_name,

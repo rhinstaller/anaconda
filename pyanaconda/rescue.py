@@ -524,7 +524,7 @@ class RootSelectionSpoke(NormalTUISpoke):
 
         for root in self._roots:
             box = CheckboxWidget(
-                title="{} on {}".format(root.os_name, root.get_root_device()),
+                title=f"{root.os_name} on {root.get_root_device()}",
                 completed=(self._selection == root)
             )
 

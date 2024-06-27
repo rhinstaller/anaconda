@@ -806,7 +806,7 @@ class HostnameConfigurationTaskTestCase(unittest.TestCase):
 
             with open(hostname_file_path, "r") as f:
                 content = f.read()
-            assert content == "{}\n".format(hostname)
+            assert content == f"{hostname}\n"
 
             shutil.rmtree(hostname_dir)
 

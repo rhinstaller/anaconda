@@ -140,7 +140,7 @@ class ProfileLoader(object):
         profile_id = data.profile_id
 
         if profile_id in self._profiles:
-            raise ConfigurationError("The '{}' profile was already loaded.".format(profile_id))
+            raise ConfigurationError(f"The '{profile_id}' profile was already loaded.")
 
         # Add the profile.
         log.info("Found the '%s' profile at %s.", profile_id, config_path)
@@ -250,14 +250,14 @@ class ProfileLoader(object):
         while current_id:
             if current_id not in self._profiles:
                 raise ConfigurationError(
-                    "Dependencies of the '{}' profile cannot be resolved "
-                    "due to an unknown '{}' profile.".format(profile_id, current_id)
+                    f"Dependencies of the '{profile_id}' profile cannot be resolved "
+                    f"due to an unknown '{current_id}' profile."
                 )
 
             if current_id in visited:
                 raise ConfigurationError(
-                    "Dependencies of the '{}' profile cannot be resolved "
-                    "due to a conflict with '{}'.".format(profile_id, current_id)
+                    f"Dependencies of the '{profile_id}' profile cannot be resolved "
+                    f"due to a conflict with '{current_id}'."
                 )
 
             visited.add(current_id)

@@ -50,20 +50,16 @@ def test_markup(pofile):
                 except ET.ParseError as e:
                     if entry.msgid_plural:
                         raise AssertionError(
-                            "Invalid markup translation for {} translation of msgid {}\n{}".
-                            format(plural_id, entry.msgid, msgstr)) from e
+                            f"Invalid markup translation for {plural_id} translation of msgid {entry.msgid}\n{msgstr}") from e
                     else:
                         raise AssertionError(
-                            "Invalid markup translation for msgid {}\n{}".
-                            format(entry.msgid, msgstr)) from e
+                            f"Invalid markup translation for msgid {entry.msgid}\n{msgstr}") from e
 
                 # Check if the markup has the same number and kind of tags
                 if not markup_match(entry.msgid, msgstr):
                     if entry.msgid_plural:
                         raise AssertionError(
-                            "Markup does not match for {} translation of msgid {}\n{}".
-                            format(plural_id, entry.msgid, msgstr))
+                            f"Markup does not match for {plural_id} translation of msgid {entry.msgid}\n{msgstr}")
                     else:
                         raise AssertionError(
-                            "Markup does not match for msgid {}\n{}".
-                            format(entry.msgid, msgstr))
+                            f"Markup does not match for msgid {entry.msgid}\n{msgstr}")
