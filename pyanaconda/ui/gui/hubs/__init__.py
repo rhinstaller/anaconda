@@ -193,6 +193,7 @@ class Hub(GUIObject, common.Hub):
             # excape unwanted markup
             cat_title = escape_markup(category.get_title())
             # generate pango markup
+            # ruff: noqa: UP032
             cat_label = '<span size="larger" weight="bold">{}</span>'.format(cat_title)
             # setup the category label
             label = Gtk.Label(label=cat_label,

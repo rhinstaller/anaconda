@@ -137,6 +137,7 @@ def add_attached_subscription_delegate(listbox, subscription, delegate_index):
     main_vbox.set_margin_top(12)
     main_vbox.set_margin_bottom(12)
 
+    # ruff: noqa: UP032
     name_label = Gtk.Label(label='<span size="x-large">{}</span>'.format(subscription.name),
                            use_markup=True, wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
                            hexpand=True, xalign=0, yalign=0.5)

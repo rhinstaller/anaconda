@@ -110,6 +110,7 @@ class SelectedDisksDialog(GUIObject):
             ])
 
     def _update_summary(self):
+        # ruff: noqa: UP032
         self._summary_label.set_markup("<b>{}</b>".format(
             get_disks_summary(self._disks)
         ))

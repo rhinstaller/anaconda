@@ -277,6 +277,7 @@ class ResizeDialog(GUIObject):
             escape_markup(_("Free space"))
         )
 
+        # ruff: noqa: UP032
         disk_free_string = "<span foreground='grey' style='italic'>{}</span>".format(
             escape_markup(disk_free.human_readable(max_places=1))
         )

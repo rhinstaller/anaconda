@@ -49,6 +49,7 @@ class ActionSummaryDialog(GUIObject):
         else:
             action_color = "green"
 
+        # ruff: noqa: UP032
         action_description = "<span foreground='{color}'>{action}</span>".format(
             color=action_color,
             action=action.action_description

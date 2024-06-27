@@ -77,6 +77,7 @@ class CustomListBoxRow(Gtk.ListBoxRow):
 
     def _create_label(self):
         """Create a row label."""
+        # ruff: noqa: UP032
         text = "<b>{}</b>\n{}".format(
             escape_markup(self.data.name),
             escape_markup(self.data.description)
