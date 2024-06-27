@@ -564,17 +564,17 @@ class ConfigureBootloader(Task):
         bootloader = STORAGE.get_proxy(BOOTLOADER)
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
-        root_name = device_tree.GetRootDevice()
+        root_id = device_tree.GetRootDevice()
         root_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(root_name)
+            device_tree.GetDeviceData(root_id)
         )
 
         set_kargs_args = ["admin", "instutil", "set-kargs"]
         set_kargs_args.extend(bootloader.GetArguments())
-        set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
+        set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_id))
 
         if root_data.type == "btrfs subvolume":
-            set_kargs_args.append("rootflags=subvol=" + root_name)
+            set_kargs_args.append("rootflags=subvol=" + root_data.name)
 
         set_kargs_args.append("rw")
 

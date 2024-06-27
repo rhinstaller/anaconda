@@ -394,18 +394,18 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # of them, we do not display them in the box by default.  Instead, only
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
-        for device_name in self._available_disks:
+        for disk_name in self._available_disks:
 
             # Get the device data.
             device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
+                self._device_tree.GetDeviceData(disk_name)
             )
 
             if is_local_disk(device_data.type):
                 # Add all available local disks.
                 self._add_disk_overview(device_data, self._local_disks_box)
 
-            elif device_name in self._selected_disks:
+            elif disk_name in self._selected_disks:
                 # Add only selected advanced disks.
                 self._add_disk_overview(device_data, self._specialized_disks_box)
 
@@ -469,7 +469,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             description = device_data.description
 
         kind = "drive-removable-media" if device_data.removable else "drive-harddisk"
-        free_space = self._device_tree.GetDiskFreeSpace([device_data.name])
+        free_space = self._device_tree.GetDiskFreeSpace([device_data.device_id])
         serial_number = device_data.attrs.get("serial") or None
 
         overview = AnacondaWidgets.DiskOverview(

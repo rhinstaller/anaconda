@@ -57,7 +57,10 @@ class ManualPartitioningModule(PartitioningModule):
         for mount_data in data.mount.mount_points:
             request = MountPointRequest()
             request.mount_point = mount_data.mount_point
-            request.device_spec = mount_data.device
+
+            device = self.storage.devicetree.resolve_device(mount_data.device)
+            request.device_spec = device.device_id
+
             request.reformat = mount_data.reformat
             request.format_type = mount_data.format
             request.format_options = mount_data.mkfs_opts
@@ -73,8 +76,11 @@ class ManualPartitioningModule(PartitioningModule):
         for request in self.requests:
             mount_data = data.MountData()
             mount_data.mount_point = request.mount_point
-            mount_data.device = request.device_spec
+
+            device = self.storage.devicetree.get_device_by_device_id(request.device_spec)
+            mount_data.device = device.path
             mount_data.reformat = request.reformat
+
             mount_data.format = request.format_type
             mount_data.mkfs_opts = request.format_options
             mount_data.mount_opts = request.mount_options
@@ -157,7 +163,7 @@ class ManualPartitioningModule(PartitioningModule):
         :return: an instance of MountPointRequest or None
         """
         for request in requests:
-            if device is self.storage.devicetree.resolve_device(request.device_spec):
+            if device is self.storage.devicetree.get_device_by_device_id(request.device_spec):
                 return request
 
         return None
@@ -169,7 +175,7 @@ class ManualPartitioningModule(PartitioningModule):
         :return: an instance of MountPointRequest
         """
         request = MountPointRequest()
-        request.device_spec = device.name
+        request.device_spec = device.device_id
         request.format_type = device.format.type or ""
         request.reformat = False
 

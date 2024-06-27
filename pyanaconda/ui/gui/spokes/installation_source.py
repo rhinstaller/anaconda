@@ -37,7 +37,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.common.structures.storage import DeviceFormatData
+from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
@@ -498,7 +498,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             gtk_call_once(self._dracut_button.set_no_show_all, False)
         # Enable the CD-ROM option if requested.
         elif source_type == SOURCE_TYPE_CDROM:
-            self._cdrom = source_proxy.DeviceName
+            self._cdrom = source_proxy.DeviceID
             self._show_cdrom_box_with_device(self._cdrom)
         # Enable the local source option if available.
         elif verify_valid_repository(DRACUT_REPO_DIR):
@@ -539,14 +539,19 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # report that the source spoke has been initialized
         self.initialize_done()
 
-    def _show_cdrom_box_with_device(self, device_name):
-        if not device_name:
+    def _show_cdrom_box_with_device(self, device_id):
+        if not device_id:
             return
 
         device_format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(device_name)
+            self._device_tree.GetFormatData(device_id)
         )
         device_label = device_format_data.attrs.get("label", "")
+
+        device_data = DeviceData.from_structure(
+            self._device_tree.GetDeviceData(device_id)
+        )
+        device_name = device_data.name
         self._show_cdrom_box(device_name, device_label)
 
     def _show_cdrom_box(self, device_name, device_label):
@@ -588,9 +593,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if source_type == SOURCE_TYPE_HDD:
             active_name = source_proxy.GetDevice()
 
-        for idx, device_name in enumerate(find_potential_hdiso_sources()):
-            device_info = get_hdiso_source_info(self._device_tree, device_name)
+        for idx, device_id in enumerate(find_potential_hdiso_sources()):
+            device_info = get_hdiso_source_info(self._device_tree, device_id)
             device_desc = get_hdiso_source_description(device_info)
+            device_data = DeviceData.from_structure(self._device_tree.GetDeviceData(device_id))
+            device_name = device_data.name
             store.append([device_name, device_desc])
 
             if device_name == active_name:

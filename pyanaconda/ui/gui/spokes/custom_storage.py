@@ -432,26 +432,26 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         page = Page(root.os_name)
         self._accordion.add_page(page, cb=self.on_page_clicked)
 
-        for mount_point, device_name in root.mount_points.items():
+        for mount_point, device_id in root.mount_points.items():
             selector = MountPointSelector()
             self._update_selector(
                 selector,
-                device_name=device_name,
+                device_id=device_id,
                 root_name=root.os_name,
                 mount_point=mount_point
             )
             page.add_selector(selector, self.on_selector_clicked)
 
-        for device_name in root.devices:
+        for device_id in root.devices:
 
             # Skip devices that already have a selector.
-            if device_name in root.mount_points.values():
+            if device_id in root.mount_points.values():
                 continue
 
             selector = MountPointSelector()
             self._update_selector(
                 selector,
-                device_name=device_name,
+                device_id=device_id,
                 root_name=root.os_name
             )
             page.add_selector(selector, self.on_selector_clicked)
@@ -462,39 +462,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         page = UnknownPage(_("Unknown"))
         self._accordion.add_page(page, cb=self.on_page_clicked)
 
-        for device_name in sorted(devices):
+        for device_id in sorted(devices):
             selector = MountPointSelector()
-            self._update_selector(selector, device_name)
+            self._update_selector(selector, device_id)
             page.add_selector(selector, self.on_selector_clicked)
 
         page.show_all()
 
-    def _update_selector(self, selector, device_name="", root_name="", mount_point=""):
+    def _update_selector(self, selector, device_id="", root_name="", mount_point=""):
         if not selector:
             return
 
-        if not device_name:
-            device_name = selector.device_name
+        if not device_id:
+            device_id = selector.device_id
 
         if not root_name:
             root_name = selector.root_name
 
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(device_id)
         )
 
         format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(device_name)
+            self._device_tree.GetFormatData(device_id)
         )
 
         mount_point = self._get_mount_point_description(
             mount_point, format_data
         )
 
-        selector.props.name = device_name
+        selector.props.name = device_data.name
         selector.props.size = str(Size(device_data.size))
         selector.props.mountpoint = mount_point
         selector.root_name = root_name
+        selector.device_id = device_id
 
     def _get_mount_point_description(self, mount_point, format_data):
         """Generate the selector's mount point description."""
@@ -565,7 +566,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         device_name = selector.device_name
-        if device_name not in self._device_tree.GetDevices():
+        device_id = selector.device_id
+        if device_id not in self._device_tree.GetDevices():
             # just-removed device
             return
 
@@ -754,10 +756,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._deviceDescLabel.set_text(description)
 
     def _populate_right_side(self, selector):
+        device_id = selector.device_id
         device_name = selector.device_name
 
         self._request = DeviceFactoryRequest.from_structure(
-            self._device_tree.GenerateDeviceFactoryRequest(device_name)
+            self._device_tree.GenerateDeviceFactoryRequest(device_id)
         )
 
         self._original_request = copy.deepcopy(self._request)
@@ -795,12 +798,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._encryptCheckbox.set_tooltip_text(text)
 
         # Set up the filesystem type combo.
-        format_types = self._device_tree.GetFileSystemsForDevice(device_name)
+        format_types = self._device_tree.GetFileSystemsForDevice(device_id)
         self._setup_fstype_combo(self._request.device_type, self._request.format_type, format_types)
         fancy_set_sensitive(self._fsCombo, self._permissions.format_type)
 
         # Set up the device type combo.
-        device_types = self._device_tree.GetDeviceTypesForDevice(device_name)
+        device_types = self._device_tree.GetDeviceTypesForDevice(device_id)
         self._setup_device_type_combo(self._request.device_type, device_types)
         fancy_set_sensitive(self._typeCombo, self._permissions.device_type)
 
@@ -877,8 +880,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._passphrase = dialog.passphrase
 
         # Configure the devices.
-        for device_name in devices:
-            self._device_tree.SetDevicePassphrase(device_name, self._passphrase)
+        for device_id in devices:
+            self._device_tree.SetDevicePassphrase(device_id, self._passphrase)
 
         return True
 
@@ -1013,8 +1016,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                     self.on_selector_clicked(None, member)
                     break
 
-    def _show_confirmation_dialog(self, root_name, device_name):
-        dialog = ConfirmDeleteDialog(self.data, self._device_tree, root_name, device_name,
+    def _show_confirmation_dialog(self, root_name, device_id):
+        dialog = ConfirmDeleteDialog(self.data, self._device_tree, root_name, device_id,
                                      self._accordion.is_multiselection)
         dialog.refresh()
 
@@ -1059,24 +1062,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         for selector in self._accordion.selected_items:
             page = self._accordion.page_for_selector(selector)
             device_name = selector.device_name
+            device_id = selector.device_id
             root_name = selector.root_name or page.page_title
             log.debug("Removing device %s from page %s.", device_name, root_name)
 
             # Skip if the device isn't in the device tree.
-            if not self._device_tree.IsDevice(device_name):
+            if not self._device_tree.IsDevice(device_id):
                 log.debug("Device %s isn't in the device tree.", device_name)
                 continue
 
             if root_name == self._os_name:
                 if is_multiselection and not option_checked:
-                    (rc, option_checked) = self._show_confirmation_dialog(root_name, device_name)
+                    (rc, option_checked) = self._show_confirmation_dialog(root_name, device_id)
 
                     if rc != 1:
                         if option_checked:
                             break  # skip evaluation of all other mountpoints
                         continue
 
-                self._device_tree.ResetDevice(device_name)
+                self._device_tree.ResetDevice(device_id)
             else:
                 # This is a device that exists on disk and most likely has data
                 # on it.  Thus, we first need to confirm with the user and then
@@ -1084,7 +1088,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 # In multiselection user could confirm once for all next
                 # selections.
                 if not option_checked:
-                    (rc, option_checked) = self._show_confirmation_dialog(root_name, device_name)
+                    (rc, option_checked) = self._show_confirmation_dialog(root_name, device_id)
 
                     if rc != 1:
                         if option_checked:
@@ -1092,32 +1096,36 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                         continue
 
                 if is_multiselection or not option_checked:
-                    self._device_tree.DestroyDevice(device_name)
+                    self._device_tree.DestroyDevice(device_id)
                     continue
 
                 # We never want to delete known-shared devs here.
                 # The same rule applies for selected device. If it's shared do not
                 # remove it in other pages when Delete all option is checked.
-                for other_name in self._find_unshared_devices(page):
+                for other_id in self._find_unshared_devices(page):
                     # Skip if the device isn't in the device tree.
-                    if not self._device_tree.IsDevice(other_name):
-                        log.debug("Device %s isn't in the device tree.", other_name)
+                    if not self._device_tree.IsDevice(other_id):
+                        log.debug("Device %s isn't in the device tree.", other_id)
                         continue
 
                     # we only want to delete boot partitions if they're not
                     # shared *and* we have no unknown partitions
                     other_format = DeviceFormatData.from_structure(
-                        self._device_tree.GetFormatData(other_name)
+                        self._device_tree.GetFormatData(other_id)
+                    )
+
+                    other_data = DeviceData.from_structure(
+                        self._device_tree.GetDeviceData(other_id)
                     )
 
                     can_destroy = not self._get_unused_devices() \
                         or other_format.type not in PROTECTED_FORMAT_TYPES
 
                     if not can_destroy:
-                        log.debug("Device %s cannot be removed.", other_name)
+                        log.debug("Device %s cannot be removed.", other_data.name)
                         continue
 
-                    self._device_tree.DestroyDevice(other_name)
+                    self._device_tree.DestroyDevice(other_id)
 
     def _find_unshared_devices(self, page):
         """Get unshared devices of the page."""
@@ -1128,14 +1136,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 continue
 
             for s in p.members:
-                other_devices.add(s.device_name)
+                other_devices.add(s.device_id)
 
         unshared_devices = []
         for s in page.members:
-            if s.device_name in other_devices:
+            if s.device_id in other_devices:
                 continue
 
-            unshared_devices.append(s.device_name)
+            unshared_devices.append(s.device_id)
 
         return unshared_devices
 
@@ -1362,27 +1370,27 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._set_page_label_text()
             return
 
-        device_name = self._accordion.current_selector.device_name
+        device_id = self._accordion.current_selector.device_id
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(device_id)
         )
         completeness = ValidationReport.from_structure(
-            self._device_tree.CheckCompleteness(device_name)
+            self._device_tree.CheckCompleteness(device_id)
         )
         description = _(MOUNTPOINT_DESCRIPTIONS.get(device_data.type, ""))
 
-        if self._device_tree.IsDeviceLocked(device_name):
+        if self._device_tree.IsDeviceLocked(device_id):
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
-            self._encryptedDeviceLabel.set_text(device_name)
+            self._encryptedDeviceLabel.set_text(device_data.name)
             self._encryptedDeviceDescLabel.set_text(description)
         elif not completeness.is_valid():
             self._partitionsNotebook.set_current_page(NOTEBOOK_INCOMPLETE_PAGE)
-            self._incompleteDeviceLabel.set_text(device_name)
+            self._incompleteDeviceLabel.set_text(device_data.name)
             self._incompleteDeviceDescLabel.set_text(description)
             self._incompleteDeviceOptionsLabel.set_text(" ".join(completeness.get_messages()))
-        elif not self._device_tree.IsDeviceEditable(device_name):
+        elif not self._device_tree.IsDeviceEditable(device_id):
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
-            self._uneditableDeviceLabel.set_text(device_name)
+            self._uneditableDeviceLabel.set_text(device_data.name)
             self._uneditableDeviceDescLabel.set_text(description)
         else:
             self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
@@ -1836,10 +1844,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.reset_state()
 
         device_name = selector.device_name
+        device_id = selector.device_id
         passphrase = self._passphraseEntry.get_text()
 
         log.info("Trying to unlock device %s.", device_name)
-        unlocked = self._device_tree.UnlockDevice(device_name, passphrase)
+        unlocked = self._device_tree.UnlockDevice(device_id, passphrase)
 
         if not unlocked:
             self._passphraseEntry.set_text("")

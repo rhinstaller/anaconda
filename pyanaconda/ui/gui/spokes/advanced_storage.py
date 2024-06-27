@@ -56,7 +56,7 @@ PAGE_Z = 4
 
 DiskStoreRow = namedtuple("DiskStoreRow", [
     "visible", "selected", "mutable",
-    "name", "type", "model", "capacity",
+    "name", "device_id", "type", "model", "capacity",
     "vendor", "interconnect", "serial",
     "wwid", "paths", "port", "target",
     "lun", "ccw", "wwpn", "namespace", "mode",
@@ -87,6 +87,7 @@ def create_row(device_data, selected, mutable):
         selected=selected,
         mutable=mutable and not device.protected,
         name=device.name,
+        device_id=device.device_id,
         type=device.type,
         model=attrs.get("model", ""),
         capacity=str(Size(device.size)),
@@ -603,8 +604,8 @@ class FilterSpoke(NormalSpoke):
         self._store.clear()
 
         disks_data = DeviceData.from_structure_list([
-            self._device_tree.GetDeviceData(device_name)
-            for device_name in self._disks
+            self._device_tree.GetDeviceData(device_id)
+            for device_id in self._disks
         ])
 
         for page in self._pages.values():

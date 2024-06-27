@@ -686,8 +686,9 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         proxy_mock = storage_mock.get_proxy()
         proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-name"
+        proxy_mock.GetRootDevice.return_value = "device-id"
         devdata_mock.from_structure.return_value.type = "btrfs subvolume"
+        devdata_mock.from_structure.return_value.name = "device-name"
 
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(sysroot + "/boot/grub2")
@@ -723,8 +724,9 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         proxy_mock = storage_mock.get_proxy()
         proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-name"
+        proxy_mock.GetRootDevice.return_value = "device-id"
         devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
+        devdata_mock.from_structure.return_value.name = "device-name"
 
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(sysroot + "/boot/grub2")
@@ -762,11 +764,12 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         proxy_mock = storage_mock.get_proxy()
         proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-name"
+        proxy_mock.GetRootDevice.return_value = "device-id"
         proxy_mock.Drive = "btldr-drv"
         proxy_mock.KeepBootOrder = False
         devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
         devdata_mock.from_structure.return_value.path = "/dev/btldr-drv"
+        devdata_mock.from_structure.return_value.name = "device-name"
 
         with tempfile.TemporaryDirectory() as sysroot:
             task = ConfigureBootloader(sysroot)

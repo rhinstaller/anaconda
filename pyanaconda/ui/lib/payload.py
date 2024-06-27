@@ -143,25 +143,25 @@ def find_potential_hdiso_sources():
     Return a generator yielding Device instances that may have HDISO install
     media somewhere. Candidate devices are simply any that we can mount.
 
-    :return: a list of device names
+    :return: a list of device IDs
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
     return device_tree.FindMountablePartitions()
 
 
-def get_hdiso_source_info(device_tree, device_name):
+def get_hdiso_source_info(device_tree, device_id):
     """Get info about a potential HDISO source.
 
     :param device_tree: a proxy of a device tree
-    :param device_name: a device name
+    :param device_id: a device ID
     :return: a dictionary with a device info
     """
     device_data = DeviceData.from_structure(
-        device_tree.GetDeviceData(device_name)
+        device_tree.GetDeviceData(device_id)
     )
 
     format_data = DeviceFormatData.from_structure(
-        device_tree.GetFormatData(device_name)
+        device_tree.GetFormatData(device_id)
     )
 
     disk_data = DeviceData.from_structure(

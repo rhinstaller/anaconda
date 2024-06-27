@@ -68,16 +68,16 @@ class DasdFormatting(object):
         """Returns a string summary of DASDs to format."""
         return "\n".join(map(self.get_dasd_info, self.dasds))
 
-    def get_dasd_info(self, disk_name):
+    def get_dasd_info(self, disk_id):
         """Returns a string with description of a DASD."""
         data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(disk_name)
+            self._device_tree.GetDeviceData(disk_id)
         )
         return "{} ({})".format(data.path, data.attrs.get("bus-id"))
 
-    def search_disks(self, disk_names):
+    def search_disks(self, disk_ids):
         """Search for a list of disks for DASDs to format."""
-        self._dasds = self._dasd_module.FindFormattable(disk_names)
+        self._dasds = self._dasd_module.FindFormattable(disk_ids)
 
     def should_run(self):
         """Should we run the formatting?"""
