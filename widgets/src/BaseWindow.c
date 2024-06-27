@@ -27,8 +27,6 @@
 #include "intl.h"
 #include "widgets-common.h"
 
- #include <atk/atk.h>
-
 /**
  * SECTION: AnacondaBaseWindow
  * @title: AnacondaBaseWindow
@@ -253,7 +251,6 @@ GtkWidget *anaconda_base_window_new() {
 }
 
 static void anaconda_base_window_init(AnacondaBaseWindow *win) {
-    AtkObject *atk;
     GtkStyleContext *context;
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
