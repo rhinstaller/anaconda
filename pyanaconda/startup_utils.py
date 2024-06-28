@@ -272,7 +272,7 @@ def prompt_for_ssh(options):
     if options.ksfile:
         return False
 
-    if options.rdp:
+    if options.rdp_enabled:
         return False
 
     # Do some work here to get the ip addr / hostname to pass
