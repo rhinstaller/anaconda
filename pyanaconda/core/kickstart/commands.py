@@ -49,9 +49,9 @@ from pykickstart.commands.logging import F40_Logging as Logging
 from pykickstart.commands.logvol import RHEL10_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.mount import F27_Mount as Mount
-from pykickstart.commands.network import F39_Network as Network
+from pykickstart.commands.network import RHEL10_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
-from pykickstart.commands.nvdimm import F40_Nvdimm as Nvdimm
+from pykickstart.commands.nvdimm import RHEL10_Nvdimm as Nvdimm
 from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeContainer
 from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
 from pykickstart.commands.partition import RHEL10_Partition as Partition
@@ -70,7 +70,7 @@ from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
 from pykickstart.commands.sshpw import F24_SshPw as SshPw
 from pykickstart.commands.sshkey import F22_SshKey as SshKey
 from pykickstart.commands.syspurpose import RHEL10_Syspurpose as Syspurpose
-from pykickstart.commands.timezone import F40_Timezone as Timezone
+from pykickstart.commands.timezone import RHEL10_Timezone as Timezone
 from pykickstart.commands.timesource import F33_Timesource as Timesource
 from pykickstart.commands.updates import F34_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
