@@ -186,6 +186,9 @@ Name={}
 
         for ifname_value in ifname_option_values:
             iface, mac = ifname_value.split(":", 1)
+            # Avoid link files for 'nbft' interfaces as it breaks Boot from NVM over TCP
+            if iface.startswith('nbft'):
+                continue
             content = self.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE.format(mac, iface)
             config_file = self.INTERFACE_RENAME_FILE_TEMPLATE.format(iface)
             config_file_path = join_paths(self.SYSTEMD_NETWORK_CONFIG_DIR, config_file)
