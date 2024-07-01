@@ -7,7 +7,7 @@ NOSAVE_INPUT_KS_FILE=/tmp/NOSAVE_INPUT_KS
 NOSAVE_LOGS_FILE=/tmp/NOSAVE_LOGS
 PRE_ANA_LOGS=/tmp/pre-anaconda-logs
 DNF_DEBUG_LOGS=/root/debugdata
-RESCUE_MODE=/tmp/RESCUE_MODE
+RESCUE_MODE=/run/install/RESCUE_MODE
 
 # Do not copy log files from the rescue environment to the system being rescued to avoid
 # rewriting logs from the original installation of the system.

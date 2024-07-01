@@ -8,7 +8,7 @@
 #   responsibility (see https://github.com/ostreedev/ostree/pull/872 )
 # - OSTree variants of the traditional mounts if present
 
-RESCUE_MODE=/tmp/RESCUE_MODE
+RESCUE_MODE=/run/install/RESCUE_MODE
 
 # Do not automatically modify files on the system being rescued.
 if [ -e ${RESCUE_MODE} ]; then
