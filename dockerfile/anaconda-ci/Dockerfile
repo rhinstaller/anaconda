@@ -34,8 +34,6 @@ COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
-# Add our own repositories
-COPY *.repo /etc/yum.repos.d/
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
