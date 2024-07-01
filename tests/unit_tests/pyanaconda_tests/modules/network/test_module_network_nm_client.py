@@ -116,17 +116,20 @@ class NMClientTestCase(unittest.TestCase):
         assert get_ports_from_connections(nm_client, "team", [TEAM1_UUID]) == \
             set([("ens11", "ens11", ENS11_UUID)])
 
+    @patch("pyanaconda.modules.network.nm_client._get_dracut_znet_argument_from_connection")
     @patch("pyanaconda.modules.network.nm_client.get_connections_available_for_iface")
     @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
     @patch("pyanaconda.modules.network.nm_client.is_s390")
     def test_get_dracut_arguments_from_connection(self, is_s390, get_ports_from_connections_mock,
-                                                  get_connections_available_for_iface):
+                                                  get_connections_available_for_iface,
+                                                  _get_dracut_znet_argument_from_connection):
         nm_client = Mock()
 
         CON_UUID = "44755f4c-ee12-45b4-ba5e-e10f83de51af"
 
         # IPv4 config auto, IPv6 config auto, mac address specified
         is_s390.return_value = False
+        _get_dracut_znet_argument_from_connection.return_value = ""
         ip4_config_attrs = {
             "get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
         }
@@ -162,6 +165,8 @@ class NMClientTestCase(unittest.TestCase):
 
         # IPv4 config static, mac address not specified, s390
         is_s390.return_value = True
+        _get_dracut_znet_argument_from_connection.return_value = \
+            "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"
         address_attrs = {
             "get_address.return_value": "10.34.39.44",
             "get_prefix.return_value": 24,
@@ -176,11 +181,6 @@ class NMClientTestCase(unittest.TestCase):
         ip4_config = self._get_mock_objects_from_attrs([ip4_config_attrs])[0]
         wired_setting_attrs = {
             "get_mac_address.return_value": None,
-            "get_s390_nettype.return_value": "qeth",
-            "get_s390_subchannels.return_value": ["0.0.0900", "0.0.0901", "0.0.0902"],
-            "get_property.return_value": {"layer2": "1",
-                                          "portname": "FOOBAR",
-                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
         cons_attrs = [
@@ -199,6 +199,7 @@ class NMClientTestCase(unittest.TestCase):
 
         # IPv6 config dhcp
         is_s390.return_value = False
+        _get_dracut_znet_argument_from_connection.return_value = ""
         ip6_config_attrs = {
             "get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_DHCP,
         }
@@ -222,6 +223,7 @@ class NMClientTestCase(unittest.TestCase):
 
         # IPv6 config manual
         is_s390.return_value = False
+        _get_dracut_znet_argument_from_connection.return_value = ""
         address_attrs = {
             "get_address.return_value": "2001::5",
             "get_prefix.return_value": 64,
@@ -253,6 +255,7 @@ class NMClientTestCase(unittest.TestCase):
 
         # IPv4 config auto, team
         is_s390.return_value = False
+        _get_dracut_znet_argument_from_connection.return_value = ""
         ip4_config_attrs = {
             "get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
         }
@@ -279,6 +282,8 @@ class NMClientTestCase(unittest.TestCase):
 
         # IPv4 config auto, vlan, s390, parent specified by interface name
         is_s390.return_value = True
+        _get_dracut_znet_argument_from_connection.return_value = \
+            "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"
         ip4_config_attrs = {
             "get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
         }
@@ -300,11 +305,6 @@ class NMClientTestCase(unittest.TestCase):
         # Mock parent connection
         wired_setting_attrs = {
             "get_mac_address.return_value": None,
-            "get_s390_nettype.return_value": "qeth",
-            "get_s390_subchannels.return_value": ["0.0.0900", "0.0.0901", "0.0.0902"],
-            "get_property.return_value": {"layer2": "1",
-                                          "portname": "FOOBAR",
-                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
         parent_cons_attrs = [
@@ -326,6 +326,7 @@ class NMClientTestCase(unittest.TestCase):
         # IPv4 config auto, vlan, parent specified by connection uuid
         VLAN_PARENT_UUID = "5e6ead30-d133-4c8c-ba59-818c5ced6a7c"
         is_s390.return_value = False
+        _get_dracut_znet_argument_from_connection.return_value = ""
         ip4_config_attrs = {
             "get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
         }
@@ -361,6 +362,8 @@ class NMClientTestCase(unittest.TestCase):
         # IPv4 config auto, vlan, parent specified by connection uuid, s390 (we
         # need the parent connection in s390 case, not only parent iface)
         is_s390.return_value = True
+        _get_dracut_znet_argument_from_connection.return_value = \
+            "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"
         ip4_config_attrs = {
             "get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
         }
@@ -382,11 +385,6 @@ class NMClientTestCase(unittest.TestCase):
         # Mock parent connection
         wired_setting_attrs = {
             "get_mac_address.return_value": None,
-            "get_s390_nettype.return_value": "qeth",
-            "get_s390_subchannels.return_value": ["0.0.0900", "0.0.0901", "0.0.0902"],
-            "get_property.return_value": {"layer2": "1",
-                                          "portname": "FOOBAR",
-                                          "portno": "0"},
         }
         wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
         parent_cons_attrs = [
