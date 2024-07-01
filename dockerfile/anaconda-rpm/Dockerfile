@@ -21,16 +21,14 @@ ARG git_branch
 ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
+# Add development repositories instead of the production ones
+# We need development repositories to get our dependencies sooner
+RUN rm -f /etc/yum.repos.d/*.repo
+COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
+
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
-# Add our own repositories
-COPY *.repo /etc/yum.repos.d/
-# Enable CRB repository
-RUN set -ex; \
-  dnf install -y dnf-plugins-core; \
-  dnf config-manager --enable crb; \
-  dnf remove -y dnf-plugins-core
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
