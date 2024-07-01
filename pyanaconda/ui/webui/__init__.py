@@ -141,14 +141,38 @@ class CockpitUserInterface(ui.UserInterface):
         # FIXME: We probably want to move this to early execution similar to what we have on live
         profile_name = FIREFOX_THEME_DEFAULT
 
-        proc = startProgram(["/usr/libexec/anaconda/webui-desktop",
-                             "-t", profile_name, "-r", str(int(self.remote)),
-                             "/cockpit/@localhost/anaconda-webui/index.html"],
-                            reset_lang=False)
-        log.debug("cockpit web view has been started")
-        with open(self._viewer_pid_file, "w") as f:
-            f.write(repr(proc.pid))
-        proc.wait()
+        try:
+            proc = startProgram(
+                ["/usr/libexec/anaconda/webui-desktop",
+                 "-t", profile_name, "-r", str(int(self.remote)),
+                 "/cockpit/@localhost/anaconda-webui/index.html"],
+                reset_lang=False
+            )
+
+            log.debug("cockpit web view has been started")
+            with open(self._viewer_pid_file, "w") as f:
+                f.write(repr(proc.pid))
+
+            (output_string, err_string) = proc.communicate()
+
+            if type(output_string) is bytes:
+                output_string = output_string.decode("utf-8")
+
+            if output_string and output_string[-1] != "\n":
+                output_string = output_string + "\n"
+
+            if output_string:
+                for line in output_string.splitlines():
+                    log.info(line)
+
+            if err_string:
+                log.error("Errors from webui-desktop:")
+                for line in err_string.splitlines():
+                    log.error(line)
+
+        except OSError as e:
+            log.error(".... %s", e)
+            raise
 
     def _watch_webui_on_live(self):
         """Watch webui-desktop script process on Live.
