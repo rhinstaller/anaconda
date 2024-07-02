@@ -29,6 +29,8 @@ UPDATED_ISO = os.path.join(ISO_FOLDER, "updated_boot.iso")
 # Folder needed to include updates image into the updated ISO
 UPDATES_FOLDER = os.path.join(ISO_FOLDER, "images")
 UPDATES_IMAGE = "updates.img"
+# For inst.sshd = https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-sshd
+# For inst.nokill = https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-nokill
 BOOT_OPTIONS = "inst.sshd inst.nokill"
 
 # Command names
