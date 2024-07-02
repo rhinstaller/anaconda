@@ -480,6 +480,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 02 2024 github-actions <github-actions@github.com> - 41.23-1
+- Update translations from Weblate for master (github-actions)
+- chore: remove unused atk in BaseWindow.c (freya)
+- Replace deprecated methods to avoid warnings (rolivier)
+- Do not mark ancestors of device with source or stage2 as protected (rvykydal)
+
 * Tue Jun 25 2024 github-actions <github-actions@github.com> - 41.22-1
 - Update translations from Weblate for master (github-actions)
 
