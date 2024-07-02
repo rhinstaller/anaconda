@@ -27,6 +27,13 @@
 #
 # /kickstart-test --force rpm-ostree
 # ... run rpm-ostree test even if it is disabled
+#
+#
+# It is possible to run updated tests via a PR in kickstart-tests repository
+#
+# /kickstart-test --kstest-pr 1233 --testtype harddrive
+# ... run the tests of type harddrive with
+# https://github.com/rhinstaller/kickstart-tests/pull/1233 update of kickstart tests
 
 name: kickstart-tests
 on:
@@ -76,8 +83,15 @@ jobs:
         run: |
           # extract first line and cut out the "/kickstart-tests" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
+          OPTS="$(getopt -q -o "" --long kstest-pr: -- $ARGS)" || true
+          PR=${OPTS#" --kstest-pr '"}
+          PR=$(echo $PR | cut -d " " -f1)
+          PR=${PR%"'"}
+          PR=${PR%"--"}
           echo "workflow arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
+          echo "kickstart-tests PR: $PR"
+          echo "kstest_pr=${PR}" >> $GITHUB_OUTPUT
 
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
@@ -85,6 +99,7 @@ jobs:
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      kstest_pr: ${{ steps.parse_comment_args.outputs.kstest_pr }}
 
   run:
     needs: pr-info
@@ -136,11 +151,45 @@ jobs:
           git log --oneline -1 origin/${{ env.TARGET_BRANCH }}
           git rebase origin/${{ env.TARGET_BRANCH }}
 
+      - name: Get kickstart-test pull request data
+        id: get_kstest_pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "${{ needs.pr-info.outputs.kstest_pr }}" ]; then
+            PR_INFO=$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/rhinstaller/kickstart-tests/pulls/${{ needs.pr-info.outputs.kstest_pr }})
+            BASE_REF=$(echo $PR_INFO | jq -r .base.ref)
+            HEAD_REF=$(echo $PR_INFO | jq -r .head.ref)
+            HEAD_REPO=$(echo $PR_INFO | jq -r .head.repo.full_name)
+          else
+            BASE_REF=master
+            HEAD_REF=master
+            HEAD_REPO=rhinstaller/kickstart-tests
+          fi
+          echo "kstest_base_ref=${BASE_REF}" >> $GITHUB_OUTPUT
+          echo "kstest_head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
+          echo "kstest_head_repo=${HEAD_REPO}" >> $GITHUB_OUTPUT
+
       - name: Check out kickstart-tests
         uses: actions/checkout@v4
         with:
-          repository: rhinstaller/kickstart-tests
+          repository: ${{ steps.get_kstest_pr.outputs.kstest_head_repo }}
+          fetch-depth: 0
           path: kickstart-tests
+          ref: ${{ steps.get_kstest_pr.outputs.kstest_head_ref }}
+
+      - name: Rebase to the upstream kickstart-tests target
+        working-directory: ./kickstart-tests
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote add upstream https://github.com/rhinstaller/kickstart-tests
+          git fetch upstream
+          git log --oneline -1 upstream/${{ steps.get_kstest_pr.outputs.kstest_base_ref }}
+          git rebase upstream/${{ steps.get_kstest_pr.outputs.kstest_base_ref }}
 
       - name: Generate test cases
         working-directory: ./kickstart-tests
