@@ -1,4 +1,4 @@
-# unit tests for driver disk utilities (utils/dd)
+# unit tests for driver disk utilities (dracut/dd)
 
 import os
 import shutil
@@ -16,14 +16,14 @@ from rpmfluff.make import make_elf
 from shutup import shutup
 
 TOP_SRCDIR = os.environ.get("top_builddir", "../..")
-UTILDIR = os.path.join(TOP_SRCDIR, "utils/dd")
+DD_DIR = os.path.join(TOP_SRCDIR, "dracut/dd")
 
 # helpers for calling the utilities
 Driver = namedtuple("Driver", "source name flags description")
 
 
 def dd_list(dd_path, kernel_ver, anaconda_ver):
-    out = subprocess.check_output([os.path.join(UTILDIR, "dd_list"),
+    out = subprocess.check_output([os.path.join(DD_DIR, "dd_list"),
                                    '-d', dd_path,
                                    '-k', kernel_ver,
                                    '-a', anaconda_ver],
@@ -32,7 +32,7 @@ def dd_list(dd_path, kernel_ver, anaconda_ver):
 
 
 def dd_extract(rpm_path, outdir, kernel_ver, flags='-blmf'):
-    out = subprocess.check_output([os.path.join(UTILDIR, "dd_extract"),
+    out = subprocess.check_output([os.path.join(DD_DIR, "dd_extract"),
                                    flags,
                                    '-r', rpm_path,
                                    '-d', outdir,
@@ -161,8 +161,8 @@ class ASelfTestCase(unittest.TestCase):
 
     def test_utils_exist(self):
         """check that the dd utilities exist"""
-        assert "dd_list" in os.listdir(UTILDIR)
-        assert "dd_extract" in os.listdir(UTILDIR)
+        assert "dd_list" in os.listdir(DD_DIR)
+        assert "dd_extract" in os.listdir(DD_DIR)
 
 
 class DD_List_TestCase(unittest.TestCase):

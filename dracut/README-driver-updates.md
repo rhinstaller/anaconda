@@ -12,7 +12,7 @@ fumes. Keep out of reach of children and customers. Any resemblance to real
 code, living or dead is purely coincidental._**
 
 Most of the important code is in `driver_updates.py`, which uses the utilities
-from `utils/dd` to actually handle driver RPMs. There's also support code
+from `dracut/dd` to actually handle driver RPMs. There's also support code
 sprinkled through this directory and in the installer itself, which will be
 described below. But first...
 
