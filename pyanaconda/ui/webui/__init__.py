@@ -23,6 +23,7 @@ from contextlib import contextmanager
 
 from pyanaconda import ui
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF, WEBUI_VIEWER_PID_FILE, \
     BACKEND_READY_FLAG_FILE
 from pyanaconda.core.util import startProgram
@@ -141,14 +142,35 @@ class CockpitUserInterface(ui.UserInterface):
         # FIXME: We probably want to move this to early execution similar to what we have on live
         profile_name = FIREFOX_THEME_DEFAULT
 
-        proc = startProgram(["/usr/libexec/webui-desktop",
-                             "-t", profile_name, "-r", str(int(self.remote)),
-                             "/cockpit/@localhost/anaconda-webui/index.html"],
-                            reset_lang=False)
-        log.debug("cockpit web view has been started")
-        with open(self._viewer_pid_file, "w") as f:
-            f.write(repr(proc.pid))
-        proc.wait()
+        try:
+            proc = startProgram(
+                ["/usr/libexec/webui-desktop",
+                 "-t", profile_name, "-r", str(int(self.remote)),
+                 "/cockpit/@localhost/anaconda-webui/index.html"]
+            )
+
+            log.debug("cockpit web view has been started")
+            with open(self._viewer_pid_file, "w") as f:
+                f.write(repr(proc.pid))
+
+            (output_string, err_string) = proc.communicate()
+            output_string = output_string.decode("utf-8", "replace")
+            err_string = err_string.decode("utf-8", "replace")
+
+            with program_log_lock:
+                if output_string:
+                    for line in output_string.splitlines():
+                        log.info(line)
+
+                if err_string:
+                    log.error("Errors from webui-desktop:")
+                    for line in err_string.splitlines():
+                        log.error(line)
+            proc.wait()
+        except OSError as e:
+            with program_log_lock:
+                log.error("Error running webui-desktop: %s", e.strerror)
+            raise
 
     def _watch_webui_on_live(self):
         """Watch webui-desktop script process on Live.
