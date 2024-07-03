@@ -23,9 +23,9 @@ from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF, CATE
     CATEGORY_BOOTLOADER, CATEGORY_ENVIRONMENT, CATEGORY_STORAGE, CATEGORY_SOFTWARE
 from pyanaconda.modules.boss.install_manager.installation_category_interface \
     import CategoryReportTaskInterface
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL, SCRIPTS
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
-    SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
+    SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION, RUNTIME
 from pyanaconda.modules.common.task import sync_run_task, Task as InstallationTask
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda import flags
@@ -35,10 +35,10 @@ from pyanaconda.core.service import is_service_installed
 from pyanaconda import network
 from pyanaconda.core.i18n import _
 from pyanaconda.core.threads import thread_manager
-from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask
-from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
+from pykickstart.constants import (SNAPSHOT_WHEN_POST_INSTALL, KS_SCRIPT_PREINSTALL,
+                                   KS_SCRIPT_POST)
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -286,11 +286,10 @@ class RunInstallationTask(InstallationTask):
             _("Running post-installation scripts"),
             CATEGORY_SYSTEM
         )
-        post_scripts.append(Task(
-            "Run post installation scripts",
-            runPostScripts,
-            (ksdata.scripts,)
-        ))
+        scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+        post_scripts.append_dbus_tasks(RUNTIME, [
+            scripts_proxy.RunScriptsWithTask(KS_SCRIPT_POST)
+        ])
         configuration_queue.append(post_scripts)
 
         boss_proxy = BOSS.get_proxy()
@@ -376,10 +375,10 @@ class RunInstallationTask(InstallationTask):
             _("Running pre-installation scripts"),
             CATEGORY_ENVIRONMENT
         )
-        pre_install_scripts.append(Task(
-            "Run %pre-install scripts",
-            runPreInstallScripts, (ksdata.scripts,)
-        ))
+        scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+        pre_install_scripts.append_dbus_tasks(RUNTIME, [
+            scripts_proxy.RunScriptsWithTask(KS_SCRIPT_PREINSTALL)
+        ])
         installation_queue.append(pre_install_scripts)
 
         # Do various pre-installation tasks
