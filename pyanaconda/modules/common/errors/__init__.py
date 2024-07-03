@@ -27,6 +27,7 @@ def register_errors():
         installation,
         module,
         payload,
+        runtime,
         storage,
         task,
     )

@@ -30,7 +30,6 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError
 
-
 class ScriptError(Exception):
     def __init__(self, lineno, details):
         Exception.__init__(self)

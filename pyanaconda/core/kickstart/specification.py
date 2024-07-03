@@ -116,6 +116,8 @@ class KickstartSpecificationHandler(KickstartHandler):
         for name, data in specification.addons.items():
             self.registerAddonData(name, data)
 
+        self.scripts = []
+
     def registerSectionData(self, name, data):
         """Register data used by a section."""
         if isinstance(data, tuple):
