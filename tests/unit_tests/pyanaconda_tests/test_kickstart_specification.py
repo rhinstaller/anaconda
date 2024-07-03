@@ -459,7 +459,10 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         specified = set()
 
         for specification in self.SPECIFICATIONS:
-            specified.update(specification.commands.keys())
+            spec_commands = specification.commands.items()
+            specified.update(
+                name for name, obj in spec_commands if not issubclass(obj, RemovedCommand)
+            )
 
         # Collect the expected commands.
         expected = set()
