@@ -1,0 +1,29 @@
+[baseos-development]
+name=CentOS Stream $releasever - BaseOS - development
+baseurl=https://composes.stream.centos.org/stream-10/development/latest-CentOS-Stream/compose/BaseOS/$basearch/os
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+gpgcheck=0
+repo_gpgcheck=0
+metadata_expire=6h
+countme=1
+enabled=1
+
+[appstream-development]
+name=CentOS Stream $releasever - AppStream - development
+baseurl=https://composes.stream.centos.org/stream-10/development/latest-CentOS-Stream/compose/AppStream/$basearch/os
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+gpgcheck=0
+repo_gpgcheck=0
+metadata_expire=6h
+countme=1
+enabled=1
+
+[crb-development]
+name=CentOS Stream $releasever - CRB - development
+baseurl=https://composes.stream.centos.org/stream-10/development/latest-CentOS-Stream/compose/CRB/$basearch/os
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+gpgcheck=0
+repo_gpgcheck=0
+metadata_expire=6h
+countme=1
+enabled=1
