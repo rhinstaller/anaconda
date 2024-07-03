@@ -16,10 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import sys
+
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE, IPMI_ABORTED
+from pyanaconda.errors import errorHandler
+from pyanaconda.modules.common.errors.runtime import ScriptError
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE, SCRIPTS
 from pyanaconda.modules.common.constants.services import STORAGE, RUNTIME
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.rescue import RescueData
@@ -28,11 +32,11 @@ from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
-from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+from pykickstart.constants import KS_SCRIPT_POST
 
 from simpleline import App
 from simpleline.render.adv_widgets import YesNoDialog, PasswordDialog
@@ -244,7 +248,17 @@ class Rescue(object):
 
         # run %post if we've mounted everything
         if not self.ro and self._scripts:
-            runPostScripts(self._scripts)
+            scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+            post_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_POST)
+            post_task_proxy = RUNTIME.get_proxy(post_task_path)
+            try:
+                sync_run_task(post_task_proxy)
+            except ScriptError as e:
+                flags.ksprompt = True
+                errorHandler.cb(e)
+                util.ipmi_report(IPMI_ABORTED)
+                sys.exit(0)
+            pass
 
         self.status = RescueModeStatus.MOUNTED
         return True

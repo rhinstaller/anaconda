@@ -17,7 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.sections import (PreInstallScriptSection,
+                                  PostScriptSection, TracebackScriptSection, OnErrorScriptSection)
+
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+from pyanaconda.kickstart import AnacondaKSScript
 
 
 class RuntimeKickstartSpecification(KickstartSpecification):
@@ -40,4 +44,11 @@ class RuntimeKickstartSpecification(KickstartSpecification):
     commands_data = {
         "DriverDiskData": COMMANDS.DriverDiskData,
         "SshPwData": COMMANDS.SshPwData,
+    }
+
+    sections = {
+        "pre-install": lambda handler: PreInstallScriptSection(handler, dataObj=AnacondaKSScript),
+        "post": lambda handler: PostScriptSection(handler, dataObj=AnacondaKSScript),
+        "onerror": lambda handler: OnErrorScriptSection(handler, dataObj=AnacondaKSScript),
+        "traceback": lambda handler: TracebackScriptSection(handler, dataObj=AnacondaKSScript),
     }
