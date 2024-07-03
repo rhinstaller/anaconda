@@ -18,10 +18,11 @@
 #
 import os
 import shutil
+import sys
 import time
 from enum import Enum
 
-from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+from pykickstart.constants import KS_REBOOT, KS_SCRIPT_POST, KS_SHUTDOWN
 from simpleline import App
 from simpleline.render.adv_widgets import PasswordDialog, YesNoDialog
 from simpleline.render.containers import ListColumnContainer
@@ -33,13 +34,14 @@ from simpleline.render.widgets import CheckboxWidget, TextWidget
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_CLEANUP, QUIT_MESSAGE, THREAD_STORAGE
+from pyanaconda.core.constants import ANACONDA_CLEANUP,IPMI_ABORTED, QUIT_MESSAGE, THREAD_STORAGE
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import runPostScripts
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE, SCRIPTS
 from pyanaconda.modules.common.constants.services import STORAGE, RUNTIME
+from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, OSData
@@ -243,7 +245,17 @@ class Rescue(object):
 
         # run %post if we've mounted everything
         if not self.ro and self._scripts:
-            runPostScripts(self._scripts)
+            scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+            post_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_POST)
+            post_task_proxy = RUNTIME.get_proxy(post_task_path)
+            try:
+                sync_run_task(post_task_proxy)
+            except ScriptError as e:
+                flags.ksprompt = True
+                errorHandler.cb(e)
+                util.ipmi_report(IPMI_ABORTED)
+                sys.exit(0)
+            pass
 
         self.status = RescueModeStatus.MOUNTED
         return True
