@@ -480,6 +480,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 03 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.6-1
+- pykickstart: Use RHEL10 kickstart commands (bcl)
+  Related: RHEL-36831
+- Fix starting anaconda on z/VM and LPAR s390x (jstodola)
+  Resolves: RHEL-45516
+- Fix kickstart --dhcpclass option application (rvykydal)
+  Resolves: RHEL-38998
+- Write a warning rescue selinux (akankovs)
+  Resolves: RHEL-38389
+
 * Tue Jun 11 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.5-1
 - Adjust to freerdp and GNOME package changes (mkolman)
   Resolves: RHEL-38407
