@@ -27,10 +27,12 @@ from unittest.mock import patch, Mock, PropertyMock
 
 from blivet.formats.fs import BTRFS
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from pykickstart.base import RemovedCommand
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
+from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
     PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
 from dasbus.server.container import DBusContainerError
@@ -1364,6 +1366,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
+    @unittest.skipIf(isinstance(StorageKickstartSpecification.commands["btrfs"](), RemovedCommand), "btrfs is not supported")
     @patch_dbus_publish_object
     @patch.object(BTRFS, "supported", new_callable=PropertyMock)
     @patch.object(BTRFS, "formattable", new_callable=PropertyMock)
