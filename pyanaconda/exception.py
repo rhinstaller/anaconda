@@ -33,7 +33,6 @@ from meh import Config
 from meh.dump import ReverseExceptionDump
 from meh.handler import ExceptionHandler
 
-from pyanaconda import kickstart
 from pyanaconda.core import util
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
@@ -41,12 +40,16 @@ from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILE
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.objects import SCRIPTS
+from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.communication import hubQ
 
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
+from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_TRACEBACK
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -236,17 +239,23 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         util.ipmi_report(IPMI_FAILED)
 
-    def _run_kickstart_scripts(self, dump_info):
+    def _run_kickstart_scripts(self, _dump_info):
         """Run the %traceback and %onerror kickstart scripts."""
-        anaconda = dump_info.object
+        scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
 
+        # OnError script call
+        onerror_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_ONERROR)
+        onerror_task_proxy = RUNTIME.get_proxy(onerror_task_path)
+
+        # Traceback script call
+        traceback_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_TRACEBACK)
+        traceback_task_proxy = RUNTIME.get_proxy(traceback_task_path)
         try:
-            util.runOnErrorScripts(anaconda.ksdata.scripts)
-            kickstart.runTracebackScripts(anaconda.ksdata.scripts)
-        # pylint: disable=bare-except
-        # ruff: noqa: E722
+            sync_run_task(onerror_task_proxy)
+            sync_run_task(traceback_task_proxy)
         except:
             pass
+
 
     def runDebug(self, exc_info):
         if conf.system.can_switch_tty and self._intf_tty_num != 1:
