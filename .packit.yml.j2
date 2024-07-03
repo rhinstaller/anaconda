@@ -13,7 +13,11 @@ srpm_build_deps:
   - python3-polib
   - gobject-introspection-devel
   - glade-devel
+{% if distro_name == "fedora" %}
   - libxklavier-devel
+{% elif distro_name == "rhel" and distro_release < 10 %}
+  - libxklavier-devel
+{% endif %}
   - libarchive-devel
   - rpm-devel
   - nss_wrapper
