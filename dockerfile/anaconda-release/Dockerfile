@@ -7,11 +7,10 @@ ARG image
 FROM ${image}
 LABEL maintainer=anaconda-list@redhat.com
 
-# Enable CRB repository
-RUN set -ex; \
-  dnf install -y dnf-plugins-core; \
-  dnf config-manager --enable crb; \
-  dnf remove -y dnf-plugins-core
+# Add development repositories instead of the production ones
+# We need development repositories to get our dependencies sooner
+RUN rm -f /etc/yum.repos.d/*.repo
+COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
 
 # Add missing dependencies required to do the build.
 RUN set -e; \
