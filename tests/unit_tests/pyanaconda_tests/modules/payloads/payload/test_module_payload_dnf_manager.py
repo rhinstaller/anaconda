@@ -63,27 +63,6 @@ from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
 
 class DNFManagerTestCase(unittest.TestCase):
 
-    @patch("dnf.base.Base.do_transaction")
-    def test_install_packages(self, do_transaction):
-        """Test the install_packages method."""
-        calls = []
-        do_transaction.side_effect = self._install_packages
-
-        # Fake transaction.
-        self.dnf_manager._base.transaction = [Mock(), Mock(), Mock()]
-
-        self.dnf_manager.install_packages(calls.append)
-
-        assert calls == [
-            'Installing p1.x86_64 (0/3)',
-            'Installing p2.x86_64 (1/3)',
-            'Installing p3.x86_64 (2/3)',
-            'Performing post-installation setup tasks',
-            'Configuring p1.x86_64',
-            'Configuring p2.x86_64',
-            'Configuring p3.x86_64',
-        ]
-
     def _get_package(self, name):
         """Get a mocked package of the specified name."""
         package = Mock(spec=Package)
@@ -93,41 +72,6 @@ class DNFManagerTestCase(unittest.TestCase):
         package.buildtime = 100
         package.returnIdSum.return_value = ("", "1a2b3c")
         return package
-
-    def _install_packages(self, progress):
-        """Simulate the installation of packages."""
-        packages = list(map(self._get_package, ["p1", "p2", "p3"]))
-        ts_total = len(packages)
-
-        for ts_done, package in enumerate(packages):
-            progress.progress(package, PKG_INSTALL, 0, 100, ts_done, ts_total)
-            progress.progress(package, PKG_INSTALL, 50, 100, ts_done, ts_total)
-            progress.progress(package, PKG_SCRIPTLET, 75, 100, ts_done, ts_total)
-            progress.progress(package, PKG_INSTALL, 100, 100, ts_done + 1, ts_total)
-
-        progress.progress(None, TRANS_POST, None, None, None, None)
-
-        for ts_done, package in enumerate(packages):
-            progress.progress(package, PKG_SCRIPTLET, 100, 100, ts_done + 1, ts_total)
-
-    @patch("dnf.base.Base.do_transaction")
-    def test_install_packages_failed(self, do_transaction):
-        """Test the failed install_packages method."""
-        calls = []
-        do_transaction.side_effect = self._install_packages_failed
-
-        with pytest.raises(PayloadInstallationError) as cm:
-            self.dnf_manager.install_packages(calls.append)
-
-        msg = "An error occurred during the transaction: " \
-              "The p1 package couldn't be installed!"
-
-        assert str(cm.value) == msg
-        assert calls == []
-
-    def _install_packages_failed(self, progress):
-        """Simulate the failed installation of packages."""
-        progress.error("The p1 package couldn't be installed!")
 
     @patch("dnf.base.Base.do_transaction")
     def test_install_packages_dnf_ts_item_error(self, do_transaction):
