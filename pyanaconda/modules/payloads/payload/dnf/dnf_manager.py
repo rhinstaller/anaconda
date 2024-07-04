@@ -713,7 +713,7 @@ class DNFManager:
         progress = TransactionProgress(queue)
         process = multiprocessing.Process(
             target=self._run_transaction,
-            args=(self._base, progress)
+            args=(self._base, self._transaction, progress)
         )
 
         # Start the transaction.
@@ -745,7 +745,8 @@ class DNFManager:
 
         try:
             callbacks = libdnf5.rpm.TransactionCallbacksUniquePtr(progress)
-            result = transaction.run(callbacks, description="", user_id=None, comment=None)
+            transaction.set_callbacks(callbacks)
+            result = transaction.run()
             log.debug("The transaction finished with %s", result)
             if transaction_has_errors(transaction):
                 progress.error("The transaction process has ended with errors.")
