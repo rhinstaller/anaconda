@@ -503,7 +503,7 @@ class DNFManagerTestCase(unittest.TestCase):
             'Configuring p3-1.2-3.x86_64'
         ]
 
-    def _get_package(self, name, action=libdnf5.transaction.TransactionItemAction_INSTALL):
+    def _get_transaction_item(self, name, action=libdnf5.transaction.TransactionItemAction_INSTALL):
         """Get a mocked package of the specified name."""
         package = Mock(spec=libdnf5.transaction.Package)
         package.get_name.return_value = name
@@ -513,26 +513,35 @@ class DNFManagerTestCase(unittest.TestCase):
         package.get_version.return_value = "1.2"
         package.to_string.return_value = name + "-1.2-3.x86_64"
         package.get_action.return_value = action
-        return package
+
+        nevra = Mock(spec=libdnf5.rpm.Nevra)
+        nevra.get_name.return_value = name + "-1.2-3.x86_64"
+
+        item = Mock(spec=libdnf5.base.TransactionPackage)
+        item.get_package.return_value = package
+        item.nevra = nevra
+        item.get_action.return_value = action
+
+        return item
 
     def _install_packages(self, base, transaction, progress):
         """Simulate the installation of packages."""
-        packages = list(map(self._get_package, ["p1", "p2", "p3"]))
-        ts_total = len(packages)
-        for ts_done, package in enumerate(packages):
-            progress.install_start(package, ts_total)
-            progress.install_progress(package, ts_done, ts_total)
+        transaction_items = list(map(self._get_transaction_item, ["p1", "p2", "p3"]))
+        ts_total = len(transaction_items)
+        for ts_done, item in enumerate(transaction_items):
+            progress.install_start(item, ts_total)
+            progress.install_progress(item, ts_done, ts_total)
             progress.script_start(
-                package,
-                package.to_string(),
+                item,
+                item.nevra,
                 libdnf5.rpm.TransactionCallbacks.ScriptType_PRE_INSTALL
             )
-            progress.install_progress(package, ts_done + 1, ts_total)
+            progress.install_progress(item, ts_done + 1, ts_total)
 
-        for ts_done, package in enumerate(packages):
+        for ts_done, item in enumerate(transaction_items):
             progress.script_start(
-                package,
-                package.to_string(),
+                item,
+                item.nevra,
                 libdnf5.rpm.TransactionCallbacks.ScriptType_POST_TRANSACTION
             )
 
