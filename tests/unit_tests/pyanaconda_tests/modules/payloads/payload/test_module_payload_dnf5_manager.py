@@ -32,6 +32,7 @@ from pyanaconda.core.constants import (
     URL_TYPE_METALINK,
     URL_TYPE_MIRRORLIST,
 )
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -478,6 +479,85 @@ class DNFManagerTestCase(unittest.TestCase):
             "p2": 25,
             "p3": 25
         }
+
+    @patch.object(DNFManager, '_run_transaction')
+    def test_install_packages(self, run_transaction):
+        """Test the install_packages method."""
+        self.dnf_manager.setup_base()
+
+        calls = []
+
+        run_transaction.side_effect = self._install_packages
+
+        self.dnf_manager.install_packages(calls.append)
+
+        assert calls == [
+            'Installing p1-1.2-3.x86_64',
+            'Configuring p1-1.2-3.x86_64',
+            'Installing p2-1.2-3.x86_64',
+            'Configuring p2-1.2-3.x86_64',
+            'Installing p3-1.2-3.x86_64',
+            'Configuring p3-1.2-3.x86_64',
+            'Configuring p1-1.2-3.x86_64',
+            'Configuring p2-1.2-3.x86_64',
+            'Configuring p3-1.2-3.x86_64'
+        ]
+
+    def _get_package(self, name, action=libdnf5.transaction.TransactionItemAction_INSTALL):
+        """Get a mocked package of the specified name."""
+        package = Mock(spec=libdnf5.transaction.Package)
+        package.get_name.return_value = name
+        package.get_epoch.return_value = "0"
+        package.get_release.return_value = "3"
+        package.get_arch.return_value = "x86_64"
+        package.get_version.return_value = "1.2"
+        package.to_string.return_value = name + "-1.2-3.x86_64"
+        package.get_action.return_value = action
+        return package
+
+    def _install_packages(self, base, transaction, progress):
+        """Simulate the installation of packages."""
+        packages = list(map(self._get_package, ["p1", "p2", "p3"]))
+        ts_total = len(packages)
+        for ts_done, package in enumerate(packages):
+            progress.install_start(package, ts_total)
+            progress.install_progress(package, ts_done, ts_total)
+            progress.script_start(
+                package,
+                package.to_string(),
+                libdnf5.rpm.TransactionCallbacks.ScriptType_PRE_INSTALL
+            )
+            progress.install_progress(package, ts_done + 1, ts_total)
+
+        for ts_done, package in enumerate(packages):
+            progress.script_start(
+                package,
+                package.to_string(),
+                libdnf5.rpm.TransactionCallbacks.ScriptType_POST_TRANSACTION
+            )
+
+        progress.quit("DNF quit")
+
+    @patch.object(DNFManager, '_run_transaction')
+    def test_install_packages_failed(self, run_transaction):
+        """Test the failed install_packages method."""
+        self.dnf_manager.setup_base()
+
+        calls = []
+        run_transaction.side_effect = self._install_packages_failed
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The p1 package couldn't be installed!"
+
+        assert str(cm.value) == msg
+        assert calls == []
+
+    def _install_packages_failed(self, base, transaction, progress):
+        """Simulate the failed installation of packages."""
+        progress.error("The p1 package couldn't be installed!")
 
 
 class DNFManagerCompsTestCase(unittest.TestCase):
