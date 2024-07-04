@@ -68,19 +68,19 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
         self._queue = queue
 
     def install_start(self, item, total=0):
-        log.debug("Installing - %s", item.get_package().get_nevra())
+        log.info("Installing - %s", item.to_string())
         log.debug(libdnf5.base.transaction.transaction_item_action_to_string(item.get_action()))
-        self._queue.put(('install', item.get_package().get_nevra()))
+        self._queue.put(('install', item.to_string()))
 
     def install_progress(self, item, amount, total):
-        log.debug("Installing - %s (%s/%s)", item.get_package().get_nevra(), amount, total)
+        log.debug("Installing - %s (%s/%s)", item.to_string(), amount, total)
 
     def verify_progress(self, amount, total):
         log.debug("Verify %s/%s", amount, total)
         self._queue.put(('verify', 'packages'))
 
     def script_start(self, item, nevra, type):
-        log.debug("Configuring - %s, %s, %s", item.get_package().get_nevra(), nevra, type)
+        log.debug("Configuring - %s, %s, %s", item.to_string(), nevra, type)
         self._queue.put(('configure', nevra))
 
     def transaction_stop(self, total):
@@ -89,16 +89,16 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
         self._queue.close()
 
     def cpio_error(self, item):
-        log.debug("Error - %s", item.get_package().get_nevra())
-        self._queue.put(('error', item.get_package().get_nevra()))
+        log.debug("Error - %s", item.to_string())
+        self._queue.put(('error', item.to_string()))
 
     def script_error(self, item, nevra, type, return_code):
-        log.debug("Error - %s, %s, %s, %s", item.get_package().get_nevra(), nevra, type, return_code)
-        self._queue.put(('error', item.get_package().get_nevra()))
+        log.debug("Error - %s, %s, %s, %s", item.to_string(), nevra, type, return_code)
+        self._queue.put(('error', item.to_string()))
 
     def unpack_error(self, item):
-        log.debug("Error - %s", item.get_package().get_nevra())
-        self._queue.put(('error', item.get_package().get_nevra()))
+        log.debug("Error - %s", item.to_string())
+        self._queue.put(('error', item.to_string()))
 
     def error(self, message):
         """Report an error that occurred during the transaction.
