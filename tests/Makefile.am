@@ -61,7 +61,6 @@ dist_check_SCRIPTS = \
 	ruff/run_ruff.sh \
 	vulture/run_vulture.sh
 
-# TODO: Return back pylint/runpylint.py when it works on python 3.12
 TESTS = \
 	cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
