@@ -17,4 +17,4 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir  = $(pyexecdir)/py$(PACKAGE_NAME)
 commondir     = $(pkgpyexecdir)/ui/lib
-common_PYTHON = $(srcdir)/*.py
+dist_common_DATA = $(wildcard $(srcdir)/*.py)

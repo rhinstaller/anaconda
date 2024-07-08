@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 dasd_moduledir = $(pkgpyexecdir)/modules/storage/dasd
-dasd_module_PYTHON = $(srcdir)/*.py
+dist_dasd_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

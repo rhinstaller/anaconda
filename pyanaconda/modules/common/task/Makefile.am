@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 modules_taskdir = $(pkgpyexecdir)/modules/common/task
-modules_task_PYTHON = $(srcdir)/*.py
+dist_modules_task_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

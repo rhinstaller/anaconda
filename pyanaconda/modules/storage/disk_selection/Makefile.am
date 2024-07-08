@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 disk_select_moduledir = $(pkgpyexecdir)/modules/storage/disk_selection
-disk_select_module_PYTHON = $(srcdir)/*.py
+dist_disk_select_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

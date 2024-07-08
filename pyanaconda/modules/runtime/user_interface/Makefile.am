@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 user_interfacedir = $(pkgpyexecdir)/modules/runtime/user_interface
-user_interface_PYTHON = $(srcdir)/*.py
+dist_user_interface_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

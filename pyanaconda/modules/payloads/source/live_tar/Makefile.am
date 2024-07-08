@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 source_tar_moduledir = $(pkgpyexecdir)/modules/payloads/source/live_tar
-source_tar_module_PYTHON = $(srcdir)/*.py
+dist_source_tar_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

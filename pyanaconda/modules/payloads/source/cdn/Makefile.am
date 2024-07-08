@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 payload_moduledir = $(pkgpyexecdir)/modules/payloads/source/cdn
-payload_module_PYTHON = $(srcdir)/*.py
+dist_payload_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

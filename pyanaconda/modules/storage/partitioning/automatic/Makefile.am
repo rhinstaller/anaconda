@@ -16,6 +16,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 automatic_moduledir = $(pkgpyexecdir)/modules/storage/partitioning/automatic
-automatic_module_PYTHON = $(srcdir)/*.py
+dist_automatic_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
