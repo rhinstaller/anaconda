@@ -300,7 +300,7 @@ class MakeBumpVer:
                 print("*** Ignoring (deps-dev) commit %s\n" % commit)
                 continue
 
-            if re.match(r".*(#test).*", summary):
+            if re.match(r".*(#test[s]).*", summary) or re.match(r"test[s]: .*", summary):
                 print("*** Ignoring (#test) commit %s\n" % commit)
                 continue
 
