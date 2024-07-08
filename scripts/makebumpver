@@ -273,6 +273,7 @@ class MakeBumpVer:
 
     def _rpm_log(self, fixedIn):
         git_range = "%s-%s.." % (self.name, self.version)
+        print("git log --pretty=format:'%%h %%s' %s" % git_range)
         proc = run_program(['git', 'log', '--no-merges', '--pretty=oneline', git_range])
         lines = proc[0].strip('\n').split('\n')
 
@@ -293,8 +294,8 @@ class MakeBumpVer:
             author = self._get_commit_detail(commit, "%aE")[0]
 
             # Ignore commits from github-actions are only translations
-            if author == "github-actions@github.com":
-                print("*** Ignoring ($s) commit $s\n" % (commit, author))
+            if author == "github-actions":
+                print("*** Ignoring commit %s by %s\n" % (author, commit))
                 continue
 
             if re.match(r".*(#infra).*", summary) or re.match(r"infra: .*", summary):
@@ -305,7 +306,7 @@ class MakeBumpVer:
                 print("*** Ignoring (deps-dev) commit %s\n" % commit)
                 continue
 
-            if re.match(r".*(#test).*", summary):
+            if re.match(r".*(#test[s]).*", summary) or re.match(r"test[s]: .*", summary):
                 print("*** Ignoring (#test) commit %s\n" % commit)
                 continue
 
