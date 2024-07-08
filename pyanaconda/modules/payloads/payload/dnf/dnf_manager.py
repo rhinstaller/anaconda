@@ -608,11 +608,12 @@ class DNFManager:
         if self._ignore_broken_packages:
             pass
 
-        # FIXME: If other problems, report all as errors.
-        # FIXME: If no problems, but some logs, report all as warnings.
         if self._transaction.get_problems() != libdnf5.base.GoalProblem_NO_PROBLEM:
             for message in self._transaction.get_resolve_logs_as_strings():
                 report.error_messages.append(message)
+        else:
+            for message in self._transaction.get_resolve_logs_as_strings():
+                report.warning_messages.append(message)
 
         if report.is_valid():
             log.info("The software selection has been resolved (%d packages selected).",
