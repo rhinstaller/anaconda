@@ -480,6 +480,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 08 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.8-1
+- The RPM tooling generates the compiled python so having automake do it is
+  redundant (kkoukiou)
+  Resolves: RHEL-46593
+
 * Thu Jul 04 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.7-1
 
 * Wed Jul 03 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.6-1
