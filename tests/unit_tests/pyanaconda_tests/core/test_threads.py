@@ -137,7 +137,7 @@ class ThreadManagerTestCase(unittest.TestCase):
             assert self._thread_manager.running == 1
             self._thread_manager.wait_all()
             assert self._thread_manager.any_errors is False
-            assert tb_info[0] == RuntimeError  # pylint: disable=unsubscriptable-object
+            assert tb_info[0] is RuntimeError  # pylint: disable=unsubscriptable-object
 
         sys.excepthook = old_hook
 
