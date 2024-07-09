@@ -49,7 +49,8 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         data = PackagesConfigurationData()
 
         macros = [
-            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}')
+            ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
+            ('__file_context_path', '/etc/selinux/targeted/contexts/files/file_contexts')
         ]
 
         task = self._run_task(data)
@@ -63,6 +64,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
             ('_excludedocs', '1'),
+            ('__file_context_path', '/etc/selinux/targeted/contexts/files/file_contexts')
         ]
 
         task = self._run_task(data)
@@ -76,6 +78,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
             ('_install_langs', 'en,es'),
+            ('__file_context_path', '/etc/selinux/targeted/contexts/files/file_contexts')
         ]
 
         task = self._run_task(data)
@@ -89,6 +92,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
             ('_install_langs', '%{nil}'),
+            ('__file_context_path', '/etc/selinux/targeted/contexts/files/file_contexts')
         ]
 
         task = self._run_task(data)

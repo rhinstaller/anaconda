@@ -16,6 +16,11 @@ RUN set -ex; \
 # Prepare environment and install build dependencies
 RUN set -e; \
   dnf update -y; \
+  # FIXME
+  # https://bugzilla.redhat.com/show_bug.cgi?id=2295428
+  # https://issues.redhat.com/browse/RHEL-46558
+  # Remove selinux-policy targeted when the rhbz / RHEL issue above is fixed
+  # Install rest of the dependencies
   dnf install -y \
   curl-minimal \
   /usr/bin/xargs \
@@ -32,7 +37,8 @@ RUN set -e; \
   python3-lxml \
   policycoreutils \
   python3-gobject-base \
-  python3-pip; \
+  python3-pip \
+  selinux-policy-targeted; \
   curl -L https://raw.githubusercontent.com/rhinstaller/anaconda/${git_branch}/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | xargs -d '\n' dnf install -y; \
