@@ -480,6 +480,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 09 2024 github-actions <github-actions@github.com> - 41.24-1
+- Update translations from Weblate for master (github-actions)
+- tests: storage: conditionally run btrfs tests if command is not removed
+  (kkoukiou)
+- tests: allow the module specification to contain removed commands (kkoukiou)
+
 * Tue Jul 02 2024 github-actions <github-actions@github.com> - 41.23-1
 - Update translations from Weblate for master (github-actions)
 - chore: remove unused atk in BaseWindow.c (freya)
