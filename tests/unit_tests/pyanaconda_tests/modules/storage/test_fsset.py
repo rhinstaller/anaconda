@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -24,6 +26,7 @@ from blivet.formats import get_format
 
 from pyanaconda.modules.storage.platform import EFI, X86
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
+from pyanaconda.modules.storage.devicetree.root import _parse_fstab
 
 
 class FSSetTestCase(unittest.TestCase):
@@ -200,3 +203,50 @@ class FSSetTestCase(unittest.TestCase):
             'selinuxfs',
             'tmpfs',
         ]
+
+    def test_parse_fstab(self):
+        """ test the fsset.py parse_fstab method: unrecognized devices
+            from fstab are supposed to be stored in preserve entries
+            the rest of devices should stay in devicetree
+        """
+
+        UNRECOGNIZED_ENTRY = "UUID=111111 /mnt/fakemount ext3 defaults 0 0\n"
+        DEVICE_ENTRY = "/dev/dev2 /mnt ext4 defaults 0 0\n"
+
+        self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
+
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            fstab_path = os.path.join(tmpdirname, 'etc/fstab')
+            os.makedirs(os.path.dirname(fstab_path), exist_ok=True)
+            with open(fstab_path, "w") as f:
+                f.write(UNRECOGNIZED_ENTRY)
+                f.write(DEVICE_ENTRY)
+
+            self.fsset.parse_fstab(chroot=tmpdirname)
+
+        self.assertEqual(self.fsset.preserve_entries[0].file, "/mnt/fakemount")
+        self.assertIsNotNone(self.devicetree.get_device_by_path('/dev/dev2'))
+
+    def test_root_parse_fstab(self):
+        """ test the root.py _parse_fstab function: return mounts and devices obtained from fstab
+        """
+
+        test_dev = StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/mnt/testmount"))
+
+        devicetree = DeviceTree()
+        devicetree._add_device(test_dev)
+        DEVICE_ENTRY = "/dev/dev2 /mnt/testmount ext4 defaults 0 0\n"
+
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            fstab_path = os.path.join(tmpdirname, 'etc/fstab')
+            os.makedirs(os.path.dirname(fstab_path), exist_ok=True)
+            with open(fstab_path, "w") as f:
+                f.write(DEVICE_ENTRY)
+
+            mounts, devices = _parse_fstab(devicetree, chroot=tmpdirname)
+
+        self.assertEqual(mounts["/mnt/testmount"], test_dev)
+        self.assertTrue(test_dev in devices)
+
+        print("MYDEBUG: %s" % mounts)
+        print("MYDEBUG: %s" % devices)
