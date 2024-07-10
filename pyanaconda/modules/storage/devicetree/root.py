@@ -21,6 +21,7 @@ import shlex
 
 from blivet import util as blivet_util
 from blivet.errors import StorageError
+from blivet.fstab import FSTabManager
 from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -252,14 +253,14 @@ def _parse_fstab(devicetree, chroot):
     :param chroot: a path to the target OS installation
     :return: a tuple of a mount dict, device list, mount options
     """
+
     mounts = {}
     devices = []
     mountopts = {}
 
-    path = "%s/etc/fstab" % chroot
-    if not os.access(path, os.R_OK):
-        # XXX should we raise an exception instead?
-        log.info("cannot open %s for read", path)
+    fstab_path = "%s/etc/fstab" % chroot
+    if not os.access(fstab_path, os.R_OK):
+        log.info("cannot open %s for read", fstab_path)
         return mounts, devices, mountopts
 
     blkid_tab = BlkidTab(chroot=chroot)
@@ -278,39 +279,25 @@ def _parse_fstab(devicetree, chroot):
         log_exception_info(log.info, "error parsing crypttab")
         crypt_tab = None
 
-    with open(path) as f:
-        log.debug("parsing %s", path)
-        for line in f.readlines():
+    fstab = FSTabManager(src_file=fstab_path)
+    fstab.read()
 
-            (line, _pound, _comment) = line.partition("#")
-            fields = line.split(None, 4)
+    for entry in fstab:
 
-            if len(fields) < 5:
-                continue
+        device = fstab.find_device(devicetree, entry=entry)
+        if device is None:
+            continue
 
-            (devspec, mountpoint, fstype, options, _rest) = fields
+        # If a btrfs volume is found but a subvolume is expected, ignore the volume.
+        if device.type == "btrfs volume" and "subvol=" in entry.mntopts:
+            log.debug("subvolume from %s for %s not found", entry.mntopts, entry.spec)
+            continue
 
-            # find device in the tree
-            device = devicetree.resolve_device(
-                devspec,
-                crypt_tab=crypt_tab,
-                blkid_tab=blkid_tab,
-                options=options
-            )
+        if entry.vfstype != "swap":
+            mounts[entry.file] = device
+            mountopts[entry.file] = entry.get_raw_mntopts()
 
-            if device is None:
-                continue
-
-            # If a btrfs volume is found but a subvolume is expected, ignore the volume.
-            if device.type == "btrfs volume" and "subvol=" in options:
-                log.debug("subvolume from %s for %s not found", options, devspec)
-                continue
-
-            if fstype != "swap":
-                mounts[mountpoint] = device
-                mountopts[mountpoint] = options
-
-            devices.append(device)
+        devices.append(device)
 
     return mounts, devices, mountopts
 
