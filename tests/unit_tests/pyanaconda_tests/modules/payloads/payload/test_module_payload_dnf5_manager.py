@@ -33,7 +33,12 @@ from pyanaconda.core.constants import (
     URL_TYPE_MIRRORLIST,
 )
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
+from pyanaconda.modules.common.errors.payload import (
+    UnknownCompsEnvironmentError,
+    UnknownCompsGroupError,
+    UnknownRepositoryError,
+)
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
@@ -52,27 +57,29 @@ class DNF5TestCase(unittest.TestCase):
         with pytest.raises(RuntimeError):
             query.get()
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
     def test_undefined_variables(self):
         base = libdnf5.base.Base()
         variables = base.get_vars()
-        variables.get_value("undefined")
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
+        with pytest.raises(IndexError):
+            variables.get_value("undefined")
+
     def test_resolve_without_setup(self):
         """Call resolve without setting up the base."""
         base = libdnf5.base.Base()
         goal = libdnf5.base.Goal(base)
-        goal.resolve()
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
+        with pytest.raises(RuntimeError):
+            goal.resolve()
+
     def test_environment_query(self):
         base = libdnf5.base.Base()
+        base.setup()
         libdnf5.comps.EnvironmentQuery(base)
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
     def test_group_query(self):
         base = libdnf5.base.Base()
+        base.setup()
         libdnf5.comps.GroupQuery(base)
 
     def test_disable_failed_repository(self):
@@ -568,6 +575,29 @@ class DNFManagerTestCase(unittest.TestCase):
         """Simulate the failed installation of packages."""
         progress.error("The p1 package couldn't be installed!")
 
+    @pytest.mark.skip("Not implemented")
+    def test_set_download_location(self):
+        """Test the set_download_location method."""
+        r1 = self._add_repo("r1")
+        r2 = self._add_repo("r2")
+        r3 = self._add_repo("r3")
+
+        self.dnf_manager.set_download_location("/my/download/location")
+
+        assert r1.pkgdir == "/my/download/location"
+        assert r2.pkgdir == "/my/download/location"
+        assert r3.pkgdir == "/my/download/location"
+
+    def test_download_location(self):
+        """Test the download_location property."""
+        assert self.dnf_manager.download_location is None
+
+        self.dnf_manager.set_download_location("/my/location")
+        assert self.dnf_manager.download_location == "/my/location"
+
+        self.dnf_manager.reset_base()
+        assert self.dnf_manager.download_location is None
+
 
 class DNFManagerCompsTestCase(unittest.TestCase):
     """Test the comps abstraction of the DNF base."""
@@ -581,6 +611,11 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         """Test the groups property."""
         assert self.dnf_manager.groups == []
 
+    def test_get_group_data_error(self):
+        """Test the failed get_group_data method."""
+        with pytest.raises(UnknownCompsGroupError):
+            self.dnf_manager.get_group_data("g1")
+
     def test_no_default_environment(self):
         """Test the default_environment property with no environments."""
         assert self.dnf_manager.default_environment is None
@@ -588,6 +623,24 @@ class DNFManagerCompsTestCase(unittest.TestCase):
     def test_environments(self):
         """Test the environments property."""
         assert self.dnf_manager.environments == []
+
+    def test_get_environment_data_error(self):
+        """Test the failed get_environment_data method."""
+        with pytest.raises(UnknownCompsEnvironmentError):
+            self.dnf_manager.get_environment_data("e1")
+
+    def test_environment_data_available_groups(self):
+        """Test the get_available_groups method."""
+        data = CompsEnvironmentData()
+        assert data.get_available_groups() == []
+
+        data.optional_groups = ["g1", "g2", "g3"]
+        data.visible_groups = ["g3", "g4", "g5"]
+        data.default_groups = ["g1", "g3"]
+
+        assert data.get_available_groups() == [
+            "g1", "g2", "g3", "g4", "g5"
+        ]
 
 
 class DNFManagerReposTestCase(unittest.TestCase):
