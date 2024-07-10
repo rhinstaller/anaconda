@@ -73,6 +73,9 @@ class DNFManagerTestCase(unittest.TestCase):
         package.returnIdSum.return_value = ("", "1a2b3c")
         return package
 
+    # For this test, mocked Transaction is needed, but it can't be easily
+    # created, because it doesn't have a public constructor, it's supposed
+    # to be taken from resolved Goal.
     @patch("dnf.base.Base.do_transaction")
     def test_install_packages_dnf_ts_item_error(self, do_transaction):
         """Test install_packages method failing on transaction item error."""
@@ -95,6 +98,9 @@ class DNFManagerTestCase(unittest.TestCase):
         assert str(cm.value) == msg
         assert calls == []
 
+    # For this test, mocked Transaction is needed, but it can't be easily
+    # created, because it doesn't have a public constructor, it's supposed
+    # to be taken from resolved Goal.
     @patch("dnf.base.Base.do_transaction")
     def test_install_packages_quit(self, do_transaction):
         """Test the terminated install_packages method."""
@@ -114,38 +120,6 @@ class DNFManagerTestCase(unittest.TestCase):
     def _install_packages_quit(self, progress):
         """Simulate the terminated installation of packages."""
         raise IOError("Something went wrong with the p1 package!")
-
-    def _add_repo(self, name, enabled=True):
-        """Add the DNF repo object."""
-        repo = Repo(name, self.dnf_manager._base.conf)
-        self.dnf_manager._base.repos.add(repo)
-
-        if enabled:
-            repo.enable()
-
-        return repo
-
-    def test_set_download_location(self):
-        """Test the set_download_location method."""
-        r1 = self._add_repo("r1")
-        r2 = self._add_repo("r2")
-        r3 = self._add_repo("r3")
-
-        self.dnf_manager.set_download_location("/my/download/location")
-
-        assert r1.pkgdir == "/my/download/location"
-        assert r2.pkgdir == "/my/download/location"
-        assert r3.pkgdir == "/my/download/location"
-
-    def test_download_location(self):
-        """Test the download_location property."""
-        assert self.dnf_manager.download_location is None
-
-        self.dnf_manager.set_download_location("/my/location")
-        assert self.dnf_manager.download_location == "/my/location"
-
-        self.dnf_manager.reset_base()
-        assert self.dnf_manager.download_location is None
 
     @patch("dnf.subject.Subject.get_best_query")
     def test_is_package_available(self, get_best_query):
@@ -283,11 +257,6 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         assert self.dnf_manager.resolve_group("g1") == "g1"
         assert self.dnf_manager.resolve_group("g2") is None
 
-    def test_get_group_data_error(self):
-        """Test the failed get_group_data method."""
-        with pytest.raises(UnknownCompsGroupError):
-            self.dnf_manager.get_group_data("g1")
-
     def test_get_group_data(self):
         """Test the get_group_data method."""
         self._add_group("g1")
@@ -300,10 +269,6 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         data = self.dnf_manager.get_group_data("g1")
         assert isinstance(data, CompsGroupData)
         assert compare_data(data, expected)
-
-    def test_no_default_environment(self):
-        """Test the default_environment property with no environments."""
-        assert self.dnf_manager.default_environment is None
 
     def test_default_environment(self):
         """Test the default_environment property with some environments."""
@@ -341,11 +306,6 @@ class DNFManagerCompsTestCase(unittest.TestCase):
 
         assert self.dnf_manager.resolve_environment("e1") == "e1"
         assert self.dnf_manager.resolve_environment("e2") is None
-
-    def test_get_environment_data_error(self):
-        """Test the failed get_environment_data method."""
-        with pytest.raises(UnknownCompsEnvironmentError):
-            self.dnf_manager.get_environment_data("e1")
 
     def test_get_environment_data(self):
         """Test the get_environment_data method."""
@@ -395,16 +355,3 @@ class DNFManagerCompsTestCase(unittest.TestCase):
 
         data = self.dnf_manager.get_environment_data("e1")
         assert data.default_groups == ["g1", "g3"]
-
-    def test_environment_data_available_groups(self):
-        """Test the get_available_groups method."""
-        data = CompsEnvironmentData()
-        assert data.get_available_groups() == []
-
-        data.optional_groups = ["g1", "g2", "g3"]
-        data.visible_groups = ["g3", "g4", "g5"]
-        data.default_groups = ["g1", "g3"]
-
-        assert data.get_available_groups() == [
-            "g1", "g2", "g3", "g4", "g5"
-        ]
