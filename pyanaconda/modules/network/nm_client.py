@@ -573,9 +573,9 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         ifname_option_values
     )
 
-    for connection, device_name in connections:
+    for connection, dev_name in connections:
         log.debug("add connection (activate=%s): %s for %s\n%s",
-                  activate, connection.get_uuid(), device_name,
+                  activate, connection.get_uuid(), dev_name,
                   connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         added_connection = add_connection_sync(
             nm_client,
@@ -586,13 +586,13 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
             continue
 
         if activate:
-            if device_name:
-                device = nm_client.get_device_by_iface(device_name)
+            if dev_name:
+                device = nm_client.get_device_by_iface(dev_name)
                 if device:
                     log.debug("activating with device %s", device.get_iface())
                 else:
                     log.debug("activating without device specified - device %s not found",
-                              device_name)
+                              dev_name)
             else:
                 device = None
                 log.debug("activating without device specified")

@@ -405,16 +405,16 @@ def create_user(username, password=False, is_crypted=False, lock=False,
 
     # If any requested groups do not exist, create them.
     group_list = []
-    for group_name, gid in group_gids:
+    for group_name, group_id in group_gids:
         existing_group = _getgrnam(group_name, root)
 
         # Check for a bad GID request
-        if gid and existing_group and gid != existing_group[2]:
-            raise ValueError("Group %s already exists with GID %s" % (group_name, gid))
+        if group_id and existing_group and group_id != existing_group[2]:
+            raise ValueError("Group %s already exists with GID %s" % (group_name, group_id))
 
         # Otherwise, create the group if it does not already exist
         if not existing_group:
-            create_group(group_name, gid=gid, root=root)
+            create_group(group_name, gid=group_id, root=root)
         group_list.append(group_name)
 
     if group_list:
