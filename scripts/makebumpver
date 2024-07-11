@@ -287,6 +287,11 @@ class MakeBumpVer:
             body = self._get_commit_detail(commit, "%b")
             author = self._get_commit_detail(commit, "%aE")[0]
 
+            # Ignore commits from github-actions are only translations
+            if author == "github-actions":
+                print("*** Ignoring commit %s by %s\n" % (author, commit))
+                continue
+
             if re.match(r".*(#infra).*", summary) or re.match(r"infra: .*", summary):
                 print("*** Ignoring (#infra) commit %s\n" % commit)
                 continue
@@ -295,7 +300,7 @@ class MakeBumpVer:
                 print("*** Ignoring (deps-dev) commit %s\n" % commit)
                 continue
 
-            if re.match(r".*(#test).*", summary):
+            if re.match(r".*(#test[s]).*", summary) or re.match(r"test[s]: .*", summary):
                 print("*** Ignoring (#test) commit %s\n" % commit)
                 continue
 
