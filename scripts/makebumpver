@@ -273,7 +273,6 @@ class MakeBumpVer:
 
     def _rpm_log(self, fixedIn):
         git_range = "%s-%s.." % (self.name, self.version)
-        print("git log --pretty=format:'%%h %%s' %s" % git_range)
         proc = run_program(['git', 'log', '--no-merges', '--pretty=oneline', git_range])
         lines = proc[0].strip('\n').split('\n')
 
