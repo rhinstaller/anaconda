@@ -29,13 +29,20 @@ _to_log dmesg
 _to_log dmidecode
 _to_log lspci -vvnn
 
-# run fdisk -l on all disks
 for DEV_NAME in $(list-harddrives | cut -d " " -f 1)
 do
-    _to_log fdisk -l /dev/${DEV_NAME}
+    _to_log blkid --probe /dev/${DEV_NAME}
+done
+for PART in $(blkid -d':' -f1)
+do
+    _to_log blkid --probe ${PART}
 done
 
 _to_log ls -lR /dev
+_to_log parted -l
+_to_log lsblk --all --topology
+_to_log blkid --output-all
+_to_log ls -l /sys/firmware/efi/efivars
 _to_log dmsetup ls --tree
 _to_log lvm pvs
 _to_log lvm vgs
