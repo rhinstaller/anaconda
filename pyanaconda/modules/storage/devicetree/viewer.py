@@ -32,6 +32,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActio
 from pyanaconda.modules.storage.devicetree.utils import get_required_device_size, \
     get_supported_filesystems
 from pyanaconda.modules.storage.platform import platform
+from pyanaconda.modules.storage.constants import WINDOWS_PARTITION_TYPES
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 log = get_module_logger(__name__)
@@ -484,7 +485,14 @@ class DeviceTreeViewer(ABC):
 
         :return: a list of data about found installations
         """
-        return list(map(self._get_os_data, self.storage.roots))
+        os_list = list(map(self._get_os_data, self.storage.roots))
+
+        # Append windows systems if windows partition types are present
+        windows_data = self._get_windows_data()
+        if windows_data is not None:
+            os_list.append(windows_data)
+
+        return os_list
 
     def _get_os_data(self, root):
         """Get the OS data.
@@ -501,6 +509,26 @@ class DeviceTreeViewer(ABC):
             path: device.name for path, device in root.mounts.items()
         }
         return data
+
+    def _get_windows_data(self):
+        """ Get data about Windows installations.
+
+        :return: a list of OSData
+        """
+        windows_data = OSData()
+        windows_data.os_name = "Windows"
+        windows_data.devices = []
+
+        for blivet_device in self.storage.devicetree.devices:
+            if not isinstance(blivet_device, PartitionDevice):
+                continue
+
+            device = self._get_device(blivet_device.name)
+            if str(device.part_type_uuid) in WINDOWS_PARTITION_TYPES:
+                windows_data.devices.append(device.name)
+
+        if len(windows_data.devices) > 0:
+            return windows_data
 
     def _get_mount_point_constraints_data(self, spec):
         """Get the mount point data.

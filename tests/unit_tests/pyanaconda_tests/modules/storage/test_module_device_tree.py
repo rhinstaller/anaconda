@@ -878,6 +878,21 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'mount-points': get_variant(Dict[Str, Str], {'/': 'dev1'}),
         }]
 
+    def test_get_existing_systems_windows(self):
+        sda1 = PartitionDevice(
+            "dev1",
+            size=Size("500 MiB"),
+            fmt=get_format("ntfs", exists=True),
+            part_type_uuid="ebd0a0a2-b9e5-4433-87c0-68b6b72699c7",
+        )
+        self._add_device(sda1)
+
+        assert self.interface.GetExistingSystems() == [{
+            'os-name': get_variant(Str, 'Windows'),
+            'devices': get_variant(List[Str], ['dev1']),
+            'mount-points': get_variant(Dict[Str, Str], {}),
+        }]
+
     @patch_dbus_publish_object
     def test_find_existing_systems_with_task(self, publisher):
         """Test FindExistingSystemsWithTask."""
