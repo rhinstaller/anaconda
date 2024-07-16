@@ -758,7 +758,10 @@ class DNFManager(object):
             callbacks = libdnf5.rpm.TransactionCallbacksUniquePtr(progress)
             transaction.set_callbacks(callbacks)
             result = transaction.run()
-            log.debug("The transaction finished with %s", result)
+            log.debug(
+                "The transaction finished with %s (%s)",
+                result, transaction.transaction_result_to_string(result)
+            )
             if transaction_has_errors(transaction):
                 progress.error("The transaction process has ended with errors.")
         except BaseException as e:  # pylint: disable=broad-except
