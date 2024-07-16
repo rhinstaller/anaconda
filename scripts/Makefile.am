@@ -23,6 +23,8 @@ dist_noinst_SCRIPTS  = makeupdates makebumpver
 dist_bin_SCRIPTS = anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin \
                    anaconda-nm-disable-autocons
 
+dist_sbin_SCRIPTS    = handle-sshpw
+
 miscdir = $(datadir)/$(PACKAGE_NAME)
 dist_misc_DATA = instperf.p
 

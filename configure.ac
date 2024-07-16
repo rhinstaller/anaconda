@@ -105,6 +105,7 @@ AC_CONFIG_FILES([Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
                  dracut/Makefile
+                 dracut/dd/Makefile
                  data/conf.d/Makefile
                  data/profile.d/Makefile
                  data/liveinst/Makefile
@@ -201,9 +202,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/services/Makefile
                  pyanaconda/modules/subscription/Makefile
                  data/pixmaps/Makefile
-                 tests/Makefile
-                 utils/Makefile
-                 utils/dd/Makefile])
+                 tests/Makefile])
 
 AC_OUTPUT
 
