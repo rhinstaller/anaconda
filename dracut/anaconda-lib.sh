@@ -112,6 +112,10 @@ anaconda_net_root() {
     local repo="$1"
     info "anaconda: fetching stage2 from $repo"
 
+    # Remove last `/` from repo to enable constructs like ...os/../BaseOS/image/install.img
+    # Otherwise curl will fail to work with `...os//../BaseOS...`
+    repo=${repo%/}
+
     # Try to get the local path to stage2 from treeinfo.
     treeinfo=$(fetch_url "$repo/.treeinfo" 2> /tmp/treeinfo_err) && \
         stage2=$(config_get stage2 mainimage < "$treeinfo")
