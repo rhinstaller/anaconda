@@ -63,7 +63,8 @@ class DownloadProgress(libdnf5.repo.DownloadCallbacks):
         self._report_progress("Downloading {} - {} bytes".format(
             description, total_to_download
         ))
-        return description
+        # FIXME: 'void *' is expected on return, but probably description should be returned.
+        return None
 
     def progress(self, user_cb_data, total_to_download, downloaded):
         """Download progress callback.
@@ -72,9 +73,14 @@ class DownloadProgress(libdnf5.repo.DownloadCallbacks):
         :param float total_to_download: a total number of bytes to download
         :param float downloaded: a number of bytes downloaded
         """
-        self._report_progress("Downloading {} - {}/{} bytes".format(
-                user_cb_data, downloaded, total_to_download
+        # FIXME: Report package name once user_cb_data can be accessed
+        # self._report_progress("Downloading {} - {}/{} bytes".format(
+        #         user_cb_data, downloaded, total_to_download
+        # ))
+        self._report_progress("Downloading ? - {}/{} bytes".format(
+                downloaded, total_to_download
         ))
+        return 0
 
     def end(self, user_cb_data, status, msg):
         """End of download callback.
@@ -83,9 +89,14 @@ class DownloadProgress(libdnf5.repo.DownloadCallbacks):
         :param status: the transfer status
         :param msg: the error message in case of error
         """
-        self._report_progress("Downloaded {} - {} ({})".format(
-            user_cb_data, status, msg
+        # FIXME: Report package name once user_cb_data can be accessed
+        # self._report_progress("Downloaded {} - {} ({})".format(
+        #     user_cb_data, status, msg
+        # ))
+        self._report_progress("Downloaded ? - {} ({})".format(
+            status, msg
         ))
+        return 0
 
     def _report_progress(self, msg):
         log.debug(msg)
