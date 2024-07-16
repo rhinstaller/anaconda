@@ -87,3 +87,6 @@ WINDOWS_PARTITION_TYPES = [
     "de94bba4-06d1-4d40-a16a-bfd50179d6ac",  # Windows Recovery Environment
     "af9b60a0-1431-4f62-bc68-3311714a69ad",  # Logical Disk Manager Data Partition
 ]
+
+
+EFI_PARTITION_TYPE = "c12a7328-f81f-11d2-ba4b-00a0c93ec93b"

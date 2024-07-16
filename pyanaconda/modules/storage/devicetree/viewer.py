@@ -32,7 +32,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActio
 from pyanaconda.modules.storage.devicetree.utils import get_required_device_size, \
     get_supported_filesystems
 from pyanaconda.modules.storage.platform import platform
-from pyanaconda.modules.storage.constants import WINDOWS_PARTITION_TYPES
+from pyanaconda.modules.storage.constants import EFI_PARTITION_TYPE, WINDOWS_PARTITION_TYPES
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 log = get_module_logger(__name__)
@@ -519,15 +519,23 @@ class DeviceTreeViewer(ABC):
         windows_data.os_name = "Windows"
         windows_data.devices = []
 
+        efi_partition = None
         for blivet_device in self.storage.devicetree.devices:
             if not isinstance(blivet_device, PartitionDevice):
                 continue
 
             device = self._get_device(blivet_device.name)
+            if str(device.part_type_uuid) == EFI_PARTITION_TYPE:
+                efi_partition = device
+                continue
+
             if str(device.part_type_uuid) in WINDOWS_PARTITION_TYPES:
                 windows_data.devices.append(device.name)
 
         if len(windows_data.devices) > 0:
+            if efi_partition is not None:
+                windows_data.devices.append(efi_partition.name)
+
             return windows_data
 
     def _get_mount_point_constraints_data(self, spec):

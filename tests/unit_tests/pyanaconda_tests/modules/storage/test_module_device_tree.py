@@ -885,11 +885,22 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             fmt=get_format("ntfs", exists=True),
             part_type_uuid="ebd0a0a2-b9e5-4433-87c0-68b6b72699c7",
         )
+        efi = PartitionDevice(
+            "dev2",
+            size=Size("100 MiB"),
+            fmt=get_format("fat32", exists=True),
+            part_type_uuid="c12a7328-f81f-11d2-ba4b-00a0c93ec93b",
+        )
+
+        # EFI should not be defining Windows per-se
+        self._add_device(efi)
+        assert self.interface.GetExistingSystems() == []
+
         self._add_device(sda1)
 
         assert self.interface.GetExistingSystems() == [{
             'os-name': get_variant(Str, 'Windows'),
-            'devices': get_variant(List[Str], ['dev1']),
+            'devices': get_variant(List[Str], ['dev1', 'dev2']),
             'mount-points': get_variant(Dict[Str, Str], {}),
         }]
 
