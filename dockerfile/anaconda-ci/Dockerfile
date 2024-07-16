@@ -39,10 +39,6 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 RUN set -ex; \
   # Update the base container packages
   dnf update -y; \
-  # FIXME
-  # https://bugzilla.redhat.com/show_bug.cgi?id=2295428
-  # https://issues.redhat.com/browse/RHEL-46558
-  # Remove selinux-policy targeted when the rhbz / RHEL issue above is fixed
   # Install rest of the dependencies
   dnf install -y \
   /usr/bin/xargs \
@@ -51,7 +47,6 @@ RUN set -ex; \
   bzip2 \
   rpm-ostree \
   python3-pip \
-  selinux-policy-targeted \
   rsync \
   # Need to have restorecon for the tests execution
   policycoreutils; \
