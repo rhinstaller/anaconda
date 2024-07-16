@@ -26,6 +26,10 @@ config_get() {
             \[*\]*) cursec="${line#[}"; cursec="${cursec%%]*}" ;;
             *=*) k="${line%%=*}"; v="${line#*=}" ;;
         esac
+        # trim leading and trailing whitespace characters
+        k=$(echo "$k" | sed 's/^\s*//;s/\s*$//')
+        v=$(echo "$v" | sed 's/^\s*//;s/\s*$//')
+
         if [ "$cursec" = "$section" ] && [ "$k" == "$key" ]; then
             echo "$v"
             break
