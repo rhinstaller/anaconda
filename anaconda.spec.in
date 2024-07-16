@@ -480,6 +480,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 16 2024 github-actions <github-actions@github.com> - 41.25-1
+- makeupdates: Bump Python version in site packages path to 3.13 (vtrefny)
+- Apply suggestions from Rodolfo (martin.kolman)
+- Scripts for local boot.iso updates workflow (mkolman)
+- Fix unit_tests/pyanaconda_tests/core/test_threads.py:140:20: E721 (kkoukiou)
+- Fix pyanaconda/modules/network/nm_client.py:576:21: PLR1704 (kkoukiou)
+- Fix pyanaconda/core/users.py:408:21: PLR1704 (kkoukiou)
+
 * Tue Jul 09 2024 github-actions <github-actions@github.com> - 41.24-1
 - Update translations from Weblate for master (github-actions)
 - tests: storage: conditionally run btrfs tests if command is not removed
