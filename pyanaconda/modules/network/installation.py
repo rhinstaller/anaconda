@@ -182,15 +182,16 @@ Name={}
         :type overwrite: bool
         """
 
+        # Avoid link files for 'nbft' interfaces as it breaks Boot from NVM over TCP
+        ifname_option_values = [value for value in ifname_option_values
+                                if not value.startswith('nbft')]
+
         if ifname_option_values:
             target_system_dir = util.join_paths(root, self.SYSTEMD_NETWORK_CONFIG_DIR)
             util.mkdirChain(target_system_dir)
 
         for ifname_value in ifname_option_values:
             iface, mac = ifname_value.split(":", 1)
-            # Avoid link files for 'nbft' interfaces as it breaks Boot from NVM over TCP
-            if iface.startswith('nbft'):
-                continue
             content = self.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE.format(mac, iface)
             config_file = self.INTERFACE_RENAME_FILE_TEMPLATE.format(iface)
             config_file_path = util.join_paths(self.SYSTEMD_NETWORK_CONFIG_DIR, config_file)
