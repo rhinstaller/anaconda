@@ -196,6 +196,9 @@ class DeviceData(DBusData):
             hba-id
             path-id
 
+        Attributes for partitions:
+            partition-label
+
         :return: a dictionary of attributes
         """
         return self._attrs

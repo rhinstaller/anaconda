@@ -21,6 +21,7 @@ from abc import abstractmethod, ABC
 from functools import partial
 
 from blivet.formats import get_format
+from blivet.devices import PartitionDevice
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -136,6 +137,9 @@ class DeviceTreeViewer(ABC):
         data.attrs["bus"] = self._get_attribute(device, "bus")
         data.attrs["wwn"] = self._get_attribute(device, "wwn")
         data.attrs["uuid"] = self._get_attribute(device, "uuid")
+
+        if isinstance(device, PartitionDevice):
+            data.attrs["partition-label"] = self._get_attribute(device.parted_partition, "name")
 
     def _set_device_data_dasd(self, device, data):
         """Set data for a DASD device."""
