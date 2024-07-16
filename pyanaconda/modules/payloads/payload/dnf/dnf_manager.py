@@ -149,6 +149,7 @@ class DNFManager:
         config.cachedir = DNF_CACHE_DIR
         config.pluginconfpath = DNF_PLUGINCONF_DIR
         config.logdir = '/tmp/'
+        base.get_logger().add_logger(libdnf5.logger.create_file_logger(base, "dnf.log"))
 
         # Set installer defaults
         config.gpgcheck = False
