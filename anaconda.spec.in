@@ -483,6 +483,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 18 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.9-1
+- unit_tests: drop DASDDevice.opts like in related blivet change (maier)
+  Resolves: RHEL-24057
+- network: use consolidated s390 device configuration (#1802482,#1937049)
+  (maier)
+  Resolves: RHEL-24057
+- write persistent config of any (dasd,zfcp,znet) s390 devices to sysroot
+  (#1802482,#1937049) (maier)
+  Resolves: RHEL-24057
+- DASDDiscoverTask: use consolidated device configuration with zdev
+  (#1802482,#1937049) (maier)
+  Resolves: RHEL-24057
+
 * Mon Jul 08 2024 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.8-1
 - The RPM tooling generates the compiled python so having automake do it is
   redundant (kkoukiou)
