@@ -17,8 +17,8 @@
 
 m4_define(python_required_version, 3.4)
 
-AC_PREREQ([2.63])
-AC_INIT([anaconda], [41.25], [anaconda-devel@lists.fedoraproject.org])
+AC_PREREQ([2.71])
+AC_INIT([anaconda],[41.25],[anaconda-devel@lists.fedoraproject.org])
 
 # make it possible to set build info at build time
 # (patch only builds, modular builds, mass-rebuilds, etc.)
@@ -50,7 +50,7 @@ AC_SYS_LARGEFILE
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_LN_S
-AC_PROG_LIBTOOL
+LT_INIT
 AC_PROG_MKDIR_P
 
 # Check for the gettext programs
