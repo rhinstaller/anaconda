@@ -985,7 +985,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock.pull_with_options.assert_called_once()
         name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
-        assert type(opts) == Variant
+        assert type(opts) is Variant
         assert opts.unpack() == {"refs": ["ref"], "flags": OSTree.RepoPullFlags.UNTRUSTED}
         repo_mock.remote_delete.assert_called_once_with("remote", None)
 
@@ -1014,7 +1014,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock.pull_with_options.assert_called_once()
         name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
-        assert type(opts) == Variant
+        assert type(opts) is Variant
         assert opts.unpack() == {"refs": ["ref"], "flags": OSTree.RepoPullFlags.UNTRUSTED}
         repo_mock.remote_delete.assert_not_called()
 
