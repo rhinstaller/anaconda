@@ -31,7 +31,7 @@ from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
 from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
 from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
 from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
-from pykickstart.commands.module import F31_Module as Module
+from pykickstart.commands.module import RHEL10_Module as Module
 from pykickstart.commands.eula import F20_Eula as Eula
 from pykickstart.commands.fcoe import RHEL10_Fcoe as Fcoe
 from pykickstart.commands.firewall import F28_Firewall as Firewall
