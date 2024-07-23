@@ -253,9 +253,10 @@ class AnacondaExceptionHandler(ExceptionHandler):
         try:
             sync_run_task(onerror_task_proxy)
             sync_run_task(traceback_task_proxy)
+        # pylint: disable=bare-except
+        # ruff: noqa: E722
         except:
             pass
-
 
     def runDebug(self, exc_info):
         if conf.system.can_switch_tty and self._intf_tty_num != 1:
