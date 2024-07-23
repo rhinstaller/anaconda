@@ -480,6 +480,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 23 2024 github-actions <github-actions@github.com> - 41.26-1
+- Don't use tmpfs in build if not enough RAM (lifto)
+- Document RHEL 10 specifics for container shell (mkolman)
+- storage: add EFI partition in the windows OS devices if it's detected
+  (kkoukiou)
+- storage: add windows system to GetExistingSystems (kkoukiou)
+- storage: store the partition type name in device attrs for partitions
+  (kkoukiou)
+- Clean up the code by removing the utils directory (rolivier)
+
 * Tue Jul 16 2024 github-actions <github-actions@github.com> - 41.25-1
 - makeupdates: Bump Python version in site packages path to 3.13 (vtrefny)
 - Apply suggestions from Rodolfo (martin.kolman)
