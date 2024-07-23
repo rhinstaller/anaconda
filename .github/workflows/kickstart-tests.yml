@@ -83,12 +83,15 @@ jobs:
         run: |
           # extract first line and cut out the "/kickstart-tests" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
+          # parse --kstest-pr option
           OPTS="$(getopt -q -o "" --long kstest-pr: -- $ARGS)" || true
           PR=${OPTS#" --kstest-pr '"}
           PR=$(echo $PR | cut -d " " -f1)
           PR=${PR%"'"}
           PR=${PR%"--"}
-          echo "workflow arguments are: $ARGS"
+          # remove --kstest-pr option
+          ARGS=$(echo "$ARGS" | sed -r -e "s#--kstest-pr( +|=)$PR ##" | sed 's/[[:space:]]*$//')
+          echo "test selection arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
           echo "kickstart-tests PR: $PR"
           echo "kstest_pr=${PR}" >> $GITHUB_OUTPUT
