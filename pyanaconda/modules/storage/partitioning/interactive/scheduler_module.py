@@ -64,7 +64,7 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         :return: True or False
         """
         device = self._get_device(device_name)
-        return device.format.type == "luks" and device.format.exists
+        return device.format.type == "luks" and device.format.exists and not device.children
 
     def is_device_editable(self, device_name):
         """Is the specified device editable?
