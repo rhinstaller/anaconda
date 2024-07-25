@@ -38,11 +38,11 @@ class ArgparseTest(unittest.TestCase):
         assert removed == ["stage2"]
 
         boot_cmdline = KernelArguments.from_string("stage2=http://cool.server.com/test "
-                                                   "vnc")
+                                                   "rdp")
         opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.stage2 is None
-        assert not opts.vnc
-        assert removed == ["stage2", "vnc"]
+        assert not opts.rdp_enabled
+        assert removed == ["stage2", "rdp"]
 
     def test_with_inst_prefix(self):
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test")
@@ -51,19 +51,19 @@ class ArgparseTest(unittest.TestCase):
         assert removed == []
 
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
-                                                   "inst.vnc")
+                                                   "inst.rdp")
         opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.stage2 == "http://cool.server.com/test"
-        assert opts.vnc
+        assert opts.rdp_enabled
         assert removed == []
 
     def test_inst_prefix_mixed(self):
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
-                                                   "vnc")
+                                                   "rdp")
         opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.stage2 == "http://cool.server.com/test"
-        assert not opts.vnc
-        assert removed == ["vnc"]
+        assert not opts.rdp_enabled
+        assert removed == ["rdp"]
 
     def test_display_mode(self):
         opts, _removed = self._parseCmdline(['--cmdline'])

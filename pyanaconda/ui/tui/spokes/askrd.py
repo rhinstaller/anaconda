@@ -132,12 +132,12 @@ class AskRDSpoke(NormalTUISpoke):
                 return super().input(args, key)
 
     def apply(self):
-        self.data.vnc.enabled = self._use_rd
+        pass
 
 
 class RDPAuthSpoke(NormalTUISpoke):
     """
-       .. inheritance-diagram:: VNCPassSpoke
+       .. inheritance-diagram:: RDPAuthSpoke
           :parts: 3
     """
 

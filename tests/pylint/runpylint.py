@@ -103,10 +103,10 @@ def setup_environment():
     # Don't try to connect to the accessibility socket.
     os.environ["NO_AT_BRIDGE"] = "1"
 
-    # Force the GDK backend to X11.  Otherwise if no display can be found, Gdk
+    # Force the GDK backend to Wayland.  Otherwise if no display can be found, Gdk
     # tries every backend type, which includes "broadway", which prints an error
     # and keeps changing the content of said error.
-    os.environ["GDK_BACKEND"] = "x11"
+    os.environ["GDK_BACKEND"] = "wayland"
 
     # Save analysis data in the pylint directory.
     os.environ["PYLINTHOME"] = builddir + "/tests/pylint/.pylint.d"
