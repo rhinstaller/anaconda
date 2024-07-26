@@ -49,6 +49,7 @@ lorax -p RHEL -v "$MAJOR_VERSION" -r "$MINOR_VERSION" \
       --nomacboot \
       -s http://download.devel.redhat.com/rhel-10/nightly/RHEL-10-Public-Beta/latest-RHEL-10/compose/BaseOS/x86_64/os/ \
       -s http://download.devel.redhat.com/rhel-10/nightly/RHEL-10-Public-Beta/latest-RHEL-10/compose/AppStream/x86_64/os/ \
+      -s http://download.eng.brq.redhat.com/brewroot/repos/rhel-10.0-beta-build-sidetag-146500-stack-gate/latest/x86_64/ \
       -s https://download.copr.fedorainfracloud.org/results/m4rtink/python-pam-rebuild/centos-stream-10-x86_64/ \
       -s file://$REPO_DIR/ \
       "$@" \
