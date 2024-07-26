@@ -62,6 +62,12 @@ Prepare the environment and build the sources::
     ./configure
     make
 
+For RHEL 10 use this instead (glade needs to be disabled at build time)::
+
+    ./autogen.sh
+    ./configure --disable-glade
+    make
+
 Executing the tests can be done with::
 
     make check
