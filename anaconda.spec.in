@@ -482,6 +482,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 26 2024 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.10-1
+- Cleanup remaining Xorg and VNC references and dead code (mkolman)
+  Resolves: RHEL-41219
+- Do not create default wired connections for bond ports (rvykydal)
+  Resolves: RHEL-50039
+- Consolidate code for dumping network connections (rvykydal)
+  Related: RHEL-50039
+- Handle inst.rdp in Dracut (mkolman)
+  Resolves: RHEL-41219
+- Deprecate kickstart modularity module (marusak.matej)
+  Resolves: RHEL-36831
+
 * Thu Jul 18 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.9-1
 - unit_tests: drop DASDDevice.opts like in related blivet change (maier)
   Resolves: RHEL-24057
