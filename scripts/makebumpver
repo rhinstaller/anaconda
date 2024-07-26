@@ -441,7 +441,7 @@ class MakeBumpVer:
         # make the release commit
         run_program(['git', 'commit', '-m', commit_message])
         # tag the release
-        run_program(['git', 'tag', release_tag])
+        run_program(['git', 'tag', '-a', '-m', commit_message, release_tag])
         # log the commit message & tag
         log.info("commit message: %s", commit_message)
         log.info("tag: %s", release_tag)
