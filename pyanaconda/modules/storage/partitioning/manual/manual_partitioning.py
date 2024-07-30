@@ -22,9 +22,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
-    generate_device_factory_request
-from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
+from pyanaconda.modules.storage.partitioning.manual.utils import reformat_device
 
 log = get_module_logger(__name__)
 
@@ -74,52 +72,13 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
             )
 
         if reformat:
-            if format_type:
-                fmt = get_format(format_type)
-
-                if not fmt:
-                    raise StorageError(
-                        _("Unknown or invalid format '{}' specified for "
-                          "device '{}'").format(format_type, device_spec)
-                    )
-            else:
-                old_fmt = device.format
-
-                if not old_fmt or old_fmt.type is None:
-                    raise StorageError(_("No format on device '{}'").format(device_spec))
-
-                fmt = get_format(old_fmt.type)
-
-            if device.raw_device.type in ("btrfs volume", "btrfs subvolume"):
-                # 'Format', or rather clear the device by recreating it
-
-                # recreating @device will remove all nested subvolumes of it, we cannot allow
-                # using these nested subvolumes for other MountPointRequest without also
-                # re-creating them
-                if device.raw_device.type == "btrfs volume":
-                    depending_subvolumes = device.raw_device.subvolumes
-                elif device.raw_device.type == "btrfs subvolume":
-                    depending_subvolumes = [sub.name for sub in device.raw_device.volume.subvolumes
-                                            if sub.depends_on(device.raw_device)]
-                problem_subvolumes = [req for req in self._requests if (req.mount_point
-                                                                        and not req.reformat
-                                                                        and req.device_spec in
-                                                                        depending_subvolumes)]
-                if problem_subvolumes:
-                    err = (_("{} mounted as {}").format(dep.device_spec,
-                                                        dep.mount_point) for dep in problem_subvolumes)
-                    raise StorageError(
-                        _("Reformatting the '{}' subvolume will remove the following nested "
-                          "subvolumes which cannot be reused: {}").format(device.raw_device.name,
-                                                                          ", ".join(err)))
-                device = self._recreate_device(storage, device_spec)
-                mount_data.mount_options = device.format.options
-            else:
-                storage.format_device(device, fmt)
-
-            # make sure swaps end up in /etc/fstab
-            if fmt.type == "swap":
-                storage.add_fstab_swap(device)
+            requested_devices = dict(((req.device_spec, req.mount_point) for req in self._requests))
+            device, mount_options = reformat_device(storage,
+                                                    device,
+                                                    format_type,
+                                                    dependencies=requested_devices)
+            if mount_options is not None:
+                mount_data.mount_options = mount_options
 
         # add "mounted" swaps to fstab
         if device.format.type == "swap" and mount_point == "swap":
@@ -131,41 +90,3 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
 
         device.format.create_options = mount_data.format_options
         device.format.options = mount_data.mount_options
-
-    def _recreate_btrfs_volume(self, storage, device):
-        """Recreate a btrfs volume device by destroying and adding it.
-
-        :param storage: an instance of the Blivet's storage object
-        :param dev_spec: a BtrfsVolumeDevice to recreate
-        """
-        if device.children:
-            raise StorageError(
-                _("Cannot reformat Btrfs volume '{}' with "
-                  "existing subvolumes").format(device.name))
-        storage.destroy_device(device)
-        for parent in device.parents:
-            storage.format_device(parent, get_format("btrfs"))
-        new_btrfs = storage.new_btrfs(parents=device.parents[:],
-                                      name=device.name)
-        storage.create_device(new_btrfs)
-        return new_btrfs
-
-    def _recreate_device(self, storage, dev_spec):
-        """Recreate a device by destroying and adding it.
-
-        :param storage: an instance of the Blivet's storage object
-        :param dev_spec: a string describing a block device to be recreated
-        """
-        device = storage.devicetree.resolve_device(dev_spec)
-
-        if device.type == "btrfs volume":
-            # can't use device factory for just the volume
-            return self._recreate_btrfs_volume(storage, device)
-        else:
-            request = generate_device_factory_request(storage, device)
-            destroy_device(storage, device)
-            task = AddDeviceTask(storage, request)
-            task.run()
-            device = storage.devicetree.resolve_device(dev_spec)
-
-            return device
