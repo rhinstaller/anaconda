@@ -480,6 +480,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 30 2024 github-actions <github-actions@github.com> - 41.27-1
+- Remove threading compatibility layer (kkoukiou)
+
 * Tue Jul 23 2024 github-actions <github-actions@github.com> - 41.26-1
 - Don't use tmpfs in build if not enough RAM (lifto)
 - Document RHEL 10 specifics for container shell (mkolman)
