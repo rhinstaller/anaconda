@@ -653,16 +653,16 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         """Test IsDeviceLocked."""
         dev1 = StorageDevice(
             "dev1",
-            fmt=get_format("ext4"),
+            fmt=get_format("luks"),
             size=Size("10 GiB")
         )
         dev2 = LUKSDevice(
             "dev2",
             parents=[dev1],
-            fmt=get_format("luks"),
+            fmt=get_format("ext4"),
             size=Size("10 GiB"),
         )
-        dev3 = LUKSDevice(
+        dev3 = StorageDevice(
             "dev3",
             parents=[dev1],
             fmt=get_format("luks", exists=True),

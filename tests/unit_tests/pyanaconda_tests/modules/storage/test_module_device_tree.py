@@ -392,9 +392,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         fmt2 = get_format(
             "luks"
         )
-        dev2 = LUKSDevice(
+        dev2 = StorageDevice(
             "dev2",
-            parents=[dev1],
             fmt=fmt2,
             size=Size("10 GiB")
         )
@@ -786,35 +785,25 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.FindMountablePartitions() == ["dev2"]
 
     @patch.object(LUKS, "setup")
-    @patch.object(LUKSDevice, "teardown")
-    @patch.object(LUKSDevice, "setup")
+    @patch.object(StorageDevice, "teardown")
+    @patch.object(StorageDevice, "setup")
     def test_unlock_device(self, device_setup, device_teardown, format_setup):
         """Test UnlockDevice."""
         self.storage.devicetree.populate = Mock()
         self.storage.devicetree.teardown_all = Mock()
 
-        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        dev1 = StorageDevice("dev1", fmt=get_format("luks"), size=Size("10 GiB"), exists=True)
         self._add_device(dev1)
 
-        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
-        self._add_device(dev2)
-        assert self.interface.GetFormatData("dev2") == {
-            'type': get_variant(Str, 'luks'),
-            'mountable': get_variant(Bool, False),
-            'formattable': get_variant(Bool, True),
-            'attrs': get_variant(Dict[Str, Str], {'has_key': 'False'}),
-            'description': get_variant(Str, 'LUKS'),
-        }
-
-        assert self.interface.UnlockDevice("dev2", "passphrase") is True
+        assert self.interface.UnlockDevice("dev1", "passphrase") is True
 
         device_setup.assert_called_once()
         format_setup.assert_called_once()
         device_teardown.assert_not_called()
         self.storage.devicetree.populate.assert_called_once()
         self.storage.devicetree.teardown_all.assert_called_once()
-        assert dev2.format.has_key
-        assert self.interface.GetFormatData("dev2") == {
+        assert dev1.format.has_key
+        assert self.interface.GetFormatData("dev1") == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
             'formattable': get_variant(Bool, True),
@@ -823,35 +812,36 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         }
 
         device_setup.side_effect = StorageError("Fake error")
-        assert self.interface.UnlockDevice("dev2", "passphrase") is False
+        assert self.interface.UnlockDevice("dev1", "passphrase") is False
 
         device_teardown.assert_called_once()
-        assert not dev2.format.has_key
+        assert not dev1.format.has_key
 
     def test_find_unconfigured_luks(self):
         """Test FindUnconfiguredLUKS."""
         assert self.interface.FindUnconfiguredLUKS() == []
 
-        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        dev1 = StorageDevice("dev1", fmt=get_format("luks"), size=Size("10 GiB"))
         self._add_device(dev1)
+
+        assert self.interface.FindUnconfiguredLUKS() == ["dev1"]
+
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("ext4"), size=Size("10 GiB"))
+        self._add_device(dev2)
+        dev1.format.passphrase = "123456"
 
         assert self.interface.FindUnconfiguredLUKS() == []
 
-        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
-        self._add_device(dev2)
-
-        assert self.interface.FindUnconfiguredLUKS() == ["dev2"]
-
     def test_set_device_passphrase(self):
         """Test SetDevicePassphrase."""
-        dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
+        dev1 = StorageDevice("dev1", fmt=get_format("luks"), size=Size("10 GiB"))
         self._add_device(dev1)
 
-        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
+        dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("ext4"), size=Size("10 GiB"))
         self._add_device(dev2)
 
-        assert self.interface.FindUnconfiguredLUKS() == ["dev2"]
-        self.interface.SetDevicePassphrase("dev2", "123456")
+        assert self.interface.FindUnconfiguredLUKS() == ["dev1"]
+        self.interface.SetDevicePassphrase("dev1", "123456")
         assert self.interface.FindUnconfiguredLUKS() == []
 
     def test_get_fstab_spec(self):
