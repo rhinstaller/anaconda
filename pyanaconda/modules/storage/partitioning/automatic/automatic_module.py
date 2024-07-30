@@ -76,6 +76,10 @@ class AutoPartitioningModule(PartitioningModule):
         if data.autopart.noswap:
             request.excluded_mount_points.append("swap")
 
+        request.erased_mount_points = data.autopart.erase
+        request.reused_mount_points = data.autopart.reuse
+        request.removed_mount_points = data.autopart.remove
+
         request.hibernation = data.autopart.hibernation
 
         if data.autopart.encrypted:
