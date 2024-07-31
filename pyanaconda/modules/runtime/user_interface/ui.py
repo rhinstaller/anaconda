@@ -33,6 +33,8 @@ from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 
+from pykickstart.commands.displaymode import DISPLAY_MODE_TEXT
+
 log = get_module_logger(__name__)
 
 __all__ = ["UIModule"]
@@ -52,6 +54,9 @@ class UIModule(KickstartBaseModule):
         self.display_mode_nonInteractive_changed = Signal()
         self._displayMode_nonInteractive = False
 
+        self.display_mode_text_kickstarted_changed = Signal()
+        self._display_mode_text_kickstarted = False
+
         self.vnc_changed = Signal()
         self._vnc = VncData()
 
@@ -63,6 +68,12 @@ class UIModule(KickstartBaseModule):
         """Process the kickstart data."""
         self.set_display_mode(data.displaymode.displayMode)
         self.set_display_mode_non_interactive(data.displaymode.nonInteractive)
+        # check if text mode was requested in kickstart
+        if data.displaymode.displayMode == DISPLAY_MODE_TEXT:
+            log.debug("Text mode requested by kickstart")
+            self._display_mode_text_kickstarted = True
+            self.display_mode_text_kickstarted_changed.emit()
+
         vnc = VncData()
         vnc.enabled = data.vnc.enabled
         vnc.host = data.vnc.host
@@ -116,6 +127,19 @@ class UIModule(KickstartBaseModule):
         self._displayMode_nonInteractive = non_interactive
         self.display_mode_nonInteractive_changed.emit()
         log.debug("Display mode non-interactive set to: %s", str(non_interactive))
+
+    @property
+    def display_mode_text_kickstarted(self):
+        """Report if text mode was explicitely requested via kickstart.
+
+
+        #NOTE: No setter as this is only set once when parsing the kickstasrt.
+
+        :return: if text mode was requested by kickstart
+        :rtype: bool
+        """
+
+        return self._display_mode_text_kickstarted
 
     @property
     def vnc(self):
