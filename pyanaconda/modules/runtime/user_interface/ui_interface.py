@@ -102,6 +102,11 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         self.implementation.set_display_mode_non_interactive(non_interactive)
 
     @property
+    def DisplayModeTextKickstarted(self) -> Bool:
+        """Report if text mode was explicitly requested via kickstart."""
+        return self.implementation.display_mode_text_kickstarted
+
+    @property
     def Vnc(self) -> Structure:
         """Specification of the vnc configuration."""
         return VncData.to_structure(self.implementation.vnc)
