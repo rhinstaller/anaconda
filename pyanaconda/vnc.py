@@ -29,7 +29,6 @@ import subprocess
 from pyanaconda.core.i18n import _, P_
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.constants.services import RUNTIME
-from pyanaconda.modules.common.structures.secret import SecretData
 from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
@@ -65,7 +64,7 @@ def shutdownServer():
 class VncServer(object):
 
     def __init__(self, root="/", ip=None, name=None,
-                 password=SecretData(), vncconnecthost="",
+                 password="", vncconnecthost="",
                  vncconnectport="", log_file="/tmp/vncserver.log",
                  pw_file="/tmp/vncpassword", timeout=constants.X_TIMEOUT):
         self.root = root
@@ -87,7 +86,7 @@ class VncServer(object):
 
     def setVNCPassword(self):
         """Set the vnc server password. Output to file. """
-        password_string = "%s\n" % self.password.value
+        password_string = "%s\n" % self.password
 
         # the -f option makes sure vncpasswd does not ask for the password again
         proc = util.startProgram(
@@ -232,10 +231,10 @@ class VncServer(object):
             util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
-        if self.password.value and (len(self.password.value) < 6 or len(self.password.value) > 8):
+        if self.password and (len(self.password) < 6 or len(self.password) > 8):
             self.changeVNCPasswdWindow()
 
-        if not self.password.value:
+        if not self.password:
             SecurityTypes = "None"
             rfbauth = "0"
         else:
@@ -266,11 +265,11 @@ class VncServer(object):
                                "This does not require a password to be set.  If you \n"
                                "set a password, it will be used in case the connection \n"
                                "to the vncviewer is unsuccessful\n\n"))
-        elif self.password.value == "":
+        elif self.password == "":
             self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
                                "You can use the inst.vncpassword=PASSWORD boot option\n"
                                "if you would like to secure the server.\n\n"))
-        elif self.password.value != "":
+        elif self.password != "":
             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
         else:
             self.log.warning(_("\n\nUnknown Error.  Aborting. \n\n"))
