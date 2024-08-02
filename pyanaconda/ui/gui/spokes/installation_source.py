@@ -883,6 +883,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                                 self._downloading_group_md)
         payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.PAYLOAD_THREAD_TERMINATED, self._check_ready)
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
@@ -930,6 +931,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._error_msg += _(CLICK_FOR_DETAILS)
 
         self._ready = True
+        hubQ.send_ready(self.__class__.__name__)
+
+    def _check_ready(self):
+        # (re)check if the spoke is now ready
+        #
+        # This is used to clear spoke access in cases where the payload thread
+        # reports and error while still running - yet we gate spoke access on the
+        # payload thread *not* running.
+        # So we listen to a notification from a different thread telling us
+        # that the payload thread has terminated and then re-check the condition.
         hubQ.send_ready(self.__class__.__name__)
 
     def _initialize_closest_mirror(self):
