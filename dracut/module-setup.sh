@@ -48,7 +48,6 @@ install() {
     inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-ks.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-cmdline.sh"
-    inst_hook pre-pivot 50 "$moddir/anaconda-copy-s390ccwconf.sh"
     inst_hook pre-pivot 90 "$moddir/anaconda-copy-dhclient.sh"
     inst_hook pre-pivot 91 "$moddir/anaconda-copy-prefixdevname.sh"
     inst_hook pre-pivot 95 "$moddir/anaconda-set-kernel-hung-timeout.sh"
