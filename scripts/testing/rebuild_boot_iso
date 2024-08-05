@@ -6,6 +6,7 @@
 # checked out branch.
 #
 # ask for sudo now, so we have it when we get to the image build
+set -eu
 
 help() {
     cat <<EOF
