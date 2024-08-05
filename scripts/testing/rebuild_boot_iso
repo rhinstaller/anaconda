@@ -6,6 +6,36 @@
 # checked out branch.
 #
 # ask for sudo now, so we have it when we get to the image build
+
+help() {
+    cat <<EOF
+This script will build the anaconda RPMs and then build boot.iso
+from these.
+
+Before starting the build it will remove all the previous build
+artifacts.
+
+Usage:
+  Start the build process:
+    $0 [options]
+
+Options:
+ -h, --help                         Print this help
+EOF
+}
+
+# parse arguments
+eval set -- "$(getopt -o h --long help -- "$@")"
+
+while true; do
+    case "${1:-}" in
+        -h|--help) help; exit 0 ;;
+        --) shift; break ;;
+    esac
+    shift
+done
+
+
 echo "warming up sudo!"
 sudo true
 BOOT_ISO="result/iso/boot.iso"
