@@ -11,7 +11,7 @@ set -eu
 help() {
     cat <<EOF
 This script will build the anaconda RPMs and then build boot.iso
-from these.
+or Live ISO from these.
 
 Before starting the build it will remove all the previous build
 artifacts.
@@ -24,6 +24,7 @@ Options:
  -h, --help                         Print this help
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
+ -l, --live                         Build Live ISO instead of boot.iso
 EOF
 }
 
@@ -31,15 +32,19 @@ BOOT_ISO="result/iso/boot.iso"
 PACKAGES_DIR="result/build/01-rpm-build/"
 UPDATED_BOOT_ISO="result/iso/boot.iso.git_rev"
 BOOT_ISO_GIT_REVISION="result/iso/boot.iso.git_rev"
+
+BUILD_TARGET="boot.iso"
+
 COPY_RPMS=""
 
 # parse arguments
-eval set -- "$(getopt -o ha: --long help,add-rpms: -- "$@")"
+eval set -- "$(getopt -o ha:l --long help,add-rpms:,live -- "$@")"
 
 while true; do
     case "${1:-}" in
         -h|--help) help; exit 0 ;;
         -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
+        -l|--live) BUILD_TARGET="live" ;;
         --) shift; break ;;
     esac
     shift
@@ -66,5 +71,10 @@ for i in $COPY_RPMS; do
 done
 
 # build the ISO
-make -f ./Makefile.am anaconda-iso-creator-build
-make -f ./Makefile.am container-iso-build
+if [ "$BUILD_TARGET" = "boot.iso" ]; then
+    make -f ./Makefile.am anaconda-iso-creator-build
+    make -f ./Makefile.am container-iso-build
+elif [ "$BUILD_TARGET" = "live" ]; then
+    make -f ./Makefile.am anaconda-live-iso-creator-build
+    make -f ./Makefile.am container-live-iso-build
+fi
