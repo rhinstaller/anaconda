@@ -6,7 +6,8 @@
 # checked out branch.
 #
 # ask for sudo now, so we have it when we get to the image build
-sudo echo "warming up sudo!"
+echo "warming up sudo!"
+sudo true
 BOOT_ISO="result/iso/boot.iso"
 UPDATED_BOOT_ISO="result/iso/boot.iso.git_rev"
 BOOT_ISO_GIT_REVISION="result/iso/boot.iso.git_rev"
