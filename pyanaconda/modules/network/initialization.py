@@ -111,6 +111,10 @@ class ApplyKickstartTask(Task):
                 log.warning("%s: --device %s not found", self.name, network_data.device)
                 continue
 
+            if is_nbft_device(device_name):
+                log.debug("Ignoring nBFT device %s", device_name)
+                continue
+
             applied_devices.append(device_name)
 
             connection = self._find_initramfs_connection_of_iface(nm_client, device_name)
