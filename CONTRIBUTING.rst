@@ -150,12 +150,12 @@ Local development workflow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This workflow makes it possible to test changes to the Anaconda source code locally on your machine without any dependencies
-on external infrastructure. It uses two scripts, one called ``scripts/rebuild_boot_iso`` to build a fresh bootable installation image (boot.iso)
-from Anaconda source code on the given branch and corresponding Fedora/CentOS Stream packages. The second script, called ``scripts/update_boot_iso``
+on external infrastructure. It uses two scripts, one called ``scripts/testing/rebuild_iso`` to build a fresh bootable installation image
+from Anaconda source code on the given branch and corresponding Fedora/CentOS Stream packages. The second script, called ``scripts/testing/update_iso``
 uses the Anaconda updates image mechanism together with the ``mkksiso`` command provided by the Lorax project to very quickly
 create an updated version of the boot.iso when Anaconda code is changed. The updated boot.iso can then be booted on a VM or bare metal.
 
-The ``rebuild_boot_iso`` script
+The ``rebuild_iso`` script
 """""""""""""""""""""""""""""""
 
 This is just a simple script that rebuilds the boot.iso from Anaconda source code on the current branch & corresponding Fedora
@@ -164,7 +164,9 @@ and also records Anaconda Git revision that was used to build the image.
 
 This should take about 15 minutes on modern hardware.
 
-The ``update_boot_iso`` script
+See --help for further information.
+
+The ``update_iso`` script
 """"""""""""""""""""""""""""""
 
 This is the main script that enables local development by quickly updating a boot iso with local changes.
@@ -172,9 +174,9 @@ This should take a couple seconds on modern hardware.
 
 For the most common use case ("I have changed the Anaconda source and want to see what it does.") just do this:
 
-1. run ``scripts/rebuild_boot_iso`` first, this creates ``result/iso/boot.iso``
+1. run ``scripts/testing/rebuild_iso`` first, this creates ``result/iso/boot.iso``
 2. change the Anaconda source code
-3. run ``scripts/update_boot_iso`` which creates the ``result/iso/updated_boot.iso``
+3. run ``scripts/testing/update_iso`` which creates the ``result/iso/updated_boot.iso``
 4. start the ``result/iso/updated_boot.iso`` in a VM or on bare metal
 
 The script also has a few command line options that might come handy:
