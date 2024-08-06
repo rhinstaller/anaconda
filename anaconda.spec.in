@@ -480,6 +480,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 06 2024 github-actions <github-actions@github.com> - 41.28-1
+- Adjust custom partitioning and storage spokes to the device ID API (vtrefny)
+- Adjust resize module to the device ID API (vtrefny)
+- Add a custom function for recreating btrfs subvolumes (vtrefny)
+- Use blivet's "device ID" as a unique device identifier (vtrefny)
+- Fix mock LUKS devices logic in tests (vtrefny)
+- Fix checking for locked LUKS devices (vtrefny)
+- util: Add additional information for EFI systems (riehecky)
+- Add release note for network port devices' default configuration profiles
+  (rvykydal)
+
 * Tue Jul 30 2024 github-actions <github-actions@github.com> - 41.27-1
 - Remove threading compatibility layer (kkoukiou)
 
