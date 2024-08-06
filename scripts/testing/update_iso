@@ -288,6 +288,7 @@ def main():
 
     # Remove previous updated boot ISO (if it exists)
     if os.path.exists(UPDATED_ISO):
+        print(f"Removing previous updated ISO: {UPDATED_ISO}")
         os.remove(UPDATED_ISO)
 
     # Generate updated boot ISO
