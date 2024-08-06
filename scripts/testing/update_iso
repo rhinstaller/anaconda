@@ -13,6 +13,8 @@ import time
 import sys
 import subprocess
 
+from pathlib import Path
+
 # Absolute path to the main project directory
 PROJECT_DIR = os.path.dirname(
     os.path.dirname(
@@ -217,8 +219,27 @@ def run_updated_iso_with_virt_install():
     subprocess.run(cmd, check=True)
     print("** virt-install finished running")
 
+def set_input_iso(args):
+    """Call checks and configure input ISO based on the user parameter
+
+    This function will configure INPUT_ISO, UPDATED_ISO global variables.
+    """
+    global INPUT_ISO
+    global UPDATED_ISO
+    global INPUT_ISO_REVISION_FILE
+
+    INPUT_ISO = args.input_iso_path
+    # this code will take input ISO path and create updated ISO path by
+    # directory (parent) + file name without suffix (stem) + "-updated" + file suffix (suffix)
+    UPDATED_ISO = os.path.join(args.input_iso_path.parent,
+                                f"{args.input_iso_path.stem}-updated{args.input_iso_path.suffix}")
+    INPUT_ISO_REVISION_FILE = os.path.join(args.input_iso_path.parent, REVISION_FILE_NAME)
+
+
 def main():
-    parser = argparse.ArgumentParser(description="update Anaconda boot.iso")
+    parser = argparse.ArgumentParser(description="update Anaconda ISO image")
+    parser.add_argument('input_iso_path', metavar='INPUT_ISO', type=Path, nargs='?', default=INPUT_ISO,
+                        help='path to the input ISO (optional)')
     parser.add_argument('-t', '--tag', action='store', type=str,
                         help='add commits from TAG to HEAD to the image (NOTE: also works with commit hashes)')
     parser.add_argument('-k', '--ks-file', action='store', type=str,
@@ -228,6 +249,9 @@ def main():
     parser.add_argument('-v', '--virt-install', action='store_true',
                         help='boot the updated iso with virt-install')
     args = parser.parse_args()
+
+    # Set INPUT_ISO and UPDATED_ISO based on user preferences
+    set_input_iso(args)
 
     # Check if we have the input ISO
     check_input_iso_available()
