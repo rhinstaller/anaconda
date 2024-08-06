@@ -67,10 +67,11 @@ def get_first_non_upstream_commit():
 
     return None
 
-def make_updates_image(git_id):
+def make_updates_image(git_id, rpm_paths):
     """Build an updates image based on tag/hash and prepare it for inclusion in boot ISO.
 
     :param str git_id: git revision id (hash, tag, etc.)
+    :param [str] rpm_paths: list of paths to the RPM files we are adding to updates_image
     """
     if git_id is None:
         print("** make updates:git_id is None, falling back to finding first non-upstream commit id")
@@ -79,11 +80,17 @@ def make_updates_image(git_id):
             print("** error: could not determine a valid commit id")
             sys.exit(1)
 
+    rpm_args = ""
+    for rpm in rpm_paths:
+        rpm_args += " -a " + rpm
+
     print("** preparing updates image via tag/hash: %s" % git_id)
     # Create the necessary folder structure
     os.makedirs(UPDATES_FOLDER, exist_ok=True)
     # Prepare updates image
-    os.system("./scripts/makeupdates -k -c -t %s" % git_id)
+    cmd = f"./scripts/makeupdates -k -c -t {git_id}{rpm_args}"
+    print("** Calling:", cmd)
+    os.system(cmd)
     # Move it next to the ISOs
     shutil.move(UPDATES_IMAGE, os.path.join(UPDATES_FOLDER, UPDATES_IMAGE))
     print("** updates image is ready in: %s" % UPDATES_FOLDER)
@@ -242,6 +249,10 @@ def main():
                         help='path to the input ISO (optional)')
     parser.add_argument('-t', '--tag', action='store', type=str,
                         help='add commits from TAG to HEAD to the image (NOTE: also works with commit hashes)')
+    parser.add_argument('-a', '--add-rpm', action='append', type=str, dest='rpm_paths',
+                        metavar='RPM_PATH', default=[],
+                        help='paths to additional RPMs which will be unpacked to updates image;'
+                        ' can be used multiple times')
     parser.add_argument('-k', '--ks-file', action='store', type=str,
                         help='path to the kickstart file')
     parser.add_argument('-b', '--boot-options', action='store', type=str,
@@ -281,7 +292,7 @@ def main():
         sys.exit(1)
 
     # Generate updates image
-    make_updates_image(base_git_revision)
+    make_updates_image(base_git_revision, args.rpm_paths)
 
     # Check updates image has been generated and is in place
     check_updates_image_available()
