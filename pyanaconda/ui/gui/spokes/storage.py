@@ -394,25 +394,24 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # of them, we do not display them in the box by default.  Instead, only
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
-        for device_name in self._available_disks:
+        for disk_id in self._available_disks:
 
             # Get the device data.
             device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
+                self._device_tree.GetDeviceData(disk_id)
             )
 
             if is_local_disk(device_data.type):
                 # Add all available local disks.
                 self._add_disk_overview(device_data, self._local_disks_box)
 
-            elif device_name in self._selected_disks:
+            elif disk_id in self._selected_disks:
                 # Add only selected advanced disks.
                 self._add_disk_overview(device_data, self._specialized_disks_box)
 
         # update the selections in the ui
         for overview in self.local_overviews + self.advanced_overviews:
-            name = overview.get_property("name")
-            overview.set_chosen(name in self._selected_disks)
+            overview.set_chosen(overview.device_id in self._selected_disks)
 
         # Update the encryption checkbox.
         if self._partitioning_request.encrypted:
@@ -469,7 +468,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             description = device_data.description
 
         kind = "drive-removable-media" if device_data.removable else "drive-harddisk"
-        free_space = self._device_tree.GetDiskFreeSpace([device_data.name])
+        free_space = self._device_tree.GetDiskFreeSpace([device_data.device_id])
         serial_number = device_data.attrs.get("serial") or None
 
         overview = AnacondaWidgets.DiskOverview(
@@ -478,11 +477,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             str(Size(device_data.size)),
             _("{} free").format(str(Size(free_space))),
             device_data.name,
+            device_data.device_id,
             serial_number
         )
 
         box.pack_start(overview, False, False, 0)
-        overview.set_chosen(device_data.name in self._selected_disks)
+        overview.set_chosen(device_data.device_id in self._selected_disks)
         overview.connect("button-press-event", self._on_disk_clicked)
         overview.connect("key-release-event", self._on_disk_clicked)
         overview.connect("focus-in-event", self._on_disk_focus_in)
@@ -568,13 +568,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         """ Update self.selected_disks based on the UI. """
         for overview in self.local_overviews + self.advanced_overviews:
             selected = overview.get_chosen()
-            name = overview.get_property("name")
+            disk_id = overview.device_id
 
-            if selected and name not in self._selected_disks:
-                self._selected_disks.append(name)
+            if selected and disk_id not in self._selected_disks:
+                self._selected_disks.append(disk_id)
 
-            if not selected and name in self._selected_disks:
-                self._selected_disks.remove(name)
+            if not selected and disk_id in self._selected_disks:
+                self._selected_disks.remove(disk_id)
 
     # signal handlers
     def on_summary_clicked(self, button):
@@ -590,8 +590,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # update the UI to reflect changes to self.selected_disks
         for overview in self.local_overviews + self.advanced_overviews:
-            name = overview.get_property("name")
-            overview.set_chosen(name in self._selected_disks)
+            overview.set_chosen(overview.device_id in self._selected_disks)
 
         self._update_summary()
 

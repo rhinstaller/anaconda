@@ -418,15 +418,15 @@ class InstallerStorage(Blivet):
         # Remove duplicate names from the list.
         return sorted(set(disks), key=lambda d: d.name)
 
-    def select_disks(self, selected_names):
+    def select_disks(self, selected_ids):
         """Select disks that should be used for the installation.
 
         Hide usable disks that are not selected.
 
-        :param selected_names: a list of disk names
+        :param selected_names: a list of disk device IDs
         """
         for disk in self.usable_disks:
-            if disk.name not in selected_names:
+            if disk.device_id not in selected_ids:
                 if disk in self.devices:
                     self.devicetree.hide(disk)
             else:

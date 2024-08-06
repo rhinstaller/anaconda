@@ -89,13 +89,13 @@ class SelectedDisksDialog(GUIObject):
         return rc
 
     def _update_disks(self):
-        for device_name in self._disks:
+        for disk_id in self._disks:
             device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
+                self._device_tree.GetDeviceData(disk_id)
             )
 
             device_free_space = self._device_tree.GetDiskFreeSpace(
-                [device_name]
+                [disk_id]
             )
 
             self._store.append([
@@ -106,7 +106,7 @@ class SelectedDisksDialog(GUIObject):
                 ),
                 str(Size(device_data.size)),
                 str(Size(device_free_space)),
-                device_name
+                device_data.name
             ])
 
     def _update_summary(self):

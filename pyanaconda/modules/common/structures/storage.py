@@ -26,6 +26,7 @@ class DeviceData(DBusData):
     """Device data."""
 
     def __init__(self):
+        self._device_id = ""
         self._type = ""
         self._name = ""
         self._path = ""
@@ -62,6 +63,18 @@ class DeviceData(DBusData):
     @name.setter
     def name(self, name: Str):
         self._name = name
+
+    @property
+    def device_id(self) -> Str:
+        """A ID of the device
+
+        :return: a device ID
+        """
+        return self._device_id
+
+    @device_id.setter
+    def device_id(self, device_id: Str):
+        self._device_id = device_id
 
     @property
     def path(self) -> Str:
@@ -121,19 +134,19 @@ class DeviceData(DBusData):
     def parents(self) -> List[Str]:
         """Parents of the device.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self._parents
 
     @parents.setter
-    def parents(self, names):
-        self._parents = names
+    def parents(self, ids):
+        self._parents = ids
 
     @property
     def children(self) -> List[Str]:
         """Children of the device.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self._children
 
@@ -313,6 +326,7 @@ class DeviceActionData(DBusData):
         self._object_description = ""
 
         self._device_name = ""
+        self._device_id = ""
         self._device_description = ""
 
         self._attrs = {}
@@ -383,6 +397,18 @@ class DeviceActionData(DBusData):
     @device_name.setter
     def device_name(self, name: Str):
         self._device_name = name
+
+    @property
+    def device_id(self) -> Str:
+        """A ID of the device.
+
+        :return: a device ID
+        """
+        return self._device_id
+
+    @device_id.setter
+    def device_id(self, device_id: Str):
+        self._device_id = device_id
 
     @property
     def device_description(self) -> Str:

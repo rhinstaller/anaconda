@@ -47,27 +47,27 @@ class DASDModule(StorageSubscriberModule):
         """Is this module supported?"""
         return arch.is_s390()
 
-    def _get_device(self, name):
-        """Find a device by its name.
+    def _get_device(self, device_id):
+        """Find a device by its ID.
 
-        :param name: a name of the device
+        :param device_id: ID of the device
         :return: an instance of the Blivet's device
         :raise: UnknownDeviceError if no device is found
         """
-        device = self.storage.devicetree.get_device_by_name(name, hidden=True)
+        device = self.storage.devicetree.get_device_by_device_id(device_id, hidden=True)
 
         if not device:
-            raise UnknownDeviceError(name)
+            raise UnknownDeviceError(device_id)
 
         return device
 
-    def _get_devices(self, names):
-        """Find devices by their names.
+    def _get_devices(self, device_ids):
+        """Find devices by their IDs.
 
-        :param names: names of the devices
+        :param device_ids: IDs of the devices
         :return: a list of instances of the Blivet's device
         """
-        return list(map(self._get_device, names))
+        return list(map(self._get_device, device_ids))
 
     def on_format_unrecognized_enabled_changed(self, value):
         """Update the flag for formatting unformatted DASDs."""
@@ -85,20 +85,20 @@ class DASDModule(StorageSubscriberModule):
         """
         return DASDDiscoverTask(device_number)
 
-    def find_formattable(self, disk_names):
+    def find_formattable(self, disk_ids):
         """Find DASDs for formatting.
 
-        :param disk_names: a list of disk names to search
+        :param disk_ids: a list of disk IDs to search
         :return: a list of DASDs for formatting
         """
         task = FindFormattableDASDTask(
-            self._get_devices(disk_names),
+            self._get_devices(disk_ids),
             self._can_format_unformatted,
             self._can_format_ldl
         )
 
         found_disks = task.run()
-        return [d.name for d in found_disks]
+        return [d.device_id for d in found_disks]
 
     def format_with_task(self, dasds):
         """Format specified DASD disks.

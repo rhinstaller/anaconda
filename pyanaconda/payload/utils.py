@@ -26,40 +26,40 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 log = get_module_logger(__name__)
 
 
-def get_device_path(device_name):
+def get_device_path(device_id):
     """Return a device path.
 
-    :param device_name: a device name
+    :param device_id: device ID
     :return: a device path
     """
-    if device_name is None:
+    if device_id is None:
         return None
 
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_name))
+    device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_id))
     return device_data.path
 
 
-def mount_device(device_name, mount_point):
+def mount_device(device_id, mount_point):
     """Mount a filesystem on the device.
 
-    :param device_name: a device name
+    :param device_id: device ID
     :param str mount_point: a path to the mount point
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    device_tree.MountDevice(device_name, mount_point, "ro")
+    device_tree.MountDevice(device_id, mount_point, "ro")
 
 
-def unmount_device(device_name, mount_point):
+def unmount_device(device_id, mount_point):
     """Unmount a filesystem on the device.
 
     FIXME: Always specify the mount point.
 
-    :param device_name: a device name
+    :param device_id: device ID
     :param str mount_point: a path to the mount point or None
     """
     if not mount_point:
-        device_path = get_device_path(device_name)
+        device_path = get_device_path(device_id)
         mount_paths = get_mount_paths(device_path)
 
         if not mount_paths:
@@ -68,7 +68,7 @@ def unmount_device(device_name, mount_point):
         mount_point = mount_paths[-1]
 
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    device_tree.UnmountDevice(device_name, mount_point)
+    device_tree.UnmountDevice(device_id, mount_point)
 
 
 def get_mount_paths(device_path):

@@ -376,11 +376,11 @@ def ignore_oemdrv_disks():
             disk_select_proxy.IgnoredDisks = ignored_disks
 
 
-def filter_disks_by_names(disks, names):
-    """Filter disks by the given names.
+def filter_disks_by_names(disks, disk_ids):
+    """Filter disks by the given disk_ids.
 
-    :param disks: a list of disks name
-    :param names: a list of names to filter
-    :return: a list of filtered disk names
+    :param disks: a list of disks IDs
+    :param disk_ids: a list of disk_IDs to filter
+    :return: a list of filtered disk IDs
     """
-    return list(filter(lambda name: name in disks, names))
+    return list(filter(lambda disk_id: disk_id in disks, disk_ids))

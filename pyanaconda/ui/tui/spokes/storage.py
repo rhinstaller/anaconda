@@ -708,13 +708,12 @@ class MountPointAssignSpoke(NormalTUISpoke):
     def _get_request_description(self, request):
         """Get description of the given mount info."""
         # Get the device data.
-        device_name = self._device_tree.ResolveDevice(request.device_spec)
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(request.device_spec)
         )
 
         # Generate the description.
-        description = "{} ({})".format(request.device_spec, Size(device_data.size))
+        description = "{} ({})".format(device_data.name, Size(device_data.size))
 
         if request.format_type:
             description += "\n {}".format(request.format_type)
@@ -759,7 +758,12 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, device_tree, request):
         super().__init__(data, storage, payload)
-        self.title = N_("Configure device: %s") % request.device_spec
+
+        device_data = DeviceData.from_structure(
+            device_tree.GetDeviceData(request.device_spec)
+        )
+
+        self.title = N_("Configure device: %s") % device_data.name
         self._container = None
         self._device_tree = device_tree
         self._request = request
@@ -874,11 +878,8 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def _switch_reformat(self, data):
         """Change value of reformat."""
-        device_name = self._device_tree.ResolveDevice(
-            self._request.device_spec
-        )
         format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(device_name)
+            self._device_tree.GetFormatData(self._request.device_spec)
         )
         device_format = format_data.type
 

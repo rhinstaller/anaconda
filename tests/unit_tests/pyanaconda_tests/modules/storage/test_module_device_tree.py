@@ -25,7 +25,8 @@ from unittest.mock import patch, Mock, PropertyMock
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
-    LUKSDevice, iScsiDiskDevice, FcoeDiskDevice, OpticalDevice, NVMeFabricsNamespaceDevice
+    LUKSDevice, iScsiDiskDevice, FcoeDiskDevice, OpticalDevice,LVMVolumeGroupDevice, \
+    NVMeFabricsNamespaceDevice
 from blivet.devices.disk import NVMeController
 from blivet.errors import StorageError, FSError
 from blivet.formats import get_format, device_formats, DeviceFormat
@@ -136,7 +137,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             size=Size("10 GiB")
         ))
 
-        assert self.interface.GetDevices() == ["dev1", "dev2"]
+        self._add_device(LVMVolumeGroupDevice(
+            "dev3",
+            size=Size("10 GiB")
+        ))
+
+        # for disks and "generic" devices device ID is just name, for LVM
+        # VGs its "LVM-"" + name
+        assert self.interface.GetDevices() == ["dev1", "dev2", "LVM-dev3"]
 
     def test_get_disks(self):
         """Test GetDisks."""
@@ -180,6 +188,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetDeviceData("dev1") == {
             'type': get_variant(Str, 'disk'),
             'name': get_variant(Str, 'dev1'),
+            'device-id': get_variant(Str, 'dev1'),
             'path': get_variant(Str, '/dev/dev1'),
             'size': get_variant(UInt64, Size("10 MiB").get_bytes()),
             'is-disk': get_variant(Bool, True),
@@ -377,7 +386,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         )
         self._add_device(dev1)
 
-        assert self.interface.GetFormatData("dev1") == {
+        assert self.interface.GetFormatData(dev1.device_id) == {
             'type': get_variant(Str, 'ext4'),
             'mountable': get_variant(Bool, True),
             'formattable': get_variant(Bool, True),
@@ -399,7 +408,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         )
         self._add_device(dev2)
 
-        assert self.interface.GetFormatData("dev2") == {
+        assert self.interface.GetFormatData(dev2.device_id) == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
             'formattable': get_variant(Bool, True),
@@ -418,7 +427,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         )
         self._add_device(dev3)
 
-        assert self.interface.GetFormatData("dev3") == {
+        assert self.interface.GetFormatData(dev3.device_id) == {
             'type': get_variant(Str, ''),
             'mountable': get_variant(Bool, False),
             'formattable': get_variant(Bool, False),
@@ -465,6 +474,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'action-description': 'create format',
             'object-type': 'format',
             'object-description': 'partition table (MSDOS)',
+            'device-id': dev1.device_id,
             'device-name': 'dev1',
             'device-description': 'VENDOR MODEL (dev1)',
             'attrs': {},
@@ -490,6 +500,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'action-description': 'destroy device',
             'object-type': 'device',
             'object-description': 'blivet',
+            'device-id': dev2.device_id,
             'device-name': 'dev2',
             'device-description': 'dev2',
             'attrs': {
@@ -518,6 +529,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'action-description': 'create device',
             'object-type': 'device',
             'object-description': 'partition',
+            'device-id': dev3.device_id,
             'device-name': 'dev3',
             'device-description': 'dev3 on VENDOR MODEL',
             'attrs': {'mount-point': '/home'},
@@ -528,6 +540,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'action-description': 'create format',
             'object-type': 'format',
             'object-description': 'ext4',
+            'device-id': dev3.device_id,
             'device-name': 'dev3',
             'device-description': 'dev3 on VENDOR MODEL',
             'attrs': {'mount-point': '/home'},
@@ -768,21 +781,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev3.controllable = True
         self._add_device(dev3)
 
-        assert self.interface.FindOpticalMedia() == ["dev1", "dev2"]
+        assert self.interface.FindOpticalMedia() == [dev1.device_id, dev2.device_id]
 
     @patch.object(FS, "update_size_info")
     def test_find_mountable_partitions(self, update_size_info):
         """Test FindMountablePartitions."""
-        self._add_device(StorageDevice(
-            "dev1",
-            fmt=get_format("ext4"))
-        )
-        self._add_device(PartitionDevice(
-            "dev2",
-            fmt=get_format("ext4", exists=True)
-        ))
+        dev1 = StorageDevice("dev1", fmt=get_format("ext4"))
+        self._add_device(dev1)
+        dev2 = PartitionDevice("dev2", fmt=get_format("ext4", exists=True))
+        self._add_device(dev2)
 
-        assert self.interface.FindMountablePartitions() == ["dev2"]
+        assert self.interface.FindMountablePartitions() == [dev2.device_id]
 
     @patch.object(LUKS, "setup")
     @patch.object(StorageDevice, "teardown")
@@ -795,7 +804,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev1 = StorageDevice("dev1", fmt=get_format("luks"), size=Size("10 GiB"), exists=True)
         self._add_device(dev1)
 
-        assert self.interface.UnlockDevice("dev1", "passphrase") is True
+        assert self.interface.UnlockDevice(dev1.device_id, "passphrase") is True
 
         device_setup.assert_called_once()
         format_setup.assert_called_once()
@@ -803,7 +812,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.storage.devicetree.populate.assert_called_once()
         self.storage.devicetree.teardown_all.assert_called_once()
         assert dev1.format.has_key
-        assert self.interface.GetFormatData("dev1") == {
+        assert self.interface.GetFormatData(dev1.device_id) == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
             'formattable': get_variant(Bool, True),
@@ -812,7 +821,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         }
 
         device_setup.side_effect = StorageError("Fake error")
-        assert self.interface.UnlockDevice("dev1", "passphrase") is False
+        assert self.interface.UnlockDevice(dev1.device_id, "passphrase") is False
 
         device_teardown.assert_called_once()
         assert not dev1.format.has_key
@@ -824,7 +833,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev1 = StorageDevice("dev1", fmt=get_format("luks"), size=Size("10 GiB"))
         self._add_device(dev1)
 
-        assert self.interface.FindUnconfiguredLUKS() == ["dev1"]
+        assert self.interface.FindUnconfiguredLUKS() == [dev1.device_id]
 
         dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("ext4"), size=Size("10 GiB"))
         self._add_device(dev2)
@@ -840,14 +849,15 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("ext4"), size=Size("10 GiB"))
         self._add_device(dev2)
 
-        assert self.interface.FindUnconfiguredLUKS() == ["dev1"]
-        self.interface.SetDevicePassphrase("dev1", "123456")
+        assert self.interface.FindUnconfiguredLUKS() == [dev1.device_id]
+        self.interface.SetDevicePassphrase(dev1.device_id, "123456")
         assert self.interface.FindUnconfiguredLUKS() == []
 
     def test_get_fstab_spec(self):
         """Test GetFstabSpec."""
-        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", uuid="123")))
-        assert self.interface.GetFstabSpec("dev1") == "UUID=123"
+        dev1 = StorageDevice("dev1", fmt=get_format("ext4", uuid="123"))
+        self._add_device(dev1)
+        assert self.interface.GetFstabSpec(dev1.device_id) == "UUID=123"
 
     def test_get_existing_systems(self):
         """Test GetExistingSystems."""

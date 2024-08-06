@@ -368,7 +368,7 @@ def validate_device_factory_request(storage, request: DeviceFactoryRequest):
     :param request: a device factory request to validate
     :return: an error message
     """
-    device = storage.devicetree.resolve_device(request.device_spec)
+    device = storage.devicetree.get_device_by_device_id(request.device_spec)
     device_type = request.device_type
     reformat = request.reformat
     fs_type = request.format_type
@@ -774,8 +774,8 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=
     """
     args = {
         "device_type": request.device_type,
-        "device": storage.devicetree.get_device_by_name(request.device_spec),
-        "disks": [storage.devicetree.get_device_by_name(d) for d in request.disks],
+        "device": storage.devicetree.get_device_by_device_id(request.device_spec),
+        "disks": [storage.devicetree.get_device_by_device_id(d) for d in request.disks],
         "mountpoint": request.mount_point or None,
         "fstype": request.format_type or None,
         "label": request.label or None,
@@ -815,7 +815,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
 
     # Generate the device data.
     request = DeviceFactoryRequest()
-    request.device_spec = device.name
+    request.device_spec = device.device_id
     request.device_name = getattr(device.raw_device, "lvname", device.raw_device.name)
     request.device_size = device.size.get_bytes()
     request.device_type = device_type
@@ -832,7 +832,7 @@ def generate_device_factory_request(storage, device) -> DeviceFactoryRequest:
     else:
         disks = device.disks
 
-    request.disks = [d.name for d in disks]
+    request.disks = [d.device_id for d in disks]
 
     if request.device_type not in CONTAINER_DEVICE_TYPES:
         return request
@@ -857,7 +857,7 @@ def set_container_data(request: DeviceFactoryRequest, container):
     :param request: a device factory request
     :param container: a container
     """
-    request.container_spec = container.name
+    request.container_spec = container.device_id
     request.container_name = container.name
     request.container_encrypted = container.encrypted
     request.container_raid_level = get_container_raid_level_name(container)
@@ -881,7 +881,7 @@ def generate_container_data(storage, request: DeviceFactoryRequest):
         return
 
     # Find a container of the requested type.
-    device = storage.devicetree.resolve_device(request.device_spec)
+    device = storage.devicetree.get_device_by_device_id(request.device_spec)
     container = get_container(storage, request.device_type, device.raw_device)
 
     if container:
@@ -917,7 +917,7 @@ def update_container_data(storage, request: DeviceFactoryRequest, container_name
         set_container_data(request, container)
 
         # Use the container's disks.
-        request.disks = [d.name for d in container.disks]
+        request.disks = [d.device_id for d in container.disks]
     else:
         # Set the request from the new container.
         request.container_name = container_name
@@ -934,8 +934,8 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     :return: device factory permissions
     """
     permissions = DeviceFactoryPermissions()
-    device = storage.devicetree.resolve_device(request.device_spec)
-    container = storage.devicetree.resolve_device(request.container_name)
+    device = storage.devicetree.get_device_by_device_id(request.device_spec)
+    container = storage.devicetree.get_device_by_device_id(request.container_spec)
     fmt = get_format(request.format_type)
 
     if not device:

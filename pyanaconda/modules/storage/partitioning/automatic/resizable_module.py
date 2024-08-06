@@ -38,13 +38,13 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
         """Return a DBus representation."""
         return ResizableDeviceTreeInterface(self)
 
-    def is_device_partitioned(self, device_name):
+    def is_device_partitioned(self, device_id):
         """Is the specified device partitioned?
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :return: True or False
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return self._is_device_partitioned(device)
 
     @staticmethod
@@ -52,28 +52,28 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
         """Is the specified device partitioned?"""
         return device.is_disk and device.partitioned and device.format.supported
 
-    def is_device_shrinkable(self, device_name):
+    def is_device_shrinkable(self, device_id):
         """Is the specified device shrinkable?
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :return: True or False
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return device.resizable and device.min_size < device.size
 
-    def get_device_partitions(self, device_name):
+    def get_device_partitions(self, device_id):
         """Get partitions of the specified device.
 
-        :param device_name: a name of the device
-        :return: a list of device names
+        :param device_id: device ID of the device
+        :return: a list of device IDs
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
 
         if not self._is_device_partitioned(device):
             return []
 
         return [
-            d.name for d in device.children
+            d.device_id for d in device.children
             if not (
                 isinstance(d, PartitionDevice)
                 and d.is_extended
@@ -81,32 +81,32 @@ class ResizableDeviceTreeModule(DeviceTreeModule):
             )
         ]
 
-    def get_device_size_limits(self, device_name):
+    def get_device_size_limits(self, device_id):
         """Get size limits of the given device.
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :return: a tuple of min and max sizes in bytes
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return device.min_size.get_bytes(), device.max_size.get_bytes()
 
-    def shrink_device(self, device_name, size):
+    def shrink_device(self, device_id, size):
         """Shrink the size of the device.
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :param size: a new size in bytes
         """
         size = Size(size)
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         shrink_device(self.storage, device, size)
 
-    def remove_device(self, device_name):
+    def remove_device(self, device_id):
         """Remove a device after removing its dependent devices.
 
         If the device is protected, do nothing. If the device has
         protected children, just remove the unprotected ones.
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         remove_device(self.storage, device)

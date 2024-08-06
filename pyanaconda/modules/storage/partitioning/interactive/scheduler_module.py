@@ -43,46 +43,46 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Return a DBus representation."""
         return DeviceTreeSchedulerInterface(self)
 
-    def is_device(self, device_name):
+    def is_device(self, device_id):
         """Is the specified device in the device tree?
 
         It can recognize also hidden and incomplete devices.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: True or False
         """
-        device = self.storage.devicetree.get_device_by_name(
-            device_name, hidden=True, incomplete=True
+        device = self.storage.devicetree.get_device_by_device_id(
+            device_id, hidden=True, incomplete=True
         )
 
         return device is not None
 
-    def is_device_locked(self, device_name):
+    def is_device_locked(self, device_id):
         """Is the specified device locked?
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: True or False
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return device.format.type == "luks" and device.format.exists and not device.children
 
-    def is_device_editable(self, device_name):
+    def is_device_editable(self, device_id):
         """Is the specified device editable?
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: True or False
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return devicefactory.get_device_type(device) is not None
 
-    def check_completeness(self, device_name):
+    def check_completeness(self, device_id):
         """Check that the specified device is complete.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: a validation report
         """
         report = ValidationReport()
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         message = utils.check_device_completeness(device)
 
         if message:
@@ -104,13 +104,13 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return self.storage.default_luks_version
 
-    def get_container_free_space(self, container_name):
+    def get_container_free_space(self, container_id):
         """Get total free space in the specified container.
 
-        :param container_name: a name of the container
+        :param container_id: a device ID of the container
         :return: a size in bytes
         """
-        container = self._get_device(container_name)
+        container = self._get_device(container_id)
         return Size(getattr(container, "free_space", 0)).get_bytes()
 
     def generate_system_name(self):
@@ -148,16 +148,16 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return self._storage.suggest_container_name()
 
-    def generate_device_factory_request(self, device_name):
+    def generate_device_factory_request(self, device_id):
         """Generate a device factory request for the given device.
 
         The request will reflect the current state of the device.
         It can be modified and used to change the device.
 
-        :param device_name: a device name
+        :param device_id: a device ID
         :return: a device factory request
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return utils.generate_device_factory_request(self.storage, device)
 
     def generate_device_factory_permissions(self, request):
@@ -192,16 +192,16 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         FIXME: Remove the boot drive option.
 
         :param boot_drive: a name of the boot drive
-        :return: a list of device names
+        :return: a list of device IDs
         """
-        return [d.name for d in utils.collect_new_devices(self.storage, boot_drive)]
+        return [d.device_id for d in utils.collect_new_devices(self.storage, boot_drive)]
 
     def collect_unused_devices(self):
         """Collect all devices that are not used in existing or new installations.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
-        return [d.name for d in utils.collect_unused_devices(self.storage)]
+        return [d.device_id for d in utils.collect_unused_devices(self.storage)]
 
     def collect_unused_mount_points(self):
         """Collect mount points that can be assigned to a device.
@@ -214,9 +214,9 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """Collect containers of the given type.
 
         :param device_type: a device type
-        :return: a list of container names
+        :return: a list of container IDs
         """
-        return [c.name for c in utils.collect_containers(self.storage, device_type)]
+        return [c.device_id for c in utils.collect_containers(self.storage, device_type)]
 
     def collect_supported_systems(self):
         """Collect supported existing or new installations.
@@ -225,22 +225,22 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         """
         return list(map(self._get_os_data, utils.collect_roots(self.storage)))
 
-    def get_device_types_for_device(self, device_name):
+    def get_device_types_for_device(self, device_id):
         """Collect supported device types for the given device.
 
-        :param device_name: a device name
+        :param device_id: a device ID
         :return: a list of device types
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return utils.collect_device_types(device)
 
-    def get_file_systems_for_device(self, device_name):
+    def get_file_systems_for_device(self, device_id):
         """Get supported file system types for the given device.
 
-        :param device_name: a device name
+        :param device_id: a device ID
         :return: a list of file system names
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return utils.collect_file_system_types(device)
 
     def get_supported_raid_levels(self, device_type):
@@ -332,24 +332,24 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
         task = ChangeDeviceTask(self.storage, device, request, original_request)
         task.run()
 
-    def reset_device(self, device_name):
+    def reset_device(self, device_id):
         """Reset the specified device in the storage model.
 
         FIXME: Merge with destroy_device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :raise: StorageConfigurationError in case of failure
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         utils.reset_device(self.storage, device)
 
-    def destroy_device(self, device_name):
+    def destroy_device(self, device_id):
         """Destroy the specified device in the storage model.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :raise: StorageConfigurationError in case of failure
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         utils.destroy_device(self.storage, device)
 
     def schedule_partitions_with_task(self, request):

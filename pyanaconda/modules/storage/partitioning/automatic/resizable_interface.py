@@ -29,52 +29,52 @@ __all__ = ["ResizableDeviceTreeInterface"]
 class ResizableDeviceTreeInterface(DeviceTreeInterface):
     """DBus interface for the resizable device tree."""
 
-    def IsDevicePartitioned(self, device_name: Str) -> Bool:
+    def IsDevicePartitioned(self, device_id: Str) -> Bool:
         """Is the specified device partitioned?
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :return: True or False
         """
-        return self.implementation.is_device_partitioned(device_name)
+        return self.implementation.is_device_partitioned(device_id)
 
-    def IsDeviceShrinkable(self, device_name: Str) -> Bool:
+    def IsDeviceShrinkable(self, device_id: Str) -> Bool:
         """Is the specified device shrinkable?
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :return: True or False
         """
-        return self.implementation.is_device_shrinkable(device_name)
+        return self.implementation.is_device_shrinkable(device_id)
 
-    def GetDevicePartitions(self, device_name: Str) -> List[Str]:
+    def GetDevicePartitions(self, device_id: Str) -> List[Str]:
         """Get partitions of the specified device.
 
-        :param device_name: a name of the device
-        :return: a list of device names
+        :param device_id: device ID of the device
+        :return: a list of device IDs
         """
-        return self.implementation.get_device_partitions(device_name)
+        return self.implementation.get_device_partitions(device_id)
 
-    def GetDeviceSizeLimits(self, device_name: Str) -> Tuple[UInt64, UInt64]:
+    def GetDeviceSizeLimits(self, device_id: Str) -> Tuple[UInt64, UInt64]:
         """Get size limits of the given device.
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :return: a tuple of min and max sizes in bytes
         """
-        return self.implementation.get_device_size_limits(device_name)
+        return self.implementation.get_device_size_limits(device_id)
 
-    def ShrinkDevice(self, device_name: Str, size: UInt64):
+    def ShrinkDevice(self, device_id: Str, size: UInt64):
         """Shrink the size of the device.
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         :param size: a new size in bytes
         """
-        self.implementation.shrink_device(device_name, size)
+        self.implementation.shrink_device(device_id, size)
 
-    def RemoveDevice(self, device_name: Str):
+    def RemoveDevice(self, device_id: Str):
         """Remove a device after removing its dependent devices.
 
         If the device is protected, do nothing. If the device has
         protected children, just remove the unprotected ones.
 
-        :param device_name: a name of the device
+        :param device_id: device ID of the device
         """
-        self.implementation.remove_device(device_name)
+        self.implementation.remove_device(device_id)

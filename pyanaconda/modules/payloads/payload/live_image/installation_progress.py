@@ -109,8 +109,8 @@ class InstallationProgress(Cancellable):
         result = []
         counted_btrfs_volumes = []
 
-        for path, device in mount_points.items():
-            dev_data = DeviceData.from_structure(device_tree.GetDeviceData(device))
+        for path, device_id in mount_points.items():
+            dev_data = DeviceData.from_structure(device_tree.GetDeviceData(device_id))
 
             if not dev_data.type == "btrfs subvolume":
                 # not btrfs subvolume, so just take it as is
@@ -118,7 +118,7 @@ class InstallationProgress(Cancellable):
             else:
                 # For BTRFS, add only one mount-pointed subvolume per volume.
                 # That's because statvfs reports free/used as aggregate across the whole volume.
-                ancestors = device_tree.GetAncestors([device])
+                ancestors = device_tree.GetAncestors([device_id])
                 for ancestor in ancestors:
                     anc_data = DeviceData.from_structure(device_tree.GetDeviceData(ancestor))
                     if anc_data.type == "btrfs volume" and ancestor not in counted_btrfs_volumes:
