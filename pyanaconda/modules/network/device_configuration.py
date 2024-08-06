@@ -20,7 +20,6 @@
 
 import copy
 
-from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
     get_vlan_interface_name_from_connection, get_config_file_connection_of_device, \
@@ -29,6 +28,7 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceConfigurat
 from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
     NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
     NM_CONNECTION_TYPE_TEAM, NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND
+from pyanaconda.modules.network.utils import is_ibft_configured_device, is_nbft_device
 
 import gi
 gi.require_version("NM", "1.0")
@@ -335,6 +335,9 @@ class DeviceConfigurations(object):
         elif is_ibft_configured_device(iface or ""):
             decline_reason = "configured from iBFT"
 
+        elif is_nbft_device(iface or ""):
+            decline_reason = "nBFT device"
+
         # Ignore unsupported device types
         elif device_type not in supported_device_types:
             decline_reason = "unsupported type"
@@ -519,7 +522,3 @@ class DeviceConfigurations(object):
 
 def is_libvirt_device(iface):
     return iface.startswith("virbr")
-
-
-def is_ibft_configured_device(iface):
-    return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
