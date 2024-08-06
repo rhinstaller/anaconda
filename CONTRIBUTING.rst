@@ -185,6 +185,7 @@ The script also has a few command line options that might come handy:
 * ``-k, --ks-file`` add the specified kickstart file to the updated boot.iso and use it for installation
 * ``-v, --virt-install`` boot the updated iso in a temporary VM for super fast & simple debugging
 * ``-t, --tag`` use a specific Git revision when generating the updates image
+* You can specify custom ISO image (requirement for Live ISO usage) as optional positional parameter.
 
 Running the updated boot.iso
 """"""""""""""""""""""""""""
