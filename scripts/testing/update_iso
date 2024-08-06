@@ -23,9 +23,12 @@ PROJECT_DIR = os.path.dirname(
 # Relative path to the ISO folder within the project
 ISO_FOLDER = os.path.join(PROJECT_DIR, "result", "iso")
 
+# Name of the file storing git revision of the anaconda repository
+REVISION_FILE_NAME = "iso.git_rev"
+
 # Initial boot ISO we will update
 INPUT_ISO = os.path.join(ISO_FOLDER, "boot.iso")
-INPUT_ISO_REVISION_FILE = os.path.join(ISO_FOLDER, "boot.iso.git_rev")
+INPUT_ISO_REVISION_FILE = os.path.join(ISO_FOLDER, REVISION_FILE_NAME)
 
 # Updated boot ISO (including Anaconda updates image and possibly other bits)
 UPDATED_ISO = os.path.join(ISO_FOLDER, "updated_boot.iso")
