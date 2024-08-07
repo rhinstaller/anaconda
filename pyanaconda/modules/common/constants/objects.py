@@ -21,7 +21,12 @@ from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NE
     PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
     RHSM_NAMESPACE, RUNTIME_NAMESPACE
 
-# Boss objects.
+# Runtime objects
+
+SCRIPTS = DBusObjectIdentifier(
+    namespace=RUNTIME_NAMESPACE,
+    basename="Scripts"
+)
 
 USER_INTERFACE = DBusObjectIdentifier(
     namespace=RUNTIME_NAMESPACE,
