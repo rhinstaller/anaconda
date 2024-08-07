@@ -416,6 +416,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 07 2024 Radek Vykydal <rvykydal@redhat.com> - 34.25.5.7-1
+- Fix source spoke being inaccessible if payload thread errors out (mkolman)
+  Resolves: RHEL-4721
+- Do not create default wired connections for bond ports (rvykydal)
+  Resolves: RHEL-38451
+- Consolidate code for dumping network connections (rvykydal)
+  Related: RHEL-38451
+
 * Mon Jul 01 2024 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.5.6-1
 - Update translations from Weblate for rhel-9
 - Change location of rescue mode flag file (jstodola)
