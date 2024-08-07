@@ -269,6 +269,7 @@ class MountPointRequest(DBusData):
 
     def __init__(self):
         self._device_spec = ""
+        self._ks_spec = ""
         self._mount_point = ""
         self._mount_options = ""
         self._reformat = False
@@ -287,6 +288,19 @@ class MountPointRequest(DBusData):
     def device_spec(self, spec: Str):
         """Set the block device to mount."""
         self._device_spec = spec
+
+    @property
+    def ks_spec(self) -> Str:
+        """Kickstart specification of the block device to mount.
+
+        :return: a device specification
+        """
+        return self._ks_spec
+
+    @ks_spec.setter
+    def ks_spec(self, spec: Str):
+        """Set the kickstart specification of the device to mount."""
+        self._ks_spec = spec
 
     @property
     def mount_point(self) -> Str:

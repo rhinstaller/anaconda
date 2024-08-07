@@ -71,6 +71,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "reformat": get_variant(Bool, False),
             "format-type": get_variant(Str, ""),
             "format-options": get_variant(Str, ""),
+            "ks-spec": get_variant(Str, ""),
             "mount-options": get_variant(Str, "")
         }
         self._check_dbus_property(
@@ -84,6 +85,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "reformat": get_variant(Bool, True),
             "format-type": get_variant(Str, "xfs"),
             "format-options": get_variant(Str, "-L BOOT"),
+            "ks-spec": get_variant(Str, ""),
             "mount-options": get_variant(Str, "user")
         }
         self._check_dbus_property(
@@ -97,6 +99,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "reformat": get_variant(Bool, False),
             "format-type": get_variant(Str, ""),
             "format-options": get_variant(Str, ""),
+            "ks-spec": get_variant(Str, ""),
             "mount-options": get_variant(Str, "")
         }
         request_2 = {
@@ -105,6 +108,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             "reformat": get_variant(Bool, True),
             "format-type": get_variant(Str, ""),
             "format-options": get_variant(Str, ""),
+            "ks-spec": get_variant(Str, ""),
             "mount-options": get_variant(Str, "")
         }
         self._check_dbus_property(
@@ -174,6 +178,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'format-options': get_variant(Str, ''),
                 'format-type': get_variant(Str, 'ext4'),
                 'mount-options': get_variant(Str, ''),
+                'ks-spec': get_variant(Str, ''),
                 'mount-point': get_variant(Str, '/'),
                 'reformat': get_variant(Bool, False)
             },
@@ -182,6 +187,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'format-options': get_variant(Str, ''),
                 'format-type': get_variant(Str, 'swap'),
                 'mount-options': get_variant(Str, ''),
+                'ks-spec': get_variant(Str, ''),
                 'mount-point': get_variant(Str, ''),
                 'reformat': get_variant(Bool, False)
             }
@@ -225,6 +231,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'device-spec': get_variant(Str, 'dev1'),
                 'format-options': get_variant(Str, '-L BOOT'),
                 'format-type': get_variant(Str, 'xfs'),
+                'ks-spec': get_variant(Str, ''),
                 'mount-options': get_variant(Str, 'user'),
                 'mount-point': get_variant(Str, '/home'),
                 'reformat': get_variant(Bool, True)
@@ -233,6 +240,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'device-spec': get_variant(Str, 'dev2'),
                 'format-options': get_variant(Str, ''),
                 'format-type': get_variant(Str, 'swap'),
+                'ks-spec': get_variant(Str, ''),
                 'mount-options': get_variant(Str, ''),
                 'mount-point': get_variant(Str, ''),
                 'reformat': get_variant(Bool, False)
