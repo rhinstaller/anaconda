@@ -45,6 +45,7 @@ class PayloadState(IntEnum):
     DOWNLOADING_PKG_METADATA = 4
     DOWNLOADING_GROUP_METADATA = 5
     FINISHED = 6
+    PAYLOAD_THREAD_TERMINATED = 7
 
     # Error
     ERROR = -1
@@ -155,6 +156,16 @@ class PayloadManager(object):
             target=self._run_thread,
             args=(payload, fallback, checkmount, onlyOnChange)
         ))
+
+        # Wait for the new thread to finish
+        threadMgr.wait(THREAD_PAYLOAD)
+
+        # Notify any listeners that payload thread has terminated
+        #
+        # This might be necessary to notify spokes waiting for
+        # the payload thread to terminate, by the notification
+        # not comming from the thread they are waiting for to terminate.
+        self._set_state(PayloadState.PAYLOAD_THREAD_TERMINATED)
 
     def _set_state(self, event_id):
         # Update the current state
