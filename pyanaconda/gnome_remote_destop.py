@@ -23,6 +23,8 @@ import time
 from pyanaconda import network
 from pyanaconda.core import util
 from pyanaconda.core.util import execWithCapture, startProgram
+from pyanaconda.core.service import start_service, stop_service, \
+    is_service_running, is_service_installed
 import socket
 
 from pyanaconda.core.i18n import _
@@ -40,10 +42,9 @@ GRD_RDP_CERT = "/root/.local/share/gnome-remote-desktop/rdp.crt"
 GRD_RDP_CERT_KEY = "/root/.local/share/gnome-remote-desktop/rdp.key"
 
 GRD_BINARY_PATH = "/usr/libexec/gnome-remote-desktop-daemon"
+GRD_SERVICE = "gnome-remote-desktop.service"
 GRD_PID = None
 GRD_LOG_FILE = "/tmp/gnome-remote-desktop.log"
-
-grd_process = None
 
 # partially based on: https://copr.fedorainfracloud.org/coprs/jadahl/headless-sessions/
 
@@ -59,14 +60,14 @@ def shutdown_server():
     has access to the GRD process.
     """
 
-    if grd_process is None:
-        log.error("Cannot shutdown GNOME Remote Desktop - process handle missing")
+    if is_service_running(GRD_SERVICE):
+        rc = stop_service(GRD_SERVICE)
+        if rc == 0:
+            log.info("The GNOME Remote Desktop service has been shut down.")
+        else:
+            log.error("Shutdown of the GNOME Remote Desktop service failed with return code: %s", rc)
     else:
-        try:
-            grd_process.kill()
-            log.info("The GNOME Remote Desktop session has been shut down.")
-        except SystemError as e:
-            log.error("Shutdown of the GNOME Remote Desktop session failed with exception:\n%s", e)
+        log.error("Cannot shutdown GNOME Remote Desktop service - service not running")
 
 
 class GRDServer(object):
@@ -92,7 +93,7 @@ class GRDServer(object):
             sys.exit(1)
 
         # start by checking we have GNOME remote desktop available
-        if not os.path.exists(GRD_BINARY_PATH):
+        if not is_service_installed(GRD_SERVICE):
             # we assume there that the main binary being present implies grdctl is there as well
             stdoutLog.critical("GNOME remote desktop tooling is not available. Aborting.")
             util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
@@ -180,17 +181,29 @@ class GRDServer(object):
 
         return fd
 
-    def _start_grd_process(self):
-        """Start the GNOME remote desktop process."""
-        try:
-            self.log.info("Starting GNOME remote desktop.")
-            global grd_process
-            grd_process = startProgram([GRD_BINARY_PATH, "--headless"],
-                                       stdout=self._open_grd_log_file(),
-                                       env_add={"HOME": "/root"})
-            self.log.info("GNOME remote desktop is now running.")
-        except OSError:
-            stdoutLog.critical("Could not start GNOME remote desktop. Aborting.")
+#    def _start_grd_process(self):
+#        """Start the GNOME remote desktop process."""
+#        try:
+#            self.log.info("Starting GNOME remote desktop.")
+#            global grd_process
+#            grd_process = startProgram([GRD_BINARY_PATH, "--headless"],
+#                                       stdout=self._open_grd_log_file(),
+#                                       env_add={"HOME": "/root"})
+#            self.log.info("GNOME remote desktop is now running.")
+#        except OSError:
+#            stdoutLog.critical("Could not start GNOME remote desktop. Aborting.")
+#            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+#            sys.exit(1)
+
+    def _start_grd_service(self):
+        """Start the GNOME remote desktop service."""
+        self.log.info("Starting GNOME remote desktop service.")
+        rc = start_service(GRD_SERVICE)
+        if rc == 0:
+            self.log.info("GNOME remote desktop service is now running.")
+        else:
+            stdoutLog.critical("GNOME remote desktop service failed with RC: %s", rc)
+            stdoutLog.critical("Could not start GNOME remote desktop service. Aborting.")
             util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
@@ -222,4 +235,4 @@ class GRDServer(object):
             sys.exit(1)
 
         # Lets start GRD.
-        self._start_grd_process()
+        self._start_grd_service()
