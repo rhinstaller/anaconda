@@ -377,7 +377,7 @@ class ImportRPMKeysTask(Task):
 class UpdateDNFConfigurationTask(Task):
     """The installation task to update the dnf.conf file."""
 
-    def __init__(self, sysroot, configuration: PackagesConfigurationData):
+    def __init__(self, sysroot, configuration: PackagesConfigurationData, dnf_manager):
         """Create a new task.
 
         :param sysroot: a path to the system root
@@ -386,6 +386,7 @@ class UpdateDNFConfigurationTask(Task):
         super().__init__()
         self._sysroot = sysroot
         self._data = configuration
+        self._dnf_manager = dnf_manager
 
     @property
     def name(self):
@@ -405,11 +406,18 @@ class UpdateDNFConfigurationTask(Task):
         log.debug("Setting '%s' to '%s'.", option, value)
 
         cmd = "dnf"
-        args = [
-            "config-manager",
-            "--save",
-            "--setopt={}={}".format(option, value),
-        ]
+        if self._dnf_manager.is_package_available("dnf5"):
+            args = [
+                "config-manager",
+                "setopt",
+                "{}={}".format(option, value)
+            ]
+        else:
+            args = [
+                "config-manager",
+                "--save",
+                "--setopt={}={}".format(option, value)
+            ]
 
         try:
             rc = util.execWithRedirect(cmd, args, root=self._sysroot)

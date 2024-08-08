@@ -20,8 +20,10 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.constants import MULTILIB_POLICY_BEST
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
+from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
     convert_repo_data_to_ks_repo, convert_ks_data_to_packages_selection, \
@@ -370,6 +372,25 @@ class DNFModule(PayloadBase):
         required_space = calculate_required_space(self.dnf_manager)
         return required_space.get_bytes()
 
+    def collect_requirements(self):
+        """Return installation requirements for this module.
+
+        :return: a list of requirements
+        """
+        requirements = []
+
+        if self.dnf_manager.is_package_available("dnf5"):
+            plugins_name = "dnf5-modules"
+        else:
+            plugins_name = "dnf-plugins-core"
+
+        if self._packages_configuration.multilib_policy != MULTILIB_POLICY_BEST:
+            requirements.append(
+                Requirement.for_package(plugins_name, reason="Needed to enable multilib support.")
+            )
+
+        return requirements
+
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.
 
@@ -472,6 +493,7 @@ class DNFModule(PayloadBase):
             UpdateDNFConfigurationTask(
                 sysroot=conf.target.system_root,
                 configuration=self.packages_configuration,
+                dnf_manager=self.dnf_manager,
             ),
             ResetDNFManagerTask(
                 dnf_manager=self.dnf_manager
