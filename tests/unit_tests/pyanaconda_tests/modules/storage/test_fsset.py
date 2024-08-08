@@ -247,6 +247,3 @@ class FSSetTestCase(unittest.TestCase):
 
         self.assertEqual(mounts["/mnt/testmount"], test_dev)
         self.assertTrue(test_dev in devices)
-
-        print("MYDEBUG: %s" % mounts)
-        print("MYDEBUG: %s" % devices)

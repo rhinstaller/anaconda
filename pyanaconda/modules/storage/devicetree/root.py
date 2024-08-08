@@ -287,8 +287,8 @@ def _parse_fstab(devicetree, chroot):
             continue
 
         # If a btrfs volume is found but a subvolume is expected, ignore the volume.
-        if device.type == "btrfs volume" and "subvol=" in options:
-            log.debug("subvolume from %s for %s not found", options, devspec)
+        if device.type == "btrfs volume" and "subvol=" in entry.mntops:
+            log.debug("subvolume from %s for %s not found", entry.mntops, entry.spec)
             continue
 
         if entry.vfstype != "swap":
