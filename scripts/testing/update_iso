@@ -88,7 +88,7 @@ def make_updates_image(git_id, rpm_paths):
     # Create the necessary folder structure
     os.makedirs(UPDATES_FOLDER, exist_ok=True)
     # Prepare updates image
-    cmd = f"./scripts/makeupdates -k -c -t {git_id}{rpm_args}"
+    cmd = f"./scripts/makeupdates -c -t {git_id}{rpm_args}"
     print("** Calling:", cmd)
     os.system(cmd)
     # Move it next to the ISOs
