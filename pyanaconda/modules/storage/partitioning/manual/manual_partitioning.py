@@ -64,7 +64,13 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
             # XXX empty request, ignore
             return
 
-        device = storage.devicetree.get_device_by_device_id(device_spec)
+        if device_spec:
+            device = storage.devicetree.get_device_by_device_id(device_spec)
+        else:
+            device = storage.devicetree.resolve_device(mount_data.ks_spec)
+            if device:
+                device_spec = device.device_id
+
         if device is None:
             raise StorageError(
                 _("Unknown or invalid device '{}' specified").format(device_spec)
