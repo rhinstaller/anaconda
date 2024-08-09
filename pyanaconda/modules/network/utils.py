@@ -24,6 +24,7 @@ from functools import wraps
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -125,3 +126,11 @@ def guard_by_system_configuration(return_value):
                 return function(*args, **kwargs)
         return wrapped
     return wrap
+
+
+def is_ibft_configured_device(iface):
+    return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
+
+
+def is_nbft_device(iface):
+    return iface.startswith("nbft")
