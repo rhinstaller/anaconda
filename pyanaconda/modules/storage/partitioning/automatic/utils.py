@@ -422,7 +422,8 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
                                   parents=dev)
             storage.create_device(luks_dev)
 
-        if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_BTRFS):
+        if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_BTRFS) and \
+                implicit_devices:
             # doing LVM/BTRFS -- make sure the newly created partition fits in some
             # free space together with one of the implicitly requested partitions
             smallest_implicit = sorted(implicit_devices, key=lambda d: d.size)[0]

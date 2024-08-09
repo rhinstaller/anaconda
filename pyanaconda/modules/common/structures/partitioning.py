@@ -32,6 +32,9 @@ class PartitioningRequest(DBusData):
         self._partitioning_scheme = conf.storage.default_scheme
         self._file_system_type = ""
         self._excluded_mount_points = []
+        self._erased_mount_points = []
+        self._reused_mount_points = []
+        self._removed_mount_points = []
         self._hibernation = False
 
         self._encrypted = False
@@ -110,6 +113,56 @@ class PartitioningRequest(DBusData):
     @excluded_mount_points.setter
     def excluded_mount_points(self, mount_points: List[Str]):
         self._excluded_mount_points = mount_points
+
+    @property
+    def erased_mount_points(self) -> List[Str]:
+        """Erased mount points.
+
+        Erase and reuse existing devices for the mount points.
+
+        For example: /
+
+        :return: a list of mount points
+        """
+        return self._erased_mount_points
+
+    @erased_mount_points.setter
+    def erased_mount_points(self, mount_points: List[Str]):
+        self._erased_mount_points = mount_points
+
+    @property
+    def reused_mount_points(self) -> List[Str]:
+        """Reused mount points.
+
+        Reuse existing devices for the mount points.
+
+        For example: /home
+
+        :return: a list of mount points
+        """
+        return self._reused_mount_points
+
+    @reused_mount_points.setter
+    def reused_mount_points(self, mount_points: List[Str]):
+        self._reused_mount_points = mount_points
+
+    @property
+    def removed_mount_points(self) -> List[Str]:
+        """Removed mount points.
+
+        Destroy the devices for the mount points if they exist.
+
+        Supported only for plain partition mount points
+
+        For example: /boot
+
+        :return: a list of mount points
+        """
+        return self._removed_mount_points
+
+    @removed_mount_points.setter
+    def removed_mount_points(self, mount_points: List[Str]):
+        self._removed_mount_points = mount_points
 
     @property
     def encrypted(self) -> Bool:
