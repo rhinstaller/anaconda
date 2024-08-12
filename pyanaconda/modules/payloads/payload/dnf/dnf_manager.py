@@ -681,7 +681,8 @@ class DNFManager(object):
         destination = self.download_location
 
         for package in packages:
-            downloader.add(package, destination)
+            #downloader.add(package, destination)
+            downloader.add(package)
 
         downloader.set_fail_fast(True)
         downloader.set_resume(False)
