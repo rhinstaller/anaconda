@@ -30,8 +30,7 @@ EOF
 
 BOOT_ISO="result/iso/boot.iso"
 PACKAGES_DIR="result/build/01-rpm-build/"
-UPDATED_BOOT_ISO="result/iso/iso.git_rev"
-BOOT_ISO_GIT_REVISION="result/iso/boot.iso.git_rev"
+BOOT_ISO_GIT_REVISION="result/iso/iso.git_rev"
 
 BUILD_TARGET="boot.iso"
 
@@ -55,12 +54,11 @@ sudo true
 # remove any previous package and relevant iso artifacts
 rm -rf result/build/
 rm -f ${BOOT_ISO}
-rm -f ${UPDATED_BOOT_ISO}
 rm -f ${BOOT_ISO_GIT_REVISION}
 # make sure the iso folder actually exists
 mkdir -p result/iso/
 # note the Git revision from which we build the boot.iso
-git rev-parse HEAD > result/iso/boot.iso.git_rev
+git rev-parse HEAD > ${BOOT_ISO_GIT_REVISION}
 
 # build the anaconda rpms
 make -f ./Makefile.am container-rpms-scratch
