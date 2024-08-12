@@ -47,6 +47,8 @@ class PartitioningRequest(DBusData):
         self._escrow_certificate = ""
         self._backup_passphrase_enabled = False
 
+        self._opal_admin_passphrase = ""
+
     @property
     def partitioning_scheme(self) -> Int:
         """The partitioning scheme.
@@ -255,12 +257,25 @@ class PartitioningRequest(DBusData):
     def backup_passphrase_enabled(self, enabled: Bool):
         self._backup_passphrase_enabled = enabled
 
+    @property
+    def opal_admin_passphrase(self) -> Str:
+        """OPAL admin passphrase to be used when configuring hardware encryption
+
+        :return: a string with the OPAL admin passphrase
+        """
+        return self._opal_admin_passphrase
+
+    @opal_admin_passphrase.setter
+    def opal_admin_passphrase(self, value: Str):
+        self._opal_admin_passphrase = value
+
     def __repr__(self):
         """Generate a string representation."""
         return generate_string_from_data(
             self,
-            skip=["passphrase"],
-            add={"passphrase_set": bool(self.passphrase)}
+            skip=["passphrase", "opal_admin_passphrase"],
+            add={"passphrase_set": bool(self.passphrase),
+                 "opal_admin_passphrase_set": bool(self.opal_admin_passphrase)}
         )
 
 

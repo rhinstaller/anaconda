@@ -102,6 +102,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             'pbkdf-iterations': get_variant(Int, 1000),
             'escrow-certificate': get_variant(Str, 'file:///tmp/escrow.crt'),
             'backup-passphrase-enabled': get_variant(Bool, True),
+            'opal-admin-passphrase': get_variant(Str, '123456'),
         }
         self._check_dbus_property(
             "Request",
@@ -200,6 +201,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         request.cipher = "aes-xts-plain64"
         request.escrow_certificate = "file:///tmp/escrow.crt"
         request.backup_passphrase_enabled = True
+        request.opal_admin_passphrase = "passphrase"
 
         args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
         assert args == {
@@ -209,6 +211,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             "pbkdf_args": None,
             "escrow_cert": "CERTIFICATE",
             "add_backup_passphrase": True,
+            "opal_admin_passphrase": "passphrase",
         }
 
     def test_luks2_format_args(self):
@@ -231,6 +234,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             "luks_version": "luks2",
             "escrow_cert": None,
             "add_backup_passphrase": False,
+            "opal_admin_passphrase": "",
         }
 
         assert isinstance(pbkdf_args, LUKS2PBKDFArgs)
