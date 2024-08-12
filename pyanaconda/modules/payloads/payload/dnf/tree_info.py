@@ -274,7 +274,8 @@ class TreeInfoMetadata(object):
                 proxy = ProxyString(proxy_url)
                 proxies = {
                     "http": proxy.url,
-                    "https": proxy.url
+                    "https": proxy.url,
+                    "ftp": proxy.url
                 }
             except ProxyStringError as e:
                 log.debug("Failed to parse the proxy '%s': %s", proxy_url, e)
