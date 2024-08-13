@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 #
-# update_boot_iso
+# update_iso
 #
-# This script is used to quickly update a boot.iso
+# This script is used to quickly update an installer iso
 # via the mkksiso tool. See CONTRIBUTING.rst for more information
 # about how this works & --help for available boot options.
 
@@ -13,15 +13,24 @@ import time
 import sys
 import subprocess
 
+from pathlib import Path
+
 # Absolute path to the main project directory
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+        )
+    )
 
 # Relative path to the ISO folder within the project
 ISO_FOLDER = os.path.join(PROJECT_DIR, "result", "iso")
 
+# Name of the file storing git revision of the anaconda repository
+REVISION_FILE_NAME = "iso.git_rev"
+
 # Initial boot ISO we will update
 INPUT_ISO = os.path.join(ISO_FOLDER, "boot.iso")
-INPUT_ISO_REVISION_FILE = os.path.join(ISO_FOLDER, "boot.iso.git_rev")
+INPUT_ISO_REVISION_FILE = os.path.join(ISO_FOLDER, REVISION_FILE_NAME)
 
 # Updated boot ISO (including Anaconda updates image and possibly other bits)
 UPDATED_ISO = os.path.join(ISO_FOLDER, "updated_boot.iso")
@@ -58,10 +67,11 @@ def get_first_non_upstream_commit():
 
     return None
 
-def make_updates_image(git_id):
+def make_updates_image(git_id, rpm_paths):
     """Build an updates image based on tag/hash and prepare it for inclusion in boot ISO.
 
     :param str git_id: git revision id (hash, tag, etc.)
+    :param [str] rpm_paths: list of paths to the RPM files we are adding to updates_image
     """
     if git_id is None:
         print("** make updates:git_id is None, falling back to finding first non-upstream commit id")
@@ -70,11 +80,17 @@ def make_updates_image(git_id):
             print("** error: could not determine a valid commit id")
             sys.exit(1)
 
+    rpm_args = ""
+    for rpm in rpm_paths:
+        rpm_args += " -a " + rpm
+
     print("** preparing updates image via tag/hash: %s" % git_id)
     # Create the necessary folder structure
     os.makedirs(UPDATES_FOLDER, exist_ok=True)
     # Prepare updates image
-    os.system("./scripts/makeupdates -k -c -t %s" % git_id)
+    cmd = f"./scripts/makeupdates -c -t {git_id}{rpm_args}"
+    print("** Calling:", cmd)
+    os.system(cmd)
     # Move it next to the ISOs
     shutil.move(UPDATES_IMAGE, os.path.join(UPDATES_FOLDER, UPDATES_IMAGE))
     print("** updates image is ready in: %s" % UPDATES_FOLDER)
@@ -86,13 +102,13 @@ def check_input_iso_available():
     If not, notify the user and exit.
     """
     if os.path.exists(INPUT_ISO):
-        print("** using input boot ISO: %s" % INPUT_ISO)
+        print("** using input ISO: %s" % INPUT_ISO)
     else:
-        print("** error: input boot ISO (%s) not found" % INPUT_ISO)
+        print("** error: input ISO (%s) not found" % INPUT_ISO)
         sys.exit(1)
 
 def get_boot_iso_revision():
-    """Check if we have a Git revision for the input boot.iso.
+    """Check if we have an Anaconda Git revision for the input ISO.
 
     :return: revision string or None if revision file was not found
     :rtype: bool
@@ -100,7 +116,7 @@ def get_boot_iso_revision():
     if os.path.exists(INPUT_ISO_REVISION_FILE):
         with open(INPUT_ISO_REVISION_FILE, "rt") as f:
             boot_iso_git_rev = f.read().strip()
-            print("** found Git revision for boot.iso:")
+            print("** found Anaconda Git revision for ISO:")
             print(boot_iso_git_rev)
             return boot_iso_git_rev
     else:
@@ -210,10 +226,33 @@ def run_updated_iso_with_virt_install():
     subprocess.run(cmd, check=True)
     print("** virt-install finished running")
 
+def set_input_iso(args):
+    """Call checks and configure input ISO based on the user parameter
+
+    This function will configure INPUT_ISO, UPDATED_ISO global variables.
+    """
+    global INPUT_ISO
+    global UPDATED_ISO
+    global INPUT_ISO_REVISION_FILE
+
+    INPUT_ISO = args.input_iso_path
+    # this code will take input ISO path and create updated ISO path by
+    # directory (parent) + file name without suffix (stem) + "-updated" + file suffix (suffix)
+    UPDATED_ISO = os.path.join(args.input_iso_path.parent,
+                                f"{args.input_iso_path.stem}-updated{args.input_iso_path.suffix}")
+    INPUT_ISO_REVISION_FILE = os.path.join(args.input_iso_path.parent, REVISION_FILE_NAME)
+
+
 def main():
-    parser = argparse.ArgumentParser(description="update Anaconda boot.iso")
+    parser = argparse.ArgumentParser(description="update Anaconda ISO image")
+    parser.add_argument('input_iso_path', metavar='INPUT_ISO', type=Path, nargs='?', default=INPUT_ISO,
+                        help='path to the input ISO (optional)')
     parser.add_argument('-t', '--tag', action='store', type=str,
                         help='add commits from TAG to HEAD to the image (NOTE: also works with commit hashes)')
+    parser.add_argument('-a', '--add-rpm', action='append', type=str, dest='rpm_paths',
+                        metavar='RPM_PATH', default=[],
+                        help='paths to additional RPMs which will be unpacked to updates image;'
+                        ' can be used multiple times')
     parser.add_argument('-k', '--ks-file', action='store', type=str,
                         help='path to the kickstart file')
     parser.add_argument('-b', '--boot-options', action='store', type=str,
@@ -221,6 +260,9 @@ def main():
     parser.add_argument('-v', '--virt-install', action='store_true',
                         help='boot the updated iso with virt-install')
     args = parser.parse_args()
+
+    # Set INPUT_ISO and UPDATED_ISO based on user preferences
+    set_input_iso(args)
 
     # Check if we have the input ISO
     check_input_iso_available()
@@ -231,35 +273,36 @@ def main():
     # Get sudo, needed for later (mkksiso)
     warmup_sudo()
 
-    # Check if we know git revision for the boot.iso
-    boot_iso_git_rev = get_boot_iso_revision()
+    # Check if we know git revision for the ISO
+    iso_git_rev = get_boot_iso_revision()
 
     # Now we need to get the base Git revision for building the updates image.
     # Every commit after this revision + uncommitted changes will be included
-    # in the updates image, which will then be itself added to the updated boot.iso
+    # in the updates image, which will then be itself added to the updated ISO
     base_git_revision = None
     if args.tag:
         print("** using user specified Git revision for the updates image")
         base_git_revision = args.tag
-    elif boot_iso_git_rev:
-        print("** using Git revision from the input boot.iso for the updates image")
-        base_git_revision = boot_iso_git_rev
+    elif iso_git_rev:
+        print("** using Git revision from the input ISO for the updates image")
+        base_git_revision = iso_git_rev
     else:
         print("** error: git revision not specified - please use --tag or make "
-              "sure the input boot.iso has a matching Git revision file")
+              "sure the input ISO has a matching Git revision file")
         sys.exit(1)
 
     # Generate updates image
-    make_updates_image(base_git_revision)
+    make_updates_image(base_git_revision, args.rpm_paths)
 
     # Check updates image has been generated and is in place
     check_updates_image_available()
 
-    # Remove previous updated boot ISO (if it exists)
+    # Remove previous updated ISO (if it exists)
     if os.path.exists(UPDATED_ISO):
+        print(f"Removing previous updated ISO: {UPDATED_ISO}")
         os.remove(UPDATED_ISO)
 
-    # Generate updated boot ISO
+    # Generate updated ISO
     generate_updated_iso(args.ks_file, args.boot_options)
 
     # Check the updated ISO has been generated
