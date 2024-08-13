@@ -34,6 +34,8 @@ RUN set -ex; \
   git \
   curl \
   python3-polib \
+  # Requirement for translation-canary which is started during RPM build
+  python3-pocketlint \
   /usr/bin/xargs \
   rsync \
   rpm-build; \
