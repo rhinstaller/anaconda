@@ -480,6 +480,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 13 2024 github-actions <github-actions@github.com> - 41.29-1
+- Remove deprecated warnings for inst prefix (rolivier)
+- Fix using kickstart mount command with device ID (vtrefny)
+- Update documentation for the update_iso script (jkonecny)
+- Add support for Live ISO to rebuild_boot_iso (jkonecny)
+
 * Tue Aug 06 2024 github-actions <github-actions@github.com> - 41.28-1
 - Adjust custom partitioning and storage spokes to the device ID API (vtrefny)
 - Adjust resize module to the device ID API (vtrefny)
