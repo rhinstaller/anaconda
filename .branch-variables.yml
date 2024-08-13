@@ -7,4 +7,14 @@
 # Follow "type hints" below or be sad. The choice is yours.
 
 distro_name: "rhel" # "fedora" or "rhel"
-distro_release: "9" # version string combining major and minor release, such as "9", "91", "98"...
+distro_release: 9 # "rawhide" or a number without quotation marks
+
+# The following only applies for rawhide.
+rawhide_fedora_version: # number without quotation marks, or nothing if CI should not run for branched Fedora
+
+# List of all the branches which are currently supported and CI should be executed on these.
+supported_branches:
+  - rhel-9:
+    variant: "rhel"
+  - rhel-10:
+    variant: "rhel"
