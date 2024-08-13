@@ -73,8 +73,11 @@ TEMPLATE_RENDERER = scripts/jinja-render
 
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
-# we need to add --network=host otherwise podman creates a network which don't have access to VPN
+# Network needs to use host configuration so it is sharing VPN connection
 CONTAINER_BUILD_ARGS ?= --no-cache --network=host
+# run tweaks for all containers
+# Network needs to use host configuration so it is sharing VPN connection
+CONTAINER_RUN_ARGS ?= --tty --interactive --network=host
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
@@ -91,7 +94,7 @@ RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
 RELEASE_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-release
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
-CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
+CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z
 CI_CMD ?= make ci
 
 SKIP_BRANCHING_CHECK ?= "false"
@@ -110,7 +113,7 @@ dist-hook:
 
 pot:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
-	rm $(srcdir)/po/main.pot
+	rm -f $(srcdir)/po/main.pot
 
 pot-update-check: pot
 # This check is used by github action for auto update of pot file
@@ -160,43 +163,58 @@ container-release:
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(RELEASE_NAME):$(CI_TAG) \
 	sh -exc './autogen.sh && ./configure && make release'
 
 anaconda-ci-build:
+	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
+	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
+	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
-	-t $(CI_NAME):$(CI_TAG) \
-	$(CI_DOCKERFILE)
+	--tag $(CI_NAME):$(CI_TAG) \
+	$$TEMP/ && \
+	rm -rf $$TEMP
 
 anaconda-rpm-build:
+	TEMP=$$(mktemp -t -d anaconda-rpm-build.XXXX) && \
+	cp $(srcdir)/anaconda.spec.in $(RPM_DOCKERFILE)/* $$TEMP/ && \
+	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
-	-t $(RPM_NAME):$(CI_TAG) \
-	$(RPM_DOCKERFILE)
+	--tag $(RPM_NAME):$(CI_TAG) \
+	$$TEMP/ && \
+	rm -rf $$TEMP
 
 anaconda-release-build: anaconda-rpm-build
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
-	-t $(RELEASE_NAME):$(CI_TAG) \
+	--build-arg=image=$(RPM_NAME):$(CI_TAG) \
+	--tag $(RELEASE_NAME):$(CI_TAG) \
 	$(RELEASE_DOCKERFILE)
 
 anaconda-iso-creator-build:
-	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
+
+	sudo $(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
-	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
-  $(ISO_CREATOR_DOCKERFILE)
+	--tag $(ISO_CREATOR_NAME):$(CI_TAG) \
+	$(ISO_CREATOR_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
@@ -263,10 +281,13 @@ ci:
 # The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
 # https://bugzilla.redhat.com/show_bug.cgi?id=2170568
 container-ci:
+	@./scripts/testing/check-container-age.sh "$(CI_NAME):$(CI_TAG)"
+
 	$(CONTAINER_ENGINE) run \
 	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_NAME):$(CI_TAG) \
@@ -275,28 +296,38 @@ container-ci:
 # The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
 # https://bugzilla.redhat.com/show_bug.cgi?id=2170568
 container-shell:
-	$(CONTAINER_ENGINE) run -it \
+	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(CI_TEST_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CI_NAME):$(CI_TAG)
 
+container-pylint-only:
+	$(MAKE) -f ./Makefile.am container-ci CI_CMD="make tests-pylint"
+
 container-rpm-test:
+	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
+
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
 	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
 	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
 container-rpms:
+	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
+
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
@@ -307,6 +338,28 @@ container-rpms:
 
 container-rpms-scratch:
 	$(MAKE) -f ./Makefile.am CONTAINER_ADD_ARGS="-e TEST_BUILD=true" container-rpms
+
+# Build ISO from Anaconda RPM files build here
+container-iso-build:
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
+
+	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
+		echo "You need to have anaconda RPMs build first. Please run 'make -f ./Makefile.am container-rpms-scratch' before this command."; \
+		exit 1; \
+	fi
+
+	mkdir -p result/iso
+	sudo $(CONTAINER_ENGINE) run \
+	--rm \
+	--privileged \
+	$(shell test $(shell grep MemTotal /proc/meminfo | awk '{print $$2}') -gt 11000000 && \
+	  echo --tmpfs /var/tmp:rw,mode=1777) \
+	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
+	-v $(srcdir)/result/iso:/images:z \
+	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
+	$(ISO_CREATOR_NAME):$(CI_TAG)
+	@echo "ISO is stored in $(scrdir)/result/iso/"
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
@@ -319,7 +372,7 @@ check-branching:
 		CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
 		if [ "$$CURRENT_BRANCH" != "$(GIT_BRANCH)" ]; then \
 			echo "*** Configuration is not adjusted for current branch!"; \
-			echo "This check will work only on main development branch fXX-release, rhel-X ..."; \
+			echo "This check will work only on main development branch fedora-XX, rhel-X ..."; \
 			echo "current branch:  $$CURRENT_BRANCH"; \
 			echo "expected branch: $(GIT_BRANCH)"; \
 			exit 1; \
@@ -340,7 +393,7 @@ check-branching:
 	@echo "Testing pykickstart configuration"
 	@echo "===================================="
 	@substituted_branch=$$(echo "$(GIT_BRANCH)" | sed 's/^master$$/DEVEL/'); \
-	for i in $$(git grep 'from pykickstart.version import DEVEL as VERSION' -- pyanaconda/ dracut/ | awk -F "[: ]" '{print $$1 ";" $$5}'); do \
+	for i in $$(git grep 'from pykickstart.version import DEVEL as VERSION' -- pyanaconda/ dracut/ | awk -F "[: ]" '!/.j2:/ {print $$1 ";" $$5}'); do \
 		i=$${i^^}; \
 		if [ "$${i#*;}" != "$$substituted_branch" ]; then \
 			echo "$${i%;*} is not substituted properly!"; \
@@ -393,6 +446,7 @@ run-rpm-tests-only: rpms
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
+	$(COVERAGE) xml -o tests/coverage-report.xml
 	$(COVERAGE) report -m --omit "tests/*" > tests/coverage-report.log
 	$(COVERAGE) report -m --include "tests/*" > tests/coverage-tests.log
 	$(COVERAGE) report -m --include "pyanaconda/dbus*,pyanaconda/modules/*,pyanaconda/core/*" \
