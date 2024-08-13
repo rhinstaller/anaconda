@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# rebuild_boot_iso
+#
+# This script is used to cleanly rebuild boot.iso from the current
+# checked out branch.
+#
+# ask for sudo now, so we have it when we get to the image build
+set -eu
+
+help() {
+    cat <<EOF
+This script will build the anaconda RPMs and then build boot.iso
+or Live ISO from these.
+
+Before starting the build it will remove all the previous build
+artifacts.
+
+Usage:
+  Start the build process:
+    $0 [options]
+
+Options:
+ -h, --help                         Print this help
+ -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
+                                    these packages have to be already requested to be in ISO
+ -l, --live                         Build Live ISO instead of boot.iso
+EOF
+}
+
+BOOT_ISO="result/iso/boot.iso"
+PACKAGES_DIR="result/build/01-rpm-build/"
+BOOT_ISO_GIT_REVISION="result/iso/iso.git_rev"
+
+BUILD_TARGET="boot.iso"
+
+COPY_RPMS=""
+
+# parse arguments
+eval set -- "$(getopt -o ha:l --long help,add-rpms:,live -- "$@")"
+
+while true; do
+    case "${1:-}" in
+        -h|--help) help; exit 0 ;;
+        -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
+        -l|--live) BUILD_TARGET="live" ;;
+        --) shift; break ;;
+    esac
+    shift
+done
+
+echo "warming up sudo!"
+sudo true
+# remove any previous package and relevant iso artifacts
+rm -rf result/build/
+rm -f ${BOOT_ISO}
+rm -f ${BOOT_ISO_GIT_REVISION}
+# make sure the iso folder actually exists
+mkdir -p result/iso/
+# note the Git revision from which we build the boot.iso
+git rev-parse HEAD > ${BOOT_ISO_GIT_REVISION}
+
+# build the anaconda rpms
+make -f ./Makefile.am container-rpms-scratch
+
+# copy additional web UI packages
+for i in $COPY_RPMS; do
+    cp "$i" "$PACKAGES_DIR"
+done
+
+# build the ISO
+if [ "$BUILD_TARGET" = "boot.iso" ]; then
+    make -f ./Makefile.am anaconda-iso-creator-build
+    make -f ./Makefile.am container-iso-build
+elif [ "$BUILD_TARGET" = "live" ]; then
+    make -f ./Makefile.am anaconda-live-iso-creator-build
+    make -f ./Makefile.am container-live-iso-build
+fi
