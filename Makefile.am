@@ -374,7 +374,8 @@ container-iso-build:
 	sudo $(CONTAINER_ENGINE) run \
 	--rm \
 	--privileged \
-	--tmpfs /var/tmp:rw,mode=1777 \
+	$(shell test $(shell grep MemTotal /proc/meminfo | awk '{print $$2}') -gt 11000000 && \
+	  echo --tmpfs /var/tmp:rw,mode=1777) \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
@@ -404,7 +405,8 @@ container-live-iso-build:
 	--rm \
 	--tty \
 	--privileged \
-	--tmpfs /var/tmp:rw,mode=1777 \
+	$(shell test $(shell grep MemTotal /proc/meminfo | awk '{print $$2}') -gt 15000000 && \
+	  echo --tmpfs /var/tmp:rw,mode=1777) \
 	--device /dev/kvm \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
@@ -479,7 +481,11 @@ tests-pylint:
 # For a weird reason when pylint is not in TESTS included for automake (during configure)
 # it won't allow us to use makefile check to start the tests.
 # Unfortunately, we removed pylint from the TESTS because we don't want it to run as default
-	$(srcdir)/tests/pylint/runpylint | tee $(srcdir)/tests/pylint/runpylint.log
+	set -o pipefail ; \
+	$(srcdir)/tests/pylint/runpylint | tee $(srcdir)/tests/pylint/runpylint.log ; \
+	rc=$$? ; \
+	$(MAKE) grab-logs ; \
+	exit $$rc
 
 tests-unit-only:
 	@mkdir -p $(USER_SITE_PACKAGES)

@@ -8,14 +8,13 @@ INFRASTRUCTURE_FILES=(
 .coveragerc
 .shellcheckrc
 .github/
+.gitignore
 dockerfile/
 scripts/testing/
 scripts/jinja-render
 scripts/makebumpver
 scripts/rhel_version.py
 scripts/rhel_version.py.j2
-scripts/rebuild_boot_iso
-scripts/update_boot_iso
 dracut/.shellcheckrc
 docs/ci-status.rst
 CONTRIBUTING.rst

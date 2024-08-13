@@ -36,7 +36,7 @@ start_http_server() {
     echo "$!" > $HTTP_PID
 
     # extract container IP
-    IP=$(ip -4 addr show scope global | grep -oP 'inet \K[\d.]+')
+    IP=$(ip -4 addr show scope global | grep -oP 'inet \K[\d.]+' | head -n1)
     echo "http://$IP:8000/"
 }
 
