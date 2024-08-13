@@ -322,7 +322,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         assert self.security_interface.CollectRequirements() == [
             {
                 "type": get_variant(Str, "package"),
-                "name": get_variant(Str, "/usr/bin/fips-mode-setup"),
+                "name": get_variant(Str, "crypto-policies-scripts"),
                 "reason": get_variant(Str, "Required for FIPS compliance.")
             }
         ]
@@ -1014,7 +1014,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         task.run()
 
         mock_util.execWithRedirect.assert_called_once_with(
-            "fips-mode-setup",
-            ["--enable", "--no-bootcfg"],
+            "/usr/libexec/fips-setup-helper",
+            ["anaconda"],
             root="/mnt/sysroot"
         )
