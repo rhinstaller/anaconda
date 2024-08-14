@@ -1303,7 +1303,8 @@ class DNFPayload(Payload):
             try:
                 proxy = ProxyString(proxy_url)
                 proxies = {"http": proxy.url,
-                           "https": proxy.url}
+                           "https": proxy.url,
+                           "ftp": proxy.url}
             except ProxyStringError as e:
                 log.info("Failed to parse proxy for _getTreeInfo %s: %s",
                          proxy_url, e)
