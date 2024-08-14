@@ -10,8 +10,8 @@ Setting up development container
 --------------------------------
 
 The anaconda team uses a containerized development environment using toolbx.
-If you can install [toolbx](https://containertoolbx.org/) or
-[distrobox](https://distrobox.privatedns.org/) on your system, it is highly
+If you can install `toolbx <https://containertoolbx.org/>`_ or
+`distrobox <https://distrobox.privatedns.org/>`_ on your system, it is highly
 recommended to do that:
 
  - It is known to work and gives you reproducible results.
@@ -29,7 +29,7 @@ To create and enter a development toolbx for Anaconda just run these commands::
 Installing dependencies
 -----------------------
 
-If you are using [cockpit/tasks container](https://quay.io/repository/cockpit/tasks)
+If you are using `cockpit/tasks container <https://quay.io/repository/cockpit/tasks>`_
 for Web UI development only, you can skip this part.
 
 To get all the dependencies and prepare the environment in the container or
@@ -150,21 +150,23 @@ Local development workflow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This workflow makes it possible to test changes to the Anaconda source code locally on your machine without any dependencies
-on external infrastructure. It uses two scripts, one called ``scripts/rebuild_boot_iso`` to build a fresh bootable installation image (boot.iso)
-from Anaconda source code on the given branch and corresponding Fedora/CentOS Stream packages. The second script, called ``scripts/update_boot_iso``
+on external infrastructure. It uses two scripts, one called ``scripts/testing/rebuild_iso`` to build a fresh bootable installation image
+from Anaconda source code on the given branch and corresponding Fedora/CentOS Stream packages. The second script, called ``scripts/testing/update_iso``
 uses the Anaconda updates image mechanism together with the ``mkksiso`` command provided by the Lorax project to very quickly
 create an updated version of the boot.iso when Anaconda code is changed. The updated boot.iso can then be booted on a VM or bare metal.
 
-The ``rebuild_boot_iso`` script
+The ``rebuild_iso`` script
 """""""""""""""""""""""""""""""
 
 This is just a simple script that rebuilds the boot.iso from Anaconda source code on the current branch & corresponding Fedora
-(on Fedora branches) or CentOS Stream (on RHEL branches) packages. The script makes sure to remove the old images first
+(on Fedora branches) or CentoOS Stream (on RHEL branches) packages. The script makes sure to remove the old images first
 and also records Anaconda Git revision that was used to build the image.
 
 This should take about 15 minutes on modern hardware.
 
-The ``update_boot_iso`` script
+See --help for further information.
+
+The ``update_iso`` script
 """"""""""""""""""""""""""""""
 
 This is the main script that enables local development by quickly updating a boot iso with local changes.
@@ -172,9 +174,9 @@ This should take a couple seconds on modern hardware.
 
 For the most common use case ("I have changed the Anaconda source and want to see what it does.") just do this:
 
-1. run ``scripts/rebuild_boot_iso`` first, this creates ``result/iso/boot.iso``
+1. run ``scripts/testing/rebuild_iso`` first, this creates ``result/iso/boot.iso``
 2. change the Anaconda source code
-3. run ``scripts/update_boot_iso`` which creates the ``result/iso/updated_boot.iso``
+3. run ``scripts/testing/update_iso`` which creates the ``result/iso/updated_boot.iso``
 4. start the ``result/iso/updated_boot.iso`` in a VM or on bare metal
 
 The script also has a few command line options that might come handy:
@@ -183,6 +185,7 @@ The script also has a few command line options that might come handy:
 * ``-k, --ks-file`` add the specified kickstart file to the updated boot.iso and use it for installation
 * ``-v, --virt-install`` boot the updated iso in a temporary VM for super fast & simple debugging
 * ``-t, --tag`` use a specific Git revision when generating the updates image
+* You can specify custom ISO image (requirement for Live ISO usage) as optional positional parameter.
 
 Running the updated boot.iso
 """"""""""""""""""""""""""""
