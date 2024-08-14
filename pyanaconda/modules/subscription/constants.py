@@ -20,3 +20,5 @@
 
 # name of the RHSM systemd unit
 RHSM_SERVICE_NAME = "rhsm.service"
+# server hostname prefix marking the URL as not Satellite
+SERVER_HOSTNAME_NOT_SATELLITE_PREFIX = "not-satellite:"

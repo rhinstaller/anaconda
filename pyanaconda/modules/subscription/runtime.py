@@ -33,6 +33,7 @@ from pyanaconda.modules.common.errors.subscription import RegistrationError, \
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
     SystemPurposeData
 from pyanaconda.modules.subscription import system_purpose
+from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
 from pyanaconda.anaconda_loggers import get_module_logger
 
 import gi
@@ -176,8 +177,15 @@ class SetRHSMConfigurationTask(Task):
         # - all values need to be string variants
         # - proxy password is stored in SecretData instance and we need to retrieve
         #   its value
+        # - server host name might have a prefix indicating the given URL is not
+        #   a Satellite URL, drop that prefix before setting the value to RHSM
+
+        # drop the not-satellite prefix, if any
+        server_hostname = self._request.server_hostname.removeprefix(
+            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+        )
         property_key_map = {
-            self.CONFIG_KEY_SERVER_HOSTNAME: self._request.server_hostname,
+            self.CONFIG_KEY_SERVER_HOSTNAME: server_hostname,
             self.CONFIG_KEY_SERVER_PROXY_HOSTNAME: self._request.server_proxy_hostname,
             self.CONFIG_KEY_SERVER_PROXY_PORT: str(self._request.server_proxy_port),
             self.CONFIG_KEY_SERVER_PROXY_USER: self._request.server_proxy_user,
