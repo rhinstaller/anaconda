@@ -419,7 +419,8 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             headers={"user-agent": "anaconda (anaconda)/bluesky"},
             proxies={
                 'http': 'http://user:pass@example.com:3128',
-                'https': 'http://user:pass@example.com:3128'
+                'https': 'http://user:pass@example.com:3128',
+                'ftp': 'http://user:pass@example.com:3128'
             },
             verify=True,
             cert=None,
