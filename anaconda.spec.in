@@ -482,6 +482,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 15 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.11-1
+- Support the not-satellite: prefix for server hostname (mkolman)
+  Related: RHEL-49661
+- Use the RHEL 10 version of the vnc kickstart command (mkolman)
+  Resolves: RHEL-41219
+  Resolves: RHEL-53844
+- Use proxy server also for FTP .treeinfo download (jkonecny)
+  Resolves: RHEL-54009
+- Do not mark ancestors of device with source or stage2 as protected (rvykydal)
+  Resolves: RHEL-35701
+
 * Fri Jul 26 2024 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.10-1
 - Cleanup remaining Xorg and VNC references and dead code (mkolman)
   Resolves: RHEL-41219
