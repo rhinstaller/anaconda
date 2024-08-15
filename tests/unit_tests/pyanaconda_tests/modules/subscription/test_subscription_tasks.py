@@ -287,6 +287,50 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
 
         mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
 
+    def test_set_rhsm_config_task_not_satellite(self):
+        """Test the SetRHSMConfigurationTask task - not-satellite prefix handling."""
+        # if the subscription request has the no-satellite prefix, it should be stripped
+        # before the server hostname value is sent to RHSM
+        mock_config_proxy = Mock()
+        # RHSM config default values
+        default_config = {
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
+            SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
+            "key_anaconda_does_not_use_1": "foo1",
+            "key_anaconda_does_not_use_2": "foo2"
+        }
+        # a representative subscription request
+        request = SubscriptionRequest()
+        request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        request.organization = "123456789"
+        request.account_username = "foo_user"
+        request.server_hostname = "not-satellite:candlepin.foo.com"
+        request.rhsm_baseurl = "cdn.foo.com"
+        request.server_proxy_hostname = "proxy.foo.com"
+        request.server_proxy_port = 9001
+        request.server_proxy_user = "foo_proxy_user"
+        request.account_password.set_secret("foo_password")
+        request.activation_keys.set_secret(["key1", "key2", "key3"])
+        request.server_proxy_password.set_secret("foo_proxy_password")
+        # create a task
+        task = SetRHSMConfigurationTask(rhsm_config_proxy=mock_config_proxy,
+                                        rhsm_config_defaults=default_config,
+                                        subscription_request=request)
+        task.run()
+        # check that we tried to set the expected config keys via the RHSM config DBus API
+        expected_dict = {"server.hostname": get_variant(Str, "candlepin.foo.com"),
+                         "server.proxy_hostname": get_variant(Str, "proxy.foo.com"),
+                         "server.proxy_port": get_variant(Str, "9001"),
+                         "server.proxy_user": get_variant(Str, "foo_proxy_user"),
+                         "server.proxy_password": get_variant(Str, "foo_proxy_password"),
+                         "rhsm.baseurl": get_variant(Str, "cdn.foo.com")}
+
+        mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
+
 
 class RestoreRHSMDefaultsTaskTestCase(unittest.TestCase):
     """Test the RestoreRHSMDefaultsTask task."""
