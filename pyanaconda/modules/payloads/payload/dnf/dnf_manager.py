@@ -659,9 +659,8 @@ class DNFManager(object):
 
         :param path: a path to the package directory
         """
-        # FIXME: Reimplement the assignment.
-        # for repo in self._base.repos.iter_enabled():
-        #    repo.pkgdir = path
+        config = simplify_config(self._base.get_config())
+        config.get_destdir_option = path
 
         self._download_location = path
 
@@ -681,8 +680,7 @@ class DNFManager(object):
         destination = self.download_location
 
         for package in packages:
-            #downloader.add(package, destination)
-            downloader.add(package)
+            downloader.add(package, destination)
 
         downloader.set_fail_fast(True)
         downloader.set_resume(False)
