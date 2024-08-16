@@ -6,6 +6,10 @@ rsync -a /anaconda /tmp/
 cd /tmp/anaconda
 rm -rf test-logs
 
+# For testing purpose let's pretend that CentOS container is RHEL
+# Without this fix we won't see subscription manager on ISO
+sed -i 's/ .. %{undefined centos}//' ./anaconda.spec.in
+
 ./autogen.sh
 # Enable us to change autotools configuration by ENV var.
 ./configure ${CONFIGURE_ARGS:-}
