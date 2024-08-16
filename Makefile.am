@@ -76,8 +76,7 @@ CONTAINER_ENGINE ?= podman
 # Network needs to use host configuration so it is sharing VPN connection
 CONTAINER_BUILD_ARGS ?= --no-cache --network=host
 # run tweaks for all containers
-# Network needs to use host configuration so it is sharing VPN connection
-CONTAINER_RUN_ARGS ?= --tty --interactive --network=host
+CONTAINER_RUN_ARGS ?= --tty --interactive
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
@@ -363,6 +362,8 @@ container-iso-build:
 		exit 1; \
 	fi
 
+	@echo 'If you need VPN access, please use `CONTAINER_ADD_ARGS=--network=host`'
+
 	mkdir -p result/iso
 	sudo $(CONTAINER_ENGINE) run \
 	--rm \
@@ -387,6 +388,8 @@ container-live-iso-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
 
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
+
+	@echo 'If you need VPN access, please use `CONTAINER_ADD_ARGS=--network=host`'
 
 	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
 		echo "You need to have anaconda RPMs build first. Please run 'make -f ./Makefile.am container-rpms-scratch' before this command."; \
