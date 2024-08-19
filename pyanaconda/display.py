@@ -36,7 +36,6 @@ from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
-from pyanaconda.modules.common.structures.secret import SecretData
 from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
 from pyanaconda.ui.tui import tui_quit_callback
@@ -134,7 +133,7 @@ def ask_vnc_question(anaconda, vnc_server, message):
             log.info("VNC requested via VNC question, switching Anaconda to GUI mode.")
         anaconda.display_mode = constants.DisplayModes.GUI
         flags.usevnc = True
-        vnc_server.password = vnc_data.password
+        vnc_server.password = vnc_data.password.value
 
 
 def check_vnc_can_be_started(anaconda):
@@ -155,15 +154,20 @@ def check_vnc_can_be_started(anaconda):
                               (blivet.util.total_memory(), min_gui_ram))
         vnc_startup_possible = False
 
-    # disable VNC question if text mode is requested and this is a ks install
-    if anaconda.tui_mode and flags.automatedInstall:
-        error_messages.append("Not asking for VNC because of an automated install")
-        vnc_startup_possible = False
-
-    # disable VNC question if we were explicitly asked for text in kickstart
-    if anaconda.display_mode == constants.DisplayModes.TUI:
-        error_messages.append("Not asking for VNC because text mode was explicitly asked for in kickstart")
-        vnc_startup_possible = False
+    # if running in text mode, we might sometimes skip showing the VNC question
+    if anaconda.tui_mode:
+        # disable VNC question if we were explicitly asked for text mode in kickstart
+        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+        if ui_proxy.DisplayModeTextKickstarted:
+            error_messages.append(
+                "Not asking for VNC because text mode was explicitly asked for in kickstart"
+            )
+            vnc_startup_possible = False
+        # disable VNC question if text mode is requested and this is an automated kickstart
+        # installation
+        elif flags.automatedInstall:
+            error_messages.append("Not asking for VNC because of an automated install")
+            vnc_startup_possible = False
 
     # disable VNC question if we don't have network
     network_proxy = NETWORK.get_proxy()
@@ -300,8 +304,7 @@ def setup_display(anaconda, options):
         if not anaconda.gui_mode:
             log.info("VNC requested via boot/CLI option, switching Anaconda to GUI mode.")
             anaconda.display_mode = constants.DisplayModes.GUI
-        vnc_server.password = SecretData()
-        vnc_server.password.value = options.vncpassword
+        vnc_server.password = options.vncpassword
 
         # Only consider vncconnect when vnc is a param
         if options.vncconnect:
@@ -324,7 +327,7 @@ def setup_display(anaconda, options):
             anaconda.display_mode = constants.DisplayModes.GUI
 
         if vnc_server.password == "":
-            vnc_server.password = vnc_data.password
+            vnc_server.password = vnc_data.password.value
 
         if vnc_server.vncconnecthost == "":
             vnc_server.vncconnecthost = vnc_data.host
