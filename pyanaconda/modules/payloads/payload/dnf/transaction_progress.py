@@ -68,20 +68,29 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
         self._queue = queue
 
     def install_start(self, item, total=0):
-        log.info("Installing - %s", item.to_string())
+        log.info("Installing - %s", item.get_package().to_string())
         log.debug(libdnf5.base.transaction.transaction_item_action_to_string(item.get_action()))
-        self._queue.put(('install', item.to_string()))
+        self._queue.put(('install', item.get_package().to_string()))
 
     def install_progress(self, item, amount, total):
-        log.debug("Installing - %s (%s/%s)", item.to_string(), amount, total)
+        log.debug("Installing - %s (%s/%s)", item.get_package().to_string(), amount, total)
 
     def verify_progress(self, amount, total):
         log.debug("Verify %s/%s", amount, total)
         self._queue.put(('verify', 'packages'))
 
     def script_start(self, item, nevra, type):
-        log.debug("Configuring - %s, %s, %s", item.to_string(), nevra, type)
-        self._queue.put(('configure', nevra))
+        log.debug(
+            "Configuring - %s, %s, %s",
+            # In case of the script_start callback, the item can be a nullpointer.
+            # There reason is some scriptlets (namely file triggers) can be run for a package
+            # that is not part of the transaction.
+            item.get_package().to_string() if item else "unknown",
+            # FIXME: full nevra
+            libdnf5.rpm.to_full_nevra_string(nevra),
+            libdnf5.rpm.TransactionCallbacks.script_type_to_string(type)
+        )
+        self._queue.put(('configure', libdnf5.rpm.to_full_nevra_string(nevra)))
 
     def transaction_stop(self, total):
         log.debug("Done - %s", total)
@@ -89,16 +98,25 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
         self._queue.close()
 
     def cpio_error(self, item):
-        log.debug("Error - %s", item.to_string())
-        self._queue.put(('error', item.to_string()))
+        log.debug("Error - %s", item.get_package().to_string())
+        self._queue.put(('error', item.get_package().to_string()))
 
     def script_error(self, item, nevra, type, return_code):
-        log.debug("Error - %s, %s, %s, %s", item.to_string(), nevra, type, return_code)
-        self._queue.put(('error', item.to_string()))
+        log.debug(
+            "Error - %s, %s, %s, %s",
+            # In case of the script_error callback, the item can be a nullpointer.
+            # There reason is some scriptlets (namely file triggers) can be run for a package
+            # that is not part of the transaction.
+            item.get_package().to_string() if item else "unknown",
+            libdnf5.rpm.to_full_nevra_string(nevra),
+            libdnf5.rpm.TransactionCallbacks.script_type_to_string(type),
+            return_code
+        )
+        self._queue.put(('error', item.get_package().to_string()))
 
     def unpack_error(self, item):
-        log.debug("Error - %s", item.to_string())
-        self._queue.put(('error', item.to_string()))
+        log.debug("Error - %s", item.get_package().to_string())
+        self._queue.put(('error', item.get_package().to_string()))
 
     def error(self, message):
         """Report an error that occurred during the transaction.
