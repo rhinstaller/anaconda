@@ -87,10 +87,13 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
             # that is not part of the transaction.
             item.get_package().to_string() if item else "unknown",
             # FIXME: full nevra
-            libdnf5.rpm.to_full_nevra_string(nevra),
+            #libdnf5.rpm.to_full_nevra_string(nevra),
+            nevra.get_name(),
             libdnf5.rpm.TransactionCallbacks.script_type_to_string(type)
         )
-        self._queue.put(('configure', libdnf5.rpm.to_full_nevra_string(nevra)))
+        # FIXME: full nevra
+        #libdnf5.rpm.to_full_nevra_string(nevra),
+        self._queue.put(('configure', nevra.get_name()))
 
     def transaction_stop(self, total):
         log.debug("Done - %s", total)
@@ -108,7 +111,9 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
             # There reason is some scriptlets (namely file triggers) can be run for a package
             # that is not part of the transaction.
             item.get_package().to_string() if item else "unknown",
-            libdnf5.rpm.to_full_nevra_string(nevra),
+            # FIXME: full nevra
+            #libdnf5.rpm.to_full_nevra_string(nevra),
+            nevra.get_name(),
             libdnf5.rpm.TransactionCallbacks.script_type_to_string(type),
             return_code
         )
