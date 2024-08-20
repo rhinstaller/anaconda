@@ -97,11 +97,8 @@ class ProgressReporter(ABC):
             if step_size is not None:
                 step += step_size
 
-            if step < current_step:
-                step = current_step
-
-            if step > max_step:
-                step = max_step
+            step = max(step, current_step)
+            step = min(step, max_step)
 
             self.__progress_step = step
             self.__progress_msg = message

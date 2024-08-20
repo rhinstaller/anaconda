@@ -467,8 +467,7 @@ class MediaCheckDialog(GUIObject):
             return True
 
         pct = float(line)/100
-        if pct > 1.0:
-            pct = 1.0
+        pct = min(pct, 1.0)
 
         self.progress_bar.set_fraction(pct)
         return True
