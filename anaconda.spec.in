@@ -480,6 +480,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 20 2024 github-actions <github-actions@github.com> - 41.30-1
+- Use proxy server also for FTP .treeinfo download (jkonecny)
+- Fix the VNC question (#2293672) (mkolman)
+- Check if text mode was actually requested by kickstart (#2293672) (mkolman)
+
 * Tue Aug 13 2024 github-actions <github-actions@github.com> - 41.29-1
 - Remove deprecated warnings for inst prefix (rolivier)
 - Fix using kickstart mount command with device ID (vtrefny)
