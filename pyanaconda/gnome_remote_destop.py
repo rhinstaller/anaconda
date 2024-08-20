@@ -21,6 +21,8 @@ import os
 import sys
 import time
 import socket
+
+from systemd import journal
 from pyanaconda import network
 from pyanaconda.core import util
 from pyanaconda.core.util import execWithCapture, startProgram
@@ -168,23 +170,17 @@ class GRDServer(object):
         # make sure HOME is set to /root or else settings might not be saved
         execWithCapture("grdctl", combined_argv, env_add={"HOME": "/root"})
 
-    def _open_grd_log_file(self):
-        # FIXME: redirect to journal ?
-        try:
-            fd = os.open(GRD_LOG_FILE, os.O_RDWR | os.O_CREAT)
-        except OSError as e:
-            sys.stderr.write("error opening %s: %s\n", (GRD_LOG_FILE, e))
-            fd = None
-
-        return fd
-
     def _start_grd_process(self):
         """Start the GNOME remote desktop process."""
         try:
             self.log.info("Starting GNOME remote desktop.")
             global grd_process
+            # forward GRD stdout & stderr to Journal
+            grd_stdout_stream = journal.stream("gnome-remote-desktop", priority=journal.LOG_INFO)
+            grd_stderr_stream = journal.stream("gnome-remote-desktop", priority=journal.LOG_ERR)
             grd_process = startProgram([GRD_BINARY_PATH, "--headless"],
-                                       stdout=self._open_grd_log_file(),
+                                       stdout=grd_stdout_stream,
+                                       stderr=grd_stderr_stream,
                                        env_add={"HOME": "/root"})
             self.log.info("GNOME remote desktop is now running.")
         except OSError:

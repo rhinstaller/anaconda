@@ -45,6 +45,8 @@ import blivet
 from simpleline import App
 from simpleline.render.screen_handler import ScreenHandler
 
+from systemd import journal
+
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
@@ -250,8 +252,15 @@ def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
     if headless:
         argv.extend(["--headless"])
 
+    # redirect stdout and stderr from GNOME Kiosk to journal
+    gnome_kiosk_stdout_stream = journal.stream("gnome-kiosk", priority=journal.LOG_INFO)
+    gnome_kiosk_stderr_stream = journal.stream("gnome-kiosk", priority=journal.LOG_ERR)
+
     childproc = util.startProgram(argv, env_add={'XDG_DATA_DIRS': xdg_data_dirs},
-                                  preexec_fn=wl_preexec)
+                                  preexec_fn=wl_preexec,
+                                  stdout=gnome_kiosk_stdout_stream,
+                                  stderr=gnome_kiosk_stderr_stream,
+                                  )
     WatchProcesses.watch_process(childproc, argv[0])
 
     for _i in range(0, int(timeout / 0.1)):
