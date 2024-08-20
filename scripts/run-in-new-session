@@ -28,6 +28,7 @@ import signal
 import struct
 import subprocess
 import sys
+from systemd import journal
 
 VT_GETSTATE = 0x5603
 VT_ACTIVATE = 0x5606
@@ -118,9 +119,12 @@ def run_program_in_new_session(arguments, pam_environment, user, service,
             print(f"Could not wait for VT {vt} to change: {e}", file=old_tty_output)
 
         try:
+            # redirect output (both stodout & stderr) from the command to Journal
+            new_session_stdout_stream = journal.stream("run-in-new-session", priority=journal.LOG_INFO)
+            new_session_stderr_stream = journal.stream("run-in-new-session", priority=journal.LOG_ERR)
             os.dup2(tty_input.fileno(), 0)
-            os.dup2(tty_output.fileno(), 1)
-            os.dup2(tty_output.fileno(), 2)
+            os.dup2(new_session_stdout_stream.fileno(), 1)
+            os.dup2(new_session_stderr_stream.fileno(), 2)
         except OSError as e:
             print(f"Could not set up standard i/o: {e}", file=old_tty_output)
 
