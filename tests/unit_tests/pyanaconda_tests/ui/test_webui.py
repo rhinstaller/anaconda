@@ -181,12 +181,14 @@ class SimpleWebUITestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.webui.startProgram")
     @patch("pyanaconda.ui.webui.conf")
-    def test_run_not_on_live(self, mocked_conf, mocked_startProgram):
-        """Test webui run call on boot iso."""
-        # Execution is different for boot.iso then live environment
+    @patch("pyanaconda.ui.webui.log")
+    def test_run_not_on_live(self, mocked_log, mocked_conf, mocked_startProgram):
+        """Test webui run call on boot iso and verify logging."""
+        # Execution is different for boot.iso than live environment
         mocked_conf.system.provides_liveuser = False
         mocked_process = Mock()
         mocked_process.pid = 12345
+        mocked_process.communicate.return_value = ("Test output", "Test error")
         mocked_startProgram.return_value = mocked_process
 
         with tempfile.TemporaryDirectory() as fd:
@@ -195,22 +197,29 @@ class SimpleWebUITestCase(unittest.TestCase):
             self._prepare_for_live_testing(pid_file, backend_file, remote=1)
             self.intf.run()
 
-            mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
-                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
-                                                         "/cockpit/@localhost/anaconda-webui/index.html"],
-                                                        reset_lang=False)
-            # check if backend flag file was removed after finish of run method
+            mocked_startProgram.assert_called_once_with(
+                ["/usr/libexec/anaconda/webui-desktop",
+                 "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
+                 "/cockpit/@localhost/anaconda-webui/index.html"],
+                reset_lang=False
+            )
+            # Check if backend flag file was removed after finish of run method
             assert os.path.exists(backend_file) is False
 
             with open(pid_file, "rt") as f:
                 assert f.readlines() == ["12345"]
 
-            mocked_process.wait.assert_called_once()
+            # Verify that logging calls were made for stdout and stderr
+            mocked_log.debug.assert_called_with("cockpit web view has been started")
+            mocked_log.info.assert_any_call("Test output")
+            mocked_log.error.assert_any_call("Errors from webui-desktop:")
+            mocked_log.error.assert_any_call("Test error")
 
 
         # test with disabled remote
         mocked_startProgram.reset_mock()
         mocked_process.reset_mock()
+        mocked_process.communicate.return_value = ("Another output", "")
         mocked_startProgram.return_value = mocked_process
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
@@ -228,7 +237,9 @@ class SimpleWebUITestCase(unittest.TestCase):
             with open(pid_file, "rt") as f:
                 assert f.readlines() == ["12345"]
 
-            mocked_process.wait.assert_called_once()
+            # Verify that logging calls were made for stdout
+            mocked_log.debug.assert_called_with("cockpit web view has been started")
+            mocked_log.info.assert_any_call("Another output")
 
     @patch("pyanaconda.ui.webui.PidWatcher.watch_process")
     @patch("pyanaconda.ui.webui.create_main_loop")
