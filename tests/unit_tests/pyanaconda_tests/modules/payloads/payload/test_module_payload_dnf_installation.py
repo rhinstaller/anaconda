@@ -374,8 +374,9 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
 
         dnf_manager = Mock()
         dnf_manager.default_environment = None
+        data = PackagesConfigurationData()
 
-        task = ResolvePackagesTask(dnf_manager, selection)
+        task = ResolvePackagesTask(dnf_manager, selection, data)
         task.run()
 
         dnf_manager.clear_selection.assert_called_once_with()
@@ -408,7 +409,8 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager.apply_specs.side_effect = MissingSpecsError("e2")
 
         with pytest.raises(NonCriticalInstallationError) as cm:
-            task = ResolvePackagesTask(dnf_manager, selection)
+            data = PackagesConfigurationData()
+            task = ResolvePackagesTask(dnf_manager, selection, data)
             task.run()
 
         expected = "e1\n\ne2"
@@ -418,7 +420,8 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
 
         with pytest.raises(PayloadInstallationError) as cm:
-            task = ResolvePackagesTask(dnf_manager, selection)
+            data = PackagesConfigurationData()
+            task = ResolvePackagesTask(dnf_manager, selection, data)
             task.run()
 
         expected = "e3\n\ne4"
@@ -433,8 +436,9 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
         """Don't update the DNF configuration."""
         with tempfile.TemporaryDirectory() as sysroot:
             data = PackagesConfigurationData()
+            dnf_manager = DNFManager()
 
-            task = UpdateDNFConfigurationTask(sysroot, data)
+            task = UpdateDNFConfigurationTask(sysroot, data, dnf_manager)
             task.run()
 
             execute.assert_not_called()
@@ -447,8 +451,9 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             data = PackagesConfigurationData()
             data.multilib_policy = MULTILIB_POLICY_ALL
+            dnf_manager = DNFManager()
 
-            task = UpdateDNFConfigurationTask(sysroot, data)
+            task = UpdateDNFConfigurationTask(sysroot, data, dnf_manager)
 
             with self.assertLogs(level="WARNING") as cm:
                 task.run()
@@ -464,8 +469,9 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             data = PackagesConfigurationData()
             data.multilib_policy = MULTILIB_POLICY_ALL
+            dnf_manager = DNFManager()
 
-            task = UpdateDNFConfigurationTask(sysroot, data)
+            task = UpdateDNFConfigurationTask(sysroot, data, dnf_manager)
 
             with self.assertLogs(level="WARNING") as cm:
                 task.run()
@@ -474,15 +480,17 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
             assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    def test_multilib_policy(self, execute):
-        """Update the multilib policy."""
+    def test_multilib_policy_dnf4(self, execute):
+        """Update the multilib policy on pre-dnf5 systems."""
         execute.return_value = 0
 
         with tempfile.TemporaryDirectory() as sysroot:
             data = PackagesConfigurationData()
             data.multilib_policy = MULTILIB_POLICY_ALL
+            dnf_manager = Mock(spec=DNFManager)
+            dnf_manager.is_package_available.return_value = False
 
-            task = UpdateDNFConfigurationTask(sysroot, data)
+            task = UpdateDNFConfigurationTask(sysroot, data, dnf_manager)
             task.run()
 
             execute.assert_called_once_with(
@@ -491,6 +499,30 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
                     "config-manager",
                     "--save",
                     "--setopt=multilib_policy=all",
+                ],
+                root=sysroot
+            )
+
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_multilib_policy_dnf5(self, execute):
+        """Update the multilib policy on dnf5 systems."""
+        execute.return_value = 0
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            data = PackagesConfigurationData()
+            data.multilib_policy = MULTILIB_POLICY_ALL
+            dnf_manager = Mock(spec=DNFManager)
+            dnf_manager.is_package_available.return_value = True
+
+            task = UpdateDNFConfigurationTask(sysroot, data, dnf_manager)
+            task.run()
+
+            execute.assert_called_once_with(
+                "dnf",
+                [
+                    "config-manager",
+                    "setopt",
+                    "multilib_policy=all",
                 ],
                 root=sysroot
             )

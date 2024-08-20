@@ -419,6 +419,7 @@ class DNFModule(PayloadBase):
             ResolvePackagesTask(
                 dnf_manager=self.dnf_manager,
                 selection=self.packages_selection,
+                configuration=self.packages_configuration,
             ),
             PrepareDownloadLocationTask(
                 dnf_manager=self.dnf_manager,
@@ -472,6 +473,7 @@ class DNFModule(PayloadBase):
             UpdateDNFConfigurationTask(
                 sysroot=conf.target.system_root,
                 configuration=self.packages_configuration,
+                dnf_manager=self.dnf_manager,
             ),
             ResetDNFManagerTask(
                 dnf_manager=self.dnf_manager
