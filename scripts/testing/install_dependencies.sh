@@ -42,7 +42,62 @@ sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' ./
 build_deps=$(rpmspec -q --buildrequires $TEMP | sed 's/>=.*$//')
 # add also runtime dependencies for the local development
 # remove anaconda packages and also '(glibc-langpack-en or glibc-all-langpacks)' which will fail otherwise
-requires_deps=$(rpmspec -q --requires $TEMP | grep -v -E "(anaconda-|-widgets| or )" | sed 's/>=.*$//')
+# list all the package which doesn't help with development and just making the developer environment heavier
+IGNORE_DEPS="\
+-widgets \
+anaconda- \
+brltty \
+btrfs-progs \
+crypto-policies-scripts \
+dbus-daemon \
+dbus-x11 \
+device-mapper-multipath \
+dosfstools \
+dracut \
+e2fsprogs \
+f2fs-tools \
+fcoe-utils \
+fedora-logos \
+flatpak-libs \
+gdb \
+glade \
+gnome-kiosk \
+chrony \
+iputils \
+kbd \
+NetworkManager \
+NetworkManager-libnm \
+NetworkManager-team \
+NetworkManager-wifi \
+nm-connection-editor \
+nm-connection-editor \
+ntfs-3g \
+ntfsprogs \
+nvme-cli \
+ostree \
+podman \
+realmd \
+rsync \
+skopeo \
+skopeo \
+systemd \
+systemd-resolved \
+teamd \
+tecla \
+tmux \
+udisks2-iscsi \
+util-linux \
+xfsprogs \
+xisxwayland \
+xorg-x11-driver \
+xorg-x11-server-Xorg \
+xrandr \
+xrdb \
+xz \
+zenity \
+zram-generator-defaults"
+
+requires_deps=$(rpmspec -q --requires $TEMP | grep -v -E "(${IGNORE_DEPS// /|}| or )" | sed 's/>=.*$//')
 
 # shellcheck disable=SC2068
 dnf install $@ $build_deps $requires_deps  # do NOT quote the list or it falls apart
