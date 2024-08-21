@@ -29,7 +29,7 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     is_bootif_connection
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
-from pyanaconda.modules.network.utils import guard_by_system_configuration
+from pyanaconda.modules.network.utils import guard_by_system_configuration, is_nbft_device
 
 log = get_module_logger(__name__)
 
@@ -100,6 +100,10 @@ class ApplyKickstartTask(Task):
                                                             self._bootif)
             if not device_name:
                 log.warning("%s: --device %s not found", self.name, network_data.device)
+                continue
+
+            if is_nbft_device(device_name):
+                log.debug("Ignoring nBFT device %s", device_name)
                 continue
 
             applied_devices.append(device_name)
@@ -231,6 +235,10 @@ class DumpMissingConfigFilesTask(Task):
                 continue
 
             iface = device.get_iface()
+
+            if is_nbft_device(iface or ""):
+                log.debug("Ignoring nBFT device %s", iface)
+                continue
 
             if get_config_file_connection_of_device(nm_client, iface):
                 continue

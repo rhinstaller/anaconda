@@ -1257,6 +1257,45 @@ class InstallationTaskTestCase(unittest.TestCase):
             ]
         )
 
+    def test_network_instalation_ignore_ifname_nbft(self):
+        """Test the task for network installation with an ifname=nbft* argument."""
+
+        self._create_all_expected_dirs()
+
+        # Create files that will be copied from installer
+        # No files
+
+        # Create files existing on target system (could be used to test overwrite
+        # parameter.
+        # No files
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=True,
+            overwrite=True,
+            network_ifaces=["ens3", "ens7", "nbft0"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a",
+                                  "nbft0:00:15:17:96:75:0b"],
+            # Perhaps does not make sense together with ifname option, but for
+            # test it is fine
+            configure_persistent_device_names=True,
+        )
+        self._mock_task_paths(task)
+        task.run()
+        content_template = NetworkInstallationTask.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE
+        self._check_config_file(
+            self._systemd_network_dir,
+            "10-anaconda-ifname-ens3.link",
+            content_template.format("00:15:17:96:75:0a", "ens3")
+        )
+        # nbft* devices should be ignored when renaming devices based on
+        # ifname= option
+        self._check_config_file_does_not_exist(
+            self._systemd_network_dir,
+            "10-anaconda-ifname-nbft0.link"
+        )
+
     def test_network_instalation_task_no_src_files(self):
         """Test the task for network installation with no src files."""
 

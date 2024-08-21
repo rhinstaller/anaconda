@@ -24,7 +24,7 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.nm_client import update_connection_values, \
     commit_changes_with_autoconnection_blocked, nm_client_in_thread
-from pyanaconda.modules.network.utils import guard_by_system_configuration
+from pyanaconda.modules.network.utils import guard_by_system_configuration, is_nbft_device
 from pyanaconda.modules.network.nm_client import get_config_file_connection_of_device
 from pyanaconda.modules.network.config_file import IFCFG_DIR, KEYFILE_DIR
 
@@ -181,6 +181,10 @@ Name={}
         :param overwrite: overwrite existing configuration file
         :type overwrite: bool
         """
+
+        # Avoid link files for 'nbft' interfaces as it breaks Boot from NVM over TCP
+        ifname_option_values = [value for value in ifname_option_values
+                                if not is_nbft_device(value.split(':')[0])]
 
         if ifname_option_values:
             target_system_dir = util.join_paths(root, self.SYSTEMD_NETWORK_CONFIG_DIR)
