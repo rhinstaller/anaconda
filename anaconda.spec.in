@@ -482,6 +482,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 21 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.12-1
+- Redirect output of various GNOME related tools to Journal (mkolman)
+  Resolves: RHEL-47097
+- Remove leftover debugging message (mkolman)
+  Resolves: RHEL-47097
+- Redirect Anaconda main process stderr to Journal (mkolman)
+  Resolves: RHEL-47097
+- network: ignore kickstart configuration of nBFT devices (rvykydal)
+  Resolves: RHEL-46014
+- network: do not dump configurations of nBFT devices (rvykydal)
+  Resolves: RHEL-46014
+- network: ignore nBFT devices connections in network configuration (rvykydal)
+  Resolves: RHEL-46014
+- network: add a test for ignoring ifname=nbft* for device renaming (rvykydal)
+  Resolves: RHEL-46014
+- network: do not create empty dir for only ifname=nbft* options (rvykydal)
+  Resolves: RHEL-46014
+- network: Avoid creating link files for 'nbft' interfaces (tbzatek)
+  Resolves: RHEL-46014
+
 * Thu Aug 15 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.11-1
 - Support the not-satellite: prefix for server hostname (mkolman)
   Related: RHEL-49661
