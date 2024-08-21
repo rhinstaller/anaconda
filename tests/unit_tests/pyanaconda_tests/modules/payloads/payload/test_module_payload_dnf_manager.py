@@ -235,50 +235,6 @@ class DNFManagerTestCase(unittest.TestCase):
 
         assert size == Size("450 MiB")
 
-    @patch("dnf.module.module_base.ModuleBase.enable")
-    def test_enable_modules(self, module_base_enable):
-        """Test the enable_modules method."""
-        self.dnf_manager.enable_modules(
-            module_specs=["m1", "m2:latest"]
-        )
-        module_base_enable.assert_called_once_with(
-            ["m1", "m2:latest"]
-        )
-
-    @patch("dnf.module.module_base.ModuleBase.enable")
-    def test_enable_modules_error(self, module_base_enable):
-        """Test the failed enable_modules method."""
-        module_base_enable.side_effect = MarkingErrors(
-            module_depsolv_errors=["e1", "e2"]
-        )
-
-        with pytest.raises(BrokenSpecsError):
-            self.dnf_manager.enable_modules(
-                module_specs=["m1", "m2:latest"]
-            )
-
-    @patch("dnf.module.module_base.ModuleBase.disable")
-    def test_disable_modules(self, module_base_disable):
-        """Test the enable_modules method."""
-        self.dnf_manager.disable_modules(
-            module_specs=["m1", "m2:latest"]
-        )
-        module_base_disable.assert_called_once_with(
-            ["m1", "m2:latest"]
-        )
-
-    @patch("dnf.module.module_base.ModuleBase.disable")
-    def test_disable_modules_error(self, module_base_disable):
-        """Test the failed enable_modules method."""
-        module_base_disable.side_effect = MarkingErrors(
-            module_depsolv_errors=["e1", "e2"]
-        )
-
-        with pytest.raises(BrokenSpecsError):
-            self.dnf_manager.disable_modules(
-                module_specs=["m1", "m2:latest"]
-            )
-
     @patch("dnf.base.Base.install_specs")
     def test_apply_specs(self, install_specs):
         """Test the apply_specs method."""

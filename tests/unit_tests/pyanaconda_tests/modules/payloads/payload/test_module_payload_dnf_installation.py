@@ -31,7 +31,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MissingSpecsError, \
-    BrokenSpecsError, InvalidSelectionError
+    InvalidSelectionError
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
@@ -380,8 +380,6 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         task.run()
 
         dnf_manager.clear_selection.assert_called_once_with()
-        dnf_manager.disable_modules.assert_called_once_with([])
-        dnf_manager.enable_modules.assert_called_once_with([])
         dnf_manager.apply_specs.assert_called_once_with(
             ["@core", "@r1", "@r2", "r4", "r5"], ["@r3", "r6"]
         )
@@ -405,7 +403,6 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager = Mock()
         dnf_manager.default_environment = None
 
-        dnf_manager.disable_modules.side_effect = MissingSpecsError("e1")
         dnf_manager.apply_specs.side_effect = MissingSpecsError("e2")
 
         with pytest.raises(NonCriticalInstallationError) as cm:
@@ -413,10 +410,9 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
             task = ResolvePackagesTask(dnf_manager, selection, data)
             task.run()
 
-        expected = "e1\n\ne2"
+        expected = "e2"
         assert str(cm.value) == expected
 
-        dnf_manager.enable_modules.side_effect = BrokenSpecsError("e3")
         dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
 
         with pytest.raises(PayloadInstallationError) as cm:
@@ -424,7 +420,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
             task = ResolvePackagesTask(dnf_manager, selection, data)
             task.run()
 
-        expected = "e3\n\ne4"
+        expected = "e4"
         assert str(cm.value) == expected
 
 

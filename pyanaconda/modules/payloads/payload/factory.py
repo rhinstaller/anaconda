@@ -67,7 +67,6 @@ class PayloadFactory(object):
         if data.cdrom.seen or \
            data.harddrive.seen or \
            data.hmc.seen or \
-           data.module.seen or \
            data.nfs.seen or \
            data.url.seen or \
            data.repo.seen or \
