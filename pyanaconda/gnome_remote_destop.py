@@ -149,7 +149,6 @@ class GRDServer(object):
 
         try:
             hinfo = socket.gethostbyaddr(self.ip)
-            self.log.info(hinfo)
             if len(hinfo) == 3:
                 # Consider as coming from a valid DNS record only if single IP is returned
                 if len(hinfo[2]) == 1:
