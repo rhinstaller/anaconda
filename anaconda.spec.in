@@ -416,6 +416,33 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 21 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.9-1
+- network: ignore kickstart configuration of nBFT devices (rvykydal)
+  Resolves: RHEL-30149
+  Resolves: RHEL-34235
+  Resolves: RHEL-32146
+- network: do not dump configurations of nBFT devices (rvykydal)
+  Resolves: RHEL-30149
+  Resolves: RHEL-34235
+  Resolves: RHEL-32146
+- network: ignore nBFT devices connections in network configuration (rvykydal)
+  Resolves: RHEL-30149
+  Resolves: RHEL-34235
+  Resolves: RHEL-32146
+- network: add a test for ignoring ifname=nbft* for device renaming (rvykydal)
+  Resolves: RHEL-30149
+  Resolves: RHEL-34235
+  Resolves: RHEL-32146
+- network: do not create empty dir for only ifname=nbft* options (rvykydal)
+  Resolves: RHEL-30149
+  Resolves: RHEL-34235
+  Resolves: RHEL-32146
+- network: Avoid creating link files for 'nbft' interfaces (tbzatek)
+  Resolves: RHEL-30149
+  Resolves: RHEL-34235
+  Resolves: RHEL-32146
+- Update translations from Weblate for rhel-9 (github-actions)
+
 * Wed Aug 14 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.8-1
 - Use proxy server also for FTP .treeinfo download (jkonecny)
   Resolves: RHEL-27938
