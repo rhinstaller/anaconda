@@ -506,44 +506,6 @@ class DNFManager(object):
         packages = self._base.sack.query().available().filter(name__glob=pattern)
         return [p.name for p in packages]
 
-    def enable_modules(self, module_specs):
-        """Mark module streams for enabling.
-
-        Mark module streams matching the module_specs list and also
-        all required modular dependencies for enabling. For specs
-        that do not specify the stream, the default stream is used.
-
-        :param module_specs: a list of specs
-        :raise MissingSpecsError: if there are missing specs
-        :raise BrokenSpecsError: if there are broken specs
-        """
-        log.debug("Enabling modules: %s", module_specs)
-
-        try:
-            module_base = dnf.module.module_base.ModuleBase(self._base)
-            module_base.enable(module_specs)
-        except dnf.exceptions.MarkingErrors as e:
-            log.error("Failed to enable modules!\n%s", str(e))
-            self._handle_marking_errors(e)
-
-    def disable_modules(self, module_specs):
-        """Mark modules for disabling.
-
-        Mark modules matching the module_specs list for disabling.
-        Only the name part of the module specification is relevant.
-
-        :param module_specs: a list of specs to disable
-        :raise MissingSpecsError: if there are missing specs
-        :raise BrokenSpecsError: if there are broken specs
-        """
-        log.debug("Disabling modules: %s", module_specs)
-        try:
-            module_base = dnf.module.module_base.ModuleBase(self._base)
-            module_base.disable(module_specs)
-        except dnf.exceptions.MarkingErrors as e:
-            log.error("Failed to disable modules!\n%s", str(e))
-            self._handle_marking_errors(e)
-
     def apply_specs(self, include_list, exclude_list):
         """Mark packages, groups and modules for installation.
 

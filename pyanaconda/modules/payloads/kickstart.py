@@ -193,17 +193,6 @@ def convert_ks_data_to_packages_selection(ks_data):
     for group in ks_data.packages.excludedGroupList:
         selection.excluded_groups.append(group.name)
 
-    for module in ks_data.module.dataList():
-        name = module.name
-
-        if module.stream:
-            name += ":" + module.stream
-
-        if module.enable:
-            selection.modules.append(name)
-        else:
-            selection.disabled_modules.append(name)
-
     return selection
 
 
@@ -248,30 +237,6 @@ def convert_packages_selection_to_ksdata(selection, ks_data):
         )
         ks_data.packages.excludedGroupList.append(ks_group)
 
-    for name in selection.modules:
-        ks_module = create_ks_module(name)
-        ks_data.module.dataList().append(ks_module)
-
-    for name in selection.disabled_modules:
-        ks_module = create_ks_module(name, enabled=False)
-        ks_data.module.dataList().append(ks_module)
-
-
-def create_ks_module(name, enabled=True):
-    """Create a new instance of a kickstart module.
-
-    :param name: a name of the module
-    :param enabled: True if the module is enabled, otherwise False
-    :return: a kickstart module object
-    """
-    names = name.split(":", maxsplit=1) + [""]
-
-    return COMMANDS.ModuleData(
-        name=names[0],
-        stream=names[1],
-        enable=enabled,
-    )
-
 
 def create_ks_group(name, include=GROUP_DEFAULT):
     """Create a new instance of a kickstart group.
@@ -302,6 +267,7 @@ class PayloadKickstartSpecification(KickstartSpecification):
     commands_data = {
         "ModuleData": COMMANDS.ModuleData,
         "RepoData": COMMANDS.RepoData,
+
     }
 
     sections = {

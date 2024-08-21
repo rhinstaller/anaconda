@@ -466,25 +466,6 @@ class DNFKickstartTestCase(unittest.TestCase):
         payload.repositories[1].enabled = False
         self._test_kickstart(None, ks_out, expected_publish_calls=0)
 
-    def test_module_kickstart(self):
-        ks_in = """
-        module --name=nodejs
-        module --name=django --stream=1.6
-        module --name=postgresql --disable
-        module --name=mysql --stream=8.0 --disable
-        """
-        ks_out = """
-        module --name=nodejs
-        module --name=django --stream=1.6
-        module --name=postgresql --disable
-        module --name=mysql --stream=8.0 --disable
-
-        %packages
-
-        %end
-        """
-        self._test_kickstart(ks_in, ks_out)
-
     def test_packages_section_empty_kickstart(self):
         """Test the empty packages section."""
         ks_in = """

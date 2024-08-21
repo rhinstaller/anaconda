@@ -131,12 +131,6 @@ class CheckPackagesSelectionTask(ValidationTask):
         report = ValidationReport()
 
         with self._reported_errors(report):
-            self._dnf_manager.disable_modules(self._selection.disabled_modules)
-
-        with self._reported_errors(report):
-            self._dnf_manager.enable_modules(self._selection.modules)
-
-        with self._reported_errors(report):
             self._dnf_manager.apply_specs(self._include_list, self._exclude_list)
 
         with self._reported_errors(report):

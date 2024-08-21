@@ -44,8 +44,6 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         report = task.run()
 
         dnf_manager.clear_selection.assert_called_once_with()
-        dnf_manager.disable_modules.assert_called_once_with([])
-        dnf_manager.enable_modules.assert_called_once_with([])
         dnf_manager.apply_specs.assert_called_once_with([], ["@core"])
         dnf_manager.resolve_selection.assert_called_once_with()
         assert report.get_messages() == []
@@ -65,8 +63,6 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         report = task.run()
 
         dnf_manager.clear_selection.assert_called_once_with()
-        dnf_manager.disable_modules.assert_called_once_with([])
-        dnf_manager.enable_modules.assert_called_once_with([])
         dnf_manager.apply_specs.assert_called_once_with(
             ["@environment", "@core", "kernel"], []
         )
@@ -95,12 +91,6 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         report = task.run()
 
         dnf_manager.clear_selection.assert_called_once_with()
-        dnf_manager.disable_modules.assert_called_once_with(
-            ["m3", "m4"]
-        )
-        dnf_manager.enable_modules.assert_called_once_with(
-            ["m1", "m2"]
-        )
         dnf_manager.apply_specs.assert_called_once_with(
             ["@e1", "@g1", "@g2", "p1", "p2"],
             ["@core", "@g3", "@g4", "p3", "p4"]
@@ -114,16 +104,14 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         selection = PackagesSelectionData()
 
         dnf_manager = Mock()
-        dnf_manager.disable_modules.side_effect = MissingSpecsError("e1")
-        dnf_manager.enable_modules.side_effect = BrokenSpecsError("e2")
         dnf_manager.apply_specs.side_effect = MissingSpecsError("e3")
         dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
 
         task = CheckPackagesSelectionTask(dnf_manager, selection)
         report = task.run()
 
-        assert report.error_messages == ["e2", "e4"]
-        assert report.warning_messages == ["e1", "e3"]
+        assert report.error_messages == ["e4"]
+        assert report.warning_messages == ["e3"]
 
 
 class VerifyRepomdHashesTaskTestCase(unittest.TestCase):
