@@ -21,7 +21,7 @@ from unittest.mock import Mock, patch
 
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import InvalidSelectionError, \
-    MissingSpecsError, BrokenSpecsError, DNFManager
+    MissingSpecsError, DNFManager
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
     VerifyRepomdHashesTask
 

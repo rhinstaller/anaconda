@@ -24,7 +24,7 @@
 
 # Supported kickstart commands.
 from pykickstart.commands.authselect import F28_Authselect as Authselect
-from pykickstart.commands.autopart import F38_AutoPart as AutoPart
+from pykickstart.commands.autopart import F41_AutoPart as AutoPart
 from pykickstart.commands.bootloader import F39_Bootloader as Bootloader
 from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
@@ -54,7 +54,7 @@ from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F40_Nvdimm as Nvdimm
 from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeContainer
 from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
-from pykickstart.commands.partition import F34_Partition as Partition
+from pykickstart.commands.partition import F41_Partition as Partition
 from pykickstart.commands.raid import F29_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
@@ -93,7 +93,7 @@ from pykickstart.commands.logvol import F29_LogVolData as LogVolData
 from pykickstart.commands.mount import F27_MountData as MountData
 from pykickstart.commands.network import F39_NetworkData as NetworkData
 from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
-from pykickstart.commands.partition import F29_PartData as PartData
+from pykickstart.commands.partition import F41_PartData as PartData
 from pykickstart.commands.raid import F29_RaidData as RaidData
 from pykickstart.commands.repo import F30_RepoData as RepoData
 from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData

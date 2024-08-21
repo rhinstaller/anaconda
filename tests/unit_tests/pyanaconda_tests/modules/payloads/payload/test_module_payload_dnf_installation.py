@@ -31,7 +31,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MissingSpecsError, \
-    BrokenSpecsError, InvalidSelectionError
+    InvalidSelectionError
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
