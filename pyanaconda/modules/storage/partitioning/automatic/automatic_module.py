@@ -92,6 +92,8 @@ class AutoPartitioningModule(PartitioningModule):
             request.escrow_certificate = data.autopart.escrowcert
             request.backup_passphrase_enabled = data.autopart.backuppassphrase
 
+            request.opal_admin_passphrase = data.autopart.hw_passphrase
+
         self.set_request(request)
 
     def setup_kickstart(self, data):
@@ -122,6 +124,9 @@ class AutoPartitioningModule(PartitioningModule):
 
         data.autopart.escrowcert = self.request.escrow_certificate
         data.autopart.backuppassphrase = self.request.backup_passphrase_enabled
+
+        # Don't generate sensitive information.
+        data.autopart.hw_passphrase = ""
 
     @property
     def request(self):

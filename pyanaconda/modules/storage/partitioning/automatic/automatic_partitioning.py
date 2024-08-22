@@ -119,6 +119,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             "pbkdf_args": pbkdf_args,
             "escrow_cert": escrow_cert,
             "add_backup_passphrase": request.backup_passphrase_enabled,
+            "opal_admin_passphrase": request.opal_admin_passphrase,
         }
 
     @staticmethod
