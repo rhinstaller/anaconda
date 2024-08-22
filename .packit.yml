@@ -42,32 +42,30 @@ actions:
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
 jobs:
+
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
-    dist_git_branches: main
+    dist_git_branches: f41
 
   - job: tests
     trigger: pull_request
     packages: [anaconda-fedora]
     targets:
-      - fedora-rawhide
-
-  - job: copr_build
-    trigger: pull_request
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-rawhide
-      - fedora-eln
+      - fedora-41
 
   - job: copr_build
     trigger: commit
     packages: [anaconda-fedora]
     targets:
-      - fedora-rawhide
-      - fedora-eln
-    branch: master
+      - fedora-41
+    branch: fedora-41
     owner: "@rhinstaller"
-    project: Anaconda
+    project: Anaconda-devel
     preserve_project: True
+    additional_repos:
+      - "copr://@storage/blivet-daily"
+      # This repository contains fixup of Rawhide broken environment.
+      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
+      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
 

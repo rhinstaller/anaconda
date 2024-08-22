@@ -50,9 +50,9 @@ patch -p2 -i /adjust-templates-for-webui.patch
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
-      --volid Fedora-S-dvd-x86_64-rawh \
+      --volid Fedora-S-dvd-x86_64-f41 \
       --sharedir ./templates.d/99-generic/ \
-      -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
+      -s http://dl.fedoraproject.org/pub/fedora/linux/development/41/Everything/x86_64/os/ \
       -s https://fedorapeople.org/groups/anaconda/webui_new_payload/repo/ \
       -s file://$REPO_DIR/ \
       -i anaconda-webui -i webui_payload -i cockpit-ws -i cockpit-bridge -i firefox -i dbus-glib --rootfs-size 5 \
