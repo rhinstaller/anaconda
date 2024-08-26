@@ -141,7 +141,7 @@ class CockpitUserInterface(ui.UserInterface):
         # FIXME: We probably want to move this to early execution similar to what we have on live
         profile_name = FIREFOX_THEME_DEFAULT
 
-        proc = startProgram(["/usr/libexec/webui-desktop",
+        proc = startProgram(["/usr/libexec/anaconda/webui-desktop",
                              "-t", profile_name, "-r", str(int(self.remote)),
                              "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
