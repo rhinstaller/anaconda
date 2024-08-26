@@ -61,7 +61,7 @@ BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
 BuildRequires: pango-devel
 BuildRequires: python3-devel
-BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 # rpm and libarchive are needed for driver disk handling
 BuildRequires: rpm-devel >= %{rpmver}
 BuildRequires: libarchive-devel >= %{libarchivever}
