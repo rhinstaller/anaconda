@@ -29,7 +29,7 @@
 set -eu
 
 # shellcheck disable=SC2068
-dnf install $@ make rpm-build python3-polib
+dnf install $@ make rpm-build python3-polib git
 
 TEMP=$(mktemp /tmp/anaconda.spec.XXXXXXX)
 
