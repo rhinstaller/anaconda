@@ -195,7 +195,7 @@ class SimpleWebUITestCase(unittest.TestCase):
             self._prepare_for_live_testing(pid_file, backend_file, remote=1)
             self.intf.run()
 
-            mocked_startProgram.assert_called_once_with(["/usr/libexec/webui-desktop",
+            mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
                                                          "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
                                                          "/cockpit/@localhost/anaconda-webui/index.html"],
                                                         reset_lang=False)
@@ -218,7 +218,7 @@ class SimpleWebUITestCase(unittest.TestCase):
             self._prepare_for_live_testing(pid_file, backend_file)
             self.intf.run()
 
-            mocked_startProgram.assert_called_once_with(["/usr/libexec/webui-desktop",
+            mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
                                                          "-t", FIREFOX_THEME_DEFAULT, "-r", "0",
                                                          "/cockpit/@localhost/anaconda-webui/index.html"],
                                                         reset_lang=False)
