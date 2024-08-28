@@ -95,10 +95,9 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
         #libdnf5.rpm.to_full_nevra_string(nevra),
         self._queue.put(('configure', nevra.get_name()))
 
-    def transaction_stop(self, total):
+    def after_complete(self, total):
         log.debug("Done - %s", total)
         self._queue.put(('done', None))
-        self._queue.close()
 
     def cpio_error(self, item):
         log.debug("Error - %s", item.get_package().to_string())
