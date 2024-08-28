@@ -26,6 +26,7 @@ from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioni
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.manual.utils import \
     reformat_device
+from pyanaconda.modules.storage.devicetree.root import find_existing_installations
 from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
@@ -112,6 +113,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
     def _clear_partitions(self, storage):
         super()._clear_partitions(storage)
 
+        # Make sure disk selection is taken into account when finding installations
+        storage.roots = find_existing_installations(storage.devicetree)
         log.debug("storage.roots.mounts %s", [root.mounts for root in storage.roots])
 
         # TODO check that partitioning scheme matches - do it earlier in the
