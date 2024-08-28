@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.dbus import SystemBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.services import LOCALED
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
@@ -31,6 +32,9 @@ class LocaledWrapper(object):
     def __init__(self):
         self._localed_proxy = None
         self._user_layouts_variants = []
+        self._last_layouts_variants = []
+        self.compositor_layouts_changed = Signal()
+        self.compositor_selected_layout_changed = Signal()
 
         if not conf.system.provides_system_bus:
             log.debug("Not using localed service: "
@@ -43,6 +47,47 @@ class LocaledWrapper(object):
             return
 
         self._localed_proxy = LOCALED.get_proxy()
+        self._localed_proxy.PropertiesChanged.connect(self._on_properties_changed)
+
+    def _on_properties_changed(self, interface, changed_props, invalid_props):
+        if "X11Layout" in changed_props or "X11Variant" in changed_props:
+            layouts_variants = self._from_localed_format(changed_props["X11Layout"].get_string(),
+                                                         changed_props["X11Variant"].get_string())
+            # This part is a bit tricky. The signal processing here means that compositor has
+            # changed current layouts configuration. This could happen for multiple reasons:
+            # - user changed the layout in compositor
+            # - Anaconda set the layout to compositor
+            # - any other magic logic for compositor (we just don't know)
+            #
+            # The question is how we should behave:
+            # - we don't want to take compositor layouts to Anaconda because that will change
+            #   what user will have in the installed system.
+            # - we don't want to force our layouts to compositor because that would forbid user
+            #   to change compositor layout when Anaconda runs in background
+            #
+            # The best shot seems to just signal out that the layout has changed and nothing else.
+
+            # layouts has changed in compositor, always emit this signal
+            log.debug("Localed layouts has changed. Last known: '%s' current: '%s'",
+                      self._last_layouts_variants, layouts_variants)
+            self.compositor_layouts_changed.emit(layouts_variants)
+
+            # check if last selected variant has changed
+            # nothing is selected in compositor
+            if not layouts_variants:
+                log.warning("Compositor layouts not set.")
+                self.compositor_selected_layout_changed.emit("")
+            # we don't know last used layouts
+            elif not self._last_layouts_variants:
+                log.debug("Compositor selected layout is different. "
+                          "Missing information about last selected layouts.")
+                self.compositor_selected_layout_changed.emit(layouts_variants[0])
+            # selected (first) has changed
+            elif layouts_variants[0] != self._last_layouts_variants[0]:
+                log.debug("Compositor selected layout is different.")
+                self.compositor_selected_layout_changed.emit(layouts_variants[0])
+
+            self._last_layouts_variants = layouts_variants
 
     @property
     def keymap(self):
@@ -69,6 +114,11 @@ class LocaledWrapper(object):
         layouts = self._localed_proxy.X11Layout
         variants = self._localed_proxy.X11Variant
 
+        self._last_layouts_variants = self._from_localed_format(layouts, variants)
+        return self._last_layouts_variants
+
+    @staticmethod
+    def _from_localed_format(layouts, variants):
         layouts = layouts.split(",") if layouts else []
         variants = variants.split(",") if variants else []
 
