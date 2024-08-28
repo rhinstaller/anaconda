@@ -17,6 +17,8 @@
 #
 import unittest
 from unittest.mock import patch, Mock
+from pyanaconda.core.signal import Signal
+from pyanaconda.core.glib import Variant
 
 from pyanaconda.modules.localization.localed import LocaledWrapper
 
@@ -347,3 +349,155 @@ class LocaledWrapperTestCase(unittest.TestCase):
         assert localed_wrapper.select_next_layout() is False
         assert user_defined == localed_wrapper._user_layouts_variants  # must not change
         mocked_localed_proxy.SetX11Keyboard.assert_not_called()
+
+    @patch("pyanaconda.modules.localization.localed.SystemBus")
+    @patch("pyanaconda.modules.localization.localed.LOCALED")
+    @patch("pyanaconda.modules.localization.localed.conf")
+    def test_localed_wrapper_signals(self, mocked_conf,
+                                     mocked_localed_service,
+                                     mocked_system_bus):
+        """Test signals from the localed wrapper
+
+        This one could be tricky. The issue is that this class has to store last known values to
+        be able to recognize changes.
+
+        We need:
+        last_known_from_compositor - we need to store what was in compositor before it changed
+                                     compositor configuration, so we can correct sent a message
+                                     that current selection is different
+
+        None of the information above could be found directly from localed service.
+        """
+        mocked_system_bus.check_connection.return_value = True
+        mocked_conf.system.provides_system_bus = True
+        mocked_localed_proxy = Mock()
+        mocked_localed_proxy.PropertiesChanged = Signal()
+        mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
+        mocked_layouts_changed = Mock()
+        mocked_selected_layout_changed = Mock()
+        localed_wrapper = LocaledWrapper()
+        localed_wrapper.compositor_layouts_changed = mocked_layouts_changed
+        localed_wrapper.compositor_selected_layout_changed = mocked_selected_layout_changed
+
+        def _check_localed_wrapper_signals(last_known_state, compositor_state,
+                                           expected_selected_signal, expected_layouts_signal):
+            """Test the localed wrapper signals are correctly emitted.
+
+            :param last_known_state: State of the localed before the change. Used to resolve if
+                                     selected layout has changed.
+            :type last_known_state: [(str,str)] e.g.:[('cz', 'qwerty'), ('us','')...]
+            :param compositor_state: New state the compositor will get into.
+            :type compositor_state: {str: str} e.g.: {"X11Layout": "cz", "X11Variant": "qwerty"}
+            :param expected_selected_signal: Currently selected layout we expect LocaledWrapper
+                                             will signal out. If signal shouldn't set None.
+            :type expected_selected_signal: str
+            :param expected_layouts_signal: Current configuration of the compositor signaled from
+                                            LocaledWrapper.
+            :type expected_layouts_signal: [str] e.g.: ["cz", "us (euro)"]
+            """
+            mocked_layouts_changed.reset_mock()
+            mocked_selected_layout_changed.reset_mock()
+            # set user defined layouts by setting current ones (mock will take this)
+            mocked_localed_proxy.X11Layout = ",".join(map(lambda x: x[0], last_known_state))
+            mocked_localed_proxy.X11Variant = ",".join(map(lambda x: x[1], last_known_state))
+            # loading the above values to local last known list
+            # pylint: disable=pointless-statement
+            localed_wrapper.layouts_variants
+
+            for k in compositor_state:
+                compositor_state[k] = Variant('s', compositor_state[k])
+
+            mocked_localed_proxy.PropertiesChanged.emit(None, compositor_state, None)
+            # these signals should be called by localed wrapper
+            if expected_selected_signal is None:
+                mocked_selected_layout_changed.emit.assert_not_called()
+            else:
+                mocked_selected_layout_changed.emit.assert_called_once_with(
+                    expected_selected_signal
+                    )
+            if expected_layouts_signal is None:
+                mocked_layouts_changed.emit.assert_not_called()
+            else:
+                mocked_layouts_changed.emit.assert_called_once_with(expected_layouts_signal)
+            # we shouldn't set values back to localed service
+            mocked_localed_proxy.SetX11Keyboard.assert_not_called()
+
+        # basic test compositor changing different values
+        _check_localed_wrapper_signals(
+            last_known_state=[],
+            compositor_state={"X11Options": "grp:something"},
+            expected_selected_signal=None,
+            expected_layouts_signal=None
+        )
+
+        # basic test with no knowledge of previous state
+        _check_localed_wrapper_signals(
+            last_known_state=[],
+            compositor_state={"X11Layout": "cz",
+                              "X11Variant": "qwerty"},
+            expected_selected_signal="cz (qwerty)",
+            expected_layouts_signal=["cz (qwerty)"]
+        )
+
+        # basic test with no knowledge of previous state and multiple values
+        _check_localed_wrapper_signals(
+            last_known_state=[],
+            compositor_state={"X11Layout": "cz,es",
+                              "X11Variant": "qwerty,"},
+            expected_selected_signal="cz (qwerty)",
+            expected_layouts_signal=["cz (qwerty)", "es"]
+        )
+
+        # test no values from compositor
+        _check_localed_wrapper_signals(
+            last_known_state=[("cz", "")],
+            compositor_state={"X11Layout": "",
+                              "X11Variant": ""},
+            expected_selected_signal="",
+            expected_layouts_signal=[]
+        )
+
+        # test with knowledge of previous state everything changed
+        _check_localed_wrapper_signals(
+            last_known_state=[("es", "euro"), ("us", "")],
+            compositor_state={"X11Layout": "cz",
+                              "X11Variant": "qwerty"},
+            expected_selected_signal="cz (qwerty)",
+            expected_layouts_signal=["cz (qwerty)"]
+        )
+
+        # test with knowledge of previous state no change
+        _check_localed_wrapper_signals(
+            last_known_state=[("cz", "qwerty"), ("es", "")],
+            compositor_state={"X11Layout": "cz,es",
+                              "X11Variant": "qwerty,"},
+            expected_selected_signal=None,
+            expected_layouts_signal=["cz (qwerty)", "es"]
+        )
+
+        # test with knowledge of previous state selected has changed
+        _check_localed_wrapper_signals(
+            last_known_state=[("cz", "qwerty"), ("es", "")],
+            compositor_state={"X11Layout": "es,cz",
+                              "X11Variant": ",qwerty"},
+            expected_selected_signal="es",
+            expected_layouts_signal=["es", "cz (qwerty)"]
+        )
+
+        # test with knowledge of previous state layouts has changed
+        _check_localed_wrapper_signals(
+            last_known_state=[("cz", "qwerty"), ("es", "")],
+            compositor_state={"X11Layout": "cz,es,us",
+                              "X11Variant": "qwerty,,"},
+            expected_selected_signal=None,
+            expected_layouts_signal=["cz (qwerty)", "es", "us"]
+        )
+
+        # test with knowledge of previous state just variant change
+        _check_localed_wrapper_signals(
+            last_known_state=[("cz", "qwerty"), ("es", "")],
+            compositor_state={"X11Layout": "cz,es,us",
+                              "X11Variant": ",,"},
+            expected_selected_signal="cz",
+            expected_layouts_signal=["cz", "es", "us"]
+        )
