@@ -31,6 +31,7 @@ from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_de
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
     get_default_partitioning, get_part_spec, get_disks_for_implicit_partitions
+from pyanaconda.modules.storage.platform import platform
 from pyanaconda.core.storage import suggest_swap_size
 
 
@@ -65,15 +66,9 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
     def _get_mountpoint_device(self, storage, mountpoint, required=True):
         devices = []
-        # TODO add support for EFI
-        if mountpoint == "biosboot":
-            for device in storage.devices:
-                if device.format.type == "biosboot":
-                   devices.append(device)
-        else:
-            for root in storage.roots:
-                if mountpoint in root.mounts:
-                    devices.append(root.mounts[mountpoint])
+        for root in storage.roots:
+            if mountpoint in root.mounts:
+                devices.append(root.mounts[mountpoint])
         if len(devices) > 1:
             raise StorageError(_("Multiple devices found for mount point '{}': {}")
                                .format(mountpoint,
@@ -110,6 +105,37 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         else:
             log.debug("device to be removed for mountpoint %s not found", mountpoint)
 
+    def _remove_bootloader_partitions(self, storage, required=True):
+        bootloader_types = ["efi", "biosboot", "appleboot", "prepboot"]
+        bootloader_parts = [part for part in platform.partitions
+                            if part.fstype in bootloader_types]
+        if len(bootloader_parts) > 1:
+            raise StorageError(_("Multiple boot loader partitions required: %s"), bootloader_parts)
+        if not bootloader_parts:
+            log.debug("No bootloader partition required")
+            return False
+        part_type = bootloader_parts[0].fstype
+
+        devices = []
+        for device in storage.devices:
+            if device.format.type == part_type:
+                devices.append(device)
+        if len(devices) > 1:
+            raise StorageError(_("Multiple devices found for boot loader partition '{}': {}")
+                               .format(part_type,
+                                       ", ".join([device.name for device in devices])))
+        if not devices:
+            if required:
+                raise StorageError(_("No devices found for boot loader partition '{}'")
+                                   .format(part_type))
+            else:
+                log.debug("No devices found for bootloader partition %s", part_type)
+            return False
+        device = devices[0]
+        log.debug("remove device %s for bootloader partition %s", device, part_type)
+        destroy_device(storage, device)
+        return True
+
     def _clear_partitions(self, storage):
         super()._clear_partitions(storage)
 
@@ -120,6 +146,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # TODO check that partitioning scheme matches - do it earlier in the
         # check but also here?
 
+        self._remove_bootloader_partitions(storage)
         for mountpoint in self._request.removed_mount_points:
             self._remove_mountpoint(storage, mountpoint)
         for mountpoint in self._request.reformatted_mount_points:
