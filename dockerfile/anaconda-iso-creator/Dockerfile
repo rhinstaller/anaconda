@@ -35,6 +35,8 @@ RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   createrepo_c \
+# for clonning cockpit-project/bots/
+  git \
 # required for lorax-build-webui script
   patch \
   lorax; \
