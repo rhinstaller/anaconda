@@ -146,9 +146,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # TODO check that partitioning scheme matches - do it earlier in the
         # check but also here?
 
-        self._remove_bootloader_partitions(storage)
         for mountpoint in self._request.removed_mount_points:
-            self._remove_mountpoint(storage, mountpoint)
+            if mountpoint == "bootloader":
+                self._remove_bootloader_partitions(storage)
+            else:
+                self._remove_mountpoint(storage, mountpoint)
         for mountpoint in self._request.reformatted_mount_points:
             self._reformat_mountpoint(storage, mountpoint)
 
