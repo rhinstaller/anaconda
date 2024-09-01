@@ -22,7 +22,8 @@ import time
 from blivet import blockdev
 from blivet.devices import NoDevice, DirectoryDevice, NFSDevice, FileDevice, MDRaidArrayDevice, \
     NetworkStorageDevice, OpticalDevice
-from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError, SwapSpaceError
+from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError, SwapSpaceError, \
+    StorageError
 from blivet.formats import get_format, get_device_format_class
 from blivet.storage_log import log_exception_info
 
@@ -528,7 +529,8 @@ class FSSet(object):
                 try:
                     device.setup()
                     device.format.setup()
-                except (SwapSpaceError, blockdev.SwapActivateError) as e:
+                except (SwapSpaceError, blockdev.SwapActivateError,
+                        StorageError, blockdev.BlockDevError) as e:
                     log.error("Failed to activate swap on '%s': %s", device.name, str(e))
                     break
                 else:
