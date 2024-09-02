@@ -84,25 +84,6 @@ def start_user_systemd():
     os.environ["DBUS_SESSION_BUS_ADDRESS"] = session_bus_address
     log.info("The session bus address is set to %s.", session_bus_address)
 
-# Spice
-
-def start_spice_vd_agent():
-    """Start the spice vdagent.
-
-    For certain features to work spice requires that the guest os
-    is running the spice vdagent.
-    """
-    try:
-        status = util.execWithRedirect("spice-vdagent", [])
-    except OSError as e:
-        log.warning("spice-vdagent failed: %s", e)
-        return
-
-    if status:
-        log.info("spice-vdagent exited with status %d", status)
-    else:
-        log.info("Started spice-vdagent.")
-
 
 # RDP
 
