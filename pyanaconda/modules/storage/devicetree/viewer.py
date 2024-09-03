@@ -527,12 +527,13 @@ class DeviceTreeViewer(ABC):
                 continue
 
             device = self._get_device(blivet_device.name)
-            if str(device.part_type_uuid) == EFI_PARTITION_TYPE:
-                efi_partition = device
-                continue
+            if device and device.parted_partition:
+                if str(device.part_type_uuid) == EFI_PARTITION_TYPE:
+                    efi_partition = device
+                    continue
 
-            if str(device.part_type_uuid) in WINDOWS_PARTITION_TYPES:
-                windows_data.devices.append(device.name)
+                if str(device.part_type_uuid) in WINDOWS_PARTITION_TYPES:
+                    windows_data.devices.append(device.name)
 
         if len(windows_data.devices) > 0:
             if efi_partition is not None:
