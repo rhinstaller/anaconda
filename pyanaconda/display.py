@@ -22,7 +22,6 @@
 import os
 import time
 import textwrap
-import pkgutil
 import signal
 
 from pyanaconda.mutter_display import MutterDisplay, MutterConfigError
@@ -37,8 +36,6 @@ from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
 from pyanaconda.ui.tui import tui_quit_callback
-# needed for checking if the pyanaconda.ui.gui modules are available
-import pyanaconda.ui
 
 import blivet
 
@@ -278,12 +275,22 @@ def setup_display(anaconda, options):
     anaconda.display_mode = options.display_mode
     anaconda.interactive_mode = not options.noninteractive
 
+    # TODO: Refactor this method or maybe whole class, ideally this class should be usable only
+    # on boot.iso where compositor could be set
     if flags.rescue_mode:
         return
 
     if conf.target.is_image or conf.target.is_directory:
         anaconda.log_display_mode()
         anaconda.initialize_interface()
+        return
+
+    # we can't start compositor so not even RDP is supported, do only base initialization
+    if not conf.system.can_start_compositor:
+        anaconda.log_display_mode()
+        anaconda.initialize_interface()
+        startup_utils.fallback_to_tui_if_gtk_ui_is_not_available(anaconda)
+        startup_utils.check_memory(anaconda, options)
         return
 
     try:
@@ -306,13 +313,7 @@ def setup_display(anaconda, options):
         rdp_credentials_sufficient = options.rdp_username and options.rdp_password
 
     # check if GUI without WebUI
-    if anaconda.gui_mode and not anaconda.is_webui_supported:
-        mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
-        if "pyanaconda.ui.gui" not in mods:
-            stdout_log.warning("Graphical user interface not available, falling back to text mode")
-            anaconda.display_mode = constants.DisplayModes.TUI
-            flags.use_rd = False
-            flags.rd_question = False
+    startup_utils.fallback_to_tui_if_gtk_ui_is_not_available(anaconda)
 
     # check if remote desktop mode can be started
     rd_can_be_started, rd_error_messages = check_rd_can_be_started(anaconda)

@@ -74,6 +74,11 @@ class SystemSection(Section):
         return self._is_boot_iso
 
     @property
+    def can_start_compositor(self):
+        """Can we start our own Wayland session?"""
+        return self._is_boot_iso
+
+    @property
     def can_switch_tty(self):
         """Can we change the foreground virtual terminal?"""
         return self._is_boot_iso

@@ -26,8 +26,10 @@ from unittest.mock import patch, mock_open, Mock, PropertyMock
 from textwrap import dedent
 
 from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used, \
-    start_geolocation_conditionally, wait_for_geolocation_and_use, apply_geolocation_result
-from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION
+    start_geolocation_conditionally, wait_for_geolocation_and_use, apply_geolocation_result, \
+    fallback_to_tui_if_gtk_ui_is_not_available
+from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION, \
+    DisplayModes
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 
 class StartupUtilsTestCase(unittest.TestCase):
@@ -303,3 +305,63 @@ class StartupUtilsGeolocApplyTestCase(unittest.TestCase):
         assert tz_proxy.Timezone == ""
         setup_locale_mock.assert_called_once_with("es_ES.UTF-8", loc_proxy, text_mode=False)
         assert os.environ == {"LANG": "es_ES.UTF-8"}
+
+
+class TestUIHelpers(unittest.TestCase):
+
+    @patch("pyanaconda.startup_utils.pkgutil")
+    @patch("pyanaconda.startup_utils.flags")
+    def test_fallback_tui_when_gtk_ui_not_available(self, mocked_flags, mocked_pkgutil):
+        mocked_anaconda = Mock()
+
+        def check_method(gui_mode,
+                         webui_supported,
+                         gtk_available,
+                         expected_display_mode,
+                         expected_rd_output):
+            mocked_anaconda.gui_mode = gui_mode
+            mocked_anaconda.is_webui_supported = webui_supported
+
+            # prefilled values
+            mocked_anaconda.display_mode = ""
+            mocked_flags.use_rd = None
+            mocked_flags.rd_question = None
+
+            if gtk_available:
+                mocked_pkgutil.iter_modules.return_value = [(None, "pyanaconda.ui.gui")]
+            else:
+                mocked_pkgutil.iter_modules.return_value = [(None, "pyanaconda.ui.webui")]
+
+            fallback_to_tui_if_gtk_ui_is_not_available(mocked_anaconda)
+
+            assert mocked_flags.use_rd is expected_rd_output
+            assert mocked_flags.rd_question is expected_rd_output
+            assert mocked_anaconda.display_mode == expected_display_mode
+
+        # UI is not wanted
+        check_method(gui_mode=False,
+                     webui_supported=False,
+                     gtk_available=True,
+                     expected_display_mode="",
+                     expected_rd_output=None)
+
+        # check result when web ui is supported
+        check_method(gui_mode=True,
+                     webui_supported=True,
+                     gtk_available=True,
+                     expected_display_mode="",
+                     expected_rd_output=None)
+
+        # check result when gtk UI is not available
+        check_method(gui_mode=True,
+                     webui_supported=False,
+                     gtk_available=False,
+                     expected_display_mode=DisplayModes.TUI,
+                     expected_rd_output=False)
+
+        # check result when GTK is available
+        check_method(gui_mode=True,
+                     webui_supported=False,
+                     gtk_available=True,
+                     expected_display_mode="",
+                     expected_rd_output=None)
