@@ -26,7 +26,6 @@ import langtable
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
-from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 
@@ -56,47 +55,15 @@ class InvalidLayoutVariantSpec(Exception):
     pass
 
 
-def _is_xwayland():
-    """Is Anaconda running in XWayland environment?
-
-    This can't be easily detected from the Anaconda because Anaconda
-    is running as XWayland app. Use xisxwayland tool for the detection.
-    """
-    try:
-        rc = execWithRedirect('xisxwayland', [])
-
-        if rc == 0:
-            return True
-
-        log.debug(
-            "Anaconda doesn't run on XWayland. "
-            "See xisxwayland --help for more info."
-        )
-    except FileNotFoundError:
-        log.warning(
-            "The xisxwayland tool is not available! "
-            "Taking the environment as not Wayland."
-        )
-
-    return False
-
-
 def can_configure_keyboard():
     """Can we configure the keyboard?
 
-    FIXME: This is a temporary solution.
-
-    The is_wayland logic is not part of the configuration so we would
-    have to add it to the configuration otherwise it won't be accessible
-    in the Anaconda modules.
+    NOTE:
+    This function could be inlined, however, this give us a possibility for future limitation
+    when needed. For example we could use this method to limit keyboard configuration if we
+    are able to detect that current system doesn't support localed keyboard layout switching.
     """
-    if not conf.system.can_configure_keyboard:
-        return False
-
-    if conf.system.can_run_on_xwayland and _is_xwayland():
-        return False
-
-    return True
+    return conf.system.can_configure_keyboard
 
 
 def parse_layout_variant(layout_variant_str):
