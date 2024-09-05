@@ -194,7 +194,7 @@ class SecurityService(KickstartService):
         # Add FIPS requirements.
         if self.fips_enabled:
             requirements.append(Requirement.for_package(
-                "/usr/bin/fips-mode-setup",
+                "crypto-policies-scripts",
                 reason="Required for FIPS compliance."
             ))
 
