@@ -480,6 +480,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 10 2024 github-actions <github-actions@github.com> - 42.2-1
+- security: call /usr/libexec/fips-setup-helper (asosedkin)
+
 * Mon Sep 02 2024 Katerina Koukiou <kkoukiou@redhat.com> - 42.1-1
 - Ignore all storage errors when trying to activate swaps (vtrefny)
 - build: stop pulling systemd as build dependency (kkoukiou)
