@@ -475,13 +475,12 @@ class GRUB2(BootLoader):
         # If the first partition starts too low and there is no biosboot partition show an error.
         error_msg = None
         biosboot = False
-        parts = self.stage1_disk.format.parted_disk.partitions
-        for p in parts:
-            if p.getFlag(PARTITION_BIOS_GRUB):
+        for p in self.stage1_disk.children:
+            if p.format.type == "biosboot" or p.parted_partition.getFlag(PARTITION_BIOS_GRUB):
                 biosboot = True
                 break
 
-            start = p.geometry.start * p.disk.device.sectorSize
+            start = p.parted_partition.geometry.start * p.parted_partition.disk.device.sectorSize
             if start < min_start:
                 error_msg = _("%(deviceName)s may not have enough space for grub2 to embed "
                               "core.img when using the %(fsType)s file system on %(deviceType)s") \
