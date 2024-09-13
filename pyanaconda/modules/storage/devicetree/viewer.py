@@ -141,7 +141,7 @@ class DeviceTreeViewer(ABC):
         data.attrs["uuid"] = self._get_attribute(device, "uuid")
 
         if isinstance(device, PartitionDevice):
-            data.attrs["partition-label"] = self._get_attribute(device.parted_partition, "name")
+            data.attrs["partition-type-name"] = self._get_attribute(device, "part_type_name")
 
     def _set_device_data_dasd(self, device, data):
         """Set data for a DASD device."""
