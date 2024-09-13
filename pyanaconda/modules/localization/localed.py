@@ -228,9 +228,6 @@ class LocaledWrapper(object):
         variants = []
         parsing_failed = False
 
-        log.debug("Setting system/compositor keyboard layouts: '%s' options: '%s' convert: '%s",
-                  layouts_variants, options, convert)
-
         for layout_variant in (nonempty for nonempty in layouts_variants if nonempty):
             try:
                 (layout, variant) = parse_layout_variant(layout_variant)
@@ -244,9 +241,17 @@ class LocaledWrapper(object):
         if not layouts and parsing_failed:
             return
 
+        if options is None:
+            options = self.options
+            log.debug("Keyboard layouts for system/compositor are missing options. "
+                      "Use compositor options: %s", options)
+
         layouts_str = ",".join(layouts)
         variants_str = ",".join(variants)
-        options_str = ",".join(options) if options else ""
+        options_str = ",".join(options)
+
+        log.debug("Setting system/compositor keyboard layouts: '%s' options: '%s' convert: '%s",
+                  layouts_variants, options, convert)
 
         self._localed_proxy.SetX11Keyboard(
             layouts_str,

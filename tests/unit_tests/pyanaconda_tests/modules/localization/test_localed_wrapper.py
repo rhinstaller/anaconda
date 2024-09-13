@@ -128,6 +128,41 @@ class LocaledWrapperTestCase(unittest.TestCase):
         localed_wrapper.set_layouts(["cz", "us (euro)"])
         assert localed_wrapper._user_layouts_variants == ["cz", "us (euro)"]
 
+        # test set_layout on proxy with options
+        mocked_localed_proxy.SetX11Keyboard.reset_mock()
+        localed_wrapper.set_layouts(["cz (qwerty)", "us"])
+        mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
+            "cz,us",
+            "pc105",  # hardcoded
+            "qwerty,",
+            "grp:alt_shift_toggle,grp:ctrl_alt_toggle",  # options will be reused what is set
+            False,
+            False
+        )
+
+        # test set_layout on proxy with options not set explicitly (None)
+        mocked_localed_proxy.SetX11Keyboard.reset_mock()
+        localed_wrapper.set_layouts(["cz (qwerty)", "us"], options=None)
+        mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
+            "cz,us",
+            "pc105",  # hardcoded
+            "qwerty,",
+            "grp:alt_shift_toggle,grp:ctrl_alt_toggle",  # options will be reused what is set
+            False,
+            False
+        )
+
+        mocked_localed_proxy.SetX11Keyboard.reset_mock()
+        localed_wrapper.set_layouts(["us"], "", True)
+        mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
+            "us",
+            "pc105",  # hardcoded
+            "",
+            "",  # empty options will remove existing options
+            True,
+            False
+        )
+
     @patch("pyanaconda.modules.localization.localed.SystemBus")
     def test_localed_wrapper_no_systembus(self, mocked_system_bus):
         """Test LocaledWrapper in environment without system bus.
@@ -155,6 +190,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
         mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
         mocked_localed_proxy.X11Variant = "qwerty,,euro"
+        mocked_localed_proxy.X11Options = ""
         localed_wrapper = LocaledWrapper()
         user_defined = ["cz (qwerty)", "fi", "us (euro)", "fr"]
 
@@ -190,6 +226,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         mocked_localed_proxy.X11Layout = "fi"
         mocked_localed_proxy.X11Variant = ""
+        mocked_localed_proxy.X11Options = ""
         localed_wrapper._user_layouts_variants = user_defined
 
         assert localed_wrapper.set_current_layout("cz") is False
@@ -217,6 +254,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         mocked_localed_proxy.X11Layout = "cz, us"
         mocked_localed_proxy.X11Variant = ""
+        mocked_localed_proxy.X11Options = ""
         user_defined = []
         localed_wrapper._user_layouts_variants = user_defined
 
@@ -243,6 +281,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         #  currently selected is first in this list 'cz (qwerty)'
         mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
         mocked_localed_proxy.X11Variant = "qwerty,,euro"
+        mocked_localed_proxy.X11Options = ""
         localed_wrapper = LocaledWrapper()
 
         # test switch to next layout
