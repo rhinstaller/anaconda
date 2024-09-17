@@ -30,7 +30,7 @@ from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda import startup_utils
 from pyanaconda.core import util, constants, hw
-from pyanaconda.gnome_remote_destop import GRDServer
+from pyanaconda.gnome_remote_desktop import GRDServer
 from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import NETWORK
