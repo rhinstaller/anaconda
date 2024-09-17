@@ -480,6 +480,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 17 2024 github-actions <github-actions@github.com> - 42.3-1
+- Fix scheduling actions in reclaim space dialog (#2311936) (vtrefny)
+
 * Tue Sep 10 2024 github-actions <github-actions@github.com> - 42.2-1
 - security: call /usr/libexec/fips-setup-helper (asosedkin)
 
