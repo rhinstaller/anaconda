@@ -208,8 +208,6 @@ class GRDServer(object):
         network.wait_for_connectivity()
         try:
             self._find_network_address()
-            self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
-            self.log.info(_("GNOME remote desktop RDP host name: %s"), self.name)
         except (socket.herror, ValueError) as e:
             stdoutLog.critical("GNOME remote desktop RDP: Could not find network address: %s", e)
             util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
@@ -217,3 +215,7 @@ class GRDServer(object):
 
         # Lets start GRD.
         self._start_grd_process()
+
+        # Print connection information to user
+        self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
+        self.log.info(_("GNOME remote desktop RDP host name: %s"), self.name)
