@@ -51,7 +51,7 @@ def exitHandler(rebootData):
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
     if flags.use_rd:
-        gnome_remote_destop.shutdown_server()
+        gnome_remote_desktop.shutdown_server()
 
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
@@ -283,7 +283,7 @@ if __name__ == "__main__":
         opts.display_mode = constants.DisplayModes.TUI
         opts.noninteractive = True
 
-    from pyanaconda import gnome_remote_destop
+    from pyanaconda import gnome_remote_desktop
     from pyanaconda import kickstart
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical
