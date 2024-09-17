@@ -25,6 +25,8 @@ import socket
 from systemd import journal
 from pyanaconda import network
 from pyanaconda.core import util
+from pyanaconda.core.constants import THREAD_RDP_OBTAIN_HOSTNAME
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import execWithCapture, startProgram
 
 from pyanaconda.core.i18n import _
@@ -72,12 +74,11 @@ def shutdown_server():
 
 class GRDServer(object):
 
-    def __init__(self, anaconda, root="/", ip=None, name=None,
+    def __init__(self, anaconda, root="/", ip=None,
                  rdp_username="", rdp_password=""):
         self.root = root
         self.ip = ip
         self.rdp_username = rdp_username
-        self.name = name
         self.rdp_password = rdp_password
         self.anaconda = anaconda
         self.log = get_stdout_logger()
@@ -140,21 +141,36 @@ class GRDServer(object):
         if not self.ip:
             return
 
-        # FIXME: resolve this somehow,
-        # so it does not get stuck for 2 minutes in some VMs
+    def _get_hostname(self):
+        """Start thread to obtain hostname from DNS server asynchronously.
 
-        if self.ip.find(':') != -1:
-            ipstr = "[%s]" % (self.ip,)
-        else:
-            ipstr = self.ip
+        This can take a while so do not wait for the result just print it when available.
+        """
+        thread_manager.add_thread(name=THREAD_RDP_OBTAIN_HOSTNAME,
+                                  target=self._get_hostname_in_thread,
+                                  args=[self.ip, self.log]
+                                  )
 
+    @staticmethod
+    def _get_hostname_in_thread(ip, stdout_log):
+        """Obtain hostname from the DNS query.
+
+        This call will be done from the thread to avoid situations where DNS is too slow or
+        doesn't exists and we are waiting for the reply about 2 minutes.
+        """
         try:
-            hinfo = socket.gethostbyaddr(self.ip)
+            hinfo = socket.gethostbyaddr(ip)
             if len(hinfo) == 3:
                 # Consider as coming from a valid DNS record only if single IP is returned
                 if len(hinfo[2]) == 1:
-                    self.name = hinfo[0]
+                    name = hinfo[0]
+                    stdout_log.info(_("GNOME remote desktop RDP host name: %s"), name)
+
         except socket.herror as e:
+            if ip.find(':') != -1:
+                ipstr = "[%s]" % (ip,)
+            else:
+                ipstr = ip
             log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
 
     def _run_grdctl(self, argv):
@@ -218,4 +234,5 @@ class GRDServer(object):
 
         # Print connection information to user
         self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
-        self.log.info(_("GNOME remote desktop RDP host name: %s"), self.name)
+        # Print hostname when available (run in separate thread to avoid blocking)
+        self._get_hostname()
