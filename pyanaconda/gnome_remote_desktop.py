@@ -88,17 +88,22 @@ class GRDServer(object):
 
         # start by checking we have openssl available
         if not os.path.exists(OPENSSL_BINARY_PATH):
-            stdoutLog.critical("No openssl binary found, can't generate certificates "
-                               "for GNOME remote desktop. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("No openssl binary found, can't generate certificates "
+                                  "for GNOME remote desktop. Aborting.")
 
         # start by checking we have GNOME remote desktop available
         if not os.path.exists(GRD_BINARY_PATH):
             # we assume there that the main binary being present implies grdctl is there as well
-            stdoutLog.critical("GNOME remote desktop tooling is not available. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("GNOME remote desktop tooling is not available. Aborting.")
+
+    def _fail_with_error(self, *args):
+        """Kill Anaconda with with message for user.
+
+        Send ipmi error message.
+        """
+        stdoutLog.critical(*args)
+        util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+        sys.exit(1)
 
     def _handle_rdp_certificates(self):
         """Generate SSL certificate and use it for incoming RDP connection."""
@@ -200,16 +205,12 @@ class GRDServer(object):
                                        env_add={"HOME": "/root"})
             self.log.info("GNOME remote desktop is now running.")
         except OSError:
-            stdoutLog.critical("Could not start GNOME remote desktop. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("Could not start GNOME remote desktop. Aborting.")
 
     def start_grd_rdp(self):
         # check if RDP user name & password are set
         if not self.rdp_password or not self.rdp_username:
-            stdoutLog.critical("RDP user name or password not set. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("RDP user name or password not set. Aborting.")
 
         self.log.info(_("Starting GNOME remote desktop in RDP mode..."))
 
@@ -225,9 +226,7 @@ class GRDServer(object):
         try:
             self._find_network_address()
         except (socket.herror, ValueError) as e:
-            stdoutLog.critical("GNOME remote desktop RDP: Could not find network address: %s", e)
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("GNOME remote desktop RDP: Could not find network address: %s", e)
 
         # Lets start GRD.
         self._start_grd_process()
