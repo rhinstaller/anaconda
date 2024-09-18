@@ -27,7 +27,7 @@ from pyanaconda import network
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_RDP_OBTAIN_HOSTNAME
 from pyanaconda.core.threads import thread_manager
-from pyanaconda.core.util import execWithCapture, startProgram
+from pyanaconda.core.util import execWithRedirect, startProgram
 
 from pyanaconda.core.i18n import _
 
@@ -111,14 +111,18 @@ class GRDServer(object):
         # then create folder for the certs
         os.makedirs(GRD_RDP_CERT_DIR)
         # generate the certs
-        execWithCapture(OPENSSL_BINARY_PATH,
-                        ["req", "-new",
-                         "-newkey", "rsa:4096",
-                         "-days", "720", "-nodes", "-x509",
-                         "-subj", "/C=DE/ST=NONE/L=NONE/O=GNOME/CN=localhost",
-                         "-out", GRD_RDP_CERT,
-                         "-keyout", GRD_RDP_CERT_KEY]
-                        )
+        ret = execWithRedirect(OPENSSL_BINARY_PATH,
+                               ["req", "-new",
+                                "-newkey", "rsa:4096",
+                                "-days", "720", "-nodes", "-x509",
+                                "-subj", "/C=DE/ST=NONE/L=NONE/O=GNOME/CN=localhost",
+                                "-out", GRD_RDP_CERT,
+                                "-keyout", GRD_RDP_CERT_KEY]
+                               )
+        if ret != 0:
+            self._fail_with_error(
+                "Can't generate certificates for Gnome remote desktop. Aborting."
+                )
         # tell GNOME remote desktop to use these certificates
         self._run_grdctl(["rdp", "set-tls-cert", GRD_RDP_CERT])
         self._run_grdctl(["rdp", "set-tls-key", GRD_RDP_CERT_KEY])
@@ -189,7 +193,8 @@ class GRDServer(object):
         # extend the base argv by the caller provided arguments
         combined_argv = base_argv + argv
         # make sure HOME is set to /root or else settings might not be saved
-        execWithCapture("grdctl", combined_argv, env_add={"HOME": "/root"})
+        if execWithRedirect("grdctl", combined_argv, env_add={"HOME": "/root"}) != 0:
+            self._fail_with_error("Gnome remote desktop invocation failed!")
 
     def _start_grd_process(self):
         """Start the GNOME remote desktop process."""
@@ -226,7 +231,8 @@ class GRDServer(object):
         try:
             self._find_network_address()
         except (socket.herror, ValueError) as e:
-            self._fail_with_error("GNOME remote desktop RDP: Could not find network address: %s", e)
+            self._fail_with_error("GNOME remote desktop RDP: Could not find network address: %s",
+                                  e)
 
         # Lets start GRD.
         self._start_grd_process()
