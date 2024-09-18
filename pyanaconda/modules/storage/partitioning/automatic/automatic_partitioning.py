@@ -33,6 +33,8 @@ from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidat
     get_default_partitioning, get_part_spec, get_disks_for_implicit_partitions
 from pyanaconda.modules.storage.platform import platform
 from pyanaconda.core.storage import suggest_swap_size
+from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
+    AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
 
 log = get_module_logger(__name__)
@@ -143,8 +145,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         storage.roots = find_existing_installations(storage.devicetree)
         log.debug("storage.roots.mounts %s", [root.mounts for root in storage.roots])
 
-        # TODO check that partitioning scheme matches - do it earlier in the
-        # check but also here?
+        # Check that partitioning scheme matches
+        self._check_reused_scheme(storage, self._request)
 
         for mountpoint in self._request.removed_mount_points:
             if mountpoint == "bootloader":
@@ -153,6 +155,21 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
                 self._remove_mountpoint(storage, mountpoint)
         for mountpoint in self._request.reformatted_mount_points:
             self._reformat_mountpoint(storage, mountpoint)
+
+    def _check_reused_scheme(self, storage, request):
+        scheme = request.partitioning_scheme
+        required_home_device_type = {
+            AUTOPART_TYPE_BTRFS: "btrfs subvolume",
+            AUTOPART_TYPE_LVM: "lvmlv",
+            AUTOPART_TYPE_LVM_THINP: "lvmthinlv",
+            AUTOPART_TYPE_PLAIN: "partition",
+        }
+        for mountpoint in request.reused_mount_points:
+            device = self._get_mountpoint_device(storage, mountpoint)
+            if device.type != required_home_device_type[scheme]:
+                raise StorageError(_("Reused device type '{}' of mount point '{}' does not "
+                                     "match the required automatic partitioning scheme.")
+                                   .format(device.type, mountpoint))
 
     def _schedule_reused_mountpoint(self, storage, mountpoint):
         device = self._get_mountpoint_device(storage, mountpoint)
