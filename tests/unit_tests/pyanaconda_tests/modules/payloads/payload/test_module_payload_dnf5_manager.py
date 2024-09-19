@@ -533,26 +533,28 @@ class DNFManagerTestCase(unittest.TestCase):
 
     def _install_packages(self, base, transaction, progress):
         """Simulate the installation of packages."""
-        transaction_items = list(map(self._get_transaction_item, ["p1", "p2", "p3"]))
-        ts_total = len(transaction_items)
-        for ts_done, item in enumerate(transaction_items):
-            progress.install_start(item, ts_total)
-            progress.install_progress(item, ts_done, ts_total)
-            progress.script_start(
-                item,
-                item.nevra,
-                libdnf5.rpm.TransactionCallbacks.ScriptType_PRE_INSTALL
-            )
-            progress.install_progress(item, ts_done + 1, ts_total)
+        try:
+            transaction_items = list(map(self._get_transaction_item, ["p1", "p2", "p3"]))
+            ts_total = len(transaction_items)
+            for ts_done, item in enumerate(transaction_items):
+                progress.install_start(item, ts_total)
+                progress.install_progress(item, ts_done, ts_total)
+                progress.script_start(
+                    item,
+                    item.nevra,
+                    libdnf5.rpm.TransactionCallbacks.ScriptType_PRE_INSTALL
+                )
+                progress.install_progress(item, ts_done + 1, ts_total)
 
-        for ts_done, item in enumerate(transaction_items):
-            progress.script_start(
-                item,
-                item.nevra,
-                libdnf5.rpm.TransactionCallbacks.ScriptType_POST_TRANSACTION
-            )
-
-        progress.quit("DNF quit")
+            for ts_done, item in enumerate(transaction_items):
+                progress.script_start(
+                    item,
+                    item.nevra,
+                    libdnf5.rpm.TransactionCallbacks.ScriptType_POST_TRANSACTION
+                )
+        finally:
+            # The quit must be called even if there is an error, otherwise the process never quits.
+            progress.quit("DNF quit")
 
     @patch.object(DNFManager, '_run_transaction')
     def test_install_packages_failed(self, run_transaction):
