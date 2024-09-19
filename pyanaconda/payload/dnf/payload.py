@@ -68,8 +68,8 @@ class DNFPayload(MigratedDBusPayload):
     def _set_default_source(self, opts):
         """Set the default source.
 
-        Set the source based on opts.method if it isn't already set
-        - opts.method is currently set by command line/boot options.
+        Set the source based on opts.repo if it isn't already set
+        - opts.repo is currently set by command line/boot options.
 
         Otherwise, use the source provided at a specific mount point
         by Dracut if there is any.
@@ -89,9 +89,9 @@ class DNFPayload(MigratedDBusPayload):
         if self.proxy.Sources:
             log.debug("The DNF source is already set.")
 
-        elif opts.method:
+        elif opts.repo:
             log.debug("Use the DNF source from opts.")
-            source_proxy = self._create_source_from_url(opts.method)
+            source_proxy = self._create_source_from_url(opts.repo)
             set_source(self.proxy, source_proxy)
 
         elif verify_valid_repository(DRACUT_REPO_DIR):

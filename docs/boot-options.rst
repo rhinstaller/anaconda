@@ -822,13 +822,6 @@ Deprecated Options
 These options should still be accepted by the installer, but they are
 deprecated and may be removed soon.
 
-.. method:
-
-method
-^^^^^^
-
-This is an alias for `inst.repo`_.
-
 .. dns:
 
 dns
@@ -901,6 +894,11 @@ blacklist, nofirewire
 ``modprobe.blacklist=<mod1>,<mod2>...``
 
 You can add the firewire module to a denylist with ``modprobe.blacklist=firewire_ohci``.
+
+method:
+^^^^^^
+
+Use `inst.repo`_ instead.
 
 serial
 ^^^^^^
