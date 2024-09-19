@@ -460,9 +460,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help="This option is deprecated.")
     ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False,
                     help=help_parser.help_text("multilib"))
-
-    ap.add_argument("-m", "--method", dest="method", default=None, metavar="METHOD",
-                    help=help_parser.help_text("method"))
     ap.add_argument("--repo", dest="method", default=None, metavar="REPO_URL",
                     help=help_parser.help_text("repo"))
     ap.add_argument("--stage2", dest="stage2", default=None, metavar="STAGE2_URL",

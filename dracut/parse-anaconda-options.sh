@@ -72,7 +72,7 @@ check_removed_arg askmethod "Use an appropriate 'inst.repo=' argument instead."
 check_removed_arg asknetwork "Use an appropriate 'ip=' argument instead."
 
 # repo
-check_depr_arg "method=" "repo=%s"
+check_removed_arg "inst.method" "Use an appropriate 'inst.repo=' argument instead."
 
 # mpath
 check_removed_arg "inst.nompath"
