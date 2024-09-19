@@ -329,7 +329,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,
         raise
 
     with program_log_lock:
-        program_log.debug("Return code: %d", proc.returncode)
+        program_log.debug("Return code of %s: %d", argv[0], proc.returncode)
 
     return (proc.returncode, output_string)
 
