@@ -90,7 +90,12 @@ ANACONDA_PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
 ANACONDA_PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
 # Add remaining compiler flags we want to use
-CFLAGS="$CFLAGS -Wall -Werror -fanalyzer"
+# only append -fanalyzer when building with gcc
+CFLAGS="$CFLAGS -Wall -Werror"
+
+if [[ "$CC" == "gcc" ]]; then
+  CFLAGS="$CFLAGS -fanalyzer"
+fi
 
 
 # Perform arch related tests
