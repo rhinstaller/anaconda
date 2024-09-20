@@ -2,6 +2,7 @@ Summary: Graphical system installer
 Name:    anaconda
 Version: @PACKAGE_VERSION@
 Release: @PACKAGE_RELEASE@%{?dist}
+ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -194,11 +195,11 @@ Requires: libblockdev-lvm-dbus
 # active directory/freeipa join support
 Requires: realmd
 Requires: isomd5sum >= %{isomd5sumver}
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 Recommends: fcoe-utils >= %{fcoeutilsver}
 %endif
 # likely HFS+ resize support
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %if ! 0%{?rhel}
 Requires: hfsplus-tools
 %endif
@@ -240,7 +241,7 @@ Summary: Installation image specific dependencies
 # Pull in most stuff with the -env- metapackage
 Requires: anaconda-install-env-deps = %{version}-%{release}
 # Require storage things that are only recommended in -env-
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
 # only WeakRequires elsewhere and not guaranteed to be present
