@@ -166,6 +166,8 @@ class GRDServer(object):
 
         This call will be done from the thread to avoid situations where DNS is too slow or
         doesn't exists and we are waiting for the reply about 2 minutes.
+
+        :raises: ValueError and socket.herror
         """
         try:
             hinfo = socket.gethostbyaddr(ip)
