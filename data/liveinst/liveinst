@@ -160,7 +160,7 @@ start_anaconda_web_ui() {
     fi
     # early execution of Firefox to reduce starting time
     mkdir -p /run/anaconda
-    /usr/libexec/webui-desktop -t live /cockpit/@localhost/anaconda-webui/index.html &
+    /usr/libexec/anaconda/webui-desktop -t live /cockpit/@localhost/anaconda-webui/index.html &
     echo -n "$!" > /run/anaconda/webui_script.pid
 }
 
