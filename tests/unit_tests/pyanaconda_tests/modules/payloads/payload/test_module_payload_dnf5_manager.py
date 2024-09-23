@@ -577,18 +577,10 @@ class DNFManagerTestCase(unittest.TestCase):
         """Simulate the failed installation of packages."""
         progress.error("The p1 package couldn't be installed!")
 
-    @pytest.mark.skip("Not implemented")
     def test_set_download_location(self):
         """Test the set_download_location method."""
-        r1 = self._add_repo("r1")
-        r2 = self._add_repo("r2")
-        r3 = self._add_repo("r3")
-
         self.dnf_manager.set_download_location("/my/download/location")
-
-        assert r1.pkgdir == "/my/download/location"
-        assert r2.pkgdir == "/my/download/location"
-        assert r3.pkgdir == "/my/download/location"
+        assert self._get_configuration().destdir == "/my/download/location"
 
     def test_download_location(self):
         """Test the download_location property."""
