@@ -149,3 +149,40 @@ class InstallerStorageTestCase(unittest.TestCase):
         assert len(root2_copy.mounts) == 2
         assert "/" in root2_copy.mounts
         assert "/home" in root2_copy.mounts
+
+    def test_copy_mountopts(self):
+        """Test the copy of mount options."""
+        dev1 = StorageDevice("dev1")
+        self._add_device(dev1)
+
+        dev2 = StorageDevice("dev2")
+        self._add_device(dev2)
+
+        dev3 = StorageDevice("dev3")
+        self._add_device(dev3)
+
+        root1 = Root(
+            name="Linux 1",
+            devices=[dev2],
+            mounts={"/": dev2},
+        )
+        self.storage.roots.append(root1)
+
+        root2 = Root(
+            name="Linux 2",
+            devices=[dev1, dev3],
+            mounts={"/": dev1, "/home": dev3},
+            mountopts={"/home": "opt1"}
+        )
+        self.storage.roots.append(root2)
+
+        storage_copy = self.storage.copy()
+        assert len(storage_copy.roots) == 2
+
+        root1_copy = storage_copy.roots[0]
+        assert root1_copy.name == "Linux 1"
+        assert len(root1_copy.mountopts) == 0
+
+        root2_copy = storage_copy.roots[1]
+        assert root2_copy.name == "Linux 2"
+        assert len(root2_copy.mountopts) == 1

@@ -124,7 +124,7 @@ def _find_existing_installations(devicetree):
             continue
 
         architecture, product, version = get_release_string(chroot=sysroot)
-        (mounts, devices) = _parse_fstab(devicetree, chroot=sysroot)
+        (mounts, devices, mountopts) = _parse_fstab(devicetree, chroot=sysroot)
         blivet_util.umount(mountpoint=sysroot)
 
         if not mounts and not devices:
@@ -137,6 +137,7 @@ def _find_existing_installations(devicetree):
             arch=architecture,
             devices=devices,
             mounts=mounts,
+            mountopts=mountopts,
         ))
 
     return roots
@@ -249,16 +250,17 @@ def _parse_fstab(devicetree, chroot):
 
     :param devicetree: a device tree
     :param chroot: a path to the target OS installation
-    :return: a tuple of a mount dict and a device list
+    :return: a tuple of a mount dict, device list, mount options
     """
     mounts = {}
     devices = []
+    mountopts = {}
 
     path = "%s/etc/fstab" % chroot
     if not os.access(path, os.R_OK):
         # XXX should we raise an exception instead?
         log.info("cannot open %s for read", path)
-        return mounts, devices
+        return mounts, devices, mountopts
 
     blkid_tab = BlkidTab(chroot=chroot)
     try:
@@ -306,17 +308,18 @@ def _parse_fstab(devicetree, chroot):
 
             if fstype != "swap":
                 mounts[mountpoint] = device
+                mountopts[mountpoint] = options
 
             devices.append(device)
 
-    return mounts, devices
+    return mounts, devices, mountopts
 
 
 class Root(object):
     """A root represents an existing OS installation."""
 
     def __init__(self, name=None, product=None, version=None, arch=None, devices=None,
-                 mounts=None):
+                 mounts=None, mountopts=None):
         """Create a new OS representation.
 
         :param name: a name of the OS or None
@@ -325,6 +328,7 @@ class Root(object):
         :param arch: a machine's architecture or None
         :param devices: a list of all devices
         :param mounts: a dictionary of mount points and devices
+        :param mountopts: a dictionary of mount points and its mount options
         """
         self._name = name
         self._product = product
@@ -332,6 +336,7 @@ class Root(object):
         self._arch = arch
         self._devices = devices or []
         self._mounts = mounts or {}
+        self._mountopts = mountopts or {}
 
     @property
     def name(self):
@@ -377,6 +382,14 @@ class Root(object):
         """
         return self._mounts
 
+    @property
+    def mountopts(self):
+        """Mount point options of mount points defined by the OS.
+
+        :return: a dictionary of mount points and their mount options
+        """
+        return self._mountopts
+
     def copy(self, storage):
         """Create a copy with devices of the given storage model.
 
@@ -392,6 +405,12 @@ class Root(object):
             m, d = i[0], _get_device(i[1])
             return (m, d) if m and d else None
 
+        def _get_mount_opt(i):
+            m, d = i[0], _get_device(i[1])
+            return (m, self._mountopts[m]) if m and d and m in self._mountopts else None
+
         new_root._devices = list(filter(None, map(_get_device, new_root._devices)))
         new_root._mounts = dict(filter(None, map(_get_mount, new_root._mounts.items())))
+        new_root._mountopts = dict(filter(None, map(_get_mount_opt,
+                                                    new_root._mounts.items())))
         return new_root

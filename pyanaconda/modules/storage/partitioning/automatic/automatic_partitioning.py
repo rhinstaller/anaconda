@@ -83,6 +83,12 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         return devices[0]
 
+    def _get_mountpoint_options(self, storage, mountpoint):
+        for root in storage.roots:
+            if mountpoint in root.mountopts:
+                return root.mountopts[mountpoint]
+        return None
+
     def _reused_devices_mountpoints(self, request):
         return request.reused_mount_points + request.reformatted_mount_points
 
@@ -173,9 +179,13 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
     def _schedule_reused_mountpoint(self, storage, mountpoint):
         device = self._get_mountpoint_device(storage, mountpoint)
-        log.debug("add mount device request for reused mountpoint: %s device: %s",
-                  mountpoint, device)
+        mountopts = self._get_mountpoint_options(storage, mountpoint)
+        log.debug("add mount device request for reused mountpoint: %s device: %s "
+                  "with mountopts: %s",
+                  mountpoint, device, mountopts)
         device.format.mountpoint = mountpoint
+        if mountopts:
+            device.format.options = mountopts
 
     def _schedule_reformatted_mountpoint(self, storage, mountpoint):
         old_device = self._get_mountpoint_device(storage, mountpoint)
