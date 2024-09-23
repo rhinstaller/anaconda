@@ -117,6 +117,14 @@ class DNFConfigWrapper(object):
         self._config.get_cost_option().set(value)
 
     @property
+    def destdir(self):
+        return self._config.get_destdir_option().get_value()
+
+    @destdir.setter
+    def destdir(self, value):
+        self._config.get_destdir_option().set(value)
+
+    @property
     def excludepkgs(self):
         return self._config.get_excludepkgs_option().get_value()
 
@@ -859,9 +867,8 @@ class DNFManager(object):
 
         :param path: a path to the package directory
         """
-        # FIXME: Reimplement the assignment.
-        # for repo in self._base.repos.iter_enabled():
-        #    repo.pkgdir = path
+        config = simplify_config(self._base.get_config())
+        config.destdir = path
 
         self._download_location = path
 
