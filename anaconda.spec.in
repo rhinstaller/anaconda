@@ -480,6 +480,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 23 2024 Katerina Koukiou <k.koukiou@gmail.com> - 41.32-1
+- webui: Move webui-desktop in libexec to our subdirectory (akankovs)
+- Set up the fedora-41 branch (kkoukiou)
+
 * Thu Aug 22 2024 github-actions <github-actions@github.com> - 41.31-1
 - docs: update release note about modularity deprecation (kkoukiou)
 - Add support for creating LUKS HW-OPAL devices (vtrefny)
