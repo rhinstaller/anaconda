@@ -25,6 +25,9 @@ jobs:
       matrix:
         release: ['']
         include:
+          - release: ''
+            target_branch: 'fedora-41'
+            ci_tag: 'fedora-41'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -85,6 +88,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        release: ['']
+        include:
+          - release: ''
+            target_branch: 'fedora-41'
+            ci_tag: 'fedora-41'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
