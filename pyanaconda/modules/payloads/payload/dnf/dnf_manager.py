@@ -653,10 +653,7 @@ class DNFManager:
 
         :param path: a path to the package directory
         """
-        # FIXME: Reimplement the assignment.
-        # for repo in self._base.repos.iter_enabled():
-        #    repo.pkgdir = path
-
+        self._base.get_config().destdir = path
         self._download_location = path
 
     def download_packages(self, callback):
