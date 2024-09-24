@@ -481,6 +481,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 24 2024 github-actions <github-actions@github.com> - 42.4-1
+- pyanaconda: fix incorrect access to --repo argument (k.koukiou)
+- util: log PID also when a created process terminates (k.koukiou)
+- Add release notes about dropping i686 builds (jkonecny)
+- Remove support for i686 builds (jkonecny)
+- Remove deprecated `method` boot option (k.koukiou)
+- configure: only append -fanalyzer when building with gcc (zhoujiacheng)
+- Fix check for biosboot partition in GRUB2.check (vtrefny)
+
 * Tue Sep 17 2024 github-actions <github-actions@github.com> - 42.3-1
 - Fix scheduling actions in reclaim space dialog (#2311936) (vtrefny)
 
