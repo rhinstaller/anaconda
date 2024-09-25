@@ -95,7 +95,7 @@ Requires: python3-meh >= %{mehver}
 %if 0%{?rhel} < 10 || 0%{?fedora}
 Requires: libreport-anaconda >= %{libreportanacondaver}
 %endif
-Requires: libselinux-python3
+Requires: python3-libselinux
 Requires: python3-rpm >= %{rpmver}
 Requires: python3-pyparted >= %{pypartedver}
 Requires: python3-requests
