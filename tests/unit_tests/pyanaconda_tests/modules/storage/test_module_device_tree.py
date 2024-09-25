@@ -45,7 +45,6 @@ from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
     MountExistingSystemTask
 from pyanaconda.modules.storage.devicetree.root import Root
-from parted import PARTITION_NORMAL
 
 
 class DeviceTreeInterfaceTestCase(unittest.TestCase):
@@ -357,19 +356,15 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             size=Size("500 MiB"),
             fmt=get_format("ext4", exists=True)
         )
-        attrs = {
-            'type': PARTITION_NORMAL,
-            'getLength.return_value': int(sda1.size),
-            'getFlag.return_value': 0,
-            'name': "Microsoft reserved partition",
-            'number': 1
-        }
-        sda1._parted_partition = Mock()
-        sda1._parted_partition.configure_mock(**attrs)
         self._add_device(sda1)
 
-        data = self.interface.GetDeviceData("dev1")
-        assert data['attrs']['partition-label'] == "Microsoft reserved partition"
+        with patch.object(PartitionDevice,
+                          'part_type_name',
+                          new_callable=PropertyMock) as mock_part_type_name:
+            mock_part_type_name.return_value = "Microsoft reserved partition"
+
+            data = self.interface.GetDeviceData("dev1")
+            assert data['attrs']['partition-type-name'] == "Microsoft reserved partition"
 
     def test_get_format_data(self):
         """Test GetFormatData."""

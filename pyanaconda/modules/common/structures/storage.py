@@ -210,7 +210,7 @@ class DeviceData(DBusData):
             path-id
 
         Attributes for partitions:
-            partition-label
+            partition-type-name
 
         :return: a dictionary of attributes
         """
