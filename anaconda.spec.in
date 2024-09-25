@@ -160,7 +160,6 @@ Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
-Obsoletes: booty <= 0.107-1
 
 %description core
 The anaconda-core package contains the program which was used to install your
