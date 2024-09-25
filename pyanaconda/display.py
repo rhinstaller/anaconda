@@ -24,6 +24,8 @@ import time
 import textwrap
 import signal
 
+from collections import namedtuple
+
 from pyanaconda.mutter_display import MutterDisplay, MutterConfigError
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import join_paths
@@ -49,6 +51,10 @@ from systemd import journal
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
+
+
+rdp_credentials = namedtuple("rdp_credentials", ["username", "password"])
+
 
 WAYLAND_TIMEOUT_ADVICE = \
     "Do not load the stage2 image over a slow network link.\n" \
@@ -85,15 +91,21 @@ def start_user_systemd():
 
 # RDP
 
-def ask_rd_question(anaconda, grd_server, message):
+def ask_rd_question(anaconda, message):
     """ Ask the user if TUI or GUI-over-RDP should be started.
 
+    Return Tuple(should use RDP, NameTuple rdp_credentials(username, password))
+
+    e.g.:
+    (True, rdp_credentials)
+    rdp_credentials.username
+    rdp_credentials.password
+
     :param anaconda: instance of the Anaconda class
-    :param grd_server: instance of the GRD server object
     :param str message: a message to show to the user together
                         with the question
-    :return: if remote desktop should be used
-    :rtype: bool
+    :return: (use_rd, rdp_credentials(username, password))
+    :rtype: Tuple(bool, NameTuple(username, password))
     """
     App.initialize()
     loop = App.get_event_loop()
@@ -107,19 +119,18 @@ def ask_rd_question(anaconda, grd_server, message):
             log.info("RDP requested via RDP question, switching Anaconda to GUI mode.")
         anaconda.display_mode = constants.DisplayModes.GUI
         flags.use_rd = True
-        grd_server.rdp_username = spoke.rdp_username
-        grd_server.rdp_password = spoke.rdp_password
 
-    return spoke.use_remote_desktop
+    return (spoke.use_remote_desktop, rdp_credentials(spoke.rdp_username, spoke.rdp_password))
 
-def ask_for_rd_credentials(anaconda, grd_server, username=None, password=None):
+
+def ask_for_rd_credentials(anaconda, username=None, password=None):
     """ Ask the user to provide RDP credentials interactively.
 
     :param anaconda: instance of the Anaconda class
-    :param grd_server: instance of the GRD server object
     :param str username: user set username (if any)
     :param str password: user set password (if any)
-    :rtype: bool
+
+    :return: namedtuple rdp_credentials(username, password)
     """
     App.initialize()
     loop = App.get_event_loop()
@@ -131,8 +142,7 @@ def ask_for_rd_credentials(anaconda, grd_server, username=None, password=None):
     log.info("RDP credentials set")
     anaconda.display_mode = constants.DisplayModes.GUI
     flags.use_rd = True
-    grd_server.rdp_username = spoke._username
-    grd_server.rdp_password = spoke._password
+    return rdp_credentials(spoke._username, spoke._password)
 
 def check_rd_can_be_started(anaconda):
     """Check if we can start an RDP session in the current environment.
@@ -299,16 +309,15 @@ def setup_display(anaconda, options):
         log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
         xtimeout = constants.X_TIMEOUT
 
-    grd_server = GRDServer(anaconda)  # The RDP server object
     rdp_credentials_sufficient = False
+    rdp_creds = rdp_credentials("", "")
 
     if options.rdp_enabled:
         flags.use_rd = True
         if not anaconda.gui_mode:
             log.info("RDP requested via boot/CLI option, switching Anaconda to GUI mode.")
             anaconda.display_mode = constants.DisplayModes.GUI
-        grd_server.rdp_username = options.rdp_username
-        grd_server.rdp_password = options.rdp_password
+        rdp_creds = rdp_credentials(options.rdp_username, options.rdp_password)
         # note if we have both set
         rdp_credentials_sufficient = options.rdp_username and options.rdp_password
 
@@ -323,7 +332,9 @@ def setup_display(anaconda, options):
         # or inst.rdp and insufficient credentials are provided
         # via boot options, ask interactively.
         if options.rdp_enabled and not rdp_credentials_sufficient:
-            ask_for_rd_credentials(anaconda, grd_server, options.rdp_username, options.rdp_password)
+            rdp_creds = ask_for_rd_credentials(anaconda,
+                                               options.rdp_username,
+                                               options.rdp_password)
     else:
         # RDP can't be started - disable the RDP question and log
         # all the errors that prevented RDP from being started
@@ -337,9 +348,12 @@ def setup_display(anaconda, options):
                     "options. It does not offer custom partitioning for "
                     "full control over the disk layout. Would you like "
                     "to use remote graphical access via the RDP protocol instead?")
-        if not ask_rd_question(anaconda, grd_server, message):
+        use_rd, credentials = ask_rd_question(anaconda, message)
+        if not use_rd:
             # user has explicitly specified text mode
             flags.rd_question = False
+        else:
+            rdp_creds = credentials
 
     anaconda.log_display_mode()
     startup_utils.check_memory(anaconda, options)
@@ -385,11 +399,14 @@ def setup_display(anaconda, options):
                     "an RDP session to connect to this computer from another computer and "
                     "perform a graphical installation or continue with a text mode "
                     "installation?")
-        ask_rd_question(anaconda, grd_server, message)
+        rdp_creds = ask_rd_question(anaconda, message)
 
     # if they want us to use RDP do that now
     if anaconda.gui_mode and flags.use_rd:
         do_startup_wl_actions(xtimeout, headless=True, headless_resolution=options.runres)
+        grd_server = GRDServer(anaconda)  # The RDP server object
+        grd_server.rdp_username = rdp_creds.username
+        grd_server.rdp_password = rdp_creds.password
         grd_server.start_grd_rdp()
 
     # with Wayland running we can initialize the UI interface
