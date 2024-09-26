@@ -119,6 +119,7 @@ class DNFManager:
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+        self._repositories_loaded = False
         self._query_environments = None
         self._query_groups = None
 
@@ -203,6 +204,7 @@ class DNFManager:
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+        self._repositories_loaded = False
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -256,6 +258,9 @@ class DNFManager:
 
     @property
     def _environments(self):
+        if not self._repositories_loaded:
+            log.warning("There is no metadata about environments and groups!")
+            return []
         if self._query_environments is None:
             self._query_environments = libdnf5.comps.EnvironmentQuery(self._base)
         return self._query_environments
@@ -340,6 +345,9 @@ class DNFManager:
 
     @property
     def _groups(self):
+        if not self._repositories_loaded:
+            log.warning("There is no metadata about environments and groups!")
+            return []
         if self._query_groups is None:
             self._query_groups = libdnf5.comps.GroupQuery(self._base)
         return self._query_groups
@@ -549,9 +557,9 @@ class DNFManager:
         :param package_spec: a package spec
         :return: True if the package can be installed, otherwise False
         """
-        #if not self._base.sack:
-        #    log.warning("There is no metadata about packages!")
-        #    return False
+        if not self._repositories_loaded:
+            log.warning("There is no metadata about packages!")
+            return False
 
         query = libdnf5.rpm.PackageQuery(self._base)
         query.filter_name([package_spec])
@@ -565,9 +573,9 @@ class DNFManager:
         :param pattern: a pattern for package names
         :return: a list of matched package names
         """
-        #if not self._base.sack:
-        #    log.warning("There is no metadata about packages!")
-        #    return []
+        if not self._repositories_loaded:
+            log.warning("There is no metadata about packages!")
+            return []
 
         query = libdnf5.rpm.PackageQuery(self._base)
         query.filter_name([pattern], libdnf5.common.QueryCmp_GLOB)
@@ -848,6 +856,9 @@ class DNFManager:
         :param RepoConfigurationData data: a repo configuration
         return dnf.repo.Repo: a DNF repository
         """
+        if self._repositories_loaded:
+            raise RuntimeError("Cannot create a new repository. Repositories were already loaded.")
+
         repo_sack = self._base.get_repo_sack()
         repo = repo_sack.create_repo(data.name)
         config = repo.get_config()
@@ -1037,6 +1048,7 @@ class DNFManager:
         except RuntimeError as e:
             log.warning(str(e))
             raise MetadataError(str(e)) from None
+        self._repositories_loaded = True
         log.info("Loaded repositories.")
 
     def load_repomd_hashes(self):
