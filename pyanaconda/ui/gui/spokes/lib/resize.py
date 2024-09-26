@@ -552,10 +552,10 @@ class ResizeDialog(GUIObject):
             log.debug("Preserve %s.", obj.name)
         elif obj.action == _(SHRINK):
             log.debug("Shrink %s to %s.", obj.name, Size(obj.target))
-            self._device_tree.ShrinkDevice(obj.name, obj.target)
+            self._device_tree.ShrinkDevice(obj.device_id, obj.target)
         elif obj.action == _(DELETE):
             log.debug("Remove %s.", obj.name)
-            self._device_tree.RemoveDevice(obj.name)
+            self._device_tree.RemoveDevice(obj.device_id)
 
     def on_resize_clicked(self, *args):
         rows = []
