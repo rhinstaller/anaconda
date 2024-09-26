@@ -311,7 +311,6 @@ It is important to have consistency across the codebase. This won't necessarily 
 
 In general we are trying to be as close as possible to `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ but also extending or modifying minor PEP8 rules when it seems suitable in the context of our project. See list of the conventions below:
 
-* Limit all lines to a maximum of 99 characters.
 * Format strings with `.format() <https://docs.python.org/3/library/stdtypes.html#str.format>`_ instead of ``%`` (https://pyformat.info/)
     * Exception: Use ``%`` formatting in logging functions and pass the ``%`` as arguments. See `logging format interpolation <https://stackoverflow.com/questions/34619790/pylint-message-logging-format-interpolation>`_ for the reasons.
 * Follow docstring conventions. See `PEP257 <https://www.python.org/dev/peps/pep-0257>`_.
