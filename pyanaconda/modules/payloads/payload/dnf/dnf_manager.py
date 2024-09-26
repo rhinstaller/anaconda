@@ -341,6 +341,7 @@ class DNFManager(object):
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+        self._repositories_loaded = False
         self._query_environments = None
         self._query_groups = None
 
@@ -422,6 +423,7 @@ class DNFManager(object):
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+        self._repositories_loaded = False
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -1060,6 +1062,9 @@ class DNFManager(object):
         :param RepoConfigurationData data: a repo configuration
         return dnf.repo.Repo: a DNF repository
         """
+        if self._repositories_loaded:
+            raise RuntimeError("Cannot create a new repository. Repositories were already loaded.")
+
         repo_sack = self._base.get_repo_sack()
         repo = repo_sack.create_repo(data.name)
         config = simplify_config(repo.get_config())
@@ -1249,6 +1254,7 @@ class DNFManager(object):
         except RuntimeError as e:
             log.warning(str(e))
             raise MetadataError(str(e)) from None
+        self._repositories_loaded = True
         log.info("Loaded repositories.")
 
     def load_repomd_hashes(self):
