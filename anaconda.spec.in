@@ -480,6 +480,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 26 2024 github-actions <github-actions@github.com> - 41.34-1
+- Fix scheduling actions in reclaim space dialog (#2311936) (vtrefny)
+
 * Mon Sep 23 2024 Katerina Koukiou <k.koukiou@gmail.com> - 41.33-1
 - New version - 41.32 (k.koukiou)
 
