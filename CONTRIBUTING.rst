@@ -316,7 +316,6 @@ In general we are trying to be as close as possible to `PEP8 <https://www.python
 * Follow docstring conventions. See `PEP257 <https://www.python.org/dev/peps/pep-0257>`_.
 * Use `Enum <https://docs.python.org/3/library/enum.html>`_ instead of constants is recommended.
 * Use ``super()`` instead of ``super(ParentClass, self)``.
-* Use only absolute imports (instead of relative ones).
 * Use ``ParentClass.method(self)`` only in case of multiple inheritance.
 * Instance variables are preferred, class variables should be used only with a good reason.
 * Global instances and singletons should be used only with a good reason.
