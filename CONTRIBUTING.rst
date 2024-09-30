@@ -309,15 +309,29 @@ Code conventions
 
 It is important to have consistency across the codebase. This won't necessarily make your code work better, but it might help to make the codebase more understandable, easier to work with, and more pleasant to go through when doing a code review.
 
-In general we are trying to be as close as possible to `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ but also extending or modifying minor PEP8 rules when it seems suitable in the context of our project. See list of the conventions below:
+Automated Linting and Code Checks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Limit all lines to a maximum of 99 characters.
+We use a set of linters (e.g., `ruff`, `pylint`) to automatically enforce code quality and style guidelines. These tools are used to gate changes, so **it is highly recommended that you run the linters locally before submitting a pull request (PR)** to catch any issues early.
+
+You can run the `ruff` checks locally with::
+
+    make TESTS=ruff/run_ruff.sh check
+
+You can run the `pylint` checks locally with::
+
+    make TESTS=pylint/runpylint.py check
+
+Additional Code Conventions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In general, we aim to stay as close as possible to `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_, while extending or adjusting minor rules to suit the context of our project. The following conventions supplement the rules enforced by our linters:
+
 * Format strings with `.format() <https://docs.python.org/3/library/stdtypes.html#str.format>`_ instead of ``%`` (https://pyformat.info/)
     * Exception: Use ``%`` formatting in logging functions and pass the ``%`` as arguments. See `logging format interpolation <https://stackoverflow.com/questions/34619790/pylint-message-logging-format-interpolation>`_ for the reasons.
 * Follow docstring conventions. See `PEP257 <https://www.python.org/dev/peps/pep-0257>`_.
 * Use `Enum <https://docs.python.org/3/library/enum.html>`_ instead of constants is recommended.
 * Use ``super()`` instead of ``super(ParentClass, self)``.
-* Use only absolute imports (instead of relative ones).
 * Use ``ParentClass.method(self)`` only in case of multiple inheritance.
 * Instance variables are preferred, class variables should be used only with a good reason.
 * Global instances and singletons should be used only with a good reason.
