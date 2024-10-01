@@ -416,6 +416,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 01 2024 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.5.10-1
+- Fix check for biosboot partition in GRUB2.check (vtrefny)
+  Resolves: RHEL-55922
+- Ignore all storage errors when trying to activate swaps (vtrefny)
+  Resolves: RHEL-55922
+
 * Wed Aug 21 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.9-1
 - network: ignore kickstart configuration of nBFT devices (rvykydal)
   Resolves: RHEL-30149
