@@ -483,6 +483,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 01 2024 github-actions <github-actions@github.com> - 42.5-1
+- docs: Adjust CONTRIBUTING document to mention automatic linter checks
+  (k.koukiou)
+- docs: rule is covered by pylint (k.koukiou)
+- docs: rule is covered by pylint (k.koukiou)
+- Update tests for patition device data (adamkankovsky)
+- build: remove the Obsoletes line from the spec file for booty (k.koukiou)
+- build: fix: anaconda-core-debuginfo.x86_64: E: no-binary (k.koukiou)
+- build: fix: anaconda-core.x86_64: E: explicit-lib-dependency libselinux-
+  python3 (k.koukiou)
+- Take partition label from blivet (akankovs)
+- Update test for comunicate (akankovs)
+- webui: Saving webui-desktop log to anaconda.log (akankovs)
+
 * Tue Sep 24 2024 github-actions <github-actions@github.com> - 42.4-1
 - pyanaconda: fix incorrect access to --repo argument (k.koukiou)
 - util: log PID also when a created process terminates (k.koukiou)
