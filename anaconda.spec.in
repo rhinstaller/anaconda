@@ -482,6 +482,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 01 2024 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.13-1
+- Fix check for biosboot partition in GRUB2.check (vtrefny)
+  Resolves: RHEL-56591
+- dracut: Remove 'linear' from modules to load (vtrefny)
+  Resolves: RHEL-33812
+- Ignore all storage errors when trying to activate swaps (vtrefny)
+  Resolves: RHEL-56591
+
 * Wed Aug 21 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.12-1
 - Redirect output of various GNOME related tools to Journal (mkolman)
   Resolves: RHEL-47097
