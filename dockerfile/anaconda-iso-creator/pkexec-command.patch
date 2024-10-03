@@ -1,0 +1,39 @@
+From 7dadb0f9877b551e01094ca4a8cfc87c449e9d00 Mon Sep 17 00:00:00 2001
+From: Adam Kankovsky <adamkankovsky@gmail.com>
+Date: Thu, 3 Oct 2024 09:52:26 +0200
+Subject: [PATCH] Update cleanup for pkexec command
+
+---
+ share/templates.d/99-generic/runtime-cleanup.tmpl     | 1 -
+ share/templates.d/99-generic/runtime-postinstall.tmpl | 3 +++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/share/templates.d/99-generic/runtime-cleanup.tmpl b/share/templates.d/99-generic/runtime-cleanup.tmpl
+index 12c45189..200e3bed 100644
+--- a/share/templates.d/99-generic/runtime-cleanup.tmpl
++++ b/share/templates.d/99-generic/runtime-cleanup.tmpl
+@@ -291,7 +291,6 @@ removefrom openssh-clients /usr/libexec/*
+ removefrom openssh-server /etc/ssh/* /usr/libexec/openssh/sftp-server
+ removefrom pam /usr/share/locale/*
+ removefrom policycoreutils /etc/* /usr/bin/* /usr/share/locale/*
+-removefrom polkit /usr/bin/*
+ removefrom popt /usr/share/locale/*
+ removefrom procps-ng /usr/bin/free /usr/bin/pgrep /usr/bin/pkill
+ removefrom procps-ng /usr/bin/pmap /usr/bin/pwdx /usr/bin/skill /usr/bin/slabtop
+diff --git a/share/templates.d/99-generic/runtime-postinstall.tmpl b/share/templates.d/99-generic/runtime-postinstall.tmpl
+index 93069746..0cb70df2 100644
+--- a/share/templates.d/99-generic/runtime-postinstall.tmpl
++++ b/share/templates.d/99-generic/runtime-postinstall.tmpl
+@@ -85,6 +85,9 @@ symlink /etc/systemd/system/inst.rngd.service etc/systemd/system/basic.target.wa
+ ## set up "install" user account
+ append etc/passwd "install:x:0:0:root:/root:/usr/libexec/anaconda/run-anaconda"
+ append etc/shadow "install::14438:0:99999:7:::"
++## set up "install-user" who is needed to start webui without root permission in boot iso.
++append etc/passwd "install-user:x:1001:1001::/tmp/install-user:/usr/bin/bash"
++append etc/shadow "install-user::14438:0:99999:7:::"
+ ## remove root password
+ replace "root:\*:" "root::" etc/shadow
+ 
+-- 
+2.46.2
+
