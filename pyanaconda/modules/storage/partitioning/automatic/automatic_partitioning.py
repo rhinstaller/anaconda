@@ -66,7 +66,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         config.clear_non_existent = True
         return config
 
-    def _get_mountpoint_device(self, storage, mountpoint, required=True):
+    @staticmethod
+    def _get_mountpoint_device(storage, mountpoint, required=True):
         devices = []
         for root in storage.roots:
             if mountpoint in root.mounts:
@@ -83,37 +84,43 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         return devices[0]
 
-    def _get_mountpoint_options(self, storage, mountpoint):
+    @staticmethod
+    def _get_mountpoint_options(storage, mountpoint):
         for root in storage.roots:
             if mountpoint in root.mountopts:
                 return root.mountopts[mountpoint]
         return None
 
-    def _reused_devices_mountpoints(self, request):
+    @staticmethod
+    def _reused_devices_mountpoints(request):
         return request.reused_mount_points + request.reformatted_mount_points
 
-    def _get_reused_device_names(self, storage):
+    @classmethod
+    def _get_reused_device_names(cls, storage, request):
         reused_devices = {}
-        for mountpoint in self._reused_devices_mountpoints(self._request):
-            device = self._get_mountpoint_device(storage, mountpoint)
+        for mountpoint in cls._reused_devices_mountpoints(request):
+            device = cls._get_mountpoint_device(storage, mountpoint)
             reused_devices[device.name] = mountpoint
         return reused_devices
 
-    def _reformat_mountpoint(self, storage, mountpoint):
-        device = self._get_mountpoint_device(storage, mountpoint)
+    @classmethod
+    def _reformat_mountpoint(cls, storage, mountpoint, request):
+        device = cls._get_mountpoint_device(storage, mountpoint)
         log.debug("reformat device %s for  mountpoint: %s", device, mountpoint)
-        reused_devices = self._get_reused_device_names(storage)
+        reused_devices = cls._get_reused_device_names(storage, request)
         reformat_device(storage, device, dependencies=reused_devices)
 
-    def _remove_mountpoint(self, storage, mountpoint):
-        device = self._get_mountpoint_device(storage, mountpoint, required=False)
+    @classmethod
+    def _remove_mountpoint(cls, storage, mountpoint):
+        device = cls._get_mountpoint_device(storage, mountpoint, required=False)
         if device:
             log.debug("remove device %s for mountpoint %s", device, mountpoint)
             destroy_device(storage, device)
         else:
             log.debug("device to be removed for mountpoint %s not found", mountpoint)
 
-    def _remove_bootloader_partitions(self, storage, required=True):
+    @staticmethod
+    def _remove_bootloader_partitions(storage, required=True):
         bootloader_types = ["efi", "biosboot", "appleboot", "prepboot"]
         bootloader_parts = [part for part in platform.partitions
                             if part.fstype in bootloader_types]
@@ -154,15 +161,10 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # Check that partitioning scheme matches
         self._check_reused_scheme(storage, self._request)
 
-        for mountpoint in self._request.removed_mount_points:
-            if mountpoint == "bootloader":
-                self._remove_bootloader_partitions(storage)
-            else:
-                self._remove_mountpoint(storage, mountpoint)
-        for mountpoint in self._request.reformatted_mount_points:
-            self._reformat_mountpoint(storage, mountpoint)
+        self._clear_existing_mountpoints(storage, self._request)
 
-    def _check_reused_scheme(self, storage, request):
+    @classmethod
+    def _check_reused_scheme(cls, storage, request):
         scheme = request.partitioning_scheme
         required_home_device_type = {
             AUTOPART_TYPE_BTRFS: "btrfs subvolume",
@@ -171,15 +173,26 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             AUTOPART_TYPE_PLAIN: "partition",
         }
         for mountpoint in request.reused_mount_points:
-            device = self._get_mountpoint_device(storage, mountpoint)
+            device = cls._get_mountpoint_device(storage, mountpoint)
             if device.type != required_home_device_type[scheme]:
                 raise StorageError(_("Reused device type '{}' of mount point '{}' does not "
                                      "match the required automatic partitioning scheme.")
                                    .format(device.type, mountpoint))
 
-    def _schedule_reused_mountpoint(self, storage, mountpoint):
-        device = self._get_mountpoint_device(storage, mountpoint)
-        mountopts = self._get_mountpoint_options(storage, mountpoint)
+    @classmethod
+    def _clear_existing_mountpoints(cls, storage, request):
+        for mountpoint in request.removed_mount_points:
+            if mountpoint == "bootloader":
+                cls._remove_bootloader_partitions(storage)
+            else:
+                cls._remove_mountpoint(storage, mountpoint)
+        for mountpoint in request.reformatted_mount_points:
+            cls._reformat_mountpoint(storage, mountpoint, request)
+
+    @classmethod
+    def _schedule_reused_mountpoint(cls, storage, mountpoint):
+        device = cls._get_mountpoint_device(storage, mountpoint)
+        mountopts = cls._get_mountpoint_options(storage, mountpoint)
         log.debug("add mount device request for reused mountpoint: %s device: %s "
                   "with mountopts: %s",
                   mountpoint, device, mountopts)
@@ -187,8 +200,9 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         if mountopts:
             device.format.options = mountopts
 
-    def _schedule_reformatted_mountpoint(self, storage, mountpoint):
-        old_device = self._get_mountpoint_device(storage, mountpoint)
+    @classmethod
+    def _schedule_reformatted_mountpoint(cls, storage, mountpoint):
+        old_device = cls._get_mountpoint_device(storage, mountpoint)
         # The device might have been recreated (btrfs)
         device = storage.devicetree.resolve_device(old_device.name)
         if device:
@@ -234,11 +248,14 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         self._do_autopart(storage, scheme, requests, encrypted, luks_format_args,
                           create_implicit_partitions)
 
-        for mountpoint in self._request.reused_mount_points:
-            self._schedule_reused_mountpoint(storage, mountpoint)
-        for mountpoint in self._request.reformatted_mount_points:
-            self._schedule_reformatted_mountpoint(storage, mountpoint)
+        self._schedule_existing_mountpoints(storage, self._request)
 
+    @classmethod
+    def _schedule_existing_mountpoints(cls, storage, request):
+        for mountpoint in request.reused_mount_points:
+            cls._schedule_reused_mountpoint(storage, mountpoint)
+        for mountpoint in request.reformatted_mount_points:
+            cls._schedule_reformatted_mountpoint(storage, mountpoint)
 
     @staticmethod
     def _get_luks_format_args(storage, request):
@@ -322,9 +339,10 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         return specs
 
-    def _implicit_partitions_reused(self, storage, request):
-        for mountpoint in self._reused_devices_mountpoints(request):
-            device = self._get_mountpoint_device(storage, mountpoint)
+    @classmethod
+    def _implicit_partitions_reused(cls, storage, request):
+        for mountpoint in cls._reused_devices_mountpoints(request):
+            device = cls._get_mountpoint_device(storage, mountpoint)
             if hasattr(device, "vg"):
                 log.debug("reusing volume group %s for %s", device.vg, mountpoint)
                 return True
