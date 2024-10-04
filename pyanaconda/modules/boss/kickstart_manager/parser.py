@@ -61,7 +61,7 @@ class StoreSection(Section):
         """
         super().__init__(*args, **kwargs)
         self.sectionOpen = kwargs.get("sectionOpen")
-        self._store = kwargs.get("store", None)
+        self._store = kwargs.get("store")
         self.header_lineno = 0
         self.args = []
         self.lines = []
