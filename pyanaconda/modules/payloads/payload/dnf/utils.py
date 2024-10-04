@@ -19,7 +19,7 @@ import fnmatch
 import hashlib
 import os
 import rpm
-from libdnf.transaction import TransactionItemState_ERROR
+from libdnf5.transaction import TransactionItemState_ERROR
 
 from blivet.size import Size
 
@@ -421,8 +421,16 @@ def transaction_has_errors(transaction):
     :return: True if the transaction has any error, otherwise False
     """
     has_errors = False
-    for tsi in transaction:
-        if tsi.state == TransactionItemState_ERROR:
-            log.error("The transaction contains item %s in error state.", tsi)
+    for environment in transaction.get_transaction_environments():
+        if environment.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains environment %s in error state.", environment)
+            has_errors = True
+    for group in transaction.get_transaction_groups():
+        if group.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains group %s in error state.", group)
+            has_errors = True
+    for package in transaction.get_transaction_packages():
+        if package.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains package %s in error state.", package)
             has_errors = True
     return has_errors
