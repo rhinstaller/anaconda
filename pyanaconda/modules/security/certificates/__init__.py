@@ -1,7 +1,5 @@
 #
-# Kickstart handler for date and time settings.
-#
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2024 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,25 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.parser import Certificate
-from pykickstart.sections import CertificateSection
+from pyanaconda.modules.security.certificates.certificates import CertificatesModule
 
-from pyanaconda.core.kickstart import KickstartSpecification
-from pyanaconda.core.kickstart import commands as COMMANDS
-
-
-class SecurityKickstartSpecification(KickstartSpecification):
-
-    commands = {
-        "authselect": COMMANDS.Authselect,
-        "selinux": COMMANDS.SELinux,
-        "realm": COMMANDS.Realm
-    }
-
-    sections = {
-        "certificate": CertificateSection
-    }
-
-    sections_data = {
-        "certificate": Certificate
-    }
+__all__ = ["CertificatesModule"]

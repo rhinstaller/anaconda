@@ -1,7 +1,7 @@
 #
-# Kickstart handler for date and time settings.
+# DBus interface for the certificate module.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2024 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,25 +17,21 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.parser import Certificate
-from pykickstart.sections import CertificateSection
+from dasbus.server.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.core.kickstart import KickstartSpecification
-from pyanaconda.core.kickstart import commands as COMMANDS
+from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.common.constants.objects import CERTIFICATES
+from pyanaconda.modules.common.structures.security import CertificateData
 
 
-class SecurityKickstartSpecification(KickstartSpecification):
+@dbus_interface(CERTIFICATES.interface_name)
+class CertificatesInterface(KickstartModuleInterfaceTemplate):
+    """DBus interface for the certificate installation module."""
 
-    commands = {
-        "authselect": COMMANDS.Authselect,
-        "selinux": COMMANDS.SELinux,
-        "realm": COMMANDS.Realm
-    }
+    def GetCertificates(self) -> List[Str]:
+        """Get all certificates to be installed the system.
 
-    sections = {
-        "certificate": CertificateSection
-    }
-
-    sections_data = {
-        "certificate": Certificate
-    }
+        :return: a list of certificates names with their content
+        """
+        return [CertificateData.to_structure(cert) for cert in self.implementation.get_certificates()]

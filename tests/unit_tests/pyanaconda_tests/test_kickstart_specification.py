@@ -27,8 +27,8 @@ from pykickstart.commands.skipx import FC3_SkipX
 from pykickstart.commands.user import F19_UserData, F24_User
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.parser import Packages
-from pykickstart.sections import PackageSection
+from pykickstart.parser import Certificate, Packages
+from pykickstart.sections import CertificateSection, PackageSection
 from pykickstart.version import F30
 from pykickstart.version import isRHEL as is_rhel
 
@@ -213,6 +213,16 @@ class KickstartSpecificationTestCase(unittest.TestCase):
             "my_test_2": TestData2
         }
 
+    class SpecificationG(KickstartSpecification):
+
+        sections = {
+            "certificate": CertificateSection,
+        }
+
+        sections_data = {
+            "certificate": Certificate,
+        }
+
     def setUp(self):
         self.maxDiff = None
 
@@ -391,6 +401,19 @@ class KickstartSpecificationTestCase(unittest.TestCase):
            %end
            """)
 
+    def test_certificates_specification(self):
+        specification = self.SpecificationG
+
+        ks_in = """
+        %certificate --filename=cert1.pem
+        -----BEGIN CERTIFICATE-----
+        MIIDazCCAlOgAwIBAgIJAJzQz1Zz1Zz1MA0GCSqGSIb3DQEBCwUAMIGVMQswCQYD
+        -----END CERTIFICATE-----
+        %end
+        """
+        handler = self.parse_kickstart(specification, ks_in)
+        assert isinstance(handler.certificates[0], Certificate)
+        assert len(handler.certificates) == 1
 
 class ModuleSpecificationsTestCase(unittest.TestCase):
     """Test the kickstart module specifications."""
