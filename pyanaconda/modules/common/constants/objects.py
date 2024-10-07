@@ -24,6 +24,7 @@ from pyanaconda.modules.common.constants.namespaces import (
     PARTITIONING_NAMESPACE,
     RHSM_NAMESPACE,
     RUNTIME_NAMESPACE,
+    SECURITY_NAMESPACE,
     STORAGE_NAMESPACE,
 )
 
@@ -154,4 +155,10 @@ RHSM_UNREGISTER = DBusObjectIdentifier(
 RHSM_SYSPURPOSE = DBusObjectIdentifier(
     namespace=RHSM_NAMESPACE,
     basename="Syspurpose"
+)
+
+# Security objects
+CERTIFICATES = DBusObjectIdentifier(
+    namespace=SECURITY_NAMESPACE,
+    basename="Certificates"
 )
