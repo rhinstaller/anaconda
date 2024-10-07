@@ -19,7 +19,7 @@
 from dasbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
     PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
-    RHSM_NAMESPACE, RUNTIME_NAMESPACE
+    RHSM_NAMESPACE, RUNTIME_NAMESPACE, SECURITY_NAMESPACE
 
 # Boss objects.
 
@@ -143,4 +143,10 @@ RHSM_UNREGISTER = DBusObjectIdentifier(
 RHSM_SYSPURPOSE = DBusObjectIdentifier(
     namespace=RHSM_NAMESPACE,
     basename="Syspurpose"
+)
+
+# Security objects
+CERTIFICATES = DBusObjectIdentifier(
+    namespace=SECURITY_NAMESPACE,
+    basename="Certificates"
 )
