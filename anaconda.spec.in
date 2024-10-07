@@ -425,12 +425,15 @@ rm -rf \
 %exclude %{python3_sitearch}/pyanaconda/ui/gui/*
 %exclude %{python3_sitearch}/pyanaconda/ui/tui/*
 %{_bindir}/anaconda-cleanup
+# Installer configuration files aren’t updated post-installation,
+# so the noreplace flag doesn't offer a practical benefit in this context.
+# It is added to silence the rpmlint conffile-without-noreplace-flag warning.
 %dir %{_sysconfdir}/%{name}
-%config %{_sysconfdir}/%{name}/*
+%config(noreplace) %{_sysconfdir}/%{name}/*
 %dir %{_sysconfdir}/%{name}/conf.d
-%config %{_sysconfdir}/%{name}/conf.d/*
+%config(noreplace) %{_sysconfdir}/%{name}/conf.d/*
 %dir %{_sysconfdir}/%{name}/profile.d
-%config %{_sysconfdir}/%{name}/profile.d/*
+%config(noreplace) %{_sysconfdir}/%{name}/profile.d/*
 
 %if %{with live}
 # do not provide the live subpackage on RHEL
