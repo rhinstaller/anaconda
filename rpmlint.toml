@@ -1,0 +1,34 @@
+# The purpose of this file is to overwrite some default config
+# of rpmlint, which may not fit our project needs / specification
+Filters = [
+    # Discard no-binary error for anaconda packages which cant be a noarch type
+    'anaconda.x86_64: E: no-binary',
+    'anaconda-install-env-deps.x86_64: E: no-binary',
+    'anaconda-install-img-deps.x86_64: E: no-binary',
+    # Discard explicite library dependencies
+    'explicit-lib-dependency flatpak-libs',
+    'explicit-lib-dependency libblockdev-lvm-dbus',
+    'explicit-lib-dependency librsvg2',
+    # Discard warning about binary debug symbols. Those are our helper
+    # binaries and it is not important for them to be stripped
+    'unstripped-binary-or-object /usr/libexec/anaconda/dd_extract',
+    'unstripped-binary-or-object /usr/libexec/anaconda/dd_list',
+    'unstripped-binary-or-object /usr/lib64/libAnacondaWidgets*',
+    'unstripped-binary-or-object /usr/lib64/glade/modules/libAnacondaWidgets*',
+    # Discard symbolic link warnings.
+    'dangling-symlink /usr/share/anaconda/window-manager/glib-2.0/schemas/org.gnome.*',
+    'dangling-relative-symlink /usr/lib/.build-id/*',
+    # Discard missing manual pages error
+    'no-manual-page-for-binary liveinst',
+    'no-manual-page-for-binary anaconda-cleanup',
+    'no-manual-page-for-binary anaconda-disable-nm-ibft-plugin',
+    'no-manual-page-for-binary anaconda-nm-disable-autocons',
+    'no-manual-page-for-binary instperf',
+    'no-manual-page-for-binary instperf',
+    'no-manual-page-for-binary anaconda',
+    'no-manual-page-for-binary handle-sshpw',
+    # Discard missing README / documentation for package
+    'no-documentation',
+    # Discard spelling errors for project commonly used words
+    'spelling-error .* en_US (metapackage|kickstarts|iso|eg|lorax) ',
+]
