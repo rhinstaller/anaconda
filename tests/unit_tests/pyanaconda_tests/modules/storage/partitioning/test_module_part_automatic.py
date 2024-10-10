@@ -20,10 +20,11 @@
 import unittest
 import pytest
 
-from unittest.mock import Mock, patch, ANY
+from unittest.mock import Mock, patch, ANY, call
 
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
+from blivet.errors import StorageError
 
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
@@ -91,6 +92,9 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             'partitioning-scheme': get_variant(Int, AUTOPART_TYPE_LVM_THINP),
             'file-system-type': get_variant(Str, 'ext4'),
             'excluded-mount-points': get_variant(List[Str], ['/home', '/boot', 'swap']),
+            'reformatted-mount-points': get_variant(List[Str], ['/']),
+            'removed-mount-points': get_variant(List[Str], ['/boot', 'bootloader']),
+            'reused-mount-points': get_variant(List[Str], ['/home']),
             'hibernation': get_variant(Bool, False),
             'encrypted': get_variant(Bool, True),
             'passphrase': get_variant(Str, '123456'),
@@ -410,6 +414,534 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         )
 
         assert ["/"] == [spec.mountpoint for spec in requests]
+
+
+class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
+    """Test the automatic partitioning task mountpoint reuse functionality."""
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.destroy_device')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
+    def test_remove_bootloder_partitions(self, platform, destroy_device):
+        storage = Mock()
+
+        # Test platfrorm bootloader partitions
+
+        # Test no bootoloaer partition required
+        platform.partitions = [
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB"),
+                lv=False,
+            ),
+        ]
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is False
+
+        # Test multiple bootloader partitions required
+        platform.partitions = [
+            PartSpec(
+                fstype="biosboot",
+                size=Size("1MiB"),
+            ),
+            PartSpec(
+                mountpoint="/boot/efi",
+                fstype="efi",
+                size=Size("500MiB"),
+                max_size=Size("600MiB"),
+                grow=True,
+            )
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+
+        # biosboot
+        platform.partitions = [
+            # boot partition is ignored
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB"),
+                lv=False
+            ),
+            PartSpec(
+                fstype="biosboot",
+                size=Size("1MiB")
+            ),
+        ]
+        biosboot_device = Mock(format=Mock(type="biosboot"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is True
+        destroy_device.assert_called_with(storage, biosboot_device)
+
+        # biosboot, two found
+        biosboot_device1 = Mock(format=Mock(type="biosboot"))
+        biosboot_device2 = Mock(format=Mock(type="biosboot"))
+        biosboot_device1.name = "bd1"
+        biosboot_device2.name = "bd2"
+        storage.devices = [
+            biosboot_device1,
+            biosboot_device2,
+            Mock(format=Mock(type="xfs")),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+
+        # bootloader part not found
+        storage.devices = [
+            Mock(format=Mock(type="xfs")),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(
+            storage, required=False
+        ) is False
+
+        # prepboot
+        platform.partitions = [
+            PartSpec(
+                fstype="prepboot",
+                size=Size("4MiB")
+            ),
+        ]
+        biosboot_device = Mock(format=Mock(type="prepboot"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is True
+        destroy_device.assert_called_with(storage, biosboot_device)
+
+        # appleboot
+        platform.partitions = [
+            PartSpec(
+                fstype="appleboot",
+                size=Size("1MiB")
+            ),
+        ]
+        biosboot_device = Mock(format=Mock(type="appleboot"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is True
+        destroy_device.assert_called_with(storage, biosboot_device)
+
+        # prepboot
+        platform.partitions = [
+            PartSpec(
+                mountpoint="/boot/efi",
+                fstype="efi",
+                size=Size("500MiB"),
+                max_size=Size("600MiB"),
+                grow=True,
+            )
+        ]
+        biosboot_device = Mock(format=Mock(type="efi"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is True
+        destroy_device.assert_called_with(storage, biosboot_device)
+
+    def test_get_mountpoint_device(self):
+        storage = Mock()
+
+        # device found
+        home_device = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": home_device,
+                "/": Mock(),
+            }),
+        ]
+        assert AutomaticPartitioningTask._get_mountpoint_device(
+            storage, "/home"
+        ) == home_device
+
+        # device not found
+        storage.roots = [
+            Mock(mounts={
+                "/": Mock(),
+            }),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._get_mountpoint_device(storage, "/home")
+        assert AutomaticPartitioningTask._get_mountpoint_device(
+            storage, "/home", required=False
+        ) is None
+
+        # multiple devices found
+        home_device1 = Mock()
+        home_device2 = Mock()
+        home_device1.name = "device1_name"
+        home_device2.name = "device2_name"
+        storage.roots = [
+            Mock(mounts={
+                "/home": home_device1,
+                "/": Mock(),
+            }),
+            Mock(mounts={
+                "/home": home_device2,
+            }),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._get_mountpoint_device(storage, "/home")
+
+    def test_get_mountpoint_options(self):
+        storage = Mock()
+        home_opts = "subvol=home,compress=zstd:1"
+        storage.roots = [
+            Mock(mountopts={
+                "/home": home_opts
+            }),
+        ]
+        assert AutomaticPartitioningTask._get_mountpoint_options(
+            storage, "/home"
+        ) == home_opts
+        assert AutomaticPartitioningTask._get_mountpoint_options(
+            storage, "/"
+        ) is None
+
+    def test_get_reused_device_names(self):
+        request = Mock(
+            reused_mount_points=["/home"],
+            reformatted_mount_points=["/"]
+        )
+        storage = Mock()
+        device1 = Mock()
+        device1.name = "home"
+        device2 = Mock()
+        device2.name = "root"
+        storage.roots = [
+            Mock(mounts={
+                "/home": device1,
+                "/": device2,
+            }),
+        ]
+        assert AutomaticPartitioningTask._get_reused_device_names(
+            storage, request
+        ) == {
+            "home": "/home",
+            "root": "/",
+        }
+
+    def test_check_reused_scheme(self):
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home"],
+        )
+        storage = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="btrfs subvolume")
+            }),
+        ]
+        AutomaticPartitioningTask._check_reused_scheme(storage, request)
+
+        # all reused mountpoints must have the type based on the scheme
+        request.reused_mount_points = ["/home", "/data"]
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="btrfs subvolume"),
+                "/data": Mock(type="partition"),
+            }),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._check_reused_scheme(storage, request)
+
+    def _get_mocked_storage_w_existing_system(self,
+                                              bootloader_type="efi",
+                                              root_device_type="btrfs subvolume",
+                                              root_format_type="btrfs",
+                                              separate_boot=True,
+                                              ):
+        storage = Mock()
+
+        bootloader_device = Mock(format=Mock(type=bootloader_type), type="partition")
+        bootloader_device.name = "vda1"
+        root_device = Mock(format=Mock(type=root_format_type), type=root_device_type)
+        root_device.name = "root"
+        home_device = Mock(format=Mock(type=root_format_type), type=root_device_type)
+        home_device.name = "home"
+
+        storage.devices = [
+            bootloader_device,
+            root_device,
+            home_device,
+        ]
+        if separate_boot:
+            boot_device = Mock(format=Mock(type="ext4"), type="partition")
+            boot_device.name = "vda2"
+            storage.devices.append(boot_device)
+        else:
+            boot_device = None
+
+        storage.roots = [
+            Mock(mounts={
+                "/home": home_device,
+                "/": root_device,
+            }),
+        ]
+        if separate_boot:
+            storage.roots[0].mounts["/boot"] = boot_device
+
+        return storage, bootloader_device, boot_device, root_device, home_device
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.reformat_device')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.destroy_device')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
+    def test_clear_existing_mountpoints(self, platform, destroy_device, reformat_device):
+        # Existing btrfs with efi
+
+        platform.partitions = [
+            PartSpec(
+                mountpoint="/boot/efi",
+                fstype="efi",
+                size=Size("500MiB"),
+                max_size=Size("600MiB"),
+                grow=True,
+            ),
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB"),
+                lv=False
+            ),
+        ]
+
+        storage, bootloader_device, boot_device, root_device, _home_device = \
+            self._get_mocked_storage_w_existing_system()
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader"],
+            reformatted_mount_points=["/"],
+        )
+
+        expected_reused_devices = {
+            "home": "/home",
+            "root": "/",
+        }
+        AutomaticPartitioningTask._clear_existing_mountpoints(storage, request)
+        destroy_device.assert_has_calls([
+            call(storage, bootloader_device),
+            call(storage, boot_device),
+        ], any_order=True)
+        reformat_device.assert_called_with(storage, root_device,
+                                           dependencies=expected_reused_devices)
+
+        # missing mountpoint to be removed (/boot) is ignored
+        storage, bootloader_device, _boot_device, _root_device, _home_device = \
+            self._get_mocked_storage_w_existing_system(separate_boot=False)
+        destroy_device.reset_mock()
+        AutomaticPartitioningTask._clear_existing_mountpoints(storage, request)
+        destroy_device.assert_called_once_with(storage, bootloader_device)
+
+        # missing mountpoint to be reformatted (/data) prevents the reuse
+        storage, _bootloader_device, _boot_device, _root_device, _home_device = \
+            self._get_mocked_storage_w_existing_system()
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader"],
+            reformatted_mount_points=["/", "/data"],
+        )
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._clear_existing_mountpoints(storage, request)
+
+        # Existing plain with biosboot
+
+        platform.partitions = [
+            PartSpec(
+                fstype="biosboot",
+                size=Size("1MiB"),
+            ),
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB"),
+                lv=False
+            ),
+        ]
+        storage, bootloader_device, boot_device, _root_device, _home_device = \
+            self._get_mocked_storage_w_existing_system(
+                root_device_type="partition",
+                root_format_type="xfs",
+                bootloader_type="biosboot"
+            )
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_PLAIN,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader", "/"],
+            reformatted_mount_points=[],
+        )
+
+        expected_reused_devices = {
+            "home": "/home",
+        }
+        destroy_device.reset_mock()
+        reformat_device.reset_mock()
+        AutomaticPartitioningTask._clear_existing_mountpoints(storage, request)
+        destroy_device.assert_has_calls([
+            call(storage, bootloader_device),
+            call(storage, boot_device),
+        ], any_order=True)
+        reformat_device.assert_not_called()
+
+        # Existing lvm with efi without separate /boot
+
+        platform.partitions = [
+            PartSpec(
+                mountpoint="/boot/efi",
+                fstype="efi",
+                size=Size("500MiB"),
+                max_size=Size("600MiB"),
+                grow=True,
+            ),
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB"),
+                lv=False
+            ),
+        ]
+
+        storage, bootloader_device, _boot_device, root_device, _home_device = \
+            self._get_mocked_storage_w_existing_system(
+                root_device_type="lvmlv",
+                root_format_type=None,
+                separate_boot=False,
+            )
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_LVM,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader"],
+            reformatted_mount_points=["/"],
+        )
+
+        expected_reused_devices = {
+            "home": "/home",
+            "root": "/",
+        }
+        destroy_device.reset_mock()
+        reformat_device.reset_mock()
+        AutomaticPartitioningTask._clear_existing_mountpoints(storage, request)
+        destroy_device.assert_called_once_with(storage, bootloader_device)
+        reformat_device.assert_called_with(storage, root_device,
+                                           dependencies=expected_reused_devices)
+
+    def test_schedule_existing_mountpoints(self):
+        # Existing btrfs with efi
+
+        storage, _bootloader_device, _boot_device, _root_device, home_device = \
+            self._get_mocked_storage_w_existing_system()
+
+        home_opts = "subvol=home,compress=zstd:1"
+        storage.roots[0].mountopts = {
+            "/home": home_opts
+        }
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader"],
+            reformatted_mount_points=["/"],
+        )
+
+        reformatted_device = Mock()
+        storage.devicetree.resolve_device.return_value = reformatted_device
+
+        AutomaticPartitioningTask._schedule_existing_mountpoints(storage, request)
+        assert home_device.format.mountpoint == "/home"
+        assert home_device.format.options == home_opts
+        assert reformatted_device.format.mountpoint == "/"
+
+        # missing mountpoint to be reused (/home) prevents the reuse
+        storage.roots[0].mounts.pop("/home")
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._schedule_existing_mountpoints(storage, request)
+
+        # Existing plain with biosboot
+
+        storage, _bootloader_device, _boot_device, _root_device, home_device = \
+            self._get_mocked_storage_w_existing_system(
+                root_device_type="partition",
+                root_format_type="xfs",
+                bootloader_type="biosboot"
+            )
+
+        home_opts = "defaults"
+        storage.roots[0].mountopts = {
+            "/home": home_opts
+        }
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_PLAIN,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader", "/"],
+            reformatted_mount_points=[],
+        )
+
+        AutomaticPartitioningTask._schedule_existing_mountpoints(storage, request)
+        assert home_device.format.mountpoint == "/home"
+        assert home_device.format.options == home_opts
+
+        # Existing lvm with efi without separate /boot
+
+        storage, _bootloader_device, _boot_device, _root_device, home_device = \
+            self._get_mocked_storage_w_existing_system(
+                root_device_type="lvmlv",
+                root_format_type=None,
+                separate_boot=False,
+            )
+
+        home_opts = "defaults"
+        storage.roots[0].mountopts = {
+            "/home": home_opts
+        }
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_LVM,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader"],
+            reformatted_mount_points=["/"],
+        )
+
+        reformatted_device = Mock()
+        storage.devicetree.resolve_device.return_value = reformatted_device
+
+        AutomaticPartitioningTask._schedule_existing_mountpoints(storage, request)
+        assert home_device.format.mountpoint == "/home"
+        assert home_device.format.options == home_opts
+        assert reformatted_device.format.mountpoint == "/"
+
+    def test_implicit_partitions_reused(self):
+        storage, _bootloader_device, _boot_device, root_device, home_device = \
+            self._get_mocked_storage_w_existing_system()
+
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home"],
+            removed_mount_points=["/boot", "bootloader"],
+            reformatted_mount_points=["/"],
+        )
+
+        # Make sure there is no 'vg' or 'volume' attribute
+        home_device.mock_add_spec(['format', 'name'])
+        root_device.mock_add_spec(['format', 'name'])
+        assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is False
+
+        # / is on volume group
+        root_device.mock_add_spec(['format', 'name', 'vg'])
+        assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is True
+
+        # / is on btrfs
+        root_device.mock_add_spec(['format', 'name', 'volume'])
+        assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is True
 
 
 class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
