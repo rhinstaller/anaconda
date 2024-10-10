@@ -333,7 +333,10 @@ container-rpm-test:
 	$(RPM_NAME):$(CI_TAG) \
 	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
-	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
+	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm; \
+	    cd /tmp/anaconda; \
+	    if [ -f rpmlint.toml ]; then LINT_ARG="--config rpmlint.toml"; else LINT_ARG=""; fi; \
+	    rpmlint *.spec.in result/build/01-rpm-build/*.rpm ${LINT_ARG}'
 
 container-rpms:
 	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
