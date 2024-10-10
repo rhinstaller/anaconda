@@ -25,7 +25,9 @@ import socket
 from systemd import journal
 from pyanaconda import network
 from pyanaconda.core import util
-from pyanaconda.core.util import execWithCapture, startProgram
+from pyanaconda.core.constants import THREAD_RDP_OBTAIN_HOSTNAME
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.util import execWithRedirect, startProgram
 
 from pyanaconda.core.i18n import _
 
@@ -72,12 +74,11 @@ def shutdown_server():
 
 class GRDServer(object):
 
-    def __init__(self, anaconda, root="/", ip=None, name=None,
+    def __init__(self, anaconda, root="/", ip=None,
                  rdp_username="", rdp_password=""):
         self.root = root
         self.ip = ip
         self.rdp_username = rdp_username
-        self.name = name
         self.rdp_password = rdp_password
         self.anaconda = anaconda
         self.log = get_stdout_logger()
@@ -87,17 +88,22 @@ class GRDServer(object):
 
         # start by checking we have openssl available
         if not os.path.exists(OPENSSL_BINARY_PATH):
-            stdoutLog.critical("No openssl binary found, can't generate certificates "
-                               "for GNOME remote desktop. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("No openssl binary found, can't generate certificates "
+                                  "for GNOME remote desktop. Aborting.")
 
         # start by checking we have GNOME remote desktop available
         if not os.path.exists(GRD_BINARY_PATH):
             # we assume there that the main binary being present implies grdctl is there as well
-            stdoutLog.critical("GNOME remote desktop tooling is not available. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("GNOME remote desktop tooling is not available. Aborting.")
+
+    def _fail_with_error(self, *args):
+        """Kill Anaconda with with message for user.
+
+        Send ipmi error message.
+        """
+        stdoutLog.critical(*args)
+        util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+        sys.exit(1)
 
     def _handle_rdp_certificates(self):
         """Generate SSL certificate and use it for incoming RDP connection."""
@@ -105,14 +111,18 @@ class GRDServer(object):
         # then create folder for the certs
         os.makedirs(GRD_RDP_CERT_DIR)
         # generate the certs
-        execWithCapture(OPENSSL_BINARY_PATH,
-                        ["req", "-new",
-                         "-newkey", "rsa:4096",
-                         "-days", "720", "-nodes", "-x509",
-                         "-subj", "/C=DE/ST=NONE/L=NONE/O=GNOME/CN=localhost",
-                         "-out", GRD_RDP_CERT,
-                         "-keyout", GRD_RDP_CERT_KEY]
-                        )
+        ret = execWithRedirect(OPENSSL_BINARY_PATH,
+                               ["req", "-new",
+                                "-newkey", "rsa:4096",
+                                "-days", "720", "-nodes", "-x509",
+                                "-subj", "/C=DE/ST=NONE/L=NONE/O=GNOME/CN=localhost",
+                                "-out", GRD_RDP_CERT,
+                                "-keyout", GRD_RDP_CERT_KEY]
+                               )
+        if ret != 0:
+            self._fail_with_error(
+                "Can't generate certificates for Gnome remote desktop. Aborting."
+                )
         # tell GNOME remote desktop to use these certificates
         self._run_grdctl(["rdp", "set-tls-cert", GRD_RDP_CERT])
         self._run_grdctl(["rdp", "set-tls-key", GRD_RDP_CERT_KEY])
@@ -140,21 +150,38 @@ class GRDServer(object):
         if not self.ip:
             return
 
-        # FIXME: resolve this somehow,
-        # so it does not get stuck for 2 minutes in some VMs
+    def _get_hostname(self):
+        """Start thread to obtain hostname from DNS server asynchronously.
 
-        if self.ip.find(':') != -1:
-            ipstr = "[%s]" % (self.ip,)
-        else:
-            ipstr = self.ip
+        This can take a while so do not wait for the result just print it when available.
+        """
+        thread_manager.add_thread(name=THREAD_RDP_OBTAIN_HOSTNAME,
+                                  target=self._get_hostname_in_thread,
+                                  args=[self.ip, self.log]
+                                  )
 
+    @staticmethod
+    def _get_hostname_in_thread(ip, stdout_log):
+        """Obtain hostname from the DNS query.
+
+        This call will be done from the thread to avoid situations where DNS is too slow or
+        doesn't exists and we are waiting for the reply about 2 minutes.
+
+        :raises: ValueError and socket.herror
+        """
         try:
-            hinfo = socket.gethostbyaddr(self.ip)
+            hinfo = socket.gethostbyaddr(ip)
             if len(hinfo) == 3:
                 # Consider as coming from a valid DNS record only if single IP is returned
                 if len(hinfo[2]) == 1:
-                    self.name = hinfo[0]
+                    name = hinfo[0]
+                    stdout_log.info(_("GNOME remote desktop RDP host name: %s"), name)
+
         except socket.herror as e:
+            if ip.find(':') != -1:
+                ipstr = "[%s]" % (ip,)
+            else:
+                ipstr = ip
             log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
 
     def _run_grdctl(self, argv):
@@ -168,7 +195,8 @@ class GRDServer(object):
         # extend the base argv by the caller provided arguments
         combined_argv = base_argv + argv
         # make sure HOME is set to /root or else settings might not be saved
-        execWithCapture("grdctl", combined_argv, env_add={"HOME": "/root"})
+        if execWithRedirect("grdctl", combined_argv, env_add={"HOME": "/root"}) != 0:
+            self._fail_with_error("Gnome remote desktop invocation failed!")
 
     def _start_grd_process(self):
         """Start the GNOME remote desktop process."""
@@ -184,16 +212,12 @@ class GRDServer(object):
                                        env_add={"HOME": "/root"})
             self.log.info("GNOME remote desktop is now running.")
         except OSError:
-            stdoutLog.critical("Could not start GNOME remote desktop. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("Could not start GNOME remote desktop. Aborting.")
 
     def start_grd_rdp(self):
         # check if RDP user name & password are set
         if not self.rdp_password or not self.rdp_username:
-            stdoutLog.critical("RDP user name or password not set. Aborting.")
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("RDP user name or password not set. Aborting.")
 
         self.log.info(_("Starting GNOME remote desktop in RDP mode..."))
 
@@ -208,12 +232,14 @@ class GRDServer(object):
         network.wait_for_connectivity()
         try:
             self._find_network_address()
-            self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
-            self.log.info(_("GNOME remote desktop RDP host name: %s"), self.name)
         except (socket.herror, ValueError) as e:
-            stdoutLog.critical("GNOME remote desktop RDP: Could not find network address: %s", e)
-            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
-            sys.exit(1)
+            self._fail_with_error("GNOME remote desktop RDP: Could not find network address: %s",
+                                  e)
 
         # Lets start GRD.
         self._start_grd_process()
+
+        # Print connection information to user
+        self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
+        # Print hostname when available (run in separate thread to avoid blocking)
+        self._get_hostname()

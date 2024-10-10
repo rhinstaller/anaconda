@@ -238,8 +238,9 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,
     return (proc.returncode, output_string)
 
 
-def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune=None,
-                     log_output=True, binary_output=False, do_preexec=True):
+def execWithRedirect(command, argv, stdin=None, stdout=None, root='/',
+                     env_prune=None, env_add=None, log_output=True, binary_output=False,
+                     do_preexec=True):
     """ Run an external program and redirect the output to a file.
 
         :param command: The command to run
@@ -248,6 +249,7 @@ def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune
         :param stdout: Optional file object to redirect stdout and stderr to.
         :param root: The directory to chroot to before running command.
         :param env_prune: environment variable to remove before execution
+        :param env_add: environment variables added for the execution
         :param log_output: whether to log the output of command
         :param binary_output: whether to treat the output of command as binary data
         :param do_preexec: whether to use a preexec_fn for subprocess.Popen
@@ -255,7 +257,8 @@ def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune
     """
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
-                        log_output=log_output, binary_output=binary_output, do_preexec=do_preexec)[0]
+                        env_add=env_add, log_output=log_output, binary_output=binary_output,
+                        do_preexec=do_preexec)[0]
 
 
 def execWithCapture(command, argv, stdin=None, root='/', env_prune=None, env_add=None,
@@ -266,6 +269,8 @@ def execWithCapture(command, argv, stdin=None, root='/', env_prune=None, env_add
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
         :param root: The directory to chroot to before running command.
+        :param env_prune: environment variable to remove before execution
+        :param env_add: environment variables added for the execution
         :param log_output: Whether to log the output of command
         :param filter_stderr: Whether stderr should be excluded from the returned output
         :param do_preexec: whether to use the preexec function

@@ -128,6 +128,7 @@ THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
 THREAD_DBUS_TASK = "AnaTaskThread"
 THREAD_SUBSCRIPTION = "AnaSubscriptionThread"
 THREAD_SUBSCRIPTION_SPOKE_INIT = "AnaSubscriptionSpokeInitThread"
+THREAD_RDP_OBTAIN_HOSTNAME = "AnaRDPObtainHostnameThread"
 
 # Geolocation constants
 
