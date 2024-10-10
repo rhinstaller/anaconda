@@ -487,6 +487,56 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 10 2024 github-actions <github-actions@github.com> - 42.7-1
+- Add GRD test coverage (jkonecny)
+- Improve docs in gnome_remote_desktop source (jkonecny)
+- Check return values from GRD calls (jkonecny)
+- Create a shortcut method for GRD failure (jkonecny)
+- Obtain hostname for RDP asynchronously (jkonecny)
+- Print connect info after starting GRD server (jkonecny)
+- Fix starting anaconda on z/VM and LPAR s390x (jstodola)
+- Create GRDServer class only when required (jkonecny)
+- Disable fedora-cisco repository in our containers (jkonecny)
+- Fix typo in the GRD source file name (jkonecny)
+- Do not change compositor options when not defined (jkonecny)
+- Add release-notes for Wayland migration (jkonecny)
+- Set --rdp in liveinst unsupported (jkonecny)
+- Remove Wayland detection logic from code (jkonecny)
+- Do not create GRDServer on Live ISO (jkonecny)
+- Remove dead spice_vd_agent code (jkonecny)
+- Switch keyboard management to Localed (jkonecny)
+- Add localed signal support to LocaledWrapper (jkonecny)
+- Add missing support to localed for compositor (jkonecny)
+- Redirect output of various GNOME related tools to Journal (mkolman)
+- Remove leftover debugging message (mkolman)
+- Redirect Anaconda main process stderr to Journal (mkolman)
+- Cleanup remaining Xorg and VNC references and dead code (mkolman)
+- Handle inst.rdp in Dracut (mkolman)
+- Adjust to freerdp and GNOME package changes (mkolman)
+- Replace VNC support with GNOME remote desktop (mkolman)
+- Add RDP boot options & deprecate VNC boot options (mkolman)
+- Introduce GNOME remote desktop support (mkolman)
+- Rename usevnc flag & similar variables (mkolman)
+- Drop xrdb (jexposit)
+- Drop xrandr (jexposit)
+- Add unit tests for GkKeyboardManager and its API in localization module
+  (rvykydal)
+- Drop the X.Org server dependency (jexposit)
+- Drop libxklavier (jexposit)
+- Use GNOME Kiosk's API in LayoutIndicator (jexposit)
+- Setup gdbus-codegen (jexposit)
+- Use GNOME Kiosk's API in XklWrapper (jexposit)
+- Add GNOME Kiosk keyboard manager class (jexposit)
+- home reuse: add unit tests (rvykydal)
+- home reuse: define static and class methods (rvykydal)
+- home reuse: reuse mount options of reused mountpoins (rvykydal)
+- home reuse: check autopartitioning scheme against reused mountpoints
+  (rvykydal)
+- home reuse: require removing of bootloader partition explicitly (rvykydal)
+- home reuse: remove bootloader partitions implicitly (rvykydal)
+- home reuse: update existing OSs when applying partitioning (rvykydal)
+- home reuse: add support for /home reuse to automatic partitioning (rvykydal)
+
 * Tue Oct 08 2024 github-actions <github-actions@github.com> - 42.6-1
 
 * Tue Oct 01 2024 github-actions <github-actions@github.com> - 42.5-1
