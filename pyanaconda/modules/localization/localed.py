@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.dbus import SystemBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.services import LOCALED
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
@@ -30,6 +31,10 @@ class LocaledWrapper(object):
 
     def __init__(self):
         self._localed_proxy = None
+        self._user_layouts_variants = []
+        self._last_layouts_variants = []
+        self.compositor_layouts_changed = Signal()
+        self.compositor_selected_layout_changed = Signal()
 
         if not conf.system.provides_system_bus:
             log.debug("Not using localed service: "
@@ -42,6 +47,47 @@ class LocaledWrapper(object):
             return
 
         self._localed_proxy = LOCALED.get_proxy()
+        self._localed_proxy.PropertiesChanged.connect(self._on_properties_changed)
+
+    def _on_properties_changed(self, interface, changed_props, invalid_props):
+        if "X11Layout" in changed_props or "X11Variant" in changed_props:
+            layouts_variants = self._from_localed_format(changed_props["X11Layout"].get_string(),
+                                                         changed_props["X11Variant"].get_string())
+            # This part is a bit tricky. The signal processing here means that compositor has
+            # changed current layouts configuration. This could happen for multiple reasons:
+            # - user changed the layout in compositor
+            # - Anaconda set the layout to compositor
+            # - any other magic logic for compositor (we just don't know)
+            #
+            # The question is how we should behave:
+            # - we don't want to take compositor layouts to Anaconda because that will change
+            #   what user will have in the installed system.
+            # - we don't want to force our layouts to compositor because that would forbid user
+            #   to change compositor layout when Anaconda runs in background
+            #
+            # The best shot seems to just signal out that the layout has changed and nothing else.
+
+            # layouts has changed in compositor, always emit this signal
+            log.debug("Localed layouts has changed. Last known: '%s' current: '%s'",
+                      self._last_layouts_variants, layouts_variants)
+            self.compositor_layouts_changed.emit(layouts_variants)
+
+            # check if last selected variant has changed
+            # nothing is selected in compositor
+            if not layouts_variants:
+                log.warning("Compositor layouts not set.")
+                self.compositor_selected_layout_changed.emit("")
+            # we don't know last used layouts
+            elif not self._last_layouts_variants:
+                log.debug("Compositor selected layout is different. "
+                          "Missing information about last selected layouts.")
+                self.compositor_selected_layout_changed.emit(layouts_variants[0])
+            # selected (first) has changed
+            elif layouts_variants[0] != self._last_layouts_variants[0]:
+                log.debug("Compositor selected layout is different.")
+                self.compositor_selected_layout_changed.emit(layouts_variants[0])
+
+            self._last_layouts_variants = layouts_variants
 
     @property
     def keymap(self):
@@ -68,6 +114,11 @@ class LocaledWrapper(object):
         layouts = self._localed_proxy.X11Layout
         variants = self._localed_proxy.X11Variant
 
+        self._last_layouts_variants = self._from_localed_format(layouts, variants)
+        return self._last_layouts_variants
+
+    @staticmethod
+    def _from_localed_format(layouts, variants):
         layouts = layouts.split(",") if layouts else []
         variants = variants.split(",") if variants else []
 
@@ -76,6 +127,15 @@ class LocaledWrapper(object):
         variants.extend(diff * [""])
 
         return [join_layout_variant(layout, variant) for layout, variant in zip(layouts, variants)]
+
+    @property
+    def current_layout_variant(self):
+        """Get first (current) layout with variant.
+
+        :return: a list of "layout (variant)" or "layout" layout specifications
+        :rtype: list(str)
+        """
+        return "" if not self.layouts_variants else self.layouts_variants[0]
 
     @property
     def options(self):
@@ -125,7 +185,7 @@ class LocaledWrapper(object):
         orig_layouts_variants = self.layouts_variants
         orig_keymap = self.keymap
         converted_layouts = self.set_and_convert_keymap(keymap)
-        self.set_layouts(orig_layouts_variants)
+        self._set_layouts(orig_layouts_variants)
         self.set_keymap(orig_keymap)
 
         return converted_layouts
@@ -155,6 +215,12 @@ class LocaledWrapper(object):
                         (see set_and_convert_layouts)
         :type convert: bool
         """
+        # store configuration from user
+        self._set_layouts(layouts_variants, options, convert)
+        log.debug("Storing layouts for compositor configured by user")
+        self._user_layouts_variants = layouts_variants
+
+    def _set_layouts(self, layouts_variants, options=None, convert=False):
         if not self._localed_proxy:
             return
 
@@ -175,9 +241,17 @@ class LocaledWrapper(object):
         if not layouts and parsing_failed:
             return
 
+        if options is None:
+            options = self.options
+            log.debug("Keyboard layouts for system/compositor are missing options. "
+                      "Use compositor options: %s", options)
+
         layouts_str = ",".join(layouts)
         variants_str = ",".join(variants)
-        options_str = ",".join(options) if options else ""
+        options_str = ",".join(options)
+
+        log.debug("Setting system/compositor keyboard layouts: '%s' options: '%s' convert: '%s",
+                  layouts_variants, options, convert)
 
         self._localed_proxy.SetX11Keyboard(
             layouts_str,
@@ -198,7 +272,7 @@ class LocaledWrapper(object):
         :rtype: str
         """
 
-        self.set_layouts(layouts_variants, convert=True)
+        self._set_layouts(layouts_variants, convert=True)
 
         return self.keymap
 
@@ -223,7 +297,86 @@ class LocaledWrapper(object):
         orig_layouts_variants = self.layouts_variants
         orig_keymap = self.keymap
         ret = self.set_and_convert_layouts(layouts_variants)
-        self.set_layouts(orig_layouts_variants)
+        self._set_layouts(orig_layouts_variants)
         self.set_keymap(orig_keymap)
 
         return ret
+
+    # TODO: rename to select_layout
+    def set_current_layout(self, layout_variant):
+        """Set given layout as first (current) layout for compositor.
+
+        This will search for the given layout variant in the list and move it as first in the list.
+
+        :param layout_variant: The layout to set, with format "layout (variant)"
+            (e.g. "cz (qwerty)")
+        :type layout_variant: str
+        :return: If the keyboard layout was activated
+        :rtype: bool
+        """
+        # ignore compositor layouts but force Anaconda configuration
+        layouts = self._user_layouts_variants
+
+        try:
+            new_layouts = self._shift_list(layouts, layout_variant)
+            self._set_layouts(new_layouts)
+            return True
+        except ValueError:
+            log.warning("Can't set layout: '%s' as first to the current set: %s",
+                        layout_variant, layouts)
+            return False
+
+    @staticmethod
+    def _shift_list(source_layouts, value_to_first):
+        """Helper method to reorder list of layouts and move one as first in the list.
+
+        We should preserve the ordering just shift items from start of the list to the
+        end in the same order.
+
+        When we want to set 2nd as first in this list:
+        ["cz", "es", "us"]
+        The result should be:
+        ["es", "us", "cz"]
+
+        So the compositor has the same next layout as Anaconda.
+
+        :raises: ValueError: if the list is small or the layout is not inside
+        """
+        value_id = source_layouts.index(value_to_first)
+        new_list = source_layouts[value_id:len(source_layouts)] + source_layouts[0:value_id]
+        return new_list
+
+    def select_next_layout(self):
+        """Select (make it first) next layout for compositor.
+
+        Find current compositor layout in the list of defined layouts and set next to it as
+        current (first) for compositor. We need to have user defined list because compositor
+        layouts will change with the selection. Store this list when user is setting configuration
+        to compositor. This list must not change ordering.
+
+        :param user_layouts: List of layouts selected by user in Anaconda.
+        :type user_layouts: [str]
+        :return: If switch was successful True otherwise False
+        :rtype: bool
+        """
+        current_layout = self.current_layout_variant
+        layout_id = 0
+
+        if not self._user_layouts_variants:
+            log.error("Can't switch next layout - user defined keyboard layout is not present!")
+            return False
+
+        # find next layout
+        for i, v in enumerate(self._user_layouts_variants):
+            if v == current_layout:
+                layout_id = i + 1
+                layout_id %= len(self._user_layouts_variants)
+
+        try:
+            new_layouts = self._shift_list(self._user_layouts_variants,
+                                           self._user_layouts_variants[layout_id])
+            self._set_layouts(new_layouts)
+            return True
+        except ValueError:
+            log.warning("Can't set next keyboard layout %s", self._user_layouts_variants)
+            return False

@@ -173,7 +173,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         except (RuntimeError, ImportError, ValueError):
             log.debug("Gtk cannot be initialized")
-            # X not running (Gtk cannot be initialized)
+            # Wayland not running (Gtk cannot be initialized)
             if thread_manager.in_main_thread():
                 log.debug("In the main thread, running exception handler")
                 if issubclass(ty, NonInteractiveError) or not self._interactive:

@@ -36,7 +36,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libarchivever 3.0.4
 %define libblockdevver 2.1
 %define libreportanacondaver 2.0.21-1
-%define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
 %define pykickstartver 3.58-1
@@ -58,7 +57,6 @@ BuildRequires: gobject-introspection-devel
 %if %{with glade}
 BuildRequires: glade-devel
 %endif
-BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
 BuildRequires: pango-devel
 BuildRequires: python3-devel
@@ -142,7 +140,7 @@ Requires: python3-pid
 Requires: crypto-policies
 Requires: crypto-policies-scripts
 
-# required because of the rescue mode and VNC question
+# required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
 
 # Make sure we get the en locale one way or another
@@ -178,7 +176,6 @@ BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
 Requires: zenity
-Requires: xisxwayland
 Recommends: xhost
 
 %description live
@@ -258,16 +255,19 @@ Requires: zram-generator
 # needed for proper driver disk support - if RPMs must be installed, a repo is needed
 Requires: createrepo_c
 # Display stuff moved from lorax templates
-Requires: xorg-x11-drivers
-Requires: xorg-x11-server-Xorg
-Requires: xrandr
-Requires: xrdb
-Requires: dbus-x11
 Requires: gsettings-desktop-schemas
 Requires: nm-connection-editor
 Requires: librsvg2
 Requires: gnome-kiosk
+Requires: gnome-remote-desktop
+# needed to generate RDP certs at runtime
+Requires: openssl
+# needed by GNOME kiosk but not declared a as explicit dep,
+# instead expected to be declared like this according to the
+# maintainers
+Requires: mesa-dri-drivers
 Requires: brltty
+Requires: python3-pam
 # dependencies for rpm-ostree payload module
 Requires: rpm-ostree >= %{rpmostreever}
 Requires: ostree
@@ -292,8 +292,6 @@ Requires: python3-meh-gui >= %{mehver}
 Requires: python3-xkbregistry
 Requires: adwaita-icon-theme
 Requires: tecla
-Requires: tigervnc-server-minimal
-Requires: libxklavier >= %{libxklavierver}
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
@@ -305,6 +303,8 @@ Requires: system-logos
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
+# Needed for gdbus-codegen
+BuildRequires: glib2-devel
 
 %description gui
 This package contains graphical user interface for the Anaconda installer.
@@ -411,6 +411,7 @@ rm -rf \
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
+%{_sysconfdir}/pam.d/anaconda
 %{_prefix}/libexec/anaconda
 %exclude %{_datadir}/anaconda/gnome
 %exclude %{_datadir}/anaconda/pixmaps

@@ -66,6 +66,9 @@ class LocalizationService(KickstartService):
         self.keyboard_seen_changed = Signal()
         self._keyboard_seen = False
 
+        self.compositor_selected_layout_changed = Signal()
+        self.compositor_layouts_changed = Signal()
+
         self._localed_wrapper = None
 
     def publish(self):
@@ -244,6 +247,13 @@ class LocalizationService(KickstartService):
     def localed_wrapper(self):
         if not self._localed_wrapper:
             self._localed_wrapper = LocaledWrapper()
+
+            self._localed_wrapper.compositor_selected_layout_changed.connect(
+                self.compositor_selected_layout_changed.emit
+            )
+            self._localed_wrapper.compositor_layouts_changed.connect(
+                self.compositor_layouts_changed.emit
+            )
         return self._localed_wrapper
 
     def install_with_tasks(self):
@@ -315,3 +325,18 @@ class LocalizationService(KickstartService):
         )
         result = task.run()
         self._update_settings_from_task(result)
+
+    def get_compositor_selected_layout(self):
+        return self.localed_wrapper.current_layout_variant
+
+    def set_compositor_selected_layout(self, layout_variant):
+        return self.localed_wrapper.set_current_layout(layout_variant)
+
+    def select_next_compositor_layout(self):
+        return self.localed_wrapper.select_next_layout()
+
+    def get_compositor_layouts(self):
+        return self.localed_wrapper.layouts_variants
+
+    def set_compositor_layouts(self, layout_variants, options):
+        self.localed_wrapper.set_layouts(layout_variants, options)

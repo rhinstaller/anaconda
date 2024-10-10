@@ -36,10 +36,10 @@ class ArgparseTest(unittest.TestCase):
         assert opts.stage2 is None
 
         boot_cmdline = KernelArguments.from_string("stage2=http://cool.server.com/test "
-                                                   "vnc")
+                                                   "rdp")
         opts = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.stage2 is None
-        assert not opts.vnc
+        assert not opts.rdp_enabled
 
     def test_with_inst_prefix(self):
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test")
@@ -47,17 +47,17 @@ class ArgparseTest(unittest.TestCase):
         assert opts.stage2 == "http://cool.server.com/test"
 
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
-                                                   "inst.vnc")
+                                                   "inst.rdp")
         opts = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.stage2 == "http://cool.server.com/test"
-        assert opts.vnc
+        assert opts.rdp_enabled
 
     def test_inst_prefix_mixed(self):
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
-                                                   "vnc")
+                                                   "rdp")
         opts = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.stage2 == "http://cool.server.com/test"
-        assert not opts.vnc
+        assert not opts.rdp_enabled
 
     def test_display_mode(self):
         opts = self._parseCmdline(['--cmdline'])

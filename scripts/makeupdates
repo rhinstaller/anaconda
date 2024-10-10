@@ -35,7 +35,8 @@ RPM_RELEASE_DIR_TEMPLATE = "for_%s"
 SITE_PACKAGES_PATH = "./usr/lib64/python3.13/site-packages/"
 
 # Anaconda scripts that should be installed into the libexec folder
-LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates", "anaconda-pre-log-gen"]
+LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates", "anaconda-pre-log-gen",
+                   "run-in-new-session"]
 
 # Anaconda scripts that should be installed into /usr/bin
 USR_BIN_SCRIPTS = ["anaconda-disable-nm-ibft-plugin", "anaconda-nm-disable-autocons"]
@@ -325,6 +326,15 @@ def check_autotools(srcdir, builddir):
         os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix`')
         os.chdir(srcdir)
 
+def generate_dbus_code(srcdir):
+    os.system('gdbus-codegen '
+              '--interface-prefix org.fedoraproject.Anaconda.Modules. '
+              '--c-namespace An '
+              '--generate-c-code an-localization '
+              '--output-directory %s/widgets/src '
+              '%s/widgets/src/dbus/org.fedoraproject.Anaconda.Modules.Localization.xml'
+              % (srcdir, srcdir))
+
 def copy_updated_widgets(updates, srcdir, builddir):
     os.chdir(srcdir)
 
@@ -481,6 +491,7 @@ def main():
     copy_updated_files(args.tag, updates, cwd, builddir)
 
     if args.compile:
+        generate_dbus_code(cwd)
         if widgets_changed(args.tag):
             copy_updated_widgets(updates, cwd, builddir)
 

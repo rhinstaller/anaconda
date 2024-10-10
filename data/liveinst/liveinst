@@ -69,9 +69,6 @@ fi
 # Process cmdline args
 for opt in $(cat /proc/cmdline) "$@"; do
     case $opt in
-    xdriver=*)
-        ANACONDA="$ANACONDA --$opt"
-        ;;
     updates=*)
         UPDATES="${opt#updates=}"
         ;;
@@ -116,9 +113,9 @@ for opt in $(cat /proc/cmdline) "$@"; do
          fi
          exit 1
         ;;
-    vnc|--vnc)
+    rdp|rdp.username|rdp.password|--rdp|--rdp.username|--rdp.password)
         title="Configuration not supported"
-        text="VNC is not supported on live media."
+        text="RDP is not supported on live media."
         if which zenity &> /dev/null; then
             zenity --warning --title="$title" --text="$text"
          else

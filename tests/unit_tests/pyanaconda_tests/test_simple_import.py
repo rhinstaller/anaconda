@@ -67,7 +67,7 @@ class SimpleImportTestCase(unittest.TestCase):
             "pyanaconda.modules.storage.checker.utils",
             "pyanaconda.ui.categories",
             "pyanaconda.ui.gui.spokes.lib.cart",
-            "pyanaconda.ui.tui.spokes.askvnc",
+            "pyanaconda.ui.tui.spokes.askrd",
             "pyanaconda.rescue"
         ], [
             "pyanaconda.modules.storage.partitioning.blivet.blivet_handler",

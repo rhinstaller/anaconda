@@ -32,6 +32,16 @@ import pid
 
 from pyanaconda.modules.common.structures.rescue import RescueData
 
+# Redirect Anaconda main process stderr to Journal,
+# as otherwise this could end up writing all over
+# the TUI on TTY1.
+
+# create an appropriately named Journal writing stream
+from systemd import journal
+anaconda_stderr_stream = journal.stream("anaconda", priority=journal.LOG_ERR)
+# redirect stderr of this process to the stream
+os.dup2(anaconda_stderr_stream.fileno(), sys.stderr.fileno())
+
 
 def exitHandler(rebootData):
     # Clear the list of watched PIDs.
@@ -40,8 +50,8 @@ def exitHandler(rebootData):
 
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
-    if flags.usevnc:
-        vnc.shutdownServer()
+    if flags.use_rd:
+        gnome_remote_desktop.shutdown_server()
 
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
@@ -150,6 +160,12 @@ def setup_environment():
     if "LD_PRELOAD" in os.environ:
         del os.environ["LD_PRELOAD"]
 
+    # Go ahead and set $WAYLAND_DISPLAY whether we're going to use Wayland or not
+    if "WAYLAND_DISPLAY" in os.environ:
+        flags.preexisting_wayland = True
+    else:
+        os.environ["WAYLAND_DISPLAY"] = constants.WAYLAND_SOCKET_NAME  # pylint: disable=possibly-used-before-assignment
+
     # Go ahead and set $DISPLAY whether we're going to use X or not
     if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
@@ -162,7 +178,6 @@ def setup_environment():
     # show vi instead of nano. Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1889674
     if "EDITOR" not in os.environ and os.path.isfile("/etc/profile.d/nano-default-editor.sh"):
         os.environ["EDITOR"] = "/usr/bin/nano"
-
 
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
@@ -268,7 +283,7 @@ if __name__ == "__main__":
         opts.display_mode = constants.DisplayModes.TUI
         opts.noninteractive = True
 
-    from pyanaconda import vnc
+    from pyanaconda import gnome_remote_desktop
     from pyanaconda import kickstart
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical
@@ -306,10 +321,11 @@ if __name__ == "__main__":
     except pid.PidFileError as e:
         log.error("Unable to create %s, exiting", pidfile.filename)
 
-        # If we had a $DISPLAY at start and zenity is available, we may be
-        # running in a live environment and we can display an error dialog.
+        # If we had a Wayland/X11 display at start and zenity is available, we may
+        # be running in a live environment and we can display an error dialog.
         # Otherwise just print an error.
-        if flags.preexisting_x11 and os.access("/usr/bin/zenity", os.X_OK):
+        preexisting_graphics = flags.preexisting_wayland or flags.preexisting_x11
+        if preexisting_graphics and os.access("/usr/bin/zenity", os.X_OK):
             # The module-level _() calls are ok here because the language may
             # be set from the live environment in this case, and anaconda's
             # language setup hasn't happened yet.

@@ -32,6 +32,10 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
+  # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
+  # if fedora-cisco is not enabled it will fallback to stub library in main repository which is
+  # what we want
+  sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/fedora-cisco-openh264.repo; \
   dnf install -y \
   'dnf5-command(copr)'; \
   # Enable COPR repositories

@@ -20,6 +20,7 @@
 import sys
 import time
 import os
+import pkgutil
 from blivet.arch import is_s390
 from blivet.util import total_memory
 from dasbus.typing import get_variant, Int
@@ -137,7 +138,7 @@ def check_memory(anaconda, options, display_mode=None):
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode != DisplayModes.TUI and not flags.usevnc:
+    if display_mode != DisplayModes.TUI and not flags.use_rd:
         needed_ram = minimal_memory_needed(with_gui=True, with_squashfs=with_squashfs)
         log.info("check_memory(): total:%s, graphical:%s", total_ram, needed_ram)
         reason_args["needed_ram"] = needed_ram
@@ -173,6 +174,22 @@ def set_storage_checker_minimal_ram_size(display_mode):
         STORAGE_MIN_RAM,
         get_variant(Int, min_ram * 1024 * 1024)
     )
+
+
+def fallback_to_tui_if_gtk_ui_is_not_available(anaconda):
+    """Check if GTK UI is available in this environment and fallback to TUI if not.
+
+    Also take into account Web UI.
+    """
+    if anaconda.gui_mode and not anaconda.is_webui_supported:
+        import pyanaconda.ui
+
+        mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
+        if "pyanaconda.ui.gui" not in mods:
+            stdout_log.warning("Graphical user interface not available, falling back to text mode")
+            anaconda.display_mode = DisplayModes.TUI
+            flags.use_rd = False
+            flags.rd_question = False
 
 
 def setup_logging_from_options(options):
@@ -255,7 +272,7 @@ def prompt_for_ssh(options):
     if options.ksfile:
         return False
 
-    if options.vnc:
+    if options.rdp_enabled:
         return False
 
     # Do some work here to get the ip addr / hostname to pass
@@ -552,7 +569,7 @@ def initialize_default_systemd_target(text_mode):
 
     NOTE:
 
-        Installation controlled via VNC is considered to be
+        Installation controlled via RDP is considered to be
         a text mode installation, as the installation run itself
         is effectively headless.
 
@@ -563,8 +580,9 @@ def initialize_default_systemd_target(text_mode):
 
     services_proxy = SERVICES.get_proxy()
 
-    if not services_proxy.DefaultTarget and (text_mode or flags.usevnc):
-        log.debug("no default systemd target set & in text/vnc mode - setting multi-user.target.")
+    if not services_proxy.DefaultTarget and (text_mode or flags.use_rd):
+        log.debug("no default systemd target set & in text/remote desktop mode - "
+                  "setting multi-user.target.")
         services_proxy.DefaultTarget = TEXT_ONLY_TARGET
 
 
