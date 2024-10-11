@@ -32,10 +32,10 @@ from blivet.devicelibs.lvm import HAVE_LVMDEVICES
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.util import join_paths, execWithRedirect
 from pyanaconda.core.path import make_directories
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, ZFCP, NVME
+from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, NVME
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import StorageInstallationError
 from pyanaconda.modules.common.task import Task
@@ -290,13 +290,10 @@ class WriteConfigurationTask(Task):
         fcoe_proxy = STORAGE.get_proxy(FCOE)
         fcoe_proxy.WriteConfiguration()
 
-        zfcp_proxy = STORAGE.get_proxy(ZFCP)
-        zfcp_proxy.WriteConfiguration()
-
         nvme_proxy = STORAGE.get_proxy(NVME)
         nvme_proxy.WriteConfiguration()
 
-        self._write_dasd_conf(storage, sysroot)
+        self._write_s390_device_config(sysroot)
 
     def _write_escrow_packets(self, storage, sysroot):
         """Write the escrow packets.
@@ -361,46 +358,21 @@ class WriteConfigurationTask(Task):
             make_directories(os.path.dirname(out_filename))
             shutil.copyfile(in_filename, out_filename)
 
-    def _write_dasd_conf(self, storage, sysroot):
-        """Write DASD configuration to sysroot.
+    def _write_s390_device_config(self, sysroot):
+        """Copy entire persistent config of any s390 devices to sysroot.
 
-        Write /etc/dasd.conf to target system for all DASD devices
-        configured during installation.
+        This includes config imported from initrd as well as anything the user
+        configured via the installer user interface.
 
-        :param storage: the storage object
         :param sysroot: a path to the target OS installation
         """
-        dasds = [d for d in storage.devices if d.type == "dasd"]
-        dasds.sort(key=lambda d: d.name)
-        if not (arch.is_s390() and dasds):
-            return
-
-        with open(os.path.realpath(sysroot + "/etc/dasd.conf"), "w") as f:
-            for dasd in dasds:
-                fields = [dasd.busid] + dasd.get_opts()
-                f.write("%s\n" % " ".join(fields),)
-
-        # check for hyper PAV aliases; they need to get added to dasd.conf as well
-        sysfs = "/sys/bus/ccw/drivers/dasd-eckd"
-
-        # in the case that someone is installing with *only* FBA DASDs,the above
-        # sysfs path will not exist; so check for it and just bail out of here if
-        # that's the case
-        if not os.path.exists(sysfs):
-            return
-
-        # this does catch every DASD, even non-aliases, but we're only going to be
-        # checking for a very specific flag, so there won't be any duplicate entries
-        # in dasd.conf
-        devs = [d for d in os.listdir(sysfs) if d.startswith("0.0")]
-        with open(os.path.realpath(sysroot + "/etc/dasd.conf"), "a") as f:
-            for d in devs:
-                aliasfile = "%s/%s/alias" % (sysfs, d)
-                with open(aliasfile, "r") as falias:
-                    alias = falias.read().strip()
-
-                # if alias == 1, then the device is an alias; otherwise it is a
-                # normal dasd (alias == 0) and we can skip it, since it will have
-                # been added to dasd.conf in the above block of code
-                if alias == "1":
-                    f.write("%s\n" % d)
+        if arch.is_s390():
+            execWithRedirect("chzdev",
+                             ["--export", "/tmp/zdev.config",
+                              "--all", "--type", "--persistent",
+                              "--verbose"])
+            execWithRedirect("chzdev",
+                             ["--import", "/tmp/zdev.config",
+                              "--persistent",
+                              "--yes", "--no-root-update", "--force", "--verbose",
+                              "--base", "/etc=%s/etc" % sysroot])

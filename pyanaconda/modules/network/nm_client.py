@@ -35,6 +35,7 @@ from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import get_s390_settings, netmask2prefix, prefix2netmask
 from pyanaconda.modules.network.config_file import is_config_file_for_system
 from pyanaconda.core.dbus import SystemBus
+from pyanaconda.core import util
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -437,12 +438,6 @@ def _update_wired_connection_with_s390_settings(connection, s390cfg):
     if s390cfg['SUBCHANNELS']:
         subchannels = s390cfg['SUBCHANNELS'].split(",")
         s_wired.props.s390_subchannels = subchannels
-    if s390cfg['NETTYPE']:
-        s_wired.props.s390_nettype = s390cfg['NETTYPE']
-    if s390cfg['OPTIONS']:
-        opts = s390cfg['OPTIONS'].split(" ")
-        opts_dict = {k: v for k, v in (o.split("=") for o in opts)}
-        s_wired.props.s390_options = opts_dict
 
 
 def _create_new_connection(network_data, device_name):
@@ -1379,15 +1374,10 @@ def _get_dracut_znet_argument_from_connection(connection):
     argument = ""
     wired_setting = connection.get_setting_wired()
     if wired_setting and is_s390():
-        nettype = wired_setting.get_s390_nettype()
-        # get_s390_subchannels() returns a list of subchannels
-        subchannels = wired_setting.get_s390_subchannels()
-        if nettype and subchannels:
-            argument = "rd.znet={},{}".format(nettype, ",".join(subchannels))
-            options = wired_setting.get_property(NM.SETTING_WIRED_S390_OPTIONS)
-            if options:
-                options_string = ','.join("{}={}".format(key, val) for key, val in options.items())
-                argument += ",{}".format(options_string)
+        devspec = util.execWithCapture("/lib/s390-tools/zdev-to-rd.znet",
+                                       ["persistent",
+                                        connection.get_interface_name()]).strip()
+        argument = "rd.znet={}".format(devspec)
     return argument
 
 

@@ -83,8 +83,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
                 "dev1",
                 fmt=get_format("ext4"),
                 size=Size("10 GiB"),
-                busid="0.0.0201",
-                opts={}
+                busid="0.0.0201"
             )
         )
 
@@ -123,14 +122,15 @@ class DASDTasksTestCase(unittest.TestCase):
         with pytest.raises(StorageDiscoveryError):
             DASDDiscoverTask("x.y.z").run()
 
+    @patch('pyanaconda.modules.storage.dasd.discover.execWithRedirect')
     @patch('pyanaconda.modules.storage.dasd.discover.blockdev')
-    def test_discovery(self, blockdev):
+    def test_discovery(self, blockdev, execWithRedirect):
         """Test the discovery task."""
+        execWithRedirect.return_value = 0
         DASDDiscoverTask("0.0.A100").run()
         blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.A100")
 
-        sanitized_input = blockdev.s390.sanitize_dev_input.return_value
-        blockdev.s390.dasd_online.assert_called_once_with(sanitized_input)
+        execWithRedirect.assert_called_once()
 
     @patch('pyanaconda.modules.storage.dasd.format.blockdev')
     def test_format(self, blockdev):
