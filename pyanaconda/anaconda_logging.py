@@ -21,7 +21,7 @@
 
 import logging
 from logging.handlers import SysLogHandler, SocketHandler
-from systemd.journal import JournalHandler
+from systemd import journal
 import os
 import sys
 import warnings
@@ -94,11 +94,11 @@ class _AnacondaLogFixer(object):
         self._stream = WriteProxy()  # pylint: disable=attribute-defined-outside-init
 
 
-class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
+class AnacondaJournalHandler(_AnacondaLogFixer, journal.JournalHandler):
     def __init__(self, tag='', facility=ANACONDA_SYSLOG_FACILITY,
                  identifier=ANACONDA_SYSLOG_IDENTIFIER):
         self.tag = tag
-        JournalHandler.__init__(self,
+        journal.JournalHandler.__init__(self,
                                 SYSLOG_FACILITY=facility,
                                 SYSLOG_IDENTIFIER=identifier)
 
@@ -106,10 +106,10 @@ class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
         if self.tag:
             original_msg = record.msg
             record.msg = '%s: %s' % (self.tag, original_msg)
-            JournalHandler.emit(self, record)
+            journal.JournalHandler.emit(self, record)
             record.msg = original_msg
         else:
-            JournalHandler.emit(self, record)
+            journal.JournalHandler.emit(self, record)
 
 
 class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
@@ -187,6 +187,9 @@ class AnacondaLog(object):
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger)
         self.forwardToJournal(simpleline_logger)
 
+        # Redirect all stderr messages from process to journal
+        self.stderrToJournal()
+
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
@@ -231,6 +234,17 @@ class AnacondaLog(object):
         if log_formatter:
             journal_handler.setFormatter(log_formatter)
         logr.addHandler(journal_handler)
+
+    def stderrToJournal(self):
+        """Print all stderr messages from Anaconda to journal instead.
+
+        Redirect Anaconda main process stderr to Journal, as otherwise this could end up writing
+        all over the TUI on TTY1.
+        """
+        # create an appropriately named Journal writing stream
+        anaconda_stderr_stream = journal.stream("anaconda", priority=journal.LOG_ERR)
+        # redirect stderr of this process to the stream
+        os.dup2(anaconda_stderr_stream.fileno(), sys.stderr.fileno())
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
