@@ -241,6 +241,9 @@ class AnacondaLog(object):
         Redirect Anaconda main process stderr to Journal, as otherwise this could end up writing
         all over the TUI on TTY1.
         """
+        if not self.write_to_journal:
+            return
+
         # create an appropriately named Journal writing stream
         anaconda_stderr_stream = journal.stream("anaconda", priority=journal.LOG_ERR)
         # redirect stderr of this process to the stream
