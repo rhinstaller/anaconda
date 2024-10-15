@@ -490,6 +490,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 15 2024 github-actions <github-actions@github.com> - 42.8-1
+- Fix journal redirect on systems without journal (jkonecny)
+- unit_tests: drop DASDDevice.opts like in related blivet change (maier)
+- network: use consolidated s390 device configuration (#1802482,#1937049)
+  (maier)
+- write persistent config of any (dasd,zfcp,znet) s390 devices to sysroot
+  (#1802482,#1937049) (maier)
+- DASDDiscoverTask: use consolidated device configuration with zdev
+  (#1802482,#1937049) (maier)
+
 * Thu Oct 10 2024 github-actions <github-actions@github.com> - 42.7-1
 - Add GRD test coverage (jkonecny)
 - Improve docs in gnome_remote_desktop source (jkonecny)
