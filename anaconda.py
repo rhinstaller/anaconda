@@ -289,9 +289,18 @@ if __name__ == "__main__":
     from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()
 
+    def terminate(num, frame):
+        try:
+            # This will execute atexit function which might fail because of logging exception
+            # which shouldn't be used in signal handlers. However, it's during the shutdown
+            # process so let's suppress this to avoid issues.
+            sys.exit(1)
+        except Exception as ex:
+            print("Error raised when terminating Anaconda: \n %s", ex)
+
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_IGN)
-    signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
+    signal.signal(signal.SIGTERM, terminate)
 
     # synchronously-delivered signals such as SIGSEGV and SIGILL cannot be handled properly from
     # Python, so install signal handlers from the faulthandler stdlib module.
