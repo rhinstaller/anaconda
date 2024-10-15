@@ -1,5 +1,7 @@
 [Unit]
-ConditionKernelCommandLine=inst.net.noautodefault
+ConditionKernelCommandLine=|ip
+ConditionKernelCommandLine=|inst.ks
+ConditionKernelCommandLine=|inst.net.noautodefault
 Description=NetworkManager autoconnections configuration for Anaconda installation environment
 Before=NetworkManager.service
 
