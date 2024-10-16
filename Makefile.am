@@ -34,7 +34,10 @@ MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
-CLEANFILES = *~
+CLEANFILES = *~ 
+CLEANFILES += $(RPM_BUILD_DIR)/*.rpm
+CLEANFILES += $(SRPM_BUILD_DIR)/*.rpm
+CLEANFILES += *.tar.bz2
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
