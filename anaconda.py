@@ -108,6 +108,8 @@ def exitHandler(rebootData):
         else:  # reboot action is KS_REBOOT or None
             util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
 
+    print("End of atexit!", file=sys.stderr)
+
 
 def parse_arguments(argv=None, boot_cmdline=None):
     """Parse command line/boot options and arguments.
@@ -296,7 +298,7 @@ if __name__ == "__main__":
             # process so let's suppress this to avoid issues.
             sys.exit(1)
         except Exception as ex:
-            print("Error raised when terminating Anaconda: \n %s", ex)
+            print("Error raised when terminating Anaconda: \n %s", ex, file=sys.stderr)
 
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_IGN)
