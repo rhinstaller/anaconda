@@ -108,6 +108,8 @@ def exitHandler(rebootData):
         else:  # reboot action is KS_REBOOT or None
             util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
 
+    logging.raiseExceptions = False
+
 
 def parse_arguments(argv=None, boot_cmdline=None):
     """Parse command line/boot options and arguments.
