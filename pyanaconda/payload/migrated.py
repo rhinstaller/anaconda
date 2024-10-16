@@ -23,6 +23,9 @@ from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.base import Payload
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources
+from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
+        NonCriticalInstallationError
 
 log = get_module_logger(__name__)
 
@@ -102,7 +105,30 @@ class MigratedDBusPayload(Payload, metaclass=ABCMeta):
             if progress_cb:
                 task_proxy.ProgressChanged.connect(progress_cb)
 
-            sync_run_task(task_proxy)
+            # Wrap the task call with error handler here, or else
+            # the exception will propagate up to the top level error handler.
+            # It will still show the error/continnue dialog, but would result
+            # in the rest of the loop being skipped if continue is selected.
+            # By running the error handler from here, we can correctly continue
+            # the installation on non-critical errors.
+            try:
+                sync_run_task(task_proxy)
+            except Exception as e:  # pylint: disable=broad-except
+                if errorHandler.cb(e) == ERROR_RAISE:
+                    # check if the error we are raising is a non-critical error
+                    if isinstance(e, NonCriticalInstallationError):
+                        # This means the user has selected "No" on the continue dialog
+                        # for non-critical errors. Unfortunatelly, there is still the top-level
+                        # error handler and if we just raise the non-critical error,
+                        # the user will be asked *again*. That would be a rather bad UX,
+                        # so lets turn the non-ciritcal error into a fatal one.
+                        # This results in a nice error dialog with "Exit Installer" button
+                        # being shown.
+                        raise PayloadInstallationError(str(e)) from e
+                    else:
+                        # raise all other errors as usual & let them to propagate
+                        # to the top level error handler
+                        raise
 
 
 class ActiveDBusPayload(MigratedDBusPayload):
