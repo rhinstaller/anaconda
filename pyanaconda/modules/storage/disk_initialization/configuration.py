@@ -50,7 +50,7 @@ class DiskInitializationConfig(object):
         for disk in device.disks:
             # this will not include disks with hidden formats like multipath
             # and firmware raid member disks
-            if self.drives_to_clear and disk.name not in self.drives_to_clear:
+            if self.drives_to_clear and disk.device_id not in self.drives_to_clear:
                 return False
 
         if not self.clear_non_existent:
@@ -113,7 +113,7 @@ class DiskInitializationConfig(object):
             return False
 
         if self.initialization_mode == CLEAR_PARTITIONS_LIST and \
-           device.name not in self.devices_to_clear:
+           device.device_id not in self.devices_to_clear:
             return False
 
         return True
