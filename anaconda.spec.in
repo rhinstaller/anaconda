@@ -490,6 +490,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 16 2024 github-actions <github-actions@github.com> - 42.9-1
+- Log stderr to journal only on supported platforms (jkonecny)
+- logging: fix the length limit of packages info dbg message (rvykydal)
+
 * Tue Oct 15 2024 github-actions <github-actions@github.com> - 42.8-1
 - Fix journal redirect on systems without journal (jkonecny)
 - unit_tests: drop DASDDevice.opts like in related blivet change (maier)
