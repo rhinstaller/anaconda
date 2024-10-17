@@ -414,7 +414,7 @@ rm -rf \
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
-%{_sysconfdir}/pam.d/anaconda
+%config(noreplace) %{_sysconfdir}/pam.d/anaconda
 %{_prefix}/libexec/anaconda
 %exclude %{_datadir}/anaconda/gnome
 %exclude %{_datadir}/anaconda/pixmaps
@@ -448,7 +448,7 @@ rm -rf \
 %{_libexecdir}/liveinst-setup.sh
 %{_datadir}/applications/*.desktop
 %{_datadir}/anaconda/gnome
-%{_sysconfdir}/xdg/autostart/*.desktop
+%config(noreplace) %{_sysconfdir}/xdg/autostart/*.desktop
 
 %endif
 
