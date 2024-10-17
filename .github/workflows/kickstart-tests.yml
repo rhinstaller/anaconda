@@ -280,6 +280,7 @@ jobs:
         run: |
           cat <<EOF > settings.ini
           [kickstart_test]
+          retry_on_failure=True
           kstest_local_repo=${{ github.workspace }}/kickstart-tests
           [library]
           directPath=${{ github.workspace }}/kickstart-tests/testlib
