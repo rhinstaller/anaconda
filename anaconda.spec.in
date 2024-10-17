@@ -480,6 +480,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 17 2024 github-actions <github-actions@github.com> - 41.35-1
+- Fix checking whether a disk can be cleared during autopart (vtrefny)
+
 * Thu Sep 26 2024 github-actions <github-actions@github.com> - 41.34-1
 - Fix scheduling actions in reclaim space dialog (#2311936) (vtrefny)
 
