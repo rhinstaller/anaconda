@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
@@ -24,6 +24,7 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 
+log = get_module_logger(__name__)
 
 class ScriptError(Exception):
     def __init__(self, lineno, details):
