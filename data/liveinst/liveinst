@@ -20,10 +20,23 @@
 
 BACKEND_READY_FLAG=/run/anaconda/backend_ready
 
+WAYLAND_DISPLAY_SOCKET=/tmp/anaconda-wldisplay
+
+# Detect and save the wayland socket before re-exec
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    if [ -e "$WAYLAND_DISPLAY_SOCKET" ]; then
+        rm -f "${WAYLAND_DISPLAY_SOCKET}"
+    fi
+    touch "${WAYLAND_DISPLAY_SOCKET}"
+    echo "${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}" > ${WAYLAND_DISPLAY_SOCKET}
+fi
+
 # The command needs to be run with root privileges, so if it was started
 # unprivileged, restart running as root.
 if [ "$(id -u)" -ne 0 ]; then
-    xhost +si:localuser:root
+    if [ -z "$WAYLAND_DISPLAY" ]; then
+        xhost +si:localuser:root
+    fi
     pkexec "$0" "$@"
     exit $?
 fi
@@ -37,6 +50,19 @@ if [ -n "${PKEXEC_UID}" ]; then
       export "${variable?}"
     done
 fi
+
+# pkexec clears WAYLAND_DISPLAY from environment
+if [ -z "$WAYLAND_DISPLAY" ] && [ -e "$WAYLAND_DISPLAY_SOCKET" ]; then
+    WAYLAND_DISPLAY=$(cat "${WAYLAND_DISPLAY_SOCKET}")
+    export WAYLAND_DISPLAY
+fi
+
+# use the correct home and config directories for system settings
+PKEXEC_USER=$(id -un "${PKEXEC_UID}")
+HOME=$(bash -c "cd ~${PKEXEC_USER} && pwd")
+export HOME
+XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CONFIG_HOME
 
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
@@ -175,8 +201,10 @@ start_anaconda() {
     $ANACONDA "$@"
 }
 
-# Force the X11 backend since sudo and wayland do not mix
-export GDK_BACKEND=x11
+# If no wayland socket is set, force x11 so that it loads correctly
+if [ -z "$WAYLAND_DISPLAY" ]; then
+    export GDK_BACKEND=x11
+fi
 
 if [ -x /usr/bin/udisks ]; then
     /usr/bin/udisks --inhibit -- start_anaconda "$@"
