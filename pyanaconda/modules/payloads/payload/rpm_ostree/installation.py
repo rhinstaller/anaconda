@@ -30,7 +30,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.path import make_directories, set_system_root
 from pyanaconda.core.util import execProgram, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.modules.common.errors.installation import (
     BootloaderInstallationError,
     PayloadInstallationError,
@@ -568,6 +568,7 @@ class ConfigureBootloader(Task):
 
         bootloader = STORAGE.get_proxy(BOOTLOADER)
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        localization = LOCALIZATION.get_proxy()
 
         root_name = device_tree.GetRootDevice()
         root_data = DeviceData.from_structure(
@@ -577,6 +578,7 @@ class ConfigureBootloader(Task):
         set_kargs_args = ["admin", "instutil", "set-kargs", "--merge"]
         set_kargs_args.extend(bootloader.GetArguments())
         set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
+        set_kargs_args.append("vconsole.keymap=" + localization.VirtualConsoleKeymap)
 
         if root_data.type == "btrfs subvolume":
             set_kargs_args.append("rootflags=subvol=" + root_name)
