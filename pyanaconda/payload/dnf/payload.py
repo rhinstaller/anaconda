@@ -269,9 +269,6 @@ class DNFPayload(MigratedDBusPayload):
         if self._skip_if_no_changed_repositories(only_on_change):
             return
 
-        # It will be necessary to check the software selection again.
-        self._software_validation_required = True
-
         # It will be necessary to validate the software selection again.
         self._software_validation_required = True
 
