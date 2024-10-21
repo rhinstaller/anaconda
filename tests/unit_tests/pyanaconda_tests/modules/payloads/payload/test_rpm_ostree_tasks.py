@@ -677,16 +677,20 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.LOCALIZATION")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def test_btrfs_run(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
+    def test_btrfs_run(self, devdata_mock, storage_mock, localization_mock,
+                       symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, no BTRFS"""
         exec_mock.return_value = 0
 
-        proxy_mock = storage_mock.get_proxy()
-        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
-        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-id"
+        storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        storage_proxy_mock.GetRootDevice.return_value = "device-id"
+        localization_proxy_mock = localization_mock.get_proxy()
+        localization_proxy_mock.VirtualConsoleKeymap = "cs"
         devdata_mock.from_structure.return_value.type = "btrfs subvolume"
         devdata_mock.from_structure.return_value.name = "device-name"
 
@@ -707,24 +711,35 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             )
             exec_mock.assert_called_once_with(
                 "ostree",
-                ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC",
-                 "rootflags=subvol=device-name", "rw"],
+                ["admin",
+                 "instutil",
+                 "set-kargs",
+                 "BOOTLOADER-ARGS",
+                 "root=FSTAB-SPEC",
+                 "vconsole.keymap=cs",
+                 "rootflags=subvol=device-name",
+                 "rw"
+                 ],
                 root=sysroot
             )
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.LOCALIZATION")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def test_nonbtrfs_run(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
+    def test_nonbtrfs_run(self, devdata_mock, storage_mock, localization_mock,
+                          symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, no BTRFS"""
         exec_mock.return_value = 0
 
-        proxy_mock = storage_mock.get_proxy()
-        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
-        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-id"
+        storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        storage_proxy_mock.GetRootDevice.return_value = "device-id"
+        localization_proxy_mock = localization_mock.get_proxy()
+        localization_proxy_mock.VirtualConsoleKeymap = "cs"
         devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
         devdata_mock.from_structure.return_value.name = "device-name"
 
@@ -745,7 +760,14 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             )
             exec_mock.assert_called_once_with(
                 "ostree",
-                ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                ["admin",
+                 "instutil",
+                 "set-kargs",
+                 "BOOTLOADER-ARGS",
+                 "root=FSTAB-SPEC",
+                 "vconsole.keymap=cs",
+                 "rw"
+                 ],
                 root=sysroot
             )
 
@@ -753,20 +775,23 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.LOCALIZATION")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def test_bootupd_run(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock,
-                         have_bootupd_mock):
+    def test_bootupd_run(self, devdata_mock, storage_mock, localization_mock, symlink_mock,
+                         rename_mock, exec_mock, have_bootupd_mock):
         """Test OSTree bootloader config task, bootupd"""
         exec_mock.return_value = 0
         have_bootupd_mock.return_value = True
 
-        proxy_mock = storage_mock.get_proxy()
-        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
-        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-id"
-        proxy_mock.Drive = "btldr-drv"
-        proxy_mock.KeepBootOrder = False
+        storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        storage_proxy_mock.GetRootDevice.return_value = "device-id"
+        storage_proxy_mock.Drive = "btldr-drv"
+        storage_proxy_mock.KeepBootOrder = False
+        localization_proxy_mock = localization_mock.get_proxy()
+        localization_proxy_mock.VirtualConsoleKeymap = "cs"
         devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
         devdata_mock.from_structure.return_value.path = "/dev/btldr-drv"
         devdata_mock.from_structure.return_value.name = "device-name"
@@ -787,7 +812,14 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 ),
                 call(
                     "ostree",
-                    ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                    ["admin",
+                     "instutil",
+                     "set-kargs",
+                     "BOOTLOADER-ARGS",
+                     "root=FSTAB-SPEC",
+                     "vconsole.keymap=cs",
+                     "rw"
+                     ],
                     root=sysroot
                 )
             ])
@@ -796,20 +828,24 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.LOCALIZATION")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def test_bootupd_run_with_leavebootorder(self, devdata_mock, storage_mock, symlink_mock,
-                                             rename_mock, exec_mock, have_bootupd_mock):
+    def test_bootupd_run_with_leavebootorder(self, devdata_mock, storage_mock, localization_mock,
+                                             symlink_mock, rename_mock, exec_mock,
+                                             have_bootupd_mock):
         """Test OSTree bootloader config task, bootupd"""
         exec_mock.return_value = 0
         have_bootupd_mock.return_value = True
 
-        proxy_mock = storage_mock.get_proxy()
-        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
-        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-name"
-        proxy_mock.Drive = "btldr-drv"
-        proxy_mock.KeepBootOrder = True
+        storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        storage_proxy_mock.GetRootDevice.return_value = "device-name"
+        storage_proxy_mock.Drive = "btldr-drv"
+        storage_proxy_mock.KeepBootOrder = True
+        localization_proxy_mock = localization_mock.get_proxy()
+        localization_proxy_mock.VirtualConsoleKeymap = "cs"
         devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
         devdata_mock.from_structure.return_value.path = "/dev/btldr-drv"
 
@@ -829,7 +865,14 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 ),
                 call(
                     "ostree",
-                    ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                    ["admin",
+                     "instutil",
+                     "set-kargs",
+                     "BOOTLOADER-ARGS",
+                     "root=FSTAB-SPEC",
+                     "vconsole.keymap=cs",
+                     "rw"
+                     ],
                     root=sysroot
                 )
             ])
