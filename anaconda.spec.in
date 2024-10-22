@@ -490,6 +490,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 22 2024 github-actions <github-actions@github.com> - 42.10-1
+- Fix crash on continue after a missing package non-critical error (mkolman)
+
 * Wed Oct 16 2024 github-actions <github-actions@github.com> - 42.9-1
 - Log stderr to journal only on supported platforms (jkonecny)
 - logging: fix the length limit of packages info dbg message (rvykydal)
