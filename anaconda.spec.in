@@ -490,6 +490,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 23 2024 github-actions <github-actions@github.com> - 42.11-1
+- Fix permission errors from liveinst exit (jkonecny)
+- Remove redundant line in DNF payload (mkolman)
+- Fix vconsole layout doesn't work for ostree (jkonecny)
+- Fix checking whether a disk can be cleared during autopart (vtrefny)
+- Update spec config files list (ppolawsk)
+- Update makefile clean file list with RPMs (ppolawsk)
+
 * Tue Oct 22 2024 github-actions <github-actions@github.com> - 42.10-1
 - Fix crash on continue after a missing package non-critical error (mkolman)
 
