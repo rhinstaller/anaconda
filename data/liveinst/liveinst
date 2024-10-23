@@ -24,14 +24,18 @@ BACKEND_READY_FLAG=/run/anaconda/backend_ready
 # unprivileged, restart running as root.
 if [ "$(id -u)" -ne 0 ]; then
     xhost +si:localuser:root
-    unset XAUTHORITY
     pkexec "$0" "$@"
     exit $?
 fi
 
-# pkexec clears DBUS_SESSION_BUS_ADDRESS from environment
-if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
-    export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${PKEXEC_UID}/bus
+# pkexec clears the environment, so get it back
+if [ -n "${PKEXEC_UID}" ]; then
+    INSTALLER_USER=$(id -n -u "${PKEXEC_UID}")
+    readarray -t user_environment < <(pkexec --user "${INSTALLER_USER}" env XDG_RUNTIME_DIR="/run/user/${PKEXEC_UID}" systemctl --user show-environment)
+
+    for variable in "${user_environment[@]}"; do
+      export "${variable?}"
+    done
 fi
 
 # Allow running another command in the place of anaconda, but in this same
