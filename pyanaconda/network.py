@@ -258,6 +258,12 @@ def initialize_network():
     log.debug("Devices found: %s",
               [dev.device_name for dev in get_supported_devices()])
 
+    if util.is_stage2_on_nfs() and network_proxy.Kickstarted:
+        msg = "Using kickstart network configuration with installer image (stage2) provided " \
+            "via nfs server can freeze the installation."
+        log.warning(msg)
+        print("WARNING:", msg)
+
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
     run_network_initialization_task(network_proxy.DumpMissingConfigFilesWithTask())
 
