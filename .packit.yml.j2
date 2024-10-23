@@ -4,6 +4,9 @@ upstream_tag_template: anaconda-{version}
 copy_upstream_release_description: true
 downstream_package_name: anaconda
 
+files_to_sync:
+  - rpmlint.toml
+
 srpm_build_deps:
   - automake
   - autoconf
