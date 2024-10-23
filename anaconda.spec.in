@@ -482,6 +482,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 23 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.14-1
+- network: do not crash on destroyed device object in GUI (rvykydal)
+  Resolves: RHEL-56141
+- Fix crash on continue after a missing package non-critical error (mkolman)
+  Resolves: INSTALLER-4045
+  Resolves: RHEL-57699
+
 * Tue Oct 01 2024 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.13-1
 - Fix check for biosboot partition in GRUB2.check (vtrefny)
   Resolves: RHEL-56591
