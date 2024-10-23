@@ -39,7 +39,7 @@ from requests_ftp import FTPAdapter
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
-    IPMI_ABORTED, PACKAGES_LIST_FILE
+    IPMI_ABORTED, PACKAGES_LIST_FILE, DRACUT_REPO_DIR
 from pyanaconda.core.live_user import get_live_user
 from pyanaconda.errors import RemovedModuleError
 
@@ -906,3 +906,13 @@ def get_image_packages_info(max_string_chars=0):
                     break
                 info_lines.append(' '.join(line.strip() for line in lines))
     return info_lines
+
+
+def is_stage2_on_nfs():
+    """Is the installation running from image mounted via NFS?"""
+    for line in open("/proc/mounts").readlines():
+        values = line.split()
+        if len(values) > 2:
+            if values[1] == DRACUT_REPO_DIR and values[2] in ("nfs", "nfs4"):
+                return True
+    return False

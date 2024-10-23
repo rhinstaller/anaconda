@@ -26,12 +26,14 @@ import pytest
 from threading import Lock
 from unittest.mock import Mock, patch
 from timer import timer
+from io import StringIO
+from textwrap import dedent
 
 from pyanaconda.core.path import make_directories
 from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
-from pyanaconda.core.util import synchronized, LazyObject
+from pyanaconda.core.util import synchronized, LazyObject, is_stage2_on_nfs
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.live_user import User
 
@@ -814,6 +816,49 @@ class MiscTests(unittest.TestCase):
                 with open(hook_file_path, "r") as f:
                     file_contents = "\n".join(f.readlines())
                     assert "eject " + devname in file_contents
+
+    @patch("pyanaconda.core.util.open")
+    def test_is_stage2_on_nfs(self, mock_open):
+        """Test check for installation running on nfs."""
+        nfs_source_mounts = """
+        LiveOS_rootfs / overlay rw,seclabel,relatime,lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork,uuid=on 0 0
+        proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run tmpfs rw,seclabel,nosuid,nodev,size=401324k,nr_inodes=819200,mode=755,inode64 0 0
+        10.43.136.2:/mnt/data/trees/rawhide /run/install/repo nfs ro,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2,mountvers=3,mountport=20
+        048,mountproto=udp,local_lock=all,addr=10.43.136.2 0 0
+        mqueue /dev/mqueue mqueue rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-vconsole-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        10.43.136.2:/mnt/data/trees/rawhide /run/install/sources/mount-0000-nfs-device nfs rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2
+        ,mountvers=3,mountport=20048,mountproto=udp,local_lock=all,addr=10.43.136.2 0 0
+        """
+        nfs_stage2_mounts = """
+        LiveOS_rootfs / overlay rw,seclabel,relatime,lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork,uuid=on 0 0
+        proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run tmpfs rw,seclabel,nosuid,nodev,size=401324k,nr_inodes=819200,mode=755,inode64 0 0
+        10.43.136.2:/mnt/data/users/rv/s2/rvm /run/install/repo nfs ro,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2,mountvers=3,mountport=
+        mqueue /dev/mqueue mqueue rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-vconsole-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        """
+        no_nfs_mounts = """
+        LiveOS_rootfs / overlay rw,seclabel,relatime,lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork,uuid=on 0 0
+        rpc_pipefs /var/lib/nfs/rpc_pipefs rpc_pipefs rw,relatime 0 0
+        mqueue /dev/mqueue mqueue rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-vconsole-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        """
+        nfs4_mounts = """
+        10.43.136.2:/mnt/data/users/rv/s2/rvm /run/install/repo nfs4 ro,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2,mountvers=3,mountport=
+        """
+        mock_open.return_value = StringIO(dedent(nfs_stage2_mounts))
+        assert is_stage2_on_nfs() is True
+
+        mock_open.return_value = StringIO(dedent(nfs_source_mounts))
+        assert is_stage2_on_nfs() is True
+
+        mock_open.return_value = StringIO(dedent(nfs4_mounts))
+        assert is_stage2_on_nfs() is True
+
+        mock_open.return_value = StringIO(dedent(no_nfs_mounts))
+        assert is_stage2_on_nfs() is False
 
 
 class LazyObjectTestCase(unittest.TestCase):
