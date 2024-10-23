@@ -26,12 +26,14 @@ import pytest
 from threading import Lock
 from unittest.mock import Mock, patch
 from timer import timer
+from io import StringIO
+from textwrap import dedent
 
 from pyanaconda.core.path import make_directories
 from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
-from pyanaconda.core.util import synchronized, LazyObject
+from pyanaconda.core.util import synchronized, LazyObject, is_stage2_on_nfs
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.live_user import User
 
@@ -814,6 +816,134 @@ class MiscTests(unittest.TestCase):
                 with open(hook_file_path, "r") as f:
                     file_contents = "\n".join(f.readlines())
                     assert "eject " + devname in file_contents
+
+    @patch("pyanaconda.core.util.open")
+    def test_is_stage2_on_nfs(self, mock_open):
+        """Test check for installation running on nfs."""
+        nfs_source_mounts = """
+        LiveOS_rootfs / overlay rw,seclabel,relatime,lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork,uuid=on 0 0
+        rpc_pipefs /var/lib/nfs/rpc_pipefs rpc_pipefs rw,relatime 0 0
+        devtmpfs /dev devtmpfs rw,seclabel,nosuid,size=4096k,nr_inodes=229831,mode=755,inode64 0 0
+        tmpfs /dev/shm tmpfs rw,seclabel,nosuid,nodev,inode64 0 0
+        devpts /dev/pts devpts rw,seclabel,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
+        sysfs /sys sysfs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        securityfs /sys/kernel/security securityfs rw,nosuid,nodev,noexec,relatime 0 0
+        cgroup2 /sys/fs/cgroup cgroup2 rw,seclabel,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot 0 0
+        pstore /sys/fs/pstore pstore rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        bpf /sys/fs/bpf bpf rw,nosuid,nodev,noexec,relatime,mode=700 0 0
+        configfs /sys/kernel/config configfs rw,nosuid,nodev,noexec,relatime 0 0
+        proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run tmpfs rw,seclabel,nosuid,nodev,size=401324k,nr_inodes=819200,mode=755,inode64 0 0
+        10.43.136.2:/mnt/data/trees/rawhide /run/install/repo nfs ro,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2,mountvers=3,mountport=20
+        048,mountproto=udp,local_lock=all,addr=10.43.136.2 0 0
+        /dev/loop0 /run/rootfsbase squashfs ro,seclabel,relatime,errors=continue 0 0
+        selinuxfs /sys/fs/selinux selinuxfs rw,nosuid,noexec,relatime 0 0
+        systemd-1 /proc/sys/fs/binfmt_misc autofs rw,relatime,fd=33,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=8879 0 0
+        hugetlbfs /dev/hugepages hugetlbfs rw,seclabel,nosuid,nodev,relatime,pagesize=2M 0 0
+        tracefs /sys/kernel/tracing tracefs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        debugfs /sys/kernel/debug debugfs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        mqueue /dev/mqueue mqueue rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-journald.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup-dev-early.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-network-generator.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-udev-load-credentials.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-sysctl.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-sysusers.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup-dev.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /tmp tmpfs rw,seclabel,nosuid,nodev,size=1003312k,nr_inodes=1048576,inode64 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-resolved.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-vconsole-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        10.43.136.2:/mnt/data/trees/rawhide /run/install/sources/mount-0000-nfs-device nfs rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2
+        ,mountvers=3,mountport=20048,mountproto=udp,local_lock=all,addr=10.43.136.2 0 0
+        """
+        nfs_stage2_mounts = """
+        LiveOS_rootfs / overlay rw,seclabel,relatime,lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork,uuid=on 0 0
+        rpc_pipefs /var/lib/nfs/rpc_pipefs rpc_pipefs rw,relatime 0 0
+        devtmpfs /dev devtmpfs rw,seclabel,nosuid,size=4096k,nr_inodes=229831,mode=755,inode64 0 0
+        tmpfs /dev/shm tmpfs rw,seclabel,nosuid,nodev,inode64 0 0
+        devpts /dev/pts devpts rw,seclabel,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
+        sysfs /sys sysfs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        securityfs /sys/kernel/security securityfs rw,nosuid,nodev,noexec,relatime 0 0
+        cgroup2 /sys/fs/cgroup cgroup2 rw,seclabel,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot 0 0
+        pstore /sys/fs/pstore pstore rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        bpf /sys/fs/bpf bpf rw,nosuid,nodev,noexec,relatime,mode=700 0 0
+        configfs /sys/kernel/config configfs rw,nosuid,nodev,noexec,relatime 0 0
+        proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run tmpfs rw,seclabel,nosuid,nodev,size=401324k,nr_inodes=819200,mode=755,inode64 0 0
+        10.43.136.2:/mnt/data/users/rv/s2/rvm /run/install/repo nfs ro,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2,mountvers=3,mountport=
+        20048,mountproto=udp,local_lock=all,addr=10.43.136.2 0 0
+        /dev/loop0 /run/rootfsbase squashfs ro,seclabel,relatime,errors=continue 0 0
+        selinuxfs /sys/fs/selinux selinuxfs rw,nosuid,noexec,relatime 0 0
+        systemd-1 /proc/sys/fs/binfmt_misc autofs rw,relatime,fd=33,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=8499 0 0
+        hugetlbfs /dev/hugepages hugetlbfs rw,seclabel,nosuid,nodev,relatime,pagesize=2M 0 0
+        mqueue /dev/mqueue mqueue rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tracefs /sys/kernel/tracing tracefs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        debugfs /sys/kernel/debug debugfs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-journald.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-network-generator.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-udev-load-credentials.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup-dev-early.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        fusectl /sys/fs/fuse/connections fusectl rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-sysctl.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-sysusers.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup-dev.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /tmp tmpfs rw,seclabel,nosuid,nodev,nr_inodes=1048576,inode64 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-resolved.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-vconsole-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        binfmt_misc /proc/sys/fs/binfmt_misc binfmt_misc rw,nosuid,nodev,noexec,relatime 0 0
+        tracefs /sys/kernel/debug/tracing tracefs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        """
+        no_nfs_mounts = """
+        LiveOS_rootfs / overlay rw,seclabel,relatime,lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork,uuid=on 0 0
+        rpc_pipefs /var/lib/nfs/rpc_pipefs rpc_pipefs rw,relatime 0 0
+        devtmpfs /dev devtmpfs rw,seclabel,nosuid,size=4096k,nr_inodes=229831,mode=755,inode64 0 0
+        tmpfs /dev/shm tmpfs rw,seclabel,nosuid,nodev,inode64 0 0
+        devpts /dev/pts devpts rw,seclabel,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
+        sysfs /sys sysfs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        securityfs /sys/kernel/security securityfs rw,nosuid,nodev,noexec,relatime 0 0
+        cgroup2 /sys/fs/cgroup cgroup2 rw,seclabel,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot 0 0
+        pstore /sys/fs/pstore pstore rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        bpf /sys/fs/bpf bpf rw,nosuid,nodev,noexec,relatime,mode=700 0 0
+        configfs /sys/kernel/config configfs rw,nosuid,nodev,noexec,relatime 0 0
+        proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run tmpfs rw,seclabel,nosuid,nodev,size=401324k,nr_inodes=819200,mode=755,inode64 0 0
+        /dev/sr0 /run/install/repo iso9660 ro,relatime,nojoliet,check=s,map=n,blocksize=2048,iocharset=utf8 0 0
+        /dev/loop0 /run/rootfsbase squashfs ro,seclabel,relatime,errors=continue 0 0
+        selinuxfs /sys/fs/selinux selinuxfs rw,nosuid,noexec,relatime 0 0
+        systemd-1 /proc/sys/fs/binfmt_misc autofs rw,relatime,fd=33,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=10039 0 0
+        debugfs /sys/kernel/debug debugfs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tracefs /sys/kernel/tracing tracefs rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        hugetlbfs /dev/hugepages hugetlbfs rw,seclabel,nosuid,nodev,relatime,pagesize=2M 0 0
+        mqueue /dev/mqueue mqueue rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-journald.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-network-generator.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-udev-load-credentials.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        fusectl /sys/fs/fuse/connections fusectl rw,nosuid,nodev,noexec,relatime 0 0
+        tmpfs /run/credentials/systemd-sysctl.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup-dev-early.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-sysusers.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup-dev.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /tmp tmpfs rw,seclabel,nosuid,nodev,size=1003312k,nr_inodes=1048576,inode64 0 0
+        tmpfs /run/credentials/systemd-tmpfiles-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-resolved.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        tmpfs /run/credentials/systemd-vconsole-setup.service tmpfs ro,seclabel,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,inode64,noswap 0 0
+        """
+        nfs4_mounts = """
+        10.43.136.2:/mnt/data/users/rv/s2/rvm /run/install/repo nfs4 ro,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.43.136.2,mountvers=3,mountport=
+        """
+        mock_open.return_value = StringIO(dedent(nfs_stage2_mounts))
+        assert is_stage2_on_nfs() is True
+
+        mock_open.return_value = StringIO(dedent(nfs_source_mounts))
+        assert is_stage2_on_nfs() is True
+
+        mock_open.return_value = StringIO(dedent(nfs4_mounts))
+        assert is_stage2_on_nfs() is True
+
+        mock_open.return_value = StringIO(dedent(no_nfs_mounts))
+        assert is_stage2_on_nfs() is False
 
 
 class LazyObjectTestCase(unittest.TestCase):
