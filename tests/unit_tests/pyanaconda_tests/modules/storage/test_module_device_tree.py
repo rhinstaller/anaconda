@@ -364,6 +364,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
             data = self.interface.GetDeviceData("dev1")
             assert data['attrs']['partition-type-name'] == "Microsoft reserved partition"
+            assert data['attrs']['isleaf'] == "True"
 
     def test_get_format_data(self):
         """Test GetFormatData."""
