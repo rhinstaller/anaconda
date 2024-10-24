@@ -29,6 +29,10 @@ import warnings
 from pyanaconda.core import constants
 from pyanaconda.core.path import set_mode
 
+import gi
+gi.require_version("GLib", "2.0")
+from gi.repository import GLib
+
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
@@ -187,8 +191,8 @@ class AnacondaLog(object):
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger)
         self.forwardToJournal(simpleline_logger)
 
-        # Redirect all stderr messages from process to journal
-        self.stderrToJournal()
+        # Redirect GLib logging (e.g. GTK) to Journal
+        self.redirect_glib_logging_to_journal()
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
@@ -235,19 +239,35 @@ class AnacondaLog(object):
             journal_handler.setFormatter(log_formatter)
         logr.addHandler(journal_handler)
 
-    def stderrToJournal(self):
-        """Print all stderr messages from Anaconda to journal instead.
+    def redirect_glib_logging_to_journal(self):
+        """Redirect GLib based library logging to the journal.
 
-        Redirect Anaconda main process stderr to Journal, as otherwise this could end up writing
-        all over the TUI on TTY1.
+        Some GLib based libraries (such as GTK) do direct their
+        sometimes quite verbose log messages to the output of the
+        process in which they are running. In the Anaconda case,
+        this creates issues with TTY1 being spammed with those
+        messages, with important content (such as RDP connection instructions)
+        being scrolled out of view.
+
+        :param log: anaconda log handler
         """
+
         if not self.write_to_journal:
             return
 
-        # create an appropriately named Journal writing stream
-        anaconda_stderr_stream = journal.stream("anaconda", priority=journal.LOG_ERR)
-        # redirect stderr of this process to the stream
-        os.dup2(anaconda_stderr_stream.fileno(), sys.stderr.fileno())
+        # create functions that convert the messages coming
+        # from GLib into something that fits to the anaconda logging format
+        def log_adapter(domain, level, message, user_data):
+            self.anaconda_logger.debug("GLib: %s", message)
+
+        def structured_log_adapter(level, fields, field_count, user_data):
+            message = GLib.log_writer_format_fields(level, fields, True)
+            self.anaconda_logger.debug("GLib: %s", message)
+            return GLib.LogWriterOutput.HANDLED
+
+        # redirect GLib log output via the functions
+        GLib.log_set_handler(None, GLib.LogLevelFlags.LEVEL_MASK, log_adapter, None)
+        GLib.log_set_writer_func(structured_log_adapter, None)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
