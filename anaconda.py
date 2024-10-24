@@ -169,6 +169,7 @@ def setup_environment():
     if "EDITOR" not in os.environ and os.path.isfile("/etc/profile.d/nano-default-editor.sh"):
         os.environ["EDITOR"] = "/usr/bin/nano"
 
+
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
     # without importing random stuff and spamming stdout
