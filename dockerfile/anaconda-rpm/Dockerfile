@@ -42,7 +42,8 @@ RUN set -ex; \
   python3-pocketlint \
   /usr/bin/xargs \
   rsync \
-  rpm-build; \
+  rpm-build \
+  rpmlint; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     BRANCH="${git_branch}"; \
     if [ $BRANCH == "master" ]; then \
