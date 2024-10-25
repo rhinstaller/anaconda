@@ -29,10 +29,6 @@ mkdir -p $REPO_DIR
 cp -a $INPUT_RPMS/* $REPO_DIR || echo "RPM files can't be copied!"  # We could just do the build with official repositories only
 createrepo_c $REPO_DIR
 
-# FIXME https://github.com/weldr/lorax/pull/1429
-cp -r /usr/share/lorax/templates.d/ /lorax/
-patch -p2 -i /pkexec-command.patch
-
 # build boot.iso with our rpms
 . /etc/os-release
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
@@ -41,7 +37,6 @@ patch -p2 -i /pkexec-command.patch
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
 {% if distro_release == "rawhide" %}
       --volid Fedora-S-dvd-x86_64-rawh \
-      --sharedir ./templates.d/99-generic/ \
 {% else %}
       --volid Fedora-S-dvd-x86_64-f{$ distro_release $} \
 {% endif %}

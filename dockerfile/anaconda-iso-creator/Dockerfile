@@ -43,7 +43,6 @@ RUN set -ex; \
 COPY ["lorax-build", "/"]
 COPY ["lorax-build-webui", "/"]
 COPY ["adjust-templates-for-webui.patch", "/"]
-COPY ["pkexec-command.patch", "/"]
 
 RUN mkdir /lorax /anaconda-rpms /images
 
