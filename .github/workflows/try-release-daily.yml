@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['master', 'fedora-41', 'rhel-9', 'rhel-10']
+        branch: ['master', 'rhel-9', 'rhel-10']
 
     steps:
       - name: Check out repo

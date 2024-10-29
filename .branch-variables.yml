@@ -14,8 +14,6 @@ rawhide_fedora_version: 42 # number without quotation marks, or nothing if CI sh
 
 # List of all the branches which are currently supported and CI should be executed on these.
 supported_branches:
-  - fedora-41:
-    variant: "fedora"
   - rhel-9:
     variant: "rhel"
   - rhel-10:
