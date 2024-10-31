@@ -5,6 +5,118 @@ This document describes major installer-related changes in Fedora releases.
 
 A guide on adding new entries is in the release documentation.
 
+Fedora 41
+#########
+
+Changes in the graphical interface
+----------------------------------
+
+Changes in kickstart support
+----------------------------
+
+Deprecate RPM modularity module
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Based on the discontinuation of RPM modularity in Fedora 39, we have decided to remove the
+RPM modularity feature in Anaconda.  The 'module' kickstart command is no longer
+functional but can still be included in the kickstart file. However, its presence will now
+generate a warning.  In a future release, this command will be completely removed, and its
+usage will result in an error.
+
+See also:
+    - https://issues.redhat.com/browse/RHELBU-2699
+    - https://issues.redhat.com/browse/INSTALLER-3909
+    - https://github.com/pykickstart/pykickstart/pull/487
+
+Changes in Anaconda configuration files
+---------------------------------------
+
+Remote repository for Flatpaks after deployment are now configurable
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Currently when OSTree installation detects Flatpak repository in the installation media
+these Flatpaks are deployed and the remote was hardcoded to remote Fedora. This remote is
+then used for updating the Flatpaks after installation.
+
+After this change Flatpak remote can be set by ``flatpak_remote`` key in the configuration
+file.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5493
+
+Architecture and hardware support changes
+-----------------------------------------
+
+NVMe Fabrics support
+^^^^^^^^^^^^^^^^^^^^
+
+Anaconda now recognizes NVMe Fabrics drives. These drives are now shown in the Advanced
+Storage screen, together with further details.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/4514
+
+Add RISC-V 64 support
+^^^^^^^^^^^^^^^^^^^^^
+
+Added extlinux support for RISC-V 64 and grub support for RISC-V 64 UEFI.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/5198
+
+General changes
+---------------
+
+Use the standalone ``crypt_r`` package for crypting passwords
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Python standard library ``crypt`` module was removed from Python 3.13+.  Use the
+standalone ``crypt_r`` package maintained by the Fedora Python SIG instead.  Support for
+``crypt`` still exists as a fallback, as ``crypt_r`` is not available in old RHELs and
+Fedoras.
+
+See also:
+    - https://bugzilla.redhat.com/2276036
+    - https://github.com/rhinstaller/anaconda/pull/5628
+
+Do not create default network profiles for network port devices
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Traditionally Anaconda creates default persistent network profiles (ifcfg files or
+keyfiles) for every supported wired network device. We would like to move towards creating
+profiles only for devices explicitly configured by installer. As a step in this direction
+do not create such files for devices used as ports of a virtual device (for example bond
+device) configured by installer, unless they were explicitly configured separately (for
+example in early stage from boot options).
+
+See also:
+    - https://issues.redhat.com/browse/RHEL-38451
+    - https://github.com/rhinstaller/anaconda/pull/5703
+
+Remove deprecation warnings for kernel boot options without prefix
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Removing the deprecation warnings for kernel boot options without ``inst.`` prefix. This
+was left for a couple of releases to advise users to switch their options to use
+``inst.*`` instead. We are now removing them to not warn as it should be always used
+``inst.`` as prefix.
+
+See also:
+    - https://issues.redhat.com/browse/INSTALLER-2363
+    - https://github.com/rhinstaller/anaconda/pull/5723/
+
+Add ping command line tool to Anaconda Dracut image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes boot of the installer ISO will fail because remote source can't be reached, if
+this happens, it can be hard to debug because of the limited toolset inside the Dracut
+shell.  For these reasons, we are adding a ping command line tool which can help with
+debugging.
+
+See also:
+    - https://issues.redhat.com/browse/RHEL-5719
+    - https://github.com/rhinstaller/anaconda/pull/5500
+
 Fedora 40
 #########
 
