@@ -134,7 +134,7 @@ Requires: python3-pid
 
 # Required by the systemd service anaconda-fips.
 Requires: crypto-policies
-Requires: /usr/bin/update-crypto-policies
+Requires: crypto-policies-scripts
 
 # required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
