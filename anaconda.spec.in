@@ -416,6 +416,25 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 01 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.11-1
+- security: call /usr/libexec/fips-setup-helper (asosedkin)
+  Resolves: RHEL-58667
+- release-notes: Document support for compressed kernel modules in Driver Discs
+  (peter.georg)
+  Related: RHEL-9913
+- Add documentation about support for compressed kernel modules (peter.georg)
+  Resolves: RHEL-9913
+- dd_extract: Update test info to reflect added support for compressed kernel
+  modules (peter.georg)
+  Resolves: RHEL-9913
+- dd_extract: Add test for zstd compressed kernel module (peter.georg)
+  Resolves: RHEL-9913
+- dd_extract: Add test for xz compressed kernel module (peter.georg)
+  Resolves: RHEL-9913
+- dd_extract: Add support for compressed kernel modules (peter.georg)
+  Resolves: RHEL-9913
+- New version - 34.25.5.10 (k.koukiou)
+
 * Tue Oct 01 2024 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.5.10-1
 - Fix check for biosboot partition in GRUB2.check (vtrefny)
   Resolves: RHEL-55922
