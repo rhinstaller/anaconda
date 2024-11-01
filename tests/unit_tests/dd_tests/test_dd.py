@@ -129,6 +129,14 @@ kofile = TextRPMFile(
     path="/lib/modules/KERNELVER/extra/net/fun.ko",
     contents="KERNEL MODULE??? YOU BETCHA"
 )
+koxzfile = TextRPMFile(
+    path="/lib/modules/KERNELVER/extra/net/fun.ko.xz",
+    contents="XZ COMPRESSED KERNEL MODULE??? YOU BETCHA"
+)
+kozstfile = TextRPMFile(
+    path="/lib/modules/KERNELVER/extra/net/fun.ko.zst",
+    contents="ZSTD COMPRESSED KERNEL MODULE??? YOU BETCHA"
+)
 
 
 # Finally, the actual test cases
@@ -240,7 +248,7 @@ class DD_Extract_TestCase(unittest.TestCase):
         cls.k_ver = "4.1.4-333"
         cls.a_ver = "22.0"
         cls.tmpdir = tempfile.mkdtemp(prefix="dd_tests.")
-        cls.rpmpayload = (binfile, kofile, fwfile, libfile)
+        cls.rpmpayload = (binfile, kofile, koxzfile, kozstfile, fwfile, libfile)
         make_rpm(cls.tmpdir, payload=cls.rpmpayload)
         (cls.rpmfile,) = listfiles(cls.tmpdir)
 
@@ -284,9 +292,9 @@ class DD_Extract_TestCase(unittest.TestCase):
                 assert binmode & expectmode == expectmode
 
     def test_dd_extract_modules(self):
-        """dd_extract: using --modules extracts only .ko files"""
+        """dd_extract: using --modules extracts only .ko, .ko.bz2, .ko.gz, .ko.xz and .ko.zst files"""
         outfiles = self.dd_extract(flags='--modules')
-        assert outfiles == set([self.outdir+kofile.path])
+        assert outfiles == set([self.outdir+kofile.path, self.outdir+koxzfile.path, self.outdir+kozstfile.path])
 
     def test_dd_extract_binaries(self):
         """dd_extract: using --binaries extracts only /bin, /sbin, etc."""

@@ -109,8 +109,9 @@ to respect some rules.
 Firmware and module update
 --------------------------
 
-The firmware files together with all .ko files from the RPMs are exploded to
-special module location, which has preference over built-in Anaconda modules.
+The firmware files together with all .ko, .ko.bz2, .ko.gz, .ko.xz and .ko.zst
+files from the RPMs are exploded to special module location, which has
+preference over built-in Anaconda modules.
 
 Anaconda doesn't use built-in modules (except some storage modules needed for
 the DD to function properly) during the DriverDisc mode, so even in case when
