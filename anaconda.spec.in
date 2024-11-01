@@ -482,6 +482,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 01 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.15-1
+- security: call /usr/libexec/fips-setup-helper (asosedkin)
+  Resolves: RHEL-57680
+
 * Wed Oct 23 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.14-1
 - network: do not crash on destroyed device object in GUI (rvykydal)
   Resolves: RHEL-56141
