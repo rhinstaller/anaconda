@@ -1,7 +1,7 @@
 #
 # anaconda_logging.py: Support for logging to multiple destinations with log
 #                      levels - basically an extension to the Python logging
-#                      module with Anaconda specififc enhancements.
+#                      module with Anaconda specific enhancements.
 #
 # Copyright (C) 2000, 2001, 2002, 2005, 2017  Red Hat, Inc.  All rights reserved.
 #
@@ -28,10 +28,8 @@ import warnings
 
 from pyanaconda.core import constants
 from pyanaconda.core.path import set_mode
-
-import gi
-gi.require_version("GLib", "2.0")
-from gi.repository import GLib
+from pyanaconda.core.glib import log_set_handler, log_set_writer_func, log_writer_format_fields, \
+      LogLevelFlags, LogWriterOutput
 
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
@@ -261,13 +259,13 @@ class AnacondaLog(object):
             self.anaconda_logger.debug("GLib: %s", message)
 
         def structured_log_adapter(level, fields, field_count, user_data):
-            message = GLib.log_writer_format_fields(level, fields, True)
+            message = log_writer_format_fields(level, fields, True)
             self.anaconda_logger.debug("GLib: %s", message)
-            return GLib.LogWriterOutput.HANDLED
+            return LogWriterOutput.HANDLED
 
         # redirect GLib log output via the functions
-        GLib.log_set_handler(None, GLib.LogLevelFlags.LEVEL_MASK, log_adapter, None)
-        GLib.log_set_writer_func(structured_log_adapter, None)
+        log_set_handler(None, LogLevelFlags.LEVEL_MASK, log_adapter, None)
+        log_set_writer_func(structured_log_adapter, None)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
