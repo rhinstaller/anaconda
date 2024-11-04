@@ -249,10 +249,6 @@ class AnacondaLog(object):
 
         :param log: anaconda log handler
         """
-
-        if not self.write_to_journal:
-            return
-
         # create functions that convert the messages coming
         # from GLib into something that fits to the anaconda logging format
         def log_adapter(domain, level, message, user_data):
