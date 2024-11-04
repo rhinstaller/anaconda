@@ -252,6 +252,12 @@ class AnacondaLog(object):
         # create functions that convert the messages coming
         # from GLib into something that fits to the anaconda logging format
         def log_adapter(domain, level, message, user_data):
+            if level in (LogLevelFlags.LEVEL_ERROR,
+                         LogLevelFlags.LEVEL_CRITICAL):
+                self.anaconda_logger.error("GLib: %s", message)
+            elif level is LogLevelFlags.LEVEL_WARNING:
+                self.anaconda_logger.warning("GLib: %s", message)
+
             self.anaconda_logger.debug("GLib: %s", message)
 
         def structured_log_adapter(level, fields, field_count, user_data):
