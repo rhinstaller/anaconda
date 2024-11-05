@@ -77,7 +77,10 @@ def start_user_systemd():
 
     # Start the user instance of systemd. This call will also cause the launch of
     # dbus-broker and start a session bus at XDG_RUNTIME_DIR/bus.
-    childproc = util.startProgram(["/usr/lib/systemd/systemd", "--user"])
+    # Without SYSTEMD_LOG_TARGET variable the systemd is logging directly to terminal
+    # bypassing stdout and stderr
+    childproc = util.startProgram(["/usr/lib/systemd/systemd", "--user"],
+                                  env_add={"SYSTEMD_LOG_TARGET": "journal-or-kmsg"})
     WatchProcesses.watch_process(childproc, "systemd")
 
     # Set up the session bus address. Some services started by Anaconda might call
