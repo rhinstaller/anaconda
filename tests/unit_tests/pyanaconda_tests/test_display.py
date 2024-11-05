@@ -46,7 +46,8 @@ class DisplayUtilsTestCase(TestCase):
         start_user_systemd()
 
         util_mock.startProgram.assert_called_once_with(
-            ["/usr/lib/systemd/systemd", "--user"]
+            ["/usr/lib/systemd/systemd", "--user"],
+            env_add={"SYSTEMD_LOG_TARGET": "journal-or-kmsg"}
         )
         watch_mock.watch_process.assert_called_once_with(
             100, "systemd"
