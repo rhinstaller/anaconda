@@ -33,7 +33,13 @@ class UnregistrationError(AnacondaError):
     pass
 
 
-@dbus_error("SubscriptionError", namespace=ANACONDA_NAMESPACE)
-class SubscriptionError(AnacondaError):
-    """Subscription attempt failed."""
+@dbus_error("SatelliteProvisioningError", namespace=ANACONDA_NAMESPACE)
+class SatelliteProvisioningError(AnacondaError):
+    """Failed to provision the installation environment for Satellite."""
+    pass
+
+
+@dbus_error("MultipleOrganizationsError", namespace=ANACONDA_NAMESPACE)
+class MultipleOrganizationsError(AnacondaError):
+    """Account is member of more than one organization."""
     pass

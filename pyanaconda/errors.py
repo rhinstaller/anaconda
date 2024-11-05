@@ -23,6 +23,7 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
     InsightsClientMissingError, InsightsConnectError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
+from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError
 
 log = get_module_logger(__name__)
 
@@ -111,6 +112,10 @@ class ErrorHandler(object):
             InsightsClientMissingError.__name__: self._insightsErrorHandler,
             InsightsConnectError.__name__: self._insightsErrorHandler,
             "KickstartRegistrationError": self._kickstartRegistrationErrorHandler,
+            "SubscriptionTokenTransferError": self._subscriptionTokenTransferErrorHandler,
+
+            # Satellite
+            SatelliteProvisioningError.__name__: self._target_satellite_provisioning_error_handler,
 
             # General installation errors.
             NonCriticalInstallationError.__name__: self._non_critical_error_handler,
@@ -176,6 +181,13 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
+    def _target_satellite_provisioning_error_handler(self, exn):
+        message = _("Failed to provision the target system for Satellite.")
+        details = str(exn)
+
+        self.ui.showDetailedError(message, details)
+        return ERROR_RAISE
+
     def _non_critical_error_handler(self, exn):
         message = _("The following error occurred during the installation:"
                     "\n\n{details}\n\nWould you like to ignore this and "
@@ -205,6 +217,21 @@ class ErrorHandler(object):
                     "Would you like to ignore this and continue with "
                     "installation?")
         message += "\n\n" + _("Error detail: ") + str(exn)
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _subscriptionTokenTransferErrorHandler(self, exn):
+        message = _("Failed to enable Red Hat subscription on the "
+                    "installed system."
+                    "\n\n"
+                    "Your Red Hat subscription might be invalid "
+                    "(such as due to an expired developer subscription)."
+                    "\n\n"
+                    "Would you like to ignore this and continue with "
+                    "installation?")
 
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE

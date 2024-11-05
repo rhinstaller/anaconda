@@ -23,8 +23,7 @@ from pyanaconda.core.constants import DEFAULT_SUBSCRIPTION_REQUEST_TYPE
 
 from pyanaconda.modules.common.structures.secret import SecretData, SecretDataList
 
-__all__ = ["AttachedSubscription", "SubscriptionRequest", "SystemPurposeData"]
-
+__all__ = ["SubscriptionRequest", "SystemPurposeData"]
 
 class SystemPurposeData(DBusData):
     """System purpose data."""
@@ -141,6 +140,7 @@ class SubscriptionRequest(DBusData):
         #   need to be set
         self._organization = ""
         self._redhat_account_username = ""
+        self._redhat_account_organization = ""
         # Candlepin instance
         self._server_hostname = ""
         # CDN base url
@@ -227,6 +227,27 @@ class SubscriptionRequest(DBusData):
     @account_username.setter
     def account_username(self, account_username: Str):
         self._redhat_account_username = account_username
+
+    @property
+    def account_organization(self) -> Str:
+        """Red Hat account organization for subscription purposes.
+
+        In case the account for the given username is member
+        of multiple organizations, organization id needs to
+        be specified as well or else the registration attempt
+        will not be successful. This account dependent organization
+        id is deliberately separate from the org + key org id
+        to avoid collisions and issues in the GUI when switching
+        between authentication types.
+
+        :return: Red Hat account organization id
+        :rtype: str
+        """
+        return self._redhat_account_organization
+
+    @account_organization.setter
+    def account_organization(self, account_organization: Str):
+        self._redhat_account_organization = account_organization
 
     @property
     def server_hostname(self) -> Str:
@@ -392,145 +413,43 @@ class SubscriptionRequest(DBusData):
         self._server_proxy_password = password
 
 
-class AttachedSubscription(DBusData):
-    """Data for a single attached subscription."""
+class OrganizationData(DBusData):
+    """Data about a single organization in the Red Hat account system.
+
+    A Red Hat account is expected to be member of an organization,
+    with some accounts being members of more than one organization.
+    """
 
     def __init__(self):
+        self._id = ""
         self._name = ""
-        self._service_level = ""
-        self._sku = ""
-        self._contract = ""
-        self._start_date = ""
-        self._end_date = ""
-        # we can expect at least one entitlement
-        # to be consumed per attached subscription
-        self._consumed_entitlement_count = 1
+
+    @property
+    def id(self) -> Str:
+        """Id of the organization.
+
+        Example: "abc123efg456"
+
+        :return: organization id
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, organization_id: Str):
+        self._id = organization_id
 
     @property
     def name(self) -> Str:
-        """Name of the attached subscription.
+        """Name of the organization.
 
-        Example: "Red Hat Beta Access"
+        Example: "Foo Organization"
 
-        :return: subscription name
+        :return: organization name
         :rtype: str
         """
         return self._name
 
     @name.setter
-    def name(self, name: Str):
-        self._name = name
-
-    @property
-    def service_level(self) -> Str:
-        """Service level of the attached subscription.
-
-        Example: "Premium"
-
-        :return: service level
-        :rtype: str
-        """
-        return self._service_level
-
-    @service_level.setter
-    def service_level(self, service_level: Str):
-        self._service_level = service_level
-
-    @property
-    def sku(self) -> Str:
-        """SKU id of the attached subscription.
-
-        Example: "MBT8547"
-
-        :return: SKU id
-        :rtype: str
-        """
-        return self._sku
-
-    @sku.setter
-    def sku(self, sku: Str):
-        self._sku = sku
-
-    @property
-    def contract(self) -> Str:
-        """Contract identifier.
-
-        Example: "32754658"
-
-        :return: contract identifier
-        :rtype: str
-        """
-        return self._contract
-
-    @contract.setter
-    def contract(self, contract: Str):
-        self._contract = contract
-
-    @property
-    def start_date(self) -> Str:
-        """Subscription start date.
-
-        We do not guarantee fixed date format,
-        but we aim for the date to look good
-        when displayed in a GUI and be human
-        readable.
-
-        For context see the following bug, that
-        illustrates the issues we are having with
-        the source date for this property, that
-        prevent us from providing a consistent
-        date format:
-        https://bugzilla.redhat.com/show_bug.cgi?id=1793501
-
-        Example: "Nov 04, 2019"
-
-        :return: start date of the subscription
-        :rtype: str
-        """
-        return self._start_date
-
-    @start_date.setter
-    def start_date(self, start_date: Str):
-        self._start_date = start_date
-
-    @property
-    def end_date(self) -> Str:
-        """Subscription end date.
-
-        We do not guarantee fixed date format,
-        but we aim for the date to look good
-        when displayed in a GUI and be human
-        readable.
-
-        For context see the following bug, that
-        illustrates the issues we are having with
-        the source date for this property, that
-        prevent us from providing a consistent
-        date format:
-        https://bugzilla.redhat.com/show_bug.cgi?id=1793501
-
-        Example: "Nov 04, 2020"
-
-        :return: end date of the subscription
-        :rtype: str
-        """
-        return self._end_date
-
-    @end_date.setter
-    def end_date(self, end_date: Str):
-        self._end_date = end_date
-
-    @property
-    def consumed_entitlement_count(self) -> Int:
-        """Number of consumed entitlements for this subscription.
-
-        Example: "1"
-
-        :return: consumed entitlement number
-        :rtype: int
-        """
-        return self._consumed_entitlement_count
-
-    @consumed_entitlement_count.setter
-    def consumed_entitlement_count(self, consumed_entitlement_count: Int):
-        self._consumed_entitlement_count = consumed_entitlement_count
+    def name(self, organization_name: Str):
+        self._name = organization_name
