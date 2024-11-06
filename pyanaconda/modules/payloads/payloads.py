@@ -24,6 +24,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.installation import (
     CopyDriverDisksFilesTask,
     PrepareSystemForInstallationTask,
@@ -48,6 +49,8 @@ class PayloadsService(KickstartService):
 
         self._active_payload = None
         self.active_payload_changed = Signal()
+
+        self._flatpak_side_payload = None
 
     def publish(self):
         """Publish the module."""
@@ -89,6 +92,13 @@ class PayloadsService(KickstartService):
     def activate_payload(self, payload):
         """Activate the payload."""
         self._active_payload = payload
+
+        if self._active_payload.needs_flatpak_side_payload():
+            payload = self.create_payload(PayloadType.FLATPAK)
+            self._flatpak_side_payload = payload
+        else:
+            self._flatpak_side_payload = None
+
         self.active_payload_changed.emit()
         log.debug("Activated the payload %s.", payload.type)
 
@@ -142,6 +152,10 @@ class PayloadsService(KickstartService):
 
         if self.active_payload:
             total += self.active_payload.calculate_required_space()
+            if self._flatpak_side_payload:
+                self._flatpak_side_payload.set_sources(self.active_payload.sources)
+                self._flatpak_side_payload.set_flatpak_refs(self.active_payload.get_flatpak_refs())
+                total += self._flatpak_side_payload.calculate_required_space()
 
         return total
 
@@ -176,6 +190,12 @@ class PayloadsService(KickstartService):
         ]
 
         tasks += self.active_payload.install_with_tasks()
+
+        if self._flatpak_side_payload:
+            self._flatpak_side_payload.set_sources(self.active_payload.sources)
+            self._flatpak_side_payload.set_flatpak_refs(self.active_payload.get_flatpak_refs())
+            tasks += self._flatpak_side_payload.install_with_tasks()
+
         return tasks
 
     def post_install_with_tasks(self):
@@ -193,6 +213,10 @@ class PayloadsService(KickstartService):
         ]
 
         tasks += self.active_payload.post_install_with_tasks()
+
+        if self._flatpak_side_payload:
+            tasks += self._flatpak_side_payload.post_install_with_tasks()
+
         return tasks
 
     def teardown_with_tasks(self):
@@ -204,5 +228,8 @@ class PayloadsService(KickstartService):
 
         if self.active_payload:
             tasks += self.active_payload.tear_down_with_tasks()
+
+        if self._flatpak_side_payload:
+            tasks += self._flatpak_side_payload.tear_down_with_tasks()
 
         return tasks

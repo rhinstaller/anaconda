@@ -20,6 +20,7 @@ from enum import Enum, auto, unique
 
 from pyanaconda.core.constants import (
     PAYLOAD_TYPE_DNF,
+    PAYLOAD_TYPE_FLATPAK,
     PAYLOAD_TYPE_LIVE_IMAGE,
     PAYLOAD_TYPE_LIVE_OS,
     PAYLOAD_TYPE_RPM_OSTREE,
@@ -51,6 +52,7 @@ DNF_REPO_DIRS = [
 class PayloadType(Enum):
     """Type of the payload."""
     DNF = PAYLOAD_TYPE_DNF
+    FLATPAK = PAYLOAD_TYPE_FLATPAK
     LIVE_OS = PAYLOAD_TYPE_LIVE_OS
     LIVE_IMAGE = PAYLOAD_TYPE_LIVE_IMAGE
     RPM_OSTREE = PAYLOAD_TYPE_RPM_OSTREE
