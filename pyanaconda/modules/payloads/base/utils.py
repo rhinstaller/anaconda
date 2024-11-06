@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from functools import partial
 import os
+from functools import partial
 
 from blivet.size import Size
 
