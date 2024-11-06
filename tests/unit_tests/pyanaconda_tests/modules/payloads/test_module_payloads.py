@@ -119,7 +119,8 @@ class PayloadsInterfaceTestCase(TestCase):
         assert self.payload_interface.ActivePayload == payload_path
 
         assert isinstance(PayloadContainer.from_object_path(payload_path), DNFModule)
-        publisher.assert_called_once()
+        # DNF payload creates also Flatpak side payload so there are two publish calls
+        assert publisher.call_count == 2
 
     @patch_dbus_publish_object
     def test_create_live_os_payload(self, publisher):
@@ -154,7 +155,7 @@ class PayloadsInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def test_create_multiple_payloads(self, publisher):
         """Test creating two payloads."""
-        path_1 = self.payload_interface.CreatePayload(PayloadType.DNF.value)
+        path_1 = self.payload_interface.CreatePayload(PayloadType.RPM_OSTREE.value)
         assert self.payload_interface.CreatedPayloads == [path_1]
         assert self.payload_interface.ActivePayload == ""
 
