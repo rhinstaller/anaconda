@@ -392,6 +392,16 @@ class DNFModule(PayloadBase):
                                                   self._dnf_manager.get_installation_size())
         return required_space.get_bytes()
 
+    def needs_flatpak_side_payload(self):
+        return True
+
+    def get_flatpak_refs(self):
+        """Get the list of Flatpak refs to install.
+
+        :return: list of Flatpak refs
+        """
+        return self._dnf_manager.get_flatpak_refs()
+
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.
 

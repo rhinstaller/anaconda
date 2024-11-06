@@ -185,6 +185,20 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         self._kernel_version_list = kernels
         log.debug("The kernel version list is set to: %s", kernels)
 
+    def needs_flatpak_side_payload(self):
+        """Does this payload need an extra payload for Flatpak installation
+
+        :return: True or False
+        """
+        return False
+
+    def get_flatpak_refs(self):
+        """Get the list of Flatpak refs to install.
+
+        :return: list of Flatpak refs
+        """
+        return []
+
     @abstractmethod
     def install_with_tasks(self):
         """Install the payload.
