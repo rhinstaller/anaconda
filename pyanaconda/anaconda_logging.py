@@ -1,7 +1,7 @@
 #
 # anaconda_logging.py: Support for logging to multiple destinations with log
 #                      levels - basically an extension to the Python logging
-#                      module with Anaconda specififc enhancements.
+#                      module with Anaconda specific enhancements.
 #
 # Copyright (C) 2000, 2001, 2002, 2005, 2017  Red Hat, Inc.  All rights reserved.
 #
@@ -28,6 +28,8 @@ import warnings
 
 from pyanaconda.core import constants
 from pyanaconda.core.path import set_mode
+from pyanaconda.core.glib import log_set_handler, log_set_writer_func, log_writer_format_fields, \
+      LogLevelFlags, LogWriterOutput
 
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
@@ -187,8 +189,8 @@ class AnacondaLog(object):
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger)
         self.forwardToJournal(simpleline_logger)
 
-        # Redirect all stderr messages from process to journal
-        self.stderrToJournal()
+        # Redirect GLib logging (e.g. GTK) to Journal
+        self.redirect_glib_logging_to_journal()
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
@@ -235,19 +237,37 @@ class AnacondaLog(object):
             journal_handler.setFormatter(log_formatter)
         logr.addHandler(journal_handler)
 
-    def stderrToJournal(self):
-        """Print all stderr messages from Anaconda to journal instead.
+    def redirect_glib_logging_to_journal(self):
+        """Redirect GLib based library logging to the journal.
 
-        Redirect Anaconda main process stderr to Journal, as otherwise this could end up writing
-        all over the TUI on TTY1.
+        Some GLib based libraries (such as GTK) do direct their
+        sometimes quite verbose log messages to the output of the
+        process in which they are running. In the Anaconda case,
+        this creates issues with TTY1 being spammed with those
+        messages, with important content (such as RDP connection instructions)
+        being scrolled out of view.
+
+        :param log: anaconda log handler
         """
-        if not self.write_to_journal:
-            return
+        # create functions that convert the messages coming
+        # from GLib into something that fits to the anaconda logging format
+        def log_adapter(domain, level, message, user_data):
+            if level in (LogLevelFlags.LEVEL_ERROR,
+                         LogLevelFlags.LEVEL_CRITICAL):
+                self.anaconda_logger.error("GLib: %s", message)
+            elif level is LogLevelFlags.LEVEL_WARNING:
+                self.anaconda_logger.warning("GLib: %s", message)
 
-        # create an appropriately named Journal writing stream
-        anaconda_stderr_stream = journal.stream("anaconda", priority=journal.LOG_ERR)
-        # redirect stderr of this process to the stream
-        os.dup2(anaconda_stderr_stream.fileno(), sys.stderr.fileno())
+            self.anaconda_logger.debug("GLib: %s", message)
+
+        def structured_log_adapter(level, fields, field_count, user_data):
+            message = log_writer_format_fields(level, fields, True)
+            self.anaconda_logger.debug("GLib: %s", message)
+            return LogWriterOutput.HANDLED
+
+        # redirect GLib log output via the functions
+        log_set_handler(None, LogLevelFlags.LEVEL_MASK, log_adapter, None)
+        log_set_writer_func(structured_log_adapter, None)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,

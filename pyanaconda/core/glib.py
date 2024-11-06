@@ -31,9 +31,11 @@ from gi.repository.GLib import markup_escape_text, format_size_full, \
                                io_add_watch, child_watch_add, \
                                source_remove, timeout_source_new, \
                                spawn_close_pid, spawn_async_with_pipes, \
+                               log_writer_format_fields, log_set_handler, log_set_writer_func, \
                                MainLoop, MainContext, \
                                GError, Variant, VariantType, Bytes, \
                                IOCondition, IOChannel, SpawnFlags, \
+                               LogWriterOutput, LogLevelFlags, \
                                MAXUINT
 from gi.repository.Gio import Cancellable
 
@@ -47,8 +49,10 @@ __all__ = ["create_main_loop", "create_new_context",
            "io_add_watch", "child_watch_add",
            "source_remove", "timeout_source_new",
            "spawn_close_pid", "spawn_async_with_pipes",
+           "log_writer_format_fields", "log_set_handler", "log_set_writer_func",
            "GError", "Variant", "VariantType", "Bytes",
            "IOCondition", "IOChannel", "SpawnFlags",
+           "LogWriterOutput", "LogLevelFlags",
            "MAXUINT", "Cancellable"]
 
 
