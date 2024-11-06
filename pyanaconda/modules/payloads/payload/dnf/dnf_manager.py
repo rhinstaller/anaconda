@@ -546,8 +546,7 @@ class DNFManager:
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
 
-        # FIXME: Reset sacks. Should we just drop the base?
-        # self._base.reset(sack=True, repos=True, goal=True)
+        self.reset_base()
 
         log.debug("The DNF cache has been cleared.")
 
