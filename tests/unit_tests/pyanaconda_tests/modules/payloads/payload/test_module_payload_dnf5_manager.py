@@ -1034,10 +1034,10 @@ class DNFManagerReposTestCase(unittest.TestCase):
         with pytest.raises(RuntimeError):
             self.dnf_manager.read_system_repositories()
 
-        # FIXME: Unless we cleared the cache.
-        # self.dnf_manager.clear_cache()
-        # assert not self.dnf_manager._enabled_system_repositories
-        # self.dnf_manager.read_system_repositories()
+        # Unless we cleared the cache.
+        self.dnf_manager.clear_cache()
+        assert not self.dnf_manager._enabled_system_repositories
+        self.dnf_manager.read_system_repositories()
 
         # Or reset the base.
         self.dnf_manager.reset_base()
