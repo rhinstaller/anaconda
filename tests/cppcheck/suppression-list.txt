@@ -10,6 +10,7 @@ constStatement:widgets/src/*
 // The constStatement is replaced with syntaxError in cppcheck 2.16
 // Let's ignore it but be more location specific
 // Asking for hints at https://sourceforge.net/p/cppcheck/discussion/development/thread/09e165a455/#0be6
+syntaxError:*/widgets/src/BaseStandalone.c:68
 syntaxError:*/widgets/src/BaseWindow.c:166
 syntaxError:*/widgets/src/DiskOverview.c:120
 syntaxError:*/widgets/src/HubWindow.c:96
@@ -18,6 +19,7 @@ syntaxError:*/widgets/src/MountpointSelector.c:102
 syntaxError:*/widgets/src/SpokeSelector.c:94
 syntaxError:*/widgets/src/SpokeWindow.c:68
 syntaxError:*/widgets/src/StandaloneWindow.c:67
+syntaxError:widgets/src/BaseStandalone.c:68
 syntaxError:widgets/src/BaseWindow.c:166
 syntaxError:widgets/src/DiskOverview.c:120
 syntaxError:widgets/src/HubWindow.c:96
