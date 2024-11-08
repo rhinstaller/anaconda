@@ -17,11 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import sys
 import time
 
 from dasbus.error import DBusError
+
+from pyanaconda.core import util
+from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.core.signal import Signal
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.common.errors.runtime import ScriptError
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -295,8 +301,14 @@ class DBusTask(BaseTask):
             sync_run_task(self._task_proxy)
         except DBusError as e:
             # Handle a remote error.
-            if errorHandler.cb(e) == ERROR_RAISE:
-                raise
+            if isinstance(e, ScriptError):
+                flags.ksprompt = True
+                errorHandler.cb(e)
+                util.ipmi_report(IPMI_ABORTED)
+                sys.exit(0)
+            else:
+                if errorHandler.cb(e) == ERROR_RAISE:
+                    raise
         finally:
             # Disconnect from the signal.
             self._task_proxy.ProgressChanged.disconnect()

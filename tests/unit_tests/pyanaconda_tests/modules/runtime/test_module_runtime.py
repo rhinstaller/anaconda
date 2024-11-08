@@ -47,7 +47,11 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
                     "cmdline",
                     "vnc"]
         assert self.interface.KickstartCommands == commands
-        assert self.interface.KickstartSections == []
+        sections = ['pre-install',
+                    'post',
+                    'onerror',
+                    'traceback']
+        assert self.interface.KickstartSections == sections
         assert self.interface.KickstartAddons == []
 
     def _test_kickstart(self, ks_in, ks_out):

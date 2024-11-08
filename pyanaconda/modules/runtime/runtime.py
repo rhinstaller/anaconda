@@ -25,6 +25,7 @@ from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
 from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
+from pyanaconda.modules.runtime.scripts import ScriptsModule
 from pyanaconda.modules.runtime.user_interface import UIModule
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
@@ -50,6 +51,9 @@ class RuntimeService(KickstartService):
 
         self._dracut_module = DracutCommandsModule()
         self._modules.add_module(self._dracut_module)
+
+        self._scripts_module = ScriptsModule()
+        self._modules.add_module(self._scripts_module)
 
         self._ui_module = UIModule()
         self._modules.add_module(self._ui_module)
