@@ -482,6 +482,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 11 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.16-1
+- Subscription code updates - adjust unit tests (mkolman)
+  Resolves: RHEL-49661
+  Related: INSTALLER-3903
+  Related: INSTALLER-3882
+- Subscription code updates - GTK GUI (mkolman)
+  Resolves: RHEL-49661
+  Related: INSTALLER-3903
+  Related: INSTALLER-3882
+- Subscription code updates - backend (mkolman)
+  Resolves: RHEL-49661
+  Related: INSTALLER-3903
+  Related: INSTALLER-3882
+- Bump minimal subscription manager versions (mkolman)
+  Resolves: RHEL-49661
+  Related: INSTALLER-3063
+  Related: INSTALLER-3882
+
 * Fri Nov 01 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.15-1
 - security: call /usr/libexec/fips-setup-helper (asosedkin)
   Resolves: RHEL-57680
