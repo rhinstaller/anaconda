@@ -83,7 +83,7 @@ struct _AnacondaLayoutIndicatorPrivate {
     AnLocalization *localization_proxy;
 };
 
-G_DEFINE_TYPE(AnacondaLayoutIndicator, anaconda_layout_indicator, GTK_TYPE_EVENT_BOX)
+G_DEFINE_TYPE(AnacondaLayoutIndicator, anaconda_layout_indicator, GTK_TYPE_EVENT_BOX);
 
 static void anaconda_layout_indicator_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_layout_indicator_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);

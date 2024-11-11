@@ -164,7 +164,7 @@ static void anaconda_base_window_reveal_info_bar(AnacondaBaseWindow *win);
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
 
 G_DEFINE_TYPE_WITH_CODE(AnacondaBaseWindow, anaconda_base_window, GTK_TYPE_BIN,
-                        G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_base_window_buildable_init))
+                        G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_base_window_buildable_init));
 
 static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);

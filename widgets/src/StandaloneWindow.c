@@ -64,7 +64,7 @@ enum {
 
 static void anaconda_standalone_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 
-G_DEFINE_TYPE(AnacondaStandaloneWindow, anaconda_standalone_window, ANACONDA_TYPE_BASE_STANDALONE)
+G_DEFINE_TYPE(AnacondaStandaloneWindow, anaconda_standalone_window, ANACONDA_TYPE_BASE_STANDALONE);
 
 static void anaconda_standalone_window_class_init(AnacondaStandaloneWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);

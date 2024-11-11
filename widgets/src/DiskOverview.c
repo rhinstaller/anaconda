@@ -117,7 +117,7 @@ struct _AnacondaDiskOverviewPrivate {
     gboolean chosen;
 };
 
-G_DEFINE_TYPE(AnacondaDiskOverview, anaconda_disk_overview, GTK_TYPE_EVENT_BOX)
+G_DEFINE_TYPE(AnacondaDiskOverview, anaconda_disk_overview, GTK_TYPE_EVENT_BOX);
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event);
 static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);

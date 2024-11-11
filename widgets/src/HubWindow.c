@@ -94,7 +94,7 @@ struct _AnacondaHubWindowPrivate {
 static void anaconda_hub_window_buildable_init(GtkBuildableIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE(AnacondaHubWindow, anaconda_hub_window, ANACONDA_TYPE_BASE_STANDALONE,
-                        G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_hub_window_buildable_init))
+                        G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_hub_window_buildable_init));
 
 static void anaconda_hub_window_class_init(AnacondaHubWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);

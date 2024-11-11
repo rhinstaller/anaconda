@@ -65,7 +65,7 @@ static void anaconda_base_standalone_set_continue_button(AnacondaBaseStandalone 
 static void anaconda_base_standalone_quit_clicked(GtkButton *button, gpointer user_data);
 static void anaconda_base_standalone_continue_clicked(GtkButton *button, gpointer user_data);
 
-G_DEFINE_ABSTRACT_TYPE(AnacondaBaseStandalone, anaconda_base_standalone, ANACONDA_TYPE_BASE_WINDOW)
+G_DEFINE_ABSTRACT_TYPE(AnacondaBaseStandalone, anaconda_base_standalone, ANACONDA_TYPE_BASE_WINDOW);
 
 static void anaconda_base_standalone_class_init(AnacondaBaseStandaloneClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);

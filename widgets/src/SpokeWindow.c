@@ -65,7 +65,7 @@ struct _AnacondaSpokeWindowPrivate {
     GtkWidget  *button;
 };
 
-G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WINDOW)
+G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WINDOW);
 
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
                                                  AnacondaSpokeWindow *win);
