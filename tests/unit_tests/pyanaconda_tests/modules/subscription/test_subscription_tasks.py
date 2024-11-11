@@ -26,29 +26,34 @@ from unittest.mock import patch, Mock, call
 
 import tempfile
 
-from dasbus.typing import get_variant, get_native, Str
+from dasbus.typing import get_variant, get_native, Str, Bool
 from dasbus.error import DBusError
 
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    RHSM_SYSPURPOSE_FILE_PATH
+    RHSM_SYSPURPOSE_FILE_PATH, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    SubscriptionError
+    SatelliteProvisioningError, MultipleOrganizationsError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest, OrganizationData
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
+from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_UNREGISTER, \
+    RHSM_CONFIG
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
 
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask
+    UnregisterTask, SystemPurposeConfigurationTask, \
+    ParseSubscriptionDataTask, DownloadSatelliteProvisioningScriptTask, \
+    RunSatelliteProvisioningScriptTask, BackupRHSMConfBeforeSatelliteProvisioningTask, \
+    RollBackSatelliteProvisioningTask, RegisterAndSubscribeTask, RetrieveOrganizationsTask
+from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX, \
+    RHSM_SERVICE_NAME
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -643,18 +648,23 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # private register proxy
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
+        # make the Register() method return some JSON data
+        private_register_proxy.Register.return_value = '{"json":"stuff"}'
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
-                                                password="bar_password")
-        task.run()
+                                                password="bar_password",
+                                                organization="foo_org")
+        assert task.run() == '{"json":"stuff"}'
         # check the private register proxy Register method was called correctly
-        private_register_proxy.Register.assert_called_once_with("",
-                                                                "foo_user",
-                                                                "bar_password",
-                                                                {},
-                                                                {},
-                                                                "en_US.UTF-8")
+        private_register_proxy.Register.assert_called_once_with(
+            "foo_org",
+            "foo_user",
+            "bar_password",
+            {"enable_content": get_variant(Bool, True)},
+            {},
+            "en_US.UTF-8"
+        )
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
@@ -671,16 +681,96 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
-                                                password="bar_password")
+                                                password="bar_password",
+                                                organization="foo_org")
         with pytest.raises(RegistrationError):
             task.run()
         # check private register proxy Register method was called correctly
-        private_register_proxy.Register.assert_called_with("",
-                                                           "foo_user",
-                                                           "bar_password",
-                                                           {},
-                                                           {},
-                                                           "en_US.UTF-8")
+        private_register_proxy.Register.assert_called_with(
+            "foo_org",
+            "foo_user",
+            "bar_password",
+            {"enable_content": get_variant(Bool, True)},
+            {},
+            "en_US.UTF-8"
+        )
+
+    @patch("pyanaconda.modules.subscription.runtime.RetrieveOrganizationsTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_username_password_org_single(self, private_bus, environ_get, retrieve_orgs_task):
+        """Test the RegisterWithUsernamePasswordTask - parsed single org."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # make the Register() method return some JSON data
+        private_register_proxy.Register.return_value = '{"json":"stuff"}'
+        # mock the org data retrieval task to return single organization
+        org_data = [
+            {
+                "key": "foo_org",
+                "displayName": "Foo Org",
+            }
+        ]
+        org_data_json = json.dumps(org_data)
+        org_data_list = RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        retrieve_orgs_task.return_value.run.return_value = org_data_list
+        # prepare mock data callaback as well
+        # instantiate the task and run it - we set organization to "" to make the task
+        # fetch organization list
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username="foo_user",
+                                                password="bar_password",
+                                                organization="")
+        # if we get just a single organization, we don't actually have to feed
+        # it to the RHSM API, its only a problem if there are more than one
+        assert task.run() == '{"json":"stuff"}'
+        # check the private register proxy Register method was called correctly
+        private_register_proxy.Register.assert_called_once_with(
+            "",
+            "foo_user",
+            "bar_password",
+            {"enable_content": get_variant(Bool, True)},
+            {},
+            "en_US.UTF-8"
+        )
+
+    @patch("pyanaconda.modules.subscription.runtime.RetrieveOrganizationsTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def test_username_password_org_multi(self, environ_get, retrieve_orgs_task):
+        """Test the RegisterWithUsernamePasswordTask - parsed multiple orgs."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # mock the org data retrieval task to return single organization
+        org_data = [
+            {
+                "key": "foo_org",
+                "displayName": "Foo Org",
+            },
+            {
+                "key": "bar_org",
+                "displayName": "Bar Org",
+            },
+            {
+                "key": "baz_org",
+                "displayName": "Baz Org",
+            }
+        ]
+        org_data_json = json.dumps(org_data)
+        org_data_list = RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        retrieve_orgs_task.return_value.run.return_value = org_data_list
+        # instantiate the task and run it - we set organization to "" to make the task
+        # fetch organization list
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username="foo_user",
+                                                password="bar_password",
+                                                organization="")
+        # if we get more than one organization, we can's automatically decide which one to
+        # use so we throw an exception to notify the user to pick one and try again
+        with pytest.raises(MultipleOrganizationsError):
+            task.run()
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
@@ -692,11 +782,13 @@ class RegistrationTasksTestCase(unittest.TestCase):
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
         private_register_proxy.Register.return_value = True, ""
+        # make the Register() method return some JSON data
+        private_register_proxy.RegisterWithActivationKeys.return_value = '{"json":"stuff"}'
         # instantiate the task and run it
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization="123456789",
                                                activation_keys=["foo", "bar", "baz"])
-        task.run()
+        assert task.run() == '{"json":"stuff"}'
         # check private register proxy RegisterWithActivationKeys method was called correctly
         private_register_proxy.RegisterWithActivationKeys.assert_called_with(
             "123456789",
@@ -737,157 +829,105 @@ class RegistrationTasksTestCase(unittest.TestCase):
 class UnregisterTaskTestCase(unittest.TestCase):
     """Test the unregister task."""
 
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def test_unregister_success(self, environ_get):
+    def test_unregister_success(self, environ_get, roll_back_task):
         """Test the UnregisterTask - success."""
-        # register server proxy
-        rhsm_unregister_proxy = Mock()
+        rhsm_observer = Mock()
         # instantiate the task and run it
-        task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=False,
+            rhsm_configuration={}
+        )
         task.run()
         # check the unregister proxy Unregister method was called correctly
-        rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
+        # registered_to_satellite is False, so roll back task should not run
+        roll_back_task.assert_not_called()
+        roll_back_task.return_value.run.assert_not_called()
 
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def test_unregister_failure(self, environ_get):
+    def test_unregister_failure(self, environ_get, roll_back_task):
         """Test the UnregisterTask - failure."""
-        # register server proxy
-        rhsm_unregister_proxy = Mock()
+        rhsm_observer = Mock()
+        rhsm_unregister_proxy = rhsm_observer.get_proxy.return_value
         # raise DBusError with error message in JSON
         json_error = '{"message": "Unregistration failed."}'
         rhsm_unregister_proxy.Unregister.side_effect = DBusError(json_error)
         # instantiate the task and run it
-        task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=False,
+            rhsm_configuration={}
+        )
         with pytest.raises(DBusError):
             task.run()
+        # check the RHSM observer was used correctly
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
         # check the unregister proxy Unregister method was called correctly
         rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+        # registered_to_satellite is False, so roll back task should not run
+        roll_back_task.assert_not_called()
+        roll_back_task.return_value.run.assert_not_called()
 
-
-class AttachSubscriptionTaskTestCase(unittest.TestCase):
-    """Test the subscription task."""
-
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def test_attach_subscription_task_success(self, environ_get):
-        """Test the AttachSubscriptionTask - success."""
-        rhsm_attach_proxy = Mock()
-        task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
-                                      sla="foo_sla")
-        task.run()
-        rhsm_attach_proxy.AutoAttach.assert_called_once_with("foo_sla",
-                                                             {},
-                                                             "en_US.UTF-8")
-
-    @patch("os.environ.get", return_value="en_US.UTF-8")
-    def test_attach_subscription_task_failure(self, environ_get):
-        """Test the AttachSubscriptionTask - failure."""
-        rhsm_attach_proxy = Mock()
+    def test_unregister_failure_satellite(self, environ_get, roll_back_task):
+        """Test the UnregisterTask - unregister failure on Satellite."""
+        rhsm_observer = Mock()
+        rhsm_unregister_proxy = rhsm_observer.get_proxy.return_value
         # raise DBusError with error message in JSON
-        json_error = '{"message": "Failed to attach subscription."}'
-        rhsm_attach_proxy.AutoAttach.side_effect = DBusError(json_error)
-        task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
-                                      sla="foo_sla")
-        with pytest.raises(SubscriptionError):
+        json_error = '{"message": "Unregistration failed."}'
+        rhsm_unregister_proxy.Unregister.side_effect = DBusError(json_error)
+        # instantiate the task and run it
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=True,
+            rhsm_configuration={}
+        )
+        with pytest.raises(DBusError):
             task.run()
-        rhsm_attach_proxy.AutoAttach.assert_called_once_with("foo_sla",
-                                                             {},
-                                                             "en_US.UTF-8")
+        # check the RHSM observer was used correctly
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
+        # check the unregister proxy Unregister method was called correctly
+        rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+        # registered_to_satellite is True, but unregistration failed before roll back
+        # could happen
+        roll_back_task.assert_not_called()
+        roll_back_task.return_value.run.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def test_unregister_satellite_success(self, environ_get, roll_back_task):
+        """Test the UnregisterTask - Satellite rollback success."""
+        rhsm_observer = Mock()
+        unregister_proxy = Mock()
+        config_proxy = Mock()
+        rhsm_observer.get_proxy.side_effect = [unregister_proxy, config_proxy]
+        # instantiate the task and run it
+        mock_rhsm_configuration = {"foo": "bar"}
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=True,
+            rhsm_configuration=mock_rhsm_configuration
+        )
+        task.run()
+        # check the unregister proxy Unregister method was called correctly
+        rhsm_observer.get_proxy.assert_has_calls([])
+        # registered_to_satellite is False, so roll back task should not run
+        roll_back_task.assert_called_once_with(rhsm_config_proxy=config_proxy,
+                                               rhsm_configuration=mock_rhsm_configuration)
+        roll_back_task.return_value.run.assert_called_once()
 
 
-class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
+class ParseSubscriptionDataTaskTestCase(unittest.TestCase):
     """Test the attached subscription parsing task."""
 
-    def test_pretty_date(self):
-        """Test the pretty date method of ParseAttachedSubscriptionsTask."""
-        pretty_date_method = ParseAttachedSubscriptionsTask._pretty_date
-        # try to parse ISO 8601 first
-        assert pretty_date_method("2015-12-22") == "Dec 22, 2015"
-        # the method expects short mm/dd/yy dates
-        assert pretty_date_method("12/22/15") == "Dec 22, 2015"
-        # returns the input if parsing fails
-        ambiguous_date = "noon of the twenty first century"
-        assert pretty_date_method(ambiguous_date) == ambiguous_date
-
-    def test_subscription_json_parsing(self):
-        """Test the subscription JSON parsing method of ParseAttachedSubscriptionsTask."""
-        parse_method = ParseAttachedSubscriptionsTask._parse_subscription_json
-        # the method should be able to survive the RHSM DBus API returning an empty string,
-        # as empty list of subscriptions is a lesser issue than crashed installation
-        assert parse_method("") == []
-        # try parsing a json file containing two subscriptions
-        # - to make this look sane, we write it as a dict that we then convert to JSON
-        subscription_dict = {
-            "consumed": [
-                {
-                    "subscription_name": "Foo Bar Beta",
-                    "service_level": "very good",
-                    "sku": "ABC1234",
-                    "contract": "12345678",
-                    "starts": "05/12/20",
-                    "ends": "05/12/21",
-                    "quantity_used": "1"
-                },
-                {
-                    "subscription_name": "Foo Bar Beta NG",
-                    "service_level": "even better",
-                    "sku": "ABC4321",
-                    "contract": "87654321",
-                    "starts": "now",
-                    "ends": "never",
-                    "quantity_used": "1000"
-                },
-                {
-                    "subscription_name": "Foo Bar Beta NG",
-                    "service_level": "much wow",
-                    "sku": "ABC5678",
-                    "contract": "12344321",
-                    "starts": "2020-05-12",
-                    "ends": "never",
-                    "quantity_used": "1000"
-                }
-            ]
-
-        }
-        subscription_json = json.dumps(subscription_dict)
-        expected_structs = [
-            {
-                "name": "Foo Bar Beta",
-                "service-level": "very good",
-                "sku": "ABC1234",
-                "contract": "12345678",
-                "start-date": "May 12, 2020",
-                "end-date": "May 12, 2021",
-                "consumed-entitlement-count": 1
-            },
-            {
-                "name": "Foo Bar Beta NG",
-                "service-level": "even better",
-                "sku": "ABC4321",
-                "contract": "87654321",
-                "start-date": "now",
-                "end-date": "never",
-                "consumed-entitlement-count": 1000
-            },
-            {
-                "name": "Foo Bar Beta NG",
-                "service-level": "much wow",
-                "sku": "ABC5678",
-                "contract": "12344321",
-                "start-date": "May 12, 2020",
-                "end-date": "never",
-                "consumed-entitlement-count": 1000
-            }
-        ]
-        structs = get_native(
-            AttachedSubscription.to_structure_list(parse_method(subscription_json))
-        )
-        # check the content of the AttachedSubscription corresponds to the input JSON,
-        # including date formatting
-        assert structs == expected_structs
-
     def test_system_purpose_json_parsing(self):
-        """Test the system purpose JSON parsing method of ParseAttachedSubscriptionsTask."""
-        parse_method = ParseAttachedSubscriptionsTask._parse_system_purpose_json
+        """Test the system purpose JSON parsing method of ParseSubscriptionDataTask."""
+        parse_method = ParseSubscriptionDataTask._parse_system_purpose_json
         # the parsing method should be able to survive also getting an empty string
         expected_struct = {
             "role": "",
@@ -936,33 +976,981 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     def test_attach_subscription_task_success(self, environ_get):
-        """Test the ParseAttachedSubscriptionsTask."""
+        """Test the ParseSubscriptionDataTask."""
         # prepare mock proxies the task is expected to interact with
-        rhsm_entitlement_proxy = Mock()
-        rhsm_entitlement_proxy.GetPools.return_value = "foo"
         rhsm_syspurpose_proxy = Mock()
         rhsm_syspurpose_proxy.GetSyspurpose.return_value = "bar"
-        task = ParseAttachedSubscriptionsTask(rhsm_entitlement_proxy=rhsm_entitlement_proxy,
-                                              rhsm_syspurpose_proxy=rhsm_syspurpose_proxy)
+        task = ParseSubscriptionDataTask(rhsm_syspurpose_proxy=rhsm_syspurpose_proxy)
         # mock the parsing methods
-        subscription1 = AttachedSubscription()
-        subscription2 = AttachedSubscription()
-        task._parse_subscription_json = Mock()
-        task._parse_subscription_json.return_value = [subscription1, subscription2]
         system_purpose_data = SystemPurposeData()
         task._parse_system_purpose_json = Mock()
         task._parse_system_purpose_json.return_value = system_purpose_data
         # run the task
         result = task.run()
         # check DBus proxies were called as expected
-        rhsm_entitlement_proxy.GetPools.assert_called_once_with({'pool_subsets':
-                                                                get_variant(Str, "consumed")},
-                                                                {},
-                                                                "en_US.UTF-8")
         rhsm_syspurpose_proxy.GetSyspurpose.assert_called_once_with("en_US.UTF-8")
         # check the parsing methods were called
-        task._parse_subscription_json.assert_called_once_with("foo")
         task._parse_system_purpose_json.assert_called_once_with("bar")
         # check the result that has been returned is as expected
-        assert result.attached_subscriptions == [subscription1, subscription2]
         assert result.system_purpose_data == system_purpose_data
+
+
+class SatelliteTasksTestCase(unittest.TestCase):
+    """Test the Satellite support tasks."""
+
+    @patch("pyanaconda.modules.subscription.satellite.download_satellite_provisioning_script")
+    def test_satellite_provisioning_script_download(self, download_function):
+        """Test the DownloadSatelliteProvisioningScriptTask."""
+        # make the download function return a dummy script text
+        download_function.return_value = "foo bar"
+        # create the task and run it
+        task = DownloadSatelliteProvisioningScriptTask(
+            satellite_url="satellite.example.com",
+            proxy_url="proxy.example.com",
+        )
+        assert task.run() == "foo bar"
+        # check the wrapped download function was called correctly
+        download_function.assert_called_with(
+            satellite_url="satellite.example.com",
+            proxy_url="proxy.example.com",
+        )
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def test_satellite_provisioning_run_script(self, run_script_function):
+        """Test the RunSatelliteProvisioningScriptTask - success."""
+        # create the task and run it
+        task = RunSatelliteProvisioningScriptTask(
+            provisioning_script="foo bar"
+        )
+        task.run()
+        # check the wrapped run function was called correctly
+        run_script_function.assert_called_with(
+            provisioning_script="foo bar",
+            run_on_target_system=False
+        )
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def test_satellite_provisioning_run_script_failure(self, run_script_function):
+        """Test the RunSatelliteProvisioningScriptTask - failure."""
+        # make sure the run-script function raises the correct error
+        run_script_function.side_effect = SatelliteProvisioningError()
+        # create the task and run it
+        task = RunSatelliteProvisioningScriptTask(
+            provisioning_script="foo bar"
+        )
+        with pytest.raises(SatelliteProvisioningError):
+            task.run()
+        # check the wrapped run function was called correctly
+        run_script_function.assert_called_with(
+            provisioning_script="foo bar",
+            run_on_target_system=False
+        )
+
+    def test_rhsm_config_backup(self):
+        """Test the BackupRHSMConfBeforeSatelliteProvisioningTask."""
+        # create mock RHSM config proxy
+        config_proxy = Mock()
+        # make it return a DBus struct
+        config_proxy.GetAll.return_value = {"foo": get_variant(Str, "bar")}
+        # create the task and run it
+        task = BackupRHSMConfBeforeSatelliteProvisioningTask(
+            rhsm_config_proxy=config_proxy
+        )
+        conf_backup = task.run()
+        # check the RHSM config proxy was called correctly
+        config_proxy.GetAll.assert_called_once_with("")
+        # check the DBus struct is correctly converted to a Python dict
+        assert conf_backup == {"foo": "bar"}
+
+    def test_rhsm_roll_back(self):
+        """Test the RollBackSatelliteProvisioningTask."""
+        # create mock RHSM config proxy
+        config_proxy = Mock()
+        # and mock RHSM configuration
+        rhsm_config = {"foo": "bar"}
+        # create the task and run it
+        task = RollBackSatelliteProvisioningTask(
+            rhsm_config_proxy=config_proxy,
+            rhsm_configuration=rhsm_config
+        )
+        task.run()
+        # check the RHSM config proxy was called correctly
+        config_proxy.SetAll.assert_called_once_with({"foo": get_variant(Str, "bar")}, "")
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def test_provision_target_no_op(self, run_script_function):
+        """Test the ProvisionTargetSystemForSatelliteTask - no op."""
+        # create the task and run it
+        task = ProvisionTargetSystemForSatelliteTask(provisioning_script=None)
+        task.run()
+        # make sure we did not try to provision the system with
+        # registered_to_satellite == False
+        run_script_function.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def test_provision_target_success(self, run_script_function):
+        """Test the ProvisionTargetSystemForSatelliteTask - success."""
+        # make the run script function return True, indicating success
+        run_script_function.return_value = True
+        # create the task and run it
+        task = ProvisionTargetSystemForSatelliteTask(provisioning_script="foo")
+        task.run()
+        # make sure we did try to provision the system with
+        run_script_function.assert_called_once_with(
+            provisioning_script="foo",
+            run_on_target_system=True
+        )
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def test_provision_target_failure(self, run_script_function):
+        """Test the ProvisionTargetSystemForSatelliteTask - failure."""
+        # make the run script function return False, indicating failure
+        run_script_function.return_value = False
+        # create the task and run it
+        task = ProvisionTargetSystemForSatelliteTask(provisioning_script="foo")
+        # check if the correct exception for a failure is raised
+        with pytest.raises(SatelliteProvisioningError):
+            task.run()
+        # make sure we did try to provision the system with
+        run_script_function.assert_called_once_with(
+            provisioning_script="foo",
+            run_on_target_system=True
+        )
+
+
+class RegisterAndSubscribeTestCase(unittest.TestCase):
+    """Test the RegisterAndSubscribeTask orchestration task.
+
+    This task does orchestration of many individual tasks,
+    so it makes sense to have a separate test case for it.
+    """
+
+    def test_get_proxy_url(self):
+        """Test proxy URL generation in RegisterAndSubscribeTask."""
+        # no proxy data provided
+        empty_request = SubscriptionRequest()
+        assert RegisterAndSubscribeTask._get_proxy_url(empty_request) is None
+        # proxy data provided in subscription request
+        request_with_proxy_data = SubscriptionRequest()
+        request_with_proxy_data.server_proxy_hostname = "proxy.example.com"
+        request_with_proxy_data.server_proxy_user = "foo_user"
+        request_with_proxy_data.server_proxy_password.set_secret("foo_password")
+        request_with_proxy_data.server_proxy_port = 1234
+        assert RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data) == \
+            "http://foo_user:foo_password@proxy.example.com:1234"
+        # one more time without valid port set
+        request_with_proxy_data = SubscriptionRequest()
+        request_with_proxy_data.server_proxy_hostname = "proxy.example.com"
+        request_with_proxy_data.server_proxy_user = "foo_user"
+        request_with_proxy_data.server_proxy_password.set_secret("foo_password")
+        request_with_proxy_data.server_proxy_port = -1
+        # this should result in the default proxy port 3128 being used
+        assert RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data) == \
+            "http://foo_user:foo_password@proxy.example.com:3128"
+
+    def test_registration_data_json_parsing(self):
+        """Test the registration data JSON parsing method of RegisterAndSubscribeTask."""
+        parse_method = RegisterAndSubscribeTask._detect_sca_from_registration_data
+        # the parsing method should be able to survive also getting an empty string
+        # or even None, returning False
+        assert not parse_method("")
+        assert not parse_method(None)
+
+        # registration data without owner key
+        no_owner_data = {
+            "foo": "123",
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(no_owner_data))
+
+        # registration data with owner key but without the necessary
+        # contentAccessMode key
+        no_access_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(no_access_mode_data))
+
+        # registration data with owner key but without the necessary
+        # contentAccessMode key
+        no_access_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(no_access_mode_data))
+
+        # registration data for SCA mode
+        sca_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner",
+                "contentAccessMode": "org_environment"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert parse_method(json.dumps(sca_mode_data))
+
+        # registration data for entitlement mode
+        entitlement_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner",
+                "contentAccessMode": "entitlement"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(entitlement_mode_data))
+
+        # registration data for unknown mode
+        unknown_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner",
+                "contentAccessMode": "something_else"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(unknown_mode_data))
+
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def test_provision_system_for_satellite_skip(self, download_task):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - skip."""
+        # create the task and related bits
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = \
+            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX + "something.else.example.com"
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=Mock(),
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # run the provisioning method
+        task._provision_system_for_satellite()
+        # detect if provisioning is skipped by checking if the
+        # DownloadSatelliteProvisioningScriptTask has been instantiated
+        download_task.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def test_provision_system_for_satellite_download_error(self, download_task):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - script download error."""
+        # create the task and related bits
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = "satellite.example.com"
+        satellite_script_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=Mock(),
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=satellite_script_callback,
+            config_backup_callback=Mock()
+        )
+        # make the mock download task fail
+        download_task.side_effect = SatelliteProvisioningError()
+        # run the provisioning method, check correct exception is raised
+        with pytest.raises(SatelliteProvisioningError):
+            task._provision_system_for_satellite()
+        # download task should have been instantiated
+        download_task.assert_called_once_with(
+            satellite_url='satellite.example.com',
+            proxy_url=None)
+        # but the callback should not have been called due to the failure
+        satellite_script_callback.assert_not_called()
+
+    @patch("pyanaconda.core.service.restart_service")
+    @patch("pyanaconda.modules.subscription.runtime.RunSatelliteProvisioningScriptTask")
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    @patch("pyanaconda.modules.subscription.runtime.BackupRHSMConfBeforeSatelliteProvisioningTask")
+    def test_provision_satellite_run_error(self, backup_task, download_task, run_script_task,
+                                           restart_service):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - script run failed."""
+        # create the task and related bits
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = "satellite.example.com"
+        satellite_script_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=Mock(),
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=satellite_script_callback,
+            config_backup_callback=Mock()
+        )
+        # make the mock download task return the script from its run() method
+        download_task.return_value.run.return_value = "foo bar script"
+        # make the mock run task fail
+        run_script_task.side_effect = SatelliteProvisioningError()
+        # make the mock backup task return mock RHSM config dict
+        backup_task.return_value.run.return_value = {"foo": {"bar": "baz"}}
+        # run the provisioning method, check correct exception is raised
+        with pytest.raises(SatelliteProvisioningError):
+            task._provision_system_for_satellite()
+        # download task should have been instantiated
+        download_task.assert_called_once_with(
+            satellite_url='satellite.example.com',
+            proxy_url=None)
+        # download callback should have been called
+        satellite_script_callback.assert_called_once()
+        # then the run script task should have been instantiated
+        run_script_task.assert_called_once_with(provisioning_script="foo bar script")
+        # but the next call to restart_service should not happen
+        # due to the exception being raised
+        restart_service.assert_not_called()
+
+    @patch("pyanaconda.core.service.restart_service")
+    @patch("pyanaconda.modules.subscription.runtime.RunSatelliteProvisioningScriptTask")
+    @patch("pyanaconda.modules.subscription.runtime.BackupRHSMConfBeforeSatelliteProvisioningTask")
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def test_provision_success(self, download_task, backup_task, run_script_task, restart_service):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - success."""
+        # this tests a simulated successful end-to-end provisioning run, which contains
+        # some more bits that have been skipped in the previous tests for complexity:
+        # - check proxy URL propagates correctly
+        # - check the backup task (run between download and run tasks) is run correctly
+
+        # create the task and related bits
+        rhsm_observer = Mock()
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = "satellite.example.com"
+        subscription_request.server_proxy_hostname = "proxy.example.com"
+        subscription_request.server_proxy_user = "foo_user"
+        subscription_request.server_proxy_password.set_secret("foo_password")
+        subscription_request.server_proxy_port = 1234
+        config_backup_callback = Mock()
+        satellite_script_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=satellite_script_callback,
+            config_backup_callback=config_backup_callback
+        )
+        # mock the roll back method
+        task._roll_back_satellite_provisioning = Mock()
+        # make the mock download task return the script from its run() method
+        download_task.return_value.run.return_value = "foo bar script"
+        # make the mock backup task return mock RHSM config dict
+        backup_task.return_value.run.return_value = {"foo": {"bar": "baz"}}
+        # run the provisioning method
+        task._provision_system_for_satellite()
+        # download task should have been instantiated
+        download_task.assert_called_once_with(
+            satellite_url='satellite.example.com',
+            proxy_url='http://foo_user:foo_password@proxy.example.com:1234')
+        # download callback should have been called
+        satellite_script_callback.assert_called_once()
+        # next we should attempt to backup RHSM configuration, so that
+        # unregistration can correctly cleanup after a Satellite
+        # registration attempt
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_CONFIG)
+        backup_task.assert_called_once_with(rhsm_config_proxy=rhsm_observer.get_proxy.return_value)
+        config_backup_callback.assert_called_once_with({"foo.bar": "baz"})
+        # then the run script task should have been instantiated
+        run_script_task.assert_called_once_with(provisioning_script="foo bar script")
+        # then the RHSM service restart should happen
+        restart_service.assert_called_once_with(RHSM_SERVICE_NAME)
+        # make sure the rollback method was not called
+        task._roll_back_satellite_provisioning.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithUsernamePasswordTask")
+    def test_registration_error_username_password(self, register_username_task):
+        """Test RegisterAndSubscribeTask - username + password registration error."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
+        subscription_request.account_username = "foo_user"
+        subscription_request.account_password.set_secret("foo_password")
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # make the register task throw an exception
+        register_username_task.return_value.run_with_signals.side_effect = RegistrationError()
+        # check the exception is raised as expected
+        with pytest.raises(RegistrationError):
+            task.run()
+        # check the register task was properly instantiated
+        register_username_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_observer.get_proxy.return_value,
+            username='foo_user',
+            password='foo_password',
+            organization=''
+        )
+        # check the register task has been run
+        register_username_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def test_registration_error_org_key(self, register_org_task):
+        """Test RegisterAndSubscribeTask - org + key registration error."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # make the register task throw an exception
+        register_org_task.return_value.run_with_signals.side_effect = RegistrationError()
+        # check the exception is raised as expected
+        with pytest.raises(RegistrationError):
+            task.run()
+        # check the register task was properly instantiated
+        register_org_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_observer.get_proxy.return_value,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+        )
+        # check the register task has been run
+        register_org_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.ParseSubscriptionDataTask")
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def test_registration_and_subscribe(self, register_task, parse_task):
+        """Test RegisterAndSubscribeTask - success."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        rhsm_register_server = Mock()
+        rhsm_syspurpose = Mock()
+        rhsm_observer.get_proxy.side_effect = [
+            rhsm_register_server, rhsm_syspurpose
+        ]
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.sla = "foo_sla"
+        subscription_attached_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=system_purpose_data,
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=subscription_attached_callback,
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # mock the Satellite provisioning method
+        task._provision_system_for_satellite = Mock()
+        # run the main task
+        task.run()
+        # check satellite provisioning was not attempted
+        task._provision_system_for_satellite.assert_not_called()
+        # check the register task was properly instantiated and run
+        register_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_register_server,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+        )
+        register_task.return_value.run_with_signals.assert_called_once()
+        # also check the callback was called correctly
+        subscription_attached_callback.assert_called_once_with(True)
+        # check the subscription parsing task has been properly instantiated and run
+        parse_task.assert_called_once_with(
+            rhsm_syspurpose_proxy=rhsm_syspurpose
+        )
+        parse_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.ParseSubscriptionDataTask")
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def test_registration_and_subscribe_satellite(self, register_task, parse_task):
+        """Test RegisterAndSubscribeTask - success with satellite provisioning."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        rhsm_register_server = Mock()
+        rhsm_syspurpose = Mock()
+        rhsm_observer.get_proxy.side_effect = [
+            rhsm_register_server, rhsm_syspurpose
+        ]
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        subscription_request.server_hostname = "satellite.example.com"
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.sla = "foo_sla"
+        subscription_attached_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=system_purpose_data,
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=subscription_attached_callback,
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # mock the Satellite provisioning method
+        task._provision_system_for_satellite = Mock()
+        # run the main task
+        task.run()
+        # check satellite provisioning was attempted
+        task._provision_system_for_satellite.assert_called_once_with()
+        # check the register task was properly instantiated and run
+        register_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_register_server,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+        )
+        register_task.return_value.run_with_signals.assert_called_once()
+        # also check the callback was called correctly
+        subscription_attached_callback.assert_called_once_with(True)
+        # check the subscription parsing task has been properly instantiated and run
+        parse_task.assert_called_once_with(
+            rhsm_syspurpose_proxy=rhsm_syspurpose
+        )
+        parse_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.ParseSubscriptionDataTask")
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def test_registration_failure_satellite(self, register_task, parse_task):
+        """Test RegisterAndSubscribeTask - registration failure with satellite provisioning."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        rhsm_register_server = Mock()
+        rhsm_entitlement = Mock()
+        rhsm_syspurpose = Mock()
+        rhsm_observer.get_proxy.side_effect = [
+            rhsm_register_server, rhsm_entitlement, rhsm_syspurpose
+        ]
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        subscription_request.server_hostname = "satellite.example.com"
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.sla = "foo_sla"
+        subscription_attached_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=system_purpose_data,
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=subscription_attached_callback,
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # mock the Satellite provisioning method
+        task._provision_system_for_satellite = Mock()
+        # mock the Satellite rollback method
+        task._roll_back_satellite_provisioning = Mock()
+        # make the register task throw an exception
+        register_task.return_value.run_with_signals.side_effect = RegistrationError()
+        # run the main task, epxect registration error
+        with pytest.raises(RegistrationError):
+            task.run()
+        # check satellite provisioning was attempted
+        task._provision_system_for_satellite.assert_called_once_with()
+        # check the register task was properly instantiated and run
+        register_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_register_server,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+        )
+        register_task.return_value.run_with_signals.assert_called_once()
+        # also check the callback was not called
+        subscription_attached_callback.assert_not_called()
+        # check the subscription parsing task has not been instantiated and run
+        parse_task.assert_not_called()
+        parse_task.return_value.run_with_signals.assert_not_called()
+        # the Satellite provisioning rollback should have been called due to the failure
+        task._roll_back_satellite_provisioning.assert_called_once()
+
+
+class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
+    """Test the organization data parsing task."""
+
+    def test_org_data_json_parsing(self):
+        """Test the organization data JSON parsing method of RetrieveOrganizationsTask."""
+        parse_method = RetrieveOrganizationsTask._parse_org_data_json
+        # the parsing method should be able to survive also getting an empty string,
+        # resulting in an empty list being returned
+        struct = get_native(
+            OrganizationData.to_structure_list(parse_method(""))
+        )
+        assert struct == []
+
+        # try data with single organization
+        single_org_data = [
+            {
+                "key": "123abc",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            }
+        ]
+        single_org_data_json = json.dumps(single_org_data)
+        expected_struct_list = [
+            {
+                "id": "123abc",
+                "name": "Foo Org",
+            }
+        ]
+
+        struct = get_native(
+            OrganizationData.to_structure_list(parse_method(single_org_data_json))
+        )
+        assert struct == expected_struct_list
+
+        # try multiple organizations:
+        # - one in entitlement (classic) mode
+        # - one in Simple Content Access mode
+        # - one in unknown unexpected mode (should fall back to entitlement/classic mode)
+        multiple_org_data = [
+            {
+                "key": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "key": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "key": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        expected_struct_list = [
+            {
+                "id": "123a",
+                "name": "Foo Org",
+            },
+            {
+                "id": "123b",
+                "name": "Bar Org",
+            },
+            {
+                "id": "123c",
+                "name": "Baz Org",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(parse_method(multiple_org_data_json))
+        )
+        assert structs == expected_struct_list
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # mock the GetOrgs JSON output
+        multiple_org_data = [
+            {
+                "key": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "key": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "key": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        private_register_proxy.GetOrgs.return_value = multiple_org_data_json
+
+        # instantiate the task and run it
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+        # check the structs based on the JSON data look as expected
+        expected_struct_list = [
+            {
+                "id": "123a",
+                "name": "Foo Org",
+            },
+            {
+                "id": "123b",
+                "name": "Bar Org",
+            },
+            {
+                "id": "123c",
+                "name": "Baz Org",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was called correctly
+        private_register_proxy.GetOrgs.assert_called_once_with("foo_user",
+                                                               "bar_password",
+                                                               {},
+                                                               "en_US.UTF-8")
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data_cached(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask - return cached data on error."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # simulate GetOrgs call failure
+        private_register_proxy.GetOrgs.side_effect = DBusError("org listing failed")
+        # create some dummy cached data
+        cached_structs_list = [
+            {
+                "id": get_variant(Str, "123a cached"),
+                "name": get_variant(Str, "Foo Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123b cached"),
+                "name": get_variant(Str, "Bar Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123c cached"),
+                "name": get_variant(Str, "Baz Org cached"),
+            }
+        ]
+        cached_structs = OrganizationData.from_structure_list(cached_structs_list)
+        RetrieveOrganizationsTask._org_data_list_cache = cached_structs
+
+        # instantiate the task and run it with cached data
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+        # check the returned structs are based on the cache data, not the
+        # JSON data the mock-API would return
+        expected_struct_list = [
+            {
+                "id": "123a cached",
+                "name": "Foo Org cached",
+            },
+            {
+                "id": "123b cached",
+                "name": "Bar Org cached",
+            },
+            {
+                "id": "123c cached",
+                "name": "Baz Org cached",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was *not* called
+        # as all data should come from the cache, if provided, with *no*
+        # DBus API access
+        private_register_proxy.GetOrgs.assert_called_once_with(
+            'foo_user', 'bar_password', {}, 'en_US.UTF-8'
+        )
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data_ignore_cache(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask - do not use cache on success."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # mock the GetOrgs JSON output
+        multiple_org_data = [
+            {
+                "key": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "key": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "key": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        private_register_proxy.GetOrgs.return_value = multiple_org_data_json
+        # create some dummy cached data
+        cached_structs_list = [
+            {
+                "id": get_variant(Str, "123a cached"),
+                "name": get_variant(Str, "Foo Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123b cached"),
+                "name": get_variant(Str, "Bar Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123c cached"),
+                "name": get_variant(Str, "Baz Org cached"),
+            }
+        ]
+        cached_structs = OrganizationData.from_structure_list(cached_structs_list)
+        RetrieveOrganizationsTask._org_data_list_cache = cached_structs
+
+        # instantiate the task and run it with cached data
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+
+        # check the structs based on the GetOrgs returned JSON data look as expected
+        expected_struct_list = [
+            {
+                "id": "123a",
+                "name": "Foo Org",
+            },
+            {
+                "id": "123b",
+                "name": "Bar Org",
+            },
+            {
+                "id": "123c",
+                "name": "Baz Org",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was *not* called
+        # as all data should come from the cache, if provided, with *no*
+        # DBus API access
+        private_register_proxy.GetOrgs.assert_called_once_with(
+            'foo_user', 'bar_password', {}, 'en_US.UTF-8'
+        )
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data_cache_reset(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask - test cache reset."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # simulate GetOrgs call failure
+        private_register_proxy.GetOrgs.side_effect = DBusError("org listing failed")
+        # create some dummy cached data
+        cached_structs_list = [
+            {
+                "id": get_variant(Str, "123a cached"),
+                "name": get_variant(Str, "Foo Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123b cached"),
+                "name": get_variant(Str, "Bar Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123c cached"),
+                "name": get_variant(Str, "Baz Org cached"),
+            }
+        ]
+        cached_structs = OrganizationData.from_structure_list(cached_structs_list)
+        RetrieveOrganizationsTask._org_data_list_cache = cached_structs
+
+        # instantiate the task and run it with cached data
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password",
+                                         reset_cache=True)
+        org_data_structs = task.run()
+        # we dropped the cache and the GetOrgs() call failed, so we return the
+        # contents of the empty cache
+        expected_struct_list = []
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was *not* called
+        # as all data should come from the cache, if provided, with *no*
+        # DBus API access
+        private_register_proxy.GetOrgs.assert_called_once_with(
+            'foo_user', 'bar_password', {}, 'en_US.UTF-8'
+        )
