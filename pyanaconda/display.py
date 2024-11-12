@@ -319,7 +319,10 @@ def setup_display(anaconda, options):
             anaconda.display_mode = constants.DisplayModes.GUI
         rdp_creds = rdp_credentials(options.rdp_username, options.rdp_password)
         # note if we have both set
-        rdp_credentials_sufficient = options.rdp_username and options.rdp_password
+        if options.rdp_username and options.rdp_password:
+            rdp_credentials_sufficient = True
+        else:
+            rdp_credentials_sufficient = False
 
     # check if GUI without WebUI
     startup_utils.fallback_to_tui_if_gtk_ui_is_not_available(anaconda)
