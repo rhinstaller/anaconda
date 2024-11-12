@@ -490,6 +490,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 12 2024 github-actions <github-actions@github.com> - 42.14-1
+
 * Fri Nov 08 2024 github-actions <github-actions@github.com> - 42.13-1
 - Test for kickstart scripts (akankovs)
 - Migrate the %%pre-install, %%post, %%onerror and %%traceback scripts
