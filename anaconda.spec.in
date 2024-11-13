@@ -416,6 +416,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 13 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.12-1
+- Explicitly place biosboot partition only on stage1 disk (vtrefny)
+  Resolves: RHEL-50454
+
 * Fri Nov 01 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.11-1
 - security: call /usr/libexec/fips-setup-helper (asosedkin)
   Resolves: RHEL-58667
