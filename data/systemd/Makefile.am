@@ -28,6 +28,7 @@ dist_systemd_DATA = anaconda.service \
                     anaconda-sshd.service \
                     anaconda-nm-config.service \
                     anaconda-nm-disable-autocons.service \
+                    anaconda-nm-disable-autocons-rhel.service \
                     anaconda-pre.service \
                     anaconda-s390-device-config-import.service \
                     anaconda-fips.service
