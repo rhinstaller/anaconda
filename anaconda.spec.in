@@ -482,6 +482,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 13 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.17-1
+- network: add warning for kickstart network configuration when running from
+  nfs (rvykydal)
+  Resolves: RHEL-35250
+- Explicitly place biosboot partition only on stage1 disk (vtrefny)
+  Resolves: RHEL-61143
+- network: handle autoconnections policy for rhel upstream (rvykydal)
+  Resolves: RHEL-53196
+
 * Mon Nov 11 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.16-1
 - Subscription code updates - adjust unit tests (mkolman)
   Resolves: RHEL-49661
