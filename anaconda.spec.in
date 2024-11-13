@@ -143,6 +143,8 @@ Requires: python3-pid
 Requires: crypto-policies
 Requires: crypto-policies-scripts
 
+Requires: grub2-common
+
 # required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
 
