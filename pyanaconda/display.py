@@ -405,7 +405,9 @@ def setup_display(anaconda, options):
                     "an RDP session to connect to this computer from another computer and "
                     "perform a graphical installation or continue with a text mode "
                     "installation?")
-        rdp_creds = ask_rd_question(anaconda, message)
+        # we aren't really interested in the use_rd flag so at least mark it like this
+        # to avoid linters being grumpy
+        _use_rd, rdp_creds = ask_rd_question(anaconda, message)
 
     # if they want us to use RDP do that now
     if anaconda.gui_mode and flags.use_rd:
