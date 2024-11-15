@@ -100,7 +100,8 @@ rdp
 Enable Remote Desktop Protocol-controlled installation. You will need to connect to the machine using an RDP
 client application. An RDP install implies that the installed system will boot up in in multiuser.target
 instead of to the graphical login screen. Multiple RDP clients can connect. When using rdp you also need to set
-RDP username and password using the rdp.username and rdp.password options.
+RDP username and password using the rdp.username and rdp.password options. This option is not supported for
+live installations.
 
 rdp.username
 Set password for the RDP session. To enable RDP access, also use the rdp and rdp.password options.
