@@ -30,6 +30,7 @@ def ks_random(num_bytes):
 os.urandom = ks_random
 
 import sys
+import shutil
 import logging
 import glob
 from pykickstart.parser import KickstartParser, preprocessKickstart
@@ -65,6 +66,8 @@ TMPDIR = "/tmp"
 ##define ARPHRD_INFINIBAND 32            /* InfiniBand                   */
 ARPHRD_ETHER = "1"
 ARPHRD_INFINIBAND = "32"
+
+CERTIFICATES_DIR = "/run/install/certificates"
 
 # Helper function for reading simple files in /sys
 def readsysfile(f):
@@ -403,6 +406,31 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
 
     return " ".join(line)
 
+def process_certificates(handler):
+    """Import certificates defined in %certificate sections."""
+    for certificate in handler.certificates:
+
+        if not certificate.name:
+            log.error("Missing certificate name, skipping.")
+            continue
+
+        if not certificate.path:
+            log.error("Missing certificate path, skipping.")
+            continue
+
+        log.info("processing kickstart certificate %s", certificate.name)
+        # TODO implement --category. For --category override --path
+
+        # Dump the certificate to the file
+        file_path = os.path.join(certificate.path, certificate.name)
+        with open(file_path, 'w') as f:
+            f.write(certificate.cert)
+
+        # Copy to transport directory for switchroot
+        transfer_dir = os.path.join(CERTIFICATES_DIR, certificate.path[1:])
+        os.makedirs(transfer_dir, exist_ok=True)
+        shutil.copy(file_path, transfer_dir)
+
 def process_kickstart(ksfile):
     handler = DracutHandler()
     try:
@@ -422,6 +450,7 @@ def process_kickstart(ksfile):
     with open(TMPDIR+"/ks.info", "a") as f:
         f.write('parsed_kickstart="%s"\n' % processed_file)
     log.info("finished parsing kickstart")
+    process_certificates(handler)
     return processed_file, handler.output
 
 if __name__ == '__main__':
