@@ -350,6 +350,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in requests:
+        use_disks = disks[:]
         if request.lv and scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
             continue
 
@@ -389,6 +390,9 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
                 log.debug("%s", stage1_device)
                 continue
 
+            log.debug("making sure biosboot is placed on %s", stage1_device.name)
+            use_disks = [stage1_device]
+
         if request.size > all_free[0]:
             # no big enough free space for the requested partition
             raise NotEnoughFreeSpaceError(_("No big enough free space on disks for "
@@ -407,7 +411,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
                                     grow=request.grow,
                                     maxsize=request.max_size,
                                     mountpoint=request.mountpoint,
-                                    parents=disks)
+                                    parents=use_disks)
 
         # schedule the device for creation
         storage.create_device(dev)
