@@ -433,19 +433,12 @@ class InstallFromImageTask(Task):
 
         try:
             self.report_progress(_("Installing software..."))
-            reader = execReadlines(cmd, args, raise_on_nozero=False)
-            for line in reader:
+            for line in execReadlines(cmd, args):
                 self._parse_rsync_update(line)
 
         except (OSError, RuntimeError) as e:
             msg = "Failed to install image: {}".format(e)
             raise PayloadInstallationError(msg) from None
-
-        if reader.rc == 11:
-            raise PayloadInstallationError(
-                "Failed to install image: "
-                "{} exited with code {}".format(cmd, reader.rc)
-            )
 
     def _parse_rsync_update(self, line):
         """Try to extract progress from rsync output.
