@@ -490,6 +490,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 19 2024 github-actions <github-actions@github.com> - 42.15-1
+- doc: RDP boot option is not supported in live (jkonecny)
+- Fix RDP var contains string instead of bool (jkonecny)
+- Remove stray comma from widgets/configure.ac (vtrefny)
+- Explicitly place biosboot partition only on stage1 disk (vtrefny)
+- network: add warning for kickstart network configuration when running from
+  nfs (rvykydal)
+- liveinst: Allow running as a Wayland-native application (neal)
+
 * Tue Nov 12 2024 github-actions <github-actions@github.com> - 42.14-1
 
 * Fri Nov 08 2024 github-actions <github-actions@github.com> - 42.13-1
