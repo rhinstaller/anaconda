@@ -143,11 +143,6 @@ class DeviceTreeViewer(ABC):
         # FIXME: We should generate the description from the device data.
         data.description = getattr(device, "description", "")
 
-        # Workaround for Virtio Block Device being displayed as 0x1af4
-        # https://github.com/storaged-project/blivet/pull/174
-        if data.description == "0x1af4":
-            data.description = _("Virtio Block Device")
-
         data.attrs["serial"] = self._get_attribute(device, "serial")
         data.attrs["vendor"] = self._get_attribute(device, "vendor")
         data.attrs["model"] = self._get_attribute(device, "model")
