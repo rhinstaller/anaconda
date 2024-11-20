@@ -9,6 +9,7 @@
     secure technologies.
 
     By this change some kernel boot options can't be used:
+
     - inst.usefbx
     - inst.xdriver
 
