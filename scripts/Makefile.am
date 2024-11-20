@@ -17,7 +17,7 @@
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_scripts_SCRIPTS = run-anaconda anaconda-pre-log-gen log-capture start-module apply-updates \
-                       run-in-new-session
+                       run-in-new-session anaconda-import-initramfs-certs
 
 dist_noinst_SCRIPTS  = makeupdates makebumpver
 
