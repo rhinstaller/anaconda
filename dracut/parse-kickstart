@@ -410,24 +410,54 @@ def process_certificates(handler):
     """Import certificates defined in %certificate sections."""
     for certificate in handler.certificates:
 
+        log.info("processing kickstart certificate %s", certificate.name)
+
         if not certificate.name:
             log.error("Missing certificate name, skipping.")
             continue
 
-        if not certificate.path:
-            log.error("Missing certificate path, skipping.")
+        if hasattr(certificate, "category") and certificate.category:
+            category = certificate.category
+        else:
+            category = "plain"
+
+        # Dump the certificate to a file
+
+        if category == "plain":
+            dest_path = certificate.path
+        elif category == "global":
+            dest_path = "/etc/pki/ca-trust/source/anchors"
+        else:
+            log.error("Unknown certificate category %s", category)
             continue
 
-        log.info("processing kickstart certificate %s", certificate.name)
-        # TODO implement --category. For --category override --path
+        if not dest_path:
+            log.error("Missing certificate path for %s, skipping.", certificate.name)
+            continue
 
-        # Dump the certificate to the file
-        file_path = os.path.join(certificate.path, certificate.name)
+        if not os.path.isdir(dest_path):
+            log.debug("Certificate path %s for %s does not exist, creating.",
+                      dest_path,
+                      certificate.name)
+            os.makedirs(dest_path)
+
+        file_path = os.path.join(dest_path, certificate.name)
         with open(file_path, 'w') as f:
             f.write(certificate.cert)
 
+        # Import dumped certificate
+
+        if category == "global":
+            # We'd need to run 'trust anchor FILE_PATH'
+            log.debug("Adding certificate of type 'global' not supported in initramfs")
+
         # Copy to transport directory for switchroot
-        transfer_dir = os.path.join(CERTIFICATES_DIR, certificate.path[1:])
+
+        category_dir = os.path.join(CERTIFICATES_DIR, category)
+        if category:
+            transfer_dir = category_dir
+        else:
+            transfer_dir = os.path.join(category_dir, certificate.path[1:])
         os.makedirs(transfer_dir, exist_ok=True)
         shutil.copy(file_path, transfer_dir)
 
