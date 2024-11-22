@@ -900,7 +900,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
         assert config.includepkgs == ("p1", "p2")
         assert config.excludepkgs == ("p3", "p4")
 
-    @pytest.mark.skip("Not implemented")
     def test_add_repository_replace(self):
         """Test the add_repository method with a replacement."""
         data = RepoConfigurationData()
@@ -916,25 +915,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self.dnf_manager.add_repository(data)
         config = self._get_configuration("r1")
         assert config.baseurl == ("http://u2",)
-
-    @pytest.mark.skip("Not implemented")
-    def test_remove_repository(self):
-        """Test the remove_repository method."""
-        assert self.dnf_manager.repositories == []
-
-        self._add_repository("r1")
-        self._add_repository("r2")
-
-        assert self.dnf_manager.repositories == ["r1", "r2"]
-
-        self.dnf_manager.remove_repository("r1")
-        assert self.dnf_manager.repositories == ["r2"]
-
-        self.dnf_manager.remove_repository("r3")
-        assert self.dnf_manager.repositories == ["r2"]
-
-        self.dnf_manager.remove_repository("r2")
-        assert self.dnf_manager.repositories == []
 
     def test_generate_repo_file_baseurl(self):
         """Test the generate_repo_file method with baseurl."""
