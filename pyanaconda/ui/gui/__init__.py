@@ -289,6 +289,7 @@ class MainWindow(Gtk.Window):
         # Remove the title bar, resize controls and other stuff if the window manager
         # allows it and decorated is set to False. Otherwise, it has no effect.
         self.set_decorated(decorated)
+        self.set_titlebar(Gtk.DrawingArea())
 
         # Hide the titlebar when maximized if the window manager allows it.
         # This makes anaconda look full-screenish but without covering parts
