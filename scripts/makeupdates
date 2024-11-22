@@ -270,7 +270,7 @@ def copy_updated_files(tag, updates, cwd, builddir):
             install_gschema()
         elif gitfile.startswith("data/post-scripts/"):
             install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
-        elif gitfile == "utils/handle-sshpw":
+        elif gitfile == "scripts/handle-sshpw":
             install_to_dir(gitfile, "usr/sbin")
         elif any(gitfile.endswith(libexec_script) for libexec_script in LIBEXEC_SCRIPTS):
             install_to_dir(gitfile, "usr/libexec/anaconda")
