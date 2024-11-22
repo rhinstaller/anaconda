@@ -30,8 +30,9 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.4")
 gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("GObject", "2.0")
+gi.require_version("GLib", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject
+from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject, GLib
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
@@ -520,6 +521,7 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
+        GLib.set_prgname("liveinst")    # matches liveinst.desktop filename
         self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=False)
 
         self._distributionText = distributionText
