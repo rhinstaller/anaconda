@@ -829,37 +829,33 @@ class DNFManager:
     def add_repository(self, data: RepoConfigurationData):
         """Add a repository.
 
-        If the repository already exists, replace it with a new one.
+        If the repository already exists, reconfigure it with new data.
 
         :param RepoConfigurationData data: a repo configuration
         """
+        repositories = libdnf5.repo.RepoQuery(self._base)
+        repositories.filter_id(data.name)
 
         with self._lock:
-            # Create a new repository.
-            repo = self._create_repository(data)
-
-            # FIXME: How to handle existing repositories?
-            # Remove an existing repository.
-            #
-            # if repo.id in self._base.repos:
-            #    self._base.repos.pop(repo.id)
-
-            # Add the new repository.
-            #self._base.repos.add(repo)
+            if repositories.empty():
+                # Create a new repository.
+                repo = self._create_repository(data)
+            else:
+                # Reconfigure the existing repository.
+                repo = self._configure_repository(repositories.get(), data)
 
         log.info("Added the '%s' repository: %s", repo.get_id(), repo)
 
-    def _create_repository(self, data: RepoConfigurationData):
-        """Create a DNF repository.
+    def _configure_repository(self, repo: libdnf5.repo.Repo, data: RepoConfigurationData):
+        """Configure a DNF repository.
 
+        :param libdnf5.repo.Repo repo:existing repository
         :param RepoConfigurationData data: a repo configuration
-        return dnf.repo.Repo: a DNF repository
+        return libdnf5.repo.Repo: a DNF repository
         """
         if self._repositories_loaded:
             raise RuntimeError("Cannot create a new repository. Repositories were already loaded.")
 
-        repo_sack = self._base.get_repo_sack()
-        repo = repo_sack.create_repo(data.name)
         config = repo.get_config()
 
         # Disable the repo if requested.
@@ -909,6 +905,19 @@ class DNFManager:
             config.sslclientkey = data.ssl_configuration.client_key_path
 
         return repo
+
+    def _create_repository(self, data: RepoConfigurationData):
+        """Create a DNF repository.
+
+        :param RepoConfigurationData data: a repo configuration
+        return libdnf5.repo.Repo: a DNF repository
+        """
+        if self._repositories_loaded:
+            raise RuntimeError("Cannot create a new repository. Repositories were already loaded.")
+
+        repo = self._base.get_repo_sack().create_repo(data.name)
+
+        return self._configure_repository(repo, data)
 
     def generate_repo_file(self, data: RepoConfigurationData):
         """Generate a content of the .repo file.
