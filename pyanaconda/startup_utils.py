@@ -347,7 +347,7 @@ def print_startup_note(options):
     shell_only_note = " * shell is available on TTY2 and in second TMUX pane (ctrl+b, then press 2)"
     tmux_only_note = " * shell is available in second TMUX pane (ctrl+b, then press 2)"
     text_mode_note = " * if the graphical installation interface fails to start, try again with the\n"\
-                     "   inst.text bootoption to start text installation"
+                     "   inst.text boot option to start text installation"
     separate_attachements_note = " * when reporting a bug add logs from /tmp as separate text/plain attachments"
 
     if get_product_is_final_release():
