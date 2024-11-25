@@ -28,7 +28,7 @@ To be able to use this library correctly you have to add this to your pylint con
 msg-template='{msg_id}({symbol}):{path}:{line},{column}: {obj}: {msg}'
 """
 
-__all__ = ["CensorshipLinter", "CensorshipConfig"]
+__all__ = ["CensorshipConfig", "CensorshipLinter"]
 
 import sys
 import re
