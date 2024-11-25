@@ -108,11 +108,37 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
         return SetupLiveOSResult(required_space=required_space)
 
     def _calculate_required_space(self):
-        """Calculate size of the live image image."""
-        source = os.statvfs(self._target_mount)
-        required_space = source.f_frsize * (source.f_blocks - source.f_bfree)
-        log.debug("Required space: %s", Size(required_space))
-        return required_space
+        """
+        Calculate the disk space required for the live OS by summing up
+        the size of relevant directories using 'du -s'.
+        """
+        exclude_patterns = [
+            "/dev/",
+            "/proc/",
+            "/tmp/*",
+            "/sys/",
+            "/run/",
+            "/boot/*rescue*",
+            "/boot/loader/",
+            "/boot/efi/loader/",
+            "/etc/machine-id",
+            "/etc/machine-info"
+        ]
+
+        # Build the `du` command
+        du_cmd_args = ["--bytes", "--summarize", self._target_mount]
+        for pattern in exclude_patterns:
+            du_cmd_args.extend(["--exclude", f"{self._target_mount}{pattern}"])
+
+        try:
+            # Execute the `du` command
+            result = execWithCapture("du", du_cmd_args)
+            # Parse the output for the total size
+            required_space = result.split()[0]  # First column is the total
+            log.debug("Required space: %s", Size(required_space))
+            return int(required_space)
+        except (OSError, FileNotFoundError) as e:
+            raise SourceSetupError(str(e)) from e
 
     @property
     def name(self):

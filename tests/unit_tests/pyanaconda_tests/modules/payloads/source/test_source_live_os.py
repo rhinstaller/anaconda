@@ -128,10 +128,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
     """Test the tasks of the Live OS source."""
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.statvfs")
-    def test_live_os_image_size(self, statvfs):
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
+    def test_live_os_image_size(self, exec_mock):
         """Test Live OS image size calculation."""
-        statvfs.return_value = Mock(f_frsize=512, f_blocks=100, f_bfree=42)
+        exec_mock.return_value = "29696      /path/to/base/image/"
 
         task = SetUpLiveOSSourceTask(
                 "/path/to/base/image",
