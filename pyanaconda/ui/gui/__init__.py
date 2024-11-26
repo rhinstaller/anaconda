@@ -521,7 +521,8 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
-        GLib.set_prgname("liveinst")    # matches liveinst.desktop filename
+        if conf.system.provides_liveuser:
+            GLib.set_prgname("liveinst")    # matches liveinst.desktop filename
         self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=False)
 
         self._distributionText = distributionText
