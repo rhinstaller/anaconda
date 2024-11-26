@@ -103,3 +103,9 @@ class InsightsConnectError(InstallationError):
 class SubscriptionTokenTransferError(InstallationError):
     """Exception for errors during subscription token transfer."""
     pass
+
+
+@dbus_error("TargetSatelliteProvisioningError", namespace=ANACONDA_NAMESPACE)
+class TargetSatelliteProvisioningError(InstallationError):
+    """Exception for errors when provisioning target system for Satellite."""
+    pass

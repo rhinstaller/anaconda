@@ -29,6 +29,8 @@ from pyanaconda.core.subscription import check_system_purpose_set
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
+from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError
+from pyanaconda.modules.subscription import satellite
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -245,3 +247,58 @@ class TransferSubscriptionTokensTask(Task):
 
         # transfer the RHSM config file
         self._transfer_file(self.RHSM_CONFIG_FILE_PATH, "RHSM config file")
+
+
+class ProvisionTargetSystemForSatelliteTask(Task):
+    """Provision target system for communication with Satellite.
+
+    If the System gets registered to Satellite at installation time,
+    the provisioning is applied only to the installation environment.
+    This task makes sure it is applied also on the target system.
+
+    Run the appropriate Satellite provisioning script on the target system.
+
+    This should assure the target system has all the needed certificates
+    installed and rhsm.conf tweaks applied.
+    """
+
+    def __init__(self, provisioning_script):
+        """Create a new task.
+
+        :param str provisioning_script: Satellite provisioning script in string form
+        """
+        super().__init__()
+        self._provisioning_script = provisioning_script
+
+    @property
+    def name(self):
+        return "Provisioning target system for Satellite"
+
+    def run(self):
+        """Provision target system for Satellite.
+
+        First check if we are actually registered to a Satellite instance
+        by checking if we got a provisioning script.
+
+        If not, do nothing.
+
+        If we are registered to a Satellite instance, run the Satellite
+        provisioning script that has been downloaded from the instance previously.
+
+        """
+        if self._provisioning_script:
+            log.debug("subscription: provisioning target system for Satellite")
+            provisioning_success = satellite.run_satellite_provisioning_script(
+                provisioning_script=self._provisioning_script,
+                run_on_target_system=True
+
+            )
+            if provisioning_success:
+                log.debug("subscription: target system successfully provisioned for Satellite")
+            else:
+                raise SatelliteProvisioningError("Satellite provisioning script failed.")
+        else:
+            # lets assume here that no provisioning script == not registered to Satellite
+            log.debug(
+                "subscription: not registered to Satellite, skipping Satellite provisioning."
+            )

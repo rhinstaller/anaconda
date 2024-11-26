@@ -20,11 +20,29 @@
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest, OrganizationData
 from pyanaconda.modules.common.containers import TaskContainer
-from dasbus.server.interface import dbus_interface
+from pyanaconda.modules.common.task import TaskInterface
+from dasbus.server.interface import dbus_interface, dbus_class
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+
+@dbus_class
+class RetrieveOrganizationsTaskInterface(TaskInterface):
+    """The interface for a organization data parsing task.
+
+    Such a task returns a list of organization data objects.
+    """
+    @staticmethod
+    def convert_result(value) -> Variant:
+        """Convert the list of org data DBus structs.
+
+        Convert list of org data DBus structs to variant.
+        :param value: a validation report
+        :return: a variant with the structure
+        """
+        return get_variant(List[Structure], OrganizationData.to_structure_list(value))
 
 
 @dbus_interface(SUBSCRIPTION.interface_name)
@@ -37,12 +55,14 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.system_purpose_data_changed)
         self.watch_property("SubscriptionRequest",
                             self.implementation.subscription_request_changed)
-        self.watch_property("AttachedSubscriptions",
-                            self.implementation.attached_subscriptions_changed)
         self.watch_property("InsightsEnabled",
                             self.implementation.connect_to_insights_changed)
         self.watch_property("IsRegistered",
                             self.implementation.registered_changed)
+        self.watch_property("IsRegisteredToSatellite",
+                            self.implementation.registered_to_satellite_changed)
+        self.watch_property("IsSimpleContentAccessEnabled",
+                            self.implementation.simple_content_access_enabled_changed)
         self.watch_property("IsSubscriptionAttached",
                             self.implementation.subscription_attached_changed)
 
@@ -122,13 +142,6 @@ class SubscriptionInterface(KickstartModuleInterface):
         self.implementation.set_subscription_request(converted_data)
 
     @property
-    def AttachedSubscriptions(self) -> List[Structure]:
-        """Return a list of DBus structures holding data about attached subscriptions."""
-        return AttachedSubscription.to_structure_list(
-            self.implementation.attached_subscriptions
-        )
-
-    @property
     def InsightsEnabled(self) -> Int:
         """Connect the target system to Red Hat Insights."""
         return self.implementation.connect_to_insights
@@ -148,6 +161,16 @@ class SubscriptionInterface(KickstartModuleInterface):
         return self.implementation.registered
 
     @property
+    def IsRegisteredToSatellite(self) -> Bool:
+        """Report if the system is registered to a Satellite instance."""
+        return self.implementation.registered_to_satellite
+
+    @property
+    def IsSimpleContentAccessEnabled(self) -> Bool:
+        """Report if Simple Content Access is enabled."""
+        return self.implementation.simple_content_access_enabled
+
+    @property
     def IsSubscriptionAttached(self) -> Bool:
         """Report if an entitlement has been successfully attached."""
         return self.implementation.subscription_attached
@@ -161,24 +184,6 @@ class SubscriptionInterface(KickstartModuleInterface):
             self.implementation.set_rhsm_config_with_task()
         )
 
-    def RegisterUsernamePasswordWithTask(self) -> ObjPath:
-        """Register with username & password using a runtime DBus task.
-
-        :return: a DBus path of an installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.register_username_password_with_task()
-        )
-
-    def RegisterOrganizationKeyWithTask(self) -> ObjPath:
-        """Register with organization & keys(s) using a runtime DBus task.
-
-        :return: a DBus path of an installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.register_organization_key_with_task()
-        )
-
     def UnregisterWithTask(self) -> ObjPath:
         """Unregister using a runtime DBus task.
 
@@ -188,20 +193,20 @@ class SubscriptionInterface(KickstartModuleInterface):
             self.implementation.unregister_with_task()
         )
 
-    def AttachSubscriptionWithTask(self) -> ObjPath:
-        """Attach subscription using a runtime DBus task.
+    def RegisterAndSubscribeWithTask(self) -> ObjPath:
+        """Register and subscribe with a runtime DBus task.
 
-        :return: a DBus path of an installation task
+        :return: a DBus path of a runtime task
         """
         return TaskContainer.to_object_path(
-            self.implementation.attach_subscription_with_task()
+            self.implementation.register_and_subscribe_with_task()
         )
 
-    def ParseAttachedSubscriptionsWithTask(self) -> ObjPath:
-        """Parse attached subscriptions using a runtime DBus task.
+    def RetrieveOrganizationsWithTask(self) -> ObjPath:
+        """Get organization data using a runtime DBus task.
 
-        :return: a DBus path of an installation task
+        :return: a DBus path of a runtime task
         """
         return TaskContainer.to_object_path(
-            self.implementation.parse_attached_subscriptions_with_task()
+            self.implementation.retrieve_organizations_with_task()
         )
