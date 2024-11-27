@@ -64,5 +64,5 @@ jobs:
           git clone --depth=1 https://github.com/cockpit-project/bots
           mkdir -p ~/.config/cockpit-dev
           echo '${{ secrets.GITHUB_TOKEN }}' > ~/.config/cockpit-dev/github-token
-          bots/tests-trigger --repo ${{ github.repository }} ${{ github.event.number }} fedora-rawhide-boot/anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
+          bots/tests-trigger --allow --repo ${{ github.repository }} ${{ github.event.number }} fedora-rawhide-boot/anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
 {% endif %}
