@@ -30,16 +30,6 @@ import time
 import signal
 import pid
 
-# Redirect Anaconda main process stderr to Journal,
-# as otherwise this could end up writing all over
-# the TUI on TTY1.
-
-# create an appropriately named Journal writing stream
-from systemd import journal
-anaconda_stderr_stream = journal.stream("anaconda", priority=journal.LOG_ERR)
-# redirect stderr of this process to the stream
-os.dup2(anaconda_stderr_stream.fileno(), sys.stderr.fileno())
-
 
 def exitHandler(rebootData):
     # Clear the list of watched PIDs.

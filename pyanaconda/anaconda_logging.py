@@ -1,7 +1,7 @@
 #
 # anaconda_logging.py: Support for logging to multiple destinations with log
 #                      levels - basically an extension to the Python logging
-#                      module with Anaconda specififc enhancements.
+#                      module with Anaconda specific enhancements.
 #
 # Copyright (C) 2000, 2001, 2002, 2005, 2017  Red Hat, Inc.  All rights reserved.
 #
@@ -21,13 +21,15 @@
 
 import logging
 from logging.handlers import SysLogHandler, SocketHandler
-from systemd.journal import JournalHandler
+from systemd import journal
 import os
 import sys
 import warnings
 
 from pyanaconda.core import constants
 from pyanaconda.core.path import set_mode
+from pyanaconda.core.glib import log_set_handler, log_set_writer_func, log_writer_format_fields, \
+      LogLevelFlags, LogWriterOutput
 
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
@@ -94,11 +96,11 @@ class _AnacondaLogFixer(object):
         self._stream = WriteProxy()  # pylint: disable=attribute-defined-outside-init
 
 
-class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
+class AnacondaJournalHandler(_AnacondaLogFixer, journal.JournalHandler):
     def __init__(self, tag='', facility=ANACONDA_SYSLOG_FACILITY,
                  identifier=ANACONDA_SYSLOG_IDENTIFIER):
         self.tag = tag
-        JournalHandler.__init__(self,
+        journal.JournalHandler.__init__(self,
                                 SYSLOG_FACILITY=facility,
                                 SYSLOG_IDENTIFIER=identifier)
 
@@ -106,10 +108,10 @@ class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
         if self.tag:
             original_msg = record.msg
             record.msg = '%s: %s' % (self.tag, original_msg)
-            JournalHandler.emit(self, record)
+            journal.JournalHandler.emit(self, record)
             record.msg = original_msg
         else:
-            JournalHandler.emit(self, record)
+            journal.JournalHandler.emit(self, record)
 
 
 class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
@@ -187,6 +189,9 @@ class AnacondaLog(object):
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger)
         self.forwardToJournal(simpleline_logger)
 
+        # Redirect GLib logging (e.g. GTK) to Journal
+        self.redirect_glib_logging_to_journal()
+
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
@@ -231,6 +236,38 @@ class AnacondaLog(object):
         if log_formatter:
             journal_handler.setFormatter(log_formatter)
         logr.addHandler(journal_handler)
+
+    def redirect_glib_logging_to_journal(self):
+        """Redirect GLib based library logging to the journal.
+
+        Some GLib based libraries (such as GTK) do direct their
+        sometimes quite verbose log messages to the output of the
+        process in which they are running. In the Anaconda case,
+        this creates issues with TTY1 being spammed with those
+        messages, with important content (such as RDP connection instructions)
+        being scrolled out of view.
+
+        :param log: anaconda log handler
+        """
+        # create functions that convert the messages coming
+        # from GLib into something that fits to the anaconda logging format
+        def log_adapter(domain, level, message, user_data):
+            if level in (LogLevelFlags.LEVEL_ERROR,
+                         LogLevelFlags.LEVEL_CRITICAL):
+                self.anaconda_logger.error("GLib: %s", message)
+            elif level is LogLevelFlags.LEVEL_WARNING:
+                self.anaconda_logger.warning("GLib: %s", message)
+
+            self.anaconda_logger.debug("GLib: %s", message)
+
+        def structured_log_adapter(level, fields, field_count, user_data):
+            message = log_writer_format_fields(level, fields, True)
+            self.anaconda_logger.debug("GLib: %s", message)
+            return LogWriterOutput.HANDLED
+
+        # redirect GLib log output via the functions
+        log_set_handler(None, LogLevelFlags.LEVEL_MASK, log_adapter, None)
+        log_set_writer_func(structured_log_adapter, None)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
