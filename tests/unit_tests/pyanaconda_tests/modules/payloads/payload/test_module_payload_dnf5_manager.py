@@ -321,13 +321,31 @@ class DNFManagerTestCase(unittest.TestCase):
         ]
         assert report.warning_messages == []
 
-    @pytest.mark.skip("Not implemented")
     def test_ignore_missing_packages(self):
         """Test the ignore_missing_packages attribute."""
+        data = PackagesConfigurationData()
+        data.missing_ignored = True
+        self.dnf_manager.configure_base(data)
+        self.dnf_manager.setup_base()
+
+        self.dnf_manager.apply_specs(
+            include_list=["@g1", "p1"],
+            exclude_list=["@g2", "p2"]
+        )
+
+        report = self.dnf_manager.resolve_selection()
+
+        assert report.error_messages == []
+        assert report.warning_messages == [
+            'No match for argument: p1',
+            'No packages to remove for argument: p2',
+            'No match for argument: g1',
+            'No groups to remove for argument: g2',
+        ]
 
     @pytest.mark.skip("Not implemented")
     def test_ignore_broken_packages(self):
-        """Test the ignore_missing_packages attribute."""
+        """Test the ignore_broken_packages attribute."""
 
     def test_clear_selection(self):
         """Test the clear_selection method."""
