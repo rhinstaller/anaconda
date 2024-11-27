@@ -482,6 +482,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 27 2024 Paweł Poławski <ppolawsk@redhat.com> - 40.22.3.18-1
+
 * Wed Nov 13 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.17-1
 - network: add warning for kickstart network configuration when running from
   nfs (rvykydal)
