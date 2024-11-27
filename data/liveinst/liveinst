@@ -113,6 +113,17 @@ for opt in $(cat /proc/cmdline) "$@"; do
          fi
          exit 1
         ;;
+    rdp|rdp.username|rdp.password|--rdp|--rdp.username|--rdp.password)
+        title="Configuration not supported"
+        text="RDP is not supported on live media."
+        if which zenity &> /dev/null; then
+            zenity --warning --title="$title" --text="$text"
+         else
+            echo "$title" >&2
+            echo "$text" >&2
+         fi
+         exit 1
+        ;;
     esac
 done
 
