@@ -393,32 +393,34 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    @patch("pyanaconda.modules.localization.localization.GkKeyboardManager")
-    def test_compositor_layouts_api(self, gk_manager_cls):
-        manager_class_mock = Mock()
-        manager_class_mock.compositor_selected_layout_changed = Signal()
-        manager_class_mock.compositor_layouts_changed = Signal()
-        gk_manager_cls.return_value = manager_class_mock
+    @patch("pyanaconda.modules.localization.localization.LocaledWrapper")
+    def test_compositor_layouts_api(self, mocked_localed_wrapper):
+        localed_class_mock = Mock()
+        localed_class_mock.compositor_selected_layout_changed = Signal()
+        localed_class_mock.compositor_layouts_changed = Signal()
+        mocked_localed_wrapper.return_value = localed_class_mock
 
-        self.localization_module._compositor_keyboard_manager = None
-        manager_mock = self.localization_module.compositor_keyboard_manager
+        self.localization_module._localed_wrapper = None
+        manager_mock = self.localization_module.localed_wrapper
 
-        self.localization_interface.GetCompositorSelectedLayout()
-        # pylint: disable=no-member
-        manager_mock.get_compositor_selected_layout.assert_called_once()
+        manager_mock.current_layout_variant = "cz"
+        assert self.localization_interface.GetCompositorSelectedLayout() == "cz"
+
         self.localization_interface.SetCompositorSelectedLayout("cz (qwerty)")
         # pylint: disable=no-member
-        manager_mock.set_compositor_selected_layout.assert_called_once_with("cz (qwerty)")
+        manager_mock.set_current_layout.assert_called_once_with("cz (qwerty)")
+
         self.localization_interface.SelectNextCompositorLayout()
         # pylint: disable=no-member
-        manager_mock.select_next_compositor_layout.assert_called_once()
-        self.localization_interface.GetCompositorLayouts()
-        # pylint: disable=no-member
-        manager_mock.get_compositor_layouts.assert_called_once()
+        manager_mock.select_next_layout.assert_called_once()
+
+        manager_mock.layouts_variants = ["us", "es"]
+        assert self.localization_interface.GetCompositorLayouts() == ["us", "es"]
+
         self.localization_interface.SetCompositorLayouts(["cz (qwerty)", "cn (mon_todo_galik)"],
                                                          ["option"])
         # pylint: disable=no-member
-        manager_mock.set_compositor_layouts.assert_called_once_with(
+        manager_mock.set_layouts.assert_called_once_with(
             ["cz (qwerty)", "cn (mon_todo_galik)"],
             ["option"]
         )
@@ -427,13 +429,13 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         callback_mock = Mock()
         # pylint: disable=no-member
         self.localization_interface.CompositorSelectedLayoutChanged.connect(callback_mock)
-        manager_class_mock.compositor_selected_layout_changed.emit("cz (qwerty)")
+        localed_class_mock.compositor_selected_layout_changed.emit("cz (qwerty)")
         callback_mock.assert_called_once_with("cz (qwerty)")
 
         callback_mock = Mock()
         # pylint: disable=no-member
         self.localization_interface.CompositorLayoutsChanged.connect(callback_mock)
-        manager_class_mock.compositor_layouts_changed.emit(["cz (qwerty)", "cn (mon_todo_galik)"])
+        localed_class_mock.compositor_layouts_changed.emit(["cz (qwerty)", "cn (mon_todo_galik)"])
         callback_mock.assert_called_once_with(["cz (qwerty)", "cn (mon_todo_galik)"])
 
 class LocalizationModuleTestCase(unittest.TestCase):
