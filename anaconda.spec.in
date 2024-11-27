@@ -481,6 +481,50 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 27 2024 Paweł Poławski <ppolawsk@redhat.com> - 40.22.3.18-1
+- util: Add additional information for EFI systems (riehecky)
+  Resolves: RHEL-55129
+- Use log levels when getting logs from GLib (jkonecny)
+  Related: RHEL-58834
+- Remove GLib logging condition for HW logging (jkonecny)
+  Related: RHEL-58834
+- Move GLib imports to pyanaconda.core.glib (jkonecny)
+  Related: RHEL-58834
+- Redirect only GLib loggers to Journal (mkolman)
+  Related: RHEL-58834
+- Log stderr to journal only on supported platforms (jkonecny)
+  Related: RHEL-58834
+- Fix journal redirect on systems without journal (jkonecny)
+  Related: RHEL-58834
+- Suppress warning from systemd user session (jkonecny)
+  Resolves: RHEL-67911
+- Fix RDP var contains string instead of bool (jkonecny)
+  Related: RHEL-67911
+- Set --rdp in liveinst unsupported (jkonecny)
+  Related: RHEL-67911
+- Stop pretending liveinst+vnc is supported (#678354) (kkoukiou)
+  Related: RHEL-67911
+- Create GRDServer class only when required (jkonecny)
+  Related: RHEL-67911
+- Fix typo in the GRD source file name (jkonecny)
+  Related: RHEL-67911
+- Do not change compositor options when not defined (jkonecny)
+  Related: RHEL-58181
+- Add release-notes for Wayland migration (jkonecny)
+  Related: RHEL-58181
+- Remove Wayland detection logic from code (jkonecny)
+  Related: RHEL-58181
+- Do not create GRDServer on Live ISO (jkonecny)
+  Related: RHEL-67911
+- Remove dead spice_vd_agent code (jkonecny)
+  Related: RHEL-67911
+- Switch keyboard management to Localed (jkonecny)
+  Resolves: RHEL-58181
+- Add localed signal support to LocaledWrapper (jkonecny)
+  Resolves: RHEL-58181
+- Add missing support to localed for compositor (jkonecny)
+  Related: RHEL-58181
+
 * Wed Nov 13 2024 Martin Kolman <mkolman@redhat.com> - 40.22.3.17-1
 - network: add warning for kickstart network configuration when running from
   nfs (rvykydal)
