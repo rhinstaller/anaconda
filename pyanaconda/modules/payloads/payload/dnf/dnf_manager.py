@@ -224,8 +224,8 @@ class DNFManager:
         self._ignore_missing_packages = data.missing_ignored
         self._ignore_broken_packages = data.broken_ignored
 
-        # FIXME: Set up skip broken?
-        # config.skip_broken = data.broken_ignored
+        config.skip_unavailable = data.missing_ignored
+        config.skip_broken = data.broken_ignored
 
         if self._ignore_broken_packages:
             log.warning(
@@ -607,14 +607,6 @@ class DNFManager:
 
         log.debug("Resolving the software selection.")
         self._transaction = self._goal.resolve()
-
-        # FIXME: Ignore missing packages. Otherwise, report as warning.
-        if self._ignore_missing_packages:
-            pass
-
-        # FIXME: Ignore broken packages. Otherwise, report as error.
-        if self._ignore_broken_packages:
-            pass
 
         if self._transaction.get_problems() != libdnf5.base.GoalProblem_NO_PROBLEM:
             for message in self._transaction.get_resolve_logs_as_strings():
