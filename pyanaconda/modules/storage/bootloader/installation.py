@@ -36,9 +36,16 @@ from pyanaconda.modules.common.task import Task
 log = get_module_logger(__name__)
 
 
-__all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
-           "FixZIPLBootloaderTask", "RecreateInitrdsTask", "CreateRescueImagesTask",
-           "CreateBLSEntriesTask", "CollectKernelArgumentsTask"]
+__all__ = [
+    "CollectKernelArgumentsTask",
+    "ConfigureBootloaderTask",
+    "CreateBLSEntriesTask",
+    "CreateRescueImagesTask",
+    "FixBTRFSBootloaderTask",
+    "FixZIPLBootloaderTask",
+    "InstallBootloaderTask",
+    "RecreateInitrdsTask",
+]
 
 
 class CreateRescueImagesTask(Task):

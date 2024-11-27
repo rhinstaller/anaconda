@@ -23,7 +23,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import MULTILIB_POLICY_BEST, RPM_LANGUAGES_ALL, \
     DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
 
-__all__ = ["PackagesSelectionData", "PackagesConfigurationData"]
+__all__ = ["PackagesConfigurationData", "PackagesSelectionData"]
 
 
 class PackagesSelectionData(DBusData):

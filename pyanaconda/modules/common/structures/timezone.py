@@ -21,7 +21,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import TIME_SOURCE_SERVER
 
-__all__ = ["TimeSourceData", "GeolocationData"]
+__all__ = ["GeolocationData", "TimeSourceData"]
 
 
 class TimeSourceData(DBusData):

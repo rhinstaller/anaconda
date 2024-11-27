@@ -21,8 +21,15 @@ from time import sleep, perf_counter
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 from pyanaconda.modules.common.task.task import Task, ValidationTask, AbstractTask
 
-__all__ = ["sync_run_task", "async_run_task", "wait_for_task", "AbstractTask", "Task",
-           "ValidationTask", "TaskInterface"]
+__all__ = [
+    "AbstractTask",
+    "Task",
+    "TaskInterface",
+    "ValidationTask",
+    "async_run_task",
+    "sync_run_task",
+    "wait_for_task",
+]
 
 
 def sync_run_task(task_proxy, callback=None):

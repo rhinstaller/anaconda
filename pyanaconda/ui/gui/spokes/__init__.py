@@ -22,7 +22,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["StandaloneSpoke", "NormalSpoke"]
+__all__ = ["NormalSpoke", "StandaloneSpoke"]
 
 
 # Inherit abstract methods from common.StandaloneSpoke

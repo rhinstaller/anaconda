@@ -19,7 +19,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["Portal", "Credentials", "Node"]
+__all__ = ["Credentials", "Node", "Portal"]
 
 
 class Portal(DBusData):

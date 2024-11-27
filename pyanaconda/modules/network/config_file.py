@@ -23,7 +23,7 @@ import os
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["get_config_files_content", "is_config_file_for_system", "IFCFG_DIR", "KEYFILE_DIR"]
+__all__ = ["IFCFG_DIR", "KEYFILE_DIR", "get_config_files_content", "is_config_file_for_system"]
 
 IFCFG_DIR = "/etc/sysconfig/network-scripts"
 KEYFILE_DIR = "/etc/NetworkManager/system-connections"
@@ -58,8 +58,8 @@ def get_config_files_paths(root_path=""):
 def is_config_file_for_system(filename):
     """Checks if the file stores configuration for target system."""
     dirname = os.path.dirname(filename)
-    return (dirname == IFCFG_DIR and _has_ifcfg_basename(filename) or
-            dirname == KEYFILE_DIR and _has_keyfile_basename(filename))
+    return ((dirname == IFCFG_DIR and _has_ifcfg_basename(filename)) or
+            (dirname == KEYFILE_DIR and _has_keyfile_basename(filename)))
 
 
 def _has_ifcfg_basename(name):

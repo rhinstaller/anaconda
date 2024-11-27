@@ -54,7 +54,7 @@ from enum import Enum
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["RescueModeSpoke", "RootSelectionSpoke", "RescueStatusAndShellSpoke"]
+__all__ = ["RescueModeSpoke", "RescueStatusAndShellSpoke", "RootSelectionSpoke"]
 
 
 def makeFStab(instPath=""):

@@ -845,7 +845,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     ###
 
     def on_key_pressed(self, widget, event, *args):
-        if not event or event and event.type != Gdk.EventType.KEY_RELEASE:
+        if not event or (event and event.type != Gdk.EventType.KEY_RELEASE):
             return
 
         if event.keyval in [Gdk.KEY_Delete, Gdk.KEY_minus]:

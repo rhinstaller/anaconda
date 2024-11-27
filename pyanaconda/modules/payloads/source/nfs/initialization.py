@@ -31,8 +31,8 @@ from pyanaconda.payload.utils import mount, unmount
 log = get_module_logger(__name__)
 
 __all__ = [
-    "SetUpNFSSourceTask",
-    "SetUpNFSSourceResult"
+    "SetUpNFSSourceResult",
+    "SetUpNFSSourceTask"
 ]
 
 SetUpNFSSourceResult = namedtuple(

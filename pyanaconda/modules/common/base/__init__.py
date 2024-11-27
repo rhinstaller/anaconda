@@ -21,6 +21,12 @@ from pyanaconda.modules.common.base.base_interface import KickstartModuleInterfa
 from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate, \
     KickstartModuleInterfaceTemplate
 
-__all__ = ["BaseModule", "Service", "KickstartBaseModule", "KickstartService",
-           "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate",
-           "KickstartModuleInterface"]
+__all__ = [
+           "BaseModule",
+           "KickstartBaseModule",
+           "KickstartModuleInterface",
+           "KickstartModuleInterfaceTemplate",
+           "KickstartService",
+           "ModuleInterfaceTemplate",
+           "Service",
+]

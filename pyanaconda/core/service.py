@@ -20,8 +20,15 @@ from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 
-__all__ = ["start_service", "stop_service", "restart_service", "is_service_running",
-           "is_service_installed", "enable_service", "disable_service"]
+__all__ = [
+    "disable_service",
+    "enable_service",
+    "is_service_installed",
+    "is_service_running",
+    "restart_service",
+    "start_service",
+    "stop_service",
+]
 
 
 def _run_systemctl(command, service, root):

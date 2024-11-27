@@ -20,7 +20,7 @@
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
-__all__ = ["UnmountFilesystemsTask", "TeardownDiskImagesTask"]
+__all__ = ["TeardownDiskImagesTask", "UnmountFilesystemsTask"]
 
 
 class UnmountFilesystemsTask(Task):

@@ -22,7 +22,7 @@ from pyanaconda.core.i18n import N_, _
 
 from simpleline.render.widgets import Widget, CheckboxWidget
 
-__all__ = ["TUISpoke", "StandaloneSpoke", "NormalTUISpoke"]
+__all__ = ["NormalTUISpoke", "StandaloneSpoke", "TUISpoke"]
 
 
 # Inherit abstract methods from Spoke

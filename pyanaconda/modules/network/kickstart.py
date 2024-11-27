@@ -95,8 +95,8 @@ def update_first_network_command_activate_value(network_data_list):
 
 
 def is_hostname_only_network_args(args):
-    return (len(args) == 1 and args[0].startswith("--hostname") or
-            len(args) == 2 and "--hostname" in args)
+    return ((len(args) == 1 and args[0].startswith("--hostname")) or
+            (len(args) == 2 and "--hostname" in args))
 
 
 def is_hostname_only_network_data(network_data):

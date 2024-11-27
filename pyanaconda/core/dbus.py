@@ -27,7 +27,7 @@ from pyanaconda.modules.common.errors import register_errors
 
 log = get_module_logger(__name__)
 
-__all__ = ["DBus", "SystemBus", "SessionBus", "error_mapper", "dbus_error"]
+__all__ = ["DBus", "SessionBus", "SystemBus", "dbus_error", "error_mapper"]
 
 
 class AnacondaMessageBus(MessageBus):

@@ -18,4 +18,4 @@
 from pyanaconda.modules.storage.disk_initialization.configuration import DiskInitializationConfig
 from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
 
-__all__ = ["DiskInitializationModule", "DiskInitializationConfig"]
+__all__ = ["DiskInitializationConfig", "DiskInitializationModule"]

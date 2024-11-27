@@ -46,7 +46,7 @@ from pykickstart.constants import SELINUX_DISABLED
 
 log = get_module_logger(__name__)
 
-__all__ = ["BootLoaderError", "BootLoaderArguments", "BootLoader"]
+__all__ = ["BootLoader", "BootLoaderArguments", "BootLoaderError"]
 
 
 def _is_on_sw_iscsi(device):

@@ -23,8 +23,12 @@ from pykickstart.parser import KickstartParser
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.core.kickstart.addon import AddonSection, AddonRegistry
 
-__all__ = ["KickstartSpecification", "NoKickstartSpecification",
-           "KickstartSpecificationHandler", "KickstartSpecificationParser"]
+__all__ = [
+    "KickstartSpecification",
+    "KickstartSpecificationHandler",
+    "KickstartSpecificationParser",
+    "NoKickstartSpecification",
+]
 
 
 class KickstartSpecification(object):

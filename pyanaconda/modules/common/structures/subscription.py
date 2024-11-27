@@ -23,7 +23,7 @@ from pyanaconda.core.constants import DEFAULT_SUBSCRIPTION_REQUEST_TYPE
 
 from pyanaconda.modules.common.structures.secret import SecretData, SecretDataList
 
-__all__ = ["SystemPurposeData", "SubscriptionRequest", "AttachedSubscription"]
+__all__ = ["AttachedSubscription", "SubscriptionRequest", "SystemPurposeData"]
 
 
 class SystemPurposeData(DBusData):

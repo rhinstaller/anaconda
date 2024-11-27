@@ -54,11 +54,23 @@ network_connected_condition = threading.Condition()
 
 _nm_client = None
 
-__all__ = ["get_supported_devices", "status_message", "wait_for_connectivity",
-           "wait_for_connecting_NM_thread", "wait_for_network_devices", "wait_for_connected_NM",
-           "initialize_network", "copy_resolv_conf_to_root", "prefix_to_netmask",
-           "netmask_to_prefix", "get_first_ip_address", "is_valid_hostname", "check_ip_address",
-           "get_nm_client", "write_configuration"]
+__all__ = [
+    "check_ip_address",
+    "copy_resolv_conf_to_root",
+    "get_first_ip_address",
+    "get_nm_client",
+    "get_supported_devices",
+    "initialize_network",
+    "is_valid_hostname",
+    "netmask_to_prefix",
+    "prefix_to_netmask",
+    "status_message",
+    "wait_for_connected_NM",
+    "wait_for_connecting_NM_thread",
+    "wait_for_connectivity",
+    "wait_for_network_devices",
+    "write_configuration",
+]
 
 
 def get_nm_client():

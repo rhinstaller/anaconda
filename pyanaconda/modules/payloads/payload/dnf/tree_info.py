@@ -38,12 +38,12 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 log = get_module_logger(__name__)
 
 __all__ = [
-    "TreeInfoMetadataError",
-    "NoTreeInfoError",
     "InvalidTreeInfoError",
-    "TreeInfoMetadata",
     "LoadTreeInfoMetadataResult",
     "LoadTreeInfoMetadataTask",
+    "NoTreeInfoError",
+    "TreeInfoMetadata",
+    "TreeInfoMetadataError",
 ]
 
 

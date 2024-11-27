@@ -27,7 +27,7 @@ from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_TEXT, SECRET
 
 log = get_module_logger(__name__)
 
-__all__ = ["get_public_copy", "hide_secrets", "SecretData", "SecretDataList"]
+__all__ = ["SecretData", "SecretDataList", "get_public_copy", "hide_secrets"]
 
 
 def get_public_copy(obj: DBusData):

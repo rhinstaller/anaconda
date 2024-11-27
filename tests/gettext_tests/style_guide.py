@@ -94,14 +94,13 @@ msgs = {e.msgid: e for e in pofile}
 success = True
 for badre, suggestion in bad_strings.items():
     regex = re.compile(badre)
-    for msg in msgs.keys():
-        # Remove underscores to avoid trouble with underline-based accelerators
+    for msg, msg_data in msgs.items():
         match = re.search(regex, msg.replace('_', ''))
         if match:
             # If this is something expected, decrement the occurrence count in expected_badness
             badstr = match.group(0)
             remainder = []
-            for occur in msgs[msg].occurrences:
+            for occur in msg_data.occurrences:
                 if occur[0] in expected_badness and badstr in expected_badness[occur[0]]:
                     expected_badness[occur[0]][badstr] -= 1
                     if expected_badness[occur[0]][badstr] == 0:
@@ -113,9 +112,9 @@ for badre, suggestion in bad_strings.items():
 
             if remainder:
                 print("Bad string %(bad)s found at %(occurrences)s. Try %(suggestion)s instead." %
-                        {"bad": badstr,
-                         "occurrences": " ".join(("%s:%s" % (o[0], o[1]) for o in remainder)),
-                         "suggestion": suggestion})
+                      {"bad": badstr,
+                       "occurrences": " ".join(("%s:%s" % (o[0], o[1]) for o in remainder)),
+                       "suggestion": suggestion})
                 success = False
 
 if expected_badness:

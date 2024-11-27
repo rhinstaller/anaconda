@@ -27,7 +27,7 @@ from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
 
-__all__ = ["PrepareSystemForInstallationTask", "CopyDriverDisksFilesTask"]
+__all__ = ["CopyDriverDisksFilesTask", "PrepareSystemForInstallationTask"]
 
 
 class PrepareSystemForInstallationTask(Task):

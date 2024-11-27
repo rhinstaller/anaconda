@@ -18,4 +18,4 @@
 from pyanaconda.payload.live.payload_liveimg import LiveImagePayload
 from pyanaconda.payload.live.payload_liveos import LiveOSPayload
 
-__all__ = ["LiveOSPayload", "LiveImagePayload"]
+__all__ = ["LiveImagePayload", "LiveOSPayload"]

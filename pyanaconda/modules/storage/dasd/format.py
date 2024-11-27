@@ -24,7 +24,7 @@ from blivet import blockdev
 
 log = get_module_logger(__name__)
 
-__all__ = ["FindFormattableDASDTask", "DASDFormatTask"]
+__all__ = ["DASDFormatTask", "FindFormattableDASDTask"]
 
 
 class FindFormattableDASDTask(Task):

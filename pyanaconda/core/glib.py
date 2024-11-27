@@ -43,17 +43,35 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-__all__ = ["create_main_loop", "create_new_context",
-           "markup_escape_text", "format_size_full",
-           "timeout_add_seconds", "timeout_add", "idle_add",
-           "io_add_watch", "child_watch_add",
-           "source_remove", "timeout_source_new",
-           "spawn_close_pid", "spawn_async_with_pipes",
-           "log_writer_format_fields", "log_set_handler", "log_set_writer_func",
-           "GError", "Variant", "VariantType", "Bytes",
-           "IOCondition", "IOChannel", "SpawnFlags",
-           "LogWriterOutput", "LogLevelFlags",
-           "MAXUINT", "Cancellable"]
+__all__ = [
+    "MAXUINT",
+    "Bytes",
+    "Cancellable",
+    "GError",
+    "IOChannel",
+    "IOCondition",
+    "LogLevelFlags",
+    "LogWriterOutput",
+    "SpawnFlags",
+    "Variant",
+    "VariantType",
+    "child_watch_add",
+    "create_main_loop",
+    "create_new_context",
+    "format_size_full",
+    "idle_add",
+    "io_add_watch",
+    "log_set_handler",
+    "log_set_writer_func",
+    "log_writer_format_fields",
+    "markup_escape_text",
+    "source_remove",
+    "spawn_async_with_pipes",
+    "spawn_close_pid",
+    "timeout_add",
+    "timeout_add_seconds",
+    "timeout_source_new",
+]
 
 
 def create_main_loop(main_context=None):

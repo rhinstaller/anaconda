@@ -28,9 +28,18 @@ from pyanaconda.ui.gui.utils import escape_markup
 
 log = get_module_logger(__name__)
 
-__all__ = ["NeedSpaceDialog", "NoSpaceDialog", "RESPONSE_CANCEL", "RESPONSE_OK",
-           "RESPONSE_MODIFY_SW", "RESPONSE_RECLAIM", "RESPONSE_QUIT", "DASD_FORMAT_NO_CHANGE",
-           "DASD_FORMAT_REFRESH", "DASD_FORMAT_RETURN_TO_HUB"]
+__all__ = [
+    "DASD_FORMAT_NO_CHANGE",
+    "DASD_FORMAT_REFRESH",
+    "DASD_FORMAT_RETURN_TO_HUB",
+    "RESPONSE_CANCEL",
+    "RESPONSE_MODIFY_SW",
+    "RESPONSE_OK",
+    "RESPONSE_QUIT",
+    "RESPONSE_RECLAIM",
+    "NeedSpaceDialog",
+    "NoSpaceDialog",
+]
 
 # Response ID codes for all the various buttons on all the dialogs.
 RESPONSE_CANCEL = 0

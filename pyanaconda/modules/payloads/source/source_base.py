@@ -31,8 +31,8 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
 __all__ = [
-    "PayloadSourceBase",
     "MountingSourceMixin",
+    "PayloadSourceBase",
     "RPMSourceMixin",
     "RepositorySourceMixin"
 ]

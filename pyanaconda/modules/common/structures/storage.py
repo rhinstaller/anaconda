@@ -19,7 +19,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["DeviceData", "DeviceFormatData", "DeviceActionData", "OSData"]
+__all__ = ["DeviceActionData", "DeviceData", "DeviceFormatData", "OSData"]
 
 
 class DeviceData(DBusData):
