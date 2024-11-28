@@ -120,7 +120,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             "--exclude", "/etc/machine-info",
             mount_point + "/",
             "/mnt/root"
-        ])
+        ], raise_on_nozero=False)
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
@@ -138,6 +138,24 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
                 task.run()
 
         msg = "Failed to install image: Fake!"
+        assert str(cm.value) == msg
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_return_code(self, exec_readlines, os_sync):
+        """Test installation from an image task with bad return code."""
+        exec_readlines.return_value = self._make_reader(11)
+
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
+
+        msg = "Failed to install image: rsync exited with code 11"
         assert str(cm.value) == msg
 
 
