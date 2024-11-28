@@ -25,7 +25,7 @@ from gi.repository import Gtk, Pango
 
 log = get_module_logger(__name__)
 
-__all__ = ["SeparatorRow", "GroupListBoxRow", "EnvironmentListBoxRow"]
+__all__ = ["EnvironmentListBoxRow", "GroupListBoxRow", "SeparatorRow"]
 
 
 class SeparatorRow(Gtk.ListBoxRow):

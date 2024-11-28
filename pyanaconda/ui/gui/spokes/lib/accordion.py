@@ -30,7 +30,7 @@ from gi.repository import Gtk, AnacondaWidgets
 
 log = get_module_logger(__name__)
 
-__all__ = ["MountPointSelector", "Accordion", "Page", "UnknownPage", "CreateNewPage"]
+__all__ = ["Accordion", "CreateNewPage", "MountPointSelector", "Page", "UnknownPage"]
 
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1

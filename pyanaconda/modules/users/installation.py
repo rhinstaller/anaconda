@@ -25,8 +25,13 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["SetRootPasswordTask", "CreateUsersTask", "CreateGroupsTask", "SetSshKeysTask",
-           "ConfigureRootPasswordSSHLoginTask"]
+__all__ = [
+    "ConfigureRootPasswordSSHLoginTask",
+    "CreateGroupsTask",
+    "CreateUsersTask",
+    "SetRootPasswordTask",
+    "SetSshKeysTask",
+]
 
 
 class SetRootPasswordTask(Task):

@@ -31,7 +31,8 @@ from pyanaconda.core.product import get_product_name
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "Aarch64EFISystemdBoot", "X64EFISystemdBoot"]
+__all__ = ["EFIGRUB", "Aarch64EFIGRUB", "Aarch64EFISystemdBoot",
+           "ArmEFIGRUB", "EFIBase", "X64EFISystemdBoot"]
 
 
 class EFIBase(object):

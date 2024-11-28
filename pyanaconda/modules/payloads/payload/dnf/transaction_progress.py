@@ -24,7 +24,7 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
 
 log = get_module_logger(__name__)
 
-__all__ = ["process_transaction_progress", "TransactionProgress"]
+__all__ = ["TransactionProgress", "process_transaction_progress"]
 
 
 def process_transaction_progress(queue, callback):

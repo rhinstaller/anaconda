@@ -21,7 +21,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["DeviceFactoryRequest", "DeviceFactoryPermissions"]
+__all__ = ["DeviceFactoryPermissions", "DeviceFactoryRequest"]
 
 
 class DeviceFactoryRequest(DBusData):

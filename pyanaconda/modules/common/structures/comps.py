@@ -19,7 +19,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["CompsGroupData", "CompsEnvironmentData"]
+__all__ = ["CompsEnvironmentData", "CompsGroupData"]
 
 
 class CompsGroupData(DBusData):

@@ -27,7 +27,7 @@ from pyanaconda.core.product import get_product_name
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["configure_boot_loader", "recreate_initrds", "create_rescue_images"]
+__all__ = ["configure_boot_loader", "create_rescue_images", "recreate_initrds"]
 
 
 def create_rescue_images(sysroot, kernel_versions):

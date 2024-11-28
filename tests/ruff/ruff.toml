@@ -2,6 +2,7 @@
 
 line-length = 99
 
+[lint]
 select = [
     "E", # pycodestyle error
     "F", # pyflakes
@@ -12,7 +13,6 @@ select = [
     "RUF", # Ruff-specific rules
     "SIM", # flake8-simplify
 ]
-
 ignore = [
     "E501", # Line too long
     "E402", # Module level import not at top of file

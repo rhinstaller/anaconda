@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-__all__ = ["SplitKickstartParser", "VALID_SECTIONS_ANACONDA"]
+__all__ = ["VALID_SECTIONS_ANACONDA", "SplitKickstartParser"]
 
 from pykickstart.parser import KickstartParser
 from pykickstart.sections import Section

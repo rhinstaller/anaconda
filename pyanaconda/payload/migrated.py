@@ -29,7 +29,7 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
 
 log = get_module_logger(__name__)
 
-__all__ = ["MigratedDBusPayload", "ActiveDBusPayload"]
+__all__ = ["ActiveDBusPayload", "MigratedDBusPayload"]
 
 
 class MigratedDBusPayload(Payload, metaclass=ABCMeta):

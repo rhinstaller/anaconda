@@ -28,7 +28,7 @@ from pyanaconda.core.i18n import _
 
 log = get_module_logger(__name__)
 
-__all__ = ["AddonData", "AddonSection", "AddonRegistry"]
+__all__ = ["AddonData", "AddonRegistry", "AddonSection"]
 
 
 class AddonData(KickstartObject, metaclass=ABCMeta):

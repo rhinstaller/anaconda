@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-__all__ = ["_", "N_", "P_", "C_", "CN_", "CP_"]
+__all__ = ["CN_", "CP_", "C_", "N_", "P_", "_"]
 
 import gettext
 

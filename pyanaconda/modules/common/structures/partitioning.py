@@ -22,7 +22,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.configuration.anaconda import conf
 
-__all__ = ["PartitioningRequest", "MountPointRequest"]
+__all__ = ["MountPointRequest", "PartitioningRequest"]
 
 
 class PartitioningRequest(DBusData):

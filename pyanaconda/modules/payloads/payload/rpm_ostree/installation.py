@@ -371,7 +371,7 @@ class CopyBootloaderDataTask(Task):
             # actually EFI (simulating grub2-efi being installed).  Second, as it's a mount point
             # that's expected to already exist (so if we used copytree, we'd traceback). If it
             # doesn't, we're not on a UEFI system, so we don't want to copy the data.
-            if not fname == 'efi' or is_efi and os.path.isdir(os.path.join(physboot, fname)):
+            if not fname == 'efi' or (is_efi and os.path.isdir(os.path.join(physboot, fname))):
                 log.info("Copying bootloader data: %s", fname)
                 safe_exec_with_redirect('cp', ['-r', '-p', srcpath, physboot])
 

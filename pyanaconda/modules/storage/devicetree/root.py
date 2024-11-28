@@ -31,7 +31,7 @@ from pyanaconda.modules.storage.devicetree.fsset import BlkidTab, CryptTab
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["mount_existing_system", "find_existing_installations", "Root"]
+__all__ = ["Root", "find_existing_installations", "mount_existing_system"]
 
 
 def mount_existing_system(storage, root_device, read_only=None):

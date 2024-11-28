@@ -40,7 +40,7 @@ from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR, 
 
 log = get_module_logger(__name__)
 
-__all__ = ["conf", "AnacondaConfiguration"]
+__all__ = ["AnacondaConfiguration", "conf"]
 
 
 class AnacondaSection(Section):

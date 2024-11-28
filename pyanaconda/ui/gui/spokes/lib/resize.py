@@ -442,7 +442,7 @@ class ResizeDialog(GUIObject):
     def on_key_pressed(self, window, event, *args):
         # Handle any keyboard events.  Right now this is just delete for
         # removing a partition, but it could include more later.
-        if not event or event and event.type != Gdk.EventType.KEY_RELEASE:
+        if not event or (event and event.type != Gdk.EventType.KEY_RELEASE):
             return
 
         if event.keyval == Gdk.KEY_Delete and self._delete_button.get_sensitive():

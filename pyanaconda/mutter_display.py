@@ -22,7 +22,7 @@ from pyanaconda.modules.common.constants.services import MUTTER_DISPLAY_CONFIG
 from pyanaconda.core.regexes import SCREEN_RESOLUTION_CONFIG
 
 
-__all__ = ['MutterDisplay', 'MutterConfigError']
+__all__ = ['MutterConfigError', 'MutterDisplay']
 
 
 class MutterConfigError(Exception):

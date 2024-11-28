@@ -41,7 +41,7 @@ from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["UserSpoke", "AdvancedUserDialog"]
+__all__ = ["AdvancedUserDialog", "UserSpoke"]
 
 
 class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):

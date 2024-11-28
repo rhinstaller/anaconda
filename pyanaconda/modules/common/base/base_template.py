@@ -20,7 +20,7 @@
 
 from dasbus.server.template import InterfaceTemplate
 
-__all__ = ["InterfaceTemplate", "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate"]
+__all__ = ["InterfaceTemplate", "KickstartModuleInterfaceTemplate", "ModuleInterfaceTemplate"]
 
 
 class ModuleInterfaceTemplate(InterfaceTemplate):

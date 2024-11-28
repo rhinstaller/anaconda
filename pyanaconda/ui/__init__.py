@@ -153,9 +153,8 @@ class UserInterface(object):
         standalones = []
 
         def check_standalone_spokes(obj):
-            return issubclass(obj, standalone_class) and \
-                getattr(obj, "preForHub", False) or \
-                getattr(obj, "postForHub", False)
+            return ((issubclass(obj, standalone_class) and getattr(obj, "preForHub", False))
+                    or getattr(obj, "postForHub", False))
 
         for module_pattern, path in module_pattern_w_path:
             standalones.extend(

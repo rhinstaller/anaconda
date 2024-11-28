@@ -18,4 +18,4 @@
 from pyanaconda.modules.storage.devicetree.model import create_storage
 from pyanaconda.modules.storage.devicetree.devicetree import DeviceTreeModule
 
-__all__ = ["create_storage", "DeviceTreeModule"]
+__all__ = ["DeviceTreeModule", "create_storage"]

@@ -27,7 +27,7 @@ from pyanaconda.modules.storage.checker.utils import storage_checker, verify_luk
 
 log = get_module_logger(__name__)
 
-__all__ = ["InteractivePartitioningTask", "InteractiveAutoPartitioningTask"]
+__all__ = ["InteractiveAutoPartitioningTask", "InteractivePartitioningTask"]
 
 
 class InteractivePartitioningTask(PartitioningTask):
