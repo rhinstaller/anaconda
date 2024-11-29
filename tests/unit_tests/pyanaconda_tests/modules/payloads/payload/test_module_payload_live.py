@@ -91,36 +91,55 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         return reader
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
-    def test_install_image_task(self, exec_readlines, os_sync):
+    def test_install_image_task(self, exec_readlines, exec_with_redirect, os_sync):
         """Test installation from an image task."""
         exec_readlines.return_value = self._make_reader(0)
+        exec_with_redirect.return_value = 0
 
         with tempfile.TemporaryDirectory() as mount_point:
             task = InstallFromImageTask(
                 sysroot="/mnt/root",
                 mount_point=mount_point
             )
+
             task.run()
 
-        exec_readlines.assert_called_once_with("rsync", [
-            "-pogAXtlHrDx",
-            "--stats",
-            "--info=flist2,name,progress2",
-            "--no-inc-recursive",
-            "--exclude", "/dev/",
-            "--exclude", "/proc/",
-            "--exclude", "/tmp/*",
-            "--exclude", "/sys/",
-            "--exclude", "/run/",
-            "--exclude", "/boot/*rescue*",
-            "--exclude", "/boot/loader/",
-            "--exclude", "/boot/efi/loader/",
-            "--exclude", "/etc/machine-id",
-            "--exclude", "/etc/machine-info",
-            mount_point + "/",
-            "/mnt/root"
-        ])
+            exec_readlines.assert_called_once_with("rsync", [
+                "-pogAXtlHrDx",
+                "--stats",
+                "--info=flist2,name,progress2",
+                "--no-inc-recursive",
+                "--exclude", "/dev/",
+                "--exclude", "/proc/",
+                "--exclude", "/tmp/*",
+                "--exclude", "/sys/",
+                "--exclude", "/run/",
+                "--exclude", "/boot/*rescue*",
+                "--exclude", "/boot/loader/",
+                "--exclude", "/boot/efi/",
+                "--exclude", "/etc/machine-id",
+                "--exclude", "/etc/machine-info",
+                mount_point + "/",
+                "/mnt/root"
+            ])
+
+            exec_with_redirect.assert_not_called()
+
+            # Create /boot/efi directory in mount point.
+            os.makedirs(join_paths(mount_point, "boot/efi"))
+            task.run()
+
+            exec_with_redirect.assert_called_once_with("rsync", [
+                "-rx",
+                "--stats",
+                "--info=flist2,name,progress2",
+                "--no-inc-recursive",
+                "--exclude", "/boot/efi/loader/",
+                mount_point + "/boot/efi/",
+                "/mnt/root/boot/efi"
+            ])
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
