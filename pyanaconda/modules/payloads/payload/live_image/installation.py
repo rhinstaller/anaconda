@@ -424,7 +424,7 @@ class InstallFromImageTask(Task):
             "--exclude", "/run/",
             "--exclude", "/boot/*rescue*",
             "--exclude", "/boot/loader/",
-            "--exclude", "/boot/efi/loader/",
+            "--exclude", "/boot/efi/",
             "--exclude", "/etc/machine-id",
             "--exclude", "/etc/machine-info",
             os.path.normpath(self._mount_point) + "/",
@@ -439,6 +439,26 @@ class InstallFromImageTask(Task):
         except (OSError, RuntimeError) as e:
             msg = "Failed to install image: {}".format(e)
             raise PayloadInstallationError(msg) from None
+
+        if os.path.exists(os.path.join(self._mount_point, "boot/efi")):
+            # Handle /boot/efi separately due to FAT filesystem limitations
+            # FAT cannot support permissions, ownership, symlinks, hard links,
+            # xattrs, ACLs or modification times
+            args = [
+                "-rx",
+                "--stats",  # show statistics at end of process
+                "--info=flist2,name,progress2",  # show progress after each file
+                "--no-inc-recursive",  # force calculating total work in advance
+                "--exclude", "/boot/efi/loader/",
+                os.path.normpath(self._mount_point) + "/boot/efi/",
+                os.path.join(self._sysroot, "boot/efi")
+            ]
+
+            try:
+                execWithRedirect(cmd, args)
+            except (OSError, RuntimeError) as e:
+                msg = "Failed to install /boot/efi from image: {}".format(e)
+                raise PayloadInstallationError(msg) from None
 
     def _parse_rsync_update(self, line):
         """Try to extract progress from rsync output.
