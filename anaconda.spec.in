@@ -490,6 +490,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 29 2024 github-actions <github-actions@github.com> - 42.17-1
+- pyanaconda: payload: split rsync command for /boot/efi to handle FAT
+  filesystem limitations (k.koukiou)
+- Only match liveinst.desktop app in live environment (ales.astone)
+- Show correct taskbar icon in Wayland (ales.astone)
+- Hide server-side-decorations in Wayland (ales.astone)
+- Revert "infra: Allow webui tests for external contributors" (DragonLich)
+- Fix new ruff errors (adamkankovsky)
+
 * Tue Nov 26 2024 github-actions <github-actions@github.com> - 42.16-1
 - util: correct errors and suppress stderr for common cases (riehecky)
 - payload: utilize `du` command for finding the required disk size in live OS
