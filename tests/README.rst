@@ -121,7 +121,7 @@ Run unit tests with patched pykickstart or other libraries
 
 2. Run the container temporary with your required resources (pykickstart in this example)::
 
-      podman run --name=cnt-add --rm -it -v pykickstart/:/pykickstart:z quay.io/rhinstaller/anaconda-ci:master sh
+      podman run --name=cnt-add --rm -it -v ./pykickstart:/pykickstart:z quay.io/rhinstaller/anaconda-ci:master sh
 
 3. Do your required changes in the container (install pykickstart in this example)::
 
