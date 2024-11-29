@@ -7,6 +7,9 @@
     <property name="border-width">6</property>
     <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can-focus">False</property>
@@ -115,6 +118,9 @@
     <property name="border-width">6</property>
     <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox4">
         <property name="can-focus">False</property>
@@ -310,6 +316,9 @@
     <property name="border-width">6</property>
     <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can-focus">False</property>
@@ -593,6 +602,9 @@ use.  Try something else?</property>
     <property name="border-width">6</property>
     <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
         <property name="can-focus">False</property>
