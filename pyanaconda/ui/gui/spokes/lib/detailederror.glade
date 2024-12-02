@@ -11,6 +11,9 @@
     <property name="window_position">center</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can_focus">False</property>

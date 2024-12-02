@@ -12,6 +12,9 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child>
       <placeholder/>
     </child>
@@ -230,6 +233,9 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <child>
       <placeholder/>
     </child>
