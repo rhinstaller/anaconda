@@ -117,12 +117,6 @@ def ask_rd_question(anaconda, message):
     ScreenHandler.schedule_screen(spoke)
     App.run()
 
-    if spoke.use_remote_desktop:
-        if not anaconda.gui_mode:
-            log.info("RDP requested via RDP question, switching Anaconda to GUI mode.")
-        anaconda.display_mode = constants.DisplayModes.GUI
-        flags.use_rd = True
-
     return (spoke.use_remote_desktop, rdp_credentials(spoke.rdp_username, spoke.rdp_password))
 
 
@@ -133,7 +127,8 @@ def ask_for_rd_credentials(anaconda, username=None, password=None):
     :param str username: user set username (if any)
     :param str password: user set password (if any)
 
-    :return: namedtuple rdp_credentials(username, password)
+    :return: (use_rd, rdp_credentials(username, password))
+    :rtype: Tuple(bool, NameTuple(username, password))
     """
     App.initialize()
     loop = App.get_event_loop()
@@ -142,10 +137,7 @@ def ask_for_rd_credentials(anaconda, username=None, password=None):
     ScreenHandler.schedule_screen(spoke)
     App.run()
 
-    log.info("RDP credentials set")
-    anaconda.display_mode = constants.DisplayModes.GUI
-    flags.use_rd = True
-    return rdp_credentials(spoke._username, spoke._password)
+    return (True, rdp_credentials(spoke._username, spoke._password))
 
 def check_rd_can_be_started(anaconda):
     """Check if we can start an RDP session in the current environment.
@@ -338,9 +330,10 @@ def setup_display(anaconda, options):
         # or inst.rdp and insufficient credentials are provided
         # via boot options, ask interactively.
         if options.rdp_enabled and not rdp_credentials_sufficient:
-            rdp_creds = ask_for_rd_credentials(anaconda,
-                                               options.rdp_username,
-                                               options.rdp_password)
+            use_rd, rdp_creds = ask_for_rd_credentials(anaconda,
+                                                       options.rdp_username,
+                                                       options.rdp_password)
+            _set_gui_mode_on_rdp(anaconda, use_rd)
     else:
         # RDP can't be started - disable the RDP question and log
         # all the errors that prevented RDP from being started
@@ -355,6 +348,7 @@ def setup_display(anaconda, options):
                     "full control over the disk layout. Would you like "
                     "to use remote graphical access via the RDP protocol instead?")
         use_rd, credentials = ask_rd_question(anaconda, message)
+        _set_gui_mode_on_rdp(anaconda, use_rd)
         if not use_rd:
             # user has explicitly specified text mode
             flags.rd_question = False
@@ -407,7 +401,8 @@ def setup_display(anaconda, options):
                     "installation?")
         # we aren't really interested in the use_rd flag so at least mark it like this
         # to avoid linters being grumpy
-        _use_rd, rdp_creds = ask_rd_question(anaconda, message)
+        use_rd, rdp_creds = ask_rd_question(anaconda, message)
+        _set_gui_mode_on_rdp(anaconda, use_rd)
 
     # if they want us to use RDP do that now
     if anaconda.gui_mode and flags.use_rd:
@@ -425,3 +420,10 @@ def setup_display(anaconda, options):
         # as we might now be in text mode, which might not be able to display
         # the characters from our current locale
         startup_utils.reinitialize_locale(text_mode=anaconda.tui_mode)
+
+
+def _set_gui_mode_on_rdp(anaconda, use_rdp):
+    if not anaconda.gui_mode:
+        log.info("RDP requested via RDP question, switching Anaconda to GUI mode.")
+    anaconda.display_mode = constants.DisplayModes.GUI
+    flags.use_rd = use_rdp
