@@ -173,6 +173,29 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
                 # Anaconda adds `\n` to the value when dumping it
                 assert f.read() == cert.cert+'\n'
 
+    @patch_dbus_publish_object
+    def test_pre_install_with_task_default(self, publisher):
+        """Test the PreInstallWithTask method"""
+        task_path = self.certificates_interface.PreInstallWithTask()
+        obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
+        assert obj.implementation._sysroot == "/mnt/sysroot"
+        assert obj.implementation._certificates == []
+
+    @patch_dbus_publish_object
+    def test_pre_install_with_task_configured(self, publisher):
+        """Test the PreInstallWithTask method"""
+        c1 = (CERT_RVTEST, 'rvtest.pem', '/etc/pki/ca-trust/extracted/pem')
+        c2 = (CERT_RVTEST2, 'rvtest2.pem', '')
+        self._set_certificates([c1, c2])
+
+        task_path = self.certificates_interface.PreInstallWithTask()
+        obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
+        assert obj.implementation._sysroot == "/mnt/sysroot"
+        assert len(obj.implementation._certificates) == 2
+        obj_c1, obj_c2 = obj.implementation._certificates
+        assert c1 == (obj_c1.cert, obj_c1.filename, obj_c1.dir)
+        assert c2 == (obj_c2.cert, obj_c2.filename, obj_c2.dir)
+
     def test_import_certificates_task_files(self):
         """Test the ImportCertificatesTask task dumping the certificate"""
         certs = self._get_certs([
