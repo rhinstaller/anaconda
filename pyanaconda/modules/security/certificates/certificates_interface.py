@@ -59,3 +59,14 @@ class CertificatesInterface(KickstartModuleInterfaceTemplate):
         return TaskContainer.to_object_path(
             self.implementation.install_with_task()
         )
+
+    def PreInstallWithTask(self) -> ObjPath:
+        """Import certificates into the system before the payload installation
+
+        NOTE: the reason is potential use by rpm scriptlets
+
+        :return: a DBus path of the import task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.pre_install_with_task()
+        )
