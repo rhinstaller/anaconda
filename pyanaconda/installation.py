@@ -429,6 +429,11 @@ class RunInstallationTask(InstallationTask):
             fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
             pre_install.append_dbus_tasks(SECURITY, [fips_task])
 
+            # Import certificates so they are available for rpm scripts
+            certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
+            certificates_task = certificates_proxy.PreInstallWithTask()
+            pre_install.append_dbus_tasks(SECURITY, [certificates_task])
+
         # Install the payload.
         pre_install.append(Task(
             "Find additional packages & run pre_install()",
