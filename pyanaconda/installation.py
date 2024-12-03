@@ -23,7 +23,8 @@ from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF, CATE
     CATEGORY_BOOTLOADER, CATEGORY_ENVIRONMENT, CATEGORY_STORAGE, CATEGORY_SOFTWARE
 from pyanaconda.modules.boss.install_manager.installation_category_interface \
     import CategoryReportTaskInterface
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL, \
+    CERTIFICATES
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
     SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
 from pyanaconda.modules.common.task import sync_run_task, Task as InstallationTask
@@ -109,6 +110,20 @@ class RunInstallationTask(InstallationTask):
         # connect progress reporting
         configuration_queue.queue_started.connect(self._queue_started_cb)
         configuration_queue.task_completed.connect(self._task_completed_cb)
+
+        # import certificates first
+        # they may be required for subscription, initramfs regenerating, ... ?
+        if is_module_available(SECURITY):
+            certificates_import = TaskQueue(
+                "Certificates import",
+                _("Importing certificates"),
+                CATEGORY_SYSTEM
+            )
+            certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
+            certificates_import.append_dbus_tasks(SECURITY, [
+                certificates_proxy.InstallWithTask()
+            ])
+            configuration_queue.append(certificates_import)
 
         # add installation tasks for the Subscription DBus module
         if is_module_available(SUBSCRIPTION):
