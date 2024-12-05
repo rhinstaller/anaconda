@@ -19,6 +19,7 @@
 #
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.constants import INSTALLATION_PHASE_PREINSTALL
 from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.parser import Certificate
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -96,14 +97,17 @@ class CertificatesModule(KickstartBaseModule):
             certificates=self.certificates,
         )
 
-    def pre_install_with_task(self):
+    def pre_install_with_task(self, payload_type):
         """Import certificates into the system before the payload installation
 
         NOTE: the reason is potential use by rpm scriptlets
 
+        :param payload_type: a string with the payload type
         :return: a DBus path of the import task
         """
         return ImportCertificatesTask(
             sysroot=conf.target.system_root,
             certificates=self.certificates,
+            payload_type=payload_type,
+            phase=INSTALLATION_PHASE_PREINSTALL,
         )
