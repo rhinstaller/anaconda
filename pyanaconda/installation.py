@@ -457,7 +457,7 @@ class RunInstallationTask(InstallationTask):
 
             # Import certificates so they are available for rpm scripts
             certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
-            certificates_task = certificates_proxy.PreInstallWithTask()
+            certificates_task = certificates_proxy.PreInstallWithTask(payload.type)
             pre_install.append_dbus_tasks(SECURITY, [certificates_task])
 
         # Install the payload.
