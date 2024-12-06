@@ -34,6 +34,7 @@ install() {
 
     # anaconda
     inst "$moddir/anaconda-lib.sh" "/lib/anaconda-lib.sh"
+    inst_hook cmdline 24 "$moddir/apply-dracut-updates.sh"
     inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
     inst_hook cmdline 26 "$moddir/parse-anaconda-kickstart.sh"
     inst_hook cmdline 27 "$moddir/parse-anaconda-repo.sh"

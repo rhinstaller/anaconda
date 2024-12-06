@@ -22,6 +22,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       python-deps \
                       kickstart_version.py \
                       anaconda-lib.sh \
+                      apply-dracut-updates.sh \
                       parse-anaconda-options.sh \
                       parse-anaconda-repo.sh \
                       parse-anaconda-kickstart.sh \
