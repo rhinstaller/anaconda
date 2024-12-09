@@ -25,7 +25,7 @@ from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderErr
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import open_with_perm
+from pyanaconda.core.path import join_paths, open_with_perm
 from pyanaconda.core.product import get_product_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -363,14 +363,23 @@ class GRUB2(BootLoader):
             if rc:
                 log.error("failed to set menu_auto_hide=1")
 
-        # now tell grub2 to generate the main configuration file
-        rc = util.execWithRedirect(
-            "grub2-mkconfig",
-            ["-o", self.config_file],
-            root=conf.target.system_root
-        )
+        # Executes the grub2-common posttrans script to generate grub config files
+        # This should be autohandled by grub2-common, but posttrans scriptlets
+        # in live image scenarios are not triggered.
+        # FIXME: https://bugzilla.redhat.com/show_bug.cgi?id=2327644
+
+        # Drop the first line as it's the posttrans scriptlet header
+        script = util.execWithCapture("rpm", ["-q", "--scripts", "grub2-common"], root=conf.target.system_root).splitlines()[1:]
+        script = "\n".join(script)
+
+        # Write the script to a temporary file in the chroot
+        with open(join_paths(conf.target.system_root, "/tmp/grub2-posttrans.sh"), "w") as f:
+            f.write(script)
+
+        # Run the script in the chroot
+        rc = util.execWithRedirect("/bin/sh", ["/tmp/grub2-posttrans.sh"], root=conf.target.system_root)
         if rc:
-            raise BootLoaderError("failed to write boot loader configuration")
+            raise BootLoaderError("grub2-common posttrans script failed")
 
     #
     # installation
