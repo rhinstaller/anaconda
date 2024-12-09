@@ -22,6 +22,9 @@ PROJECT_DIR = os.path.dirname(
         )
     )
 
+# Virtual disk location
+VIRT_DISK = os.path.join(PROJECT_DIR, "tmp_virt_disk.qcow2")
+
 # Relative path to the ISO folder within the project
 ISO_FOLDER = os.path.join(PROJECT_DIR, "result", "iso")
 
@@ -212,6 +215,7 @@ def get_virt_install_command_line():
            "--name", "anaconda-updated-iso", "--os-variant=detect=on",
            "--memory", "4096", "--graphics", "vnc,listen=127.0.0.2",
            "--transient",
+           "--disk", VIRT_DISK + ",size=20",
            "--location", UPDATED_ISO]
     return cmd
 
