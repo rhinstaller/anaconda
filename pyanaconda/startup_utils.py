@@ -46,9 +46,9 @@ from pyanaconda.flags import flags
 from pyanaconda.localization import get_territory_locales, setup_locale, locale_has_translation
 from pyanaconda.modules.common.structures.logging import LoggingData
 from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.modules.common.task import wait_for_task
+from pyanaconda.modules.common.task import wait_for_task, sync_run_task
 from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
-from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
+from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER, CERTIFICATES
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
     SECURITY, STORAGE, RUNTIME
 from pyanaconda.modules.common.util import is_module_available
@@ -613,6 +613,13 @@ def initialize_security():
     # Enable fingerprint option by default (#481273).
     if not flags.automatedInstall:
         security_proxy.FingerprintAuthEnabled = True
+
+    # Import certificates from kickstart
+    # Most probably they have already been imported in iniramfs stage
+    certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
+    import_task_path = certificates_proxy.ImportWithTask()
+    task_proxy = SECURITY.get_proxy(import_task_path)
+    sync_run_task(task_proxy)
 
 
 def print_dracut_errors(stdout_logger):

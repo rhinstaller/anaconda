@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+SUBDIRS = certificates
+
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 securitydir = $(pkgpyexecdir)/modules/security
 dist_security_DATA = $(wildcard $(srcdir)/*.py)

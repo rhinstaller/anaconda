@@ -37,6 +37,7 @@ if not os.path.exists(ksfile):
 handler = makeVersion(VERSION)
 ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
 ksparser.registerSection(NullSection(handler, sectionOpen="%addon"))
+ksparser.registerSection(NullSection(handler, sectionOpen="%certificate"))
 ksparser.readKickstart(ksfile)
 
 userdata = ksparser.handler.sshpw.dataList()

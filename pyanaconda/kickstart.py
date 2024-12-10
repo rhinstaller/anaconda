@@ -230,6 +230,7 @@ class AnacondaPreParser(KickstartParser):
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
         self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
+        self.registerSection(NullSection(self.handler, sectionOpen="%certificate"))
 
 
 class AnacondaKSParser(KickstartParser):
@@ -251,6 +252,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(UselessSection(self.handler, sectionOpen="%packages"))
         self.registerSection(UselessSection(self.handler, sectionOpen="%addon"))
+        self.registerSection(UselessSection(self.handler, sectionOpen="%certificate"))
 
 
 def preScriptPass(f):
