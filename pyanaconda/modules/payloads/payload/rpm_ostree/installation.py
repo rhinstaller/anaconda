@@ -18,14 +18,14 @@
 import os
 import blivet.util
 
-from subprocess import CalledProcessError
+import subprocess
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import set_system_root, make_directories
-from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.util import execWithRedirect, startProgram
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
     BootloaderInstallationError
 from pyanaconda.modules.common.task import Task
@@ -312,7 +312,7 @@ class TearDownOSTreeMountTargetsTask(Task):
         for mount_point in reversed(self._internal_mounts):
             try:
                 blivet.util.umount(mount_point)
-            except (OSError, CalledProcessError) as e:
+            except (OSError, subprocess.CalledProcessError) as e:
                 log.debug("Unmounting %s has failed: %s", mount_point, str(e))
 
 
@@ -628,10 +628,17 @@ class DeployOSTreeTask(Task):
             if not self._data.signature_verification_enabled:
                 args.append("--no-signature-verification")
 
-            safe_exec_with_redirect(
-                "ostree",
-                args
-            )
+            # TODO refactor things so we can log stdout to the program log or journal.
+            # For now we just use anaconda's stdout.
+            # Also TODO: Add a progress/status API to bootc and use it here
+            # https://github.com/containers/bootc/issues/522
+            proc = startProgram(args, stdout=None, stderr=subprocess.PIPE)
+            (_output_buf, err_buf) = proc.communicate()
+            err_string = err_buf.decode("utf-8", "replace")
+            if proc.returncode != 0:
+                raise PayloadInstallationError(
+                    _("Deploying container failed. Details:\n%s\n").format(err_string)
+                )
         else:
             log.info("ostree admin deploy starting")
             safe_exec_with_redirect(
