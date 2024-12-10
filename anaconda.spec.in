@@ -490,6 +490,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 10 2024 github-actions <github-actions@github.com> - 42.19-1
+- Avoid side effect of ask rdp methods (jkonecny)
+- Do not crash if RDP is selected after regular GUI startup failed (#2326410)
+  (mkolman)
+
 * Tue Dec 03 2024 github-actions <github-actions@github.com> - 42.18-1
 - efi: Update __all__ dictionary (abologna)
 - docs: fix test container update doc (rvykydal)
