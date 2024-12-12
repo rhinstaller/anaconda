@@ -312,9 +312,4 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
     def _try_set_timezone(self, locale):
         loc_timezones = localization.get_locale_timezones(locale)
-
-        # Some locales like 'Esperanto' don't have a timezone
-        if len(loc_timezones) == 0:
-            return
-
         self._tz_module.SetTimezoneWithPriority(loc_timezones[0], TIMEZONE_PRIORITY_LANGUAGE)
