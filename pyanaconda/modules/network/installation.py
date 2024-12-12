@@ -84,6 +84,7 @@ def _write_config_file(root, path, content, error_msg, overwrite):
     """
     fpath = os.path.normpath(root + path)
     if os.path.isfile(fpath) and not overwrite:
+        log.debug("Not overwriting existing configuration file %s", fpath)
         return
     try:
         with open(fpath, "w") as fobj:
