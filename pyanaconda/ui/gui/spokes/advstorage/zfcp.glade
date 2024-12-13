@@ -23,6 +23,9 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <object class="GtkDrawingArea"/>
+    </child>
     <property name="default-width">600</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
