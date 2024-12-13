@@ -33,9 +33,9 @@ class SecurityKickstartSpecification(KickstartSpecification):
     }
 
     sections = {
-        "certificate": CertificateSection
+        "certificate": (CertificateSection, Certificate)
     }
 
     sections_data = {
-        "certificate": Certificate
+        "certificate": (Certificate, "certificates")
     }
