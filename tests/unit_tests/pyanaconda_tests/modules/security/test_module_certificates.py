@@ -25,6 +25,7 @@ from pyanaconda.modules.common.constants.objects import CERTIFICATES
 from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.security.certificates.certificates import CertificatesModule
 from pyanaconda.modules.security.certificates.certificates_interface import CertificatesInterface
+from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
 from tests.unit_tests.pyanaconda_tests import check_dbus_property, check_task_creation, \
     patch_dbus_publish_object
 
@@ -101,3 +102,30 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
             # read-only property, so provide setter
             setter=self._iface_certificates_setter()
         )
+
+    @patch_dbus_publish_object
+    def test_import_with_task_default(self, publisher):
+        """Test the ImportWithTask method"""
+        task_path = self.certificates_interface.ImportWithTask()
+        obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
+        assert obj.implementation._sysroot == "/"
+
+    @patch_dbus_publish_object
+    def test_import_with_task_configured(self, publisher):
+        """Test the ImportWithTask method"""
+        c1 = (CERT_RVTEST, 'rvtest.pem', '/etc/pki/ca-trust/extracted/pem')
+        c2 = (CERT_RVTEST2, 'rvtest2.pem', '')
+        certs_value = self._get_dbus_certs([
+                c1,
+                c2,
+        ])
+        set_certificates = self._iface_certificates_setter()
+        set_certificates(certs_value)
+
+        task_path = self.certificates_interface.ImportWithTask()
+        obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
+        assert obj.implementation._sysroot == "/"
+        assert len(obj.implementation._certificates) == 2
+        obj_c1, obj_c2 = obj.implementation._certificates
+        assert c1 == (obj_c1.cert, obj_c1.filename, obj_c1.dir)
+        assert c2 == (obj_c2.cert, obj_c2.filename, obj_c2.dir)

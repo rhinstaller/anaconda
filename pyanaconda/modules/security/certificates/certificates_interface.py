@@ -22,6 +22,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
 from pyanaconda.modules.common.structures.security import CertificateData
+from pyanaconda.modules.common.containers import TaskContainer
 
 
 @dbus_interface(CERTIFICATES.interface_name)
@@ -39,3 +40,12 @@ class CertificatesInterface(KickstartModuleInterfaceTemplate):
         :return: a list of certificate DBus Structures
         """
         return CertificateData.to_structure_list(self.implementation.certificates)
+
+    def ImportWithTask(self) -> ObjPath:
+        """Import certificates in the installer environment
+
+        :return: a DBus path of the import task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.import_with_task()
+        )
