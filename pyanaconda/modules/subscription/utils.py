@@ -1,7 +1,7 @@
 #
-# Private constants for the subscription module.
+# Utility functions for the subscription module
 #
-# Copyright (C) 2021 Red Hat, Inc.
+# Copyright (C) 2024 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -18,7 +18,22 @@
 # Red Hat, Inc.
 #
 
-# name of the RHSM systemd unit
-RHSM_SERVICE_NAME = "rhsm.service"
-# server hostname prefix marking the URL as not Satellite
-SERVER_HOSTNAME_NOT_SATELLITE_PREFIX = "not-satellite:"
+def flatten_rhsm_nested_dict(nested_dict):
+    """Convert the GetAll() returned nested dict into a flat one.
+
+    RHSM returns a nested dict with categories on top
+    and category keys & values inside. This is not convenient
+    for setting keys based on original values, so
+    let's normalize the dict to the flat key based
+    structure similar to what's used by SetAll().
+
+    :param dict nested_dict: the nested dict returned by GetAll()
+    :return: flat key/value dictionary, similar to format used by SetAll()
+    :rtype: dict
+    """
+    flat_dict = {}
+    for category_key, category_dict in nested_dict.items():
+        for key, value in category_dict.items():
+            flat_key = "{}.{}".format(category_key, key)
+            flat_dict[flat_key] = value
+    return flat_dict

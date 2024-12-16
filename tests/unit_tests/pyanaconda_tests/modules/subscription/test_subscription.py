@@ -29,16 +29,15 @@ from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_HIDDEN, SECR
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest
 
 from pyanaconda.modules.subscription.subscription import SubscriptionService
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask, SystemSubscriptionData
+    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask, \
+    RetrieveOrganizationsTask
 
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -198,6 +197,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": DEFAULT_SUBSCRIPTION_REQUEST_TYPE,
             "organization": "",
             "account-username": "",
+            "account-organization": "",
             "server-hostname": "",
             "rhsm-baseurl": "",
             "server-proxy-hostname": "",
@@ -220,6 +220,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
         full_request.organization = "123456789"
         full_request.account_username = "foo_user"
+        full_request.account_organization = "foo_account_org"
         full_request.server_hostname = "candlepin.foo.com"
         full_request.rhsm_baseurl = "cdn.foo.com"
         full_request.server_proxy_hostname = "proxy.foo.com"
@@ -233,6 +234,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
             "organization": "123456789",
             "account-username": "foo_user",
+            "account-organization": "foo_account_org",
             "server-hostname": "candlepin.foo.com",
             "rhsm-baseurl": "cdn.foo.com",
             "server-proxy-hostname": "proxy.foo.com",
@@ -259,6 +261,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
             "organization": "123456789",
             "account-username": "foo_user",
+            "account-organization": "foo_account_org",
             "server-hostname": "candlepin.foo.com",
             "rhsm-baseurl": "cdn.foo.com",
             "server-proxy-hostname": "proxy.foo.com",
@@ -286,6 +289,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -326,6 +330,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY),
             "organization": get_variant(Str, "123456789"),
             "account-username": get_variant(Str, ""),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -367,6 +372,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, ""),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, "proxy.foo.bar"),
@@ -402,6 +408,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, ""),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, "candlepin.foo.bar"),
             "rhsm-baseurl": get_variant(Str, "cdn.foo.bar"),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -450,6 +457,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -499,6 +507,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -548,6 +557,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -588,6 +598,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         subscription_request = {
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "HIDDEN"),
@@ -605,6 +616,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -639,53 +651,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             ["key_foo", "key_bar", "key_baz"]
         assert internal_request.server_proxy_password.value == \
             "foo_proxy_password"
-
-    def test_attached_subscription_defaults(self):
-        """Test the AttachedSubscription DBus structure defaults."""
-
-        # create empty AttachedSubscription structure
-        empty_request = AttachedSubscription()
-
-        # compare with expected default values
-        expected_default_dict = {
-            "name": get_variant(Str, ""),
-            "service-level": get_variant(Str, ""),
-            "sku": get_variant(Str, ""),
-            "contract": get_variant(Str, ""),
-            "start-date": get_variant(Str, ""),
-            "end-date": get_variant(Str, ""),
-            "consumed-entitlement-count": get_variant(Int, 1)
-        }
-        # compare the empty structure with expected default values
-        assert AttachedSubscription.to_structure(empty_request) == \
-            expected_default_dict
-
-    def test_attached_subscription_full(self):
-        """Test the AttachedSubscription DBus structure that is fully populated."""
-
-        # create empty AttachedSubscription structure
-        full_request = AttachedSubscription()
-        full_request.name = "Foo Bar Beta"
-        full_request.service_level = "really good"
-        full_request.sku = "ABCD1234"
-        full_request.contract = "87654321"
-        full_request.start_date = "Jan 01, 1970"
-        full_request.end_date = "Jan 19, 2038"
-        full_request.consumed_entitlement_count = 9001
-
-        # compare with expected values
-        expected_default_dict = {
-            "name": get_variant(Str, "Foo Bar Beta"),
-            "service-level": get_variant(Str, "really good"),
-            "sku": get_variant(Str, "ABCD1234"),
-            "contract": get_variant(Str, "87654321"),
-            "start-date": get_variant(Str, "Jan 01, 1970"),
-            "end-date": get_variant(Str, "Jan 19, 2038"),
-            "consumed-entitlement-count": get_variant(Int, 9001)
-        }
-        # compare the full structure with expected values
-        assert AttachedSubscription.to_structure(full_request) == \
-            expected_default_dict
 
     def test_insights_property(self):
         """Test the InsightsEnabled property."""
@@ -725,6 +690,29 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # at the end the property should be True
         assert self.subscription_interface.IsRegistered
 
+    def test_simple_content_access_property(self):
+        """Test the IsSimpleContentAccessEnabled property."""
+        # should be false by default
+        assert not self.subscription_interface.IsSimpleContentAccessEnabled
+
+        # this property can't be set by client as it is set as the result of
+        # subscription attempts, so we need to call the internal module interface
+        # via a custom setter
+
+        def custom_setter(value):
+            self.subscription_module.set_simple_content_access_enabled(value)
+
+        # check the property is True and the signal was emitted
+        # - we use fake setter as there is no public setter
+        self._check_dbus_property(
+          "IsSimpleContentAccessEnabled",
+          True,
+          setter=custom_setter
+        )
+
+        # at the end the property should be True
+        assert self.subscription_interface.IsSimpleContentAccessEnabled
+
     def test_subscription_attached_property(self):
         """Test the IsSubscriptionAttached property."""
         # should be false by default
@@ -747,50 +735,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # at the end the property should be True
         assert self.subscription_interface.IsSubscriptionAttached
-
-    def test_attached_subscriptions_property(self):
-        """Test the AttachedSubscriptions property."""
-        # should return an empty list by default
-        assert self.subscription_interface.AttachedSubscriptions == []
-        # this property can't be set by client as it is set as the result of
-        # subscription attempts, so we need to call the internal module interface
-        # via a custom setter
-
-        def custom_setter(struct_list):
-            instance_list = AttachedSubscription.from_structure_list(struct_list)
-            self.subscription_module.set_attached_subscriptions(instance_list)
-
-        # prepare some testing data
-        subscription_structs = [
-            {
-                "name": get_variant(Str, "Foo Bar Beta"),
-                "service-level": get_variant(Str, "very good"),
-                "sku": get_variant(Str, "ABC1234"),
-                "contract": get_variant(Str, "12345678"),
-                "start-date": get_variant(Str, "May 12, 2020"),
-                "end-date": get_variant(Str, "May 12, 2021"),
-                "consumed-entitlement-count": get_variant(Int, 1)
-            },
-            {
-                "name": get_variant(Str, "Foo Bar Beta NG"),
-                "service-level": get_variant(Str, "even better"),
-                "sku": get_variant(Str, "ABC4321"),
-                "contract": get_variant(Str, "87654321"),
-                "start-date": get_variant(Str, "now"),
-                "end-date": get_variant(Str, "never"),
-                "consumed-entitlement-count": get_variant(Int, 1000)
-            }
-        ]
-        # check the property is True and the signal was emitted
-        # - we use fake setter as there is no public setter
-        self._check_dbus_property(
-          "AttachedSubscriptions",
-          subscription_structs,
-          setter=custom_setter
-        )
-        # at the end the property should return the expected list
-        # of AttachedSubscription structures
-        assert self.subscription_interface.AttachedSubscriptions == subscription_structs
 
     @patch_dbus_publish_object
     def test_set_system_purpose_with_task(self, publisher):
@@ -979,6 +923,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
         full_request.organization = "123456789"
         full_request.account_username = "foo_user"
+        full_request.account_organization = "foo_account_organization"
         full_request.server_hostname = "candlepin.foo.com"
         full_request.rhsm_baseurl = "cdn.foo.com"
         full_request.server_proxy_hostname = "proxy.foo.com"
@@ -1010,6 +955,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
             "organization": "123456789",
             "account-username": "foo_user",
+            "account-organization": "foo_account_organization",
             "server-hostname": "candlepin.foo.com",
             "rhsm-baseurl": "cdn.foo.com",
             "server-proxy-hostname": "proxy.foo.com",
@@ -1023,43 +969,41 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         assert obj.implementation._rhsm_config_defaults == flat_default_config
 
     @patch_dbus_publish_object
-    def test_register_with_username_password(self, publisher):
-        """Test RegisterWithUsernamePasswordTask creation."""
-        # prepare the module with dummy data
-        full_request = SubscriptionRequest()
-        full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
-        full_request.organization = "123456789"
-        full_request.account_username = "foo_user"
-        full_request.server_hostname = "candlepin.foo.com"
-        full_request.rhsm_baseurl = "cdn.foo.com"
-        full_request.server_proxy_hostname = "proxy.foo.com"
-        full_request.server_proxy_port = 9001
-        full_request.server_proxy_user = "foo_proxy_user"
-        full_request.account_password.set_secret("foo_password")
-        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
-        full_request.server_proxy_password.set_secret("foo_proxy_password")
-
-        self.subscription_interface.SubscriptionRequest = \
-            SubscriptionRequest.to_structure(full_request)
-
-        # make sure the task gets dummy rhsm register server proxy
-        observer = Mock()
-        observer.get_proxy = Mock()
-        self.subscription_module._rhsm_observer = observer
-        register_server_proxy = Mock()
-        observer.get_proxy.return_value = register_server_proxy
-
+    def test_register_and_subscribe(self, publisher):
+        """Test RegisterAndSubscribeTask creation - org + key."""
+        # prepare dummy objects for the task
+        rhsm_observer = Mock()
+        self.subscription_module._rhsm_observer = rhsm_observer
+        subscription_request = Mock()
+        self.subscription_module._subscription_request = subscription_request
+        system_purpose_data = Mock()
+        self.subscription_module._system_purpose_data = system_purpose_data
         # check the task is created correctly
-        task_path = self.subscription_interface.RegisterUsernamePasswordWithTask()
-        obj = check_task_creation(task_path, publisher, RegisterWithUsernamePasswordTask)
-        # check all the data got propagated to the module correctly
-        assert obj.implementation._rhsm_register_server_proxy == register_server_proxy
-        assert obj.implementation._username == "foo_user"
-        assert obj.implementation._password == "foo_password"
-        # trigger the succeeded signal
-        obj.implementation.succeeded_signal.emit()
-        # check this set the registered property to True
-        assert self.subscription_interface.IsRegistered
+        task_path = self.subscription_interface.RegisterAndSubscribeWithTask()
+        obj = check_task_creation(task_path, publisher, RegisterAndSubscribeTask)
+        # check all the data got propagated to the task correctly
+        assert obj.implementation._rhsm_observer == rhsm_observer
+        assert obj.implementation._subscription_request == subscription_request
+        assert obj.implementation._system_purpose_data == system_purpose_data
+        # pylint: disable=comparison-with-callable
+        assert obj.implementation._registered_callback == self.subscription_module.set_registered
+        # pylint: disable=comparison-with-callable
+        assert obj.implementation._registered_to_satellite_callback == \
+            self.subscription_module.set_registered_to_satellite
+        assert obj.implementation._simple_content_access_callback == \
+            self.subscription_module.set_simple_content_access_enabled
+        # pylint: disable=comparison-with-callable
+        assert obj.implementation._subscription_attached_callback == \
+            self.subscription_module.set_subscription_attached
+        # pylint: disable=comparison-with-callable
+        assert obj.implementation._subscription_data_callback == \
+            self.subscription_module._set_system_subscription_data
+        # pylint: disable=comparison-with-callable
+        assert obj.implementation._satellite_script_downloaded_callback == \
+            self.subscription_module._set_satellite_provisioning_script
+        # pylint: disable=comparison-with-callable
+        assert obj.implementation._config_backup_callback == \
+            self.subscription_module._set_pre_satellite_rhsm_conf_snapshot
 
     @patch_dbus_publish_object
     def test_register_with_organization_key(self, publisher):
@@ -1089,122 +1033,68 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         observer.get_proxy.return_value = register_server_proxy
 
         # check the task is created correctly
-        task_path = self.subscription_interface.RegisterOrganizationKeyWithTask()
-        obj = check_task_creation(task_path, publisher, RegisterWithOrganizationKeyTask)
+        task_path = self.subscription_interface.RegisterAndSubscribeWithTask()
+        obj = check_task_creation(task_path, publisher, RegisterAndSubscribeTask)
         # check all the data got propagated to the module correctly
-        assert obj.implementation._rhsm_register_server_proxy == register_server_proxy
-        assert obj.implementation._organization == "123456789"
-        assert obj.implementation._activation_keys == ["key1", "key2", "key3"]
-        # trigger the succeeded signal
-        obj.implementation.succeeded_signal.emit()
-        # check this set the registered property to True
-        assert self.subscription_interface.IsRegistered
+        assert obj.implementation._rhsm_observer == observer
+        assert SubscriptionRequest.to_structure(obj.implementation._subscription_request) == \
+            SubscriptionRequest.to_structure(full_request)
 
     @patch_dbus_publish_object
     def test_unregister(self, publisher):
         """Test UnregisterTask creation."""
         # simulate system being subscribed
         self.subscription_module.set_subscription_attached(True)
-        # make sure the task gets dummy rhsm unregister proxy
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_unregister_proxy = observer.get_proxy.return_value
+        # make sure the task gets dummy rhsm observer
+        rhsm_observer = Mock()
+        self.subscription_module._rhsm_observer = rhsm_observer
         # check the task is created correctly
         task_path = self.subscription_interface.UnregisterWithTask()
         obj = check_task_creation(task_path, publisher, UnregisterTask)
         # check all the data got propagated to the module correctly
-        assert obj.implementation._rhsm_unregister_proxy == rhsm_unregister_proxy
+        assert obj.implementation._rhsm_observer == rhsm_observer
+        assert obj.implementation._registered_to_satellite is False
+        assert obj.implementation._rhsm_configuration == {}
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set the subscription-attached & registered properties to False
-        assert not self.subscription_interface.IsRegistered
-        assert not self.subscription_interface.IsSubscriptionAttached
+        # check unregistration set the subscription-attached, registered
+        # and SCA properties to False
+        assert self.subscription_interface.IsRegistered is False
+        assert self.subscription_interface.IsRegisteredToSatellite is False
+        assert self.subscription_interface.IsSimpleContentAccessEnabled is False
+        assert self.subscription_interface.IsSubscriptionAttached is False
 
     @patch_dbus_publish_object
-    def test_attach_subscription(self, publisher):
-        """Test AttachSubscriptionTask creation."""
-        # create the SystemPurposeData structure
-        system_purpose_data = SystemPurposeData()
-        system_purpose_data.role = "foo"
-        system_purpose_data.sla = "bar"
-        system_purpose_data.usage = "baz"
-        system_purpose_data.addons = ["a", "b", "c"]
-        # feed it to the DBus interface
-        self.subscription_interface.SystemPurposeData = \
-            SystemPurposeData.to_structure(system_purpose_data)
-
-        # make sure system is not subscribed
-        assert not self.subscription_interface.IsSubscriptionAttached
-        # make sure the task gets dummy rhsm attach proxy
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_attach_proxy = observer.get_proxy.return_value
+    def test_unregister_satellite(self, publisher):
+        """Test UnregisterTask creation - system registered to Satellite."""
+        # simulate system being subscribed & registered to Satellite
+        self.subscription_module.set_subscription_attached(True)
+        self.subscription_module._set_satellite_provisioning_script("foo script")
+        self.subscription_module.set_registered_to_satellite(True)
+        # lets also set SCA as enabled
+        self.subscription_module.set_simple_content_access_enabled(True)
+        # simulate RHSM config backup
+        self.subscription_module._rhsm_conf_before_satellite_provisioning = {"foo.bar": "baz"}
+        # make sure the task gets dummy rhsm unregister proxy
+        rhsm_observer = Mock()
+        self.subscription_module._rhsm_observer = rhsm_observer
         # check the task is created correctly
-        task_path = self.subscription_interface.AttachSubscriptionWithTask()
-        obj = check_task_creation(task_path, publisher, AttachSubscriptionTask)
+        task_path = self.subscription_interface.UnregisterWithTask()
+        obj = check_task_creation(task_path, publisher, UnregisterTask)
         # check all the data got propagated to the module correctly
-        assert obj.implementation._rhsm_attach_proxy == rhsm_attach_proxy
-        assert obj.implementation._sla == "bar"
+        assert obj.implementation._registered_to_satellite is True
+        assert obj.implementation._rhsm_configuration == {"foo.bar": "baz"}
+        assert obj.implementation._rhsm_observer == rhsm_observer
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set subscription_attached to True
-        assert self.subscription_interface.IsSubscriptionAttached
-
-    @patch_dbus_publish_object
-    def test_parse_attached_subscriptions(self, publisher):
-        """Test ParseAttachedSubscriptionsTask creation."""
-        # make sure the task gets dummy rhsm entitlement and syspurpose proxies
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_entitlement_proxy = Mock()
-        rhsm_syspurpose_proxy = Mock()
-        # yes, this can be done
-        observer.get_proxy.side_effect = [rhsm_entitlement_proxy, rhsm_syspurpose_proxy]
-        # check the task is created correctly
-        task_path = self.subscription_interface.ParseAttachedSubscriptionsWithTask()
-        obj = check_task_creation(task_path, publisher, ParseAttachedSubscriptionsTask)
-        # check all the data got propagated to the module correctly
-        assert obj.implementation._rhsm_entitlement_proxy == rhsm_entitlement_proxy
-        assert obj.implementation._rhsm_syspurpose_proxy == rhsm_syspurpose_proxy
-        # prepare some testing data
-        subscription_structs = [
-            {
-                "name": get_variant(Str, "Foo Bar Beta"),
-                "service-level": get_variant(Str, "very good"),
-                "sku": get_variant(Str, "ABC1234"),
-                "contract": get_variant(Str, "12345678"),
-                "start-date": get_variant(Str, "May 12, 2020"),
-                "end-date": get_variant(Str, "May 12, 2021"),
-                "consumed-entitlement-count": get_variant(Int, 1)
-            },
-            {
-                "name": get_variant(Str, "Foo Bar Beta NG"),
-                "service-level": get_variant(Str, "even better"),
-                "sku": get_variant(Str, "ABC4321"),
-                "contract": get_variant(Str, "87654321"),
-                "start-date": get_variant(Str, "now"),
-                "end-date": get_variant(Str, "never"),
-                "consumed-entitlement-count": get_variant(Int, 1000)
-            }
-        ]
-        system_purpose_struct = {
-            "role": get_variant(Str, "foo"),
-            "sla": get_variant(Str, "bar"),
-            "usage": get_variant(Str, "baz"),
-            "addons": get_variant(List[Str], ["a", "b", "c"])
-        }
-        # make sure this data is returned by get_result()
-        return_tuple = SystemSubscriptionData(
-            attached_subscriptions=AttachedSubscription.from_structure_list(subscription_structs),
-            system_purpose_data=SystemPurposeData.from_structure(system_purpose_struct)
-        )
-        obj.implementation.get_result = Mock()
-        obj.implementation.get_result.return_value = return_tuple
-        # trigger the succeeded signal
-        obj.implementation.succeeded_signal.emit()
-        # check this set attached subscription and system purpose as expected
-        assert self.subscription_interface.AttachedSubscriptions == subscription_structs
-        assert self.subscription_interface.SystemPurposeData == system_purpose_struct
+        # check unregistration set the subscription-attached, registered
+        # and SCA properties to False
+        assert self.subscription_interface.IsRegistered is False
+        assert self.subscription_interface.IsRegisteredToSatellite is False
+        assert self.subscription_interface.IsSimpleContentAccessEnabled is False
+        assert self.subscription_interface.IsSubscriptionAttached is False
+        # check the provisioning scrip has been cleared
+        assert self.subscription_module._satellite_provisioning_script is None
 
     @patch_dbus_publish_object
     def test_install_with_tasks_default(self, publisher):
@@ -1219,6 +1109,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         task_classes = [
             RestoreRHSMDefaultsTask,
             TransferSubscriptionTokensTask,
+            ProvisionTargetSystemForSatelliteTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
@@ -1232,8 +1123,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         obj = task_objs[1]
         assert obj.implementation._transfer_subscription_tokens is False
 
-        # ConnectToInsightsTask
+        # ProvisionTargetSystemForSatelliteTask
         obj = task_objs[2]
+        assert obj.implementation._provisioning_script is None
+
+        # ConnectToInsightsTask
+        obj = task_objs[3]
         assert obj.implementation._subscription_attached is False
         assert obj.implementation._connect_to_insights is False
 
@@ -1243,6 +1138,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         self.subscription_interface.InsightsEnabled = True
         self.subscription_module.set_subscription_attached(True)
+        self.subscription_module.set_registered_to_satellite(True)
+        self.subscription_module.set_simple_content_access_enabled(True)
+        self.subscription_module._satellite_provisioning_script = "foo script"
 
         # mock the rhsm config proxy
         observer = Mock()
@@ -1254,6 +1152,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         task_classes = [
             RestoreRHSMDefaultsTask,
             TransferSubscriptionTokensTask,
+            ProvisionTargetSystemForSatelliteTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
@@ -1267,8 +1166,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         obj = task_objs[1]
         assert obj.implementation._transfer_subscription_tokens is True
 
-        # ConnectToInsightsTask
+        # ProvisionTargetSystemForSatelliteTask
         obj = task_objs[2]
+        assert obj.implementation._provisioning_script == "foo script"
+
+        # ConnectToInsightsTask
+        obj = task_objs[3]
         assert obj.implementation._subscription_attached is True
         assert obj.implementation._connect_to_insights is True
 
@@ -1480,3 +1383,39 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # the SystemPurposeConfigurationTask should have been called,
         # which calls give_the_system_purpose()
         mock_give_purpose.assert_not_called()
+
+    @patch_dbus_publish_object
+    def test_parse_organization_data(self, publisher):
+        """Test ParseOrganizationDataTask creation."""
+        # make sure the task gets dummy rhsm entitlement and syspurpose proxies
+
+        # prepare the module with dummy data
+        full_request = SubscriptionRequest()
+        full_request.type = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
+        full_request.organization = "123456789"
+        full_request.account_username = "foo_user"
+        full_request.server_hostname = "candlepin.foo.com"
+        full_request.rhsm_baseurl = "cdn.foo.com"
+        full_request.server_proxy_hostname = "proxy.foo.com"
+        full_request.server_proxy_port = 9001
+        full_request.server_proxy_user = "foo_proxy_user"
+        full_request.account_password.set_secret("foo_password")
+        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        full_request.server_proxy_password.set_secret("foo_proxy_password")
+
+        self.subscription_interface.SubscriptionRequest = \
+            SubscriptionRequest.to_structure(full_request)
+        # make sure the task gets dummy rhsm register server proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        register_server_proxy = Mock()
+        observer.get_proxy.return_value = register_server_proxy
+
+        # check the task is created correctly
+        task_path = self.subscription_interface.RetrieveOrganizationsWithTask()
+        obj = check_task_creation(task_path, publisher, RetrieveOrganizationsTask)
+        # check all the data got propagated to the module correctly
+        assert obj.implementation._rhsm_register_server_proxy == register_server_proxy
+        assert obj.implementation._username == "foo_user"
+        assert obj.implementation._password == "foo_password"
