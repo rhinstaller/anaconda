@@ -68,6 +68,7 @@ class ShellSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
         self.window.add_with_separator(TextWidget(_("Exit the shell to continue")))
 
+    # pylint: disable-next=useless-return
     def prompt(self, args=None):
         # run shell instead of printing prompt and close window on shell exit
         execConsole()

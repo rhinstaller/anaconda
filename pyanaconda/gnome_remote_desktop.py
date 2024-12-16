@@ -147,9 +147,6 @@ class GRDServer:
             time.sleep(1)
             tries -= 1
 
-        if not self.ip:
-            return
-
     def _get_hostname(self):
         """Start thread to obtain hostname from DNS server asynchronously.
 
