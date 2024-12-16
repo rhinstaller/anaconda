@@ -93,7 +93,7 @@ class AnacondaArgumentParser(ArgumentParser):
             True: ignore the argument without the prefix. (default)
         """
         help_width = get_help_width()
-        self._boot_arg = dict()
+        self._boot_arg = {}
         self.bootarg_prefix = kwargs.pop("bootarg_prefix", "")
         self.require_prefix = kwargs.pop("require_prefix", True)
 

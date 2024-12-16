@@ -604,7 +604,7 @@ class StorageChecker:
 
     def __init__(self):
         self.checks = []
-        self.constraints = dict()
+        self.constraints = {}
 
     def add_check(self, callback):
         """ Add a callback for storage checking.
@@ -701,7 +701,7 @@ class StorageChecker:
 
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
-        self.constraints = dict()
+        self.constraints = {}
 
         for name in self.get_default_constraint_names():
             self.add_constraint(name, getattr(conf.storage_constraints, name))

@@ -60,10 +60,10 @@ class XklWrapper:
 
         self._rxkb = rxkb.Context()
 
-        self._layout_infos = dict()
+        self._layout_infos = {}
         self._build_layout_infos()
 
-        self._switch_opt_infos = dict()
+        self._switch_opt_infos = {}
         self._build_switch_opt_infos()
 
     def _build_layout_infos(self):

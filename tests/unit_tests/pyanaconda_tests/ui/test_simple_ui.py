@@ -144,7 +144,7 @@ class SimpleUITestCase(unittest.TestCase):
             self._check_spokes_with_same_priority(post_spokes)
 
     def _check_spokes_with_same_priority(self, spokes):
-        res = dict()
+        res = {}
 
         for spoke in spokes:
             priority = spoke.priority

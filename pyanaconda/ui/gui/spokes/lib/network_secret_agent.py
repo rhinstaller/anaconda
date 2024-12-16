@@ -163,7 +163,7 @@ class SecretAgent:
 
         content = self._get_content(setting_name, unpacked_connection_hash)
 
-        secrets = dict()
+        secrets = {}
         if self._ui_callback(content):
             for secret in content['secrets']:
                 if secret['key']:

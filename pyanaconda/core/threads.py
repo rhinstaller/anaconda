@@ -221,7 +221,7 @@ class AnacondaThread(threading.Thread):
     """
 
     # class-wide dictionary ensuring unique thread names
-    _prefix_thread_counts = dict()
+    _prefix_thread_counts = {}
 
     def __init__(self, *args, **kwargs):
         # if neither name nor prefix is given, use the worker prefix
