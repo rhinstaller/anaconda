@@ -19,6 +19,7 @@
 #
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.parser import Certificate
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -82,5 +83,15 @@ class CertificatesModule(KickstartBaseModule):
         """
         return ImportCertificatesTask(
             sysroot="/",
+            certificates=self.certificates,
+        )
+
+    def install_with_task(self):
+        """Import certificates into the installed system
+
+        :return: a DBus path of the import task
+        """
+        return ImportCertificatesTask(
+            sysroot=conf.target.system_root,
             certificates=self.certificates,
         )
