@@ -38,7 +38,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
             sda additionally contains a third partition formatted as ext4.
         """
 
-        super(GRUBRaidSimpleTest, self).setUp()
+        super().setUp()
 
         # Make some disks
         self.sda = DiskDevice(name="sda", size=Size("100 GiB"))
