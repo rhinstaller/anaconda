@@ -219,3 +219,23 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
 
             for c in certs:
                 self._check_cert_file(c, sysroot)
+
+    def test_import_certificates_task_existing_file(self):
+        """Test the ImportCertificatesTask task with existing file to be imported"""
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '/etc/pki/dir1'),
+        ])
+
+        c1 = certs[0]
+        with tempfile.TemporaryDirectory() as sysroot:
+            # certificate file to be dumped already exists
+            os.makedirs(sysroot+c1.dir)
+            c1_file = sysroot + c1.dir + "/" + c1.filename
+            open(c1_file, 'w')
+
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=[c1],
+            ).run()
+
+            self._check_cert_file(c1, sysroot)
