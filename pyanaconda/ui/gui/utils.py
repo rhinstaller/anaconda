@@ -180,7 +180,7 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
 
     """
 
-    class TimedAction(object):
+    class TimedAction:
         """Class making the timing work."""
 
         def __init__(self, func):

@@ -34,7 +34,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class BaseTask(object):
+class BaseTask:
     """A base class for Task and TaskQueue.
 
     It holds shared methods, properties and signals.

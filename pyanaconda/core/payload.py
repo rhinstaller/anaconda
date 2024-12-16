@@ -153,7 +153,7 @@ class ProxyStringError(Exception):
 
 
 # TODO: Add tests
-class ProxyString(object):
+class ProxyString:
     """ Handle a proxy url."""
     def __init__(self, url=None, protocol="http://", host=None, port="3128",
                  username=None, password=None):

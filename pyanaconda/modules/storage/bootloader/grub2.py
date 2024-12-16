@@ -34,7 +34,7 @@ log = get_module_logger(__name__)
 __all__ = ["GRUB2", "IPSeriesGRUB2"]
 
 
-class SerialConsoleOptions(object):
+class SerialConsoleOptions:
     """The serial console options."""
 
     def __init__(self):

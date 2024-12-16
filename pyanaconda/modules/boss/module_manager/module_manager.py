@@ -25,7 +25,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class ModuleManager(object):
+class ModuleManager:
     """A class for managing kickstart modules."""
 
     def __init__(self):

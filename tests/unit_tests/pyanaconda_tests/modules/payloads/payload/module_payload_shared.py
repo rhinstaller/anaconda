@@ -28,7 +28,7 @@ from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.constants import SourceState
 
 
-class PayloadKickstartSharedTest(object):
+class PayloadKickstartSharedTest:
 
     def __init__(self, payload_service, payload_service_intf):
         """Setup shared payload testing object for testing kickstart.
@@ -66,7 +66,7 @@ class PayloadKickstartSharedTest(object):
         return self.payload_service.active_payload
 
 
-class PayloadSharedTest(object):
+class PayloadSharedTest:
 
     def __init__(self, payload, payload_intf):
         """Setup shared payload test object for common payload testing.

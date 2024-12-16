@@ -314,7 +314,7 @@ def name_path_pairs(image_specs):
         yield name, path
 
 
-class HelpTextParser(object):
+class HelpTextParser:
     """Class to parse help text from file and make it available to option
        parser.
     """

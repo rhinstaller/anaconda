@@ -73,7 +73,7 @@ ERROR_RETRY = 2
 # TOP-LEVEL ERROR HANDLING OBJECT
 ###
 
-class ErrorHandler(object):
+class ErrorHandler:
     """This object makes up one part of anaconda's error handling system.  This
        part is the UI-agnostic error callback.  Throughout anaconda, various
        error conditions can occur in places that need to pop up a dialog, but

@@ -111,7 +111,7 @@ def create_row(device_data, selected, mutable):
     )
 
 
-class FilterPage(object):
+class FilterPage:
     """A FilterPage is the logic behind one of the notebook tabs on the filter
        UI spoke.  Each page has its own specific filtered model overlaid on top
        of a common model that holds all non-advanced disks.

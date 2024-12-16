@@ -34,7 +34,7 @@ iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 # namedtuple for information about a keyboard layout (its language and description)
 LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
 
-class XklWrapper(object):
+class XklWrapper:
     """
     Class that used to wrap libxklavier functionality.
 

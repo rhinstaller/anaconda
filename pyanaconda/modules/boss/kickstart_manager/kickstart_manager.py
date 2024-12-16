@@ -30,7 +30,7 @@ log = get_module_logger(__name__)
 __all__ = ['KickstartManager']
 
 
-class KickstartManager(object):
+class KickstartManager:
     """Distributes kickstart to modules and collects it back."""
 
     def __init__(self):

@@ -228,7 +228,7 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE, out_file_pat
             raise NTPconfigError(msg.format(oserr.strerror)) from oserr
 
 
-class NTPServerStatusCache(object):
+class NTPServerStatusCache:
     """The cache of NTP server states."""
 
     def __init__(self):

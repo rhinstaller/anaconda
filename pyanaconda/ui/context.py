@@ -19,7 +19,7 @@
 __all__ = ["context"]
 
 
-class UserInterfaceContext(object):
+class UserInterfaceContext:
     """The context of the user interface.
 
     The context provides access to persistent objects

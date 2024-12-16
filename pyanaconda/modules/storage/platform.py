@@ -48,7 +48,7 @@ DASD_DESCRIPTION = N_("DASD")
 ZFCP_DESCRIPTION = N_("zFCP")
 
 
-class Platform(object):
+class Platform:
     """A base class for a platform.
 
     A class containing platform-specific information and methods for use

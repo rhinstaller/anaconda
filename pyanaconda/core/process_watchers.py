@@ -27,7 +27,7 @@ from pyanaconda.errors import ExitError
 __all__ = ["PidWatcher", "WatchProcesses"]
 
 
-class PidWatcher(object):
+class PidWatcher:
     """Watch for process and call callback when the process ends."""
 
     def __init__(self):
@@ -53,7 +53,7 @@ class PidWatcher(object):
         self._id = 0
 
 
-class WatchProcesses(object):
+class WatchProcesses:
     """Static class for watching external processes."""
 
     # Dictionary of processes to watch in the form {pid: [name, GLib event source id], ...}

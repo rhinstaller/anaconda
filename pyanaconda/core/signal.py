@@ -13,7 +13,7 @@ import inspect
 from weakref import WeakKeyDictionary
 
 
-class Signal(object):
+class Signal:
     def __init__(self):
         # The original implementation used WeakSet to store functions,
         # but that causes lambdas without any other reference to be

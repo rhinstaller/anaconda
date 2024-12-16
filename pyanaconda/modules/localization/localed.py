@@ -26,7 +26,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class LocaledWrapper(object):
+class LocaledWrapper:
     """Class wrapping systemd-localed daemon functionality."""
 
     def __init__(self):

@@ -29,7 +29,7 @@ log = get_module_logger(__name__)
 _all__ = ["DiskInitializationConfig"]
 
 
-class DiskInitializationConfig(object):
+class DiskInitializationConfig:
     """Configuration of the disk initialization."""
 
     def __init__(self):

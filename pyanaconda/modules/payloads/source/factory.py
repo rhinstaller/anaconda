@@ -23,7 +23,7 @@ from pyanaconda.modules.payloads.source.utils import is_tar
 __all__ = ["SourceFactory"]
 
 
-class SourceFactory(object):
+class SourceFactory:
     """Factory to create payload sources."""
 
     @staticmethod

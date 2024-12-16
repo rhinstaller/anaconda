@@ -29,7 +29,7 @@ log = get_module_logger(__name__)
 __all__ = ["ProfileLoader"]
 
 
-class ProfileData(object):
+class ProfileData:
     """A class that represents a profile."""
 
     def __init__(self):
@@ -100,7 +100,7 @@ class ProfileData(object):
         self.variant_id = get_option(parser, section_name, "variant_id")
 
 
-class ProfileLoader(object):
+class ProfileLoader:
     """A class for loading information about profiles from configuration files."""
 
     def __init__(self):

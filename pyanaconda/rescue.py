@@ -127,7 +127,7 @@ class RescueModeStatus(Enum):
     ROOT_NOT_FOUND = "root not found"
 
 
-class Rescue(object):
+class Rescue:
     """Rescue mode module.
 
         Provides interface to:

@@ -315,7 +315,7 @@ def _parse_fstab(devicetree, chroot):
     return mounts, devices, mountopts
 
 
-class Root(object):
+class Root:
     """A root represents an existing OS installation."""
 
     def __init__(self, name=None, product=None, version=None, arch=None, devices=None,

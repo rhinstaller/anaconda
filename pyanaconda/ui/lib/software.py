@@ -136,7 +136,7 @@ def get_kernel_from_properties(features):
     return kernel_package
 
 
-class SoftwareSelectionCache(object):
+class SoftwareSelectionCache:
     """The cache of the user software selection.
 
     Use the software selection cache to select environments

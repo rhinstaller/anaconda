@@ -537,7 +537,7 @@ def verify_lvm_destruction(storage, constraints, report_error, report_warning):
             ))
 
 
-class StorageCheckerReport(object):
+class StorageCheckerReport:
     """Class for results of the storage checking."""
 
     def __init__(self):
@@ -599,7 +599,7 @@ class StorageCheckerReport(object):
                 logger.warning(msg)
 
 
-class StorageChecker(object):
+class StorageChecker:
     """Class for advanced storage checking."""
 
     def __init__(self):

@@ -148,7 +148,7 @@ def find_isos(mnt):
     return [mnt+'/'+f for f in os.listdir(mnt) if f.lower().endswith('.iso')]
 
 
-class Driver(object):
+class Driver:
     """Represents a single driver (rpm), as listed by dd_list"""
     def __init__(self, source="", name="", flags="", description="", repo=""):
         self.source = source
@@ -590,7 +590,7 @@ def finish(user_request, topdir="/tmp"):
 # --- DEVICE LISTING HELPERS FOR THE MENU -----------------------------------
 
 
-class DeviceInfo(object):
+class DeviceInfo:
     def __init__(self, **kwargs):
         self.device = kwargs.get("DEVNAME", '')
         self.uuid = kwargs.get("UUID", '')
@@ -638,7 +638,7 @@ def get_deviceinfo():
 # --- INTERACTIVE MENU JUNK ------------------------------------------------
 
 
-class TextMenu(object):
+class TextMenu:
     def __init__(self, items, title=None, formatter=None, headeritem=None,
                  refresher=None, multi=False, page_height=20):
         self.items = items

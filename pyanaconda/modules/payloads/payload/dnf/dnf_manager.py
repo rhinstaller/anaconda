@@ -88,7 +88,7 @@ class InvalidSelectionError(DNFManagerError):
     """The software selection couldn't be resolved."""
 
 
-class DNFManager(object):
+class DNFManager:
     """The abstraction of the DNF base."""
 
     def __init__(self):
