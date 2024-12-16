@@ -15,7 +15,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
@@ -38,6 +41,24 @@ class ImportCertificatesTask(Task):
     def name(self):
         return "Import CA certificates"
 
+    def _dump_certificate(self, cert, root):
+        """Dump the certificate into specified file and directory."""
+        dst_dir = join_paths(root, cert.dir)
+        if not os.path.exists(dst_dir):
+            log.debug("Path %s for certificate %s does not exist, creating.",
+                      dst_dir, cert.filename)
+            make_directories(dst_dir)
+
+        dst = join_paths(dst_dir, cert.filename)
+        with open(dst, 'w') as f:
+            f.write(cert.cert)
+            f.write('\n')
+
     def run(self):
+        """Import CA certificates.
+
+        Dump the certificates into specified files and directories.
+        """
         for cert in self._certificates:
             log.debug("Importing certificate with filename: %s dir: %s", cert.filename, cert.dir)
+            self._dump_certificate(cert, self._sysroot)

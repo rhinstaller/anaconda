@@ -50,3 +50,12 @@ class CertificatesInterface(KickstartModuleInterfaceTemplate):
         return TaskContainer.to_object_path(
             self.implementation.import_with_task()
         )
+
+    def InstallWithTask(self) -> ObjPath:
+        """Import certificates into the installed system
+
+        :return: a DBus path of the import task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.install_with_task()
+        )
