@@ -36,7 +36,7 @@ class FCOEModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
         self.reload_module()
-        self._fcoe_data = list()
+        self._fcoe_data = []
 
     def publish(self):
         """Publish the module."""
@@ -90,7 +90,7 @@ class FCOEModule(KickstartBaseModule):
                 dcb = _dcb
                 break
         else:
-            return list()
+            return []
 
         dcb_opt = "dcb" if dcb else "nodcb"
 

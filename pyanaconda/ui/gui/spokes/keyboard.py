@@ -713,7 +713,7 @@ class KeyboardSpoke(NormalSpoke):
             self._l12_module.XLayouts = [DEFAULT_KEYBOARD]
 
     def _flush_layouts_to_X(self):
-        layouts_list = list()
+        layouts_list = []
 
         for row in self._store:
             layouts_list.append(row[0])

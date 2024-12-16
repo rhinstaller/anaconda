@@ -27,8 +27,8 @@ class RealmData(DBusData):
 
     def __init__(self):
         self._name = ""
-        self._discover_options = list()
-        self._join_options = list()
+        self._discover_options = []
+        self._join_options = []
         self._discovered = False
         self._required_packages = []
 

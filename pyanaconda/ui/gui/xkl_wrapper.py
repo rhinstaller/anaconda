@@ -72,7 +72,7 @@ class XklWrapper:
             if layout.variant:
                 name += ' (' + layout.variant + ')'
 
-            langs = list()
+            langs = []
             for lang in layout.iso639_codes:
                 if iso639.find(iso639_2=lang):
                     langs.append(iso639.to_name(lang))

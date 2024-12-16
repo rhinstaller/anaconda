@@ -46,10 +46,10 @@ class ServicesService(KickstartService):
     def __init__(self):
         super().__init__()
         self.enabled_services_changed = Signal()
-        self._enabled_services = list()
+        self._enabled_services = []
 
         self.disabled_services_changed = Signal()
-        self._disabled_services = list()
+        self._disabled_services = []
 
         self.default_target_changed = Signal()
         self._default_target = ""

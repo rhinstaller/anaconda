@@ -64,7 +64,7 @@ class SetRPMMacrosTask(Task):
 
     def _collect_macros(self, data: PackagesConfigurationData):
         """Collect the RPM macros."""
-        macros = list()
+        macros = []
 
         # nofsync speeds things up at the risk of rpmdb data loss in a crash.
         # But if we crash mid-install you're boned anyway, so who cares?

@@ -95,7 +95,7 @@ class LogicalMonitorConfig:
         self.transform = logical_monitor.transform
         self.primary = logical_monitor.primary
 
-        self.monitors = list()
+        self.monitors = []
         for monitor_id in logical_monitor.monitor_ids:
             connector = monitor_id.connector
             mode_id = self._get_matching_monitor_mode_id(monitors, monitor_id, width, height)
@@ -155,7 +155,7 @@ class MutterDisplay:
         # Align the monitors in a row starting at X coordinate 0
         x = 0
 
-        configs = list()
+        configs = []
         for logical_monitor in logical_monitors:
             config = LogicalMonitorConfig(logical_monitor, monitors, x, 0, width, height)
             x += width

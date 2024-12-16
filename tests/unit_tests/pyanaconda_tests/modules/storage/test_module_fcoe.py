@@ -44,13 +44,13 @@ class FCOEInterfaceTestCase(unittest.TestCase):
 
     def test_get_nics(self):
         """Test the get nics method."""
-        assert self.fcoe_interface.GetNics() == list()
+        assert self.fcoe_interface.GetNics() == []
 
     @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
     def test_get_dracut_arguments(self, fcoe):
         """Test the get dracut arguments method."""
         # no nics / added FCoE targets
-        assert self.fcoe_interface.GetDracutArguments("eth0") == list()
+        assert self.fcoe_interface.GetDracutArguments("eth0") == []
 
         nics_mock = Mock()
         nics_mock.nics = [
