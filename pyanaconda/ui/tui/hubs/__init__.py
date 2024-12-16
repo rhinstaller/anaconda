@@ -153,6 +153,9 @@ class TUIHub(TUIObject, common.Hub):
         prompt = super().prompt(args)
 
         if self._spoke_count == 1:
-            prompt.add_option("1", _("to enter the %(spoke_title)s spoke") % {"spoke_title": list(self._spokes.values())[0].title})
+            prompt.add_option(
+                "1",
+                _("to enter the %(spoke_title)s spoke") % {"spoke_title": next(iter(self._spokes.values())).title}
+            )
 
         return prompt

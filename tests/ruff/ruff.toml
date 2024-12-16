@@ -44,5 +44,4 @@ ignore = [
     "SIM110", # Use `return any(<condition>)` instead of `for` loop
     "SIM222", # Use `<expression>` instead of `<expression>` # (truthiness)
     "PLR1714", # Consider merging multiple comparisons: `<expression>`. Use a `set` if the elements are hashable.
-    "RUF015", # Prefer `next(...)` over single element slice
 ]
