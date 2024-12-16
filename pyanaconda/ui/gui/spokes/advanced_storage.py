@@ -361,7 +361,7 @@ class OtherPage(FilterPage):
         self._vendor_combo = self._builder.get_object("otherVendorCombo")
 
     def is_member(self, device_type):
-        return device_type == "iscsi" or device_type == "fcoe"
+        return device_type in ("iscsi", "fcoe")
 
     def setup(self, store, disks, selected_names, protected_names):
         vendors = set()
@@ -418,7 +418,7 @@ class ZPage(FilterPage):
         self._wwpn_entry.set_text("")
 
     def is_member(self, device_type):
-        return device_type == "zfcp" or device_type == "dasd"
+        return device_type in ("zfcp", "dasd")
 
     def setup(self, store, disks, selected_names, protected_names):
         """ Set up our Z-page, but only if we're running on s390x. """
