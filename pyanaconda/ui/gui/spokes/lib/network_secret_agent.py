@@ -124,7 +124,7 @@ class SecretAgentDialog(GUIObject):
 
 
 @dbus_interface(SECRET_AGENT.interface_name)
-class SecretAgent(object):
+class SecretAgent:
     def __init__(self, ui_callback):
         """Create a SecretAgent instance.
 

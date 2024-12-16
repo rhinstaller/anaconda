@@ -29,7 +29,7 @@ log = get_module_logger(__name__)
 __all__ = ["AdditionalRepositoriesSection"]
 
 
-class AdditionalRepositoriesSection(object):
+class AdditionalRepositoriesSection:
     """Representation of the additional repositories section.
 
     NOTE: This class is just a data holder now. The widget was removed.

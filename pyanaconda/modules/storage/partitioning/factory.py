@@ -22,7 +22,7 @@ from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 __all__ = ["PartitioningFactory"]
 
 
-class PartitioningFactory(object):
+class PartitioningFactory:
     """The partitioning factory."""
 
     @staticmethod

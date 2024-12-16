@@ -31,7 +31,7 @@ __all__ = [
 ]
 
 
-class KickstartSpecification(object):
+class KickstartSpecification:
     """Specification of kickstart data.
 
     This specification can be used to get the corresponding

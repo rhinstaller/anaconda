@@ -30,7 +30,7 @@ class MutterConfigError(Exception):
     pass
 
 
-class MonitorId(object):
+class MonitorId:
     """Collection of properties that identify a unique monitor."""
 
     def __init__(self, props):
@@ -46,7 +46,7 @@ class MonitorId(object):
                self.serial == other.serial
 
 
-class MonitorMode(object):
+class MonitorMode:
     """Available modes for a monitor."""
 
     def __init__(self, props):
@@ -59,7 +59,7 @@ class MonitorMode(object):
         self.properties = props[6]
 
 
-class Monitor(object):
+class Monitor:
     """Represent a connected physical monitor."""
 
     def __init__(self, props):
@@ -68,7 +68,7 @@ class Monitor(object):
         self.properties = props[2]
 
 
-class LogicalMonitor(object):
+class LogicalMonitor:
     """Represent the current logical monitor configuration"""
 
     def __init__(self, props):
@@ -81,7 +81,7 @@ class LogicalMonitor(object):
         self.properties = props[6]
 
 
-class LogicalMonitorConfig(object):
+class LogicalMonitorConfig:
     """Logical monitor configuration object"""
 
     def __init__(self, logical_monitor, monitors, x, y, width, height):
@@ -120,7 +120,7 @@ class LogicalMonitorConfig(object):
         )
 
 
-class MutterDisplay(object):
+class MutterDisplay:
     """Class wrapping Mutter's display configuration API."""
 
     def __init__(self):

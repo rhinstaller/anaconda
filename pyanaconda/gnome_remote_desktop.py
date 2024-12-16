@@ -72,7 +72,7 @@ def shutdown_server():
             log.error("Shutdown of the GNOME Remote Desktop session failed with exception:\n%s", e)
 
 
-class GRDServer(object):
+class GRDServer:
 
     def __init__(self, anaconda, root="/", ip=None,
                  rdp_username="", rdp_password=""):

@@ -23,7 +23,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class InstallManager(object):
+class InstallManager:
     """Manager of the system installation."""
 
     def __init__(self):

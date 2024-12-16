@@ -164,7 +164,7 @@ class BootLoaderArguments:
             self.add(key)
 
 
-class BootLoader(object):
+class BootLoader:
     """A base class for boot loaders."""
 
     name = "Generic Bootloader"

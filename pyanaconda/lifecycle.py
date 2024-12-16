@@ -80,7 +80,7 @@ def add_controller(controller_name, controller_categories):
     return controller
 
 
-class Controller(object):
+class Controller:
     """A singleton that track initialization of Anaconda modules."""
     def __init__(self):
         self._lock = RLock()

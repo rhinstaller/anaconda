@@ -22,7 +22,7 @@ import unittest
 
 from pyanaconda.lifecycle import Controller
 
-class TestModule(object):
+class TestModule:
     def __init__(self):
         self._test = 1
 

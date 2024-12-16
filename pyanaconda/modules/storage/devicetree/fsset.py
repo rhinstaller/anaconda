@@ -172,7 +172,7 @@ def get_system_filesystems(devicetree):
     return devices
 
 
-class BlkidTab(object):
+class BlkidTab:
     """ Dictionary-like interface to blkid.tab with device path keys """
 
     def __init__(self, chroot=""):
@@ -214,7 +214,7 @@ class BlkidTab(object):
         return self.devices.get(key, default)
 
 
-class CryptTab(object):
+class CryptTab:
     """ Dictionary-like interface to crypttab entries with map name keys """
 
     def __init__(self, devicetree, blkid_tab=None, chroot=""):
@@ -300,7 +300,7 @@ class CryptTab(object):
         return self.mappings.get(key, default)
 
 
-class FSSet(object):
+class FSSet:
     """A class to represent a set of filesystems."""
 
     def __init__(self, devicetree):

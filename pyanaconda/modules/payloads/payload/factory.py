@@ -22,7 +22,7 @@ from pyanaconda.modules.payloads.constants import PayloadType
 __all__ = ["PayloadFactory"]
 
 
-class PayloadFactory(object):
+class PayloadFactory:
     """Factory to create payloads."""
 
     @staticmethod

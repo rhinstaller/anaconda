@@ -22,7 +22,7 @@ from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTO
     AUTOPART_TYPE_LVM_THINP
 
 
-class PartSpec(object):
+class PartSpec:
 
     def __init__(self, mountpoint=None, fstype=None, size=None, max_size=None,
                  grow=False, btr=False, lv=False, thin=False, weight=0,

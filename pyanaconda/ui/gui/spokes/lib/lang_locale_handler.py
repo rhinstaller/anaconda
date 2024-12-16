@@ -35,7 +35,7 @@ gi.require_version("GdkPixbuf", "2.0")
 from gi.repository import Gtk, Pango, GdkPixbuf
 
 
-class LangLocaleHandler(object, metaclass=ABCMeta):
+class LangLocaleHandler(metaclass=ABCMeta):
     """
     Class that could be used as a mixin for screens handling languages or
     locales configuration.

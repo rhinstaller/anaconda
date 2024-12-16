@@ -25,7 +25,7 @@ __all__ = ["DownloadProgress"]
 log = get_module_logger(__name__)
 
 
-class DownloadProgress(object):
+class DownloadProgress:
     """Provide methods for image download progress reporting."""
 
     def __init__(self, url, total_size, callback):

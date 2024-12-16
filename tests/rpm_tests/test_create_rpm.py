@@ -292,7 +292,7 @@ class InstalledFilesTestCase(RPMTestCase):
         return in_iter
 
 
-class FileFilters(object):
+class FileFilters:
 
     @staticmethod
     def makefiles_exclude(path):
@@ -382,7 +382,7 @@ class FileFilters(object):
     def src_ignore_exclude(path):
         return path not in IGNORED_SOURCE_FILES
 
-class RPMFilters(object):
+class RPMFilters:
 
     @staticmethod
     def debug_exclude(rpm):
@@ -398,7 +398,7 @@ class RPMFilters(object):
         return "anaconda-core" in rpm
 
 
-class ModifyingFilters(object):
+class ModifyingFilters:
 
     @staticmethod
     def rename_dot_in_files(path):

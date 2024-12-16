@@ -115,7 +115,7 @@ class TUIObject(UIScreen, common.UIObject):
         UIScreen.refresh(self, args)
 
 
-class Dialog(object):
+class Dialog:
 
     def __init__(self, title, conditions=None, report_func=reporting_callback):
         """Get all required information and ask user for input.

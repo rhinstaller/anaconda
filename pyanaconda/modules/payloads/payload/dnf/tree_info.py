@@ -83,7 +83,7 @@ class InvalidTreeInfoError(TreeInfoMetadataError):
     pass
 
 
-class TreeInfoMetadata(object):
+class TreeInfoMetadata:
     """The representation of a .treeinfo file.
 
     The structure of the installation root can be similar to this:
@@ -382,7 +382,7 @@ class TreeInfoMetadata(object):
         return None
 
 
-class TreeInfoRepoMetadata(object):
+class TreeInfoRepoMetadata:
     """Metadata repo object contains metadata about repository."""
 
     def __init__(self, repo_name, tree_info, root_url):

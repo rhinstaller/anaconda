@@ -357,7 +357,7 @@ class FlatpakTest(unittest.TestCase):
         ], any_order=True)
 
 
-class OperationMock(object):
+class OperationMock:
     """Mock of the Flatpak.TransactionOperation class."""
 
     def __init__(self, ref="app/org.test/x86_64", op=TransactionOperationType.INSTALL):
@@ -371,7 +371,7 @@ class OperationMock(object):
         return self._op
 
 
-class RefMock(object):
+class RefMock:
     """Mock of the Flatpak.InstalledRef class."""
 
     def __init__(self, ref="app/org.test/x86_64", installed_size=0):

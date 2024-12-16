@@ -27,7 +27,7 @@ log = get_module_logger(__name__)
 _WORKER_THREAD_PREFIX = "AnaWorkerThread"
 
 
-class ThreadManager(object):
+class ThreadManager:
     """A singleton class for managing threads and processes.
 
        Notes:

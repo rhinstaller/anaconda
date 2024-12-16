@@ -44,7 +44,7 @@ def setup_bootloader(storage, dry_run=False):
     executor.execute(storage=storage, dry_run=dry_run)
 
 
-class BootloaderExecutor(object):
+class BootloaderExecutor:
     """The executor of the bootloader command."""
 
     def execute(self, storage, dry_run=False):

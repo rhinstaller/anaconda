@@ -335,7 +335,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
         This returns an iterator with the lines from the command until it has finished
     """
 
-    class ExecLineReader(object):
+    class ExecLineReader:
         """Iterator class for returning lines from a process and cleaning
            up the process when the output is no longer needed.
         """
@@ -799,7 +799,7 @@ def get_anaconda_version_string(build_time_version=False):
         return "unknown"
 
 
-class LazyObject(object):
+class LazyObject:
     """The lazy object."""
 
     def __init__(self, getter):

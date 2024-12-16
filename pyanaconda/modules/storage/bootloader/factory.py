@@ -23,7 +23,7 @@ log = get_module_logger(__name__)
 __all__ = ["BootLoaderFactory"]
 
 
-class BootLoaderFactory(object):
+class BootLoaderFactory:
     """The boot loader factory."""
 
     # The default boot loader class.

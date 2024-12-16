@@ -18,7 +18,7 @@
 from enum import Enum
 
 
-class KickstartElement(object):
+class KickstartElement:
     """Stores element parsed from kickstart with reference to file.
 
     Element can be a command, a section or an addon. Addon is not considered
@@ -140,7 +140,7 @@ class KickstartElement(object):
         return content
 
 
-class KickstartElements(object):
+class KickstartElements:
     """Container for storing and filtering KickstartElement objects
 
     Preserves order of added elements.

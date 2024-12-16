@@ -43,7 +43,7 @@ __all__ = [
 ]
 
 
-class EFIBase(object):
+class EFIBase:
     """A base class for EFI-based boot loaders."""
 
     @property

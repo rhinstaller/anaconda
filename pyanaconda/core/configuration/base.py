@@ -171,7 +171,7 @@ class Section(ABC):
         set_option(self._parser, self._section_name, option_name, value)
 
 
-class Configuration(object):
+class Configuration:
     """A base class for representation of a configuration handler."""
 
     def __init__(self):

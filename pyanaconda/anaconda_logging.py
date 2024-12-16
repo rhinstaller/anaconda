@@ -48,7 +48,7 @@ from threading import Lock
 program_log_lock = Lock()
 
 
-class _AnacondaLogFixer(object):
+class _AnacondaLogFixer:
     """ A mixin for logging.StreamHandler that does not lock during format.
 
         Add this mixin before the Handler type in the inheritance order.
@@ -74,7 +74,7 @@ class _AnacondaLogFixer(object):
         # Wrap the stream write in a lock acquisition
         # Use an object proxy in order to work with types that may not allow
         # the write property to be set.
-        class WriteProxy(object):
+        class WriteProxy:
 
             def write(self, *args, **kwargs):
                 handler.acquire()  # pylint: disable=no-member
@@ -149,7 +149,7 @@ class AnacondaPrefixFilter(logging.Filter):
         return True
 
 
-class AnacondaLog(object):
+class AnacondaLog:
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
 
     def __init__(self, write_to_journal=False):

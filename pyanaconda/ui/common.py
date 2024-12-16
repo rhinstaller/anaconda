@@ -30,7 +30,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class UIObject(object):
+class UIObject:
     """This is the base class from which all other UI classes are derived.  It
        thus contains only attributes and methods that are common to everything
        else.  It should not be directly instantiated.
@@ -101,7 +101,7 @@ class UIObject(object):
         return self._data
 
 
-class FirstbootSpokeMixIn(object):
+class FirstbootSpokeMixIn:
     """This MixIn class marks Spokes as usable for Firstboot
        and Anaconda.
     """
@@ -134,7 +134,7 @@ class FirstbootSpokeMixIn(object):
         return False
 
 
-class FirstbootOnlySpokeMixIn(object):
+class FirstbootOnlySpokeMixIn:
     """This MixIn class marks Spokes as usable for Firstboot."""
     @classmethod
     def should_run(cls, environment, data):

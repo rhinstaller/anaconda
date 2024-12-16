@@ -32,7 +32,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DasdFormatting(object):
+class DasdFormatting:
     """Class for formatting DASDs."""
 
     def __init__(self):

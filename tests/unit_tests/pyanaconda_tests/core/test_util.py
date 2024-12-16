@@ -641,7 +641,7 @@ class MiscTests(unittest.TestCase):
 
         # The @synchronized decorator work on methods of classes
         # that provide self._lock with Lock or RLock instance.
-        class LockableClass(object):
+        class LockableClass:
             def __init__(self):
                 self._lock = Lock()
 
@@ -659,7 +659,7 @@ class MiscTests(unittest.TestCase):
         assert lockable.sync_test_method()
 
         # The @synchronized decorator does not work on classes without self._lock.
-        class NotLockableClass(object):
+        class NotLockableClass:
             @synchronized
             def sync_test_method(self):
                 return "Hello world!"
@@ -863,7 +863,7 @@ class MiscTests(unittest.TestCase):
 
 class LazyObjectTestCase(unittest.TestCase):
 
-    class Object(object):
+    class Object:
 
         def __init__(self):
             self._x = 0

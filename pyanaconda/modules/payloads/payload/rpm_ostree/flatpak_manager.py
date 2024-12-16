@@ -39,7 +39,7 @@ log = get_module_logger(__name__)
 __all__ = ["FlatpakManager"]
 
 
-class FlatpakManager(object):
+class FlatpakManager:
     """Main class to handle flatpak installation and management."""
 
     LOCAL_REMOTE_NAME = "Anaconda"

@@ -471,7 +471,7 @@ class TestRunScriptsTask(unittest.TestCase):
         script.run.assert_called_once_with('/')
 
 
-class TestModule(object):
+class TestModule:
 
     def __init__(self, commands=None, sections=None, addons=None):
         self.kickstart_commands = commands or []

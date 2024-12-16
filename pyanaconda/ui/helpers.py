@@ -73,12 +73,12 @@ def get_distribution_text():
     }
 
 
-class StorageCheckHandler(object, metaclass=ABCMeta):
+class StorageCheckHandler(metaclass=ABCMeta):
     errors = []
     warnings = []
 
 
-class SourceSwitchHandler(object, metaclass=ABCMeta):
+class SourceSwitchHandler(metaclass=ABCMeta):
     """ A class that can be used as a mixin handling
     installation source switching.
     It will correctly switch to the new method
@@ -158,7 +158,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self._set_source(source_proxy)
 
 
-class InputCheck(object):
+class InputCheck:
     """Handle an input validation check.
 
        This class is used by classes that implement InputCheckHandler to
@@ -229,7 +229,7 @@ class InputCheck(object):
         self._enabled = value
 
 
-class InputCheckHandler(object, metaclass=ABCMeta):
+class InputCheckHandler(metaclass=ABCMeta):
     """Provide a framework for adding input validation checks to a screen.
 
        This helper class provides a mean of defining and associating input

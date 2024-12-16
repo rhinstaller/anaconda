@@ -19,7 +19,7 @@
 __all__ = ["BootLoaderImage", "LinuxBootLoaderImage"]
 
 
-class BootLoaderImage(object):
+class BootLoaderImage:
     """A base class for boot loader images.
 
     Suitable for non-linux OS images.

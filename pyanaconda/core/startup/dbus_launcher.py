@@ -44,7 +44,7 @@ log = get_anaconda_root_logger()
 __all__ = ["AnacondaDBusLauncher"]
 
 
-class AnacondaDBusLauncher(object):
+class AnacondaDBusLauncher:
     """Class for launching the Anaconda DBus modules."""
 
     DBUS_LAUNCH_BIN = "dbus-daemon"

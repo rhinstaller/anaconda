@@ -34,7 +34,7 @@ from pyanaconda.modules.common.task import TaskInterface
 from dasbus.typing import get_native
 
 
-class run_in_glib(object):
+class run_in_glib:
     """Run the test methods in GLib.
 
     :param timeout: Timeout in seconds when the loop will be killed.

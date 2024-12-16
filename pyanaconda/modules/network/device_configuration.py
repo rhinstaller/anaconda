@@ -61,7 +61,7 @@ virtual_device_types = [
 ]
 
 
-class DeviceConfigurations(object):
+class DeviceConfigurations:
     """Stores the state of persistent configuration of network devices.
 
     Contains only configuration of devices supported by Anaconda.
