@@ -30,14 +30,16 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
     NonCriticalInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.base.utils import pick_download_location
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_remote_requirements, \
     collect_language_requirements, collect_platform_requirements, collect_dnf_requirements, \
     collect_driver_disk_requirements, apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location, \
-    get_kernel_version_list
+from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
 
 log = get_module_logger(__name__)
+
+DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 
 
 class SetRPMMacrosTask(Task):
@@ -176,7 +178,9 @@ class PrepareDownloadLocationTask(Task):
 
         :return: a path of the download location
         """
-        path = pick_download_location(self._dnf_manager)
+        path = pick_download_location(self._dnf_manager.get_download_size(),
+                                      self._dnf_manager.get_installation_size(),
+                                      DNF_PACKAGE_CACHE_DIR_SUFFIX)
 
         if os.path.exists(path):
             log.info("Removing existing package download location: %s", path)
