@@ -24,6 +24,7 @@ from pyanaconda.modules.common.structures.packages import (
     PackagesConfigurationData,
     PackagesSelectionData,
 )
+from pyanaconda.modules.payloads.base.utils import calculate_required_space
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.kickstart import (
     convert_ks_data_to_packages_configuration,
@@ -54,7 +55,6 @@ from pyanaconda.modules.payloads.payload.dnf.installation import (
 )
 from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
 from pyanaconda.modules.payloads.payload.dnf.utils import (
-    calculate_required_space,
     collect_installation_devices,
     protect_installation_devices,
 )
@@ -388,7 +388,8 @@ class DNFModule(PayloadBase):
         :return: required size in bytes
         :rtype: int
         """
-        required_space = calculate_required_space(self.dnf_manager)
+        required_space = calculate_required_space(self._dnf_manager.get_download_size(),
+                                                  self._dnf_manager.get_installation_size())
         return required_space.get_bytes()
 
     def get_repo_configurations(self):
