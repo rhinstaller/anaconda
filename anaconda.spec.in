@@ -490,6 +490,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 17 2024 github-actions <github-actions@github.com> - 42.20-1
+- Subscription code updates - adjust unit tests (mkolman)
+- Subscription code updates - GTK GUI (mkolman)
+- Subscription code updates - backend (mkolman)
+- Bump minimal subscription manager versions (mkolman)
+- network: improve logging of writing configuration (rvykydal)
+
 * Tue Dec 10 2024 github-actions <github-actions@github.com> - 42.19-1
 - Avoid side effect of ask rdp methods (jkonecny)
 - Do not crash if RDP is selected after regular GUI startup failed (#2326410)
