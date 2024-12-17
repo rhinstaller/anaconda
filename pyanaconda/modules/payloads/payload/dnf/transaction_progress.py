@@ -15,8 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import dnf.transaction
-import dnf.callback
+import libdnf5
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -57,7 +56,7 @@ def process_transaction_progress(queue, callback):
         (token, msg) = queue.get()
 
 
-class TransactionProgress(dnf.callback.TransactionProgress):
+class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
     """The class for receiving information about an ongoing transaction."""
 
     def __init__(self, queue):
@@ -67,56 +66,61 @@ class TransactionProgress(dnf.callback.TransactionProgress):
         """
         super().__init__()
         self._queue = queue
-        self._last_ts = None
-        self._postinst_phase = False
-        self.cnt = 0
 
-    def progress(self, package, action, ti_done, _ti_total, ts_done, ts_total):
-        """Report ongoing progress on the given transaction item.
+    def install_start(self, item, total=0):
+        log.info("Installing - %s", item.get_package().to_string())
+        log.debug(libdnf5.base.transaction.transaction_item_action_to_string(item.get_action()))
+        self._queue.put(('install', item.get_package().to_string()))
 
-        :param package: the DNF package object
-        :param action: the ID of the current action
-        :param ti_done: the number of processed bytes of the transaction item
-        :param _ti_total: the total number of bytes of the transaction item
-        :param ts_done: the number of actions processed in the whole transaction
-        :param ts_total: the total number of actions in the whole transaction
-        """
-        # Process DNF actions, communicating with anaconda via the queue
-        # A normal installation consists of 'install' messages followed by
-        # the 'post' message.
-        if action == dnf.transaction.PKG_INSTALL and ti_done == 0:
-            # do not report same package twice
-            if self._last_ts == ts_done:
-                return
-            self._last_ts = ts_done
+    def install_progress(self, item, amount, total):
+        log.debug("Installing - %s (%s/%s)", item.get_package().to_string(), amount, total)
 
-            msg = '%s.%s (%d/%d)' % \
-                (package.name, package.arch, ts_done, ts_total)
-            self.cnt += 1
-            self._queue.put(('install', msg))
+    def verify_progress(self, amount, total):
+        log.debug("Verify %s/%s", amount, total)
+        self._queue.put(('verify', 'packages'))
 
-            # Log the exact package nevra, build time and checksum
-            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Installed: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
-            self._queue.put(('log', log_msg))
+    def script_start(self, item, nevra, type):
+        log.debug(
+            "Configuring - %s, %s, %s",
+            # In case of the script_start callback, the item can be a nullpointer.
+            # There reason is some scriptlets (namely file triggers) can be run for a package
+            # that is not part of the transaction.
+            item.get_package().to_string() if item else "unknown",
+            # FIXME: full nevra
+            #libdnf5.rpm.to_full_nevra_string(nevra),
+            nevra.get_name(),
+            libdnf5.rpm.TransactionCallbacks.script_type_to_string(type)
+        )
+        # FIXME: full nevra
+        #libdnf5.rpm.to_full_nevra_string(nevra),
+        self._queue.put(('configure', nevra.get_name()))
 
-        elif action == dnf.transaction.TRANS_POST:
-            self._queue.put(('post', None))
-            log_msg = "Post installation setup phase started."
-            self._queue.put(('log', log_msg))
-            self._postinst_phase = True
+    def after_complete(self, total):
+        log.debug("Done - %s", total)
+        self._queue.put(('done', None))
 
-        elif action == dnf.transaction.PKG_SCRIPTLET:
-            # Log the exact package nevra, build time and checksum
-            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime,
-                                                                         package.returnIdSum()[1])
-            self._queue.put(('log', log_msg))
+    def cpio_error(self, item):
+        log.debug("Error - %s", item.get_package().to_string())
+        self._queue.put(('error', item.get_package().to_string()))
 
-            # only show progress in UI for post-installation scriptlets
-            if self._postinst_phase:
-                msg = '%s.%s' % (package.name, package.arch)
-                self._queue.put(('configure', msg))
+    def script_error(self, item, nevra, type, return_code):
+        log.debug(
+            "Error - %s, %s, %s, %s",
+            # In case of the script_error callback, the item can be a nullpointer.
+            # There reason is some scriptlets (namely file triggers) can be run for a package
+            # that is not part of the transaction.
+            item.get_package().to_string() if item else "unknown",
+            # FIXME: full nevra
+            #libdnf5.rpm.to_full_nevra_string(nevra),
+            nevra.get_name(),
+            libdnf5.rpm.TransactionCallbacks.script_type_to_string(type),
+            return_code
+        )
+        self._queue.put(('error', item.get_package().to_string()))
+
+    def unpack_error(self, item):
+        log.debug("Error - %s", item.get_package().to_string())
+        self._queue.put(('error', item.get_package().to_string()))
 
     def error(self, message):
         """Report an error that occurred during the transaction.
@@ -132,3 +136,63 @@ class TransactionProgress(dnf.callback.TransactionProgress):
         """
         self._queue.put(('quit', message))
         self._queue.close()
+
+    # def progress(self, package, action, ti_done, ti_total, ts_done, ts_total):
+    #     """Report ongoing progress on the given transaction item.
+    #
+    #     :param package: the DNF package object
+    #     :param action: the ID of the current action
+    #     :param ti_done: the number of processed bytes of the transaction item
+    #     :param ti_total: the total number of bytes of the transaction item
+    #     :param ts_done: the number of actions processed in the whole transaction
+    #     :param ts_total: the total number of actions in the whole transaction
+    #     """
+    #     # Process DNF actions, communicating with anaconda via the queue
+    #     # A normal installation consists of 'install' messages followed by
+    #     # the 'post' message.
+    #     if action == dnf.transaction.PKG_INSTALL and ti_done == 0:
+    #         # do not report same package twice
+    #         if self._last_ts == ts_done:
+    #             return
+    #         self._last_ts = ts_done
+    #
+    #         msg = '%s.%s (%d/%d)' % \
+    #             (package.name, package.arch, ts_done, ts_total)
+    #         self.cnt += 1
+    #         self._queue.put(('install', msg))
+    #
+    #         # Log the exact package nevra, build time and checksum
+    #         nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
+    #         log_msg = "Installed: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
+    #         self._queue.put(('log', log_msg))
+    #
+    #     elif action == dnf.transaction.TRANS_POST:
+    #         self._queue.put(('post', None))
+    #         log_msg = "Post installation setup phase started."
+    #         self._queue.put(('log', log_msg))
+    #         self._postinst_phase = True
+    #
+    #     elif action == dnf.transaction.PKG_SCRIPTLET:
+    #         # Log the exact package nevra, build time and checksum
+    #         nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
+    #         log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime,
+    #                                                                      package.returnIdSum()[1])
+    #         self._queue.put(('log', log_msg))
+    #
+    #         # only show progress in UI for post-installation scriptlets
+    #         if self._postinst_phase:
+    #             msg = '%s.%s' % (package.name, package.arch)
+    #             self._queue.put(('configure', msg))
+    #
+    #     elif action == dnf.transaction.PKG_VERIFY:
+    #         msg = '%s.%s (%d/%d)' % (package.name, package.arch, ts_done, ts_total)
+    #         self._queue.put(('verify', msg))
+    #
+    #         # Log the exact package nevra, build time and checksum
+    #         nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
+    #         log_msg = "Verifying: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
+    #         self._queue.put(('log', log_msg))
+    #
+    #         # Once the last package is verified the transaction is over
+    #         if ts_done == ts_total:
+    #             self._queue.put(('done', None))
