@@ -242,7 +242,7 @@ def _is_device_name_disk(device_name, devicetree=None, refresh_udev_cache=False)
                 # so we cache it in this non-elegant way.
                 # An unfortunate side effect of this is that udev devices that show up after
                 # this function is called for the first time will not be taken into account.
-                _udev_device_dict_cache = dict()
+                _udev_device_dict_cache = {}
 
                 for d in udev.get_devices():
                     # Add the device name to the cache.

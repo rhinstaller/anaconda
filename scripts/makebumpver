@@ -240,7 +240,7 @@ class MakeBumpVer:
         self.git_branch = None
 
         # RHEL release number or None (also fills in self.git_branch)
-        self.rhel = True if rhel_version else False
+        self.rhel = bool(rhel_version)
 
     def _git_config(self, field):
         proc = run_program(['git', 'config', field])

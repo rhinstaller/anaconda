@@ -99,7 +99,7 @@ class KernelArgumentsTests(unittest.TestCase):
         # Re-enable the following line when the issue is fixed
         # assert isinstance(it, Iterable)
 
-        res = dict()
+        res = {}
         for k, v in it:
             res[k] = v
 

@@ -148,13 +148,10 @@ class FirstbootOnlySpokeMixIn:
            the data argument.
         """
 
-        if environment == FIRSTBOOT_ENVIRON:
-            # firstboot only spokes should run in firstboot by default, spokes
-            # that should run even if not doing reconfig should override this
-            # method
-            return True
-        else:
-            return False
+        # firstboot only spokes should run in firstboot by default, spokes
+        # that should run even if not doing reconfig should override this
+        # method
+        return environment == FIRSTBOOT_ENVIRON
 
 
 class Screen(ABC):

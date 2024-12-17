@@ -33,7 +33,7 @@ class UserData(DBusData):
         self._name = ""
         self._uid = 0
         self._uid_mode = ID_MODE_USE_DEFAULT
-        self._groups = list()
+        self._groups = []
         self._gid = 0
         self._gid_mode = ID_MODE_USE_DEFAULT
         self._homedir = ""

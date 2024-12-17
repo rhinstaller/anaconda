@@ -108,8 +108,8 @@ pygments_style = 'sphinx'
 autoclass_content = 'both'
 
 # Inheritence diagram graphviz settings
-inheritance_graph_attrs = dict(rankdir="UD", fontsize=14, ratio='auto')
-inheritance_node_attrs = dict(style='rounded', margin='"0.07, 0.07"')
+inheritance_graph_attrs = {"rankdir": 'UD', "fontsize": 14, "ratio": 'auto'}
+inheritance_node_attrs = {"style": 'rounded', "margin": '"0.07, 0.07"'}
 
 # -- Options for HTML output ---------------------------------------------------
 

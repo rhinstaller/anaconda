@@ -541,9 +541,9 @@ class StorageCheckerReport:
     """Class for results of the storage checking."""
 
     def __init__(self):
-        self.info = list()
-        self.errors = list()
-        self.warnings = list()
+        self.info = []
+        self.errors = []
+        self.warnings = []
 
     @property
     def success(self):
@@ -603,8 +603,8 @@ class StorageChecker:
     """Class for advanced storage checking."""
 
     def __init__(self):
-        self.checks = list()
-        self.constraints = dict()
+        self.checks = []
+        self.constraints = {}
 
     def add_check(self, callback):
         """ Add a callback for storage checking.
@@ -701,14 +701,14 @@ class StorageChecker:
 
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
-        self.constraints = dict()
+        self.constraints = {}
 
         for name in self.get_default_constraint_names():
             self.add_constraint(name, getattr(conf.storage_constraints, name))
 
     def set_default_checks(self):
         """Set the default checks."""
-        self.checks = list()
+        self.checks = []
         self.add_check(verify_root)
         self.add_check(verify_s390_constraints)
         self.add_check(verify_partition_formatting)

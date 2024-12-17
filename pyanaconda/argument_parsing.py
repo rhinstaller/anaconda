@@ -93,7 +93,7 @@ class AnacondaArgumentParser(ArgumentParser):
             True: ignore the argument without the prefix. (default)
         """
         help_width = get_help_width()
-        self._boot_arg = dict()
+        self._boot_arg = {}
         self.bootarg_prefix = kwargs.pop("bootarg_prefix", "")
         self.require_prefix = kwargs.pop("require_prefix", True)
 
@@ -307,8 +307,11 @@ def name_path_pairs(image_specs):
             name = os.path.splitext(os.path.basename(path))[0]
 
         if name in names_seen:
-            names = ("%s_%d" % (name, n) for n in itertools.count())
-            name = next(itertools.dropwhile(lambda n: n in names_seen, names))
+            for n in itertools.count():
+                candidate = "%s_%d" % (name, n)
+                if candidate not in names_seen:
+                    name = candidate
+                    break
         names_seen.append(name)
 
         yield name, path

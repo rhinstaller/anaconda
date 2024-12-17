@@ -106,10 +106,7 @@ class LangLocaleHandler(metaclass=ABCMeta):
         # text entry.  Either the English or native names can match.
         lowered = entry.lower()
         translit = strip_accents(native).lower()
-        if lowered in native.lower() or lowered in english.lower() or lowered in translit:
-            return True
-        else:
-            return False
+        return lowered in native.lower() or lowered in english.lower() or lowered in translit
 
     def _render_lang_selected(self, column, renderer, model, itr, user_data=None):
         (lang_store, sel_itr) = self._langSelection.get_selected()

@@ -39,7 +39,7 @@ class ManualPartitioningModule(PartitioningModule):
         """Initialize the module."""
         super().__init__()
         self.requests_changed = Signal()
-        self._requests = list()
+        self._requests = []
 
     @property
     def partitioning_method(self):

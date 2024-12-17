@@ -37,7 +37,7 @@ class ZFCPModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
         self.reload_module()
-        self._zfcp_data = list()
+        self._zfcp_data = []
 
     def publish(self):
         """Publish the module."""

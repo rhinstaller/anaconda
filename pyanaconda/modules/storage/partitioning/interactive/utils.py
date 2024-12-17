@@ -506,12 +506,12 @@ def resize_device(storage, device, new_size, old_size):
     # And then we need to re-check that the max size is actually
     # different from the current size.
 
-    if use_size == device.size or use_size == device.raw_device.size:
+    if use_size in (device.size, device.raw_device.size):
         # The size hasn't changed.
         log.debug("Canceled resize of device %s to %s.", device.raw_device.name, use_size)
         return False
 
-    if new_size == device.current_size or use_size == device.current_size:
+    if device.current_size in (new_size, use_size):
         # The size has been set back to its original value.
         log.debug("Removing resize of device %s.", device.raw_device.name)
 

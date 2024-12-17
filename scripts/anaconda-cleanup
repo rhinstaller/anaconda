@@ -37,7 +37,7 @@ pyanaconda.anaconda_logging.init(write_to_journal=False)
 from blivet.devicetree import DeviceTree
 from gi.repository import BlockDev as blockdev
 
-disk_images = dict()
+disk_images = {}
 
 # find devices representing disk images
 sys_class_block = "/sys/class/block"

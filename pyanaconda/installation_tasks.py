@@ -249,7 +249,7 @@ class Task(BaseTask):
         super().__init__(task_name)
         self._task_cb = task_cb
         self._task_args = task_args or []
-        self._task_kwargs = task_kwargs or dict()
+        self._task_kwargs = task_kwargs or {}
 
     @property
     def summary(self):

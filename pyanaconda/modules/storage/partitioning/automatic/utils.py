@@ -377,9 +377,9 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
             is_gpt = (stage1_device and
                       getattr(stage1_device.format, "label_type", None) == "gpt")
             has_bios_boot = (stage1_device and
-                             any([p.format.type == "biosboot"
-                                  for p in storage.partitions
-                                  if p.disk == stage1_device]))
+                             any(p.format.type == 'biosboot'
+                                 for p in storage.partitions
+                                 if p.disk == stage1_device))
             if (storage.bootloader.skip_bootloader or
                 not (stage1_device and stage1_device.is_disk and
                      is_gpt and not has_bios_boot)):
