@@ -353,7 +353,7 @@ def clean_pstore():
     take effect immediately, which is the best case.  Unfortunately on some,
     an intervening reboot is needed.
     """
-    for (base, dirs, files) in os.walk("/sys/fs/pstore"):  # pylint: disable=unused-variable
+    for (base, _dirs, files) in os.walk("/sys/fs/pstore"):
         for file in files:
             try:
                 os.unlink(os.path.join(base, file))

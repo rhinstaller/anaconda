@@ -512,10 +512,13 @@ class GraphicalUserInterface(UserInterface):
     """
     def __init__(self, storage, payload,
                  distributionText=get_distribution_text,
-                 isFinal=get_product_is_final_release(),
+                 isFinal=None,
                  quitDialog=QuitDialog,
                  gui_lock=None,
                  fullscreen=False):
+
+        if isFinal is None:
+            isFinal = get_product_is_final_release()
 
         super().__init__(storage, payload)
 

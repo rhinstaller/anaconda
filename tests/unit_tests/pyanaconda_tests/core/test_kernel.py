@@ -85,7 +85,7 @@ class KernelArgumentsTests(unittest.TestCase):
         # Re-enable the following line when the issue is fixed
         # assert isinstance(it, Iterable)
         root_seen = False
-        for k, v in it:  # pylint: disable=unused-variable
+        for k, _v in it:  # pylint: disable=unused-variable
             if k == "root":
                 root_seen = True
         assert root_seen

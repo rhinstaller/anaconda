@@ -48,7 +48,7 @@ class AnacondaLintConfig(CensorshipConfig):
     def _get_py_paths(self, directory):
         retval = []
 
-        for (root, dirnames, files) in os.walk(directory):
+        for (root, _dirnames, files) in os.walk(directory):
 
             # skip scanning of already added python modules
             if any(root.startswith(i) for i in retval):

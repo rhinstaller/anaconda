@@ -1332,7 +1332,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Update the UI.
         idx = None
 
-        for idx, data in enumerate(self._containerStore):
+        for idx, data in enumerate(self._containerStore):  # ruff: noqa: B007
             # we're looking for the original vg name
             if data[0] == container_name:
                 break
