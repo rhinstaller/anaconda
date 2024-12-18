@@ -10,6 +10,7 @@ select = [
     "F", # pyflakes
     "I", # isort
     "W", # pycodestyle warning (mostly whitespace related)
+    "PIE", # flake8-pie
     "PL", # pylint
     "ICN", # flake8-import-conventions
     "G", # flake8-logging-format
@@ -25,6 +26,7 @@ ignore = [
     "F405", # `<type>` may be undefined, or defined from star imports: `<module>`
     "F403", # `from <module> import *` used; unable to detect undefined names
     "E731", # Do not assign a `lambda` expression, use a `def`
+    "PIE790", # unnecessary-placeholder
     "PLW0603", # Using the global statement to update `<variable>` is discouraged
     "PLR2004", # Magic value used in comparison, consider replacing <value> with a constant variable
     "PLR0913", # Too many arguments to function call (N > 5)

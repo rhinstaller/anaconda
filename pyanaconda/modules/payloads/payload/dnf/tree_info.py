@@ -311,7 +311,7 @@ class TreeInfoMetadata:
         # full connectivity before trying to download things. (#1292613)
         xdelay = xprogressive_delay()
 
-        for retry_count in range(0, retry_max):
+        for retry_count in range(retry_max):
             # Delay if we are retrying the download.
             if retry_count > 0:
                 log.info("Retrying download (%d/%d)", retry_count, retry_max - 1)

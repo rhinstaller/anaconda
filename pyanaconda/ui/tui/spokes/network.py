@@ -116,9 +116,9 @@ class WiredTUIConfigurationData():
         self.ipv6gateway = ip6_config.get_gateway() or ""
 
         nameservers = []
-        for i in range(0, ip4_config.get_num_dns()):
+        for i in range(ip4_config.get_num_dns()):
             nameservers.append(ip4_config.get_dns(i))
-        for i in range(0, ip6_config.get_num_dns()):
+        for i in range(ip6_config.get_num_dns()):
             nameservers.append(ip6_config.get_dns(i))
         self.nameserver = ",".join(nameservers)
 

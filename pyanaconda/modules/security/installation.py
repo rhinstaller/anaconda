@@ -352,7 +352,7 @@ class RealmJoinTask(Task):
             return
 
         for arg in self._realm_data.join_options:
-            if arg.startswith("--no-password") or arg.startswith("--one-time-password"):
+            if arg.startswith(("--no-password", "--one-time-password")):
                 pw_args = []
                 break
         else:

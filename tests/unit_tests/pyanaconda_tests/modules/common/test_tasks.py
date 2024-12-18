@@ -314,7 +314,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
             timeout = TaskInterfaceTestCase.TIMEOUT
 
             # Wait for the cancellation.
-            for _i in range(0, timeout * 10):
+            for _i in range(timeout * 10):
                 if self.check_cancel():
                     return
 
