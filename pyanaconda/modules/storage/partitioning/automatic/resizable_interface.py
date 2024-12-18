@@ -19,8 +19,11 @@
 #
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_RESIZABLE
-from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.modules.storage.devicetree.devicetree_interface import (
+    DeviceTreeInterface,
+)
 
 __all__ = ["ResizableDeviceTreeInterface"]
 

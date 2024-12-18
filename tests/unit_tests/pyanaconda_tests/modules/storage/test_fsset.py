@@ -22,8 +22,8 @@ from blivet.devices import StorageDevice
 from blivet.devicetree import DeviceTree
 from blivet.formats import get_format
 
-from pyanaconda.modules.storage.platform import EFI, X86
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
+from pyanaconda.modules.storage.platform import EFI, X86
 
 
 class FSSetTestCase(unittest.TestCase):

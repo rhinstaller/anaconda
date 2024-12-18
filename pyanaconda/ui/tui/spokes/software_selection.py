@@ -16,27 +16,39 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.flags import flags
-from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.context import context
-from pyanaconda.ui.lib.software import get_software_selection_status, \
-    is_software_selection_complete, SoftwareSelectionCache, get_group_data, get_environment_data
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.threads import thread_manager
-from pyanaconda.ui.lib.software import FEATURE_64K, KernelFeatures, \
-    get_kernel_from_properties, get_available_kernel_features, get_kernel_titles_and_descriptions
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
-    THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
-from pyanaconda.core.configuration.anaconda import conf
-
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, CheckboxWidget
+from simpleline.render.widgets import CheckboxWidget, TextWidget
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    THREAD_CHECK_SOFTWARE,
+    THREAD_PAYLOAD,
+    THREAD_SOFTWARE_WATCHER,
+)
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.flags import flags
+from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.context import context
+from pyanaconda.ui.lib.software import (
+    FEATURE_64K,
+    KernelFeatures,
+    SoftwareSelectionCache,
+    get_available_kernel_features,
+    get_environment_data,
+    get_group_data,
+    get_kernel_from_properties,
+    get_kernel_titles_and_descriptions,
+    get_software_selection_status,
+    is_software_selection_complete,
+)
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+
 log = get_module_logger(__name__)
 
 __all__ = ["SoftwareSpoke"]

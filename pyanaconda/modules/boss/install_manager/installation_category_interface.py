@@ -19,8 +19,9 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface, dbus_signal
-from pyanaconda.modules.common.constants.interfaces import TASK_CATEGORY
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.modules.common.constants.interfaces import TASK_CATEGORY
 from pyanaconda.modules.common.task import TaskInterface
 
 __all__ = ['CategoryReportTaskInterface']

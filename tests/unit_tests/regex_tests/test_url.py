@@ -19,7 +19,9 @@
 import unittest
 
 from regexcheck import regex_group
+
 from pyanaconda.core.regexes import URL_PARSE
+
 
 class URLRegexTestCase(unittest.TestCase):
     def test_url_regex(self):

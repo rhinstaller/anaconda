@@ -23,6 +23,7 @@ import unittest
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 
+
 def _run_tests(testcase, expression, goodlist, badlist):
     got_error = False
     for good in goodlist:

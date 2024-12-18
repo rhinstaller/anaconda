@@ -20,11 +20,17 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.flatpak.flatpak_interface import FlatpakSourceInterface
-from pyanaconda.modules.payloads.source.flatpak.initialization import GetFlatpaksSizeTask
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
+    FlatpakManager,
+)
+from pyanaconda.modules.payloads.source.flatpak.flatpak_interface import (
+    FlatpakSourceInterface,
+)
+from pyanaconda.modules.payloads.source.flatpak.initialization import (
+    GetFlatpaksSizeTask,
+)
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 
 log = get_module_logger(__name__)
 

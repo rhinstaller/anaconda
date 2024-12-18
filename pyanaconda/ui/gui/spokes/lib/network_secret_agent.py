@@ -18,24 +18,25 @@
 #
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 gi.require_version("NM", "1.0")
 
-from gi.repository import Gtk, NM
+from string import ascii_letters, hexdigits  # pylint: disable=deprecated-module
 
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.identifier import DBusObjectIdentifier
 from dasbus.server.interface import dbus_interface
-from string import hexdigits, ascii_letters   # pylint: disable=deprecated-module
-
-from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.dbus import SystemBus
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import NETWORK_MANAGER
-from pyanaconda.modules.common.constants.namespaces import NETWORK_MANAGER_NAMESPACE
-from pyanaconda.ui.gui import GUIObject
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from gi.repository import NM, Gtk
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.dbus import SystemBus
+from pyanaconda.core.i18n import C_, _
+from pyanaconda.modules.common.constants.namespaces import NETWORK_MANAGER_NAMESPACE
+from pyanaconda.modules.common.constants.services import NETWORK_MANAGER
+from pyanaconda.ui.gui import GUIObject
+
 log = get_module_logger(__name__)
 
 NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION = 0x1

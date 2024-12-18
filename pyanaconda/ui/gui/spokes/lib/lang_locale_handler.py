@@ -24,15 +24,20 @@ screens handling languages or locales configuration.
 
 from abc import ABCMeta, abstractmethod
 
+import gi
+
 from pyanaconda import localization
 from pyanaconda.core.string import strip_accents
-from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
+from pyanaconda.ui.gui.utils import (
+    override_cell_property,
+    set_treeview_selection,
+    timed_action,
+)
 
-import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("GdkPixbuf", "2.0")
-from gi.repository import Gtk, Pango, GdkPixbuf
+from gi.repository import GdkPixbuf, Gtk, Pango
 
 
 class LangLocaleHandler(metaclass=ABCMeta):

@@ -19,9 +19,9 @@
 
 from collections import namedtuple
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

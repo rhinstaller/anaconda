@@ -15,10 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import locale
-import pytest
+import os
+
 import gi.overrides
+import pytest
 
 # Apply overrides for the anaconda widgets.
 if "ANACONDA_WIDGETS_OVERRIDES" in os.environ:

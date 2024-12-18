@@ -24,10 +24,12 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.manual.manual_interface import \
-    ManualPartitioningInterface
-from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
-    ManualPartitioningTask
+from pyanaconda.modules.storage.partitioning.manual.manual_interface import (
+    ManualPartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import (
+    ManualPartitioningTask,
+)
 
 log = get_module_logger(__name__)
 

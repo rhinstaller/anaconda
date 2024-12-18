@@ -16,11 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
-from pyanaconda.ui.tui.tuiobject import TUIObject
-from pyanaconda.core.i18n import N_, _
+from simpleline.render.widgets import CheckboxWidget, Widget
 
-from simpleline.render.widgets import Widget, CheckboxWidget
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.ui.common import NormalSpoke, Spoke, StandaloneSpoke
+from pyanaconda.ui.tui.tuiobject import TUIObject
 
 __all__ = ["NormalTUISpoke", "StandaloneSpoke", "TUISpoke"]
 

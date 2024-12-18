@@ -16,17 +16,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda import lifecycle
-from pyanaconda.ui.tui.tuiobject import TUIObject
-from pyanaconda.ui import common
-
 from simpleline.render.containers import ListRowContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 
-from pyanaconda.core.i18n import _, N_
+from pyanaconda import lifecycle
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.ui import common
+from pyanaconda.ui.tui.tuiobject import TUIObject
+
 log = get_module_logger(__name__)
 
 

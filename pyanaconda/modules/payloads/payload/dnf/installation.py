@@ -17,25 +17,40 @@
 #
 import os
 import shutil
+
 import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL, \
-    MULTILIB_POLICY_BEST
+from pyanaconda.core.constants import (
+    MULTILIB_POLICY_BEST,
+    RPM_LANGUAGES_ALL,
+    RPM_LANGUAGES_NONE,
+)
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths, make_directories
-from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
-    NonCriticalInstallationError
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+)
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.payload.dnf.requirements import collect_remote_requirements, \
-    collect_language_requirements, collect_platform_requirements, collect_dnf_requirements, \
-    collect_driver_disk_requirements, apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location, \
-    get_kernel_version_list
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+from pyanaconda.modules.payloads.payload.dnf.requirements import (
+    apply_requirements,
+    collect_dnf_requirements,
+    collect_driver_disk_requirements,
+    collect_language_requirements,
+    collect_platform_requirements,
+    collect_remote_requirements,
+)
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    get_kernel_version_list,
+    pick_download_location,
+)
+from pyanaconda.modules.payloads.payload.dnf.validation import (
+    CheckPackagesSelectionTask,
+)
 
 log = get_module_logger(__name__)
 

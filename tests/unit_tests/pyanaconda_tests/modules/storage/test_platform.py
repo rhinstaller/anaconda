@@ -16,14 +16,27 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
 from unittest.mock import patch
 
+import pytest
 from blivet.devicelibs import raid
 from blivet.size import Size
+
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
-from pyanaconda.modules.storage.platform import X86, get_platform, NewWorldPPC, IPSeriesPPC, \
-    PowerNV, PS3, S390, ARM, Aarch64EFI, EFI, RISCV64, RISCV64EFI
+from pyanaconda.modules.storage.platform import (
+    ARM,
+    EFI,
+    PS3,
+    RISCV64,
+    RISCV64EFI,
+    S390,
+    X86,
+    Aarch64EFI,
+    IPSeriesPPC,
+    NewWorldPPC,
+    PowerNV,
+    get_platform,
+)
 
 
 class PlatformTestCase(unittest.TestCase):

@@ -17,15 +17,21 @@
 # Test that grub installs involving raid work correctly
 # These tests do not write anything to the disk and do not require root
 
-from blivet.devices import DiskDevice, PartitionDevice, MDRaidArrayDevice
-from blivet.devices import BTRFSVolumeDevice, BTRFSSubVolumeDevice
+import unittest
+
 from blivet.devicelibs.raid import RAID1
+from blivet.devices import (
+    BTRFSSubVolumeDevice,
+    BTRFSVolumeDevice,
+    DiskDevice,
+    MDRaidArrayDevice,
+    PartitionDevice,
+)
 from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 
-import unittest
 
 class GRUBRaidSimpleTest(unittest.TestCase):
     def setUp(self):

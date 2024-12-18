@@ -19,6 +19,7 @@
 import os
 from contextlib import contextmanager
 
+
 @contextmanager
 def shutup():
     """Run something with stdout and stderr redirected to /dev/null

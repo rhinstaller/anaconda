@@ -19,21 +19,27 @@
 DESCRIPTION = "Anaconda is the installation program used by Fedora, " \
               "Red Hat Enterprise Linux and some other distributions."
 
+import fcntl
 import itertools
 import os
-import sys
-import fcntl
-import termios
 import struct
-
-from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Action, SUPPRESS
+import sys
+import termios
+from argparse import (
+    SUPPRESS,
+    Action,
+    ArgumentError,
+    ArgumentParser,
+    HelpFormatter,
+    Namespace,
+)
 
 from blivet.arch import is_s390
 
-from pyanaconda.core.kernel import KernelArguments
-from pyanaconda.core.constants import DisplayModes, X_TIMEOUT, VIRTIO_PORT
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import VIRTIO_PORT, X_TIMEOUT, DisplayModes
+from pyanaconda.core.kernel import KernelArguments
+
 log = get_module_logger(__name__)
 
 # Help text formatting constants
@@ -512,6 +518,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("virtiolog"))
 
     from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
+
     from pyanaconda.core.constants import SELINUX_DEFAULT
     ap.add_argument("--noselinux", dest="selinux", action="store_const",
                     const=SELINUX_DISABLED, default=SELINUX_DEFAULT,

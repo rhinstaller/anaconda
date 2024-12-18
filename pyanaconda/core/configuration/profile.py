@@ -20,8 +20,12 @@
 import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.configuration.base import create_parser, read_config, get_option, \
-    ConfigurationError
+from pyanaconda.core.configuration.base import (
+    ConfigurationError,
+    create_parser,
+    get_option,
+    read_config,
+)
 
 log = get_module_logger(__name__)
 

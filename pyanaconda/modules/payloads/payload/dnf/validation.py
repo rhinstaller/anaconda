@@ -22,10 +22,15 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import ValidationTask
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import MissingSpecsError, \
-    BrokenSpecsError, InvalidSelectionError
-from pyanaconda.modules.payloads.payload.dnf.utils import get_installation_specs, \
-    get_kernel_package
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
+    BrokenSpecsError,
+    InvalidSelectionError,
+    MissingSpecsError,
+)
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    get_installation_specs,
+    get_kernel_package,
+)
 
 log = get_module_logger(__name__)
 

@@ -15,36 +15,56 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import json
+import os
 from collections import namedtuple
 
-from dasbus.typing import get_variant, Str, Bool, get_native
+import gi
 from dasbus.connection import MessageBus
 from dasbus.error import DBusError
+from dasbus.typing import Bool, Str, get_native, get_variant
 
-from pyanaconda.core.i18n import _
-from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, \
-    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
-from pyanaconda.core.payload import ProxyString
-from pyanaconda.core import service
-from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_REGISTER_SERVER, \
-    RHSM_UNREGISTER, RHSM_CONFIG, RHSM_SYSPURPOSE
-from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SatelliteProvisioningError, MultipleOrganizationsError
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData, OrganizationData
-from pyanaconda.modules.subscription import system_purpose, satellite
-from pyanaconda.modules.subscription.constants import RHSM_SERVICE_NAME, \
-    SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
-from pyanaconda.modules.subscription.subscription_interface import \
-    RetrieveOrganizationsTaskInterface
-from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import service
+from pyanaconda.core.constants import (
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
+)
+from pyanaconda.core.i18n import _
+from pyanaconda.core.payload import ProxyString
+from pyanaconda.modules.common.constants.objects import (
+    RHSM_CONFIG,
+    RHSM_REGISTER,
+    RHSM_REGISTER_SERVER,
+    RHSM_SYSPURPOSE,
+    RHSM_UNREGISTER,
+)
+from pyanaconda.modules.common.constants.services import RHSM
+from pyanaconda.modules.common.errors.subscription import (
+    MultipleOrganizationsError,
+    RegistrationError,
+    SatelliteProvisioningError,
+    UnregistrationError,
+)
+from pyanaconda.modules.common.structures.subscription import (
+    OrganizationData,
+    SystemPurposeData,
+)
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.subscription import satellite, system_purpose
+from pyanaconda.modules.subscription.constants import (
+    RHSM_SERVICE_NAME,
+    SERVER_HOSTNAME_NOT_SATELLITE_PREFIX,
+)
+from pyanaconda.modules.subscription.subscription_interface import (
+    RetrieveOrganizationsTaskInterface,
+)
+from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
+from pyanaconda.ui.lib.subscription import (
+    org_keys_sufficient,
+    username_password_sufficient,
+)
 
-import gi
 gi.require_version("Gio", "2.0")
 from gi.repository import Gio
 

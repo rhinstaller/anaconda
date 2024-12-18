@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.runtime.dracut_commands.dracut_commands import DracutCommandsModule
+from pyanaconda.modules.runtime.dracut_commands.dracut_commands import (
+    DracutCommandsModule,
+)
 
 __all__ = ["DracutCommandsModule"]

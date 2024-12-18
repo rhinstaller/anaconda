@@ -18,36 +18,52 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import patch
 
+import pytest
 from blivet import devicefactory
 from blivet.devicelibs import raid
-from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LVMVolumeGroupDevice, \
-    LVMLogicalVolumeDevice, MDRaidArrayDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice
+from blivet.devices import (
+    BTRFSSubVolumeDevice,
+    BTRFSVolumeDevice,
+    DiskDevice,
+    LVMLogicalVolumeDevice,
+    LVMVolumeGroupDevice,
+    MDRaidArrayDevice,
+    PartitionDevice,
+    StorageDevice,
+)
 from blivet.formats import get_format
 from blivet.size import Size
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import PARTITIONING_METHOD_INTERACTIVE
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.containers import DeviceTreeContainer
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
-from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
-from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
-    InteractivePartitioningModule
-from pyanaconda.modules.storage.partitioning.interactive import utils
-from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import \
-    InteractivePartitioningInterface
-from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
-    InteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
-    DeviceTreeSchedulerModule
 from pyanaconda.modules.storage.devicetree import create_storage
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    check_dbus_object_creation, reset_dbus_container
+from pyanaconda.modules.storage.devicetree.devicetree_interface import (
+    DeviceTreeInterface,
+)
+from pyanaconda.modules.storage.partitioning.interactive import utils
+from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import (
+    InteractivePartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.interactive.interactive_module import (
+    InteractivePartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import (
+    InteractivePartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import (
+    DeviceTreeSchedulerModule,
+)
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_object_creation,
+    check_task_creation,
+    patch_dbus_publish_object,
+    reset_dbus_container,
+)
 
 
 class InteractivePartitioningInterfaceTestCase(unittest.TestCase):

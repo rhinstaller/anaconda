@@ -33,28 +33,33 @@ class PartitioningFactory:
         :return: a partitioning module
         """
         if method is PartitioningMethod.AUTOMATIC:
-            from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
-                AutoPartitioningModule
+            from pyanaconda.modules.storage.partitioning.automatic.automatic_module import (
+                AutoPartitioningModule,
+            )
             return AutoPartitioningModule()
 
         if method is PartitioningMethod.MANUAL:
-            from pyanaconda.modules.storage.partitioning.manual.manual_module import \
-                ManualPartitioningModule
+            from pyanaconda.modules.storage.partitioning.manual.manual_module import (
+                ManualPartitioningModule,
+            )
             return ManualPartitioningModule()
 
         if method is PartitioningMethod.CUSTOM:
-            from pyanaconda.modules.storage.partitioning.custom.custom_module import \
-                CustomPartitioningModule
+            from pyanaconda.modules.storage.partitioning.custom.custom_module import (
+                CustomPartitioningModule,
+            )
             return CustomPartitioningModule()
 
         if method is PartitioningMethod.INTERACTIVE:
-            from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
-                InteractivePartitioningModule
+            from pyanaconda.modules.storage.partitioning.interactive.interactive_module import (
+                InteractivePartitioningModule,
+            )
             return InteractivePartitioningModule()
 
         if method is PartitioningMethod.BLIVET:
-            from pyanaconda.modules.storage.partitioning.blivet.blivet_module import \
-                BlivetPartitioningModule
+            from pyanaconda.modules.storage.partitioning.blivet.blivet_module import (
+                BlivetPartitioningModule,
+            )
             return BlivetPartitioningModule()
 
         raise ValueError("Unknown partitioning method: {}".format(method))

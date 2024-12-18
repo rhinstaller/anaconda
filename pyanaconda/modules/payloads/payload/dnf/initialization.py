@@ -25,12 +25,23 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import BASE_REPO_NAME, REPO_ORIGIN_SYSTEM
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.base.initialization import (
+    SetUpSourcesTask,
+    TearDownSourcesTask,
+)
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MetadataError
-from pyanaconda.modules.payloads.payload.dnf.repositories import update_treeinfo_repositories, \
-    disable_default_repositories, enable_updates_repositories, create_repository, \
-    enable_existing_repository, generate_source_from_repository
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
+    DNFManager,
+    MetadataError,
+)
+from pyanaconda.modules.payloads.payload.dnf.repositories import (
+    create_repository,
+    disable_default_repositories,
+    enable_existing_repository,
+    enable_updates_repositories,
+    generate_source_from_repository,
+    update_treeinfo_repositories,
+)
 from pyanaconda.modules.payloads.payload.dnf.tree_info import LoadTreeInfoMetadataTask
 
 DNF_LIBREPO_LOG = "/tmp/dnf.librepo.log"

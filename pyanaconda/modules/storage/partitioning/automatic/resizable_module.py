@@ -22,9 +22,13 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
-from pyanaconda.modules.storage.partitioning.automatic.resizable_interface import \
-    ResizableDeviceTreeInterface
-from pyanaconda.modules.storage.partitioning.automatic.utils import shrink_device, remove_device
+from pyanaconda.modules.storage.partitioning.automatic.resizable_interface import (
+    ResizableDeviceTreeInterface,
+)
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    remove_device,
+    shrink_device,
+)
 
 log = get_module_logger(__name__)
 

@@ -16,8 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda import network
-from pyanaconda import ntp
+from pyanaconda import network, ntp
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
@@ -25,9 +24,9 @@ from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
 from pyanaconda.core.service import restart_service
 from pyanaconda.core.timer import Timer
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import override_cell_property
-from pyanaconda.timezone import NTP_SERVICE
 
 log = get_module_logger(__name__)
 

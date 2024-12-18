@@ -35,8 +35,8 @@ except ImportError:
     raise
 
 # Gather tests from this directory
-import pkgutil
 import importlib
+import pkgutil
 
 _tests = []
 for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):

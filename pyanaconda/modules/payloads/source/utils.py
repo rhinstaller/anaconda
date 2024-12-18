@@ -24,12 +24,14 @@ from blivet.arch import get_arch
 from blivet.util import mount
 from productmd import DiscInfo
 
-from pyanaconda.core.constants import SOURCES_DIR
-from pyanaconda.core.storage import device_matches
-from pyanaconda.core.path import join_paths
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, \
-    TreeInfoMetadataError
+from pyanaconda.core.constants import SOURCES_DIR
+from pyanaconda.core.path import join_paths
+from pyanaconda.core.storage import device_matches
+from pyanaconda.modules.payloads.payload.dnf.tree_info import (
+    TreeInfoMetadata,
+    TreeInfoMetadataError,
+)
 
 log = get_module_logger(__name__)
 

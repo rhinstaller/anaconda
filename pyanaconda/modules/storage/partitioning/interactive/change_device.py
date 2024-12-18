@@ -15,9 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.errors import StorageError, InconsistentParentSectorSize
+from blivet.errors import InconsistentParentSectorSize, StorageError
 from blivet.size import Size
-
 from dasbus.structure import compare_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -26,9 +25,16 @@ from pyanaconda.modules.common.errors.configuration import StorageConfigurationE
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.constants import INCONSISTENT_SECTOR_SIZES_SUGGESTIONS
-from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
-    get_device_factory_arguments, revert_reformat, resize_device, reformat_device, \
-    validate_label, change_encryption, rename_container
+from pyanaconda.modules.storage.partitioning.interactive.utils import (
+    change_encryption,
+    destroy_device,
+    get_device_factory_arguments,
+    reformat_device,
+    rename_container,
+    resize_device,
+    revert_reformat,
+    validate_label,
+)
 
 log = get_module_logger(__name__)
 

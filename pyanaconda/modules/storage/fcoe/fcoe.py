@@ -17,12 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.fcoe import has_fcoe, fcoe
+from blivet.fcoe import fcoe, has_fcoe
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import FCOE
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface

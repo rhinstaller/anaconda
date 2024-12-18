@@ -15,16 +15,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import unittest
-import pytest
-import tempfile
 import os
+import tempfile
+import unittest
+from unittest.mock import Mock, patch
 
+import pytest
 from meh.ui.text import TextIntf
 
-from pyanaconda.ui.webui import CockpitUserInterface, FIREFOX_THEME_DEFAULT
-from unittest.mock import Mock, patch
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_LIVE_IMAGE
+from pyanaconda.ui.webui import FIREFOX_THEME_DEFAULT, CockpitUserInterface
 
 
 class SimpleWebUITestCase(unittest.TestCase):

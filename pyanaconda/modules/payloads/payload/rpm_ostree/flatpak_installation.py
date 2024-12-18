@@ -18,7 +18,9 @@
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
+    FlatpakManager,
+)
 
 __all__ = ["InstallFlatpaksTask"]
 

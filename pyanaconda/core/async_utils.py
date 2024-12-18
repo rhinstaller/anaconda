@@ -18,8 +18,9 @@
 #
 
 from queue import Queue
-from pyanaconda.core.threads import thread_manager
+
 from pyanaconda.core.glib import idle_add
+from pyanaconda.core.threads import thread_manager
 
 
 def run_in_loop(callback, *args, **kwargs):

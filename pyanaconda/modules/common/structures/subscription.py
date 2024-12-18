@@ -20,7 +20,6 @@ from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import DEFAULT_SUBSCRIPTION_REQUEST_TYPE
-
 from pyanaconda.modules.common.structures.secret import SecretData, SecretDataList
 
 __all__ = ["SubscriptionRequest", "SystemPurposeData"]

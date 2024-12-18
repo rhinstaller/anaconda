@@ -19,19 +19,18 @@ import os.path
 import tarfile
 import tempfile
 import unittest
-
 from contextlib import contextmanager
-from dasbus.typing import get_variant, Str, Bool
 from unittest.mock import patch
 
+from dasbus.typing import Bool, Str, get_variant
+
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_TAR
-from pyanaconda.core.path import touch, join_paths, make_directories
+from pyanaconda.core.path import join_paths, make_directories, touch
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
 from pyanaconda.modules.payloads.source.live_tar.live_tar import LiveTarSourceModule
-
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

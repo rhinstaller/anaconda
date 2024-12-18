@@ -17,6 +17,7 @@
 #
 import unittest
 from unittest.mock import patch
+
 from pyanaconda.modules.boss.installation import SetContextsTask
 
 

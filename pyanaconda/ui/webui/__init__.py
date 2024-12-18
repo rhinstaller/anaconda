@@ -16,21 +16,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import meh
 import os
-
 from contextlib import contextmanager
+
+import meh
 
 from pyanaconda import ui
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF, WEBUI_VIEWER_PID_FILE, \
-    BACKEND_READY_FLAG_FILE
-from pyanaconda.core.util import startProgram
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.constants import (
+    BACKEND_READY_FLAG_FILE,
+    PAYLOAD_TYPE_DNF,
+    QUIT_MESSAGE,
+    WEBUI_VIEWER_PID_FILE,
+)
 from pyanaconda.core.glib import create_main_loop
 from pyanaconda.core.path import touch
+from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.util import startProgram
 from pyanaconda.flags import flags
 
 log = get_module_logger(__name__)

@@ -20,33 +20,30 @@
 # Author(s):  Martin Kolman <mkolman@redhat.com>
 #
 import os
-import time
-import textwrap
 import signal
-
+import textwrap
+import time
 from collections import namedtuple
 
-from pyanaconda.mutter_display import MutterDisplay, MutterConfigError
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import join_paths
-from pyanaconda.core.process_watchers import WatchProcesses
-from pyanaconda import startup_utils
-from pyanaconda.core import util, constants, hw
-from pyanaconda.gnome_remote_desktop import GRDServer
-from pyanaconda.core.i18n import _
-from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
-from pyanaconda.ui.tui import tui_quit_callback
-
 import blivet
-
 from simpleline import App
 from simpleline.render.screen_handler import ScreenHandler
-
 from systemd import journal
 
+from pyanaconda import startup_utils
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.core import constants, hw, util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
+from pyanaconda.core.path import join_paths
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.flags import flags
+from pyanaconda.gnome_remote_desktop import GRDServer
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.mutter_display import MutterConfigError, MutterDisplay
+from pyanaconda.ui.tui import tui_quit_callback
+from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
+
 log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
 

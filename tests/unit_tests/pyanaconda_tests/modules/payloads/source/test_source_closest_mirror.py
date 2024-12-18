@@ -18,14 +18,15 @@
 #
 import unittest
 
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_CLOSEST_MIRROR
-from tests.unit_tests.pyanaconda_tests import check_dbus_property
-
 from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
-from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
-    ClosestMirrorSourceModule
-from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror_interface import \
-    ClosestMirrorSourceInterface
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_CLOSEST_MIRROR
+from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import (
+    ClosestMirrorSourceModule,
+)
+from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror_interface import (
+    ClosestMirrorSourceInterface,
+)
+from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 
 class ClosestMirrorSourceInterfaceTestCase(unittest.TestCase):

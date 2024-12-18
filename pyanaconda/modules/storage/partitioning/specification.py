@@ -18,8 +18,12 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
-    AUTOPART_TYPE_LVM_THINP
+from pykickstart.constants import (
+    AUTOPART_TYPE_BTRFS,
+    AUTOPART_TYPE_LVM,
+    AUTOPART_TYPE_LVM_THINP,
+    AUTOPART_TYPE_PLAIN,
+)
 
 
 class PartSpec:

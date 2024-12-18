@@ -14,14 +14,15 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.product import get_product_name
-from pyanaconda.flags import flags
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import IPMI_FINISHED
-from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
+from pyanaconda.core.i18n import C_, _
+from pyanaconda.core.product import get_product_name
+from pyanaconda.flags import flags
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once

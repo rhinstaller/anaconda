@@ -19,8 +19,9 @@ from blivet.errors import StorageError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
-    NonInteractivePartitioningTask
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import (
+    NonInteractivePartitioningTask,
+)
 from pyanaconda.modules.storage.partitioning.manual.utils import reformat_device
 
 log = get_module_logger(__name__)

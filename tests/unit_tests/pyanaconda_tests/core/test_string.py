@@ -18,8 +18,15 @@
 
 import unittest
 
-from pyanaconda.core.string import strip_accents, upcase_first_letter, _to_ascii, upper_ascii, \
-    lower_ascii, have_word_match, split_in_two
+from pyanaconda.core.string import (
+    _to_ascii,
+    have_word_match,
+    lower_ascii,
+    split_in_two,
+    strip_accents,
+    upcase_first_letter,
+    upper_ascii,
+)
 
 
 class UpcaseFirstLetterTests(unittest.TestCase):

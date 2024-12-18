@@ -17,19 +17,29 @@
 #
 import os.path
 import tempfile
-import pytest
 import unittest
+from unittest.mock import Mock, patch
 
-from unittest.mock import patch, Mock
+import pytest
 from dasbus.structure import compare_data
 
-from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT, \
-    REPO_ORIGIN_TREEINFO
+from pyanaconda.core.constants import (
+    NETWORK_CONNECTION_TIMEOUT,
+    REPO_ORIGIN_TREEINFO,
+    URL_TYPE_METALINK,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.repositories import update_treeinfo_repositories
-from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
-    InvalidTreeInfoError, LoadTreeInfoMetadataTask, LoadTreeInfoMetadataResult, \
-    generate_treeinfo_repository
+from pyanaconda.modules.payloads.payload.dnf.repositories import (
+    update_treeinfo_repositories,
+)
+from pyanaconda.modules.payloads.payload.dnf.tree_info import (
+    InvalidTreeInfoError,
+    LoadTreeInfoMetadataResult,
+    LoadTreeInfoMetadataTask,
+    NoTreeInfoError,
+    TreeInfoMetadata,
+    generate_treeinfo_repository,
+)
 
 TREE_INFO_FEDORA = """
 [header]

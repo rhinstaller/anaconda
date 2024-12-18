@@ -19,9 +19,9 @@
 import unittest
 from unittest.mock import Mock, call
 
-from pyanaconda.core.constants import CATEGORY_SYSTEM, CATEGORY_STORAGE
+from pyanaconda.core.constants import CATEGORY_STORAGE, CATEGORY_SYSTEM
 from pyanaconda.installation import RunInstallationTask
-from pyanaconda.installation_tasks import TaskQueue, Task
+from pyanaconda.installation_tasks import Task, TaskQueue
 
 
 class TestRunInstallation(RunInstallationTask):

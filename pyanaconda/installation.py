@@ -17,30 +17,57 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.dbus import DBus
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF, CATEGORY_SYSTEM, \
-    CATEGORY_BOOTLOADER, CATEGORY_ENVIRONMENT, CATEGORY_STORAGE, CATEGORY_SOFTWARE
-from pyanaconda.modules.boss.install_manager.installation_category_interface \
-    import CategoryReportTaskInterface
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL, SCRIPTS
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
-    SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION, RUNTIME
-from pyanaconda.modules.common.task import sync_run_task, Task as InstallationTask
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda import flags
+from pykickstart.constants import (
+    KS_SCRIPT_POST,
+    KS_SCRIPT_PREINSTALL,
+    SNAPSHOT_WHEN_POST_INSTALL,
+)
+
+from pyanaconda import flags, network
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    CATEGORY_BOOTLOADER,
+    CATEGORY_ENVIRONMENT,
+    CATEGORY_SOFTWARE,
+    CATEGORY_STORAGE,
+    CATEGORY_SYSTEM,
+    PAYLOAD_LIVE_TYPES,
+    PAYLOAD_TYPE_DNF,
+)
+from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.path import open_with_perm
 from pyanaconda.core.service import is_service_installed
-from pyanaconda import network
-from pyanaconda.core.i18n import _
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
 from pyanaconda.kexec import setup_kexec
-from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask
-from pykickstart.constants import (SNAPSHOT_WHEN_POST_INSTALL, KS_SCRIPT_PREINSTALL,
-                                   KS_SCRIPT_POST)
+from pyanaconda.modules.boss.install_manager.installation_category_interface import (
+    CategoryReportTaskInterface,
+)
+from pyanaconda.modules.common.constants.objects import (
+    BOOTLOADER,
+    FIREWALL,
+    SCRIPTS,
+    SNAPSHOT,
+)
+from pyanaconda.modules.common.constants.services import (
+    BOSS,
+    LOCALIZATION,
+    NETWORK,
+    RUNTIME,
+    SECURITY,
+    SERVICES,
+    STORAGE,
+    SUBSCRIPTION,
+    TIMEZONE,
+    USERS,
+)
+from pyanaconda.modules.common.task import Task as InstallationTask
+from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.util import is_module_available
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["RunInstallationTask"]

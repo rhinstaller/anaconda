@@ -17,62 +17,103 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
-import pytest
 import unittest
-from unittest.mock import patch, PropertyMock, Mock
+from unittest.mock import Mock, PropertyMock, patch
 
+import pytest
 from blivet.size import Size
 from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
-
-from pyanaconda.modules.common.errors.general import UnavailableValueError
-from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
-
-from pyanaconda.modules.payloads.payload.dnf.installation import SetRPMMacrosTask, \
-    ResolvePackagesTask, PrepareDownloadLocationTask, DownloadPackagesTask, InstallPackagesTask, \
-    CleanUpDownloadLocationTask, WriteRepositoriesTask, ImportRPMKeysTask, \
-    UpdateDNFConfigurationTask
-
-from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pykickstart.version import isRHEL as is_rhel
 
-from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
-    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
-    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
-    GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL, PAYLOAD_TYPE_DNF, REPO_ORIGIN_SYSTEM, \
-    REPO_ORIGIN_USER, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_TYPE_REPO_PATH
+from pyanaconda.core.constants import (
+    GROUP_PACKAGE_TYPES_ALL,
+    GROUP_PACKAGE_TYPES_REQUIRED,
+    MULTILIB_POLICY_ALL,
+    PAYLOAD_TYPE_DNF,
+    REPO_ORIGIN_SYSTEM,
+    REPO_ORIGIN_USER,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_CLOSEST_MIRROR,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_REPO_FILES,
+    SOURCE_TYPE_REPO_PATH,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.errors.payload import UnknownCompsGroupError, \
-    UnknownCompsEnvironmentError, SourceSetupError, IncompatibleSourceError
-from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
+from pyanaconda.modules.common.errors.general import UnavailableValueError
+from pyanaconda.modules.common.errors.payload import (
+    IncompatibleSourceError,
+    SourceSetupError,
+    UnknownCompsEnvironmentError,
+    UnknownCompsGroupError,
+)
+from pyanaconda.modules.common.structures.comps import (
+    CompsEnvironmentData,
+    CompsGroupData,
+)
+from pyanaconda.modules.common.structures.packages import (
+    PackagesConfigurationData,
+    PackagesSelectionData,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
-    PackagesSelectionData
 from pyanaconda.modules.common.task.task_interface import ValidationTaskInterface
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.initialization import SetUpDNFSourcesTask, \
-    TearDownDNFSourcesTask, SetUpDNFSourcesResult
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
-    VerifyRepomdHashesTask
+from pyanaconda.modules.payloads.payload.dnf.initialization import (
+    SetUpDNFSourcesResult,
+    SetUpDNFSourcesTask,
+    TearDownDNFSourcesTask,
+)
+from pyanaconda.modules.payloads.payload.dnf.installation import (
+    CleanUpDownloadLocationTask,
+    DownloadPackagesTask,
+    ImportRPMKeysTask,
+    InstallPackagesTask,
+    PrepareDownloadLocationTask,
+    ResolvePackagesTask,
+    SetRPMMacrosTask,
+    UpdateDNFConfigurationTask,
+    WriteRepositoriesTask,
+)
+from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
+from pyanaconda.modules.payloads.payload.dnf.validation import (
+    CheckPackagesSelectionTask,
+    VerifyRepomdHashesTask,
+)
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
+from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import (
+    ClosestMirrorSourceModule,
+)
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
-from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
-    ClosestMirrorSourceModule
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation, patch_dbus_get_proxy_with_cache, patch_dbus_get_proxy, check_instances
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest, PayloadKickstartSharedTest
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_instances,
+    check_task_creation,
+    patch_dbus_get_proxy,
+    patch_dbus_get_proxy_with_cache,
+    patch_dbus_publish_object,
+)
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+    PayloadSharedTest,
+)
 
 
 class DNFKickstartTestCase(unittest.TestCase):

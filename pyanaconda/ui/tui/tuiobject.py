@@ -17,16 +17,20 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.ui import common
+from simpleline.render.adv_widgets import (
+    ErrorDialog,
+    GetInputScreen,
+    GetPasswordInputScreen,
+    YesNoDialog,
+)
+from simpleline.render.screen import Prompt, UIScreen
+from simpleline.render.screen_handler import ScreenHandler
 
-from pyanaconda.core import util, constants
 from pyanaconda import input_checking
+from pyanaconda.core import constants, util
 from pyanaconda.core.i18n import _
 from pyanaconda.core.users import crypt_password
-
-from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, YesNoDialog
-from simpleline.render.screen import UIScreen, Prompt
-from simpleline.render.screen_handler import ScreenHandler
+from pyanaconda.ui import common
 
 
 def reporting_callback(message):

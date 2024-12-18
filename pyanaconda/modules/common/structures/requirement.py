@@ -20,7 +20,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
+from pyanaconda.core.constants import REQUIREMENT_TYPE_GROUP, REQUIREMENT_TYPE_PACKAGE
 
 __all__ = ["Requirement"]
 

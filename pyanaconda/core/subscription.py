@@ -19,8 +19,8 @@
 
 import os
 
-from pyanaconda.core.path import join_paths
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
+from pyanaconda.core.path import join_paths
 
 
 def check_system_purpose_set(sysroot="/"):

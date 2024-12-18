@@ -26,41 +26,51 @@ import copy
 import warnings
 
 from dasbus.typing import get_native
-
-from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.signal import Signal
-from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
-from pyanaconda.core.configuration.anaconda import conf
-
-from pyanaconda.modules.common.base import KickstartService
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest
-from pyanaconda.modules.common.structures.secret import get_public_copy
-from pyanaconda.core.dbus import DBus
-
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_SYSPURPOSE, \
-    RHSM_REGISTER_SERVER
-from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.common.structures.requirement import Requirement
-
-from pyanaconda.modules.subscription import system_purpose
-from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
-from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
-from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, \
-    ProvisionTargetSystemForSatelliteTask
-from pyanaconda.modules.subscription.initialization import StartRHSMTask
-from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask, \
-    RetrieveOrganizationsTask
-from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
-from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
-
-
 from pykickstart.errors import KickstartParseWarning
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    SECRET_TYPE_HIDDEN,
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+)
+from pyanaconda.core.dbus import DBus
+from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.base import KickstartService
+from pyanaconda.modules.common.constants.objects import (
+    RHSM_CONFIG,
+    RHSM_REGISTER_SERVER,
+    RHSM_SYSPURPOSE,
+)
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.structures.secret import get_public_copy
+from pyanaconda.modules.common.structures.subscription import (
+    SubscriptionRequest,
+    SystemPurposeData,
+)
+from pyanaconda.modules.subscription import system_purpose
+from pyanaconda.modules.subscription.initialization import StartRHSMTask
+from pyanaconda.modules.subscription.installation import (
+    ConnectToInsightsTask,
+    ProvisionTargetSystemForSatelliteTask,
+    RestoreRHSMDefaultsTask,
+    TransferSubscriptionTokensTask,
+)
+from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
+from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
+from pyanaconda.modules.subscription.runtime import (
+    RegisterAndSubscribeTask,
+    RetrieveOrganizationsTask,
+    SetRHSMConfigurationTask,
+    SystemPurposeConfigurationTask,
+    UnregisterTask,
+)
+from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
+from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
+
 log = get_module_logger(__name__)
 
 

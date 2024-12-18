@@ -20,20 +20,25 @@ import copy
 import os
 import time
 from collections import namedtuple
-
 from functools import partial
+
 from productmd.treeinfo import TreeInfo
-from pyanaconda.modules.common.task import Task
 from requests import RequestException
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import URL_TYPE_BASEURL, NETWORK_CONNECTION_TIMEOUT, \
-    DEFAULT_REPOS, USER_AGENT, REPO_ORIGIN_TREEINFO
+from pyanaconda.core.constants import (
+    DEFAULT_REPOS,
+    NETWORK_CONNECTION_TIMEOUT,
+    REPO_ORIGIN_TREEINFO,
+    URL_TYPE_BASEURL,
+    USER_AGENT,
+)
 from pyanaconda.core.path import join_paths
-from pyanaconda.core.payload import split_protocol, ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError, split_protocol
 from pyanaconda.core.util import requests_session, xprogressive_delay
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
 

@@ -16,10 +16,10 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
 from unittest.mock import Mock, patch
 
-from dasbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
+import pytest
+from dasbus.constants import DBUS_FLAG_NONE, DBUS_START_REPLY_SUCCESS
 from dasbus.error import DBusError
 
 from pyanaconda.modules.boss.module_manager import ModuleManager

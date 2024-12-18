@@ -28,28 +28,44 @@ import dnf.module.module_base
 import dnf.repo
 import dnf.subject
 import libdnf.conf
-
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, URL_TYPE_BASEURL, \
-    URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, DNF_DEFAULT_REPO_COST
+from pyanaconda.core.constants import (
+    DNF_DEFAULT_REPO_COST,
+    DNF_DEFAULT_RETRIES,
+    DNF_DEFAULT_TIMEOUT,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
-    UnknownCompsGroupError, UnknownRepositoryError
-from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
+from pyanaconda.modules.common.errors.payload import (
+    UnknownCompsEnvironmentError,
+    UnknownCompsGroupError,
+    UnknownRepositoryError,
+)
+from pyanaconda.modules.common.structures.comps import (
+    CompsEnvironmentData,
+    CompsGroupData,
+)
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
-from pyanaconda.modules.payloads.payload.dnf.transaction_progress import TransactionProgress, \
-    process_transaction_progress
-from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version, \
-    calculate_hash, transaction_has_errors
+from pyanaconda.modules.payloads.payload.dnf.transaction_progress import (
+    TransactionProgress,
+    process_transaction_progress,
+)
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    calculate_hash,
+    get_product_release_version,
+    transaction_has_errors,
+)
 
 log = get_module_logger(__name__)
 

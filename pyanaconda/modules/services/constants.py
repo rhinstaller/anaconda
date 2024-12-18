@@ -19,8 +19,12 @@
 #
 from enum import Enum, unique
 
-from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT, SETUP_ON_BOOT_DISABLED,\
-    SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_RECONFIG
+from pyanaconda.core.constants import (
+    SETUP_ON_BOOT_DEFAULT,
+    SETUP_ON_BOOT_DISABLED,
+    SETUP_ON_BOOT_ENABLED,
+    SETUP_ON_BOOT_RECONFIG,
+)
 
 
 @unique

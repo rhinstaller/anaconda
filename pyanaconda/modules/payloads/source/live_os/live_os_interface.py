@@ -18,11 +18,14 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 
 @dbus_interface(PAYLOAD_SOURCE_LIVE_OS.interface_name)

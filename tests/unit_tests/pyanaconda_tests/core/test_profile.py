@@ -20,18 +20,24 @@
 import os
 import tempfile
 import unittest
-import pytest
-
 from textwrap import dedent
 from unittest.mock import patch
+
+import pytest
 from blivet.size import Size
 from pykickstart.constants import AUTOPART_TYPE_BTRFS
 
-from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
-from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
-from pyanaconda.core.configuration.base import ConfigurationError, create_parser, read_config
+from pyanaconda.core.configuration.base import (
+    ConfigurationError,
+    create_parser,
+    read_config,
+)
 from pyanaconda.core.configuration.profile import ProfileLoader
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    get_default_partitioning,
+)
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 PROFILE_DIR = os.path.join(os.environ.get("ANACONDA_DATA"), "profile.d")
 

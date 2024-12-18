@@ -15,13 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import unittest
 import socket
+import unittest
+from contextlib import contextmanager
+from unittest.mock import Mock, call, patch
+
 import pytest
 from systemd import journal
-
-from unittest.mock import patch, Mock, call
-from contextlib import contextmanager
 
 from pyanaconda import gnome_remote_desktop
 

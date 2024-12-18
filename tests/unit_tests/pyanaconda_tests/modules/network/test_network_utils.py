@@ -17,7 +17,7 @@
 #
 import unittest
 
-from pyanaconda.modules.network.utils import is_nbft_device, is_ibft_configured_device
+from pyanaconda.modules.network.utils import is_ibft_configured_device, is_nbft_device
 
 
 class NetworkUtilsTestCase(unittest.TestCase):

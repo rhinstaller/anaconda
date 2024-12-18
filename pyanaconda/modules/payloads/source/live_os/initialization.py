@@ -17,17 +17,18 @@
 #
 import os
 import stat
-import blivet.util
-
 from collections import namedtuple
+
+import blivet.util
 from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import execWithCapture
-from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 log = get_module_logger(__name__)

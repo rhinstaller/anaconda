@@ -18,11 +18,17 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
-from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
-from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData, OSData, MountPointConstraintsData
+from pyanaconda.modules.common.structures.storage import (
+    DeviceActionData,
+    DeviceData,
+    DeviceFormatData,
+    MountPointConstraintsData,
+    OSData,
+)
 
 __all__ = ["DeviceTreeViewerInterface"]
 

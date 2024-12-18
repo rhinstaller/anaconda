@@ -19,16 +19,25 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP, \
-    MULTILIB_POLICY_ALL, MULTILIB_POLICY_BEST
-from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
+from pyanaconda.core.constants import (
+    MULTILIB_POLICY_ALL,
+    MULTILIB_POLICY_BEST,
+    REQUIREMENT_TYPE_GROUP,
+    REQUIREMENT_TYPE_PACKAGE,
+)
+from pyanaconda.modules.common.constants.services import BOSS, LOCALIZATION
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
-    apply_requirements, collect_dnf_requirements
+from pyanaconda.modules.payloads.payload.dnf.requirements import (
+    apply_requirements,
+    collect_dnf_requirements,
+    collect_driver_disk_requirements,
+    collect_language_requirements,
+    collect_platform_requirements,
+    collect_remote_requirements,
+)
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
-from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 
 
 class DNFRequirementsTestCase(unittest.TestCase):

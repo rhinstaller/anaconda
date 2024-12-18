@@ -15,24 +15,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import glob
+import os
 import shutil
 
-from dasbus.typing import get_variant, Str
-
-from pyanaconda.core import util
-from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
-from pyanaconda.core.path import make_directories, join_paths
-from pyanaconda.core.subscription import check_system_purpose_set
-
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
-    InsightsClientMissingError, SubscriptionTokenTransferError
-from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError
-from pyanaconda.modules.subscription import satellite
+from dasbus.typing import Str, get_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
+from pyanaconda.core.path import join_paths, make_directories
+from pyanaconda.core.subscription import check_system_purpose_set
+from pyanaconda.modules.common.errors.installation import (
+    InsightsClientMissingError,
+    InsightsConnectError,
+    SubscriptionTokenTransferError,
+)
+from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.subscription import satellite
+
 log = get_module_logger(__name__)
 
 

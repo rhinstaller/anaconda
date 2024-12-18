@@ -15,7 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.storage.disk_initialization.configuration import DiskInitializationConfig
-from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
+from pyanaconda.modules.storage.disk_initialization.configuration import (
+    DiskInitializationConfig,
+)
+from pyanaconda.modules.storage.disk_initialization.initialization import (
+    DiskInitializationModule,
+)
 
 __all__ = ["DiskInitializationConfig", "DiskInitializationModule"]

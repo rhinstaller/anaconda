@@ -16,8 +16,10 @@
 # Red Hat, Inc.
 #
 from unittest import TestCase
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
 from requests.exceptions import RequestException
+
 from pyanaconda.core.constants import GEOLOC_URL_FEDORA_GEOIP, GEOLOC_URL_HOSTIP
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.modules.timezone.initialization import GeolocationTask

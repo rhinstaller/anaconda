@@ -16,18 +16,22 @@
 # Red Hat, Inc.
 #
 from blivet import devicefactory
-from blivet.errors import StorageError, InconsistentParentSectorSize
+from blivet.errors import InconsistentParentSectorSize, StorageError
 from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.core.storage import PARTITION_ONLY_FORMAT_TYPES
 from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.storage.constants import INCONSISTENT_SECTOR_SIZES_SUGGESTIONS
-from pyanaconda.modules.storage.partitioning.interactive.utils import \
-    get_container_raid_level_name, get_container_size_policy, get_device_factory_arguments
-from pyanaconda.core.storage import PARTITION_ONLY_FORMAT_TYPES
+from pyanaconda.modules.storage.partitioning.interactive.utils import (
+    get_container_raid_level_name,
+    get_container_size_policy,
+    get_device_factory_arguments,
+)
 
 log = get_module_logger(__name__)
 

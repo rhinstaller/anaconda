@@ -20,16 +20,21 @@ import re
 import signal
 from functools import partial
 
+import gi
 from dasbus.structure import get_fields
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import glib, constants
+from pyanaconda.core import constants, glib
 from pyanaconda.core.constants import REPO_ORIGIN_USER
-from pyanaconda.core.i18n import _, N_, C_
+from pyanaconda.core.i18n import C_, N_, _
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.regexes import URL_PARSE, REPO_NAME_VALID, HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.core.regexes import (
+    HOSTNAME_PATTERN_WITHOUT_ANCHORS,
+    REPO_NAME_VALID,
+    URL_PARSE,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.payload import utils as payload_utils
@@ -38,7 +43,6 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import find_first_child, set_password_visibility
 from pyanaconda.ui.helpers import InputCheck
 
-import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

@@ -19,14 +19,20 @@
 #
 from abc import abstractmethod
 
-from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
-    LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
-
+from blivet.devices import (
+    BTRFSDevice,
+    LVMLogicalVolumeDevice,
+    LVMVolumeGroupDevice,
+    MDRaidArrayDevice,
+    PartitionDevice,
+    TmpFSDevice,
+)
 from dasbus.server.publishable import Publishable
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import LazyObject
 from pyanaconda.modules.common.base.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
-from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 

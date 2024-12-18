@@ -17,7 +17,9 @@
 #
 
 import unittest
+
 from pyanaconda.core.kernel import KernelArguments, kernel_arguments
+
 # FIXME: https://github.com/pylint-dev/pylint/issues/10112
 # Re-enable the following line when the issue is fixed
 # from collections.abc import Iterable

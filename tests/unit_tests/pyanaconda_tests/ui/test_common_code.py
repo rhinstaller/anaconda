@@ -19,9 +19,10 @@
 #
 
 import unittest
+
 from pyanaconda.core.i18n import _
-from pyanaconda.ui.common import sort_categories
 from pyanaconda.ui.categories import SpokeCategory
+from pyanaconda.ui.common import sort_categories
 
 
 class AaaCategory(SpokeCategory):

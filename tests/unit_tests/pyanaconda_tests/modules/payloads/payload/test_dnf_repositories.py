@@ -18,20 +18,28 @@
 import os
 import tempfile
 import unittest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import MagicMock, call, patch
 
 import pytest
 from dasbus.structure import compare_data
 
 from pyanaconda.core.constants import REPO_ORIGIN_SYSTEM
-from pyanaconda.core.path import make_directories, join_paths, touch
-from pyanaconda.modules.common.errors.payload import SourceSetupError, UnknownRepositoryError
+from pyanaconda.core.path import join_paths, make_directories, touch
+from pyanaconda.modules.common.errors.payload import (
+    SourceSetupError,
+    UnknownRepositoryError,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories, \
-    generate_source_from_repository, enable_updates_repositories, create_repository, \
-    disable_default_repositories, enable_existing_repository
+from pyanaconda.modules.payloads.payload.dnf.repositories import (
+    create_repository,
+    disable_default_repositories,
+    enable_existing_repository,
+    enable_updates_repositories,
+    generate_driver_disk_repositories,
+    generate_source_from_repository,
+)
 
 
 class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):

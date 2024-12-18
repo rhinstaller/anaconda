@@ -18,22 +18,28 @@
 
 # test_driver_updates.py - unittests for driver_updates.py
 
+import collections
+import logging
+import os
+import re
+import shutil
+import sys
+import tempfile
 import unittest
 from unittest import mock
 
-import os
-import tempfile
-import shutil
-import collections
-import re
-
-import logging
-
-import sys
 sys.path.append(os.path.normpath(os.path.dirname(__file__)+'/../../dracut'))
 
-from driver_updates import copy_files, move_files, iter_files, ensure_dir, append_line, \
-    mkdir_seq, is_debug_mode_enabled, setup_log
+from driver_updates import (
+    append_line,
+    copy_files,
+    ensure_dir,
+    is_debug_mode_enabled,
+    iter_files,
+    mkdir_seq,
+    move_files,
+    setup_log,
+)
 
 
 def touch(path):
@@ -296,6 +302,8 @@ class TestAppendLine(FileTestCaseBase):
 
 
 from driver_updates import read_lines
+
+
 class TestReadLine(FileTestCaseBase):
     def test_empty(self):
         """read_lines: return [] for empty file"""
@@ -340,7 +348,9 @@ class TestMkdirSeq(FileTestCaseBase):
         assert os.path.isdir(firstdir)
 
 
-from driver_updates import find_repos, save_repo, ARCH
+from driver_updates import ARCH, find_repos, save_repo
+
+
 # As far as we know, this is what makes a valid repo: rhdd3 + rpms/`uname -m`/
 def makerepo(topdir):
     descfile = makefile(topdir+'/rhdd3')
@@ -445,7 +455,9 @@ class TestSaveRepo(FileTestCaseBase):
         assert set(listfiles(saved3)) == set(["fake-something2.rpm"])
         assert saved3 == os.path.join(self.destdir, "DD-3")
 
-from driver_updates import mount, umount, mounted
+from driver_updates import mount, mounted, umount
+
+
 class MountTestCase(unittest.TestCase):
     @mock.patch('driver_updates.mkdir_seq')
     @mock.patch('driver_updates.subprocess.check_call')
@@ -489,7 +501,8 @@ class MountTestCase(unittest.TestCase):
 
 # NOTE: dd_list and dd_extract get tested pretty thoroughly in tests/dd_tests,
 # so this is a slightly higher-level test case
-from driver_updates import dd_list, dd_extract, Driver
+from driver_updates import Driver, dd_extract, dd_list
+
 fake_module = Driver(
     source='/repo/path/to/fake-driver-1.0-1.rpm',
     name='fake-driver',
@@ -544,6 +557,7 @@ class DDUtilsTestCase(unittest.TestCase):
 
 
 from driver_updates import extract_drivers, grab_driver_files, load_drivers
+
 
 @mock.patch("driver_updates.ensure_dir")
 @mock.patch("driver_updates.save_repo")
@@ -696,6 +710,8 @@ class LoadDriversTestCase(unittest.TestCase):
 
 
 from driver_updates import process_driver_disk
+
+
 class ProcessDriverDiskTestCase(unittest.TestCase):
     def setUp(self):
         # an iterable that returns fake mountpoints, for mocking mount()
@@ -765,6 +781,8 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
 
 
 from driver_updates import process_driver_rpm
+
+
 class ProcessDriverRPMTestCase(unittest.TestCase):
     def setUp(self):
         self.frepo = {
@@ -790,7 +808,8 @@ class ProcessDriverRPMTestCase(unittest.TestCase):
         self.mocks['grab_driver_files'].assert_called_once_with()
 
 
-from driver_updates import finish, mark_finished, all_finished
+from driver_updates import all_finished, finish, mark_finished
+
 
 class FinishedTestCase(FileTestCaseBase):
     def test_mark_finished(self):
@@ -833,7 +852,8 @@ class FinishedTestCase(FileTestCaseBase):
         assert os.path.exists(done)
 
 
-from driver_updates import get_deviceinfo, DeviceInfo
+from driver_updates import DeviceInfo, get_deviceinfo
+
 blkid_out = '''\
 DEVNAME=/dev/sda2
 UUID=0f21a3d1-dcd3-4ab4-a292-c5556850d561
@@ -892,7 +912,10 @@ class DeviceInfoTestCase(unittest.TestCase):
 # TODO: test TextMenu itself
 
 from io import StringIO
+
 from driver_updates import device_menu
+
+
 class DeviceMenuTestCase(unittest.TestCase):
     def setUp(self):
         patches = (
@@ -935,6 +958,8 @@ class DeviceMenuTestCase(unittest.TestCase):
 
 
 from driver_updates import list_aliases
+
+
 class ListAliasesTestCase(unittest.TestCase):
     @mock.patch('driver_updates.subprocess.check_output', return_value="alias1\nalias2\n")
     def test_basic(self, check_output):

@@ -17,12 +17,13 @@
 #
 
 import sys
-import pytest
 import unittest
+from time import sleep
 from unittest.mock import patch
 
-from time import sleep
-from pyanaconda.core.threads import ThreadManager, AnacondaThread
+import pytest
+
+from pyanaconda.core.threads import AnacondaThread, ThreadManager
 
 
 class ThreadManagerTestCase(unittest.TestCase):

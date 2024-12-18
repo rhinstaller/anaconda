@@ -17,42 +17,70 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import sys
-import time
 import os
 import pkgutil
+import sys
+import time
+
 from blivet.arch import is_s390
 from blivet.util import total_memory
-from dasbus.typing import get_variant, Int
+from dasbus.typing import Int, get_variant
 
-from pyanaconda import ntp
-from pyanaconda import anaconda_logging
-from pyanaconda import network
-from pyanaconda import kickstart
-from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
-from pyanaconda.core.util import persistent_root_image, ipmi_report, setenv, \
-    get_anaconda_version_string
-from pyanaconda.core.hw import minimal_memory_needed
+from pyanaconda import anaconda_logging, kickstart, network, ntp
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
-    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, IPMI_ABORTED, STORAGE_MIN_RAM, SELINUX_DEFAULT, \
-    THREAD_TIME_INIT, DisplayModes, GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION
+from pyanaconda.core.constants import (
+    DRACUT_ERRORS_PATH,
+    GEOLOC_CONNECTION_TIMEOUT,
+    IPMI_ABORTED,
+    SELINUX_DEFAULT,
+    SETUP_ON_BOOT_DEFAULT,
+    SETUP_ON_BOOT_ENABLED,
+    STORAGE_MIN_RAM,
+    TEXT_ONLY_TARGET,
+    THREAD_TIME_INIT,
+    TIMEZONE_PRIORITY_GEOLOCATION,
+    DisplayModes,
+)
+from pyanaconda.core.hw import minimal_memory_needed
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.product import get_product_is_final_release, get_product_name, \
-    get_product_version
+from pyanaconda.core.product import (
+    get_product_is_final_release,
+    get_product_name,
+    get_product_version,
+)
 from pyanaconda.core.service import start_service
-from pyanaconda.flags import flags
-from pyanaconda.localization import get_territory_locales, setup_locale, locale_has_translation
-from pyanaconda.modules.common.structures.logging import LoggingData
-from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.modules.common.task import wait_for_task
-from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
-from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
-from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
-    SECURITY, STORAGE, RUNTIME
-from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.util import (
+    get_anaconda_version_string,
+    ipmi_report,
+    persistent_root_image,
+    setenv,
+)
+from pyanaconda.flags import flags
+from pyanaconda.localization import (
+    get_territory_locales,
+    locale_has_translation,
+    setup_locale,
+)
+from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
+from pyanaconda.modules.common.constants.services import (
+    LOCALIZATION,
+    RUNTIME,
+    SECURITY,
+    SERVICES,
+    STORAGE,
+    TIMEZONE,
+)
+from pyanaconda.modules.common.structures.logging import LoggingData
+from pyanaconda.modules.common.structures.timezone import (
+    GeolocationData,
+    TimeSourceData,
+)
+from pyanaconda.modules.common.task import wait_for_task
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.screensaver import inhibit_screensaver
 
 stdout_log = get_stdout_logger()
 log = get_module_logger(__name__)

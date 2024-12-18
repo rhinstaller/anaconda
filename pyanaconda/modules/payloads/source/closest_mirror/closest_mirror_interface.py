@@ -22,7 +22,9 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import Bool
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_CLOSEST_MIRROR
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 __all__ = ["ClosestMirrorSourceInterface"]
 

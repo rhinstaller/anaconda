@@ -15,27 +15,37 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.errors import StorageError
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.static_data import luks_data
-from blivet.errors import StorageError
+from pykickstart.constants import (
+    AUTOPART_TYPE_BTRFS,
+    AUTOPART_TYPE_LVM,
+    AUTOPART_TYPE_LVM_THINP,
+    AUTOPART_TYPE_PLAIN,
+)
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
-    NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.manual.utils import \
-    reformat_device
-from pyanaconda.modules.storage.devicetree.root import find_existing_installations
-from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device
-from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
-    schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
-    get_default_partitioning, get_part_spec, get_disks_for_implicit_partitions
-from pyanaconda.modules.storage.platform import platform
 from pyanaconda.core.storage import suggest_swap_size
-from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
-    AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
-
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.storage.devicetree.root import find_existing_installations
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import (
+    NonInteractivePartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    get_candidate_disks,
+    get_default_partitioning,
+    get_disks_for_implicit_partitions,
+    get_part_spec,
+    get_pbkdf_args,
+    schedule_implicit_partitions,
+    schedule_partitions,
+    schedule_volumes,
+)
+from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device
+from pyanaconda.modules.storage.partitioning.manual.utils import reformat_device
+from pyanaconda.modules.storage.platform import platform
 
 log = get_module_logger(__name__)
 

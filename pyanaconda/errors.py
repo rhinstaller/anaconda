@@ -16,11 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.i18n import C_, _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
-    StorageInstallationError, NonCriticalInstallationError, PayloadInstallationError, \
-    InsightsClientMissingError, InsightsConnectError
+from pyanaconda.modules.common.errors.installation import (
+    BootloaderInstallationError,
+    InsightsClientMissingError,
+    InsightsConnectError,
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+    StorageInstallationError,
+)
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError

@@ -23,46 +23,75 @@ import time
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
-    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, \
-    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE, \
-    PAYLOAD_STATUS_INVALID_SOURCE, PAYLOAD_STATUS_CHECKING_SOFTWARE, SOURCE_TYPE_REPO_PATH, \
-    DRACUT_REPO_DIR
-from pyanaconda.core.i18n import _, CN_, C_
+from pyanaconda.core.constants import (
+    DRACUT_REPO_DIR,
+    PAYLOAD_STATUS_CHECKING_SOFTWARE,
+    PAYLOAD_STATUS_INVALID_SOURCE,
+    PAYLOAD_STATUS_SETTING_SOURCE,
+    PAYLOAD_TYPE_DNF,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_CLOSEST_MIRROR,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_REPO_PATH,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+)
+from pyanaconda.core.i18n import C_, CN_, _
 from pyanaconda.core.path import join_paths
-from pyanaconda.core.payload import parse_nfs_url, create_nfs_url, parse_hdd_url
-from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.core.payload import create_nfs_url, parse_hdd_url, parse_nfs_url
+from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, URL_PARSE
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE, SUBSCRIPTION
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.spokes.lib.additional_repositories import AdditionalRepositoriesSection
-from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import ProxyDialog, \
-    MediaCheckDialog, IsoChooser, PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, \
-    PROTOCOL_MIRROR, CLICK_FOR_DETAILS
-from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action
-from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
+from pyanaconda.ui.gui.spokes.lib.additional_repositories import (
+    AdditionalRepositoriesSection,
+)
+from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import (
+    CLICK_FOR_DETAILS,
+    PROTOCOL_FTP,
+    PROTOCOL_HTTP,
+    PROTOCOL_HTTPS,
+    PROTOCOL_MIRROR,
+    PROTOCOL_NFS,
+    IsoChooser,
+    MediaCheckDialog,
+    ProxyDialog,
+)
+from pyanaconda.ui.gui.utils import (
+    blockedHandler,
+    fire_gtk_action,
+    gtk_call_once,
+    really_hide,
+    really_show,
+)
 from pyanaconda.ui.helpers import InputCheck, SourceSwitchHandler
-from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
-    get_hdiso_source_description
+from pyanaconda.ui.lib.payload import (
+    find_potential_hdiso_sources,
+    get_hdiso_source_description,
+    get_hdiso_source_info,
+)
 from pyanaconda.ui.lib.subscription import switch_source
 
 log = get_module_logger(__name__)
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

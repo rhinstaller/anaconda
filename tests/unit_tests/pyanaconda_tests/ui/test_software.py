@@ -16,18 +16,25 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from dasbus.structure import compare_data
 
-from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
+from pyanaconda.modules.common.structures.comps import (
+    CompsEnvironmentData,
+    CompsGroupData,
+)
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.ui.lib.software import is_software_selection_complete, \
-    get_software_selection_status, SoftwareSelectionCache, get_kernel_from_properties, \
-    get_available_kernel_features, KernelFeatures
+from pyanaconda.ui.lib.software import (
+    KernelFeatures,
+    SoftwareSelectionCache,
+    get_available_kernel_features,
+    get_kernel_from_properties,
+    get_software_selection_status,
+    is_software_selection_complete,
+)
 
 
 def get_dnf_proxy(dnf_manager):

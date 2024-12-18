@@ -18,9 +18,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import shutil
 import shlex
-
+import shutil
 from collections import namedtuple
 
 from pyanaconda.anaconda_loggers import get_module_logger

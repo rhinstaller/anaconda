@@ -16,8 +16,8 @@
 # Red Hat, Inc.
 #
 
-import unittest
 import os
+import unittest
 from contextlib import contextmanager
 from unittest.mock import Mock, patch
 
@@ -26,7 +26,10 @@ from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PREINSTALL
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 from pyanaconda.modules.common.errors.runtime import ScriptError
-from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
+from pyanaconda.modules.common.structures.kickstart import (
+    KickstartMessage,
+    KickstartReport,
+)
 from pyanaconda.modules.runtime.scripts import ScriptsModule
 from pyanaconda.modules.runtime.scripts.runtime import RunScriptsTask
 from pyanaconda.modules.runtime.scripts.scripts_interface import ScriptsInterface

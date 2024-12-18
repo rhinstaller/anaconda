@@ -20,7 +20,9 @@
 import unittest
 
 from regexcheck import regex_match
-from pyanaconda.core.regexes import GECOS_VALID, NAME_VALID, GROUPLIST_SIMPLE_VALID
+
+from pyanaconda.core.regexes import GECOS_VALID, GROUPLIST_SIMPLE_VALID, NAME_VALID
+
 
 class UsernameRegexTestCase(unittest.TestCase):
     def test_gecos(self):

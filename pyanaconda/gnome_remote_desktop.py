@@ -18,20 +18,19 @@
 #
 
 import os
+import socket
 import sys
 import time
-import socket
 
 from systemd import journal
+
 from pyanaconda import network
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_RDP_OBTAIN_HOSTNAME
+from pyanaconda.core.i18n import _
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import execWithRedirect, startProgram
-
-from pyanaconda.core.i18n import _
-
-from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
 
 stdoutLog = get_stdout_logger()
 log = get_module_logger(__name__)

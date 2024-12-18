@@ -56,10 +56,11 @@ def init(log_filename=None, log_stream=sys.stderr):
     )
 
     import locale
+
     from pyanaconda.core.constants import DEFAULT_LANG
     locale.setlocale(locale.LC_ALL, DEFAULT_LANG)
 
-    from pyanaconda.core.configuration.anaconda import conf
     from pyanaconda.anaconda_loggers import get_module_logger
+    from pyanaconda.core.configuration.anaconda import conf
     log = get_module_logger(__name__)
     log.debug("The configuration is loaded from: %s", conf.get_sources())
