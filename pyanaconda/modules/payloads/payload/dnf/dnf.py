@@ -27,6 +27,7 @@ from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, 
     convert_repo_data_to_ks_repo, convert_ks_data_to_packages_selection, \
     convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
     convert_packages_configuration_to_ksdata
+from pyanaconda.modules.payloads.base.utils import calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import protect_installation_devices, \
     collect_installation_devices
@@ -39,7 +40,6 @@ from pyanaconda.modules.payloads.payload.dnf.installation import SetRPMMacrosTas
     CleanUpDownloadLocationTask, WriteRepositoriesTask, ImportRPMKeysTask, \
     UpdateDNFConfigurationTask
 from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
-from pyanaconda.modules.payloads.payload.dnf.utils import calculate_required_space
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -367,8 +367,19 @@ class DNFModule(PayloadBase):
         :return: required size in bytes
         :rtype: int
         """
-        required_space = calculate_required_space(self.dnf_manager)
+        required_space = calculate_required_space(self._dnf_manager.get_download_size(),
+                                                  self._dnf_manager.get_installation_size())
         return required_space.get_bytes()
+
+    def needs_flatpak_side_payload(self):
+        return True
+
+    def get_flatpak_refs(self):
+        """Get the list of Flatpak refs to install.
+
+        :return: list of Flatpak refs
+        """
+        return self._dnf_manager.get_flatpak_refs()
 
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.
