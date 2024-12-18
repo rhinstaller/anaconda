@@ -40,11 +40,11 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.bootloader_interface import (
     BootloaderInterface,
 )
 from pyanaconda.modules.storage.bootloader.efi import EFIBase
+from pyanaconda.modules.storage.bootloader.factory import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.modules.storage.bootloader.installation import (
     CollectKernelArgumentsTask,
