@@ -539,6 +539,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
             # Test if the handler provides the required data objects.
             for command in specification.commands:
+                # ruff: noqa: B009
                 getattr(handler.commands[command], "dataClass")
 
     def test_parser(self):

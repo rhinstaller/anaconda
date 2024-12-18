@@ -5,6 +5,7 @@ line-length = 99
 [lint]
 select = [
     "A", # flake8-builtins
+    "B", # flake8-bugbear
     "E", # pycodestyle error
     "F", # pyflakes
     "I", # isort
@@ -16,6 +17,9 @@ select = [
     "SIM", # flake8-simplify
 ]
 ignore = [
+    "B024", # abstract-base-class-without-abstract-method
+    "B027", # empty-method-without-abstract-decorator
+    "B028", # No explicit stacklevel
     "E501", # Line too long
     "E402", # Module level import not at top of file
     "F405", # `<type>` may be undefined, or defined from star imports: `<module>`

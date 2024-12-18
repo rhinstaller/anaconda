@@ -110,6 +110,7 @@ class AnacondaArgumentParser(ArgumentParser):
         # long option variants could be allowed from multiple, so it would have to be list which
         # somehow kills the benefit.
         self._require_prefix_ignore_list = ["proxy"]
+        # ruff: noqa: B026
         ArgumentParser.__init__(self, description=DESCRIPTION,
                                 formatter_class=lambda prog: HelpFormatter(
                                     prog, max_help_position=LEFT_PADDING, width=help_width),
