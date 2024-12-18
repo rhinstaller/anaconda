@@ -416,8 +416,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
     class SetCmdlineMode(Action):
         def __call__(self, parser, namespace, values, _option_string=None):
             # We need to save both display mode to TEXT and set noninteractive flag
-            setattr(namespace, "display_mode", DisplayModes.TUI)
-            setattr(namespace, "noninteractive", True)
+            namespace.display_mode = DisplayModes.TUI
+            namespace.noninteractive = True
 
     # Interface
     ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const=DisplayModes.GUI,
