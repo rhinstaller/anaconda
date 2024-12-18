@@ -539,8 +539,8 @@ class GraphicalUserInterface(UserInterface):
 
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(os.path.dirname(__file__))
-    sitepackages = [os.path.join(dir, "pyanaconda", "ui")
-                    for dir in site.getsitepackages()]
+    sitepackages = [os.path.join(directory, "pyanaconda", "ui")
+                    for directory in site.getsitepackages()]
     pathlist = set([basepath] + sitepackages)
 
     _categories = []

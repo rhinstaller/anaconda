@@ -21,9 +21,6 @@ GladeTest, below. When nose is run with GladePlugin, each GladeTest
 implementation will be run against each glade file.
 """
 
-# Print more helpful messages before raising ImportError
-from builtins import FileNotFoundError
-
 try:
     from lxml import etree
 except ImportError:

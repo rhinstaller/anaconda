@@ -4,6 +4,7 @@ line-length = 99
 
 [lint]
 select = [
+    "A", # flake8-builtins
     "E", # pycodestyle error
     "F", # pyflakes
     "I", # isort
