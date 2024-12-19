@@ -1330,14 +1330,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         # Update the UI.
-        idx = None
+        # we're looking for the original vg name
+        idx = next(
+            (i for i, data in enumerate(self._containerStore) if data[0] == container_name),
+            None
+        )
 
-        for idx, data in enumerate(self._containerStore):
-            # we're looking for the original vg name
-            if data[0] == container_name:
-                break
-
-        if idx:
+        if idx is not None:
             row = self._get_container_store_row(
                 self._request.container_name
             )
