@@ -99,8 +99,8 @@ class Service(BaseModule):
 
     def stop(self):
         """Stop the loop."""
-        DBus.disconnect()
         Timer().timeout_sec(1, self.loop.quit)
+        DBus.disconnect()
 
     def set_locale(self, locale):
         """Set the locale for the module.
