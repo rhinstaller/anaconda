@@ -18,11 +18,17 @@
 import unittest
 from textwrap import dedent
 
-from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, REPO_ORIGIN_SYSTEM
+from pyanaconda.core.constants import REPO_ORIGIN_SYSTEM, REPO_ORIGIN_TREEINFO
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import get_unique_repo_name, \
-    validate_repo_name, validate_repo_url, validate_proxy, get_invalid_repository_message, \
-    validate_additional_repositories, generate_repository_description
+from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import (
+    generate_repository_description,
+    get_invalid_repository_message,
+    get_unique_repo_name,
+    validate_additional_repositories,
+    validate_proxy,
+    validate_repo_name,
+    validate_repo_url,
+)
 from pyanaconda.ui.helpers import InputCheck
 
 

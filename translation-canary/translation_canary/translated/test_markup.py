@@ -27,8 +27,9 @@ except ImportError:
     print("You need to install the python-polib package to read translations")
     raise
 
-from pocketlint.pangocheck import is_markup, markup_match
 import xml.etree.ElementTree as ET
+
+from pocketlint.pangocheck import is_markup, markup_match
 
 
 def test_markup(pofile):

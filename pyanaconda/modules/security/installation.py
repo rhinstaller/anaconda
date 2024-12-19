@@ -15,15 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import copy
+import os
 import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
-from pyanaconda.core.path import make_directories, join_paths
+from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.security.constants import SELinuxMode

@@ -18,20 +18,20 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import Mock
 
+import pytest
 from pykickstart.constants import CLEARPART_TYPE_NONE
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import InitializationMode
-from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
-from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
-    DiskInitializationInterface
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
+from pyanaconda.modules.storage.disk_initialization.initialization_interface import (
+    DiskInitializationInterface,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

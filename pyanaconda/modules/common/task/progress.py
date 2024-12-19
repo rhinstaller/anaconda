@@ -18,8 +18,8 @@
 from abc import ABC, abstractmethod
 from threading import Lock
 
-from pyanaconda.core.signal import Signal
 from pyanaconda.core.async_utils import async_action_nowait
+from pyanaconda.core.signal import Signal
 
 __all__ = ['ProgressReporter']
 

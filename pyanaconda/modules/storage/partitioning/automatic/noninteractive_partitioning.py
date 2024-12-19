@@ -19,12 +19,12 @@ from abc import ABCMeta, abstractmethod
 
 from blivet.errors import NoDisksError
 from blivet.formats.disklabel import DiskLabel
-from pyanaconda.anaconda_loggers import get_module_logger
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.bootloader.execution import setup_bootloader
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.bootloader.execution import setup_bootloader
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
 

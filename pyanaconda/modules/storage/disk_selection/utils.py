@@ -15,7 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.i18n import _, P_
+from pyanaconda.core.i18n import P_, _
 
 
 def check_disk_selection(storage, selected_disks):

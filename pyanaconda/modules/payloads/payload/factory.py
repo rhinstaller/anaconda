@@ -33,8 +33,9 @@ class PayloadFactory:
         :return: a payload module
         """
         if payload_type == PayloadType.LIVE_IMAGE:
-            from pyanaconda.modules.payloads.payload.live_image.live_image import \
-                LiveImageModule
+            from pyanaconda.modules.payloads.payload.live_image.live_image import (
+                LiveImageModule,
+            )
             return LiveImageModule()
 
         if payload_type == PayloadType.LIVE_OS:
@@ -46,7 +47,9 @@ class PayloadFactory:
             return DNFModule()
 
         if payload_type == PayloadType.RPM_OSTREE:
-            from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
+            from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import (
+                RPMOSTreeModule,
+            )
             return RPMOSTreeModule()
 
         raise ValueError("Unknown payload type: {}".format(payload_type))

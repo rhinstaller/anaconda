@@ -18,7 +18,7 @@
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
 from pyanaconda.core.configuration.base import Section
-from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
+from pyanaconda.core.constants import SOURCE_TYPE_CDN, SOURCE_TYPE_CLOSEST_MIRROR
 
 
 class PayloadSection(Section):

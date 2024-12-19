@@ -16,11 +16,15 @@
 # Red Hat, Inc.
 #
 from collections import namedtuple
+
 from blivet.arch import is_aarch64
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
+from pyanaconda.modules.common.structures.comps import (
+    CompsEnvironmentData,
+    CompsGroupData,
+)
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 
 log = get_module_logger(__name__)

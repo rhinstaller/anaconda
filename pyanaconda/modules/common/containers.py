@@ -17,9 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.server.container import DBusContainer
+
 from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
-    DEVICE_TREE_NAMESPACE, PARTITIONING_NAMESPACE, SOURCE_NAMESPACE, PAYLOAD_NAMESPACE
+from pyanaconda.modules.common.constants.namespaces import (
+    ANACONDA_NAMESPACE,
+    DEVICE_TREE_NAMESPACE,
+    PARTITIONING_NAMESPACE,
+    PAYLOAD_NAMESPACE,
+    SOURCE_NAMESPACE,
+)
 
 TaskContainer = DBusContainer(
     namespace=ANACONDA_NAMESPACE,

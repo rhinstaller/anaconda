@@ -18,33 +18,38 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import functools
+import importlib.machinery
+import importlib.util
+import inspect
 import os
 import os.path
-import subprocess
-# Used for ascii_lowercase, ascii_uppercase constants
-import tempfile
 import re
 import signal
+import subprocess
 import sys
+
+# Used for ascii_lowercase, ascii_uppercase constants
+import tempfile
 import types
-import inspect
-import functools
-import importlib.util
-import importlib.machinery
 
 import requests
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
+from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger
+from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories, open_with_perm, join_paths
-from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
-    IPMI_ABORTED, PACKAGES_LIST_FILE, DRACUT_REPO_DIR
+from pyanaconda.core.constants import (
+    DRACUT_REPO_DIR,
+    DRACUT_SHUTDOWN_EJECT,
+    IPMI_ABORTED,
+    PACKAGES_LIST_FILE,
+)
 from pyanaconda.core.live_user import get_live_user
+from pyanaconda.core.path import join_paths, make_directories, open_with_perm
 from pyanaconda.errors import RemovedModuleError
 
-from pyanaconda.anaconda_logging import program_log_lock
-from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger
 log = get_module_logger(__name__)
 program_log = get_program_logger()
 

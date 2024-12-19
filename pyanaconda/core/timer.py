@@ -19,7 +19,7 @@
 #  Author(s):  Jiri Konecny <jkonecny@redhat.com>
 #
 
-from pyanaconda.core.glib import timeout_add, timeout_add_seconds, source_remove
+from pyanaconda.core.glib import source_remove, timeout_add, timeout_add_seconds
 
 
 class Timer:

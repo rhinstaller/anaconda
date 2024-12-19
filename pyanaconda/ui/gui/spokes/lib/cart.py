@@ -17,16 +17,20 @@
 # Red Hat, Inc.
 #
 from blivet import arch
+from blivet.size import Size
 
-from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_LOCATION_MBR, \
-    BOOTLOADER_DRIVE_UNSET, BOOTLOADER_SKIPPED
+from pyanaconda.core.constants import (
+    BOOTLOADER_DRIVE_UNSET,
+    BOOTLOADER_ENABLED,
+    BOOTLOADER_LOCATION_MBR,
+    BOOTLOADER_SKIPPED,
+)
 from pyanaconda.core.i18n import C_
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.lib.storage import get_disks_summary
-from blivet.size import Size
 
 __all__ = ["SelectedDisksDialog"]
 

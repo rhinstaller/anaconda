@@ -15,15 +15,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod, ABCMeta
-from blivet.errors import StorageError, InconsistentParentSectorSize
+from abc import ABCMeta, abstractmethod
+
+from blivet.errors import InconsistentParentSectorSize, StorageError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.bootloader import BootLoaderError
-from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
-    BootloaderConfigurationError
+from pyanaconda.modules.common.errors.configuration import (
+    BootloaderConfigurationError,
+    StorageConfigurationError,
+)
 from pyanaconda.modules.common.task.task import Task
+from pyanaconda.modules.storage.bootloader import BootLoaderError
 from pyanaconda.modules.storage.constants import INCONSISTENT_SECTOR_SIZES_SUGGESTIONS
 
 log = get_module_logger(__name__)

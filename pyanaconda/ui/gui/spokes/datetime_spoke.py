@@ -16,38 +16,44 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 import datetime
+import functools
+import locale as locale_mod
 import re
 import time
-import locale as locale_mod
-import functools
-import copy
 
-from pyanaconda import ntp
-from pyanaconda import flags
+import gi
+
+from pyanaconda import flags, ntp
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
 from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.i18n import CN_, _
 from pyanaconda.core.service import is_service_running, start_service, stop_service
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.timer import Timer
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
+from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ntp import NTPServerStatusCache
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.timezone import (
+    NTP_SERVICE,
+    get_all_regions_and_timezones,
+    get_timezone,
+    is_valid_timezone,
+    parse_timezone,
+    set_system_date_time,
+)
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import blockedHandler as blocked_handler
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
-    is_valid_timezone, set_system_date_time, parse_timezone
-from pyanaconda.core.threads import thread_manager
+from pyanaconda.ui.gui.utils import blockedHandler as blocked_handler
 
-import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 

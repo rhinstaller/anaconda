@@ -17,16 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import gi
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.core.storage import get_supported_autopart_choices
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 
-import gi
 gi.require_version("AnacondaWidgets", "3.4")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, AnacondaWidgets
+from gi.repository import AnacondaWidgets, Gtk
 
 log = get_module_logger(__name__)
 

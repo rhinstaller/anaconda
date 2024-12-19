@@ -6,6 +6,7 @@ line-length = 99
 select = [
     "E", # pycodestyle error
     "F", # pyflakes
+    "I", # isort
     "W", # pycodestyle warning (mostly whitespace related)
     "PL", # pylint
     "ICN", # flake8-import-conventions
@@ -46,3 +47,6 @@ ignore = [
     "PLR1714", # Consider merging multiple comparisons: `<expression>`. Use a `set` if the elements are hashable.
     "RUF015", # Prefer `next(...)` over single element slice
 ]
+
+[lint.isort]
+known-first-party = ["pyanaconda"]

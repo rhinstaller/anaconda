@@ -16,18 +16,26 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
-
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
+import pytest
+
+from pyanaconda.modules.common.errors.payload import (
+    SourceSetupError,
+    SourceTearDownError,
+)
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask, TearDownMountTask
+from pyanaconda.modules.payloads.source.mount_tasks import (
+    SetUpMountTask,
+    TearDownMountTask,
+)
 from pyanaconda.modules.payloads.source.source_base import MountingSourceMixin
-from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
-    verify_valid_repository
+from pyanaconda.modules.payloads.source.utils import (
+    find_and_mount_iso_image,
+    verify_valid_repository,
+)
 
 mount_location = "/some/dir"
 

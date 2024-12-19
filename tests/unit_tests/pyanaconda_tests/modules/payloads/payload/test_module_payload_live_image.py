@@ -18,22 +18,26 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+
 import pytest
 
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, SOURCE_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
-from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
-from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
-    LiveImageInterface
+from pyanaconda.modules.payloads.payload.live_image.live_image_interface import (
+    LiveImageInterface,
+)
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
-from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
+from pyanaconda.modules.payloads.source.live_image.installation import (
+    InstallLiveImageTask,
+)
 from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
-
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadKickstartSharedTest
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+)
 
 
 class LiveImageKSTestCase(unittest.TestCase):

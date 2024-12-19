@@ -16,8 +16,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-from pyanaconda import network
 import unittest
+
+from pyanaconda import network
 
 
 class NetworkTests(unittest.TestCase):

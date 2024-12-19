@@ -29,5 +29,5 @@ def register_errors():
         payload,
         runtime,
         storage,
-        task
+        task,
     )

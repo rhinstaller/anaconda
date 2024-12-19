@@ -30,9 +30,10 @@ except ImportError:
     print("No module named lxml, you need to install the python3-lxml package")
     raise
 
+import logging
+
 from filelist import testfilelist
 
-import logging
 log = logging.getLogger('unittest')
 
 

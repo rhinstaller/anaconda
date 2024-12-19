@@ -17,18 +17,37 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.parser import Packages, Group
+from pykickstart.constants import (
+    GROUP_ALL,
+    GROUP_DEFAULT,
+    GROUP_REQUIRED,
+    KS_BROKEN_IGNORE,
+    KS_MISSING_IGNORE,
+)
+from pykickstart.parser import Group, Packages
 from pykickstart.sections import PackageSection
-from pykickstart.constants import GROUP_DEFAULT, GROUP_ALL, GROUP_REQUIRED, KS_MISSING_IGNORE, \
-    KS_BROKEN_IGNORE
 
-from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, \
-    DNF_DEFAULT_REPO_COST, REPO_ORIGIN_SYSTEM, REPO_ORIGIN_USER, GROUP_PACKAGE_TYPES_ALL, \
-    GROUP_PACKAGE_TYPES_REQUIRED, RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL, RPM_LANGUAGES_ALL, \
-    DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
-from pyanaconda.modules.common.structures.packages import PackagesSelectionData, \
-    PackagesConfigurationData
+from pyanaconda.core.constants import (
+    DNF_DEFAULT_REPO_COST,
+    DNF_DEFAULT_RETRIES,
+    DNF_DEFAULT_TIMEOUT,
+    GROUP_PACKAGE_TYPES_ALL,
+    GROUP_PACKAGE_TYPES_REQUIRED,
+    MULTILIB_POLICY_ALL,
+    REPO_ORIGIN_SYSTEM,
+    REPO_ORIGIN_USER,
+    RPM_LANGUAGES_ALL,
+    RPM_LANGUAGES_NONE,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
+from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import commands as COMMANDS
+from pyanaconda.modules.common.structures.packages import (
+    PackagesConfigurationData,
+    PackagesSelectionData,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 
 

@@ -20,6 +20,7 @@
 __all__ = ["UserInterface"]
 
 import copy
+
 from pyanaconda.core.util import collect
 
 

@@ -21,12 +21,23 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
-from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
-    CopyBootloaderDataTask, PrepareOSTreeMountTargetsTask, ConfigureBootloader, \
-    TearDownOSTreeMountTargetsTask
-from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
+    InstallFlatpaksTask,
+)
+from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+    ChangeOSTreeRemoteTask,
+    ConfigureBootloader,
+    CopyBootloaderDataTask,
+    DeployOSTreeTask,
+    InitOSTreeFsAndRepoTask,
+    PrepareOSTreeMountTargetsTask,
+    PullRemoteAndDeleteTask,
+    SetSystemRootTask,
+    TearDownOSTreeMountTargetsTask,
+)
+from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
+    RPMOSTreeInterface,
+)
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 log = get_module_logger(__name__)

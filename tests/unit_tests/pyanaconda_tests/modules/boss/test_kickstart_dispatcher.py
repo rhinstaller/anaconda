@@ -18,18 +18,23 @@
 # with the express permission of Red Hat, Inc.
 #
 
-import unittest
 import os
 import shlex
-import pytest
+import unittest
 from contextlib import contextmanager
 
-from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
-    TrackedKickstartElements
-from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser, \
-    VALID_SECTIONS_ANACONDA
+import pytest
+from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.version import makeVersion
-from pykickstart.errors import KickstartParseError, KickstartError
+
+from pyanaconda.modules.boss.kickstart_manager.element import (
+    KickstartElement,
+    TrackedKickstartElements,
+)
+from pyanaconda.modules.boss.kickstart_manager.parser import (
+    VALID_SECTIONS_ANACONDA,
+    SplitKickstartParser,
+)
 
 KICKSTART1 = """
 text

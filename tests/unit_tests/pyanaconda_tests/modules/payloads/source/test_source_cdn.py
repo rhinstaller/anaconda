@@ -16,8 +16,9 @@
 # Red Hat, Inc.
 #
 #
-import pytest
 import unittest
+
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDN
 from pyanaconda.modules.common.constants.services import BOSS, SUBSCRIPTION

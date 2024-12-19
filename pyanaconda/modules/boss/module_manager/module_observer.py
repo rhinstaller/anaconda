@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from dasbus.namespace import get_namespace_from_name, get_dbus_path, get_dbus_name
 from dasbus.client.observer import DBusObserver, DBusObserverError
+from dasbus.namespace import get_dbus_name, get_dbus_path, get_namespace_from_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE

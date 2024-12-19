@@ -20,9 +20,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.core.i18n import _
-from pyanaconda.core.timer import Timer
 from pyanaconda.core.product import get_product_name
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 

@@ -17,19 +17,21 @@
 #
 import subprocess
 import unittest
-import pytest
-
 from tempfile import TemporaryDirectory
+
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_REPO_PATH
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_REPO_PATH
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.repo_path.repo_path import RepoPathSourceModule
-from pyanaconda.modules.payloads.source.repo_path.repo_path_interface import \
-    RepoPathSourceInterface
-from pyanaconda.modules.payloads.source.repo_path.initialization import SetUpRepoPathSourceTask
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.repo_path.initialization import (
+    SetUpRepoPathSourceTask,
+)
+from pyanaconda.modules.payloads.source.repo_path.repo_path import RepoPathSourceModule
+from pyanaconda.modules.payloads.source.repo_path.repo_path_interface import (
+    RepoPathSourceInterface,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

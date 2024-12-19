@@ -15,17 +15,21 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import pytest
-
 from unittest.case import TestCase
 
-from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
-    KickstartSpecificationParser
+import pytest
+
+from pyanaconda.core.kickstart.specification import (
+    KickstartSpecificationHandler,
+    KickstartSpecificationParser,
+)
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
+from pyanaconda.modules.payloads.payload.payload_base_interface import (
+    PayloadBaseInterface,
+)
 
 
 class PayloadFactoryTestCase(TestCase):

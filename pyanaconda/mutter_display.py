@@ -17,10 +17,10 @@
 #
 
 from dasbus.client.observer import DBusObserver
-from pyanaconda.core.dbus import SessionBus
-from pyanaconda.modules.common.constants.services import MUTTER_DISPLAY_CONFIG
-from pyanaconda.core.regexes import SCREEN_RESOLUTION_CONFIG
 
+from pyanaconda.core.dbus import SessionBus
+from pyanaconda.core.regexes import SCREEN_RESOLUTION_CONFIG
+from pyanaconda.modules.common.constants.services import MUTTER_DISPLAY_CONFIG
 
 __all__ = ['MutterConfigError', 'MutterDisplay']
 

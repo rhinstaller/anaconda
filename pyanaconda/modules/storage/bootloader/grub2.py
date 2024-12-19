@@ -17,18 +17,18 @@
 #
 import os
 import re
-from _ped import PARTITION_BIOS_GRUB  # pylint: disable=no-name-in-module
 
+from _ped import PARTITION_BIOS_GRUB  # pylint: disable=no-name-in-module
 from blivet.devicelibs import raid
 
-from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import open_with_perm
 from pyanaconda.core.product import get_product_name
+from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["GRUB2", "IPSeriesGRUB2"]

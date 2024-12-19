@@ -20,18 +20,29 @@ import shutil
 import time
 
 from blivet import blockdev
-from blivet.devices import NoDevice, DirectoryDevice, NFSDevice, FileDevice, MDRaidArrayDevice, \
-    NetworkStorageDevice, OpticalDevice
-from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError, SwapSpaceError, \
-    StorageError
-from blivet.formats import get_format, get_device_format_class
+from blivet.devices import (
+    DirectoryDevice,
+    FileDevice,
+    MDRaidArrayDevice,
+    NetworkStorageDevice,
+    NFSDevice,
+    NoDevice,
+    OpticalDevice,
+)
+from blivet.errors import (
+    FSTabTypeMismatchError,
+    StorageError,
+    SwapSpaceError,
+    UnrecognizedFSTabEntryError,
+)
+from blivet.formats import get_device_format_class, get_format
 from blivet.storage_log import log_exception_info
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.platform import platform, EFI
+from pyanaconda.modules.storage.platform import EFI, platform
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["BlkidTab", "CryptTab", "FSSet"]

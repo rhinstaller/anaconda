@@ -16,12 +16,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.core.dbus import SystemBus, SessionBus, DBus
 from dasbus.identifier import DBusServiceIdentifier
-from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZONE_NAMESPACE, \
-    NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, \
-    PAYLOADS_NAMESPACE, STORAGE_NAMESPACE, SERVICES_NAMESPACE, SUBSCRIPTION_NAMESPACE, \
-    RHSM_NAMESPACE, NETWORK_MANAGER_NAMESPACE, RUNTIME_NAMESPACE
+
+from pyanaconda.core.dbus import DBus, SessionBus, SystemBus
+from pyanaconda.modules.common.constants.namespaces import (
+    BOSS_NAMESPACE,
+    LOCALIZATION_NAMESPACE,
+    NETWORK_MANAGER_NAMESPACE,
+    NETWORK_NAMESPACE,
+    PAYLOADS_NAMESPACE,
+    RHSM_NAMESPACE,
+    RUNTIME_NAMESPACE,
+    SECURITY_NAMESPACE,
+    SERVICES_NAMESPACE,
+    STORAGE_NAMESPACE,
+    SUBSCRIPTION_NAMESPACE,
+    TIMEZONE_NAMESPACE,
+    USERS_NAMESPACE,
+)
 
 # Anaconda services.
 

@@ -18,10 +18,9 @@
 import unittest
 from textwrap import dedent
 
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
-
 from pyanaconda.modules.runtime.runtime import RuntimeService
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
+from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
 
 
 class RuntimeInterfaceTestCase(unittest.TestCase):

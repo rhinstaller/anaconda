@@ -19,24 +19,35 @@
 #
 import langtable
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.localization import get_available_translations, get_common_languages, \
-    get_english_name, get_language_locales, get_language_id, get_native_name
+from pyanaconda.localization import (
+    get_available_translations,
+    get_common_languages,
+    get_english_name,
+    get_language_id,
+    get_language_locales,
+    get_native_name,
+)
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
-from pyanaconda.modules.localization.localization_interface import LocalizationInterface
+from pyanaconda.modules.localization.installation import (
+    KeyboardInstallationTask,
+    LanguageInstallationTask,
+)
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
-from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
-    KeyboardInstallationTask
-from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
-    ApplyKeyboardTask, AssignGenericKeyboardSettingTask
 from pyanaconda.modules.localization.localed import LocaledWrapper
+from pyanaconda.modules.localization.localization_interface import LocalizationInterface
+from pyanaconda.modules.localization.runtime import (
+    ApplyKeyboardTask,
+    AssignGenericKeyboardSettingTask,
+    GetMissingKeyboardConfigurationTask,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

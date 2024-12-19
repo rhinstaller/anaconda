@@ -16,16 +16,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
-from pyanaconda.core.util import collect
-from pyanaconda.core.signal import Signal
-from pyanaconda.ui.categories import SpokeCategory
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
 from pyanaconda import lifecycle
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import collect
+from pyanaconda.ui.categories import SpokeCategory
+from pyanaconda.ui.lib.services import is_reconfiguration_mode
 
 log = get_module_logger(__name__)
 

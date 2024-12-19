@@ -23,9 +23,14 @@ from functools import partial
 import pytest
 
 import pyanaconda.core.payload as util
-from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_URL, SOURCE_TYPE_NFS, \
-    SOURCE_TYPE_HDD, SOURCE_TYPE_HMC
-from pyanaconda.core.payload import parse_hdd_url, create_hdd_url
+from pyanaconda.core.constants import (
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_URL,
+)
+from pyanaconda.core.payload import create_hdd_url, parse_hdd_url
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.payload.dnf import DNFPayload

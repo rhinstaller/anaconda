@@ -19,10 +19,18 @@ import unittest
 
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.core.constants import SECRET_TYPE_NONE, \
-    SECRET_TYPE_TEXT, SECRET_TYPE_HIDDEN
-from pyanaconda.modules.common.structures.secret import SecretData, SecretDataList, hide_secrets, \
-    get_public_copy
+
+from pyanaconda.core.constants import (
+    SECRET_TYPE_HIDDEN,
+    SECRET_TYPE_NONE,
+    SECRET_TYPE_TEXT,
+)
+from pyanaconda.modules.common.structures.secret import (
+    SecretData,
+    SecretDataList,
+    get_public_copy,
+    hide_secrets,
+)
 
 
 class SecretDataTestCase(unittest.TestCase):

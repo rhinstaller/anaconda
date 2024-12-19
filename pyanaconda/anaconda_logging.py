@@ -20,16 +20,22 @@
 #
 
 import logging
-from logging.handlers import SysLogHandler, SocketHandler
-from systemd import journal
 import os
 import sys
 import warnings
+from logging.handlers import SocketHandler, SysLogHandler
+
+from systemd import journal
 
 from pyanaconda.core import constants
+from pyanaconda.core.glib import (
+    LogLevelFlags,
+    LogWriterOutput,
+    log_set_handler,
+    log_set_writer_func,
+    log_writer_format_fields,
+)
 from pyanaconda.core.path import set_mode
-from pyanaconda.core.glib import log_set_handler, log_set_writer_func, log_writer_format_fields, \
-      LogLevelFlags, LogWriterOutput
 
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
@@ -45,6 +51,7 @@ ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
 
 from threading import Lock
+
 program_log_lock = Lock()
 
 

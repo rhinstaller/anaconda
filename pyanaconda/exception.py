@@ -19,7 +19,6 @@
 #
 import errno
 import glob
-import gi
 import os
 import re
 import shutil
@@ -28,30 +27,29 @@ import time
 import traceback
 
 import blivet.errors
-
+import gi
 from meh import Config
 from meh.dump import ReverseExceptionDump
 from meh.handler import ExceptionHandler
+from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_TRACEBACK
+from simpleline import App
+from simpleline.event_loop.signals import ExceptionSignal
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
-from pyanaconda.core.product import get_product_is_final_release
-from pyanaconda.errors import NonInteractiveError
+from pyanaconda.core.constants import IPMI_FAILED, THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.core.i18n import _
+from pyanaconda.core.product import get_product_is_final_release
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.errors import NonInteractiveError
 from pyanaconda.modules.common.constants.objects import SCRIPTS
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.communication import hubQ
 
-from simpleline import App
-from simpleline.event_loop.signals import ExceptionSignal
-from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_TRACEBACK
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

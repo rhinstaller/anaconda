@@ -15,8 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import check_glade_files
 from unittest import TestCase
+
+from gladecheck import check_glade_files
 
 
 class CheckFormatString(TestCase):

@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 import pickle
+
 from pyanaconda.modules.common.errors.storage import UnsupportedPartitioningError
 
 try:

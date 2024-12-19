@@ -17,11 +17,11 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-import pyanaconda
 import unittest
-
 from importlib import import_module
 from pkgutil import walk_packages
+
+import pyanaconda
 
 
 class SimpleImportTestCase(unittest.TestCase):

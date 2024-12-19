@@ -21,18 +21,24 @@ import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import URL_TYPE_BASEURL
-from pyanaconda.core.payload import parse_hdd_url, create_hdd_url
+from pyanaconda.core.payload import create_hdd_url, parse_hdd_url
 from pyanaconda.core.storage import device_matches
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
-    HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
-    SetupHardDriveResult
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import (
+    HardDriveSourceInterface,
+)
+from pyanaconda.modules.payloads.source.harddrive.initialization import (
+    SetupHardDriveResult,
+    SetUpHardDriveSourceTask,
+)
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin, \
-    RepositorySourceMixin
+from pyanaconda.modules.payloads.source.source_base import (
+    PayloadSourceBase,
+    RepositorySourceMixin,
+    RPMSourceMixin,
+)
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
 log = get_module_logger(__name__)

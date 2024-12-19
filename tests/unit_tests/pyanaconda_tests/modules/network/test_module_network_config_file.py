@@ -21,11 +21,16 @@ import os
 import shutil
 import tempfile
 import unittest
-from unittest.mock import patch
 from textwrap import dedent
+from unittest.mock import patch
 
-from pyanaconda.modules.network.config_file import IFCFG_DIR, KEYFILE_DIR, \
-    get_config_files_content, is_config_file_for_system, get_config_files_paths
+from pyanaconda.modules.network.config_file import (
+    IFCFG_DIR,
+    KEYFILE_DIR,
+    get_config_files_content,
+    get_config_files_paths,
+    is_config_file_for_system,
+)
 
 
 class ConfigFileTestCase(unittest.TestCase):

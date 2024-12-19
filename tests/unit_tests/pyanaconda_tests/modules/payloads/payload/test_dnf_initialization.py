@@ -23,18 +23,26 @@ from unittest.mock import Mock
 import pytest
 from dasbus.structure import compare_data
 
-from pyanaconda.core.constants import REPO_ORIGIN_SYSTEM, REPO_ORIGIN_USER, REPO_ORIGIN_TREEINFO
-from pyanaconda.core.path import make_directories, join_paths
+from pyanaconda.core.constants import (
+    REPO_ORIGIN_SYSTEM,
+    REPO_ORIGIN_TREEINFO,
+    REPO_ORIGIN_USER,
+)
+from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.initialization import SetUpDNFSourcesResult, \
-    SetUpDNFSourcesTask, TearDownDNFSourcesTask
+from pyanaconda.modules.payloads.payload.dnf.initialization import (
+    SetUpDNFSourcesResult,
+    SetUpDNFSourcesTask,
+    TearDownDNFSourcesTask,
+)
 from pyanaconda.modules.payloads.source.factory import SourceFactory
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.test_dnf_tree_info import \
-    TREE_INFO_RHEL
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.test_dnf_tree_info import (
+    TREE_INFO_RHEL,
+)
 
 
 class SetUpDNFSourcesTaskTestCase(unittest.TestCase):

@@ -15,19 +15,22 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import copy
+import os
 from glob import glob
 from itertools import count
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, REPO_ORIGIN_SYSTEM
+from pyanaconda.core.constants import REPO_ORIGIN_SYSTEM, REPO_ORIGIN_TREEINFO
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.modules.common.errors.payload import UnknownRepositoryError, SourceSetupError
+from pyanaconda.modules.common.errors.payload import (
+    SourceSetupError,
+    UnknownRepositoryError,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import MetadataError

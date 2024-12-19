@@ -18,24 +18,24 @@
 import fnmatch
 import hashlib
 import os
-import rpm
-from libdnf.transaction import TransactionItemState_ERROR
 
+import rpm
 from blivet.size import Size
+from libdnf.transaction import TransactionItemState_ERROR
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.payload import parse_hdd_url
-from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import execWithCapture
 from pyanaconda.core.hw import is_lpae_available
 from pyanaconda.core.path import join_paths
+from pyanaconda.core.payload import parse_hdd_url
+from pyanaconda.core.product import get_product_name, get_product_version
+from pyanaconda.core.regexes import VERSION_DIGITS
+from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
-from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
+from pyanaconda.modules.payloads.constants import SourceType
 
 log = get_module_logger(__name__)
 

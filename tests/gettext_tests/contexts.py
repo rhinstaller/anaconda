@@ -16,9 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import sys
 import re
 import string
+import sys
+
 
 def list_occurrences(occurrences):
     # Return polib's occurrences list [('file1', line1), ('file2', line2), ...]

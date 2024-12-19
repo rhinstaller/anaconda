@@ -16,27 +16,35 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
-
 from textwrap import dedent
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
+import pytest
 from blivet.size import Size
 
-from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
+from pyanaconda.core.constants import (
+    GROUP_PACKAGE_TYPES_ALL,
+    GROUP_PACKAGE_TYPES_REQUIRED,
+)
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_installation_specs, get_kernel_version_list, \
-    pick_download_location, calculate_required_space, get_free_space_map, _pick_mount_points, \
-    collect_installation_devices
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    _pick_mount_points,
+    calculate_required_space,
+    collect_installation_devices,
+    get_free_space_map,
+    get_installation_specs,
+    get_kernel_package,
+    get_kernel_version_list,
+    get_product_release_version,
+    pick_download_location,
+)
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
-
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 

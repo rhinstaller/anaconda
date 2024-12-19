@@ -16,42 +16,48 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import os
+import shutil
 import sys
+import time
+from enum import Enum
 
-from pyanaconda.core import util
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE, IPMI_ABORTED
-from pyanaconda.errors import errorHandler
-from pyanaconda.modules.common.errors.runtime import ScriptError
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE, SCRIPTS
-from pyanaconda.modules.common.constants.services import STORAGE, RUNTIME
-from pyanaconda.modules.common.errors.storage import MountFilesystemError
-from pyanaconda.modules.common.structures.rescue import RescueData
-from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData, DeviceData
-from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.core.threads import thread_manager
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_
-from pyanaconda.ui.tui import tui_quit_callback
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-
-from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
-from pykickstart.constants import KS_SCRIPT_POST
-
+from pykickstart.constants import KS_REBOOT, KS_SCRIPT_POST, KS_SHUTDOWN
 from simpleline import App
-from simpleline.render.adv_widgets import YesNoDialog, PasswordDialog
+from simpleline.render.adv_widgets import PasswordDialog, YesNoDialog
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, CheckboxWidget
-
-import os
-import shutil
-import time
-from enum import Enum
+from simpleline.render.widgets import CheckboxWidget, TextWidget
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    ANACONDA_CLEANUP,
+    IPMI_ABORTED,
+    QUIT_MESSAGE,
+    THREAD_STORAGE,
+)
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.errors import errorHandler
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE, SCRIPTS
+from pyanaconda.modules.common.constants.services import RUNTIME, STORAGE
+from pyanaconda.modules.common.errors.runtime import ScriptError
+from pyanaconda.modules.common.errors.storage import MountFilesystemError
+from pyanaconda.modules.common.structures.rescue import RescueData
+from pyanaconda.modules.common.structures.storage import (
+    DeviceData,
+    DeviceFormatData,
+    OSData,
+)
+from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.ui.tui import tui_quit_callback
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+
 log = get_module_logger(__name__)
 
 __all__ = ["RescueModeSpoke", "RescueStatusAndShellSpoke", "RootSelectionSpoke"]

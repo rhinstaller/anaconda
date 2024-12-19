@@ -16,22 +16,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
-from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
-from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
+from pyanaconda.core.i18n import CN_, _
+from pyanaconda.core.users import crypt_password
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
-from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
-from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.users import can_modify_root_configuration, get_root_configuration_status
+from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.utils import set_password_visibility
+from pyanaconda.ui.lib.users import (
+    can_modify_root_configuration,
+    get_root_configuration_status,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["PasswordSpoke"]

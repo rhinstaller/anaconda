@@ -17,26 +17,38 @@
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
-import unittest
-import pytest
-import time
 import threading
-from unittest.mock import Mock, patch, call
+import time
+import unittest
 from textwrap import dedent
-
-from pyanaconda.modules.network.nm_client import get_ports_from_connections, \
-    get_dracut_arguments_from_connection, get_config_file_connection_of_device, \
-    get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS, \
-    update_connection_wired_settings_from_ksdata, get_new_nm_client, GError, \
-    update_connection_ip_settings_from_ksdata
-from pyanaconda.core.kickstart.commands import NetworkData
-from pyanaconda.core.glib import MainContext, sync_call_glib
-from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
-    NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
-    NM_CONNECTION_TYPE_TEAM, NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND
-
+from unittest.mock import Mock, call, patch
 
 import gi
+import pytest
+
+from pyanaconda.core.glib import MainContext, sync_call_glib
+from pyanaconda.core.kickstart.commands import NetworkData
+from pyanaconda.modules.network.constants import (
+    NM_CONNECTION_TYPE_BOND,
+    NM_CONNECTION_TYPE_BRIDGE,
+    NM_CONNECTION_TYPE_ETHERNET,
+    NM_CONNECTION_TYPE_INFINIBAND,
+    NM_CONNECTION_TYPE_TEAM,
+    NM_CONNECTION_TYPE_VLAN,
+    NM_CONNECTION_TYPE_WIFI,
+)
+from pyanaconda.modules.network.nm_client import (
+    NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS,
+    GError,
+    get_config_file_connection_of_device,
+    get_dracut_arguments_from_connection,
+    get_kickstart_network_data,
+    get_new_nm_client,
+    get_ports_from_connections,
+    update_connection_ip_settings_from_ksdata,
+    update_connection_wired_settings_from_ksdata,
+)
+
 gi.require_version("NM", "1.0")
 gi.require_version("Gio", "2.0")
 from gi.repository import NM, Gio

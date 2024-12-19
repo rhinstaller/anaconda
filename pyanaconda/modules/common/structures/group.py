@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.structure import DBusData
-
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import ID_MODE_USE_DEFAULT, ID_MODE_USE_VALUE

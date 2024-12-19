@@ -17,21 +17,22 @@
 # Red Hat, Inc.
 #
 
+import functools
 import gettext
+import glob
+import locale as locale_mod
 import os
 import re
-import langtable
-import locale as locale_mod
-import glob
 from collections import namedtuple
-import functools
 
-from pyanaconda.core import constants
-from pyanaconda.core.util import setenv, execWithRedirect
-from pyanaconda.core.string import upcase_first_letter
-from pyanaconda.modules.common.constants.services import BOSS
+import langtable
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
+from pyanaconda.core.string import upcase_first_letter
+from pyanaconda.core.util import execWithRedirect, setenv
+from pyanaconda.modules.common.constants.services import BOSS
+
 log = get_module_logger(__name__)
 
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}

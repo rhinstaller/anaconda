@@ -18,22 +18,23 @@
 # Red Hat, Inc.
 #
 from blivet.fcoe import fcoe
-from blivet.iscsi import iscsi
-from blivet.zfcp import zfcp
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
+from blivet.iscsi import iscsi
+from blivet.zfcp import zfcp
 from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
 
-from pyanaconda.network import get_supported_devices, wait_for_network_devices
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import FIPS_PASSPHRASE_MIN_LENGTH
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import commands as COMMANDS
 from pyanaconda.core.storage import device_matches
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.network import get_supported_devices, wait_for_network_devices
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["StorageKickstartSpecification"]

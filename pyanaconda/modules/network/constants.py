@@ -19,9 +19,12 @@
 #
 from enum import Enum, unique
 
-from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_DISABLED, \
-    FIREWALL_ENABLED, FIREWALL_USE_SYSTEM_DEFAULTS
-
+from pyanaconda.core.constants import (
+    FIREWALL_DEFAULT,
+    FIREWALL_DISABLED,
+    FIREWALL_ENABLED,
+    FIREWALL_USE_SYSTEM_DEFAULTS,
+)
 
 NM_CONNECTION_UUID_LENGTH = 36
 CONNECTION_ADDING_TIMEOUT = 5

@@ -20,10 +20,15 @@ from pykickstart.errors import KickstartError
 from pykickstart.version import makeVersion
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser,\
-    VALID_SECTIONS_ANACONDA
+from pyanaconda.modules.boss.kickstart_manager.parser import (
+    VALID_SECTIONS_ANACONDA,
+    SplitKickstartParser,
+)
 from pyanaconda.modules.common.constants.services import BOSS
-from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
+from pyanaconda.modules.common.structures.kickstart import (
+    KickstartMessage,
+    KickstartReport,
+)
 
 log = get_module_logger(__name__)
 

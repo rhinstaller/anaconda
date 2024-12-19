@@ -15,11 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda import keyboard
 import unittest
+from unittest.mock import patch
+
 import pytest
 
-from unittest.mock import patch
+from pyanaconda import keyboard
 
 
 class KeyboardUtilsTestCase(unittest.TestCase):

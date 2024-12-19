@@ -19,18 +19,22 @@
 
 import os
 import os.path
+import re
 import subprocess
 from pathlib import Path
+from random import SystemRandom as sr
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories, open_with_perm
-from pyanaconda.core.string import strip_accents
-from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, \
-    GROUPLIST_SIMPLE_VALID
 from pyanaconda.core.i18n import _
-import re
-from random import SystemRandom as sr
+from pyanaconda.core.path import make_directories, open_with_perm
+from pyanaconda.core.regexes import (
+    GROUPLIST_FANCY_PARSE,
+    GROUPLIST_SIMPLE_VALID,
+    NAME_VALID,
+    PORTABLE_FS_CHARS,
+)
+from pyanaconda.core.string import strip_accents
 
 try:
     # Use the standalone (not deprecated) package when available
@@ -40,6 +44,7 @@ except ImportError:
     import crypt as crypt_r  # pylint: disable=deprecated-module
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 

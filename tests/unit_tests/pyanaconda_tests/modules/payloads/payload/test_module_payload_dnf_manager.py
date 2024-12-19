@@ -17,34 +17,46 @@
 #
 import os.path
 import unittest
-from textwrap import dedent
-
-import pytest
-
 from tempfile import TemporaryDirectory
-from unittest.mock import patch, Mock, call
+from textwrap import dedent
+from unittest.mock import Mock, call, patch
 
-from blivet.size import Size, ROUND_UP
-from dasbus.structure import compare_data
-
-from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
-from dnf.comps import Environment, Comps, Group
-from dnf.exceptions import MarkingErrors, DepsolveError, RepoError
-from dnf.package import Package
-from dnf.transaction import PKG_INSTALL, TRANS_POST
-from dnf.repo import Repo
 import libdnf.transaction
+import pytest
+from blivet.size import ROUND_UP, Size
+from dasbus.structure import compare_data
+from dnf.callback import PKG_SCRIPTLET, STATUS_FAILED, STATUS_OK
+from dnf.comps import Comps, Environment, Group
+from dnf.exceptions import DepsolveError, MarkingErrors, RepoError
+from dnf.package import Package
+from dnf.repo import Repo
+from dnf.transaction import PKG_INSTALL, TRANS_POST
 
-from pyanaconda.core.constants import MULTILIB_POLICY_ALL, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK
+from pyanaconda.core.constants import (
+    MULTILIB_POLICY_ALL,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
-    UnknownCompsGroupError, UnknownRepositoryError
-from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
+from pyanaconda.modules.common.errors.payload import (
+    UnknownCompsEnvironmentError,
+    UnknownCompsGroupError,
+    UnknownRepositoryError,
+)
+from pyanaconda.modules.common.structures.comps import (
+    CompsEnvironmentData,
+    CompsGroupData,
+)
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, \
-    InvalidSelectionError, BrokenSpecsError, MissingSpecsError, MetadataError
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
+    BrokenSpecsError,
+    DNFManager,
+    InvalidSelectionError,
+    MetadataError,
+    MissingSpecsError,
+)
 
 
 class DNFManagerTestCase(unittest.TestCase):

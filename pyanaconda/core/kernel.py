@@ -15,11 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import shlex
 import glob
-
+import shlex
 from collections import OrderedDict
-from pyanaconda.core.constants import CMDLINE_APPEND, CMDLINE_LIST, CMDLINE_FILES
+
+from pyanaconda.core.constants import CMDLINE_APPEND, CMDLINE_FILES, CMDLINE_LIST
 
 __all__ = ['KernelArguments', 'kernel_arguments']
 

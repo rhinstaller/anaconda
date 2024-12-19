@@ -16,10 +16,10 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, Mock
-from pyanaconda.core.signal import Signal
-from pyanaconda.core.glib import Variant
+from unittest.mock import Mock, patch
 
+from pyanaconda.core.glib import Variant
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.localization.localed import LocaledWrapper
 
 

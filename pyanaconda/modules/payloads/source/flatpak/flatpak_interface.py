@@ -21,7 +21,9 @@ from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_FLATPAK
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 __all__ = ["FlatpakSourceInterface"]
 

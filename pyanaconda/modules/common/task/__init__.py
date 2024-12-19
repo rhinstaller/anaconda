@@ -16,10 +16,10 @@
 # Red Hat, Inc.
 #
 import math
-from time import sleep, perf_counter
+from time import perf_counter, sleep
 
+from pyanaconda.modules.common.task.task import AbstractTask, Task, ValidationTask
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.common.task.task import Task, ValidationTask, AbstractTask
 
 __all__ = [
     "AbstractTask",

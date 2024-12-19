@@ -16,18 +16,18 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
+import os
+import tempfile
 import unittest
 import unittest.mock
-import tempfile
 import warnings
-import polib
-import os
 
+import polib
+from translation_canary.translated import testFile, testSourceTree
 from translation_canary.translated.test_markup import test_markup
 from translation_canary.translated.test_percentage import test_percentage
-from translation_canary.translated.test_usability import test_usability, test_msgfmt
+from translation_canary.translated.test_usability import test_msgfmt, test_usability
 
-from translation_canary.translated import testFile, testSourceTree
 
 # convert a polib.POFile into a NamedTemporaryFile
 def pofile(poobj):

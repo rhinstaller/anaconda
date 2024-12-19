@@ -19,22 +19,27 @@
 
 import os
 import sys
-from tempfile import mkstemp
 import threading
+from tempfile import mkstemp
 
-from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS, \
-    PAYLOAD_TYPE_LIVE_IMAGE
+from pyanaconda.anaconda_loggers import get_stdout_logger
 from pyanaconda.core import constants
-from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
+from pyanaconda.core.constants import (
+    ADDON_PATHS,
+    PAYLOAD_TYPE_LIVE_IMAGE,
+    PAYLOAD_TYPE_RPM_OSTREE,
+    DisplayModes,
+)
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import open_with_perm
+from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.ui.lib.addons import collect_addon_ui_paths
 
-from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 
@@ -163,10 +168,11 @@ class Anaconda:
                  constants.DISPLAY_MODE_NAME[self.display_mode])
 
     def dumpState(self):
-        from meh import ExceptionInfo
-        from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
         from traceback import format_stack
+
+        from meh import ExceptionInfo
+        from meh.dump import ReverseExceptionDump
 
         # Skip the frames for dumpState and the signal handler.
         stack = _stack()[2:]

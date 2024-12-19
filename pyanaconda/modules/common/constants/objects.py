@@ -17,9 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.identifier import DBusObjectIdentifier
-from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
-    PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
-    RHSM_NAMESPACE, RUNTIME_NAMESPACE
+
+from pyanaconda.modules.common.constants.namespaces import (
+    DEVICE_TREE_NAMESPACE,
+    NETWORK_NAMESPACE,
+    PARTITIONING_NAMESPACE,
+    RHSM_NAMESPACE,
+    RUNTIME_NAMESPACE,
+    STORAGE_NAMESPACE,
+)
 
 # Runtime objects
 

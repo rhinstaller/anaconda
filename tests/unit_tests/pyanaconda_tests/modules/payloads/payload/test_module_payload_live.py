@@ -20,20 +20,28 @@
 import os
 import tempfile
 import unittest
+from contextlib import contextmanager
+from unittest.mock import MagicMock, Mock, call, patch
+
 import pytest
 import requests
-
-from contextlib import contextmanager
 from requests_file import FileAdapter
-from unittest.mock import call, patch, Mock, MagicMock
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import join_paths, touch
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
-from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksumTask, \
-    InstallFromImageTask, InstallFromTarTask, DownloadImageTask, MountImageTask, RemoveImageTask
+from pyanaconda.modules.payloads.payload.live_image.download_progress import (
+    DownloadProgress,
+)
+from pyanaconda.modules.payloads.payload.live_image.installation import (
+    DownloadImageTask,
+    InstallFromImageTask,
+    InstallFromTarTask,
+    MountImageTask,
+    RemoveImageTask,
+    VerifyImageChecksumTask,
+)
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 

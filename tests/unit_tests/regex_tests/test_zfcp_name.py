@@ -21,6 +21,7 @@
 import unittest
 
 from regexcheck import regex_match
+
 from pyanaconda.core.regexes import ZFCP_LUN_NUMBER, ZFCP_WWPN_NUMBER
 
 

@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import os
+
 from pyanaconda.anaconda_loggers import get_module_logger
 
 __all__ = ["collect_addon_ui_paths"]

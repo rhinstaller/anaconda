@@ -17,16 +17,21 @@
 # Red Hat, Inc.
 #
 from collections import namedtuple
+
+import gi
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _, C_, N_, P_
+from pyanaconda.core.i18n import C_, N_, P_, _
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.storage import OSData, DeviceData, DeviceFormatData
+from pyanaconda.modules.common.structures.storage import (
+    DeviceData,
+    DeviceFormatData,
+    OSData,
+)
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
 
-import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, Gtk

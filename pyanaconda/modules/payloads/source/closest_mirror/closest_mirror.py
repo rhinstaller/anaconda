@@ -17,13 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror_interface import \
-    ClosestMirrorSourceInterface
-from pyanaconda.modules.payloads.source.repo_files.repo_files import RepoFilesSourceModule
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror_interface import (
+    ClosestMirrorSourceInterface,
+)
+from pyanaconda.modules.payloads.source.repo_files.repo_files import (
+    RepoFilesSourceModule,
+)
 
 log = get_module_logger(__name__)
 

@@ -17,10 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.sections import (PreInstallScriptSection,
-                                  PostScriptSection, TracebackScriptSection, OnErrorScriptSection)
+from pykickstart.sections import (
+    OnErrorScriptSection,
+    PostScriptSection,
+    PreInstallScriptSection,
+    TracebackScriptSection,
+)
 
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import commands as COMMANDS
 from pyanaconda.kickstart import AnacondaKSScript
 
 

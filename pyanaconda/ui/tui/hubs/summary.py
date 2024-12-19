@@ -17,21 +17,21 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
-from pyanaconda.ui.tui.hubs import TUIHub
-from pyanaconda.flags import flags
-from pyanaconda.errors import CmdlineError
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.configuration.anaconda import conf
-
-from simpleline import App
-from simpleline.render.screen import InputState
-from simpleline.render.prompt import Prompt
-
 import sys
 import time
 
+from simpleline import App
+from simpleline.render.prompt import Prompt
+from simpleline.render.screen import InputState
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.errors import CmdlineError
+from pyanaconda.flags import flags
+from pyanaconda.ui.lib.space import DirInstallSpaceChecker, FileSystemSpaceChecker
+from pyanaconda.ui.tui.hubs import TUIHub
+
 log = get_module_logger(__name__)
 
 # TRANSLATORS: 'b' to begin installation

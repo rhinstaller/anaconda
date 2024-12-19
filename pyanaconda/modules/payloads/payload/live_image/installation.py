@@ -19,21 +19,25 @@ import glob
 import hashlib
 import os
 import stat
-import requests
+
 import blivet.util
+import requests
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, execReadlines, requests_session
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.string import lower_ascii
+from pyanaconda.core.util import execReadlines, execWithRedirect, requests_session
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
-from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
-    InstallationProgress
+from pyanaconda.modules.payloads.payload.live_image.download_progress import (
+    DownloadProgress,
+)
+from pyanaconda.modules.payloads.payload.live_image.installation_progress import (
+    InstallationProgress,
+)
 from pyanaconda.modules.payloads.payload.live_image.utils import get_proxies_from_option
 
 log = get_module_logger(__name__)

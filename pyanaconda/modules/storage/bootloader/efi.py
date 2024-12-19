@@ -18,17 +18,17 @@
 import os
 import re
 
-from pyanaconda.modules.storage.bootloader.base import BootLoaderError
-from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
-from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
-from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.product import get_product_name
+from pyanaconda.modules.storage.bootloader.base import BootLoaderError
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
+from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = [

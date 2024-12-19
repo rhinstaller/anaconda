@@ -20,22 +20,39 @@ from dasbus.typing import unwrap_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_URL, \
-    SOURCE_TYPE_REPO_PATH, MULTILIB_POLICY_ALL, \
-    DRACUT_REPO_DIR, \
-    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC
+from pyanaconda.core.constants import (
+    DRACUT_REPO_DIR,
+    MULTILIB_POLICY_ALL,
+    PAYLOAD_TYPE_DNF,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_REPO_PATH,
+    SOURCE_TYPE_URL,
+)
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
-    PackagesSelectionData
+from pyanaconda.modules.common.structures.packages import (
+    PackagesConfigurationData,
+    PackagesSelectionData,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
+from pyanaconda.modules.payloads.payload.dnf.repositories import (
+    generate_driver_disk_repositories,
+)
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository
-from pyanaconda.payload.manager import payloadMgr as payload_manager, NonCriticalSourceSetupError
+from pyanaconda.payload.manager import NonCriticalSourceSetupError
+from pyanaconda.payload.manager import payloadMgr as payload_manager
 from pyanaconda.payload.migrated import MigratedDBusPayload
-from pyanaconda.ui.lib.payload import create_source, set_source, set_up_sources, tear_down_sources
+from pyanaconda.ui.lib.payload import (
+    create_source,
+    set_source,
+    set_up_sources,
+    tear_down_sources,
+)
 
 __all__ = ["DNFPayload"]
 

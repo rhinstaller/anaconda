@@ -18,18 +18,20 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 import parted
-
-from blivet.size import Size
-from blivet.devices.partition import PartitionDevice, FALLBACK_DEFAULT_PART_SIZE
 from blivet.devices.luks import LUKSDevice
 from blivet.devices.lvm import DEFAULT_THPOOL_RESERVE
-from blivet.errors import NotEnoughFreeSpaceError, NoDisksError
+from blivet.devices.partition import FALLBACK_DEFAULT_PART_SIZE, PartitionDevice
+from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
 from blivet.formats import get_format
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.partitioning import get_free_regions, get_next_partition_type
-
-from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
-    AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
+from blivet.size import Size
+from pykickstart.constants import (
+    AUTOPART_TYPE_BTRFS,
+    AUTOPART_TYPE_LVM,
+    AUTOPART_TYPE_LVM_THINP,
+    AUTOPART_TYPE_PLAIN,
+)
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf

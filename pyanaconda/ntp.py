@@ -21,20 +21,25 @@ Module facilitating the work with NTP servers and NTP daemon's configuration
 
 """
 
-import re
 import os
-import tempfile
+import re
 import shutil
+import tempfile
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.async_utils import async_action_nowait
+from pyanaconda.core.constants import (
+    NTP_SERVER_NOK,
+    NTP_SERVER_OK,
+    NTP_SERVER_QUERY,
+    NTP_SERVER_TIMEOUT,
+    THREAD_NTP_SERVER_CHECK,
+)
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.constants import NTP_SERVER_TIMEOUT, NTP_SERVER_QUERY, \
-    THREAD_NTP_SERVER_CHECK, NTP_SERVER_OK, NTP_SERVER_NOK
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.core.threads import thread_manager
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 

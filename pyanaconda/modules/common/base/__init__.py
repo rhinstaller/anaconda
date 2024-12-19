@@ -15,11 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.base.base import BaseModule, Service, KickstartService, \
-    KickstartBaseModule
+from pyanaconda.modules.common.base.base import (
+           BaseModule,
+           KickstartBaseModule,
+           KickstartService,
+           Service,
+)
 from pyanaconda.modules.common.base.base_interface import KickstartModuleInterface
-from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate, \
-    KickstartModuleInterfaceTemplate
+from pyanaconda.modules.common.base.base_template import (
+           KickstartModuleInterfaceTemplate,
+           ModuleInterfaceTemplate,
+)
 
 __all__ = [
            "BaseModule",

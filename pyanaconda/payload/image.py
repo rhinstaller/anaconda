@@ -21,12 +21,12 @@ import os
 import os.path
 import tempfile
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.payload import utils as payload_utils
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
@@ -51,7 +51,9 @@ def find_optical_install_media():
             except MountFilesystemError:
                 continue
             try:
-                from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
+                from pyanaconda.modules.payloads.source.utils import (
+                    is_valid_install_disk,
+                )
                 if not is_valid_install_disk(mountpoint):
                     continue
             finally:

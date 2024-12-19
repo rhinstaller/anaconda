@@ -17,12 +17,12 @@
 #
 import os
 
-from pyanaconda.core.util import execWithRedirect
-from pyanaconda.modules.network.constants import FirewallMode
-from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
+from pyanaconda.core.util import execWithRedirect
+from pyanaconda.modules.common.errors.installation import FirewallConfigurationError
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.network.constants import FirewallMode
 
 log = get_module_logger(__name__)
 

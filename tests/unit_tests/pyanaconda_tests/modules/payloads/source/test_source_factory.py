@@ -15,14 +15,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import pytest
-
 from unittest.case import TestCase
+
+import pytest
 
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 
 class SourceFactoryTestCase(TestCase):

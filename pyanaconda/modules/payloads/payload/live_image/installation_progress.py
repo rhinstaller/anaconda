@@ -24,11 +24,11 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task.cancellable import Cancellable
-from pyanaconda.core.threads import thread_manager
 
 log = get_module_logger(__name__)
 

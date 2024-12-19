@@ -21,6 +21,7 @@
 import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ["IFCFG_DIR", "KEYFILE_DIR", "get_config_files_content", "is_config_file_for_system"]

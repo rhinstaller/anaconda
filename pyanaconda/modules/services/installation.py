@@ -18,15 +18,19 @@
 import os
 from configparser import ConfigParser
 
-from pyanaconda.core.service import enable_service, disable_service, is_service_installed
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import GRAPHICAL_TARGET, TEXT_ONLY_TARGET
 from pyanaconda.core.path import touch
+from pyanaconda.core.service import (
+    disable_service,
+    enable_service,
+    is_service_installed,
+)
 from pyanaconda.core.util import get_anaconda_version_string
-from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.services.constants import SetupOnBootAction
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = [

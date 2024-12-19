@@ -18,26 +18,33 @@
 import os
 import tempfile
 import unittest
-import pytest
-
 from contextlib import contextmanager
-from dasbus.typing import get_variant, Str, Bool
-from requests import RequestException
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
-from pyanaconda.core.constants import SOURCE_TYPE_LIVE_IMAGE, NETWORK_CONNECTION_TIMEOUT
-from pyanaconda.core.path import make_directories, touch, join_paths
+import pytest
+from dasbus.typing import Bool, Str, get_variant
+from requests import RequestException
+
+from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, SOURCE_TYPE_LIVE_IMAGE
+from pyanaconda.core.path import join_paths, make_directories, touch
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.live_image.initialization import \
-    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
-from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
-from pyanaconda.modules.payloads.source.live_image.live_image import LiveImageSourceModule
-from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
-    LiveImageSourceInterface
-
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.live_image.initialization import (
+    SetupImageResult,
+    SetUpLocalImageSourceTask,
+    SetUpRemoteImageSourceTask,
+)
+from pyanaconda.modules.payloads.source.live_image.installation import (
+    InstallLiveImageTask,
+)
+from pyanaconda.modules.payloads.source.live_image.live_image import (
+    LiveImageSourceModule,
+)
+from pyanaconda.modules.payloads.source.live_image.live_image_interface import (
+    LiveImageSourceInterface,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

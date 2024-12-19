@@ -20,28 +20,49 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
-    PackagesSelectionData
+from pyanaconda.modules.common.structures.packages import (
+    PackagesConfigurationData,
+    PackagesSelectionData,
+)
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
-    convert_repo_data_to_ks_repo, convert_ks_data_to_packages_selection, \
-    convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
-    convert_packages_configuration_to_ksdata
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.utils import protect_installation_devices, \
-    collect_installation_devices
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
-    VerifyRepomdHashesTask
-from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging, \
-    SetUpDNFSourcesTask, SetUpDNFSourcesResult, TearDownDNFSourcesTask
-from pyanaconda.modules.payloads.payload.dnf.installation import SetRPMMacrosTask, \
-    ResolvePackagesTask, PrepareDownloadLocationTask, DownloadPackagesTask, InstallPackagesTask, \
-    CleanUpDownloadLocationTask, WriteRepositoriesTask, ImportRPMKeysTask, \
-    UpdateDNFConfigurationTask
-from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
-from pyanaconda.modules.payloads.payload.dnf.utils import calculate_required_space
-from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+from pyanaconda.modules.payloads.kickstart import (
+    convert_ks_data_to_packages_configuration,
+    convert_ks_data_to_packages_selection,
+    convert_ks_repo_to_repo_data,
+    convert_packages_configuration_to_ksdata,
+    convert_packages_selection_to_ksdata,
+    convert_repo_data_to_ks_repo,
+)
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.initialization import (
+    SetUpDNFSourcesResult,
+    SetUpDNFSourcesTask,
+    TearDownDNFSourcesTask,
+    configure_dnf_logging,
+)
+from pyanaconda.modules.payloads.payload.dnf.installation import (
+    CleanUpDownloadLocationTask,
+    DownloadPackagesTask,
+    ImportRPMKeysTask,
+    InstallPackagesTask,
+    PrepareDownloadLocationTask,
+    ResolvePackagesTask,
+    SetRPMMacrosTask,
+    UpdateDNFConfigurationTask,
+    WriteRepositoriesTask,
+)
+from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    calculate_required_space,
+    collect_installation_devices,
+    protect_installation_devices,
+)
+from pyanaconda.modules.payloads.payload.dnf.validation import (
+    CheckPackagesSelectionTask,
+    VerifyRepomdHashesTask,
+)
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 

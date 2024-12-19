@@ -18,8 +18,11 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_REPO_FILES
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 
 @dbus_interface(PAYLOAD_SOURCE_REPO_FILES.interface_name)

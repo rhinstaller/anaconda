@@ -16,10 +16,11 @@
 # Red Hat, Inc.
 #
 import unittest
-
 from collections import OrderedDict
-from freezegun import freeze_time
 from unittest.mock import patch
+
+from freezegun import freeze_time
+
 from pyanaconda import timezone
 
 
