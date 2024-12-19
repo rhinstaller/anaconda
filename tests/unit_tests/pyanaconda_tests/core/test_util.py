@@ -60,6 +60,7 @@ class RunProgramTests(unittest.TestCase):
         """Test _run_program with binary output."""
 
         # Echo something that cannot be decoded as utf-8
+        # non utf-8 output should be replaced with U+FFFD
         retcode, output = util._run_program(['echo', '-en', r'\xa0\xa1\xa2'], binary_output=True)
 
         assert retcode == 0
@@ -122,6 +123,21 @@ echo "error" >&2
         assert mock_start_program.call_args.kwargs["user"] == 1000
         assert mock_start_program.call_args.kwargs["env_add"] == {"TEST": "test"}
         assert mock_start_program.call_args.kwargs["env_prune"] == ("TEST_PRUNE",)
+
+    def test_exec_with_capture_non_utf8_handling(self):
+        """Test execWithCapture with non-utf8 output ignored."""
+
+        # Echo something that cannot be decoded as utf-8
+        output = util.execWithCapture(
+            'echo', ['-en', r'Hello world! \xa0\xa1\xa2'],
+            replace_utf_decode_errors=True
+        )
+
+        assert output == 'Hello world! \ufffd\ufffd\ufffd\n'
+
+        # If replace_utf_decode_errors is False (default), the non-utf8 output should raise an Exception
+        with pytest.raises(UnicodeDecodeError):
+            util.execWithCapture('echo', ['-en', r'\xa0\xa1\xa2'])
 
     def test_exec_readlines(self):
         """Test execReadlines."""
