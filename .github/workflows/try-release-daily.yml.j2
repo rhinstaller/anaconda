@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['master'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
+        branch: ['main'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
 
     steps:
       - name: Check out repo

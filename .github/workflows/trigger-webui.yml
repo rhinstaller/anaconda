@@ -26,7 +26,7 @@ on:
       - 'data/profile.d/**'
       - 'po/l10n-config.mk'
     branches:
-      - 'master'
+      - 'main'
 jobs:
   trigger:
     runs-on: ubuntu-22.04

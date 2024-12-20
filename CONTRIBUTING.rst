@@ -71,7 +71,7 @@ Which is my target git branch?
 Depending on where you want to make your contribution please choose your correct branch based on the table below.
 
 +--------------------------+--------------+
-| Fedora Rawhide           | master       |
+| Fedora Rawhide           | main         |
 +--------------------------+--------------+
 | Fedora XX                | fedora-XX    |
 +--------------------------+--------------+
@@ -205,16 +205,16 @@ Anaconda Installer Branching Policy (the long version)
 
 The basic premise is that there are the following branches:
 
-- master
+- main
 - fedora-<next fedora number>
 
-The ``master`` branch never waits for any release-related processes to take place and is used for Fedora Rawhide Anaconda builds.
+The ``main`` branch never waits for any release-related processes to take place and is used for Fedora Rawhide Anaconda builds.
 
 Concerning current RHEL branches, they are too divergent to integrate into this scheme. Thus, commits are merged onto, and builds are done on the RHEL branches.
 In this case, multiple pull requests will very likely be needed:
 
 - one for the ``rhel<number>-branch``
-- one for the ``master`` branch, if the change is not RHEL only
+- one for the ``main`` branch, if the change is not RHEL only
 - one for the ``fedora-<number>`` branch, if change should apply to branched Fedora too
 
 Releases
@@ -222,12 +222,12 @@ Releases
 
 The release process is as follows, for both Fedora Rawhide and branched Fedora versions:
 
-- a release commit is made (which bumps version in spec file) & tagged on the ``fedora-XX`` or ``master`` branch
+- a release commit is made (which bumps version in spec file) & tagged on the ``fedora-XX`` or ``main`` branch
 
 Concerning the ``<next Fedora number>`` branches (which could also be called ``next stable release`` if we wanted to decouple our versioning from Fedora in the future):
 
-- work which goes into the next Fedora goes to ``fedora-<next Fedora number>`` and must have another PR for ``master``, too
-- stuff we *don't* want to go to the next Fedora (too cutting edge, etc.) goes only to ``master`` branch
+- work which goes into the next Fedora goes to ``fedora-<next Fedora number>`` and must have another PR for ``main``, too
+- stuff we *don't* want to go to the next Fedora (too cutting edge, etc.) goes only to ``main`` branch
 - commits specific to a given Fedora release (temporary fixes, etc.) go only to the ``fedora-<next Fedora number>`` branch
 - this way we can easily see what was developed in which Fedora timeframe and possibly due to given Fedora testing phase feedback (bugfixes, etc.)
 
@@ -236,19 +236,19 @@ Example for the F38 and F39 cycle
 
 Once Fedora 38 is branched, we have these branches in the repository:
 
-- ``master``
+- ``main``
 - ``fedora-38``
 
 This would continue until f38 is released, after which we:
 
 - keep the ``fedora-38`` branch as an inactive record of the f38 cycle
-- work on the ``master`` branch only
+- work on the ``main`` branch only
 
-After a while, Fedora 39 is branched and we start the ``fedora-39`` branch off the ``master`` branch.
+After a while, Fedora 39 is branched and we start the ``fedora-39`` branch off the ``main`` branch.
 
 This will result in the following branches for the f39 cycle:
 
-- ``master``
+- ``main``
 - ``fedora-39``
 
 Guidelines for Commits
@@ -369,7 +369,7 @@ Then push the merge to the remote::
 
     git push origin <target branch>
 
-If the pull request has been opened for the ``fedora-38`` branch, then you also need to check if the same change should go to the ``master`` branch in another PR.
+If the pull request has been opened for the ``fedora-38`` branch, then you also need to check if the same change should go to the ``main`` branch in another PR.
 
 .. _pure-community-features:
 
