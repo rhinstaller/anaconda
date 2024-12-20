@@ -26,11 +26,11 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'master'
-            ci_tag: 'master'
+            target_branch: 'main'
+            ci_tag: 'main'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
-          #  target_branch: 'master'
+          #  target_branch: 'main'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
 
@@ -96,11 +96,11 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'master'
-            ci_tag: 'master'
+            target_branch: 'main'
+            ci_tag: 'main'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
-          #  target_branch: 'master'
+          #  target_branch: 'main'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
 

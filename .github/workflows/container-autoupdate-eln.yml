@@ -25,5 +25,5 @@ jobs:
     secrets: inherit
     with:
       container-tag: eln
-      branch: master
+      branch: main
       base-container: 'quay.io/fedoraci/fedora:eln-x86_64'

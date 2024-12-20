@@ -10,7 +10,7 @@
 # To run this please do:
 #
 #   sudo make -f ./Makefile.am container-rpms-scratch
-#   sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /lorax-build-webui quay.io/rhinstaller/anaconda-iso-creator:master
+#   sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /lorax-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
 #
 #
 # Input directory:

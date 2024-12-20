@@ -7,7 +7,7 @@ template, not the rendered `.yml` file. To rebuild the workflow files from templ
 `.branch-variables.yml` file in the repo root.
 
 Most of the workflows are triggered by cron or comment events, so they belong only on the default
-branch which is `master`. These workflows are removed by templates on other branches. If the first
+branch which is `main`. These workflows are removed by templates on other branches. If the first
 line is `{% if distro_release == "rawhide" %}` then the workflow is of such kind.
 
 When editing a template, the following roughly describes what to expect:
@@ -42,12 +42,12 @@ Then, you should be fine to just create PR with changes to workflow and test on 
 For other triggers using a fork GitHub repository
 -------------------------------------------------
 
-However, if you have any other trigger than that you need a fork because workflow is always taken from the default branch of the repository (in case of Anaconda from master branch). To debug such a workflow follow these steps:
+However, if you have any other trigger than that you need a fork because workflow is always taken from the default branch of the repository (in case of Anaconda from main branch). To debug such a workflow follow these steps:
 
 1. Make your changes on the workflow.
-2. Push these changes to your fork master branch
+2. Push these changes to your fork main branch
     ```bash
-    git push -f <fork name> HEAD:master # force push current HEAD to master branch on your fork
+    git push -f <fork name> HEAD:main # force push current HEAD to main branch on your fork
     ```
 3. Go to your fork settings page **Actions → General** and make sure that **Allow all actions and reusable workflows** is selected.
 4. Run the specific workflow by executing the event trigger.

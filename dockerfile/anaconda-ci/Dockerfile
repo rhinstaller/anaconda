@@ -15,7 +15,7 @@ FROM ${image}
 # The `git_branch` arg will set git branch of Anaconda from which we are downloding spec file to get
 # dependencies.
 # possible values:
-#   master
+#   main
 #   fedora-38
 ARG git_branch
 
@@ -41,7 +41,7 @@ RUN set -ex; \
   # Enable COPR repositories
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     BRANCH="${git_branch}"; \
-    if [ $BRANCH == "master" ]; then \
+    if [ $BRANCH == "main" ]; then \
       BRANCH="rawhide"; \
     fi; \
     BRANCH=${BRANCH#fedora-}; \
