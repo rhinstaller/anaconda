@@ -490,6 +490,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Dec 20 2024 github-actions <github-actions@github.com> - 42.21-1
+- translations: bump dependency to l10n repo because of branch switch
+  (k.koukiou)
+- pyanaconda: module_manager: fix ciclic import (k.koukiou)
+- pyanaconda: bootloader: fix ImportError (k.koukiou)
+- ruff: enable isort rules and autofix all isort warnings (k.koukiou)
+- Fix useless-return pylint rule (k.koukiou)
+- Fix use-dict-literal pylint rule (k.koukiou)
+- Fix use-list-literal pylint rule (k.koukiou)
+- Fix useless-object-inheritance pylint rule (k.koukiou)
+- Fix stop-iteration-return pylint rule (k.koukiou)
+- Fix consider-using-in pylint rule (k.koukiou)
+- Fix consider-using-from-import pylint rule (k.koukiou)
+- Fix comparison-with-itself pylint rule (k.koukiou)
+- Fix super-with-arguments pylint rule (k.koukiou)
+- Fix use-a-generator pylint rule (k.koukiou)
+- Fix simplifiable-if-expression and simplifiable-if-statement pylint rules
+  (k.koukiou)
+
 * Tue Dec 17 2024 github-actions <github-actions@github.com> - 42.20-1
 - Subscription code updates - adjust unit tests (mkolman)
 - Subscription code updates - GTK GUI (mkolman)
