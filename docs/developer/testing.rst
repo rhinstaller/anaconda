@@ -1,5 +1,5 @@
 
-.. include:: ../tests/README.rst
+.. include:: ../../tests/README.rst
 
 What to do if there are broken Rawhide dependencies
 ===================================================
@@ -38,7 +38,7 @@ Cleanup old repository.
     $ ssh <fedora_username>:fedorapeople.org
     $ cd /project/anaconda/repos/anaconda_fixup_repo/
     $ rm -rv *  # to remove the old directory structure
-    
+
 
 Create your repository locally and upload that.
 ::
