@@ -243,7 +243,7 @@ def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
                                   )
     WatchProcesses.watch_process(childproc, argv[0])
 
-    for _i in range(0, int(timeout / 0.1)):
+    for _i in range(int(timeout / 0.1)):
         wl_socket_path = os.path.join(os.getenv("XDG_RUNTIME_DIR"), constants.WAYLAND_SOCKET_NAME)
         if os.path.exists(wl_socket_path):
             return

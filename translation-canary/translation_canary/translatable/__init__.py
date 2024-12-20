@@ -39,7 +39,7 @@ import importlib
 import pkgutil
 
 _tests = []
-for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
+for _finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
     # Skip __main__
     if mod_name == "__main__":
         continue
