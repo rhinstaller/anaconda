@@ -63,7 +63,7 @@ jobs:
   infra-template-master-match-check:
     runs-on: ubuntu-20.04
     name: Compare templates files with master branch
-    if: github.event.pull_request.base.ref != 'master'
+    if: github.event.pull_request.base.ref != 'main'
 
     steps:
       - name: Clone Anaconda repository
@@ -82,7 +82,7 @@ jobs:
           git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
           git rebase origin/${{ github.event.pull_request.base.ref }}
 
-      - name: Check if all changed template files are matching master branch
+      - name: Check if all changed template files are matching main branch
         run: |
           changed_template_files_in_pr=$(git diff --diff-filter=M --name-only origin/${{ github.event.pull_request.base.ref }} "*.j2")
           if [ -z "$changed_template_files_in_pr" ]; then
@@ -91,11 +91,11 @@ jobs:
             exit 0
           fi
 
-          changed_files=$(git diff --diff-filter=M --name-only origin/master "*.j2")
+          changed_files=$(git diff --diff-filter=M --name-only origin/main "*.j2")
 
           if [ -n "$changed_files" ]; then
             # print for debugging
-            echo "----- Template files differ with mater branch -----"
+            echo "----- Template files differ with main branch -----"
             echo "$changed_files"
             echo "-------------------------"
 

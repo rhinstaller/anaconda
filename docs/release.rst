@@ -37,11 +37,11 @@ environment way see mock path below.
 
 3. check the commit and tag are correct
 
-4. push the master branch to the remote
+4. push the main branch to the remote
 
 ::
 
-    git push master --tags
+    git push main --tags
 
 5. configure anaconda
 
@@ -224,11 +224,11 @@ Start by cloning translation repository (ideally outside of Anaconda git) and en
    git clone git@github.com:rhinstaller/anaconda-l10n.git
    cd anaconda-l10n
 
-Create a new localization directory from ``master`` directory:
+Create a new localization directory from ``main`` directory:
 
 ::
 
-   cp -r master f<version>
+   cp -r main f<version>
 
 Add the new folder to git:
 
@@ -240,7 +240,7 @@ Commit these changes:
 
 ::
 
-   git commit -m "Branch new Fedora <version> from master"
+   git commit -m "Branch new Fedora <version> from main"
 
 Push new localization directory. This will be automatically discovered and added by
 `Weblate <https://translate.fedoraproject.org/projects/anaconda/>`_ service:
@@ -260,7 +260,7 @@ Create the ``-devel`` branch:
 
 ::
 
-    git checkout master
+    git checkout main
     git pull
     git checkout -b f<version>-devel
 
@@ -378,7 +378,7 @@ Make sure you are in the Rawhide branch:
 
 ::
 
-    git checkout master
+    git checkout main
 
 Do the major version bump and verify that the output looks correct:
 
@@ -390,6 +390,6 @@ If everything looks fine (changelog, new major version & the tag) push the chang
 
 ::
 
-    git push origin master --tags
+    git push origin main --tags
 
 Then continue with the normal Rawhide Anaconda build process.
