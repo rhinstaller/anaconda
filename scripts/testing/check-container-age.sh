@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-# container image name, eg. "quay.io/rhinstaller/anaconda-ci:master"
+# container image name, eg. "quay.io/rhinstaller/anaconda-ci:main"
 container_name="$1"
 # when is an image too old - string for `date --date=`
 too_old_description="60 hours ago"

@@ -9,9 +9,9 @@
 # sudo make -f ./Makefile.am anaconda-iso-creator-build
 #
 # # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-iso-creator:master
+# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-iso-creator:main
 # or to build WebUI image:
-# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /lorax-build-webui quay.io/rhinstaller/anaconda-iso-creator:master
+# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /lorax-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
 #
 # note:
 # - add `--network=slirp4netns` if you need to share network with host computer to reach
