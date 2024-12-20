@@ -87,7 +87,7 @@ Note
 ----
 
 Please update your container from time to time to have newest dependencies.
-To do that, run `podman pull quay.io/rhinstaller/anaconda-ci:master` or build
+To do that, run `podman pull quay.io/rhinstaller/anaconda-ci:main` or build
 it locally again.
 
 Run rpm tests inside of container
@@ -109,7 +109,7 @@ All test and maintenance actions are run by `GitHub workflows`_.  These YAML
 files completely describe what steps are required to run some action, what are
 its triggers and so on.
 
-Pull request for master:
+Pull request for main:
 ________________________
 
 Unit and rpm tests are run by the `validate.yml workflow`_.  We use GitHub's
@@ -140,7 +140,7 @@ Running kickstart-tests:
 ________________________
 
 The `kickstart-tests.yml workflow`_ allows rhinstaller organization members to
-run kickstart-tests_ against an anaconda PR (only ``master`` for now). Send a
+run kickstart-tests_ against an anaconda PR (only ``main`` for now). Send a
 comment that starts with ``/kickstart-tests <launch options>`` to the pull
 request to trigger this. See the `kickstart launch script`_ documentation and
 its ``--help`` for details what is supported; the two basic modes are running
@@ -163,7 +163,7 @@ Automatic container build
 _________________________
 
 Containers are updated daily by the `container-autoupdate.yml workflow`_
-from Anaconda ``master`` repository. Before pushing a new
+from Anaconda ``main`` repository. Before pushing a new
 container, tests are executed on this container to avoid regressions.
 
 Manual container build
@@ -171,7 +171,7 @@ ______________________
 
 Just go to the `actions tab`_ in the Anaconda repository to the
 “Refresh container images“ and press the ``Run workflow`` button on a button on
-a particular branch. Usually ``master``, but for testing a change to the
+a particular branch. Usually ``main``, but for testing a change to the
 container you can push your branch to the origin repo and run it from there.
 
 Security precautions for testing RHEL
@@ -198,12 +198,12 @@ dependent jobs. First will check user privileges, second will run the tests in
 case the first one succeeded.
 
 **PR created by external contributors** -- these have to be started by workflow
-file `validate-rhel-8.yml workflow`_ from the ``master`` branch
+file `validate-rhel-8.yml workflow`_ from the ``main`` branch
 checking all the comments. If comment starts with ``/test`` phrase it will check
 the owner of the comment. When everything succeed it will set progress on the pull
 request originating the comment and start the tests. This progress is updated
 based on the result of the tests. As explained above, the whole implementation
-of the workflow is in the ``master`` branch which could be pretty confusing.
+of the workflow is in the ``main`` branch which could be pretty confusing.
 
 Changing workflow file by attacker
 __________________________________

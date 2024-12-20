@@ -23,5 +23,5 @@ GIT_L10N_SHA ?= 3583aef73f878ed8aa601397b02138935f504ff4
 # Localization repository location
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
 
-# Branch used in localization repository. This should be master all the time.
-GIT_L10N_BRANCH ?= master
+# Branch used in localization repository. This should be main all the time.
+GIT_L10N_BRANCH ?= main
