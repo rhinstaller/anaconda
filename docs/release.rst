@@ -180,7 +180,7 @@ environment way see mock path below. It is also fully manual.
 
 
 Upcoming Fedora release & package build
-========================================
+----------------------------------------
 
 Creating an anaconda release and build for an upcoming Fedora release is pretty similar to a Rawhide build
 with a few key differences:
@@ -217,7 +217,7 @@ A link to the update should be returned and you should also start getting regula
 anything remotely interesting happens with the update. :)
 
 Releasing during a Fedora code freeze
-=====================================
+-------------------------------------
 
 There are two generally multi-week phases during which the upcoming Fedora release development a temporary code freeze:
 
@@ -232,7 +232,7 @@ If there is a merged PR that has not been approved for a FE or release blocker, 
 targeting the frozen Fedora.
 
 Branching for the next Fedora release
-=====================================
+-------------------------------------
 
 Anaconda uses separate branch for each Fedora release to make parallel Anaconda development for Rawhide and next Fedora release possible.
 The branch is named fedora-<version>.
@@ -244,7 +244,7 @@ and release blocker fixes.
 
 
 Create new localization directory for Anaconda
-----------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First thing which needs to be done before branching in Anaconda is to create a new localization directory which will be used by the new Anaconda branch.
 
@@ -282,7 +282,7 @@ Push new localization directory. This will be automatically discovered and added
 
 
 Adjust localization update automation
--------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the ``anaconda-l10n`` repository, the update automation needs to work on the new directory.
 
@@ -318,7 +318,7 @@ Push the changes:
 
 
 Enable Cockpit CI for the new branch
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Anaconda is using the Cockpit CI infrastructure to run Web UI test. Cockpit CI tests are triggered
 automatically for all `listed <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ projects and per-project branches. To enable Cockpit CI in automatic mode for the new Fedora branch, our new fedora-<version> upstream branch needs to be added under the 'rhinstaller/anaconda' key in the file. See the previous PR (for F39) to see how this is to be done:
@@ -326,7 +326,7 @@ automatically for all `listed <https://github.com/cockpit-project/bots/blob/main
 https://github.com/cockpit-project/bots/pull/5176
 
 How to branch Anaconda
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 First make sure that localization branch for the next Fedora is already created.
 
@@ -411,14 +411,14 @@ Then, finally, push the updated master branch:
     git push origin master
 
 Container rebuilds after branching
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Container rebuilds currently do not happen automatically after branching. So do not forget to rebuild
 all relevant containers after Fedora branching.
 
 
 How to add release version for next Fedora
-------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The current practise is to keep the Rawhide major & minor version from which the
 given Anaconda was branched as-is and add a third version number (the release number
@@ -451,7 +451,7 @@ If everything looks fine (changelog, the version number & tag) push the changes 
 Then continue with the normal Upcoming Fedora Anaconda build process.
 
 How to bump Rawhide Anaconda version
-------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - major version becomes major version ``+1``
 - minor version is set to 1
@@ -483,7 +483,7 @@ Then continue with the normal Rawhide Anaconda build process.
 
 
 How to use a new Python version
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Fedora changes Python version from time to time.
 
@@ -507,7 +507,7 @@ a Python release candidate (rc). This affects two things:
 
 
 How to collect release notes after branched GA release
-------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Release notes are collected in ``docs/release-notes/*.rst``. When a major Fedora version goes GA,
 these should be collected into the file ``docs/release-notes.rst``. To do so:
