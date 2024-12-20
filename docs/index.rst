@@ -15,18 +15,10 @@ Contents:
    release-notes
    boot-options
    kickstart
-   configuration-files
    How to report a bug <reporting>
    common-bugs
    How to contribute <contributing>
-   commit-log
    release
-   driverdisc
-   iscsi
-   multipath
    list-harddrives
-   drop-in-scripts
-   sysconfig-file
-   mount-points
-   Testing <testing>
+   developer
    ci-status
