@@ -7,7 +7,7 @@ template, not the rendered `.yml` file. To rebuild the workflow files from templ
 `.branch-variables.yml` file in the repo root.
 
 Most of the workflows are triggered by cron or comment events, so they belong only on the default
-branch which is `master`. These workflows are removed by templates on other branches. If the first
+branch which is `main`. These workflows are removed by templates on other branches. If the first
 line is `{% if distro_release == "rawhide" %}` then the workflow is of such kind.
 
 When editing a template, the following roughly describes what to expect:
