@@ -4,6 +4,8 @@ date=$(date +%F_%H%M%S)
 OUTDIR=/tmp/log-capture-${date}
 ARCHIVE=${1-/tmp/log-capture.tar.bz2}
 
+echo -e "Generating ${ARCHIVE}, please wait.\n"
+
 _to_log() { local OutputFile=$(tr ' /' '_' <<<"$@"); $@ >${OUTDIR}/${OutputFile}; }
 
 mkdir -p ${OUTDIR}
@@ -28,17 +30,26 @@ _to_log dmesg
 _to_log dmidecode
 _to_log lspci -vvnn
 
-# run fdisk -l on all disks
-for DEV_NAME in $(list-harddrives | cut -d " " -f 1)
+for DEV_NAME in /sys/block/*
 do
-    _to_log fdisk -l /dev/${DEV_NAME}
+    DEV_NAME=$(basename "$DEV_NAME")
+    _to_log blkid --probe /dev/${DEV_NAME}
+done
+for PART in $(blkid | cut -d':' -f1)
+do
+    _to_log blkid --probe ${PART}
 done
 
 _to_log ls -lR /dev
+_to_log parted -l
+_to_log lsblk --all --topology
+_to_log lsblk --output-all --json
+_to_log blkid --output full
 _to_log dmsetup ls --tree
 _to_log lvm pvs
 _to_log lvm vgs
 _to_log lvm lvs
+_to_log cat /proc/devices
 _to_log cat /proc/mdstat
 _to_log cat /proc/partitions
 _to_log mount
@@ -53,13 +64,21 @@ _to_log ip r
 _to_log journalctl
 
 cp /etc/resolv.conf ${OUTDIR}
-cp /tmp/*.log ${OUTDIR}
-cp /root/lorax-packages.log ${OUTDIR}
+
+if [[ -e /sys/firmware/efi ]]; then
+    _to_log ls -l /sys/firmware/efi/efivars
+fi
+
+find /tmp -type f -name '*.log' -exec cp '{}' ${OUTDIR} ';'
+
+if [[ -e /root/lorax-packages.log ]];then
+    cp /root/lorax-packages.log ${OUTDIR}
+fi
 
 if [[ -e /tmp/pre-anaconda-logs/ ]];then
     cp -r /tmp/pre-anaconda-logs ${OUTDIR}
 fi
 
-tar cfa ${ARCHIVE} ${OUTDIR}
+tar cfa ${ARCHIVE} -C / ./${OUTDIR}
 
 echo -e "\nFinished gathering data\nUpload ${ARCHIVE} to another system\n"
