@@ -15,6 +15,7 @@ Contents:
    developer/mount-points
    developer/multipath
    developer/sysconfig-file
+   developer/keyboard-control.rst
    developer/drop-in-scripts
    Testing <developer/testing>
 
