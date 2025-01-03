@@ -27,7 +27,8 @@ from pyanaconda.modules.boss.kickstart_manager.element import (
 )
 
 VALID_SECTIONS_ANACONDA = [
-    "%pre", "%pre-install", "%post", "%onerror", "%traceback", "%packages", "%addon"
+    "%certificate", "%pre", "%pre-install", "%post", "%onerror", "%traceback", "%packages",
+    "%addon"
 ]
 
 

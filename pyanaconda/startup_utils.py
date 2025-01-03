@@ -64,7 +64,10 @@ from pyanaconda.localization import (
     locale_has_translation,
     setup_locale,
 )
-from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
+from pyanaconda.modules.common.constants.objects import (
+    CERTIFICATES,
+    STORAGE_CHECKER,
+)
 from pyanaconda.modules.common.constants.services import (
     LOCALIZATION,
     RUNTIME,
@@ -78,7 +81,7 @@ from pyanaconda.modules.common.structures.timezone import (
     GeolocationData,
     TimeSourceData,
 )
-from pyanaconda.modules.common.task import wait_for_task
+from pyanaconda.modules.common.task import sync_run_task, wait_for_task
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.screensaver import inhibit_screensaver
 
@@ -641,6 +644,19 @@ def initialize_security():
     # Enable fingerprint option by default (#481273).
     if not flags.automatedInstall:
         security_proxy.FingerprintAuthEnabled = True
+
+    # Import certificates from kickstart
+    # In most cases they have already been imported from kickstart
+    # during the initramfs stage kickstart processing and passed to the
+    # installer enviroment either from initramfs or early after
+    # switch root by a dedicated systemd service.
+    # However they would not be already imported for example in case the
+    # certificate is included by a snippet created in kickstart %pre
+    # section.
+    certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
+    import_task_path = certificates_proxy.ImportWithTask()
+    task_proxy = SECURITY.get_proxy(import_task_path)
+    sync_run_task(task_proxy)
 
 
 def print_dracut_errors(stdout_logger):
