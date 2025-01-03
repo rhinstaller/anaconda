@@ -57,7 +57,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         """Test the UnsupportedPartitioningError."""
         # Forget imported modules from pyanaconda and blivetgui.
         for name in list(sys.modules):
-            if name.startswith('pyanaconda') or name.startswith('blivetgui'):
+            if name.startswith(("pyanaconda", "blivetgui")):
                 sys.modules.pop(name)
 
         # Disable the blivetgui package.

@@ -110,6 +110,7 @@ class AnacondaArgumentParser(ArgumentParser):
         # long option variants could be allowed from multiple, so it would have to be list which
         # somehow kills the benefit.
         self._require_prefix_ignore_list = ["proxy"]
+        # ruff: noqa: B026
         ArgumentParser.__init__(self, description=DESCRIPTION,
                                 formatter_class=lambda prog: HelpFormatter(
                                     prog, max_help_position=LEFT_PADDING, width=help_width),
@@ -416,8 +417,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
     class SetCmdlineMode(Action):
         def __call__(self, parser, namespace, values, _option_string=None):
             # We need to save both display mode to TEXT and set noninteractive flag
-            setattr(namespace, "display_mode", DisplayModes.TUI)
-            setattr(namespace, "noninteractive", True)
+            namespace.display_mode = DisplayModes.TUI
+            namespace.noninteractive = True
 
     # Interface
     ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const=DisplayModes.GUI,

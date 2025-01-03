@@ -512,10 +512,13 @@ class GraphicalUserInterface(UserInterface):
     """
     def __init__(self, storage, payload,
                  distributionText=get_distribution_text,
-                 isFinal=get_product_is_final_release(),
+                 isFinal=None,
                  quitDialog=QuitDialog,
                  gui_lock=None,
                  fullscreen=False):
+
+        if isFinal is None:
+            isFinal = get_product_is_final_release()
 
         super().__init__(storage, payload)
 
@@ -539,8 +542,8 @@ class GraphicalUserInterface(UserInterface):
 
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(os.path.dirname(__file__))
-    sitepackages = [os.path.join(dir, "pyanaconda", "ui")
-                    for dir in site.getsitepackages()]
+    sitepackages = [os.path.join(directory, "pyanaconda", "ui")
+                    for directory in site.getsitepackages()]
     pathlist = set([basepath] + sitepackages)
 
     _categories = []

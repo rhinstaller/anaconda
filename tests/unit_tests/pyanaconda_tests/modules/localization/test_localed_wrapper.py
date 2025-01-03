@@ -441,6 +441,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
             mocked_localed_proxy.X11Variant = ",".join(map(lambda x: x[1], last_known_state))
             # loading the above values to local last known list
             # pylint: disable=pointless-statement
+            # ruff: noqa: B018
             localed_wrapper.layouts_variants
 
             for k in compositor_state:
