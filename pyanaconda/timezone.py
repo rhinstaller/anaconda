@@ -24,11 +24,11 @@ configuration, valid timezones recognition etc.
 
 import datetime
 import time
+import zoneinfo
 from collections import OrderedDict
 from functools import cache
 
 import langtable
-import zoneinfo
 from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger

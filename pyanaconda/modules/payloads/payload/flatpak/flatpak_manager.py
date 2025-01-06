@@ -19,7 +19,6 @@
 #
 
 
-import os
 from typing import List, Optional
 
 import gi
@@ -42,21 +41,6 @@ gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
 from gi.repository.Flatpak import Installation, Transaction, TransactionOperationType
-
-# We need Flatpak to read configuration files from the target and write
-# to the target system installation. Since we use the Flatpak API
-# in process, we need to do this by modifying the environment before
-# we start any threads. Setting these variables will be harmless if
-# we aren't actually using Flatpak.
-
-# pylint: disable=environment-modify
-os.environ["FLATPAK_DOWNLOAD_TMPDIR"] = os.path.join(conf.target.system_root, "var/tmp")
-# pylint: disable=environment-modify
-os.environ["FLATPAK_CONFIG_DIR"] = os.path.join(conf.target.system_root, "etc/flatpak")
-# pylint: disable=environment-modify
-os.environ["FLATPAK_OS_CONFIG_DIR"] = os.path.join(conf.target.system_root, "usr/share/flatpak")
-# pylint: disable=environment-modify
-os.environ["FLATPAK_SYSTEM_DIR"] = os.path.join(conf.target.system_root, "var/lib/flatpak")
 
 
 log = get_module_logger(__name__)
@@ -156,7 +140,8 @@ class FlatpakManager:
             self._download_size, self._install_size = \
                 self._get_source().calculate_size(self._flatpak_refs)
         except NoSourceError as e:
-            log.info("Flatpak source not available, skipping: %s", e)
+            log.error("Flatpak source not available, skipping installing %s: %s",
+                      ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
 
     @property
@@ -184,7 +169,8 @@ class FlatpakManager:
                                                                     self._download_location,
                                                                     progress)
         except NoSourceError as e:
-            log.info("Flatpak source not available, skipping: %s", e)
+            log.error("Flatpak source not available, skipping installing %s: %s",
+                      ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
 
     def install(self, progress: ProgressReporter):

@@ -96,7 +96,6 @@ class PayloadsService(KickstartService):
 
         if self._active_payload.needs_flatpak_side_payload():
             payload = self.create_payload(PayloadType.FLATPAK)
-            assert isinstance(payload, FlatpakModule)
             self._flatpak_side_payload = payload
         else:
             self._flatpak_side_payload = None

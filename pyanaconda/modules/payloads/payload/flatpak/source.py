@@ -115,6 +115,7 @@ class FlatpakSource(ABC):
         :param refs: list of Flatpak references
         :returns: download size, installed size
         """
+        ...
 
     @abstractmethod
     def download(self, refs: List[str], download_location: str,
@@ -133,6 +134,7 @@ class FlatpakSource(ABC):
         :param progress: used to report progress of the download
         :returns sideload location, including the transport (e.g. oci:<path>), or None
         """
+        ...
 
     @property
     @abstractmethod
@@ -296,7 +298,7 @@ class FlatpakStaticSource(FlatpakSource):
             url = self._url + "/index.json"
             response = downloader(url)
             if response.status_code == 404:
-                raise NoSourceError("No source found at {}".format(url))
+                raise NoSourceError("No Flatpak source found at {}".format(url))
             response.raise_for_status()
             index_json = response.json()
 
@@ -310,7 +312,8 @@ class FlatpakStaticSource(FlatpakSource):
         return result
 
     def _blob_url(self, digest):
-        assert digest.startswith("sha256:")
+        if not digest.startswith("sha256:"):
+            raise RuntimeError("Only SHA-256 digests are supported")
         return self._url + "/blobs/sha256/" + digest[7:]
 
     def _get_blob(self, downloader, digest) -> bytes:
@@ -325,7 +328,8 @@ class FlatpakStaticSource(FlatpakSource):
         return result
 
     def _download_blob(self, downloader, download_location, digest, stream=False):
-        assert digest.startswith("sha256:")
+        if not digest.startswith("sha256:"):
+            raise RuntimeError("Only SHA-256 digests are supported")
 
         blobs_dir = os.path.join(download_location, "blobs/sha256/")
         os.makedirs(blobs_dir, exist_ok=True)
