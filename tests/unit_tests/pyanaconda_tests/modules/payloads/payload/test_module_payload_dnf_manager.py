@@ -53,11 +53,8 @@ from pyanaconda.modules.common.structures.comps import (
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
-    BrokenSpecsError,
     DNFManager,
-    InvalidSelectionError,
     MetadataError,
-    MissingSpecsError,
 )
 
 
