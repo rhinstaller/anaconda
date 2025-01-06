@@ -88,18 +88,6 @@ class MetadataError(DNFManagerError):
     """Metadata couldn't be loaded."""
 
 
-class MissingSpecsError(DNFManagerError):
-    """Some packages, groups or modules are missing."""
-
-
-class BrokenSpecsError(DNFManagerError):
-    """Some packages, groups or modules are broken."""
-
-
-class InvalidSelectionError(DNFManagerError):
-    """The software selection couldn't be resolved."""
-
-
 class DNFManager:
     """The abstraction of the DNF base."""
 
@@ -587,8 +575,6 @@ class DNFManager:
 
         :param include_list: a list of specs for inclusion
         :param exclude_list: a list of specs for exclusion
-        :raise MissingSpecsError: if there are missing specs
-        :raise BrokenSpecsError: if there are broken specs
         """
         log.info("Including specs: %s", include_list)
         for spec in include_list:
@@ -599,10 +585,7 @@ class DNFManager:
             self._goal.add_remove(spec)
 
     def resolve_selection(self):
-        """Resolve the software selection.
-
-        :raise InvalidSelectionError: if the selection cannot be resolved
-        """
+        """Resolve the software selection."""
         report = ValidationReport()
 
         log.debug("Resolving the software selection.")
