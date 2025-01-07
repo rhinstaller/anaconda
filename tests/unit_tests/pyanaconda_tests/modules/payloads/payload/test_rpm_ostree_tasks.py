@@ -623,8 +623,15 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             )
             exec_mock.assert_called_once_with(
                 "ostree",
-                ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC",
-                 "rootflags=subvol=device-name", "rw"],
+                ["admin",
+                 "instutil",
+                 "set-kargs",
+                 "--merge",
+                 "BOOTLOADER-ARGS",
+                 "root=FSTAB-SPEC",
+                 "rootflags=subvol=device-name",
+                 "rw"
+                 ],
                 root=sysroot
             )
 
@@ -660,7 +667,14 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             )
             exec_mock.assert_called_once_with(
                 "ostree",
-                ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                ["admin",
+                 "instutil",
+                 "set-kargs",
+                 "--merge",
+                 "BOOTLOADER-ARGS",
+                 "root=FSTAB-SPEC",
+                 "rw"
+                 ],
                 root=sysroot
             )
 
@@ -700,7 +714,14 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 ),
                 call(
                     "ostree",
-                    ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                    ["admin",
+                     "instutil",
+                     "set-kargs",
+                     "--merge",
+                     "BOOTLOADER-ARGS",
+                     "root=FSTAB-SPEC",
+                     "rw"
+                     ],
                     root=sysroot
                 )
             ])
