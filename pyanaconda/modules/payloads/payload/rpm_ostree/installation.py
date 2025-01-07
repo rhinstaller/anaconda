@@ -569,7 +569,7 @@ class ConfigureBootloader(Task):
             device_tree.GetDeviceData(root_name)
         )
 
-        set_kargs_args = ["admin", "instutil", "set-kargs"]
+        set_kargs_args = ["admin", "instutil", "set-kargs", "--merge"]
         set_kargs_args.extend(bootloader.GetArguments())
         set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_name))
 
