@@ -490,6 +490,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 07 2025 github-actions <github-actions@github.com> - 42.22-1
+- Remove sections from release.rst in TOC (jkonecny)
+- Move docs advanced topics into new subsection (jkonecny)
+- Ignore docs/contributing.rst by git (jkonecny)
+- Ignore docs/html directory by git (jkonecny)
+
 * Fri Dec 20 2024 github-actions <github-actions@github.com> - 42.21-1
 - translations: bump dependency to l10n repo because of branch switch
   (k.koukiou)
