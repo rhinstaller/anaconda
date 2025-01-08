@@ -62,10 +62,8 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         # Update the disk label.
         disk_label = disk_init_proxy.DefaultDiskLabel
 
-        if disk_label and not DiskLabel.set_default_label_type(disk_label):
-            log.warning("%s is not a supported disklabel type on this platform. "
-                        "Using default disklabel %s instead.", disk_label,
-                        DiskLabel.get_platform_label_types()[0])
+        if disk_label:
+            DiskLabel.set_default_label_type(disk_label)
 
         return config
 
