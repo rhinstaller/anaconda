@@ -356,8 +356,19 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         # If options are not set let's use from a system so we don't change the system settings
         if options is None:
             options = self.options
-            log.debug("Keyboard layouts for compositor are missing options. "
-                      "Use compositor options: %s", options)
+            log.debug(
+                "Keyboard layouts for compositor are missing options. Use compositor options: %s",
+                options,
+            )
+
+        # TODO: Remove when https://issues.redhat.com/browse/RHEL-71880 is fixed
+        # Because of the bug above Anaconda is not able to detect keyboard layout changed by the
+        # keyboard shortcuts, however, layouts will change. To avoid confusion of users
+        # let's rather disable this feature completely.
+        if conf.system.supports_compositor_keyboard_layout_shortcut is not True:
+            log.debug("Keyboard layout switching from shortcut is broken in compositor. "
+                      "Filter these out from the options: '%s'.", options)
+            options = list(filter(lambda x: not x.startswith("grp:"), options))
 
         # store configuration from user
         super().set_layouts(layouts_variants, options, convert)
