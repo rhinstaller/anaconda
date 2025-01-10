@@ -407,7 +407,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
 
         # check if layout is correctly set
         localed_wrapper._user_layouts_variants = user_defined
-        localed_wrapper.set_current_layout("fi")
+        localed_wrapper.select_layout("fi")
         assert user_defined == localed_wrapper._user_layouts_variants  # must not change
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
             "fi,us,fr,cz",
@@ -422,7 +422,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         localed_wrapper._user_layouts_variants = user_defined
 
-        assert localed_wrapper.set_current_layout("us (euro)") is True
+        assert localed_wrapper.select_layout("us (euro)") is True
         assert user_defined == localed_wrapper._user_layouts_variants  # must not change
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
             "us,fr,cz,fi",
@@ -440,7 +440,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         mocked_localed_proxy.X11Options = ""
         localed_wrapper._user_layouts_variants = user_defined
 
-        assert localed_wrapper.set_current_layout("cz") is False
+        assert localed_wrapper.select_layout("cz") is False
         assert user_defined == localed_wrapper._user_layouts_variants  # must not change
         mocked_localed_proxy.SetX11Keyboard.assert_not_called()
 
@@ -450,7 +450,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         mocked_localed_proxy.X11Variant = ""
         localed_wrapper._user_layouts_variants = user_defined
 
-        assert localed_wrapper.set_current_layout("fr") is True
+        assert localed_wrapper.select_layout("fr") is True
         assert user_defined == localed_wrapper._user_layouts_variants  # must not change
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
             "fr,cz,fi,us",
@@ -469,7 +469,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         user_defined = []
         localed_wrapper._user_layouts_variants = user_defined
 
-        assert localed_wrapper.set_current_layout("cz (qwerty)") is False
+        assert localed_wrapper.select_layout("cz (qwerty)") is False
         assert user_defined == localed_wrapper._user_layouts_variants  # must not change
         mocked_localed_proxy.SetX11Keyboard.assert_not_called()
 

@@ -349,7 +349,7 @@ class LocalizationService(KickstartService):
         return self.localed_compositor_wrapper.current_layout_variant
 
     def set_compositor_selected_layout(self, layout_variant):
-        return self.localed_compositor_wrapper.set_current_layout(layout_variant)
+        return self.localed_compositor_wrapper.select_layout(layout_variant)
 
     def select_next_compositor_layout(self):
         return self.localed_compositor_wrapper.select_next_layout()

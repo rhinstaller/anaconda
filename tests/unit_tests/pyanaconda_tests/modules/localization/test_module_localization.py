@@ -415,7 +415,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         self.localization_interface.SetCompositorSelectedLayout("cz (qwerty)")
         # pylint: disable=no-member
-        manager_mock.set_current_layout.assert_called_once_with("cz (qwerty)")
+        manager_mock.select_layout.assert_called_once_with("cz (qwerty)")
 
         self.localization_interface.SelectNextCompositorLayout()
         # pylint: disable=no-member

@@ -362,12 +362,11 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         # store configuration from user
         super().set_layouts(layouts_variants, options, convert)
 
-    # TODO: rename to select_layout
-    def set_current_layout(self, layout_variant):
-        """Set given layout as first (current) layout for compositor.
+    def select_layout(self, layout_variant):
+        """Select layout from the list of current layouts set.
 
         This will search for the given layout variant in the list and move it as first
-        in the list.
+        in the list. The first layout in systemd is taken as the used one.
 
         :param layout_variant: The layout to set, with format "layout (variant)"
             (e.g. "cz (qwerty)")
