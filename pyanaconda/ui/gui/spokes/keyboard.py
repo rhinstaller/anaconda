@@ -19,6 +19,7 @@
 
 import locale as locale_mod
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
@@ -494,6 +495,13 @@ class KeyboardSpoke(NormalSpoke):
                                                "supported when using RDP.\n"
                                                "However the settings will be used "
                                                "after the installation."))
+        elif not conf.system.supports_compositor_keyboard_layout_shortcut:
+            self._layoutSwitchLabel.set_text(
+                _(
+                    "Switching keyboard layouts by using keyboard shortcuts is not supported. "
+                    "To change the layout, use the keyboard icon in the top bar."
+                )
+            )
         elif switch_options:
             first_option = switch_options[0]
             desc = self._xkl_wrapper.get_switch_opt_description(first_option)
