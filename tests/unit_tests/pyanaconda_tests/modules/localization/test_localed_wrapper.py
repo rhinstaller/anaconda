@@ -174,6 +174,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         """Test conversion of return values from Localed service to CompositorLocaledWraper."""
         mocked_system_bus.check_connection.return_value = True
         mocked_conf.system.provides_system_bus = True
+        mocked_conf.system.supports_compositor_keyboard_layout_shortcut = True
         mocked_localed_proxy = Mock()
         mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
         localed_wrapper = CompositorLocaledWrapper()
@@ -204,12 +205,15 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         """Test calling CopmositorLocaledWrapper with invalid values does not raise exception."""
         mocked_system_bus.check_connection.return_value = True
         mocked_conf.system.provides_system_bus = True
+        mocked_conf.system.supports_compositor_keyboard_layout_shortcut = True
         mocked_localed_proxy = Mock()
         mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
         mocked_localed_proxy.VConsoleKeymap = "cz"
         mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
         mocked_localed_proxy.X11Variant = "qwerty,,euro"
-        mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
+        mocked_localed_proxy.X11Options = (
+            "eurosign:2,grp:alt_shift_toggle,grp:ctrl_alt_toggle,grp_led:caps"
+        )
         localed_wrapper = CompositorLocaledWrapper()
         # valid values
         localed_wrapper.set_layouts(["cz (qwerty)", "us (euro)"],
@@ -223,14 +227,14 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         localed_wrapper.set_layouts(["cz", "us (euro)"])
         assert localed_wrapper._user_layouts_variants == ["cz", "us (euro)"]
 
-        # test set_layout on proxy with options
+        # test set_layout on proxy without options
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         localed_wrapper.set_layouts(["cz (qwerty)", "us"])
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
             "cz,us",
             "pc105",  # hardcoded
             "qwerty,",
-            "grp:alt_shift_toggle,grp:ctrl_alt_toggle",  # options will be reused what is set
+            "eurosign:2,grp:alt_shift_toggle,grp:ctrl_alt_toggle,grp_led:caps",
             False,
             False
         )
@@ -242,13 +246,40 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             "cz,us",
             "pc105",  # hardcoded
             "qwerty,",
-            "grp:alt_shift_toggle,grp:ctrl_alt_toggle",  # options will be reused what is set
+            "eurosign:2,grp:alt_shift_toggle,grp:ctrl_alt_toggle,grp_led:caps",
             False,
             False
         )
 
+        # test set_layout on proxy when shortcut layout switching is broken
+        # TODO: Remove when https://issues.redhat.com/browse/RHEL-71880 is fixed
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
-        localed_wrapper.set_layouts(["us"], "", True)
+        mocked_conf.system.supports_compositor_keyboard_layout_shortcut = False
+        localed_wrapper.set_layouts(["cz (qwerty)", "us"], options=None)
+        mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
+            "cz,us",
+            "pc105",  # hardcoded
+            "qwerty,",
+            "eurosign:2,grp_led:caps",  # Remove after fix of RHEL-71880
+            False,
+            False
+        )
+
+        # test set_layout on proxy when layout switching is broken and options are specified
+        mocked_localed_proxy.SetX11Keyboard.reset_mock()
+        localed_wrapper.set_layouts(["us"], options=("grp:ctrl_alt_toggle", "grp_led:caps"))
+        mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
+            "us",
+            "pc105",  # hardcoded
+            "",
+            "grp_led:caps",
+            False,
+            False
+        )
+
+        # test set_layout on proxy when layout switching is broken and options are empty
+        mocked_localed_proxy.SetX11Keyboard.reset_mock()
+        localed_wrapper.set_layouts(["us"], options="", convert=True)
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
             "us",
             "pc105",  # hardcoded
@@ -272,6 +303,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         """
         mocked_system_bus.check_connection.return_value = True
         mocked_conf.system.provides_system_bus = True
+        mocked_conf.system.supports_compositor_keyboard_layout_shortcut = True
         mocked_localed_proxy = Mock()
         mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
         #  currently selected is first in this list 'cz (qwerty)'
@@ -397,6 +429,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         """
         mocked_system_bus.check_connection.return_value = True
         mocked_conf.system.provides_system_bus = True
+        mocked_conf.system.supports_compositor_keyboard_layout_shortcut = True
         mocked_localed_proxy = Mock()
         mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
         mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
@@ -493,6 +526,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         """
         mocked_system_bus.check_connection.return_value = True
         mocked_conf.system.provides_system_bus = True
+        mocked_conf.system.supports_compositor_keyboard_layout_shortcut = True
         mocked_localed_proxy = Mock()
         mocked_localed_proxy.PropertiesChanged = Signal()
         mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
@@ -511,8 +545,9 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             :type last_known_state: [(str,str)] e.g.:[('cz', 'qwerty'), ('us','')...]
             :param compositor_state: New state the compositor will get into.
             :type compositor_state: {str: str} e.g.: {"X11Layout": "cz", "X11Variant": "qwerty"}
-            :param expected_selected_signal: Currently selected layout we expect CompositorLocaledWrapper
-                                             will signal out. If signal shouldn't set None.
+            :param expected_selected_signal: Currently selected layout we expect
+                                             CompositorLocaledWrapper will signal out. Set None if
+                                             no signal is expected to be called.
             :type expected_selected_signal: str
             :param expected_layouts_signal: Current configuration of the compositor signaled from
                                             CompositorLocaledWrapper.
