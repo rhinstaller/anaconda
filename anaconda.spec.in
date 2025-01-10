@@ -134,7 +134,7 @@ Requires: NetworkManager-libnm >= %{nmver}
 Requires: kbd
 Requires: chrony
 Requires: systemd
-%if 0%{?rhel} > 10 || 0%{?fedora}
+%if ! 0%{?rhel}
 Requires: systemd-resolved
 %endif
 Requires: python3-pid
