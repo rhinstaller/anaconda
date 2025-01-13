@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
+import os
+import tempfile
 import unittest
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -81,6 +83,15 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
             for cert, filename, cdir in certs
         ]
 
+    @staticmethod
+    def _get_certs(certs_values):
+        certs = []
+        for values in certs_values:
+            c = CertificateData()
+            c.cert, c.filename, c.dir = values
+            certs.append(c)
+        return certs
+
     def _iface_certificates_setter(self):
         """Provide setter for testing read-only Certificates property."""
         return lambda value: self.certificates_module.set_certificates(
@@ -103,6 +114,11 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
             setter=self._iface_certificates_setter()
         )
 
+    def _set_certificates(self, certs_values):
+        certs_value = self._get_dbus_certs(certs_values)
+        set_certificates = self._iface_certificates_setter()
+        set_certificates(certs_value)
+
     @patch_dbus_publish_object
     def test_import_with_task_default(self, publisher):
         """Test the ImportWithTask method"""
@@ -115,12 +131,7 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
         """Test the ImportWithTask method"""
         c1 = (CERT_RVTEST, 'rvtest.pem', '/etc/pki/ca-trust/extracted/pem')
         c2 = (CERT_RVTEST2, 'rvtest2.pem', '')
-        certs_value = self._get_dbus_certs([
-                c1,
-                c2,
-        ])
-        set_certificates = self._iface_certificates_setter()
-        set_certificates(certs_value)
+        self._set_certificates([c1, c2])
 
         task_path = self.certificates_interface.ImportWithTask()
         obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
@@ -129,3 +140,55 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
         obj_c1, obj_c2 = obj.implementation._certificates
         assert c1 == (obj_c1.cert, obj_c1.filename, obj_c1.dir)
         assert c2 == (obj_c2.cert, obj_c2.filename, obj_c2.dir)
+
+    @patch_dbus_publish_object
+    def test_install_with_task_default(self, publisher):
+        """Test the InstallWithTask method"""
+        task_path = self.certificates_interface.InstallWithTask()
+        obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
+        assert obj.implementation._sysroot == "/mnt/sysroot"
+        assert obj.implementation._certificates == []
+
+    @patch_dbus_publish_object
+    def test_install_with_task_configured(self, publisher):
+        """Test the InstallWithTask method"""
+        c1 = (CERT_RVTEST, 'rvtest.pem', '/etc/pki/ca-trust/extracted/pem')
+        c2 = (CERT_RVTEST2, 'rvtest2.pem', '')
+        self._set_certificates([c1, c2])
+
+        task_path = self.certificates_interface.InstallWithTask()
+        obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
+        assert obj.implementation._sysroot == "/mnt/sysroot"
+        assert len(obj.implementation._certificates) == 2
+        obj_c1, obj_c2 = obj.implementation._certificates
+        assert c1 == (obj_c1.cert, obj_c1.filename, obj_c1.dir)
+        assert c2 == (obj_c2.cert, obj_c2.filename, obj_c2.dir)
+
+    def _check_cert_file(self, cert, sysroot, is_missing=False):
+        cert_file = sysroot + cert.dir + "/" + cert.filename
+        if is_missing:
+            assert os.path.exists(cert_file) is False
+        else:
+            with open(cert_file) as f:
+                # Anaconda adds `\n` to the value when dumping it
+                assert f.read() == cert.cert+'\n'
+
+    def test_import_certificates_task_files(self):
+        """Test the ImportCertificatesTask task dumping the certificate"""
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '/etc/pki/dir1'),
+            (CERT_RVTEST2, 'rvtest2.pem', '/etc/pki/dir2'),
+        ])
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            # c1 has existing dir
+            os.makedirs(sysroot+certs[0].dir)
+            # c2 has non-existing dir
+
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=certs,
+            ).run()
+
+            for c in certs:
+                self._check_cert_file(c, sysroot)
