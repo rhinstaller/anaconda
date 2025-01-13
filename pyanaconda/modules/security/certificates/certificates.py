@@ -25,6 +25,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
 from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.security.certificates.certificates_interface import CertificatesInterface
+from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
 
 log = get_module_logger(__name__)
 
@@ -73,3 +74,13 @@ class CertificatesModule(KickstartBaseModule):
         # the properties changed signal here manually
         self.module_properties_changed.emit()
         log.debug("Certificates is set to %s.", certificates)
+
+    def import_with_task(self):
+        """Import certificates into the installer environment
+
+        :return: an installation task
+        """
+        return ImportCertificatesTask(
+            sysroot="/",
+            certificates=self.certificates,
+        )
