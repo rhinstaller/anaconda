@@ -211,11 +211,11 @@ class KickstartSpecificationTestCase(unittest.TestCase):
     class SpecificationG(KickstartSpecification):
 
         sections = {
-            "certificate": CertificateSection,
+            "certificate": (CertificateSection, Certificate)
         }
 
         sections_data = {
-            "certificate": Certificate,
+            "certificate": (Certificate, "certificates")
         }
 
     def setUp(self):
@@ -268,6 +268,36 @@ class KickstartSpecificationTestCase(unittest.TestCase):
 
         with pytest.raises(KickstartParseError):
             self.parse_kickstart(specification, "xconfig")
+
+    def test_section_specification_with_data_objects(self):
+        """Test a specification with a section handling multiple data objects."""
+        specification = self.SpecificationG
+
+        ks_in = """
+        %certificate --filename=cert1.pem --dir=/cert_dir
+        -----BEGIN CERTIFICATE-----
+        MIIDazCCAlOgAwIBAgIJAJzQz1Zz1Zz1MA0GCSqGSIb3DQEBCwUAMIGVMQswCQYD
+        -----END CERTIFICATE-----
+        %end
+
+        %certificate --filename=cert2.pem --dir=/cert_dir
+        -----BEGIN CERTIFICATE-----
+        XIIDazCCAlOgAwIBAgIJAJzQz1Zz1Zz1MA0GCSqGSIb3DQEBCwUAMIGVMQswCQYD
+        -----END CERTIFICATE-----
+        %end
+        """
+
+        with pytest.raises(KickstartParseError):
+            self.parse_kickstart(specification, "xconfig")
+
+        self.parse_kickstart(specification, "")
+        handler = self.parse_kickstart(specification, ks_in)
+        assert len(handler.certificates) == 2
+        cert1, cert2 = handler.certificates
+        assert isinstance(cert1, Certificate)
+        assert isinstance(cert2, Certificate)
+        assert cert1.filename == "cert1.pem"
+        assert cert2.filename == "cert2.pem"
 
     def test_full_specification(self):
         """Test a full specification."""
@@ -395,20 +425,6 @@ class KickstartSpecificationTestCase(unittest.TestCase):
            %addon my_test_unknown
            %end
            """)
-
-    def test_certificates_specification(self):
-        specification = self.SpecificationG
-
-        ks_in = """
-        %certificate --filename=cert1.pem
-        -----BEGIN CERTIFICATE-----
-        MIIDazCCAlOgAwIBAgIJAJzQz1Zz1Zz1MA0GCSqGSIb3DQEBCwUAMIGVMQswCQYD
-        -----END CERTIFICATE-----
-        %end
-        """
-        handler = self.parse_kickstart(specification, ks_in)
-        assert isinstance(handler.certificates[0], Certificate)
-        assert len(handler.certificates) == 1
 
 
 class ModuleSpecificationsTestCase(unittest.TestCase):
