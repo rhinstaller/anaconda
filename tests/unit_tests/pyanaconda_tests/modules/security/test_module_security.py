@@ -68,7 +68,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """Test kickstart properties."""
         assert self.security_interface.KickstartCommands == \
             ["auth", "authconfig", "authselect", "selinux", "realm"]
-        assert self.security_interface.KickstartSections == []
+        assert self.security_interface.KickstartSections == ["certificate"]
         assert self.security_interface.KickstartAddons == []
         self.callback.assert_not_called()
 

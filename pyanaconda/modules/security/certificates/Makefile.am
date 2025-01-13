@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018  Red Hat, Inc.
+# Copyright (C) 2025  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = certificates
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-securitydir = $(pkgpyexecdir)/modules/security
-security_PYTHON = $(srcdir)/*.py
+certificatesdir = $(pkgpyexecdir)/modules/security/certificates
+dist_certificates_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
