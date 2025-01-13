@@ -101,7 +101,7 @@ def create_row(device_data, selected, mutable):
         vendor=attrs.get("vendor", ""),
         interconnect=attrs.get("bus", ""),
         serial=attrs.get("serial", ""),
-        wwid=attrs.get("path-id", ""),
+        wwid=attrs.get("path-id", "") or device_data.attrs.get("wwn", ""),
         paths="\n".join(device.parents),
         port=attrs.get("port", ""),
         target=attrs.get("target", ""),
