@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pykickstart.parser import Certificate
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -35,6 +36,7 @@ class CertificatesModule(KickstartBaseModule):
         super().__init__()
 
         self._certificates = []
+        self.certificates_changed = Signal()
 
     def publish(self):
         """Publish the module."""
@@ -42,16 +44,32 @@ class CertificatesModule(KickstartBaseModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        certificates = []
         for cert in data.certificates:
             cert_data = CertificateData()
             cert_data.filename = cert.filename
             cert_data.cert = cert.cert
             if cert.dir:
                 cert_data.dir = cert.dir
-            self._certificates.append(cert_data)
+            certificates.append(cert_data)
+        self.set_certificates(certificates)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         for cert in self._certificates:
             cert_ksdata = Certificate(cert=cert.cert, filename=cert.filename, dir=cert.dir)
             data.certificates.append(cert_ksdata)
+
+    @property
+    def certificates(self):
+        """Return the certificates."""
+        return self._certificates
+
+    def set_certificates(self, certificates):
+        """Set the certificates."""
+        self._certificates = certificates
+        self.certificates_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("Certificates is set to %s.", certificates)

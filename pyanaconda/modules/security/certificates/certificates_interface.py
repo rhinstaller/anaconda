@@ -28,9 +28,14 @@ from pyanaconda.modules.common.structures.security import CertificateData
 class CertificatesInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the certificate installation module."""
 
-    def GetCertificates(self) -> List[Str]:
-        """Get all certificates to be installed the system.
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("Certificates", self.implementation.certificates_changed)
 
-        :return: a list of certificates names with their content
+    @property
+    def Certificates(self) -> List[Structure]:
+        """All certificates.
+
+        :return: a list of certificate DBus Structures
         """
-        return [CertificateData.to_structure(cert) for cert in self.implementation.get_certificates()]
+        return CertificateData.to_structure_list(self.implementation.certificates)
