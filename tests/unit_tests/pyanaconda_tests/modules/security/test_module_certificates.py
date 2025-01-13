@@ -25,6 +25,7 @@ from pyanaconda.modules.common.constants.objects import CERTIFICATES
 from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.security.certificates.certificates import CertificatesModule
 from pyanaconda.modules.security.certificates.certificates_interface import CertificatesInterface
+from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
 from tests.unit_tests.pyanaconda_tests import check_dbus_property, check_task_creation, \
     patch_dbus_publish_object
 
