@@ -541,3 +541,6 @@ TIMEZONE_PRIORITY_USER = 90
 
 # A flag file indicated the installation is running in rescue mode
 RESCUE_MODE_PATH = "/run/install/RESCUE_MODE"
+
+# Installation phases
+INSTALLATION_PHASE_PREINSTALL = "pre-install"

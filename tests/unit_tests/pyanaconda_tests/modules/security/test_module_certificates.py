@@ -24,6 +24,8 @@ import unittest
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_LIVE_OS, \
+    INSTALLATION_PHASE_PREINSTALL
 from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.security.certificates.certificates import CertificatesModule
@@ -177,7 +179,7 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_pre_install_with_task_default(self, publisher):
         """Test the PreInstallWithTask method"""
-        task_path = self.certificates_interface.PreInstallWithTask()
+        task_path = self.certificates_interface.PreInstallWithTask(PAYLOAD_TYPE_DNF)
         obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
         assert obj.implementation._sysroot == "/mnt/sysroot"
         assert obj.implementation._certificates == []
@@ -189,7 +191,7 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
         c2 = (CERT_RVTEST2, 'rvtest2.pem', '')
         self._set_certificates([c1, c2])
 
-        task_path = self.certificates_interface.PreInstallWithTask()
+        task_path = self.certificates_interface.PreInstallWithTask(PAYLOAD_TYPE_DNF)
         obj = check_task_creation(task_path, publisher, ImportCertificatesTask)
         assert obj.implementation._sysroot == "/mnt/sysroot"
         assert len(obj.implementation._certificates) == 2
@@ -249,3 +251,40 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
                     sysroot=sysroot,
                     certificates=certs,
                 ).run()
+
+    def test_import_certificates_pre_nondnf_payload(self):
+        """Test the ImportCertificatesTask in pre install with non-dnf payload"""
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '/etc/pki/dir1'),
+            (CERT_RVTEST2, 'rvtest2.pem', '/etc/pki/dir2'),
+        ])
+        c1 = certs[0]
+        c2 = certs[1]
+
+        with tempfile.TemporaryDirectory() as sysroot:
+
+            # non pre-install phase => install
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=[c1],
+                payload_type=PAYLOAD_TYPE_LIVE_OS,
+            ).run()
+            self._check_cert_file(c1, sysroot)
+
+            # pre-install phase, payload dnf => don't install
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=[c2],
+                payload_type=PAYLOAD_TYPE_LIVE_OS,
+                phase=INSTALLATION_PHASE_PREINSTALL
+            ).run()
+            self._check_cert_file(c2, sysroot, is_missing=True)
+
+            # pre-install phase, payload dnf => install
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=[c2],
+                payload_type=PAYLOAD_TYPE_DNF,
+                phase=INSTALLATION_PHASE_PREINSTALL
+            ).run()
+            self._check_cert_file(c2, sysroot)
