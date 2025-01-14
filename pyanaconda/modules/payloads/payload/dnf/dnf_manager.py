@@ -581,8 +581,10 @@ class DNFManager:
             self._goal.add_install(spec)
 
         log.info("Excluding specs: %s", exclude_list)
-        for spec in exclude_list:
-            self._goal.add_remove(spec)
+        # FIXME: Make the excludes work also for groups. Right now, only packages are excluded.
+        excludes = libdnf5.rpm.PackageQuery(self._base)
+        excludes.filter_name(exclude_list, libdnf5.common.QueryCmp_GLOB)
+        self._base.get_rpm_package_sack().add_user_excludes(excludes)
 
     def resolve_selection(self):
         """Resolve the software selection."""
