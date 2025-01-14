@@ -95,3 +95,15 @@ class CertificatesModule(KickstartBaseModule):
             sysroot=conf.target.system_root,
             certificates=self.certificates,
         )
+
+    def pre_install_with_task(self):
+        """Import certificates into the system before the payload installation
+
+        NOTE: the reason is potential use by rpm scriptlets
+
+        :return: a DBus path of the import task
+        """
+        return ImportCertificatesTask(
+            sysroot=conf.target.system_root,
+            certificates=self.certificates,
+        )
