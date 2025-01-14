@@ -18,22 +18,16 @@
 
 import gettext
 import threading
-from collections import namedtuple
 
-import iso639
 from xkbregistry import rxkb
 
 from pyanaconda import localization
 from pyanaconda.core.async_utils import async_action_wait
-from pyanaconda.core.string import upcase_first_letter
 from pyanaconda.keyboard import normalize_layout_variant
+from pyanaconda.localization import _build_layout_infos, _get_layout_variant_description
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 
 Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
-iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
-
-# namedtuple for information about a keyboard layout (its language and description)
-LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
 
 class XklWrapper:
     """
@@ -62,26 +56,11 @@ class XklWrapper:
         self._rxkb = rxkb.Context()
 
         self._layout_infos = {}
-        self._build_layout_infos()
+        self._layout_infos = _build_layout_infos()
 
         self._switch_opt_infos = {}
         self._build_switch_opt_infos()
 
-    def _build_layout_infos(self):
-        for layout in self._rxkb.layouts.values():
-            name = layout.name
-            if layout.variant:
-                name += ' (' + layout.variant + ')'
-
-            langs = []
-            for lang in layout.iso639_codes:
-                if iso639.find(iso639_2=lang):
-                    langs.append(iso639.to_name(lang))
-
-            if name not in self._layout_infos:
-                self._layout_infos[name] = LayoutInfo(langs, layout.description)
-            else:
-                self._layout_infos[name].langs.extend(langs)
 
     def _build_switch_opt_infos(self):
         for group in self._rxkb.option_groups:
@@ -133,45 +112,15 @@ class XklWrapper:
 
     def get_layout_variant_description(self, layout_variant, with_lang=True, xlated=True):
         """
-        Get description of the given layout-variant.
+        Return a description of the given layout-variant.
 
-        :param layout_variant: layout-variant specification (e.g. 'cz (qwerty)')
-        :type layout_variant: str
-        :param with_lang: whether to include language of the layout-variant (if defined)
-                          in the description or not
-        :type with_lang: bool
-        :param xlated: whethe to return translated or english version of the description
-        :type xlated: bool
-        :return: description of the layout-variant specification (e.g. 'Czech (qwerty)')
-        :rtype: str
-
+        :param layout_variant: Layout-variant identifier (e.g., 'cz (qwerty)')
+        :param with_lang: Include the language in the description if available
+        :param xlated: Return a translated version of the description if True
+        :return: Formatted layout description
         """
 
-        layout_info = self._layout_infos[layout_variant]
-        lang = ""
-        # translate language and upcase its first letter, translate the
-        # layout-variant description
-        if xlated:
-            if len(layout_info.langs) == 1:
-                lang = iso_(layout_info.langs[0])
-            description = Xkb_(layout_info.desc)
-        else:
-            if len(layout_info.langs) == 1:
-                lang = upcase_first_letter(layout_info.langs[0])
-            description = layout_info.desc
-
-        if with_lang and lang:
-            # ISO language/country names can be things like
-            # "Occitan (post 1500); Provencal", or
-            # "Iran, Islamic Republic of", or "Greek, Modern (1453-)"
-            # or "Catalan; Valencian": let's handle that gracefully
-            # let's also ignore case, e.g. in French all translated
-            # language names are lower-case for some reason
-            checklang = lang.split()[0].strip(",;").lower()
-            if checklang not in description.lower():
-                return "%s (%s)" % (lang, description)
-
-        return description
+        return _get_layout_variant_description(layout_variant, self._layout_infos, with_lang, xlated)
 
     def get_switch_opt_description(self, switch_opt):
         """

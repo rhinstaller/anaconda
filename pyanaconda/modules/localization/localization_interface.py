@@ -25,6 +25,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.keyboard_layout import KeyboardLayout
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 
 
@@ -90,6 +91,26 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         locale_data = self.implementation.get_locale_data(locale_id)
         return LocaleData.to_structure(locale_data)
+
+    def GetLocaleKeyboardLayouts(self, lang: Str) -> List[Structure]:
+        """Get keyboard layouts for the specified language.
+
+        Returns a list of keyboard layouts available for the given language.
+        Each layout is represented as a `KeyboardLayout` structure.
+
+        Example output:
+        [
+            KeyboardLayout(layout_id="us", description="English (US)", langs=["English"]),
+            KeyboardLayout(layout_id="cz", description="Czech", langs=["Czech"]),
+            KeyboardLayout(layout_id="cz (qwerty)", description="Czech (QWERTY)", langs=["Czech"])
+        ]
+
+        :param lang: Language code string (e.g., "en_US.UTF-8")
+        :return: List of `KeyboardLayout` structures
+        """
+        return KeyboardLayout.to_structure_list(
+            self.implementation.get_locale_keyboard_layouts(lang)
+        )
 
     @property
     def Language(self) -> Str:

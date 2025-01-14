@@ -97,6 +97,7 @@ Requires: python3-meh >= %{mehver}
 %if 0%{?rhel} < 10 || 0%{?fedora}
 Requires: libreport-anaconda >= %{libreportanacondaver}
 %endif
+Requires: python3-iso639
 Requires: python3-libselinux
 Requires: python3-rpm >= %{rpmver}
 Requires: python3-pyparted >= %{pypartedver}
@@ -111,6 +112,7 @@ Requires: python3-pwquality
 Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
+Requires: python3-xkbregistry
 Requires: flatpak-libs
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
@@ -290,9 +292,7 @@ ensure all Anaconda capabilities are supported in the resulting image.
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
-Requires: python3-iso639
 Requires: python3-meh-gui >= %{mehver}
-Requires: python3-xkbregistry
 Requires: adwaita-icon-theme
 Requires: tecla
 Requires: nm-connection-editor

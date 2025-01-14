@@ -25,7 +25,9 @@ import os
 import re
 from collections import namedtuple
 
+import iso639
 import langtable
+from xkbregistry import rxkb
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
@@ -36,7 +38,10 @@ from pyanaconda.modules.common.constants.services import BOSS
 log = get_module_logger(__name__)
 
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}
+LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
 
+Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
+iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 
 class LocalizationConfigError(Exception):
     """Exception class for localization configuration related problems"""
@@ -388,6 +393,77 @@ def get_territory_locales(territory):
     :rtype: list of strings
     """
     return langtable.list_locales(territoryId=territory)
+
+
+def _build_layout_infos():
+    """Build localized information for keyboard layouts.
+
+    :param rxkb_context: RXKB context (e.g., rxkb.Context())
+    :return: Dictionary with layouts and their descriptions
+    """
+    rxkb_context = rxkb.Context()
+    layout_infos = {}
+
+    for layout in rxkb_context.layouts.values():
+        name = layout.name
+        if layout.variant:
+            name += f" ({layout.variant})"
+
+        langs = []
+        for lang in layout.iso639_codes:
+            if iso639.find(iso639_2=lang):
+                langs.append(iso639.to_name(lang))
+
+        if name not in layout_infos:
+            layout_infos[name] = LayoutInfo(langs, layout.description)
+        else:
+            layout_infos[name].langs.extend(langs)
+
+    return layout_infos
+
+
+def _get_layout_variant_description(layout_variant, layout_infos,  with_lang, xlated):
+    """
+    Get description of the given layout-variant.
+
+    :param layout_variant: layout-variant specification (e.g. 'cz (qwerty)')
+    :type layout_variant: str
+    :param layout_infos: Dictionary containing layout metadata
+    :type layout_infos: dict
+    :param with_lang: whether to include language of the layout-variant (if defined)
+                      in the description or not
+    :type with_lang: bool
+    :param xlated: whethe to return translated or english version of the description
+    :type xlated: bool
+    :return: description of the layout-variant specification (e.g. 'Czech (qwerty)')
+    :rtype: str
+
+    """
+    layout_info = layout_infos[layout_variant]
+    lang = ""
+    # translate language and upcase its first letter, translate the
+    # layout-variant description
+    if xlated:
+        if len(layout_info.langs) == 1:
+            lang = iso_(layout_info.langs[0])
+        description = Xkb_(layout_info.desc)
+    else:
+        if len(layout_info.langs) == 1:
+            lang = upcase_first_letter(layout_info.langs[0])
+        description = layout_info.desc
+
+    if with_lang and lang:
+        # ISO language/country names can be things like
+        # "Occitan (post 1500); Provencal", or
+        # "Iran, Islamic Republic of", or "Greek, Modern (1453-)"
+        # or "Catalan; Valencian": let's handle that gracefully
+        # let's also ignore case, e.g. in French all translated
+        # language names are lower-case for some reason
+        checklang = lang.split()[0].strip(",;").lower()
+        if checklang not in description.lower():
+            return "%s (%s)" % (lang, description)
+
+    return description
 
 
 def get_locale_keyboards(locale):
