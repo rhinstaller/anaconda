@@ -20,7 +20,8 @@
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL, \
+    CERTIFICATES
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
     SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
 from pyanaconda.modules.common.task import sync_run_task
@@ -79,6 +80,16 @@ def _prepare_configuration(payload, ksdata):
     # connect progress reporting
     configuration_queue.queue_started.connect(lambda x: progress_message(x.status_message))
     configuration_queue.task_completed.connect(lambda x: progress_step(x.name))
+
+    # import certificates first
+    # they may be required for subscription, initramfs regenerating, ... ?
+    if is_module_available(SECURITY):
+        certificates_import = TaskQueue("Certificates import", N_("Importing certificates"))
+        certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
+        certificates_import.append_dbus_tasks(SECURITY, [
+            certificates_proxy.InstallWithTask()
+        ])
+        configuration_queue.append(certificates_import)
 
     # add installation tasks for the Subscription DBus module
     if is_module_available(SUBSCRIPTION):
