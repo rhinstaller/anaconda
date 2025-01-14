@@ -481,6 +481,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 14 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.20-1
+- Avoid side effect of ask rdp methods (jkonecny)
+  Related: RHEL-69940
+- Do not crash if RDP is selected after regular GUI startup failed (#2326410)
+  (mkolman)
+  Resolves: RHEL-69940
+- Only match liveinst.desktop app in live environment (ales.astone)
+  Resolves: RHEL-67390
+- Show correct taskbar icon in Wayland (ales.astone)
+  Resolves: RHEL-67390
+- Hide server-side-decorations in Wayland (ales.astone)
+  Resolves: RHEL-67390
+- liveinst: Allow running as a Wayland-native application (neal)
+  Resolves: RHEL-67390
+- Support leavebootorder for bootupd (jkonecny)
+  Resolves: RHEL-40896
+- bootupd: call bootupctl with --update-firmware (awilliam)
+  Resolves: RHEL-40896
+
 * Fri Dec 13 2024 Paweł Poławski <ppolawsk@redhat.com> - 40.22.3.19-1
 - New version - 40.22.3.18 (ppolawsk)
 - util: Add additional information for EFI systems (riehecky)
