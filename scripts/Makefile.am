@@ -17,7 +17,8 @@
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_scripts_SCRIPTS = upd-updates run-anaconda \
-                       anaconda-pre-log-gen log-capture start-module apply-updates
+                       anaconda-pre-log-gen log-capture start-module apply-updates \
+                       anaconda-import-initramfs-certs
 
 dist_noinst_SCRIPTS  = upd-kernel makeupdates makebumpver
 
