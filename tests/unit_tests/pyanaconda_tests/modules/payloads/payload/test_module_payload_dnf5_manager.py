@@ -315,9 +315,7 @@ class DNFManagerTestCase(unittest.TestCase):
         report = self.dnf_manager.resolve_selection()
         assert report.error_messages == [
             'No match for argument: p1',
-            'No packages to remove for argument: p2',
             'No match for argument: g1',
-            'No groups to remove for argument: g2',
         ]
         assert report.warning_messages == []
 
@@ -338,9 +336,7 @@ class DNFManagerTestCase(unittest.TestCase):
         assert report.error_messages == []
         assert report.warning_messages == [
             'No match for argument: p1',
-            'No packages to remove for argument: p2',
             'No match for argument: g1',
-            'No groups to remove for argument: g2',
         ]
 
     @pytest.mark.skip("Not implemented")
