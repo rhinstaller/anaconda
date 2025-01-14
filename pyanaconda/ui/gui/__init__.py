@@ -30,8 +30,9 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.4")
 gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("GObject", "2.0")
+gi.require_version("GLib", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject
+from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject, GLib
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
@@ -289,6 +290,7 @@ class MainWindow(Gtk.Window):
         # Remove the title bar, resize controls and other stuff if the window manager
         # allows it and decorated is set to False. Otherwise, it has no effect.
         self.set_decorated(decorated)
+        self.set_titlebar(Gtk.DrawingArea())
 
         # Hide the titlebar when maximized if the window manager allows it.
         # This makes anaconda look full-screenish but without covering parts
@@ -519,6 +521,8 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
+        if conf.system.provides_liveuser:
+            GLib.set_prgname("liveinst")    # matches liveinst.desktop filename
         self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=False)
 
         self._distributionText = distributionText
