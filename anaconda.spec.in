@@ -490,6 +490,37 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 15 2025 github-actions <github-actions@github.com> - 42.23-1
+- Add release notes for certificates import (rvykydal)
+- docs: add release note for the `hidden-webui-pages` configuration option
+  (k.koukiou)
+- data: profile: extend workstation profile to hide pages for Web UI
+  (k.koukiou)
+- security: add a service to transfer certificates from initramfs (rvykydal)
+- Revert "build: Install systemd-resolved in ELN aka RHEL-11" (rvykydal)
+- Handle invalid UTF-8 characters in efibootmgr output (k.koukiou)
+- Don't log a bogus warning when kickstart specifies a disk label (awilliam)
+- Fix displaying attributes on advanced storage spoke (#2332568) (vtrefny)
+- Reapply "fix missing WWID values for multipath devices in advanced storage
+  UI" (vtrefny)
+- security: import certificates in initramfs (rvykydal)
+- security: install certificates in pre-install phase only for dnf payload
+  (rvykydal)
+- security: raise exception if certificate destination is unknown (rvykydal)
+- security: log a warning when dumping certificate over an existing file
+  (rvykydal)
+- security: pre-install certificates before payload installation (rvykydal)
+- security: add API to install certificates early before payload (rvykydal)
+- security: install certificates on target system (rvykydal)
+- security: Add API for installation on target system (rvykydal)
+- security: import certificates early after Anaconda start (rvykydal)
+- security: add API to import certificates to Anaconda environment (rvykydal)
+- security: add API: Certificate getter (rvykydal)
+- kickstart: extend section specification for list of section data (rvykydal)
+- security: implement the support to install certificates to Anaconda
+  (k.koukiou)
+- Add documentation for keyboard layout control (jkonecny)
+
 * Tue Jan 07 2025 github-actions <github-actions@github.com> - 42.22-1
 - Remove sections from release.rst in TOC (jkonecny)
 - Move docs advanced topics into new subsection (jkonecny)
