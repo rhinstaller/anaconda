@@ -4,7 +4,8 @@
 :Description:
     New kickstart section %certificate is supported.
     It allows users to securely embed certificates directly within
-    the kickstart file.
+    the kickstart file. The certificates are imported both
+    into the installer environment and the installed system.
 
 :Links:
     - https://issues.redhat.com/browse/RHELBU-2913
