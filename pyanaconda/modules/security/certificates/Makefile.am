@@ -1,6 +1,5 @@
-# scripts/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2024  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,18 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
-dist_scripts_SCRIPTS = run-anaconda anaconda-pre-log-gen log-capture start-module apply-updates \
-                       run-in-new-session anaconda-import-initramfs-certs
-
-dist_noinst_SCRIPTS  = makeupdates makebumpver
-
-dist_bin_SCRIPTS = anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin \
-                   anaconda-nm-disable-autocons
-
-dist_sbin_SCRIPTS    = handle-sshpw
-
-miscdir = $(datadir)/$(PACKAGE_NAME)
-dist_misc_DATA = instperf.p
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+certificatesdir = $(pkgpyexecdir)/modules/security/certificates
+dist_certificates_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

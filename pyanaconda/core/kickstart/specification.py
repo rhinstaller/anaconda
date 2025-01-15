@@ -53,8 +53,14 @@ class KickstartSpecification:
                     classes that represent them
     sections      - mapping of kickstart sections names to
                     classes that represent them
+                    value is a class or a tuple (class, section_data_class)
+                    where section_data_class is a value to be passed to dataObj
+                    class argument (typically the corresponding sections_data class)
     sections_data - mapping of kickstart sections data names to
                     classes that represent them
+                    value is a class or a tuple (class, data_list_name)
+                    where data_list_name is the name of the attribute holding
+                    list of the section data objects of the class
     addons        - mapping of kickstart addons names to
                     classes that represent them
 
@@ -71,6 +77,25 @@ class KickstartSpecification:
 class NoKickstartSpecification(KickstartSpecification):
     """Specification for no kickstart data."""
     pass
+
+
+class SectionDataListStrWrapper():
+    """A wrapper for generating string from a list of kickstart data."""
+    def __init__(self, data_list, data):
+        """Initializer.
+
+        :param data_list: list of section data objects
+        :param data: class required for the object to be included in the string
+        """
+        self._data_list = data_list
+        self._data = data
+
+    def __str__(self):
+        retval = []
+        for data_obj in self._data_list:
+            if isinstance(data_obj, self._data):
+                retval.append(data_obj.__str__())
+        return "".join(retval)
 
 
 class KickstartSpecificationHandler(KickstartHandler):
@@ -99,8 +124,16 @@ class KickstartSpecificationHandler(KickstartHandler):
 
     def registerSectionData(self, name, data):
         """Register data used by a section."""
-        obj = data()
-        setattr(self, name, obj)
+        if isinstance(data, tuple):
+            # Multiple data objects (section instances) stored in a list
+            data, data_list_name = data
+            data_list = []
+            setattr(self, data_list_name, data_list)
+            obj = SectionDataListStrWrapper(data_list, data)
+        else:
+            # Single data object for all section instances
+            obj = data()
+            setattr(self, name, obj)
         self._registerWriteOrder(obj)
 
     def registerAddonData(self, name, data):
@@ -126,7 +159,11 @@ class KickstartSpecificationParser(KickstartParser):
         super().__init__(handler)
 
         for section in specification.sections.values():
-            self.registerSection(section(handler))
+            if isinstance(section, tuple):
+                section_cls, data_obj = section
+                self.registerSection(section_cls(handler, dataObj=data_obj))
+            else:
+                self.registerSection(section(handler))
 
         if specification.addons:
             self.registerSection(AddonSection(handler))
