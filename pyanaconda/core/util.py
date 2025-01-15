@@ -170,6 +170,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
 
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,
+                 replace_utf_decode_errors=False,
                  log_output=True, binary_output=False, filter_stderr=False,
                  do_preexec=True, env_add=None, user=None):
     """ Run an external program, log the output and return it to the caller
@@ -182,6 +183,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,
         :param stdin: The file object to read stdin from.
         :param stdout: Optional file object to write the output to.
         :param env_prune: environment variable to remove before execution
+        :param replace_utf_decode_errors: whether to substitute � for decoding errors.
         :param log_output: whether to log the output of command
         :param binary_output: whether to treat the output of command as binary data
         :param filter_stderr: whether to exclude the contents of stderr from the returned output
@@ -201,7 +203,10 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,
 
         (output_string, err_string) = proc.communicate()
         if not binary_output:
-            output_string = output_string.decode("utf-8")
+            output_string = output_string.decode(
+                "utf-8",
+                errors="strict" if not replace_utf_decode_errors else "replace"
+            )
             if output_string and output_string[-1] != "\n":
                 output_string = output_string + "\n"
 
@@ -261,12 +266,14 @@ def execWithRedirect(command, argv, stdin=None, stdout=None, root='/',
         :return: The return code of the command
     """
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
-                        env_add=env_add, log_output=log_output, binary_output=binary_output,
+    return _run_program(argv, stdin=stdin, stdout=stdout, root=root,
+                        env_prune=env_prune, env_add=env_add,
+                        log_output=log_output, binary_output=binary_output,
                         do_preexec=do_preexec)[0]
 
 
-def execWithCapture(command, argv, stdin=None, root='/', env_prune=None, env_add=None,
+def execWithCapture(command, argv, stdin=None, root='/',
+                    env_prune=None, env_add=None, replace_utf_decode_errors=False,
                     log_output=True, filter_stderr=False, do_preexec=True):
     """ Run an external program and capture standard out and err.
 
@@ -276,6 +283,7 @@ def execWithCapture(command, argv, stdin=None, root='/', env_prune=None, env_add
         :param root: The directory to chroot to before running command.
         :param env_prune: environment variable to remove before execution
         :param env_add: environment variables added for the execution
+        :param replace_utf_decode_errors: whether to ignore decode errors
         :param log_output: Whether to log the output of command
         :param filter_stderr: Whether stderr should be excluded from the returned output
         :param do_preexec: whether to use the preexec function
@@ -283,8 +291,10 @@ def execWithCapture(command, argv, stdin=None, root='/', env_prune=None, env_add
     """
     argv = [command] + argv
 
-    return _run_program(argv, stdin=stdin, root=root, log_output=log_output, env_prune=env_prune,
-                        env_add=env_add, filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
+                        env_prune=env_prune, env_add=env_add,
+                        replace_utf_decode_errors=replace_utf_decode_errors,
+                        filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
 
 
 def execWithCaptureAsLiveUser(command, argv, stdin=None, root='/', log_output=True,

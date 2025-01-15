@@ -111,7 +111,9 @@ class EFIBase:
                 self._add_single_efi_boot_target(parent)
 
     def remove_efi_boot_target(self):
-        buf = self.efibootmgr(capture=True)
+        # FIXME: Stop using replace_utf_decode_errors=True once
+        # https://github.com/rhboot/efibootmgr/pull/221/ is merged
+        buf = self.efibootmgr(capture=True, replace_utf_decode_errors=True)
         for line in buf.splitlines():
             try:
                 (slot, _product) = line.split(None, 1)
