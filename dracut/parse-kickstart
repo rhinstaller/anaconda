@@ -438,7 +438,11 @@ def process_certificates(handler):
             log.error("Missing certificate file name, skipping.")
             continue
 
-        _dump_certificate(cert)
+        try:
+            _dump_certificate(cert)
+        except OSError as e:
+            log.error("Dump of certificate %s failed: %s", cert.filename, e)
+            continue
         # Dump for transport to switchroot
         _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/path/")
 
