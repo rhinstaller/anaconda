@@ -66,10 +66,26 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
         """
         super().__init__()
         self._queue = queue
+        self.installed_amount = 0
+        self.installed_total = 0
 
-    def install_start(self, item, total=0):
-        log.debug("Installing - %s", item.get_package().to_string())
-        self._queue.put(('install', item.get_package().to_string()))
+    def before_begin(self, total):
+        self.installed_total = total
+        log.debug("Starting the installation. Total packages: %s", total)
+
+    def install_start(self, item, total):
+        package = item.get_package()
+        log.debug("Installing - %s", package.to_string())
+        self.installed_amount += 1
+        self._queue.put((
+            'install',
+            "{name}.{arch} ({amount}/{total})".format(
+                name=package.get_name(),
+                arch=package.get_arch(),
+                amount=self.installed_amount,
+                total=self.installed_total
+            )
+        ))
 
     def install_progress(self, item, amount, total):
         log.debug("Installing - %s (%s/%s)", item.get_package().to_string(), amount, total)
@@ -97,7 +113,7 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
             ),
             libdnf5.rpm.TransactionCallbacks.script_type_to_string(type)
         )
-        self._queue.put(('configure', nevra.get_name()))
+        self._queue.put(('configure', "%s.%s" % (nevra.get_name(), nevra.get_arch())))
 
     def after_complete(self, success):
         log.debug("Done - %s", success)

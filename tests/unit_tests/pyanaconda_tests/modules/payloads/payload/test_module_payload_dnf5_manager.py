@@ -513,15 +513,15 @@ class DNFManagerTestCase(unittest.TestCase):
         self.dnf_manager.install_packages(calls.append)
 
         assert calls == [
-            'Installing p1-1.2-3.x86_64',
-            'Configuring p1-1.2-3.x86_64',
-            'Installing p2-1.2-3.x86_64',
-            'Configuring p2-1.2-3.x86_64',
-            'Installing p3-1.2-3.x86_64',
-            'Configuring p3-1.2-3.x86_64',
-            'Configuring p1-1.2-3.x86_64',
-            'Configuring p2-1.2-3.x86_64',
-            'Configuring p3-1.2-3.x86_64'
+            'Installing p1.x86_64 (1/3)',
+            'Configuring p1.x86_64',
+            'Installing p2.x86_64 (2/3)',
+            'Configuring p2.x86_64',
+            'Installing p3.x86_64 (3/3)',
+            'Configuring p3.x86_64',
+            'Configuring p1.x86_64',
+            'Configuring p2.x86_64',
+            'Configuring p3.x86_64'
         ]
 
     def _get_transaction_item(self, name, action=libdnf5.transaction.TransactionItemAction_INSTALL):
@@ -536,7 +536,8 @@ class DNFManagerTestCase(unittest.TestCase):
         package.get_action.return_value = action
 
         nevra = Mock(spec=libdnf5.rpm.Nevra)
-        nevra.get_name.return_value = name + "-1.2-3.x86_64"
+        nevra.get_name.return_value = name
+        nevra.get_arch.return_value = "x86_64"
 
         item = Mock(spec=libdnf5.base.TransactionPackage)
         item.get_package.return_value = package
@@ -550,17 +551,18 @@ class DNFManagerTestCase(unittest.TestCase):
         try:
             transaction_items = list(map(self._get_transaction_item, ["p1", "p2", "p3"]))
             ts_total = len(transaction_items)
-            for ts_done, item in enumerate(transaction_items):
-                progress.install_start(item, ts_total)
-                progress.install_progress(item, ts_done, ts_total)
+            progress.before_begin(ts_total)
+            for item in transaction_items:
+                progress.install_start(item, 0)
+                progress.install_progress(item, 0, 0)
                 progress.script_start(
                     item,
                     item.nevra,
                     libdnf5.rpm.TransactionCallbacks.ScriptType_PRE_INSTALL
                 )
-                progress.install_progress(item, ts_done + 1, ts_total)
+                progress.install_progress(item, 0, 0)
 
-            for ts_done, item in enumerate(transaction_items):
+            for item in transaction_items:
                 progress.script_start(
                     item,
                     item.nevra,
