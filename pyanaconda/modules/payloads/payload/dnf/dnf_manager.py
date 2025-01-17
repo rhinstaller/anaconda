@@ -36,6 +36,7 @@ from pyanaconda.core.constants import (
     URL_TYPE_METALINK,
     URL_TYPE_MIRRORLIST,
 )
+from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
@@ -94,6 +95,7 @@ class DNFManager:
     def __init__(self):
         self.__base = None
         self.__goal = None
+        self.__goal_skip_unavailable = None
 
         # Protect access to _base.repos to ensure that the dictionary is not
         # modified while another thread is attempting to iterate over it. The
@@ -126,6 +128,14 @@ class DNFManager:
             self.__goal = libdnf5.base.Goal(self._base)
 
         return self.__goal
+
+    @property
+    def _goal_skip_unavailable(self):
+        """The DNF goal that will be used if there are unavailable packages."""
+        if self.__goal_skip_unavailable is None:
+            self.__goal_skip_unavailable = libdnf5.base.Goal(self._base)
+
+        return self.__goal_skip_unavailable
 
     @classmethod
     def _create_base(cls):
@@ -186,6 +196,7 @@ class DNFManager:
         """
         self.__base = None
         self.__goal = None
+        self.__goal_skip_unavailable = None
         self._transaction = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
@@ -579,6 +590,7 @@ class DNFManager:
         log.info("Including specs: %s", include_list)
         for spec in include_list:
             self._goal.add_install(spec)
+            self._goal_skip_unavailable.add_install(spec)
 
         log.info("Excluding specs: %s", exclude_list)
         # FIXME: Make the excludes work also for groups. Right now, only packages are excluded.
@@ -589,16 +601,47 @@ class DNFManager:
     def resolve_selection(self):
         """Resolve the software selection."""
         report = ValidationReport()
+        messages = []
 
         log.debug("Resolving the software selection.")
         self._transaction = self._goal.resolve()
 
-        if self._transaction.get_problems() != libdnf5.base.GoalProblem_NO_PROBLEM:
+        problems = self._transaction.get_problems()
+        if problems != libdnf5.base.GoalProblem_NO_PROBLEM:
+            # Store the resolve logs from this transaction. If we can resolve the transaction with
+            # skip_if_unavailable=True, these will be just warnings, otherwise, errors.
             for message in self._transaction.get_resolve_logs_as_strings():
-                report.error_messages.append(message)
-        else:
-            for message in self._transaction.get_resolve_logs_as_strings():
-                report.warning_messages.append(message)
+                messages.append(message)
+
+            # The list might not be exhaustive, but these errors definitely shouldn't be skipped.
+            critical_errors = libdnf5.base.GoalProblem_SOLVER_ERROR | \
+                libdnf5.base.GoalProblem_SOLVER_PROBLEM_STRICT_RESOLVEMENT | \
+                libdnf5.base.GoalProblem_UNSUPPORTED_ACTION | \
+                libdnf5.base.GoalProblem_MULTIPLE_STREAMS | \
+                libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR_DEFAULTS | \
+                libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR_LATEST | \
+                libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR | \
+                libdnf5.base.GoalProblem_MODULE_CANNOT_SWITH_STREAMS
+
+            # If we didn't already run with skip_unavailable=True and the problems are not from the
+            # list of critical ones, try the transaction again with skip_if_unavailable=True.
+            if not self._base.get_config().skip_unavailable and not (problems & critical_errors):
+                # Temporarily set skip_unavailable to True, resolve, and set it back afterwards.
+                self._base.get_config().skip_unavailable = True
+                self._transaction = self._goal_skip_unavailable.resolve()
+                self._base.get_config().skip_unavailable = False
+
+            if self._transaction.get_problems() == libdnf5.base.GoalProblem_NO_PROBLEM:
+                # There are only problems with unavailable packages/groups -> put the logs into
+                # the warning_messages, so that user can decide to continue with the transaction.
+                report.warning_messages = messages
+            else:
+                # There are critical errors -> put the logs into the error_messages.
+                report.error_messages.append(_(
+                    "The following software marked for installation has errors.\n"
+                    "This is likely caused by an error with your installation source.\n\n"
+                ))
+                report.error_messages += messages
 
         if report.is_valid():
             log.info("The software selection has been resolved (%d packages selected).",
