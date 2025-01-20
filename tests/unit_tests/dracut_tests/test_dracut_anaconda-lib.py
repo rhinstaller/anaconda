@@ -19,13 +19,9 @@ import os
 import re
 import subprocess
 import unittest
-
 from collections import namedtuple
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 
-DISABLE_COMMANDS = [
-    "command",
-]
 DISABLE_COMMAND_PREFIX = "disabled-command"
 
 
@@ -46,13 +42,19 @@ class AnacondaLibTestCase(unittest.TestCase):
         with open(os.path.join("../dracut/", script_name), "rt", encoding="utf-8") as f:
             self._content = f.read()
 
-        self._disable_bash_commands()
-
-    def _disable_bash_commands(self):
+    def _disable_bash_commands(self, disabled_commands):
         disable_list = []
         # disable external and problematic commands in Dracut
-        for disabled_cmd in DISABLE_COMMANDS:
-            disable_list.append(f"""
+        for disabled_cmd in disabled_commands:
+            if isinstance(disabled_cmd, list):
+                disable_list.append(f"""
+{disabled_cmd[0]}() {{
+    echo "{DISABLE_COMMAND_PREFIX}: {disabled_cmd} args: $@" >&2
+    {disabled_cmd[1]}
+}}
+""")
+            if isinstance(disabled_cmd, str):
+                disable_list.append(f"""
 {disabled_cmd}() {{
     echo "{DISABLE_COMMAND_PREFIX}: {disabled_cmd} args: $@" >&2
 }}
@@ -114,6 +116,7 @@ class AnacondaLibTestCase(unittest.TestCase):
     def test_config_get(self):
         """Test bash config_get function to read .treeinfo file"""
         self._load_script("anaconda-lib.sh")
+        self._disable_bash_commands(["command"])
 
         # test multiple values in file
         self._check_get_text_with_content(
