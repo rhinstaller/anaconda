@@ -40,7 +40,7 @@ from pyanaconda.modules.localization.installation import (
     LanguageInstallationTask,
 )
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
-from pyanaconda.modules.localization.localed import LocaledWrapper
+from pyanaconda.modules.localization.localed import CompositorLocaledWrapper, LocaledWrapper
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
@@ -81,6 +81,7 @@ class LocalizationService(KickstartService):
         self.compositor_layouts_changed = Signal()
 
         self._localed_wrapper = None
+        self._localed_compositor_wrapper = None
 
     def publish(self):
         """Publish the module."""
@@ -259,13 +260,20 @@ class LocalizationService(KickstartService):
         if not self._localed_wrapper:
             self._localed_wrapper = LocaledWrapper()
 
-            self._localed_wrapper.compositor_selected_layout_changed.connect(
+        return self._localed_wrapper
+
+    @property
+    def localed_compositor_wrapper(self):
+        if not self._localed_compositor_wrapper:
+            self._localed_compositor_wrapper = CompositorLocaledWrapper()
+
+            self._localed_compositor_wrapper.compositor_selected_layout_changed.connect(
                 self.compositor_selected_layout_changed.emit
             )
-            self._localed_wrapper.compositor_layouts_changed.connect(
+            self._localed_compositor_wrapper.compositor_layouts_changed.connect(
                 self.compositor_layouts_changed.emit
             )
-        return self._localed_wrapper
+        return self._localed_compositor_wrapper
 
     def install_with_tasks(self):
         """Return the installation tasks of this module.
@@ -338,16 +346,16 @@ class LocalizationService(KickstartService):
         self._update_settings_from_task(result)
 
     def get_compositor_selected_layout(self):
-        return self.localed_wrapper.current_layout_variant
+        return self.localed_compositor_wrapper.current_layout_variant
 
     def set_compositor_selected_layout(self, layout_variant):
-        return self.localed_wrapper.set_current_layout(layout_variant)
+        return self.localed_compositor_wrapper.select_layout(layout_variant)
 
     def select_next_compositor_layout(self):
-        return self.localed_wrapper.select_next_layout()
+        return self.localed_compositor_wrapper.select_next_layout()
 
     def get_compositor_layouts(self):
-        return self.localed_wrapper.layouts_variants
+        return self.localed_compositor_wrapper.layouts_variants
 
     def set_compositor_layouts(self, layout_variants, options):
-        self.localed_wrapper.set_layouts(layout_variants, options)
+        self.localed_compositor_wrapper.set_layouts(layout_variants, options)

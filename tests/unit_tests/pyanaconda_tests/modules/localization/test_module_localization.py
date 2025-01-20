@@ -401,22 +401,21 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    @patch("pyanaconda.modules.localization.localization.LocaledWrapper")
+    @patch("pyanaconda.modules.localization.localization.CompositorLocaledWrapper")
     def test_compositor_layouts_api(self, mocked_localed_wrapper):
-        localed_class_mock = Mock()
+        localed_class_mock = mocked_localed_wrapper.return_value
         localed_class_mock.compositor_selected_layout_changed = Signal()
         localed_class_mock.compositor_layouts_changed = Signal()
-        mocked_localed_wrapper.return_value = localed_class_mock
 
-        self.localization_module._localed_wrapper = None
-        manager_mock = self.localization_module.localed_wrapper
+        self.localization_module._localed_compositor_wrapper = None
+        manager_mock = self.localization_module.localed_compositor_wrapper
 
         manager_mock.current_layout_variant = "cz"
         assert self.localization_interface.GetCompositorSelectedLayout() == "cz"
 
         self.localization_interface.SetCompositorSelectedLayout("cz (qwerty)")
         # pylint: disable=no-member
-        manager_mock.set_current_layout.assert_called_once_with("cz (qwerty)")
+        manager_mock.select_layout.assert_called_once_with("cz (qwerty)")
 
         self.localization_interface.SelectNextCompositorLayout()
         # pylint: disable=no-member

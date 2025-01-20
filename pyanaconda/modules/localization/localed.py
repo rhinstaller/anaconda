@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from abc import ABC
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import SystemBus
@@ -29,15 +31,14 @@ from pyanaconda.modules.common.constants.services import LOCALED
 log = get_module_logger(__name__)
 
 
-class LocaledWrapper:
+__all__ = ["CompositorLocaledWrapper", "LocaledWrapper"]
+
+
+class LocaledWrapperBase(ABC):
     """Class wrapping systemd-localed daemon functionality."""
 
     def __init__(self):
         self._localed_proxy = None
-        self._user_layouts_variants = []
-        self._last_layouts_variants = []
-        self.compositor_layouts_changed = Signal()
-        self.compositor_selected_layout_changed = Signal()
 
         if not conf.system.provides_system_bus:
             log.debug("Not using localed service: "
@@ -50,6 +51,222 @@ class LocaledWrapper:
             return
 
         self._localed_proxy = LOCALED.get_proxy()
+
+    @property
+    def layouts_variants(self):
+        """Get current X11 layouts with variants.
+
+        :return: a list of "layout (variant)" or "layout" layout specifications
+        :rtype: list(str)
+        """
+        if not self._localed_proxy:
+            return []
+
+        layouts = self._localed_proxy.X11Layout
+        variants = self._localed_proxy.X11Variant
+
+        return self._from_localed_format(layouts, variants)
+
+    @staticmethod
+    def _from_localed_format(layouts, variants):
+        layouts = layouts.split(",") if layouts else []
+        variants = variants.split(",") if variants else []
+
+        # if there are more layouts than variants, empty strings should be appended
+        diff = len(layouts) - len(variants)
+        variants.extend(diff * [""])
+
+        return [join_layout_variant(layout, variant) for layout, variant in zip(layouts, variants)]
+
+    @property
+    def options(self):
+        """Get current X11 options.
+
+        :return: a list of X11 options
+        :rtype: list(str)
+        """
+        if not self._localed_proxy:
+            return []
+
+        options = self._localed_proxy.X11Options
+
+        return options.split(",") if options else []
+
+    def set_layouts(self, layouts_variants, options=None, convert=False):
+        """Set X11 layouts.
+
+        :param layouts_variants: list of 'layout (variant)' or 'layout'
+                                 specifications of layouts and variants
+        :type layouts_variants: list(str)
+        :param options: list of X11 options that should be set
+        :type options: list(str) or None
+        :param convert: whether the layouts should be converted to a VConsole keymap
+                        (see set_and_convert_layouts)
+        :type convert: bool
+        """
+        if not self._localed_proxy:
+            return
+
+        layouts = []
+        variants = []
+        parsing_failed = False
+
+        for layout_variant in (nonempty for nonempty in layouts_variants if nonempty):
+            try:
+                (layout, variant) = parse_layout_variant(layout_variant)
+            except InvalidLayoutVariantSpec as e:
+                log.debug("Parsing of %s failed: %s", layout_variant, e)
+                parsing_failed = True
+                continue
+            layouts.append(layout)
+            variants.append(variant)
+
+        if not layouts and parsing_failed:
+            return
+
+        layouts_str = ",".join(layouts)
+        variants_str = ",".join(variants)
+        options_str = ",".join(options) if options else ""
+
+        log.debug("Setting keyboard layouts: '%s' options: '%s' convert: '%s",
+                  layouts_variants, options, convert)
+
+        self._localed_proxy.SetX11Keyboard(
+            layouts_str,
+            "pc105",
+            variants_str,
+            options_str,
+            convert,
+            False
+        )
+
+
+class LocaledWrapper(LocaledWrapperBase):
+    """Localed wrapper class which is used to installation.
+
+    It adds support for keymap and conversion methods between keymap and layouts.
+    """
+
+    @property
+    def keymap(self):
+        """Get current VConsole keymap.
+
+        :return: VConsole keymap specification
+        :rtype: string
+        """
+        if not self._localed_proxy:
+            return ""
+
+        return self._localed_proxy.VConsoleKeymap
+
+    def set_keymap(self, keymap, convert=False):
+        """Set current VConsole keymap.
+
+        :param keymap: VConsole keymap that should be set
+        :type keymap: str
+        :param convert: whether the keymap should be converted and set as X11 layout
+        :type convert: bool
+        """
+        if not self._localed_proxy:
+            return ""
+
+        self._localed_proxy.SetVConsoleKeyboard(keymap, "", convert, False)
+
+    def convert_keymap(self, keymap):
+        """Get X11 layouts and variants by converting VConsole keymap.
+
+        NOTE: Systemd-localed performs the conversion. Current VConsole keymap
+        and X11 layouts are set temporarily to the converted values in the
+        process of conversion.
+
+        :param keymap: VConsole keymap
+        :type keymap: str
+        :return: a list of "layout (variant)" or "layout" layout specifications
+                 obtained by conversion of VConsole keymap
+        :rtype: list(str)
+        """
+        if not self._localed_proxy:
+            return []
+
+        # hack around systemd's lack of functionality -- no function to just
+        # convert without changing keyboard configuration
+        orig_layouts_variants = self.layouts_variants
+        orig_keymap = self.keymap
+        converted_layouts = self.set_and_convert_keymap(keymap)
+        self.set_layouts(orig_layouts_variants)
+        self.set_keymap(orig_keymap)
+
+        return converted_layouts
+
+    def set_and_convert_keymap(self, keymap):
+        """Set VConsole keymap and set and get converted X11 layouts.
+
+        :param keymap: VConsole keymap
+        :type keymap: str
+        :return: a list of "layout (variant)" or "layout" layout specifications
+                 obtained by conversion from VConsole keymap
+        :rtype: list(str)
+        """
+        self.set_keymap(keymap, convert=True)
+
+        return self.layouts_variants
+
+    def set_and_convert_layouts(self, layouts_variants):
+        """Set X11 layouts and set and get converted VConsole keymap.
+
+        :param layouts_variants: list of 'layout (variant)' or 'layout'
+                                 specifications of layouts and variants
+        :type layouts_variants: list(str)
+        :return: a VConsole keymap obtained by conversion from X11 layouts
+        :rtype: str
+        """
+
+        self.set_layouts(layouts_variants, convert=True)
+
+        return self.keymap
+
+    def convert_layouts(self, layouts_variants):
+        """Get VConsole keymap by converting X11 layouts and variants.
+
+        NOTE: Systemd-localed performs the conversion. Current VConsole keymap
+        and X11 layouts are set temporarily to the converted values in the
+        process of conversion.
+
+        :param layouts_variants: list of 'layout (variant)' or 'layout'
+                                 specifications of layouts and variants
+        :type layouts_variants: list(str)
+        :return: a VConsole keymap obtained by conversion from X11 layouts
+        :rtype: str
+        """
+        if not self._localed_proxy:
+            return ""
+
+        # hack around systemd's lack of functionality -- no function to just
+        # convert without changing keyboard configuration
+        orig_layouts_variants = self.layouts_variants
+        orig_keymap = self.keymap
+        ret = self.set_and_convert_layouts(layouts_variants)
+        self.set_layouts(orig_layouts_variants)
+        self.set_keymap(orig_keymap)
+
+        return ret
+
+
+class CompositorLocaledWrapper(LocaledWrapperBase):
+    """Localed wrapper class which is used to control compositor.
+
+    It adds support for layout selection and reactions on the compositor system changes.
+    """
+
+    def __init__(self):
+        super().__init__()
+
+        self._user_layouts_variants = []
+        self._last_layouts_variants = []
+        self.compositor_layouts_changed = Signal()
+        self.compositor_selected_layout_changed = Signal()
+
+        # to reflect updates from the compositor
         self._localed_proxy.PropertiesChanged.connect(self._on_properties_changed)
 
     def _on_properties_changed(self, interface, changed_props, invalid_props):
@@ -93,45 +310,6 @@ class LocaledWrapper:
             self._last_layouts_variants = layouts_variants
 
     @property
-    def keymap(self):
-        """Get current VConsole keymap.
-
-        :return: VConsole keymap specification
-        :rtype: string
-        """
-        if not self._localed_proxy:
-            return ""
-
-        return self._localed_proxy.VConsoleKeymap
-
-    @property
-    def layouts_variants(self):
-        """Get current X11 layouts with variants.
-
-        :return: a list of "layout (variant)" or "layout" layout specifications
-        :rtype: list(str)
-        """
-        if not self._localed_proxy:
-            return []
-
-        layouts = self._localed_proxy.X11Layout
-        variants = self._localed_proxy.X11Variant
-
-        self._last_layouts_variants = self._from_localed_format(layouts, variants)
-        return self._last_layouts_variants
-
-    @staticmethod
-    def _from_localed_format(layouts, variants):
-        layouts = layouts.split(",") if layouts else []
-        variants = variants.split(",") if variants else []
-
-        # if there are more layouts than variants, empty strings should be appended
-        diff = len(layouts) - len(variants)
-        variants.extend(diff * [""])
-
-        return [join_layout_variant(layout, variant) for layout, variant in zip(layouts, variants)]
-
-    @property
     def current_layout_variant(self):
         """Get first (current) layout with variant.
 
@@ -141,73 +319,21 @@ class LocaledWrapper:
         return "" if not self.layouts_variants else self.layouts_variants[0]
 
     @property
-    def options(self):
-        """Get current X11 options.
+    def layouts_variants(self):
+        """Get current X11 layouts with variants.
 
-        :return: a list of X11 options
-        :rtype: list(str)
-        """
-        if not self._localed_proxy:
-            return []
+        Store information about the last selected layout variant used.
 
-        options = self._localed_proxy.X11Options
-
-        return options.split(",") if options else []
-
-    def set_keymap(self, keymap, convert=False):
-        """Set current VConsole keymap.
-
-        :param keymap: VConsole keymap that should be set
-        :type keymap: str
-        :param convert: whether the keymap should be converted and set as X11 layout
-        :type convert: bool
-        """
-        if not self._localed_proxy:
-            return ""
-
-        self._localed_proxy.SetVConsoleKeyboard(keymap, "", convert, False)
-
-    def convert_keymap(self, keymap):
-        """Get X11 layouts and variants by converting VConsole keymap.
-
-        NOTE: Systemd-localed performs the conversion. Current VConsole keymap
-        and X11 layouts are set temporarily to the converted values in the
-        process of conversion.
-
-        :param keymap: VConsole keymap
-        :type keymap: str
         :return: a list of "layout (variant)" or "layout" layout specifications
-                 obtained by conversion of VConsole keymap
         :rtype: list(str)
         """
-        if not self._localed_proxy:
-            return []
-
-        # hack around systemd's lack of functionality -- no function to just
-        # convert without changing keyboard configuration
-        orig_layouts_variants = self.layouts_variants
-        orig_keymap = self.keymap
-        converted_layouts = self.set_and_convert_keymap(keymap)
-        self._set_layouts(orig_layouts_variants)
-        self.set_keymap(orig_keymap)
-
-        return converted_layouts
-
-    def set_and_convert_keymap(self, keymap):
-        """Set VConsole keymap and set and get converted X11 layouts.
-
-        :param keymap: VConsole keymap
-        :type keymap: str
-        :return: a list of "layout (variant)" or "layout" layout specifications
-                 obtained by conversion from VConsole keymap
-        :rtype: list(str)
-        """
-        self.set_keymap(keymap, convert=True)
-
-        return self.layouts_variants
+        self._last_layouts_variants = super().layouts_variants
+        return self._last_layouts_variants
 
     def set_layouts(self, layouts_variants, options=None, convert=False):
         """Set X11 layouts.
+
+        Store user selected layouts with variants.
 
         :param layouts_variants: list of 'layout (variant)' or 'layout'
                                  specifications of layouts and variants
@@ -218,98 +344,40 @@ class LocaledWrapper:
                         (see set_and_convert_layouts)
         :type convert: bool
         """
-        # store configuration from user
         self._set_layouts(layouts_variants, options, convert)
         log.debug("Storing layouts for compositor configured by user")
         self._user_layouts_variants = layouts_variants
 
     def _set_layouts(self, layouts_variants, options=None, convert=False):
-        if not self._localed_proxy:
-            return
+        """Set a new layouts for compositor.
 
-        layouts = []
-        variants = []
-        parsing_failed = False
-
-        for layout_variant in (nonempty for nonempty in layouts_variants if nonempty):
-            try:
-                (layout, variant) = parse_layout_variant(layout_variant)
-            except InvalidLayoutVariantSpec as e:
-                log.debug("Parsing of %s failed: %s", layout_variant, e)
-                parsing_failed = True
-                continue
-            layouts.append(layout)
-            variants.append(variant)
-
-        if not layouts and parsing_failed:
-            return
-
+        Extension of the parent code with compositor specific code.
+        """
+        # If options are not set let's use from a system so we don't change the system settings
         if options is None:
             options = self.options
-            log.debug("Keyboard layouts for system/compositor are missing options. "
-                      "Use compositor options: %s", options)
+            log.debug(
+                "Keyboard layouts for compositor are missing options. Use compositor options: %s",
+                options,
+            )
 
-        layouts_str = ",".join(layouts)
-        variants_str = ",".join(variants)
-        options_str = ",".join(options)
+        # TODO: Remove when https://issues.redhat.com/browse/RHEL-71880 is fixed
+        # Because of the bug above Anaconda is not able to detect keyboard layout changed by the
+        # keyboard shortcuts, however, layouts will change. To avoid confusion of users
+        # let's rather disable this feature completely.
+        if conf.system.supports_compositor_keyboard_layout_shortcut is not True:
+            log.debug("Keyboard layout switching from shortcut is broken in compositor. "
+                      "Filter these out from the options: '%s'.", options)
+            options = list(filter(lambda x: not x.startswith("grp:"), options))
 
-        log.debug("Setting system/compositor keyboard layouts: '%s' options: '%s' convert: '%s",
-                  layouts_variants, options, convert)
+        # store configuration from user
+        super().set_layouts(layouts_variants, options, convert)
 
-        self._localed_proxy.SetX11Keyboard(
-            layouts_str,
-            "pc105",
-            variants_str,
-            options_str,
-            convert,
-            False
-        )
+    def select_layout(self, layout_variant):
+        """Select layout from the list of current layouts set.
 
-    def set_and_convert_layouts(self, layouts_variants):
-        """Set X11 layouts and set and get converted VConsole keymap.
-
-        :param layouts_variants: list of 'layout (variant)' or 'layout'
-                                 specifications of layouts and variants
-        :type layouts_variants: list(str)
-        :return: a VConsole keymap obtained by conversion from X11 layouts
-        :rtype: str
-        """
-
-        self._set_layouts(layouts_variants, convert=True)
-
-        return self.keymap
-
-    def convert_layouts(self, layouts_variants):
-        """Get VConsole keymap by converting X11 layouts and variants.
-
-        NOTE: Systemd-localed performs the conversion. Current VConsole keymap
-        and X11 layouts are set temporarily to the converted values in the
-        process of conversion.
-
-        :param layouts_variants: list of 'layout (variant)' or 'layout'
-                                 specifications of layouts and variants
-        :type layouts_variants: list(str)
-        :return: a VConsole keymap obtained by conversion from X11 layouts
-        :rtype: str
-        """
-        if not self._localed_proxy:
-            return ""
-
-        # hack around systemd's lack of functionality -- no function to just
-        # convert without changing keyboard configuration
-        orig_layouts_variants = self.layouts_variants
-        orig_keymap = self.keymap
-        ret = self.set_and_convert_layouts(layouts_variants)
-        self._set_layouts(orig_layouts_variants)
-        self.set_keymap(orig_keymap)
-
-        return ret
-
-    # TODO: rename to select_layout
-    def set_current_layout(self, layout_variant):
-        """Set given layout as first (current) layout for compositor.
-
-        This will search for the given layout variant in the list and move it as first in the list.
+        This will search for the given layout variant in the list and move it as first
+        in the list. The first layout in systemd is taken as the used one.
 
         :param layout_variant: The layout to set, with format "layout (variant)"
             (e.g. "cz (qwerty)")
