@@ -430,13 +430,22 @@ class ConfigureBootloader(Task):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
         dev_data = DeviceData.from_structure(device_tree.GetDeviceData(bootloader.Drive))
 
+        bootupdctl_args = [
+                "--auto",
+                "--write-uuid",
+        ]
+
+        # do not insert UEFI entry if leavebootorder was requested
+        if not bootloader.KeepBootOrder:
+            log.debug("Adding --update-firmware to bootupdctl call")
+            bootupdctl_args.append("--update-firmware")
+
         rc = execWithRedirect(
             "bootupctl",
             [
                 "backend",
                 "install",
-                "--auto",
-                "--write-uuid",
+                *bootupdctl_args,
                 "--device",
                 dev_data.path,
                 "/",
