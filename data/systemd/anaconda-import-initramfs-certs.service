@@ -1,0 +1,8 @@
+[Unit]
+Description=Import of certificates added in initramfs stage of Anaconda via kickstart
+Before=NetworkManager.service
+Before=anaconda.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/anaconda/anaconda-import-initramfs-certs

@@ -29,6 +29,7 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.constants import SELinuxMode
+from pyanaconda.modules.security.certificates import CertificatesModule
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
@@ -45,6 +46,12 @@ class SecurityService(KickstartService):
     def __init__(self):
         super().__init__()
 
+        # Initialize modules.
+        self._modules = []
+
+        self._certificates_module = CertificatesModule()
+        self._add_module(self._certificates_module)
+
         self.selinux_changed = Signal()
         self._selinux = SELinuxMode.DEFAULT
 
@@ -60,9 +67,17 @@ class SecurityService(KickstartService):
         self.realm_changed = Signal()
         self._realm = RealmData()
 
+    def _add_module(self, security_module):
+        """Add a base kickstart module."""
+        self._modules.append(security_module)
+
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(SECURITY.namespace)
+
+        for kickstart_module in self._modules:
+            kickstart_module.publish()
+
         DBus.publish_object(SECURITY.object_path, SecurityInterface(self))
         DBus.register_service(SECURITY.service_name)
 
@@ -73,6 +88,10 @@ class SecurityService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        # Process the kickstart data in modules.
+        for kickstart_module in self._modules:
+            kickstart_module.process_kickstart(data)
+
         if data.selinux.selinux is not None:
             self.set_selinux(SELinuxMode(data.selinux.selinux))
 
@@ -92,6 +111,9 @@ class SecurityService(KickstartService):
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
+        for kickstart_module in self._modules:
+            kickstart_module.setup_kickstart(data)
+
         if self.selinux != SELinuxMode.DEFAULT:
             data.selinux.selinux = self.selinux.value
 
