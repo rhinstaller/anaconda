@@ -26,6 +26,7 @@ from dasbus.signal import Signal
 from dasbus.typing import Bool, Str, get_variant
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.structures.keyboard_layout import KeyboardLayout
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.localization.installation import (
@@ -216,6 +217,62 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
             "native-name": get_variant(Str, "English (United States)"),
         }
         assert data == english_us
+
+    def test_keyboard_layouts_for_language(self):
+        get_keyboard_layouts = self.localization_interface.GetLocaleKeyboardLayouts
+        layouts = get_keyboard_layouts("cs_CZ.UTF-8")
+
+        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
+
+        expected_layouts = [
+            KeyboardLayout(
+                layout_id="cz",
+                description="Czech",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (bksl)",
+                description="Czech (extra backslash)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (qwerty)",
+                description="Czech (QWERTY)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (qwerty_bksl)",
+                description="Czech (QWERTY, extra backslash)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (winkeys)",
+                description="Czech (QWERTZ, Windows)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (winkeys-qwerty)",
+                description="Czech (QWERTY, Windows)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (qwerty-mac)",
+                description="Czech (QWERTY, Macintosh)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (ucw)",
+                description="Czech (UCW, only accented letters)",
+                langs=["Czech"],
+            ),
+            KeyboardLayout(
+                layout_id="cz (dvorak-ucw)",
+                description="Czech (US, Dvorak, UCW support)",
+                langs=["Czech"],
+            ),
+        ]
+
+        assert normalized_layouts == expected_layouts
 
     def test_common_locales(self):
         common_locales = self.localization_interface.GetCommonLocales()

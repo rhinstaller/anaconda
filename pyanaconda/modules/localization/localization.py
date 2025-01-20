@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import gettext
+
 import langtable
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -24,6 +26,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.localization import (
+    _build_layout_infos,
     get_available_translations,
     get_common_languages,
     get_english_name,
@@ -34,6 +37,7 @@ from pyanaconda.localization import (
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.keyboard_layout import KeyboardLayout
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.localization.installation import (
     KeyboardInstallationTask,
@@ -50,6 +54,8 @@ from pyanaconda.modules.localization.runtime import (
 
 log = get_module_logger(__name__)
 
+Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
+iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 
 class LocalizationService(KickstartService):
     """The Localization service."""
@@ -79,6 +85,8 @@ class LocalizationService(KickstartService):
 
         self.compositor_selected_layout_changed = Signal()
         self.compositor_layouts_changed = Signal()
+
+        self._layout_infos = _build_layout_infos()
 
         self._localed_wrapper = None
 
@@ -176,6 +184,26 @@ class LocalizationService(KickstartService):
         tdata.native_name = get_native_name(locale_id)
 
         return tdata
+
+    def get_locale_keyboard_layouts(self, lang):
+        """Get localized keyboard layouts for a given locale.
+
+        :param lang: locale string (e.g., "cs_CZ.UTF-8")
+        :return: list of dictionaries with keyboard layout information
+        """
+        language_id = lang.split("_")[0].lower()
+        english_name = get_english_name(language_id)
+
+        layouts = []
+        for name, info in self._layout_infos.items():
+            if english_name in info.langs:
+                layout = KeyboardLayout()
+                layout.layout_id = name
+                layout.description = Xkb_(info.desc)
+                layout.langs = info.langs
+                layouts.append(layout)
+
+        return layouts
 
     @property
     def language(self):

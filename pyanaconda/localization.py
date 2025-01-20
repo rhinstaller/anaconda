@@ -25,7 +25,9 @@ import os
 import re
 from collections import namedtuple
 
+import iso639
 import langtable
+from xkbregistry import rxkb
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
@@ -36,7 +38,7 @@ from pyanaconda.modules.common.constants.services import BOSS
 log = get_module_logger(__name__)
 
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}
-
+LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
 
 class LocalizationConfigError(Exception):
     """Exception class for localization configuration related problems"""
@@ -388,6 +390,33 @@ def get_territory_locales(territory):
     :rtype: list of strings
     """
     return langtable.list_locales(territoryId=territory)
+
+
+def _build_layout_infos():
+    """Build localized information for keyboard layouts.
+
+    :param rxkb_context: RXKB context (e.g., rxkb.Context())
+    :return: Dictionary with layouts and their descriptions
+    """
+    rxkb_context = rxkb.Context()
+    layout_infos = {}
+
+    for layout in rxkb_context.layouts.values():
+        name = layout.name
+        if layout.variant:
+            name += f" ({layout.variant})"
+
+        langs = []
+        for lang in layout.iso639_codes:
+            if iso639.find(iso639_2=lang):
+                langs.append(iso639.to_name(lang))
+
+        if name not in layout_infos:
+            layout_infos[name] = LayoutInfo(langs, layout.description)
+        else:
+            layout_infos[name].langs.extend(langs)
+
+    return layout_infos
 
 
 def get_locale_keyboards(locale):

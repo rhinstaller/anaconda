@@ -18,22 +18,18 @@
 
 import gettext
 import threading
-from collections import namedtuple
 
-import iso639
 from xkbregistry import rxkb
 
 from pyanaconda import localization
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.core.string import upcase_first_letter
 from pyanaconda.keyboard import normalize_layout_variant
+from pyanaconda.localization import _build_layout_infos
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 
 Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
 iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
-
-# namedtuple for information about a keyboard layout (its language and description)
-LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
 
 class XklWrapper:
     """
@@ -62,26 +58,11 @@ class XklWrapper:
         self._rxkb = rxkb.Context()
 
         self._layout_infos = {}
-        self._build_layout_infos()
+        self._layout_infos = _build_layout_infos()
 
         self._switch_opt_infos = {}
         self._build_switch_opt_infos()
 
-    def _build_layout_infos(self):
-        for layout in self._rxkb.layouts.values():
-            name = layout.name
-            if layout.variant:
-                name += ' (' + layout.variant + ')'
-
-            langs = []
-            for lang in layout.iso639_codes:
-                if iso639.find(iso639_2=lang):
-                    langs.append(iso639.to_name(lang))
-
-            if name not in self._layout_infos:
-                self._layout_infos[name] = LayoutInfo(langs, layout.description)
-            else:
-                self._layout_infos[name].langs.extend(langs)
 
     def _build_switch_opt_infos(self):
         for group in self._rxkb.option_groups:
