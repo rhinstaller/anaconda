@@ -434,6 +434,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         (valid, error) = network.is_valid_hostname(self.hostname, local=True)
         if not self.hostname or valid:
             self._network_module.Hostname = self.hostname
+            self._network_module.SetCurrentHostname(self.hostname)
         else:
             self.errors.append(_("Host name is not valid: %s") % error)
             self.hostname = self._network_module.Hostname
