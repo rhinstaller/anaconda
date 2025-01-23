@@ -142,6 +142,10 @@ All test and maintenance actions are run by `GitHub workflows`_.  These YAML
 files completely describe what steps are required to run some action, what are
 its triggers and so on.
 
+Because we are using self-hosted runners, ``pull_request_trigger`` and other reasons,
+we have our GitHub repositories configured that they need approval for every execution
+of the tests (including after force push) for every external contributors.
+
 Pull request for main:
 ________________________
 
@@ -196,25 +200,27 @@ container you can push your branch to the origin repo and run it from there.
 Security precautions for testing RHEL
 -------------------------------------
 
-Changing workflow file by attacker
-__________________________________
+Beware of the ``pull_request_target``
+_____________________________________
 
-Because test description is part of the repository, attackers may change
-workflow files by creating PR to do their malicious attack. Because of that we
-are using ``pull_request_target`` instead of ``pull_request`` trigger. The main
-difference is that ``pull_request_target`` will run your PR tests on the target
-branch not on your PR branch. So workflow configuration has to be merged first
-to apply workflow changes. This has to be set on all workflow files in all
-branches, otherwise attackers could change existing workflow files to use our
-runners even for branches where they are not normally used. Unfortunately,
-self-hosted runners can’t be bound to the branch, they are bound to the repo.
+For many reasons, we are using ``pull_request_trigger`` in our workflows, however,
+this trigger is not secure in some scenarios. See `GitHub documentation`_ for more
+information. We need to make sure that this trigger is not executed on an unsafe code.
+
+The main issue starts with running these on checkout code from PR. In this case,
+the attacker has a free hand to change our code, do a release, or use our
+self-hosted runners.
+
+As the first line of defense, we are not running automatically any workflows on
+a pull request from external contributors and each test run have to be manually
+approved by developer.
 
 How can I change the workflow
 _____________________________
 
-Due to our hardening it’s not possible to just create PR and see the result
-of your change on the PR checks tab. You have to create PR on your fork branch
-which has the updated workflow. I would recommend you to create a test
+It depends on a `GitHub trigger`_ used by the workflow. However, if it is not
+possible to create a PR and see your changes, you can create PR on your fork
+branch which has the updated workflow. I would recommend you to create a test
 organization for this and avoid creating a new account.
 
 Similar situation works even for workflow to automatically update our containers.
@@ -274,3 +280,5 @@ The launcher scripts are listed under `TESTS` in `tests/Makefile.am`.
 .. _actions tab: https://github.com/rhinstaller/anaconda/actions?query=workflow%3A%22Refresh+container+images%22
 .. _unittests library: https://docs.python.org/3/library/unittest.html
 .. _pytest: https://docs.pytest.org/en/stable/
+.. _GitHub documentation: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request_target
+.. _GitHub trigger: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
