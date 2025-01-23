@@ -6,8 +6,14 @@ such as unit tests, rpm tests and translation tests.  All the tests will be run
 together if you follow the steps below.  For integration tests there is a
 separate repository kickstart-tests_ containing also tooling for running the tests.
 
+Testing in containers
+---------------------
+
+Most of our current testing is set inside the containers. This section will describe
+how to correctly run and build these containers.
+
 Run unit tests inside of container
-----------------------------------
+__________________________________
 This is the primary and recommended way to run the tests.
 
 Right now only unit tests are supported by the container, not rpm-tests.
@@ -45,7 +51,7 @@ modified/touched by the container (it works on an internal copy of the host's
 anaconda directory).
 
 Interactively work inside of container
---------------------------------------
+______________________________________
 
 For interactively working in the container you can run::
 
@@ -94,7 +100,7 @@ which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
 Run rpm tests inside of container
----------------------------------
+_________________________________
 
 The rpm tests are taking care that rpm file has all necessary content.
 
@@ -103,7 +109,7 @@ To run the test in a container::
     make -f Makefile.am container-rpm-test
 
 Run unit tests with patched pykickstart or other libraries
-----------------------------------------------------------
+__________________________________________________________
 
 1. Pull the container::
 
@@ -128,7 +134,7 @@ Run unit tests with patched pykickstart or other libraries
    make calls if you committed the container under a custom tag.
 
 Keep your containers updated
-----------------------------
+____________________________
 
 Please update your container from time to time to have newest dependencies.
 To do that, run::
