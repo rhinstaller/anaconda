@@ -93,13 +93,6 @@ In case the *ci* target fails there is also a *coverage-report* target
 which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
-Note
-----
-
-Please update your container from time to time to have newest dependencies.
-To do that, run `podman pull quay.io/rhinstaller/anaconda-ci:main` or build
-it locally again.
-
 Run rpm tests inside of container
 ---------------------------------
 
@@ -133,6 +126,18 @@ Run unit tests with patched pykickstart or other libraries
 
 5. Run other commands for container ci as usual. Don't forget to append ``CI_TAG=<your-tag>`` to
    make calls if you committed the container under a custom tag.
+
+Keep your containers updated
+----------------------------
+
+Please update your container from time to time to have newest dependencies.
+To do that, run::
+
+    podman pull quay.io/rhinstaller/anaconda-ci:main
+
+or build it locally again by::
+
+    make -f ./Makefile.am anaconda-ci-build
 
 
 GitHub workflows
