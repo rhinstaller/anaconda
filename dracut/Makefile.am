@@ -37,6 +37,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       anaconda-copy-cmdline.sh \
                       anaconda-copy-dhclient.sh \
                       anaconda-copy-prefixdevname.sh \
+                      anaconda-copy-certs.sh \
                       anaconda-dnsconfd.sh \
                       anaconda-start-dnsconfd.sh \
                       anaconda-ifcfg.sh \
