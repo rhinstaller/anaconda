@@ -173,7 +173,7 @@ comment that starts with ``/kickstart-tests <options>`` to the pull request to
 trigger it. It is possible to use tests updated via a kickstart-tests
 repository PR. See the `kickstart-tests.yml workflow`_ for supported
 options. For more detailed information on tests selection see the
-`kickstart launch script`_ documentation and-its ``--help``
+`kickstart launch script`_ documentation and-its ``--help``.
 
 Container maintenance
 ---------------------
@@ -261,6 +261,9 @@ represents a different class of tests. They are
 
     All Python unit tests inherit from the standard :class:`unittest.TestCase`
     class unless specified otherwise!
+
+    Also tests are written in the Python `unittests library`_ style but they are executed
+    by `pytest`_.
 
     Some tests require root privileges and will be skipped if running as regular
     user!
