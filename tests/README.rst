@@ -26,10 +26,14 @@ This will run all the tests, including Python test coverage reports. To run
 just some tests you can pass parameters which will replace the current one. For
 example to run just some unit tests please do this::
 
-    make -f Makefile.am container-ci CI_CMD="make tests-units-only UNIT_TESTS_PATTERN='test_layout_variant_'"
+    make -f Makefile.am container-ci CI_CMD="make tests-unit-only UNIT_TESTS_PATTERN='test_layout_variant_'"
 
-The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
+The ``UNIT_TESTS_PATTERN`` variable is passed to `pytest -k`_. See
 the documentation for more info.
+
+To run a different kind of test than unit tests, do this::
+
+    make -f Makefile.am container-ci CI_CMD="make check TESTS='cppcheck/runcppcheck.sh'"
 
 WARNING:
 
@@ -58,20 +62,26 @@ Prepare the environment and build the sources::
     ./configure
     make
 
+For RHEL 10 use this instead (glade needs to be disabled at build time)::
+
+    ./autogen.sh
+    ./configure --disable-glade
+    make
+
 Executing the tests can be done with::
 
     make check
 
 To run a single test do::
 
-    make TESTS=unit_tests.sh check
+    make TESTS=unit_tests/unit_tests.sh check
 
 
 To run a subset of unit tests do::
 
-    make TESTS=unit_tests.sh UNIT_TESTS_PATTERN='test_layout_variant_' check
+    make TESTS=unit_tests/unit_tests.sh UNIT_TESTS_PATTERN='test_layout_variant_' check
 
-The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
+The ``UNIT_TESTS_PATTERN`` variable is passed to `pytest -k`_. See
 the documentation for more info.
 
 See `tests/Makefile.am` for possible values. Alternatively you can try::
@@ -101,6 +111,32 @@ published to any registry::
 Then run the test in that container::
 
     make -f Makefile.am container-rpm-test
+
+Run unit tests with patched pykickstart or other libraries
+----------------------------------------------------------
+
+1. Pull the container::
+
+      podman pull quay.io/rhinstaller/anaconda-ci:main
+
+2. Run the container temporary with your required resources (pykickstart in this example)::
+
+      podman run --name=cnt-add --rm -it -v ./pykickstart:/pykickstart:z quay.io/rhinstaller/anaconda-ci:main sh
+
+3. Do your required changes in the container (install pykickstart in this example)::
+
+      cd /pykickstart && make install DESTDIR=/
+
+4. Commit the changed container as updated one. **DO NOT exit the running container, run this command in new terminal!**
+
+      podman commit cnt-add quay.io/rhinstaller/anaconda-ci:main
+
+   You can change the ``main`` tag to something else if you don't want to replace the existing one.
+   Feel free to exit the running container now.
+
+5. Run other commands for container ci as usual. Don't forget to append ``CI_TAG=<your-tag>`` to
+   make calls if you committed the container under a custom tag.
+
 
 GitHub workflows
 ----------------
@@ -141,16 +177,11 @@ ________________________
 
 The `kickstart-tests.yml workflow`_ allows rhinstaller organization members to
 run kickstart-tests_ against an anaconda PR (only ``main`` for now). Send a
-comment that starts with ``/kickstart-tests <launch options>`` to the pull
-request to trigger this. See the `kickstart launch script`_ documentation and
-its ``--help`` for details what is supported; the two basic modes are running
-a set of individual tests::
-
-   /kickstart-tests keyboard [test2 test3 ...]
-
-or running all tests of one or more given types::
-
-   /kickstart-tests --testtype network,autopart
+comment that starts with ``/kickstart-tests <options>`` to the pull request to
+trigger it. It is possible to use tests updated via a kickstart-tests
+repository PR. See the `kickstart-tests.yml workflow`_ for supported
+options. For more detailed information on tests selection see the
+`kickstart launch script`_ documentation and-its ``--help``
 
 Container maintenance
 ---------------------
@@ -240,7 +271,8 @@ Anaconda has a complex test suite structure where each top-level directory
 represents a different class of tests. They are
 
 - *cppcheck/* - static C/C++ code analysis using the *cppcheck* tool;
-- *dd_tests/* - Python unit tests for driver disk utilities (utils/dd);
+- *shellcheck/* - shell code analyzer config;
+- *dd_tests/* - Python unit tests for driver disk utilities (dracut/dd);
 - *unit_tests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
   installation environment and load Anaconda;
 - *gettext/* - sanity tests of files used for translation; Written in Python and
@@ -253,6 +285,7 @@ represents a different class of tests. They are
 - *unit_tests/pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
 - *pylint/* - checks the validity of Python source code using the *pocketlint*
   tool;
+- *ruff/* - config for fast but not 100% correct linter for Python;
 - *unit_tests/regex_tests/* - Python unit tests for regular expressions defined in
   :mod:`pyanaconda.regexes`;
 
@@ -264,9 +297,14 @@ represents a different class of tests. They are
     Some tests require root privileges and will be skipped if running as regular
     user!
 
+The `cppcheck` test is optional and is automatically skipped if the package is not available.
+
+The tests use the `automake "simple tests" framework <https://www.gnu.org/software/automake/manual/automake.html#Simple-Tests>`.
+The launcher scripts are listed under `TESTS` in `tests/Makefile.am`.
+
 .. _kickstart-tests: https://github.com/rhinstaller/kickstart-tests
 .. _quay.io: https://quay.io/repository/rhinstaller/anaconda-ci
-.. _unittest discover -k: https://docs.python.org/3/library/unittest.html#cmdoption-unittest-k
+.. _pytest -k: https://docs.pytest.org/en/7.1.x/reference/reference.html#command-line-flags
 .. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
 .. _validate.yml workflow: ../.github/workflows/validate.yml
 .. _validate-rhel-8.yml workflow: ../.github/workflows/validate-rhel-8.yml
