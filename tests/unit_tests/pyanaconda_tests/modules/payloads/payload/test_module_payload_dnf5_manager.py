@@ -551,13 +551,11 @@ class DNFManagerTestCase(unittest.TestCase):
             progress.before_begin(ts_total)
             for item in transaction_items:
                 progress.install_start(item, 0)
-                progress.install_progress(item, 0, 0)
                 progress.script_start(
                     item,
                     item.nevra,
                     libdnf5.rpm.TransactionCallbacks.ScriptType_PRE_INSTALL
                 )
-                progress.install_progress(item, 0, 0)
 
             for item in transaction_items:
                 progress.script_start(
