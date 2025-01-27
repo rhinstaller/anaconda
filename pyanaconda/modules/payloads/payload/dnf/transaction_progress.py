@@ -87,9 +87,6 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
             )
         ))
 
-    def install_progress(self, item, amount, total):
-        log.debug("Installing - %s (%s/%s)", item.get_package().to_string(), amount, total)
-
     def verify_progress(self, amount, total):
         log.debug("Verify %s/%s", amount, total)
         self._queue.put(('verify', 'packages'))
