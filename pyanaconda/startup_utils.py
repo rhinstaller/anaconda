@@ -76,6 +76,7 @@ from pyanaconda.modules.common.constants.services import (
     STORAGE,
     TIMEZONE,
 )
+from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.structures.logging import LoggingData
 from pyanaconda.modules.common.structures.timezone import (
     GeolocationData,
@@ -656,7 +657,16 @@ def initialize_security():
     certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
     import_task_path = certificates_proxy.ImportWithTask()
     task_proxy = SECURITY.get_proxy(import_task_path)
-    sync_run_task(task_proxy)
+    try:
+        sync_run_task(task_proxy)
+    except SecurityInstallationError as e:
+        log.error(e)
+        print(_("\nAn error occurred during certificate import from kickstart:"
+                "\n%s\n") % str(e).strip())
+
+        print(_("The installation cannot continue"))
+        ipmi_report(IPMI_ABORTED)
+        sys.exit(1)
 
 
 def print_dracut_errors(stdout_logger):
