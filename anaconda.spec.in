@@ -416,6 +416,49 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 29 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.5.13-1
+- security: require pykickstart version with %%certificates support (rvykydal)
+  Resolves: RHEL-61430
+- security: do not crash initramfs ks parsing on failing certificate dump
+  (rvykydal)
+  Resolves: RHEL-61430
+- security: add service to transfer certificates from initramfs (rvykydal)
+  Resolves: RHEL-61430
+- security: import certificates in initramfs (rvykydal)
+  Resolves: RHEL-61430
+- security: install certificates in pre-install phase only for dnf payload
+  (rvykydal)
+  Resolves: RHEL-61430
+- security: raise exception if certificate destination is unknown (rvykydal)
+  Resolves: RHEL-61430
+- security: log a warning when dumping certificate over an existing file
+  (rvykydal)
+  Resolves: RHEL-61430
+- security: pre-install certificates before payload installation (rvykydal)
+  Resolves: RHEL-61430
+- security: add API to install certificates early before payload (rvykydal)
+  Resolves: RHEL-61430
+- security: install certificates on target system (rvykydal)
+  Resolves: RHEL-61430
+- security: Add API for installation on target system (rvykydal)
+  Resolves: RHEL-61430
+- security: import certificates early after Anaconda start (rvykydal)
+  Resolves: RHEL-61430
+- security: add API to import certificates to Anaconda environment (rvykydal)
+  Resolves: RHEL-61430
+- security: add API: Certificate getter (rvykydal)
+  Resolves: RHEL-61430
+- kickstart: extend section specification for list of section data (rvykydal)
+  Related: INSTALLER-61430
+- security: implement the support to install certificates to Anaconda
+  (rvykydal)
+  Resolves: RHEL-61430
+- translations: bump dependency to l10n repo because of branch switch
+  (k.koukiou)
+- util: correct errors and suppress stderr for common cases (riehecky)
+- util: Add additional information for EFI systems (riehecky)
+  Resolves: RHEL-55128
+
 * Wed Nov 13 2024 Martin Kolman <mkolman@redhat.com> - 34.25.5.12-1
 - Explicitly place biosboot partition only on stage1 disk (vtrefny)
   Resolves: RHEL-50454
