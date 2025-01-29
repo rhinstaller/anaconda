@@ -481,6 +481,53 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 29 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.21-1
+- Disable keyboard shortcut switching on gnome-kiosk (jkonecny)
+  Related: RHEL-71880
+  Resolves: RHEL-74504
+- Improve name of compositor layout selection method (jkonecny)
+  Related: RHEL-71880
+  Resolves: RHEL-74504
+- Split LocaledWrapper code for compositor (jkonecny)
+  Related: RHEL-71880
+  Resolves: RHEL-74504
+- security: do not crash initramfs ks parsing on failing certificate dump
+  (rvykydal)
+  Resolves: RHEL-61434
+- security: require pykickstart version with %%certificates support (rvykydal)
+  Resolves: RHEL-61434
+- security: add service to transfer certificates from initramfs (rvykydal)
+  Resolves: RHEL-61434
+- security: import certificates in initramfs (rvykydal)
+  Resolves: RHEL-61434
+- security: install certificates in pre-install phase only for dnf payload
+  (rvykydal)
+  Resolves: RHEL-61434
+- security: raise exception if certificate destination is unknown (rvykydal)
+  Resolves: RHEL-61434
+- security: log a warning when dumping certificate over an existing file
+  (rvykydal)
+  Resolves: RHEL-61434
+- security: pre-install certificates before payload installation (rvykydal)
+  Resolves: RHEL-61434
+- security: add API to install certificates early before payload (rvykydal)
+  Resolves: RHEL-61434
+- security: install certificates on target system (rvykydal)
+  Resolves: RHEL-61434
+- security: Add API for installation on target system (rvykydal)
+  Resolves: RHEL-61434
+- security: import certificates early after Anaconda start (rvykydal)
+  Resolves: RHEL-61434
+- security: add API to import certificates to Anaconda environment (rvykydal)
+  Related: RHEL-61434
+- security: add API: Certificate getter (rvykydal)
+  Resolves: RHEL-61434
+- kickstart: extend section specification for list of section data (rvykydal)
+  Resolves: RHEL-61434
+- security: implement the support to install certificates to Anaconda
+  (k.koukiou)
+  Resolves: RHEL-61434
+
 * Tue Jan 14 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.20-1
 - Avoid side effect of ask rdp methods (jkonecny)
   Related: RHEL-69940
