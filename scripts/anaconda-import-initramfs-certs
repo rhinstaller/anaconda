@@ -1,0 +1,6 @@
+#! /bin/bash
+# Transfers CA certificates imported in initramfs via kickstart
+# to anaconda environment after switchroot.
+
+# certificates dumped to the specified file are copied to root
+cp -rv /run/install/certificates/path/* / || true
