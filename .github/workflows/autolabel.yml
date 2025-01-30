@@ -1,0 +1,20 @@
+name: Add PR labels automatically
+on:
+  pull_request_target:
+    types: [opened]
+
+# Without the check permission we are getting error - see more info Here
+# https://github.com/actions/labeler/issues/12
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  add-label:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Add labels
+        uses: actions/labeler@v5
+        with:
+          dot: true
