@@ -154,7 +154,17 @@ class ProductTestCase(unittest.TestCase):
     @patch("pyanaconda.core.product.configparser.open", side_effect=FileNotFoundError)
     def test_env(self, mock_cfp_open):
         """Test product values loaded from environment variables."""
-        values = get_product_values()
+        # ANACONDA_ISFINAL variable is processed out of /etc/os-release host file
+        FAKE_OS_RELEASE = ""
+        FAKE_OS_RELEASE += 'NAME="Fedora Linux"\n'
+        FAKE_OS_RELEASE += 'VERSION="41 (Workstation Edition)"\n'
+        FAKE_OS_RELEASE += 'RELEASE_TYPE=stable\n'
+        FAKE_OS_RELEASE += 'ID=fedora\n'
+
+        m = mock_open(read_data=FAKE_OS_RELEASE)
+        with patch("builtins.open", m):
+            values = get_product_values()
+
         expected = ProductData(True, "TestProduct", "rawhide", "testproduct")
         assert values == expected
 
