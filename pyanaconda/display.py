@@ -39,7 +39,8 @@ from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.flags import flags
 from pyanaconda.gnome_remote_desktop import GRDServer
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
 from pyanaconda.mutter_display import MutterConfigError, MutterDisplay
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
@@ -164,7 +165,8 @@ def check_rd_can_be_started(anaconda):
         rd_startup_possible = False
 
     # disable remote desktop question if we were explicitly asked for text in kickstart
-    if anaconda.display_mode == constants.DisplayModes.TUI:
+    proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    if proxy.DisplayModeTextKickstarted:
         error_messages.append("Not asking for remote desktop session because text mode "
                               "was explicitly asked for in kickstart")
         rd_startup_possible = False
