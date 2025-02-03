@@ -416,6 +416,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 03 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.5.14-1
+- rpmostree: Use `--merge` for kargs (walters)
+  Resolves: RHEL-76923
+
 * Wed Jan 29 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.5.13-1
 - security: require pykickstart version with %%certificates support (rvykydal)
   Resolves: RHEL-61430
