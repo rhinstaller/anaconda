@@ -148,16 +148,24 @@ class PayloadsService(KickstartService):
         :return: required size in bytes
         :rtype: int
         """
-        total = 0
+        main_size = 0
+        side_size = 0
 
         if self.active_payload:
-            total += self.active_payload.calculate_required_space()
+            main_size = self.active_payload.calculate_required_space()
             if self._flatpak_side_payload:
                 self._flatpak_side_payload.set_sources(self.active_payload.sources)
                 self._flatpak_side_payload.set_flatpak_refs(self.active_payload.get_flatpak_refs())
-                total += self._flatpak_side_payload.calculate_required_space()
+                side_size = self._flatpak_side_payload.calculate_required_space()
 
-        return total
+        log.debug(
+            "Main payload size: %s, side payload size: %s, total: %s",
+            main_size,
+            side_size,
+            main_size + side_size,
+        )
+
+        return main_size + side_size
 
     def get_kernel_version_list(self):
         """Get the kernel versions list.
