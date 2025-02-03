@@ -423,6 +423,9 @@ def setup_display(anaconda, options):
 
 
 def _set_gui_mode_on_rdp(anaconda, use_rdp):
+    if not use_rdp:
+        return
+
     if not anaconda.gui_mode:
         log.info("RDP requested via RDP question, switching Anaconda to GUI mode.")
     anaconda.display_mode = constants.DisplayModes.GUI
