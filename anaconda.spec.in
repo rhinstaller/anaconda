@@ -481,6 +481,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 03 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.22-1
+- Fix RDP question will switch to GUI instead of TUI (jkonecny)
+  Resolves: RHEL-77162
+- rpmostree: Use `--merge` for kargs (walters)
+  Resolves: RHEL-73029
+- Revert "dracut: Remove 'linear' from modules to load" (vtrefny)
+  Resolves: RHEL-76805
+
 * Wed Jan 29 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.21-1
 - Disable keyboard shortcut switching on gnome-kiosk (jkonecny)
   Related: RHEL-71880
