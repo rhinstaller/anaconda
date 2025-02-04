@@ -54,6 +54,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       driver_updates.py \
                       anaconda-nfsrepo-cleanup.sh
 
-dist_dracut_DATA = driver-updates@.service
+dist_dracut_DATA = driver-updates@.service \
+                   20_rw_usr.conf
 
 MAINTAINERCLEANFILES = Makefile.in
