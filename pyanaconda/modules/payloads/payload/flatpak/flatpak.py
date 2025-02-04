@@ -109,8 +109,13 @@ class FlatpakModule(PayloadBase):
         :return: required size in bytes
         :rtype: int
         """
-        return calculate_required_space(self._flatpak_manager.download_size,
-                                        self._flatpak_manager.install_size)
+        self._flatpak_manager.calculate_size()
+        download_size = self._flatpak_manager.download_size
+        install_size = self._flatpak_manager.install_size
+        size = calculate_required_space(download_size, install_size)
+        log.debug("Flatpak size required to download: %s to install: %s required: %s",
+                  download_size, install_size, size)
+        return size
 
     def install_with_tasks(self):
         """Install the payload with tasks."""
