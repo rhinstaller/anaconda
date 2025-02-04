@@ -490,6 +490,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 04 2025 github-actions <github-actions@github.com> - 42.25-1
+- Fix RDP question will switch to GUI instead of TUI (jkonecny)
+- Fix for inst.text was not asking for RDP (jkonecny)
+
 * Tue Jan 28 2025 github-actions <github-actions@github.com> - 42.24-1
 - network: pass NM global dns configuration to the installed system (rvykydal)
 - Improve sections structure in tests/README (jkonecny)
