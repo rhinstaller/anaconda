@@ -71,6 +71,8 @@ install() {
     inst "$moddir/driver_updates.py" "/bin/driver-updates"
     inst "/usr/sbin/modinfo"
     inst_simple "$moddir/driver-updates@.service" "/etc/systemd/system/driver-updates@.service"
+    # Make the /usr mountpoint RW in Dracut with systemd version >= 256, see RHEL-77192 for details.
+    inst_simple "$moddir/20_rw_usr.conf" "/etc/systemd/system.conf.d/20_rw_usr.conf"
     # rpm configuration file (needed by dd_extract)
     inst "/usr/lib/rpm/rpmrc"
     # timeout script for errors reporting
