@@ -149,10 +149,12 @@ class FlatpakSource(ABC):
 
         for image in self._images:
             if image.ref not in result:
+                log.debug("Skipping source image %s: not requested", image.ref)
                 continue
 
             metadata = image.labels.get("org.flatpak.metadata")
             if metadata is None:
+                log.debug("Skipping source image %s: missing metadata", image.ref)
                 continue
 
             cp = ConfigParser(interpolation=None)
@@ -166,6 +168,7 @@ class FlatpakSource(ABC):
             except (NoSectionError, KeyError):
                 log.debug("Skipping source image %s: broken metadata", image.ref)
 
+        log.debug("Refs: %s are expanded to: %s", refs, result)
         return result
 
 
@@ -231,6 +234,8 @@ class FlatpakStaticSource(FlatpakSource):
 
         for image in self._images:
             if image.ref not in expanded:
+                log.debug("Skipping Flatpak %s size calculation as it is not in expanded list: %s",
+                          image.ref, expanded)
                 continue
 
             log.debug("%s: download %d%s, installed %d",
@@ -389,6 +394,7 @@ class FlatpakRegistrySource(FlatpakSource):
 
         for image in self._images:
             if image.ref not in expanded:
+                log.debug("Image %s is not in expanded refs: %s", image.ref, expanded)
                 continue
 
             log.debug("%s: download %d, installed %d",
