@@ -141,7 +141,12 @@ class FlatpakManager:
 
         The result is available from the download_size and install_size properties.
         """
-        if self._skip_installation or len(self._flatpak_refs) == 0:
+        if self._skip_installation:
+            log.debug("Flatpak installation is going to be skipped.")
+            return
+
+        if len(self._flatpak_refs) == 0:
+            log.debug("No flatpaks are marked for installation.")
             return
 
         try:
