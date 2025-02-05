@@ -74,6 +74,13 @@ def exitHandler(rebootData):
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy)
 
+    # reenable LVM auto-activation disabled in enable_installer_mode
+    from blivet.devicelibs import lvm
+    try:
+        lvm.reenable_lvm_autoactivation()
+    except RuntimeError as e:
+        log.error("Failed to reenable LVM auto-activation: %s", str(e))
+
     # Stop the DBus session.
     anaconda.dbus_launcher.stop()
 
