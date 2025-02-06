@@ -490,6 +490,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 06 2025 Radek Vykydal <rvykydal@redhat.com> - 42.26-1
+- Add systemd override to make /usr RW in Dracut (mkolman)
+- Update the boot options passed to initrd for dns confgiuration (rvykydal)
+- Fix calls to IsConnecting() (champetier.etienne)
+- Revert "dracut: Remove 'linear' from modules to load" (vtrefny)
+- Revert "Remove 'linear' from list of expected MD RAID levels" (vtrefny)
+- security: add a development note for certificates import in initramfs
+  (rvykydal)
+- security: do not issue warning on existing certificate file during dump
+  (rvykydal)
+
 * Tue Feb 04 2025 github-actions <github-actions@github.com> - 42.25-1
 - Fix RDP question will switch to GUI instead of TUI (jkonecny)
 - Fix for inst.text was not asking for RDP (jkonecny)
