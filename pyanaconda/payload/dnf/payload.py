@@ -353,6 +353,14 @@ class DNFPayload(MigratedDBusPayload):
         result = unwrap_variant(task_proxy.GetResult())
         report = ValidationReport.from_structure(result)
 
+        # Start side payload processing if report is valid
+        if report.is_valid():
+            side_payload_path = self.proxy.SidePayload
+            if side_payload_path:
+                side_payload = PAYLOADS.get_proxy(side_payload_path)
+                side_task_proxy = PAYLOADS.get_proxy(side_payload.CalculateSizeWithTask())
+                sync_run_task(side_task_proxy)
+
         # This validation is no longer required.
         self._software_validation_required = False
 
