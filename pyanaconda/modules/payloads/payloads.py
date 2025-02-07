@@ -50,8 +50,6 @@ class PayloadsService(KickstartService):
         self._active_payload = None
         self.active_payload_changed = Signal()
 
-        self._flatpak_side_payload = None
-
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(PAYLOADS.namespace)
@@ -94,10 +92,9 @@ class PayloadsService(KickstartService):
         self._active_payload = payload
 
         if self._active_payload.needs_flatpak_side_payload():
-            payload = self.create_payload(PayloadType.FLATPAK)
-            self._flatpak_side_payload = payload
-        else:
-            self._flatpak_side_payload = None
+            side_payload = self.create_payload(PayloadType.FLATPAK)
+            self._active_payload.side_payload = side_payload
+            log.debug("Created side payload %s.", side_payload.type)
 
         self.active_payload_changed.emit()
         log.debug("Activated the payload %s.", payload.type)
@@ -145,18 +142,20 @@ class PayloadsService(KickstartService):
     def calculate_required_space(self):
         """Calculate space required for the installation.
 
+        Calculate required space for the main payload and the side payload if exists.
+
         :return: required size in bytes
         :rtype: int
         """
-        main_size = 0
+        if not self.active_payload:
+            return 0
+
+        main_size = self.active_payload.calculate_required_space()
         side_size = 0
 
-        if self.active_payload:
-            main_size = self.active_payload.calculate_required_space()
-            if self._flatpak_side_payload:
-                self._flatpak_side_payload.set_sources(self.active_payload.sources)
-                self._flatpak_side_payload.set_flatpak_refs(self.active_payload.get_flatpak_refs())
-                side_size = self._flatpak_side_payload.calculate_required_space()
+
+        if self.active_payload.side_payload:
+            side_size = self.active_payload.side_payload.calculate_required_space()
 
         log.debug(
             "Main payload size: %s, side payload size: %s, total: %s",
@@ -186,6 +185,8 @@ class PayloadsService(KickstartService):
     def install_with_tasks(self):
         """Return a list of installation tasks.
 
+        Concatenate tasks of the main payload together with side payload of that payload.
+
         :return: list of tasks
         """
         if not self.active_payload:
@@ -199,15 +200,15 @@ class PayloadsService(KickstartService):
 
         tasks += self.active_payload.install_with_tasks()
 
-        if self._flatpak_side_payload:
-            self._flatpak_side_payload.set_sources(self.active_payload.sources)
-            self._flatpak_side_payload.set_flatpak_refs(self.active_payload.get_flatpak_refs())
-            tasks += self._flatpak_side_payload.install_with_tasks()
+        if self.active_payload.side_payload:
+            tasks += self.active_payload.side_payload.install_with_tasks()
 
         return tasks
 
     def post_install_with_tasks(self):
         """Return a list of post-installation tasks.
+
+        Concatenate tasks of the main payload together with side payload of that payload.
 
         :return: a list of tasks
         """
@@ -222,22 +223,24 @@ class PayloadsService(KickstartService):
 
         tasks += self.active_payload.post_install_with_tasks()
 
-        if self._flatpak_side_payload:
-            tasks += self._flatpak_side_payload.post_install_with_tasks()
+        if self.active_payload.side_payload:
+            tasks += self.active_payload.side_payload.post_install_with_tasks()
 
         return tasks
 
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
 
+        Concatenate tasks of the main payload together with side payload of that payload.
+
         :return: a list of tasks
         """
-        tasks = []
+        if not self.active_payload:
+            return []
 
-        if self.active_payload:
-            tasks += self.active_payload.tear_down_with_tasks()
+        tasks = self.active_payload.tear_down_with_tasks()
 
-        if self._flatpak_side_payload:
-            tasks += self._flatpak_side_payload.tear_down_with_tasks()
+        if self.active_payload.side_payload:
+            tasks += self.active_payload.side_payload.tear_down_with_tasks()
 
         return tasks
