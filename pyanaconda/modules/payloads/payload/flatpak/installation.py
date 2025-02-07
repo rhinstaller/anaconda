@@ -29,23 +29,6 @@ log = get_module_logger(__name__)
 FLATPAK_MIRROR_DIR_SUFFIX = 'flatpak.mirror'
 
 
-class CalculateFlatpaksSizeTask(Task):
-    """Task to determine space needed for Flatpaks"""
-
-    def __init__(self, flatpak_manager: FlatpakManager):
-        """Create a new task."""
-        super().__init__()
-        self._flatpak_manager = flatpak_manager
-
-    @property
-    def name(self):
-        """Name of the task."""
-        return "Calculate needed space for Flatpaks"
-
-    def run(self):
-        self._flatpak_manager.calculate_size()
-
-
 class PrepareDownloadLocationTask(Task):
     """The installation task for setting up the download location."""
 
