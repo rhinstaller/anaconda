@@ -414,7 +414,7 @@ def _dump_certificate(cert, root="/", dump_dir=None):
     dst = os.path.join(dst_dir, cert.filename)
 
     if os.path.exists(dst):
-        log.warning("Certificate file %s already exists, replacing.", dst)
+        log.info("Certificate file %s already exists, replacing.", dst)
 
     with open(dst, 'w') as f:
         f.write(cert.cert)
@@ -423,6 +423,10 @@ def _dump_certificate(cert, root="/", dump_dir=None):
 
 def process_certificates(handler):
     """Import certificates defined in %certificate sections."""
+    # NOTE: parse-kickstart can be run multiple times so either the processing
+    # needs to be idempotent (like dumping the files), or guarded to happen
+    # only once, or the certificates dumped during parsing should be imported
+    # once in a initqueue hook.
     for cert in handler.certificates:
         log.info("Processing kickstart certificate %s", cert.filename)
 

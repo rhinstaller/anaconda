@@ -63,7 +63,7 @@ class ImportCertificatesTask(Task):
         dst = join_paths(dst_dir, cert.filename)
 
         if os.path.exists(dst):
-            log.warning("Certificate file %s already exists, replacing.", dst)
+            log.info("Certificate file %s already exists, replacing.", dst)
 
         with open(dst, 'w') as f:
             f.write(cert.cert)
