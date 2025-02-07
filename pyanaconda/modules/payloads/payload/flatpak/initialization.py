@@ -1,7 +1,5 @@
 #
-# DBus interface for Flatpak payload.
-#
-# Copyright (C) 2024 Red Hat, Inc.
+# Copyright (C) 2025 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,21 +15,23 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.interface import dbus_interface
-from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_FLATPAK
-from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import FlatpakManager
 
 
-@dbus_interface(PAYLOAD_FLATPAK.interface_name)
-class FlatpakInterface(PayloadBaseInterface):
-    """DBus interface for Flatpak payload module."""
+class CalculateFlatpaksSizeTask(Task):
+    """Task to determine space needed for Flatpaks"""
 
+    def __init__(self, flatpak_manager: FlatpakManager):
+        """Create a new task."""
+        super().__init__()
+        self._flatpak_manager = flatpak_manager
 
-    def CalculateSizeWithTask(self) -> ObjPath:
-        """Calculate required size based on the software selection with task."""
-        return TaskContainer.to_object_path(
-            self.implementation.calculate_size_with_task()
-        )
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Calculate needed space for Flatpaks"
+
+    def run(self):
+        self._flatpak_manager.calculate_size()
