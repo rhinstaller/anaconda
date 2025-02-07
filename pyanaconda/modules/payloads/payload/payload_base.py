@@ -70,6 +70,8 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         The side payload is a payload attached to this payload. It can be configured by this
         payload.
 
+        This side payload calls will be automatically queued for some DBus API in Payloads module.
+
         :return: PayloadBase based class or None
         :rtype: PayloadBase based class or None
         """
