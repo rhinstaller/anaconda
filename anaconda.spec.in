@@ -416,6 +416,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 07 2025 Radek Vykydal <rvykydal@redhat.com> - 34.25.5.15-1
+- security: add a development note for certificates import in initramfs
+  (rvykydal)
+  Related: RHEL-77155
+- security: do not issue warning on existing certificate file during dump
+  (rvykydal)
+  Resolves: RHEL-77155
+- network: pass NM global dns configuration to the installed system (rvykydal)
+  Resolves: RHEL-71824
+- network: pass global dns initrd option to the installed system (rvykydal)
+  Resolves: RHEL-71824
+
 * Mon Feb 03 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.5.14-1
 - rpmostree: Use `--merge` for kargs (walters)
   Resolves: RHEL-76923
