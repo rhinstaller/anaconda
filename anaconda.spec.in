@@ -481,6 +481,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 07 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.23-1
+- security: add a development note for certificates import in initramfs
+  (rvykydal)
+  Related: RHEL-77156
+- security: do not issue warning on existing certificate file during dump
+  (rvykydal)
+  Resolves: RHEL-77156
+- Add systemd override to make /usr RW in Dracut (mkolman)
+  Resolves: RHEL-77192
+- network: pass NM global dns configuration to the installed system (rvykydal)
+  Resolves: RHEL-71415
+- network: pass global dns initrd option to the installed system (rvykydal)
+  Resolves: RHEL-71415
+
 * Mon Feb 03 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.22-1
 - Fix RDP question will switch to GUI instead of TUI (jkonecny)
   Resolves: RHEL-77162
