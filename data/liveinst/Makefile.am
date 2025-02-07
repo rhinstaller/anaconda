@@ -21,7 +21,11 @@ dist_bin_SCRIPTS  = liveinst
 desktopdir         = $(datadir)/applications
 dist_desktop_DATA  = liveinst.desktop
 
-dist_libexec_SCRIPTS = liveinst-setup.sh
+dist_libexec_SCRIPTS = liveinst-setup.sh \
+                       locale1-x11-sync
+
+systemddir = $(prefix)/lib/systemd/user
+dist_systemd_DATA = locale1-x11-sync.service
 
 autostartdir       = $(sysconfdir)/xdg/autostart
 dist_autostart_DATA = liveinst-setup.desktop
