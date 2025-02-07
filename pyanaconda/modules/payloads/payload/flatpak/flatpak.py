@@ -26,8 +26,8 @@ from pyanaconda.modules.payloads.base.utils import calculate_required_space
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_interface import FlatpakInterface
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import FlatpakManager
+from pyanaconda.modules.payloads.payload.flatpak.initialization import CalculateFlatpaksSizeTask
 from pyanaconda.modules.payloads.payload.flatpak.installation import (
-    CalculateFlatpaksSizeTask,
     CleanUpDownloadLocationTask,
     DownloadFlatpaksTask,
     InstallFlatpaksTask,
@@ -109,7 +109,6 @@ class FlatpakModule(PayloadBase):
         :return: required size in bytes
         :rtype: int
         """
-        self._flatpak_manager.calculate_size()
         download_size = self._flatpak_manager.download_size
         install_size = self._flatpak_manager.install_size
         size = calculate_required_space(download_size, install_size)
@@ -117,13 +116,14 @@ class FlatpakModule(PayloadBase):
                   download_size, install_size, size)
         return size
 
+    def calculate_size_with_task(self):
+        """Refresh size requirement with task."""
+        return CalculateFlatpaksSizeTask(flatpak_manager=self._flatpak_manager)
+
     def install_with_tasks(self):
         """Install the payload with tasks."""
 
         tasks = [
-            CalculateFlatpaksSizeTask(
-                flatpak_manager=self._flatpak_manager,
-            ),
             PrepareDownloadLocationTask(
                 flatpak_manager=self._flatpak_manager,
             ),
