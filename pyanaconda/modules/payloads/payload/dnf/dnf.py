@@ -368,6 +368,12 @@ class DNFModule(PayloadBase):
         """
         return VerifyRepomdHashesTask(self.dnf_manager)
 
+    def _refresh_side_payload_selection(self):
+        """Set new resolved software selection to side payload."""
+        if self.side_payload and self.side_payload.type == PayloadType.FLATPAK:
+            self.side_payload.set_sources(self.sources)
+            self.side_payload.set_flatpak_refs(self.get_flatpak_refs())
+
     def validate_packages_selection_with_task(self, data):
         """Validate the specified packages selection.
 
@@ -377,10 +383,12 @@ class DNFModule(PayloadBase):
         :param PackagesSelectionData data: a packages selection
         :return: a task
         """
-        return CheckPackagesSelectionTask(
+        task = CheckPackagesSelectionTask(
             dnf_manager=self.dnf_manager,
             selection=data,
         )
+        task.succeeded_signal.connect(self._refresh_side_payload_selection)
+        return task
 
     def calculate_required_space(self):
         """Calculate space required for the installation.
