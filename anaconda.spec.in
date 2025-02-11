@@ -490,6 +490,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 11 2025 github-actions <github-actions@github.com> - 42.27-1
+- doc: fix a typo build-iso GH workflow doc (rvykydal)
+
 * Thu Feb 06 2025 Radek Vykydal <rvykydal@redhat.com> - 42.26-1
 - Add systemd override to make /usr RW in Dracut (mkolman)
 - Update the boot options passed to initrd for dns confgiuration (rvykydal)
