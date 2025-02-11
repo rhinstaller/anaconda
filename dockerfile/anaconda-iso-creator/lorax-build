@@ -41,8 +41,8 @@ createrepo_c $REPO_DIR
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
-      --volid Fedora-S-dvd-x86_64-rawh \
-      -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
+      --volid Fedora-S-dvd-x86_64-f42 \
+      -s http://dl.fedoraproject.org/pub/fedora/linux/development/42/Everything/x86_64/os/ \
       -s file://$REPO_DIR/ \
       "$@" \
       output || cp *.log "$OUT_DIR"

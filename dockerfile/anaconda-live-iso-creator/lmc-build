@@ -67,8 +67,8 @@ popd
 mkdir /var/tmp/lmc-build
 pushd /var/tmp/lmc-build
 git clone --depth 1 https://github.com/cockpit-project/bots.git
-./bots/image-download fedora-rawhide-boot
-cp -L ./bots/images/fedora-rawhide-boot /lorax/fedora-boot.iso
+./bots/image-download fedora-42-boot
+cp -L ./bots/images/fedora-42-boot /lorax/fedora-boot.iso
 rm -rf ./bots
 popd
 
@@ -111,7 +111,7 @@ livemedia-creator \
     --iso-name="Fedora-Workstation.iso" \
     --macboot \
     --project=Fedora-Workstation-Live \
-    --releasever=rawhide \
+    --releasever=42 \
     --vcpus=$proposed_cpu \
     --ram=$proposed_mem \
     --iso=/lorax/fedora-boot.iso \
