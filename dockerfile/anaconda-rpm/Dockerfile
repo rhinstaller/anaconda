@@ -25,6 +25,10 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "/root/"]
 
+# Replace standalone systemd package with systemd as these are conflicting
+RUN set -ex; \
+    dnf swap -y systemd-standalone-sysusers systemd
+
 # Prepare environment and install build dependencies
 RUN set -ex; \
   # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
