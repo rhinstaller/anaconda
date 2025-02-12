@@ -3,6 +3,7 @@ ConditionKernelCommandLine=|ip
 ConditionKernelCommandLine=|inst.ks
 ConditionOSRelease=|ID=rhel
 ConditionOSRelease=|ID=centos
+ConditionOSRelease=|ID_LIKE$=*rhel*
 Description=NetworkManager autoconnections configuration for Anaconda installation environment for RHEL
 Before=NetworkManager.service
 
