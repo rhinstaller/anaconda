@@ -481,6 +481,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 13 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.24-1
+- dracut: depend on net-lib not ifcfg (awilliam)
+  Resolves: RHEL-78746
+- Revert "Remove 'linear' from list of expected MD RAID levels" (vtrefny)
+  Related: RHEL-76805
+
 * Fri Feb 07 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.23-1
 - security: add a development note for certificates import in initramfs
   (rvykydal)
