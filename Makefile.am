@@ -34,7 +34,7 @@ MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
-CLEANFILES = *~ 
+CLEANFILES = *~
 CLEANFILES += $(RPM_BUILD_DIR)/*.rpm
 CLEANFILES += $(SRPM_BUILD_DIR)/*.rpm
 CLEANFILES += *.tar.bz2
@@ -177,7 +177,7 @@ anaconda-ci-build:
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull-always \
+	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -192,7 +192,7 @@ anaconda-rpm-build:
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull-always \
+	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -214,7 +214,7 @@ anaconda-iso-creator-build:
 
 	sudo $(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull-always \
+	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(ISO_CREATOR_NAME):$(CI_TAG) \
@@ -227,7 +227,7 @@ anaconda-live-iso-creator-build:
 
 	sudo $(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull-always \
+	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
