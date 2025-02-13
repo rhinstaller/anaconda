@@ -29,7 +29,7 @@ on:
       - 'main'
 jobs:
   trigger:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     # the default workflow token cannot read our org membership, for deciding who is allowed to trigger tests
     environment: gh-cockpituous
     container: registry.fedoraproject.org/fedora:40
