@@ -1,4 +1,4 @@
-{% if distro_release == "rawhide" %}
+{% if distro_name == "fedora" %}
 # This workflow checks if the PR affects Anaconda (changes to pyanaconda folder),
 # polls the packit COPR until it has the current PR version
 # available, and then test-triggers an "anaconda PR" scenario.
@@ -64,5 +64,6 @@ jobs:
           git clone --depth=1 https://github.com/cockpit-project/bots
           mkdir -p ~/.config/cockpit-dev
           echo '${{ secrets.GITHUB_TOKEN }}' > ~/.config/cockpit-dev/github-token
-          bots/tests-trigger --force --repo ${{ github.repository }} ${{ github.event.number }} fedora-rawhide-boot/anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
+          TEST_OS="{$ distro_name $}-{$ distro_release $}-boot"
+          bots/tests-trigger --force --repo ${{ github.repository }} ${{ github.event.number }} $TEST_OS/anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
 {% endif %}
