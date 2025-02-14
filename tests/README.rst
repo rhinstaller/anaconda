@@ -289,7 +289,7 @@ The launcher scripts are listed under `TESTS` in `tests/Makefile.am`.
 .. _pytest -k: https://docs.pytest.org/en/7.1.x/reference/reference.html#command-line-flags
 .. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
 .. _kickstart-tests.yml workflow: ../.github/workflows/kickstart-tests.yml
-.. _kickstart launch script: https://github.com/rhinstaller/kickstart-tests/blob/master/containers/runner/README.md
+.. _kickstart launch script: https://github.com/rhinstaller/kickstart-tests/blob/main/containers/runner/README.md
 .. _container-autoupdate.yml workflow: ../.github/workflows/container-autoupdate.yml
 .. _actions tab: https://github.com/rhinstaller/anaconda/actions?query=workflow%3A%22Refresh+container+images%22
 .. _unittests library: https://docs.python.org/3/library/unittest.html
