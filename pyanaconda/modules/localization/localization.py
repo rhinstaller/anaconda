@@ -201,12 +201,13 @@ class LocalizationService(KickstartService):
         :param lang: locale string (e.g., "cs_CZ.UTF-8")
         :return: list of dictionaries with keyboard layout information
         """
-        language_id = lang.split("_")[0].lower()
+        language_id = get_language_id(lang)
+
         english_name = get_english_name(language_id)
 
         layouts = []
         for name, info in self._layout_infos.items():
-            if english_name in info.langs:
+            if any(english_name in langs for langs in info.langs):
                 if name:
                     layout = KeyboardLayout()
                     layout.layout_id = name
