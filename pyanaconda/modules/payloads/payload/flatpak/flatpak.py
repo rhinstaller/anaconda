@@ -23,7 +23,7 @@ from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.payloads.base.utils import calculate_required_space
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_interface import FlatpakInterface
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import FlatpakManager
 from pyanaconda.modules.payloads.payload.flatpak.initialization import CalculateFlatpaksSizeTask
@@ -78,23 +78,24 @@ class FlatpakModule(PayloadBase):
     @property
     def supported_source_types(self):
         """List of supported source types."""
-        # Include all the types of SourceType.
+        # Flatpak doesn't own any source.
         # FIXME: Flatpak needs it's own source because this way it needs to understand
         # all existing and future ones
-        return list(SourceType)
+        return []
 
     def set_sources(self, sources):
-        """Set a new list of sources to this payload.
+        """Set a new list of sources to a flatpak manager.
 
         This overrides the base implementation since the sources we set here
         are the sources from the main payload, and can already be initialized.
 
+        TODO: This DBus API will not work until we have proper handling of the sources.
+              It will only work as redirect to flatpak_manager but no sources are stored here.
+
         :param sources: set a new sources
         :type sources: instance of pyanaconda.modules.payloads.source.source_base.PayloadSourceBase
         """
-        self._sources = sources
         self._flatpak_manager.set_sources(sources)
-        self.sources_changed.emit()
 
     def set_flatpak_refs(self, refs):
         """Set the flatpak refs.
