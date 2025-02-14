@@ -246,6 +246,40 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         assert normalized_layouts == expected_layouts
 
+        # Test also a locale whose name in iso639 has more than one word
+        # Examples of such locales are:
+        #
+        # >>> iso639.find(iso639_2="ell")
+        # {'iso639_2_b': 'gre', 'iso639_2_t': 'ell', 'iso639_1': 'el', 'name': 'Greek, Modern (1453-); Greek', 'native': 'ελληνικά'}
+        # >>> iso639.find(iso639_2="spa")
+        # {'iso639_2_b': 'spa', 'iso639_2_t': '', 'iso639_1': 'es', 'name': 'Spanish; Castilian', 'native': 'español'}
+        #
+        # Other languages have a single word name:
+        #
+        # >>> iso639.find(iso639_2="cze")
+        # {'iso639_2_b': 'cze', 'iso639_2_t': 'ces', 'iso639_1': 'cs', 'name': 'Czech', 'native': 'čeština; český jazyk'}
+
+        layouts = get_keyboard_layouts("el_GR.UTF-8")
+
+        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
+
+        layouts_expectation = [
+            ("gr", "Greek"),
+            ("gr (simple)", "Greek (simple)"),
+            ("gr (nodeadkeys)", "Greek (no dead keys)"),
+            ("gr (polytonic)", "Greek (polytonic)"),
+        ]
+
+        expected_layouts = []
+        for layout_id, description in layouts_expectation:
+            layout = KeyboardLayout()
+            layout.layout_id = layout_id
+            layout.description = description
+            layout.langs = ['Greek, Modern (1453-); Greek']
+            expected_layouts.append(layout)
+
+        assert normalized_layouts == expected_layouts
+
     def test_common_locales(self):
         common_locales = self.localization_interface.GetCommonLocales()
 
