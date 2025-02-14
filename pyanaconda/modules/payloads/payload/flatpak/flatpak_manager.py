@@ -29,7 +29,7 @@ from pyanaconda.core.glib import GError
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.task.progress import ProgressReporter
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
     FlatpakStaticSource,
@@ -79,6 +79,9 @@ class FlatpakManager:
             return
 
         source = sources[0]
+
+        if source.get_state != SourceState.READY:
+            return
 
         if isinstance(source, RepositorySourceMixin):
             if self._source and isinstance(self._source, FlatpakStaticSource) \
