@@ -58,6 +58,6 @@ def canonicalize_flatpak_ref(ref) -> Tuple[Optional[str], str]:
     if len(parts) != 4:
         raise RuntimeError("Can't parse reference")
     if parts[2] == "":
-        parts[2] = get_arch()
+        parts[2] = get_container_arch()
 
     return collection, "/".join(parts)
