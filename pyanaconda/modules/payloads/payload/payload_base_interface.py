@@ -78,6 +78,9 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
 
         :return: a string representation of a source type
         """
+        if self.implementation.default_source_type is None:
+            return ""
+
         return self.implementation.default_source_type.value
 
     @property
