@@ -27,53 +27,20 @@ from functools import cached_property
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
-from blivet.arch import get_arch
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import requests_session
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.payloads.base.utils import get_downloader_for_repo_configuration
+from pyanaconda.modules.payloads.payload.flatpak.utils import (
+    canonicalize_flatpak_ref,
+    get_container_arch,
+)
 
 log = get_module_logger(__name__)
 
 __all__ = ["FlatpakRegistrySource", "FlatpakSource", "FlatpakStaticSource", "NoSourceError"]
-
-
-_CONTAINER_ARCH_MAP = {
-    "x86_64": "amd64",
-    "aarch64": "arm64"
-}
-
-
-def _get_container_arch():
-    """Architecture name as used by docker/podman"""
-    arch = get_arch()
-    return _CONTAINER_ARCH_MAP.get(arch, arch)
-
-
-def _canonicalize_flatpak_ref(ref) -> Tuple[Optional[str], str]:
-    """Split off a collection ID, and add architecture if unspecified
-
-    Turn "org.fedoraproject.Stable:app/org.example.Foo//stable" into
-    ("org.fedoraproject.Stable", "app/org.example.Foo/amd64/stable")
-    """
-
-    collection_parts = ref.split(":", 1)
-    if len(collection_parts) == 2:
-        collection = collection_parts[0]
-        ref = collection_parts[1]
-    else:
-        collection = None
-
-    parts = ref.split("/")
-    if len(parts) != 4:
-        raise RuntimeError("Can't parse reference")
-    if parts[2] == "":
-        parts[2] = get_arch()
-
-    return collection, "/".join(parts)
 
 
 class NoSourceError(Exception):
@@ -144,7 +111,7 @@ class FlatpakSource(ABC):
         result = []
         for ref in refs:
             # We don't do anything with the collection ID for now
-            _, ref = _canonicalize_flatpak_ref(ref)
+            _, ref = canonicalize_flatpak_ref(ref)
             result.append(ref)
 
         for image in self._images:
@@ -408,7 +375,7 @@ class FlatpakRegistrySource(FlatpakSource):
 
     @cached_property
     def _images(self):
-        arch = _get_container_arch()
+        arch = get_container_arch()
 
         base_url = self._url.removeprefix("oci+")
         parsed = urlparse(base_url)
@@ -427,7 +394,7 @@ class FlatpakRegistrySource(FlatpakSource):
 
         result = []
 
-        arch = _get_container_arch()
+        arch = get_container_arch()
         for repository in index["Results"]:
             for image in repository["Images"]:
                 if image['Architecture'] != arch:
