@@ -422,6 +422,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 17 2025 Radek Vykydal <rvykydal@redhat.com> - 34.25.5.16-1
+- network: add dnsconfd to selected packages if used in installer (rvykydal)
+  Resolves: RHEL-79803
+- network: add dnsconfd to installer environment (rvykydal)
+  Resolves: RHEL-79804
+
 * Fri Feb 07 2025 Radek Vykydal <rvykydal@redhat.com> - 34.25.5.15-1
 - security: add a development note for certificates import in initramfs
   (rvykydal)
