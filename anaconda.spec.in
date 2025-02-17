@@ -487,6 +487,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 17 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.25-1
+- network: add dnsconfd to installer environment (rvykydal)
+  Resolves: RHEL-79800
+- network: add dnsconfd to selected packages if used in installer (rvykydal)
+  Resolves: RHEL-79802
+
 * Thu Feb 13 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.24-1
 - dracut: depend on net-lib not ifcfg (awilliam)
   Resolves: RHEL-78746
