@@ -490,6 +490,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 17 2025 github-actions <github-actions@github.com> - 42.29-1
+- localization: fix parsing of locales whose name are multiple words
+  (k.koukiou)
+- Fix more master -> main renaming (jkonecny)
+- Update GH ubuntu runners to 24.04 (jkonecny)
+
 * Thu Feb 13 2025 github-actions <github-actions@github.com> - 42.28-1
 - Creating a dbus interface to get local keyboard layouts (adamkankovsky)
 - Add test for GetLocaleKeyboardLayouts (adamkankovsky)
