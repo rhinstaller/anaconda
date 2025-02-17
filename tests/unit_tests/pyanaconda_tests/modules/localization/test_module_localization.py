@@ -227,13 +227,13 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         layouts_expectation = [
             ("cz", "Czech"),
             ("cz (bksl)", "Czech (extra backslash)"),
+            ("cz (dvorak-ucw)", "Czech (US, Dvorak, UCW support)"),
             ("cz (qwerty)", "Czech (QWERTY)"),
+            ("cz (qwerty-mac)", "Czech (QWERTY, Macintosh)"),
             ("cz (qwerty_bksl)", "Czech (QWERTY, extra backslash)"),
+            ("cz (ucw)", "Czech (UCW, only accented letters)"),
             ("cz (winkeys)", "Czech (QWERTZ, Windows)"),
             ("cz (winkeys-qwerty)", "Czech (QWERTY, Windows)"),
-            ("cz (qwerty-mac)", "Czech (QWERTY, Macintosh)"),
-            ("cz (ucw)", "Czech (UCW, only accented letters)"),
-            ("cz (dvorak-ucw)", "Czech (US, Dvorak, UCW support)"),
         ]
 
         expected_layouts = []
@@ -265,9 +265,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         layouts_expectation = [
             ("gr", "Greek"),
-            ("gr (simple)", "Greek (simple)"),
             ("gr (nodeadkeys)", "Greek (no dead keys)"),
             ("gr (polytonic)", "Greek (polytonic)"),
+            ("gr (simple)", "Greek (simple)"),
         ]
 
         expected_layouts = []
@@ -279,6 +279,15 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
             expected_layouts.append(layout)
 
         assert normalized_layouts == expected_layouts
+
+        # Test that for english the common layouts are correctly sorted
+        layouts = get_keyboard_layouts("en_US.UTF-8")
+
+        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
+
+        assert normalized_layouts[0].layout_id == "us"
+        assert normalized_layouts[1].layout_id == "gb"
+        assert normalized_layouts[2].layout_id == "au"
 
     def test_common_locales(self):
         common_locales = self.localization_interface.GetCommonLocales()

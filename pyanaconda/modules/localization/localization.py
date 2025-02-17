@@ -31,6 +31,7 @@ from pyanaconda.localization import (
     get_english_name,
     get_language_id,
     get_language_locales,
+    get_locale_keyboards,
     get_native_name,
 )
 from pyanaconda.modules.common.base import KickstartService
@@ -205,8 +206,18 @@ class LocalizationService(KickstartService):
 
         english_name = get_english_name(language_id)
 
+        # rxkb_context.layouts lists all XKB layouts, including variants and less common options,
+        # while langtable.list_keyboards filters for the most relevant layouts per language.
+        keyboards = self._layout_infos.items()
+        langtable_keyboards = get_locale_keyboards(language_id)
+
+        # Sort the available keyboards by name alphabetically and but put the most common ones
+        # (langtable) on top
+        keyboards = sorted(keyboards, key=lambda x: x[0])
+        keyboards = sorted(keyboards, key=lambda x: langtable_keyboards.index(x[0]) if x[0] in langtable_keyboards else 999)
+
         layouts = []
-        for name, info in self._layout_infos.items():
+        for name, info in keyboards:
             if any(english_name in langs for langs in info.langs):
                 if name:
                     layout = KeyboardLayout()
