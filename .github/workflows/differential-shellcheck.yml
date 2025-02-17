@@ -11,7 +11,7 @@ jobs:
   lint:
     if: github.event.repository == 'rhinstaller/anaconda'
     runs-on: ubuntu-latest
-    
+
     permissions:
       security-events: write
       pull-requests: write
