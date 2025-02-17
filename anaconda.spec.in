@@ -490,6 +490,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 17 2025 github-actions <github-actions@github.com> - 42.30-1
+- pyanaconda: localization: sort keyboard list in a sane manner (k.koukiou)
+
 * Mon Feb 17 2025 github-actions <github-actions@github.com> - 42.29-1
 - localization: fix parsing of locales whose name are multiple words
   (k.koukiou)
