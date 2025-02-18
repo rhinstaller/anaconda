@@ -214,7 +214,10 @@ class LocalizationService(KickstartService):
         # Sort the available keyboards by name alphabetically and but put the most common ones
         # (langtable) on top
         keyboards = sorted(keyboards, key=lambda x: x[0])
-        keyboards = sorted(keyboards, key=lambda x: langtable_keyboards.index(x[0]) if x[0] in langtable_keyboards else 999)
+        keyboards = sorted(
+            keyboards,
+            key=lambda x: langtable_keyboards.index(x[0].replace(" ", "")) if x[0].replace(" ", "") in langtable_keyboards else 999
+        )
 
         layouts = []
         for name, info in keyboards:
