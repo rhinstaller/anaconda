@@ -24,16 +24,20 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.localization import (
+    _build_layout_infos,
+    _get_layout_variant_description,
     get_available_translations,
     get_common_languages,
     get_english_name,
     get_language_id,
     get_language_locales,
+    get_locale_keyboards,
     get_native_name,
 )
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.keyboard_layout import KeyboardLayout
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.localization.installation import (
     KeyboardInstallationTask,
@@ -49,7 +53,6 @@ from pyanaconda.modules.localization.runtime import (
 )
 
 log = get_module_logger(__name__)
-
 
 class LocalizationService(KickstartService):
     """The Localization service."""
@@ -79,6 +82,8 @@ class LocalizationService(KickstartService):
 
         self.compositor_selected_layout_changed = Signal()
         self.compositor_layouts_changed = Signal()
+
+        self._layout_infos = _build_layout_infos()
 
         self._localed_wrapper = None
         self._localed_compositor_wrapper = None
@@ -177,6 +182,54 @@ class LocalizationService(KickstartService):
         tdata.native_name = get_native_name(locale_id)
 
         return tdata
+
+    def get_layout_variant_description(self, layout_variant, with_lang=True, xlated=True):
+        """
+        Return a description of the given layout-variant.
+
+        :param layout_variant: Layout-variant identifier (e.g., 'cz (qwerty)')
+        :param with_lang: Include the language in the description if available
+        :param xlated: Return a translated version of the description if True
+        :return: Formatted layout description
+        """
+
+        return _get_layout_variant_description(layout_variant, self._layout_infos, with_lang, xlated)
+
+
+    def get_locale_keyboard_layouts(self, lang):
+        """Get localized keyboard layouts for a given locale.
+
+        :param lang: locale string (e.g., "cs_CZ.UTF-8")
+        :return: list of dictionaries with keyboard layout information
+        """
+        language_id = get_language_id(lang)
+
+        english_name = get_english_name(language_id)
+
+        # rxkb_context.layouts lists all XKB layouts, including variants and less common options,
+        # while langtable.list_keyboards filters for the most relevant layouts per language.
+        keyboards = self._layout_infos.items()
+        langtable_keyboards = get_locale_keyboards(language_id)
+
+        # Sort the available keyboards by name alphabetically and but put the most common ones
+        # (langtable) on top
+        keyboards = sorted(keyboards, key=lambda x: x[0])
+        keyboards = sorted(
+            keyboards,
+            key=lambda x: langtable_keyboards.index(x[0].replace(" ", "")) if x[0].replace(" ", "") in langtable_keyboards else 999
+        )
+
+        layouts = []
+        for name, info in keyboards:
+            if any(english_name in langs for langs in info.langs):
+                if name:
+                    layout = KeyboardLayout()
+                    layout.layout_id = name
+                    layout.description = self.get_layout_variant_description(name, with_lang=True, xlated=True)
+                    layout.langs = info.langs
+                    layouts.append(layout)
+
+        return layouts
 
     @property
     def language(self):
