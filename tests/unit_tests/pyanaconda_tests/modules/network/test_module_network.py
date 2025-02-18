@@ -1624,6 +1624,30 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("71-net-ifnames-prefix-XYZ", "installer environment content"),)
         )
 
+    @patch("pyanaconda.modules.network.installation.service")
+    def test_network_installation_task_dnsconfd_enablement(self, mocked_service):
+        """Test the task for network installation dnsconfd enablement."""
+
+        self._create_all_expected_dirs()
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=False,
+            overwrite=True,
+            network_ifaces=["ens3", "ens7", "ens10"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            configure_persistent_device_names=False,
+        )
+        self._mock_task_paths(task)
+
+        kernel_args = KernelArguments.from_string("rd.net.dns-backend=dnsconfd")
+        with patch("pyanaconda.modules.network.installation.kernel_arguments", kernel_args):
+            mocked_service.is_service_installed.return_value = False
+            task.run()
+            mocked_service.enable_service.assert_not_called()
+            mocked_service.is_service_installed.return_value = True
+            task.run()
+            mocked_service.enable_service.assert_called_once()
+
     def test_network_installation_task_overwrite(self):
         """Test the task for network installation with overwrite."""
 
