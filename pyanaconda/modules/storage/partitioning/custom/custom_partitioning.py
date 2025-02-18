@@ -627,6 +627,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             request = storage.new_mdarray(**kwargs)
             storage.create_device(request)
 
+            # in case we had to truncate or otherwise adjust the specified name
+            data.onPart[devicename] = request.name
+
             if ty == "swap":
                 add_fstab_swap = request
 
