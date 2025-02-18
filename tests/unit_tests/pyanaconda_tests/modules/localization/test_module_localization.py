@@ -289,6 +289,18 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         assert normalized_layouts[1].layout_id == "gb"
         assert normalized_layouts[2].layout_id == "au"
 
+        # Test that for german the common layouts are correctly sorted
+        # German  has multiple 'priority' layouts suggested by the langtable
+        # The languages above have only one layout listed in langtable
+        layouts = get_keyboard_layouts("de_DE.UTF-8")
+
+        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
+
+        assert normalized_layouts[0].layout_id == "de (nodeadkeys)"
+        assert normalized_layouts[1].layout_id == "de (deadacute)"
+        assert normalized_layouts[2].layout_id == "at (nodeadkeys)"
+        assert normalized_layouts[3].layout_id == "ch"
+
     def test_common_locales(self):
         common_locales = self.localization_interface.GetCommonLocales()
 
