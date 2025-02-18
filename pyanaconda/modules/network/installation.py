@@ -19,6 +19,8 @@ import os
 import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import service
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.errors.installation import NetworkInstallationError
 from pyanaconda.modules.common.task import Task
@@ -123,6 +125,7 @@ MACAddress={}
 [Link]
 Name={}
 """.strip()
+    DNSCONFD_SERVICE = "dnsconfd"
 
     def __init__(self, sysroot, disable_ipv6, overwrite,
                  network_ifaces, ifname_option_values,
@@ -166,6 +169,7 @@ Name={}
         if self._configure_persistent_device_names:
             self._copy_prefixdevname_files(self._sysroot)
         self._copy_global_dns_config(self._sysroot)
+        self._enable_dnsconfd(self._sysroot)
 
     def _write_sysconfig_network(self, root, overwrite):
         """Write empty /etc/sysconfig/network target system configuration file.
@@ -303,6 +307,13 @@ Name={}
         if os.path.isfile(src):
             shutil.copy(src, dst)
 
+    def _enable_dnsconfd(self, root):
+        """Enable dnsconfd service if dnsconfd backend is used."""
+        if kernel_arguments.get("rd.net.dns-backend") == "dnsconfd":
+            if not service.is_service_installed(self.DNSCONFD_SERVICE, root=root):
+                log.debug("The dnsconfd service is not installed.")
+                return
+            service.enable_service(self.DNSCONFD_SERVICE, root=root)
 
 class ConfigureActivationOnBootTask(Task):
     """Task for configuration of automatic activation of devices on boot"""
