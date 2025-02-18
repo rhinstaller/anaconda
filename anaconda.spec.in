@@ -490,6 +490,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 18 2025 Katerina Koukiou <k.koukiou@gmail.com> - 42.27.1-1
+- localization: discard space when sorting keyboards according to langtable
+  entries (k.koukiou)
+- pyanaconda: localization: sort keyboard list in a sane manner (k.koukiou)
+- dracut: depend on net-lib not ifcfg (awilliam)
+- localization: fix parsing of locales whose name are multiple words
+  (k.koukiou)
+- Add test for GetLocaleKeyboardLayouts (adamkankovsky)
+- Creating a dbus interface to get local keyboard layouts (adamkankovsky)
+- Set up the fedora-42 branch (rvykydal)
+
 * Tue Feb 11 2025 github-actions <github-actions@github.com> - 42.27-1
 - doc: fix a typo build-iso GH workflow doc (rvykydal)
 
