@@ -31,6 +31,13 @@ __all__ = ["DeviceTreeHandlerInterface"]
 class DeviceTreeHandlerInterface(InterfaceTemplate):
     """DBus interface for the device tree handler."""
 
+    def ActivateDevice(self, device_id: Str):
+        """Activate a device.
+
+        :param device_id: ID of the device
+        """
+        self.implementation.activate_device(device_id)
+
     def MountDevice(self, device_id: Str, mount_point: Str, options: Str):
         """Mount a filesystem on the device.
 
