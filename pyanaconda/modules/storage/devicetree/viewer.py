@@ -139,6 +139,7 @@ class DeviceTreeViewer(ABC):
         data.is_disk = device.is_disk
         data.protected = device.protected
         data.removable = device.removable
+        data.status = device.status
 
         # FIXME: We should generate the description from the device data.
         data.description = getattr(device, "description", "")

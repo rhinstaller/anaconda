@@ -32,6 +32,7 @@ from pyanaconda.modules.storage.devicetree.rescue import (
     MountExistingSystemTask,
 )
 from pyanaconda.modules.storage.devicetree.utils import (
+    activate_device,
     find_mountable_partitions,
     find_optical_media,
     find_unconfigured_luks,
@@ -64,6 +65,14 @@ class DeviceTreeHandler(ABC):
         :raise: UnknownDeviceError if no device is found
         """
         raise UnknownDeviceError(name)
+
+    def activate_device(self, device_id):
+        """Activate a device.
+
+        :param device_id: ID of the device
+        """
+        device = self._get_device(device_id)
+        return activate_device(self.storage, device)
 
     def mount_device(self, device_id, mount_point, options):
         """Mount a filesystem on the device.

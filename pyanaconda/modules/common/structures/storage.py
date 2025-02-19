@@ -39,6 +39,7 @@ class DeviceData(DBusData):
         self._removable = False
         self._attrs = {}
         self._description = ""
+        self._status = False
 
     @property
     def type(self) -> Str:
@@ -234,6 +235,17 @@ class DeviceData(DBusData):
     def description(self, text):
         self._description = text
 
+    @property
+    def status(self) -> Bool:
+        """Status of the device.
+
+        :return: boolean value, true if the device is active
+        """
+        return self._status
+
+    @status.setter
+    def status(self, value: Bool):
+        self._status = value
 
 class DeviceFormatData(DBusData):
     """Device format data."""

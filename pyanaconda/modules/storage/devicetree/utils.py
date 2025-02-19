@@ -263,6 +263,28 @@ def unlock_device(storage, device, passphrase):
         return True
 
 
+def activate_device(storage, device):
+    """Activate a device and populate the device tree.
+
+    :param storage: an instance of the storage
+    :param device: a device to unlock
+    :return: True if success, otherwise False
+    """
+    try :
+        # Activate the device.
+        device.setup()
+    except StorageError as err:
+        log.error("Failed to activate %s: %s", device.name, err)
+        return False
+    else:
+        # Update the device tree with the children of the device if any??
+        # TODO
+        storage.devicetree.populate()
+        storage.devicetree.teardown_all()
+
+        return True
+
+
 def find_unconfigured_luks(storage):
     """Find all unconfigured LUKS devices.
 
