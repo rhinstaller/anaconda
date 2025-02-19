@@ -298,7 +298,6 @@ dev_is_on_disk_with_iso9660() {
 set_neednet() {
     # if there's no netroot, make sure /tmp/net.ifaces exists
     [ -z "$netroot" ] && true >> /tmp/net.ifaces
-    systemctl start --no-block network-online.target
 }
 
 parse_kickstart() {

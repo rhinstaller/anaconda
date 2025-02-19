@@ -35,6 +35,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       anaconda-copy-cmdline.sh \
                       anaconda-copy-dhclient.sh \
                       anaconda-copy-prefixdevname.sh \
+                      anaconda-start-network-online-target.sh \
                       anaconda-ifcfg.sh \
                       anaconda-set-kernel-hung-timeout.sh \
                       anaconda-error-reporting.sh \
