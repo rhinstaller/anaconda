@@ -193,6 +193,7 @@ for live installations.
 Summary: Installation environment specific dependencies
 Requires: udisks2-iscsi
 Requires: libblockdev-plugins-all >= %{libblockdevver}
+Requires: libblockdev-tools
 %if ! 0%{?rhel}
 Requires: libblockdev-lvm-dbus
 %endif
