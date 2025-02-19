@@ -336,9 +336,13 @@ container-rpm-test:
 	$(RPM_NAME):$(CI_TAG) \
 	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
-	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm; \
+	    dnf install -v -y /tmp/anaconda/result/build/01-rpm-build/*.rpm; \
 	    cd /tmp/anaconda; \
-	    rpmlint *.spec.in result/build/01-rpm-build/*.rpm --config rpmlint.toml'
+	    rpmlint *.spec.in result/build/01-rpm-build/*.rpm --config rpmlint.toml; \
+		echo "AAA: MAKEFILE RPM TEST RUN - DONE"; \
+		echo "AAA: MAKEFILE RPM TEST RUN - STTY OUTPUT"; \
+	    stty -a; \
+		echo "AAA: MAKEFILE RPM TEST RUN - STTY OUTPUT DONE";'
 
 container-rpms:
 	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
