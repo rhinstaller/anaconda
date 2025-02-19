@@ -21,4 +21,5 @@ Contents:
    release
    list-harddrives
    developer
+   modules
    ci-status
