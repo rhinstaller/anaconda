@@ -301,6 +301,7 @@ parse_kickstart() {
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
+    start_dnsconfd "The certificates may have been imported."
 }
 
 # print a list of net devices that dracut says are set up.
@@ -379,6 +380,10 @@ run_kickstart() {
         udevadm trigger --action=change --subsystem-match=block
     fi
 
+    if [ "$do_net" ]; then
+        start_dnsconfd "The network may have become required"
+    fi
+
     # net: re-run online hooks
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
@@ -446,4 +451,43 @@ wait_for_disks() {
     DISKS_WAIT_DELAY=$(getargnum 5 0 10000 inst.wait_for_disks)
     DISKS_WAIT_RETRIES=$((DISKS_WAIT_DELAY * 2))
     echo "[ \"\$main_loop\" -ge \"$DISKS_WAIT_RETRIES\" ]" > "$finished_hook"
+}
+
+# This script should start dnsconfd if all required conditions to run it are met
+start_dnsconfd() {
+
+    local reason="$1"
+    local start="yes"
+
+    echo "Attempting to start dnsconfd. Reason: ${reason}"
+
+    # dnsconfd is explicitly required by kernel boot option
+    dns_backend=$(getarg rd.net.dns-backend=)
+    if [ "${dns_backend}" != "dnsconfd" ]; then
+        echo "Attempting to start dnsconfd. Not starting because not required by kernel boot option."
+        start="no"
+    fi
+
+    # Network is required in initramfs
+    getargbool 0 rd.neednet && neednet=1
+    if [ ! -e "/tmp/net.ifaces" ] && [ "${neednet}" != "1" ]; then
+        echo "Attempting to start dnsconfd. Not starting because network is not required (yet)."
+        start="no"
+    fi
+
+    # It is not possible certificates for dnsconfd will be imported after start by kickstart
+    kickstart="$(getarg inst.ks=)"
+    # If kickstart has not been parsed yet && is reqiured by boot options
+    if [ ! -e /run/install/ks.cfg ] && ([ -n "$kickstart" ] || getargbool 0 inst.ks); then
+        echo "Attempting to start dnsconfd. Not starting because certificates can be imported via kickstart later."
+        start="no"
+    fi
+
+    if [ "${start}" == "yes" ]; then
+        echo "Attempting to start dnsconfd. Starting."
+        systemctl start --no-block unbound.service
+        return 0
+    else
+        return 1
+    fi
 }
