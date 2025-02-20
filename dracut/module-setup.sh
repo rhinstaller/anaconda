@@ -38,6 +38,7 @@ install() {
     inst_hook cmdline 26 "$moddir/parse-anaconda-kickstart.sh"
     inst_hook cmdline 27 "$moddir/parse-anaconda-repo.sh"
     inst_hook cmdline 28 "$moddir/parse-anaconda-net.sh"
+    inst_hook cmdline 99 "$moddir/anaconda-start-dnsconfd.sh"
     inst_hook pre-udev 30 "$moddir/anaconda-modprobe.sh"
     inst_hook pre-trigger 50 "$moddir/repo-genrules.sh"
     inst_hook pre-trigger 50 "$moddir/kickstart-genrules.sh"
