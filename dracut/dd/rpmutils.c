@@ -78,23 +78,6 @@ int init_rpm() {
     return rpmReadConfigFiles(NULL, NULL);
 }
 
-
-/* read data from RPM header */
-
-static const char * headerGetString(Header h, rpmTagVal tag)
-{
-    const char *res = NULL;
-    struct rpmtd_s td;
-
-    if (headerGet(h, tag, &td, HEADERGET_MINMEM)) {
-        if (rpmtdCount(&td) == 1) {
-            res = rpmtdGetString(&td);
-        }
-        rpmtdFreeData(&td);
-    }
-    return res;
-}
-
 /*
  *
  */
