@@ -64,7 +64,6 @@ typedef int (*dependencyfunc)(const char* depname, const char* depversion, const
 */
 typedef int (*okfunc)(const char* filename, Header *rpmheader, int packageflags);
 
-const char * headerGetString(Header h, rpmTagVal tag);
 int init_rpm();
 int checkDDRPM(const char *source,
                 dependencyfunc provides,

@@ -58,7 +58,7 @@ struct _version_struct {
     char* anaconda;
 };
 
-int globErrFunc(const char *epath, int eerrno)
+static int globErrFunc(const char *epath, int eerrno)
 {
     /* TODO check fatal errors */
 
@@ -86,7 +86,7 @@ void show_help() {
  * we use it to check if kernel-modules = <kernel version>
  * and installer-enhancement = <anaconda version>
  */
-int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *userptr)
+static int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *userptr)
 {
     char *kernelver = ((struct _version_struct*)userptr)->kernel;
     char *anacondaver = ((struct _version_struct*)userptr)->anaconda;
@@ -132,7 +132,7 @@ int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *u
 /**
  * Print information about the rpm to stdout
  */
-int dlabelOK(const char* source, Header *h, int packageflags)
+static int dlabelOK(const char* source, Header *h, int packageflags)
 {
     struct rpmtd_s tdname;
     struct rpmtd_s tddesc;
