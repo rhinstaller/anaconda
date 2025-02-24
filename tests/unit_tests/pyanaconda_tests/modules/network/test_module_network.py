@@ -1184,6 +1184,9 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._nm_syscons_dir = NetworkInstallationTask.NM_SYSTEM_CONNECTIONS_DIR_PATH
         self._systemd_network_dir = NetworkInstallationTask.SYSTEMD_NETWORK_CONFIG_DIR
         self._dhclient_dir = os.path.dirname(NetworkInstallationTask.DHCLIENT_FILE_TEMPLATE)
+        self._nm_dns_runtime_dir = NetworkInstallationTask.NM_GLOBAL_DNS_RUNTIME_CONFIG_DIR
+        self._nm_dns_dir = NetworkInstallationTask.NM_GLOBAL_DNS_CONFIG_DIR
+        self._nm_dns_files = NetworkInstallationTask.NM_GLOBAL_DNS_CONFIG_FILES
 
     def _create_config_dirs(self, installer_dirs, target_system_dirs):
         for config_dir in installer_dirs:
@@ -1232,9 +1235,9 @@ class InstallationTaskTestCase(unittest.TestCase):
             type(task).NM_SYSTEM_CONNECTIONS_DIR_PATH
         task.DHCLIENT_FILE_TEMPLATE = self._mocked_root + type(task).DHCLIENT_FILE_TEMPLATE
         task.SYSTEMD_NETWORK_CONFIG_DIR = self._mocked_root + type(task).SYSTEMD_NETWORK_CONFIG_DIR
-        task.NM_GLOBAL_DNS_RUNTIME_CONFIG = self._mocked_root + \
-            type(task).NM_GLOBAL_DNS_RUNTIME_CONFIG
-        task.NM_GLOBAL_DNS_CONFIG = self._mocked_root + type(task).NM_GLOBAL_DNS_CONFIG
+        task.NM_GLOBAL_DNS_RUNTIME_CONFIG_DIR = self._mocked_root + \
+            type(task).NM_GLOBAL_DNS_RUNTIME_CONFIG_DIR
+        task.NM_GLOBAL_DNS_CONFIG_DIR = self._mocked_root + type(task).NM_GLOBAL_DNS_CONFIG_DIR
 
     def _create_all_expected_dirs(self):
         # Create directories that are expected to be existing in installer
@@ -1803,27 +1806,23 @@ class InstallationTaskTestCase(unittest.TestCase):
     def test_network_instalation_task_global_dns_config(self):
         """Test the task for network installation and global dns configuration."""
 
-        nm_runtime_config_dir, src_file = os.path.split(
-            NetworkInstallationTask.NM_GLOBAL_DNS_RUNTIME_CONFIG)
-        nm_config_dir, dst_file = os.path.split(
-            NetworkInstallationTask.NM_GLOBAL_DNS_CONFIG)
-
         self._create_all_expected_dirs()
 
         self._create_config_dirs(
             installer_dirs=[
-                nm_runtime_config_dir,
-                nm_config_dir,
+                self._nm_dns_runtime_dir,
+                self._nm_dns_dir,
             ],
             target_system_dirs=[
-                nm_config_dir,
+                self._nm_dns_dir,
             ]
         )
 
-        self._dump_config_files(
-            nm_runtime_config_dir,
-            ((src_file, "bla"),)
-        )
+        for file in self._nm_dns_files:
+            self._dump_config_files(
+                self._nm_dns_runtime_dir,
+                ((file, "bla"),)
+            )
 
         # Create the task
         task = NetworkInstallationTask(
@@ -1838,10 +1837,11 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._mock_task_paths(task)
         task.run()
 
-        self._check_config_file(
-            nm_config_dir,
-            dst_file,
-            """
-            bla
-            """
-        )
+        for file in self._nm_dns_files:
+            self._check_config_file(
+                self._nm_dns_dir,
+                file,
+                """
+                bla
+                """
+            )
