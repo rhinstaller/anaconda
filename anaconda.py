@@ -48,8 +48,8 @@ def exitHandler(rebootData):
     # pylint: disable=used-before-assignment
     if "inst.nokill" in kernel_arguments:
         util.vtActivate(1)
-        print("Anaconda halting due to inst.nokill flag.")
-        print("The system will be rebooted when you press Ctrl-Alt-Delete.")
+        log.info("Anaconda halting due to inst.nokill flag.")
+        log.info("The system will be rebooted when you press Ctrl-Alt-Delete.")
         while True:
             time.sleep(10000)
 
@@ -183,10 +183,10 @@ if __name__ == "__main__":
         parse_arguments()
 
     if os.geteuid() != 0:
-        print("anaconda must be run as root.")
+        log.info("anaconda must be run as root.")
         sys.exit(1)
 
-    print("Starting installer, one moment...")
+    log.info("Starting installer, one moment...")
 
     # Allow a file to be loaded as early as possible
     try:
@@ -329,7 +329,7 @@ if __name__ == "__main__":
                                      "a previous instance of anaconda has crashed.")
                                    % pidfile.filename])
         else:
-            print("%s already exists, exiting" % pidfile.filename)
+            log.info("%s already exists, exiting" % pidfile.filename)
 
         util.ipmi_report(constants.IPMI_FAILED)
         sys.exit(1)
