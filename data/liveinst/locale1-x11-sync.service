@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync localed configuration with running X11 system
+Documentation=https://github.com/rhinstaller/localed-x11-sync
+
+[Service]
+Type=exec
+ExecStart=/usr/libexec/locale1-x11-sync
+Restart=on-failure
+
+[Install]
+WantedBy=graphical.target
+
