@@ -80,7 +80,7 @@ void show_help() {
  * during cpio extraction, only extract files we need
  * eg. module .ko files and firmware directory
  */
-int dlabelFilter(const char* name, const struct stat *fstat, int packageflags, void *userptr)
+static int dlabelFilter(const char* name, const struct stat *fstat, int packageflags, void *userptr)
 {
     int l = strlen(name);
 
