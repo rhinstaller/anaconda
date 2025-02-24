@@ -1,6 +1,7 @@
 name: Differential ShellCheck
 on:
   push:
+    branches: [ main, rhel-*, fedora-* ]
   pull_request:
     branches: [ main, rhel-*, fedora-* ]
 
