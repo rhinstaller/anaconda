@@ -228,7 +228,6 @@ Recommends: kdump-anaconda-addon
 # basic filesystem tools
 %if ! 0%{?rhel}
 Requires: btrfs-progs
-Requires: ntfs-3g
 Requires: ntfsprogs
 Requires: f2fs-tools
 %endif
