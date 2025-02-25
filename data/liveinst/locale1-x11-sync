@@ -1,0 +1,147 @@
+#!/usr/bin/python3
+"""
+Sync X11 input configuration with org.freedesktop.locale1.
+
+Usage:
+    Configure keyboard mappings with `localectl set-x11-keymap`.
+    Enable service file for this script.
+
+See also:
+    https://www.freedesktop.org/software/systemd/man/org.freedesktop.locale1.html
+
+Dependencies: dbus-next, setxkbmap
+"""
+import argparse
+import asyncio
+import logging
+from typing import Any, Dict
+
+from dbus_next import BusType, DBusError, Variant
+from dbus_next.aio import MessageBus
+
+DEFAULT_DEVICE = 'type:keyboard'
+LOG = logging.getLogger("locale1-x11-sync")
+LOCALE1_BUS_NAME = "org.freedesktop.locale1"
+LOCALE1_OBJECT_PATH = "/org/freedesktop/locale1"
+LOCALE1_INTERFACE = "org.freedesktop.locale1"
+PROPERTIES_INTERFACE = "org.freedesktop.DBus.Properties"
+PROPERTIES = {
+    'X11Layout': 'layout',
+    'X11Model': 'model',
+    'X11Variant': 'variant',
+    'X11Options': 'options'
+}
+SETXKBMAP = "/usr/bin/setxkbmap"
+
+
+class Locale1Client:
+    """Handle org.freedesktop.locale1 updates and pass XKB configuration to Sway"""
+
+    layout: str = ''
+    model: str = ''
+    variant: str = ''
+    options: str = ''
+
+    def __init__(self,
+                 bus: MessageBus,
+                 device: str = DEFAULT_DEVICE):
+        self._bus = bus
+        self._proxy = None
+        self._device = device
+
+    async def connect(self):
+        """asynchronous initialization code"""
+        introspection = await self._bus.introspect(LOCALE1_BUS_NAME,
+                                                   LOCALE1_OBJECT_PATH)
+        self._proxy = self._bus.get_proxy_object(LOCALE1_BUS_NAME,
+                                                 LOCALE1_OBJECT_PATH,
+                                                 introspection)
+        self._proxy.get_interface(PROPERTIES_INTERFACE).on_properties_changed(
+            self.on_properties_changed)
+
+        locale1 = self._proxy.get_interface(LOCALE1_INTERFACE)
+        self.layout = await locale1.get_x11_layout()
+        self.model = await locale1.get_x11_model()
+        self.variant = await locale1.get_x11_variant()
+        self.options = await locale1.get_x11_options()
+
+        await self.update()
+
+    async def on_properties_changed(self,
+                                    interface: str,
+                                    changed: Dict[str, Any],
+                                    _invalidated=None):
+        """Handle updates from localed"""
+        if interface != LOCALE1_INTERFACE:
+            return
+
+        apply = False
+
+        for name, value in changed.items():
+            if name not in PROPERTIES:
+                continue
+            if isinstance(value, Variant):
+                value = value.value
+            self.__dict__[PROPERTIES[name]] = value
+            apply = True
+
+        if apply:
+            await self.update()
+
+    async def update(self):
+        """Pass the updated xkb configuration to Sway"""
+        LOG.info("xkb(%s): layout '%s' model '%s', variant '%s' options '%s'",
+                 self._device, self.layout, self.model, self.variant,
+                 self.options)
+
+        if not self.layout and not self.variant and not self.model:
+            return
+
+        proc = await asyncio.create_subprocess_exec(
+            SETXKBMAP,
+            self.layout, self.variant, self.options,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE)
+
+        stdout, stderr = await proc.communicate()
+
+        if stdout or stderr:
+            LOG.info("output of setxkbmap: stdout: '%s' stderr: '%s'", stdout, stderr)
+
+
+async def main(ns: argparse.Namespace):
+    """Async entrypoint"""
+    try:
+        bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
+        await Locale1Client(bus).connect()
+
+        if not ns.oneshot:
+            await bus.wait_for_disconnect()
+    except DBusError as exc:
+        LOG.error("DBus connection error: %s", exc)
+    except (ConnectionError, EOFError) as exc:
+        LOG.error("Sway IPC connection error: %s", exc)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Sync X11 desktop system input configuration with org.freedesktop.locale1"
+    )
+    parser.add_argument(
+        "-l",
+        "--loglevel",
+        choices=["critical", "error", "warning", "info", "debug"],
+        default="info",
+        dest="loglevel",
+        help="set logging level",
+    )
+    parser.add_argument("--oneshot",
+                        action='store_true',
+                        help="apply current settings and exit immediately")
+    args = parser.parse_args()
+    logging.basicConfig(level=args.loglevel.upper())
+
+    try:
+        asyncio.run(main(args))
+    except KeyboardInterrupt:
+        LOG.info("Quitting")
