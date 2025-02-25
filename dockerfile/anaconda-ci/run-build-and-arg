@@ -16,11 +16,18 @@ sed -i 's/ .. %{undefined centos}//' ./anaconda.spec.in
 
 # always copy the results back to the host
 copy_logs() {
+    echo "AAA: copy-logs running"
+
     mkdir -p /anaconda/test-logs/
     # clean up from previous run
     rm -rf /anaconda/test-logs/*
     # copy logs and coverage reports
     find \( -name '*.log' -o -name 'coverage*.xml' \) -exec cp '{}' /anaconda/test-logs/ \;
+    echo "AAA: copy DNF log"
+    echo "AAA: stty output"
+    stty -a
+    echo "AAA: stty output - done"
+    cp -r /var/log/* /anaconda/test-logs/
 }
 trap copy_logs EXIT INT QUIT PIPE
 
