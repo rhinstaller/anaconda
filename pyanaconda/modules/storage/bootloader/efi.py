@@ -24,7 +24,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import join_paths
-from pyanaconda.core.product import get_product_name
+from pyanaconda.core.product import get_product_short_name, get_product_version
 from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
@@ -52,7 +52,7 @@ class EFIBase:
 
     @property
     def _efi_config_dir(self):
-        return "efi/EFI/{}".format(conf.bootloader.efi_dir)
+        return "efi/EFI/{}{}".format(conf.bootloader.efi_dir, get_product_version())
 
     def get_fw_platform_size(self):
         try:
@@ -94,7 +94,7 @@ class EFIBase:
         create_method = "-C" if self.keep_boot_order else "-c" # pylint: disable=no-member
 
         rc = self.efibootmgr(
-            create_method, "-w", "-L", get_product_name().split("-")[0],  # pylint: disable=no-member
+            create_method, "-w", "-L", get_product_short_name() + get_product_version(),  # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
             root=conf.target.system_root
@@ -122,7 +122,7 @@ class EFIBase:
             except ValueError:
                 continue
 
-            if _product == get_product_name().split("-")[0]:           # pylint: disable=no-member
+            if _product == get_product_short_name() + get_product_version():           # pylint: disable=no-member
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
@@ -150,8 +150,9 @@ class EFIBase:
         return True
 
     def install(self, args=None):
-        if not self.keep_boot_order:  # pylint: disable=no-member
-            self.remove_efi_boot_target()
+        # if not self.keep_boot_order:  # pylint: disable=no-member
+        #     self.remove_efi_boot_target()
+
         self.add_efi_boot_target()
 
 
@@ -190,6 +191,9 @@ class EFIGRUB(EFIBase, GRUB2):
 
     def write_config(self):
         config_path = "%s%s" % (conf.target.system_root, self.efi_config_file)
+        dir_path = os.path.dirname(config_path)
+
+        os.makedirs(dir_path, exist_ok=True)
 
         with open(config_path, "w") as fd:
             grub_dir = self.config_dir
@@ -251,6 +255,9 @@ class EFISystemdBoot(EFIBase, SystemdBoot):
 
     def install(self, args=None):
         log.info("efi.py: (systemd) install")
+        config_path = "%s%s" % (conf.target.system_root, self.efi_config_dir)
+        log.info("Creating EFI directory if missing: %s", config_path)
+        os.makedirs(config_path, exist_ok=True)
         # force the resolution order, we don't want to:
         #   efibootmgr remove old "fedora"
         #   or use efiboot mgr to install a new one

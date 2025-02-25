@@ -20,7 +20,7 @@ from glob import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.product import get_product_name
+from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
@@ -108,7 +108,7 @@ def _get_rescue_kernel_versions(sysroot):
     :return: a list of rescue kernel versions
     """
     rescue_versions = glob(sysroot + "/boot/vmlinuz-*-rescue-*")
-    rescue_versions += glob(sysroot + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
+    rescue_versions += glob(sysroot + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir + get_product_version())
     return [f.split("/")[-1][8:] for f in rescue_versions]
 
 
@@ -157,8 +157,8 @@ def _write_sysconfig_kernel(sysroot, storage):
     kernel_basename = "vmlinuz-" + storage.bootloader.default.version
     kernel_file = "/boot/%s" % kernel_basename
     if not os.path.isfile(sysroot + kernel_file):
-        efi_dir = conf.bootloader.efi_dir
-        kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
+        efi_dir = conf.bootloader.efi_dir + get_product_version()
+        kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir + get_product_version(), kernel_basename)
         if not os.path.isfile(sysroot + kernel_file):
             log.error("failed to recreate path to default kernel image")
             return

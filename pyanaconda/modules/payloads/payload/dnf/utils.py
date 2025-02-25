@@ -163,7 +163,7 @@ def get_kernel_version_list():
     :return: a list of kernel versions
     """
     files = []
-    efi_dir = conf.bootloader.efi_dir
+    efi_dir = conf.bootloader.efi_dir + get_product_version()
 
     # Find all installed RPMs that provide 'kernel'.
     ts = rpm.TransactionSet(conf.target.system_root)
@@ -174,7 +174,7 @@ def get_kernel_version_list():
         files.extend((
             f.split("/")[-1][8:] for f in hdr.filenames
             if fnmatch.fnmatch(f, "/boot/vmlinuz-*") or
-            fnmatch.fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % efi_dir)
+            fnmatch.fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % efi_dir + get_product_version())
         ))
 
     # Sort the kernel versions.
