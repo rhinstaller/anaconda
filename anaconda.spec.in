@@ -490,6 +490,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 25 2025 github-actions <github-actions@github.com> - 43.2-1
+- dracut: use RPM library-provided headerGetString function (k.koukiou)
+- dracut: add static linkage to internal functions (k.koukiou)
+
 * Tue Feb 18 2025 Katerina Koukiou <k.koukiou@gmail.com> - 43.1-1
 
 * Tue Feb 18 2025 github-actions <github-actions@github.com> - 42.31-1
