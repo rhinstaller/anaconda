@@ -48,7 +48,39 @@ jobs:
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
-    dist_git_branches: main
+    dist_git_branches:
+      - main
+
+  - job: koji_build
+    trigger: commit
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dist_git_branches:
+      - main
+    allowed_committers:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+    allowed_pr_authors:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+
+  - job: bodhi_update
+    trigger: koji_build
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dependencies:
+      - anaconda-webui
+    dist_git_branches:
+      - main
+    allowed_builders:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
 
   - job: tests
     trigger: pull_request
