@@ -216,6 +216,7 @@ class FlatpakStaticSource(FlatpakSource):
         log.debug("Total: download %d, installed %d", download_size, installed_size)
         return download_size, installed_size
 
+    # TODO: To cover this code with unit tests we need to refactor the downloader out of the code
     def download(self, refs, download_location, progress=None):
         if self._is_local:
             return "oci:" + self._url.removeprefix("file://")
