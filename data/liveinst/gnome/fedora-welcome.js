@@ -29,6 +29,7 @@ import Gettext from 'gettext';
 import {programArgs, programInvocationName} from 'system';
 
 const LOCALE_DIR = '/usr/share/locale';
+const OS_RELEASE = '/etc/os-release';
 
 let anacondaApp = null;
 
@@ -46,7 +47,12 @@ class WelcomeWindow extends Adw.ApplicationWindow {
     }
 
     constructor(application) {
-        const title = _('Welcome to Fedora!');
+        const osRelease = Gio.File.new_for_path(OS_RELEASE);
+        const osReleaseContents = osRelease.load_contents(null)[1];
+        const osReleaseLines = osReleaseContents.toString().split('\n');
+        const osReleaseLineName = osReleaseLines.find(line => line.startsWith('NAME=')).split('=')[1].replace(/"/g, '');
+
+        const title = _('Welcome to %s').replace('%s', osReleaseLineName);
         super({
             application,
             title,
@@ -58,7 +64,7 @@ class WelcomeWindow extends Adw.ApplicationWindow {
         const statusPage = new Adw.StatusPage({
             title,
             iconName: 'fedora-logo-icon',
-            description: _('This live media can be used to install Fedora or as a temporary system. Installation can be started at any time using the install icon in Activities.'),
+            description: _('This live media can be used to install %s or as a temporary system. Installation can be started at any time using the install icon in Activities.').replace('%s', osReleaseLineName),
         });
         this.content.set_child(statusPage);
 
@@ -71,7 +77,7 @@ class WelcomeWindow extends Adw.ApplicationWindow {
         statusPage.set_child(buttonBox);
 
         const installButton = new Gtk.Button({
-            label: _('Install Fedora…'),
+            label: _('Install %s…').replace('%s', osReleaseLineName),
             actionName: 'window.install-fedora',
         });
         installButton.add_css_class('pill');
