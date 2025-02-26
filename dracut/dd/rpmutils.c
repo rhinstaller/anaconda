@@ -54,14 +54,14 @@ struct cpio_mydata {
  * libarchive callbacks
  */
 
-ssize_t rpm_myread(struct archive *a, void *client_data, const void **buff)
+static ssize_t rpm_myread(struct archive *a, void *client_data, const void **buff)
 {
     struct cpio_mydata *mydata = client_data;
     *buff = mydata->buffer;
     return Fread(mydata->buffer, 1, BUFFERSIZE, mydata->gzdi);
 }
 
-int rpm_myclose(struct archive *a, void *client_data)
+static int rpm_myclose(struct archive *a, void *client_data)
 {
     struct cpio_mydata *mydata = client_data;
     if (mydata->gzdi > 0)
@@ -76,23 +76,6 @@ int rpm_myclose(struct archive *a, void *client_data)
  */
 int init_rpm() {
     return rpmReadConfigFiles(NULL, NULL);
-}
-
-
-/* read data from RPM header */
-
-const char * headerGetString(Header h, rpmTagVal tag)
-{
-    const char *res = NULL;
-    struct rpmtd_s td;
-
-    if (headerGet(h, tag, &td, HEADERGET_MINMEM)) {
-        if (rpmtdCount(&td) == 1) {
-            res = rpmtdGetString(&td);
-        }
-        rpmtdFreeData(&td);
-    }
-    return res;
 }
 
 /*
