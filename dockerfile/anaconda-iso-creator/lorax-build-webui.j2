@@ -51,7 +51,7 @@ lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
 {% if distro_release == "rawhide" %}
       --volid Fedora-S-dvd-x86_64-rawh \
 {% else %}
-      --volid Fedora-S-dvd-x86_64-f{$ distro_release $} \
+      --volid Fedora-S-dvd-x86_64-{$ distro_release $} \
 {% endif %}
       --sharedir ./templates.d/99-generic/ \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/{$ distro_release $}/Everything/x86_64/os/ \
