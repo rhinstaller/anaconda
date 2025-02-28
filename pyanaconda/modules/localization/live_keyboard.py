@@ -64,6 +64,10 @@ class LiveSystemKeyboardBase(ABC):
 
 class GnomeShellKeyboard(LiveSystemKeyboardBase):
 
+    def __init__(self):
+        self._orig_sources = []
+        self._converted_list = []
+
     def read_keyboard_layouts(self):
         """Read keyboard configuration from the current system.
 
@@ -75,18 +79,42 @@ class GnomeShellKeyboard(LiveSystemKeyboardBase):
         """
         command_args = ["gsettings", "get", "org.gnome.desktop.input-sources", "sources"]
         sources = self._run_as_liveuser(command_args)
-        result = self._convert_to_xkb_format(sources)
-        return result
+        self._orig_sources = self._convert_to_list(sources)
+        self._converted_list = self._convert_to_xkb_format(self._orig_sources)
+        return self._converted_list
 
-    def _convert_to_xkb_format(self, sources):
-        # convert input "[('xkb', 'us'), ('xkb', 'cz+qwerty')]\n"
-        # to a python list of '["us", "cz (qwerty)"]'
+    def have_unsupported_layouts(self):
+        """Check if there are any unsupported layouts in the list.
+
+        This method have to be called after layouts were read with
+        the read_keyboard_layouts() method.
+
+        :return: True if something was removed from the list, False otherwise
+        :rtype: bool
+        """
+        if not self._orig_sources:
+            return False
+
+        return len(self._orig_sources) != len(self._converted_list)
+
+    def _convert_to_list(self, sources):
+        """Convert gsettings output to python list
+
+        convert input "[('xkb', 'us'), ('xkb', 'cz+qwerty')]\n"
+        to python variant of this list
+        """
+        ret = []
         try:
-            sources = ast.literal_eval(sources.rstrip())
+            ret = ast.literal_eval(sources.rstrip())
         except (SyntaxError, ValueError, TypeError):
             log.error("Gnome Shell keyboard configuration can't be obtained from source %s!",
-                      sources)
-            return []
+                      ret)
+
+        return ret
+
+    def _convert_to_xkb_format(self, sources):
+        # convert input [('xkb', 'us'), ('xkb', 'cz+qwerty')]
+        # to a python list of '["us", "cz (qwerty)"]'
         result = []
 
         for t in sources:
