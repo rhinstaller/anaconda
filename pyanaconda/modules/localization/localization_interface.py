@@ -255,6 +255,18 @@ class LocalizationInterface(KickstartModuleInterface):
             self.implementation.populate_missing_keyboard_configuration_with_task()
         )
 
+    def GetKeyboardConfigurationWithTask(self) -> ObjPath:
+        """Get current keyboard configuration without storing it into module.
+
+        NOTE: This is temporary API and will be removed when Gnome Shell have support for localed.
+        
+        This configuration will be used for the installation at the time of task execution.
+        The task is read only, the results are not stored anywhere.
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.get_keyboard_configuration_with_task()
+        )
+
     def ApplyKeyboardWithTask(self) -> ObjPath:
         """Apply keyboard configuration to the current system.
 

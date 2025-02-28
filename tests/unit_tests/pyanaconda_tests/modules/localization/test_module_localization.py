@@ -38,6 +38,7 @@ from pyanaconda.modules.localization.localization_interface import LocalizationI
 from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
     GetMissingKeyboardConfigurationTask,
+    GetKeyboardConfigurationTask,
 )
 from tests.unit_tests.pyanaconda_tests import (
     PropertiesChangedCallback,
@@ -350,6 +351,18 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         task_path = self.localization_interface.PopulateMissingKeyboardConfigurationWithTask()
 
         obj = check_task_creation(task_path, publisher, GetMissingKeyboardConfigurationTask)
+        assert obj.implementation._vc_keymap == 'us'
+        assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
+
+    @patch_dbus_publish_object
+    def test_get_keyboard_configuration_with_task(self, publisher):
+        """Test GetKeyboardConfigurationWithTask."""
+        self.localization_interface.VirtualConsoleKeymap = 'us'
+        self.localization_interface.XLayouts = ['cz', 'cz (qwerty)']
+
+        task_path = self.localization_interface.GetKeyboardConfigurationWithTask()
+
+        obj = check_task_creation(task_path, publisher, GetKeyboardConfigurationTask)
         assert obj.implementation._vc_keymap == 'us'
         assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
 
