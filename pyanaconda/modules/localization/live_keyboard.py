@@ -34,7 +34,6 @@ def get_live_keyboard_instance():
     if conf.system.provides_liveuser:
         return GnomeShellKeyboard()
 
-    # TODO: Add support for other Live systems
     return None
 
 
