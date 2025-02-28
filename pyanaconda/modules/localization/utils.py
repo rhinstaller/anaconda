@@ -22,7 +22,7 @@ from pyanaconda.modules.localization.live_keyboard import get_live_keyboard_inst
 log = get_module_logger(__name__)
 
 
-def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
+def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap, live_keyboard=None):
     """Get keyboard configuration if not set by user.
 
     Algorithm works as this:
@@ -41,6 +41,8 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
     :type x_layouts: list(str)
     :param vc_keymap: virtual console keyboard mapping name
     :type vc_keymap: str
+    :param live_keyboard: instance to read compositor keyboard layouts or None to create it locally
+    :type live_keyboard: LiveSystemKeyboardBase instance or None
     :returns: tuple of X layouts and VC keyboard settings
     :rtype: (list(str), str))
     """
@@ -48,7 +50,8 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
         log.debug("Keyboard layouts and virtual console keymap already set - nothing to do")
         return x_layouts, vc_keymap
 
-    live_keyboard = get_live_keyboard_instance()
+    if not live_keyboard:
+        live_keyboard = get_live_keyboard_instance()
     # layouts are not set by user, we should take a look for live configuration if available
     if not x_layouts and live_keyboard:
         log.debug("Keyboard configuration from Live system is available")

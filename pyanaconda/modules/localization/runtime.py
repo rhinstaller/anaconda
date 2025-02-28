@@ -21,6 +21,7 @@ from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.localization.installation import write_vc_configuration
+from pyanaconda.modules.localization.live_keyboard import get_live_keyboard_instance
 from pyanaconda.modules.localization.utils import get_missing_keyboard_configuration
 
 log = get_module_logger(__name__)
@@ -94,6 +95,27 @@ class GetMissingKeyboardConfigurationTask(Task):
         return get_missing_keyboard_configuration(self._localed_wrapper,
                                                   self._x_layouts,
                                                   self._vc_keymap)
+
+
+# TODO: Remove this API when localed is supported by Gnome Shell
+class GetKeyboardConfigurationTask(GetMissingKeyboardConfigurationTask):
+
+    @property
+    def name(self):
+        return "Get keyboard configuration with Live"
+
+    def run(self):
+        """Get current keyboard settings.
+        
+        :returns: tuple of X layouts, VC keyboard, bool if Live system has unsupported methods
+        :rtype: (list(str), str, bool)"""
+        live_keyboard = get_live_keyboard_instance()
+        ret = get_missing_keyboard_configuration(self._localed_wrapper,
+                                                 self._x_layouts,
+                                                 self._vc_keymap,
+                                                 live_keyboard=live_keyboard)
+        unsupported = live_keyboard.have_unsupported_layouts()
+        return *ret, unsupported
 
 
 class ApplyKeyboardTask(Task):

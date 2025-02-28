@@ -40,6 +40,7 @@ from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
     AssignGenericKeyboardSettingTask,
     GetMissingKeyboardConfigurationTask,
+    GetKeyboardConfigurationTask,
     try_to_load_keymap,
 )
 from pyanaconda.modules.localization.utils import get_missing_keyboard_configuration
@@ -246,6 +247,51 @@ class LocalizationTasksTestCase(unittest.TestCase):
         )
         result = task.run()
         assert result == (x_layouts_result, vc_keymap_result)
+
+    @patch("pyanaconda.modules.localization.runtime.get_live_keyboard_instance")
+    @patch("pyanaconda.modules.localization.runtime.get_missing_keyboard_configuration")
+    def test_get_keyboard_configuration_task(self,
+                                             get_missing_mock,
+                                             get_live_keyboard_instance_mock):
+        """Test GetKeyboardConfigurationTask."""
+        x_layouts_result = "[cz (qwerty)]"
+        vc_keymap_result = "cz-qwerty"
+        get_missing_mock.return_value = (x_layouts_result, vc_keymap_result)
+        mocked_localed = Mock()
+        mocked_live_keyboard = Mock()
+        get_live_keyboard_instance_mock.return_value = mocked_live_keyboard
+
+        # test with unsupported layouts returns False
+        mocked_live_keyboard.have_unsupported_layouts.return_value = False
+        task = GetKeyboardConfigurationTask(
+            localed_wrapper=mocked_localed,
+            x_layouts="[cz (qwerty)]",
+            vc_keymap="",
+        )
+        result = task.run()
+        assert result == (x_layouts_result, vc_keymap_result, False)
+        get_missing_mock.assert_called_once_with(mocked_localed,
+                                                "[cz (qwerty)]",
+                                                "",
+                                                live_keyboard=mocked_live_keyboard)
+        get_live_keyboard_instance_mock.assert_called_once_with()
+
+        # test with unsupported layouts returns True
+        get_live_keyboard_instance_mock.reset_mock()
+        get_missing_mock.reset_mock()
+        mocked_live_keyboard.have_unsupported_layouts.return_value = True
+        task = GetKeyboardConfigurationTask(
+            localed_wrapper=mocked_localed,
+            x_layouts="",
+            vc_keymap="",
+        )
+        result = task.run()
+        assert result == (x_layouts_result, vc_keymap_result, True)
+        get_missing_mock.assert_called_once_with(mocked_localed,
+                                                "",
+                                                "",
+                                                live_keyboard=mocked_live_keyboard)
+        get_live_keyboard_instance_mock.assert_called_once_with()
 
     @contextmanager
     def _create_localed_mock(self,
