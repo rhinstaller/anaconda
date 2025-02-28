@@ -20,7 +20,9 @@ from abc import ABC, abstractmethod
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithCaptureAsLiveUser
+from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 
 log = get_module_logger(__name__)
 
@@ -90,14 +92,18 @@ class GnomeShellKeyboard(LiveSystemKeyboardBase):
         result = []
 
         for t in sources:
-            # keep only 'xkb' type and ignore 'ibus' variants which can't be used in localed
-            if t[0] == "xkb":
-                layout = t[1]
-                # change layout variant from 'cz+qwerty' to 'cz (qwerty)'
-                if '+' in layout:
-                    layout, variant = layout.split('+')
-                    result.append(f"{layout} ({variant})")
-                else:
-                    result.append(layout)
+            # keep only 'xkb' type and raise an error on 'ibus' variants which can't
+            # be used in localed
+            if t[0] != "xkb":
+                msg = _("The live system has layout '%s' which can't be used for installation.")
+                raise KeyboardConfigurationError(msg.format(t[1]))
+
+            layout = t[1]
+            # change layout variant from 'cz+qwerty' to 'cz (qwerty)'
+            if '+' in layout:
+                layout, variant = layout.split('+')
+                result.append(f"{layout} ({variant})")
+            else:
+                result.append(layout)
 
         return result

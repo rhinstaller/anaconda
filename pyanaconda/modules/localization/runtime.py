@@ -90,6 +90,8 @@ class GetMissingKeyboardConfigurationTask(Task):
 
         :returns: tuple of X layouts and VC keyboard settings
         :rtype: (list(str), str))
+        :raises: KeyboardConfigurationError exception when we should use unsupported layouts
+                 from Live
         """
         return get_missing_keyboard_configuration(self._localed_wrapper,
                                                   self._x_layouts,
