@@ -21,6 +21,9 @@ from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.localization.installation import write_vc_configuration
+from pyanaconda.modules.localization.localization_interface import (
+    KeyboardConfigurationTaskInterface,
+)
 from pyanaconda.modules.localization.utils import get_missing_keyboard_configuration
 
 log = get_module_logger(__name__)
@@ -80,6 +83,9 @@ class GetMissingKeyboardConfigurationTask(Task):
         self._localed_wrapper = localed_wrapper
         self._x_layouts = x_layouts
         self._vc_keymap = vc_keymap
+
+    def for_publication(self):
+        return KeyboardConfigurationTaskInterface(self)
 
     @property
     def name(self):

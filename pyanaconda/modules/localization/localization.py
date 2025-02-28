@@ -368,6 +368,21 @@ class LocalizationService(KickstartService):
         self.set_vc_keymap(vc_keymap)
         self.set_x_layouts(x_layouts)
 
+    def get_keyboard_configuration_with_task(self):
+        """Get current keyboard configuration without storing it into module.
+
+        This configuration will be used for the installation at the time of task execution.
+        The task is read only, the results are not stored anywhere.
+
+        :returns: a task reading keyboard configuration
+        """
+        task = GetMissingKeyboardConfigurationTask(
+            localed_wrapper=self.localed_wrapper,
+            x_layouts=self.x_layouts,
+            vc_keymap=self.vc_keymap,
+        )
+        return task
+
     def apply_keyboard_with_task(self):
         """Apply keyboard configuration to the current system.
 

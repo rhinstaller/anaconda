@@ -23,18 +23,21 @@ from unittest.mock import Mock, patch
 
 import langtable
 from dasbus.signal import Signal
-from dasbus.typing import Bool, Str, get_variant
+from dasbus.typing import Bool, List, Str, Tuple, get_variant
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.structures.keyboard_layout import KeyboardLayout
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
-from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.modules.common.task import TaskInterface, sync_run_task
 from pyanaconda.modules.localization.installation import (
     KeyboardInstallationTask,
     LanguageInstallationTask,
 )
 from pyanaconda.modules.localization.localization import LocalizationService
-from pyanaconda.modules.localization.localization_interface import LocalizationInterface
+from pyanaconda.modules.localization.localization_interface import (
+    KeyboardConfigurationTaskInterface,
+    LocalizationInterface,
+)
 from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
     GetMissingKeyboardConfigurationTask,
@@ -350,8 +353,30 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         task_path = self.localization_interface.PopulateMissingKeyboardConfigurationWithTask()
 
         obj = check_task_creation(task_path, publisher, GetMissingKeyboardConfigurationTask)
+        assert isinstance(obj, KeyboardConfigurationTaskInterface)
         assert obj.implementation._vc_keymap == 'us'
         assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
+
+    @patch_dbus_publish_object
+    def test_get_keyboard_configuration_with_task(self, publisher):
+        """Test GetKeyboardConfigurationWithTask."""
+        self.localization_interface.VirtualConsoleKeymap = 'us'
+        self.localization_interface.XLayouts = ['cz', 'cz (qwerty)']
+
+        task_path = self.localization_interface.GetKeyboardConfigurationWithTask()
+
+        obj = check_task_creation(task_path, publisher, GetMissingKeyboardConfigurationTask)
+        assert isinstance(obj, KeyboardConfigurationTaskInterface)
+        assert obj.implementation._vc_keymap == 'us'
+        assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
+
+        with patch.object(obj.implementation, "run") as run_mock:
+            run_mock.return_value = ("cz (qwerty)", "us"), "cz-qwerty"
+
+            sync_run_task(obj)
+            # test the conversion from task to DBus variant
+            assert obj.GetResult() == get_variant(Tuple[List[Str], Str],
+                                                  (['cz (qwerty)', 'us'], 'cz-qwerty'))
 
     @patch_dbus_publish_object
     def test_apply_keyboard_with_task(self, publisher):
