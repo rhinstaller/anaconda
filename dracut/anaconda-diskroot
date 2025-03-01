@@ -52,12 +52,12 @@ debug_msg "Trying to find a root image on the device $dev."
 # Then do not run again.
 [ -e "/dev/root" ] && exit 1
 
-# Skip partitions on a disk with the iso9660 filesystem. Blivet doesn't
-# recognize these partitions, so we mount the disk in stage2. However, it
-# will fail if one of its partitions is already mounted, for example here.
+# Skip partitions on a disk with the iso9660 filesystem, set by LABEL or UUID.
+# Blivet doesn't recognize these partitions, so we mount the disk in stage2.
+# However, it will fail if one of its partitions is already mounted, for example here.
 # Therefore, skip the partitions and use the disk to find our root image.
 # See the bug 1878784.
-if dev_is_on_disk_with_iso9660 "$dev"; then
+if [[ "$root" =~ "by-label"|"by-uuid" ]] && dev_is_on_disk_with_iso9660 "$dev"; then
   debug_msg "Skipping $dev on a disk with iso9660."
   exit 1
 fi
