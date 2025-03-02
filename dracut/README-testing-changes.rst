@@ -34,8 +34,8 @@ Using your overlay image
 
 - Start the testing system, and edit boot options.
 
-- After ``initrd=<something>`` add immediately (without space) a comma and a path to your
-  overlay: ``initrd=<something>,<your-overlay-image-file>``.
+- After ``initrd=<something>`` add a space and a path to your
+  overlay: ``initrd=<something> <your-overlay-image-file>``.
 
 - Make `dracut` stop so that you can check your changes were applied. Add to the end of boot
   options also: ``rd.break=pre-pivot rd.shell``.
