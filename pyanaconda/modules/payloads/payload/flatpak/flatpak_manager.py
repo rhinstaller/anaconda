@@ -59,15 +59,35 @@ class FlatpakManager:
         :param function callback: a progress reporting callback
         """
         self._flatpak_refs = []
+        # FIXME: Not set by anything right now
         self._source_repository = None
+
         self._source = None
-        self._skip_installation = False
+        self._skip_installation = True
         self._collection_location = None
         self._progress: Optional[ProgressReporter] = None
         self._transaction = None
         self._download_location = None
         self._download_size = 0
         self._install_size = 0
+
+    @property
+    def flatpak_refs(self):
+        """Get required flatpak refs for installation.
+
+        :returns: list of refs
+        :rtype: list
+        """
+        return self._flatpak_refs
+
+    @property
+    def skip_installation(self):
+        """Report if the installation of Flatpaks will be skipped.
+
+        :returns: True if the installation should be skipped
+        :rtype: bool
+        """
+        return self._skip_installation
 
     def set_sources(self, sources: List[PayloadSourceBase]):
         """Set the source object we use to download Flatpak content.
@@ -120,7 +140,8 @@ class FlatpakManager:
         """Get the download location."""
         return self._download_location
 
-    def _get_source(self):
+    def get_source(self):
+        """Retrieve flatpak source."""
         if self._source is None:
             if self._source_repository:
                 log.debug("Using Flatpak source repository at: %s/Flatpaks",
@@ -151,7 +172,7 @@ class FlatpakManager:
 
         try:
             self._download_size, self._install_size = \
-                self._get_source().calculate_size(self._flatpak_refs)
+                self.get_source().calculate_size(self._flatpak_refs)
         except NoSourceError as e:
             log.error("Flatpak source not available, skipping installing %s: %s",
                       ", ".join(self._flatpak_refs), e)
@@ -178,9 +199,9 @@ class FlatpakManager:
             return
 
         try:
-            self._collection_location = self._get_source().download(self._flatpak_refs,
-                                                                    self._download_location,
-                                                                    progress)
+            self._collection_location = self.get_source().download(self._flatpak_refs,
+                                                                   self._download_location,
+                                                                   progress)
         except NoSourceError as e:
             log.error("Flatpak source not available, skipping installing %s: %s",
                       ", ".join(self._flatpak_refs), e)
