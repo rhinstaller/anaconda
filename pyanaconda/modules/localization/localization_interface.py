@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-from dasbus.server.interface import dbus_interface, dbus_signal
+from dasbus.server.interface import dbus_class, dbus_interface, dbus_signal
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
@@ -27,6 +27,21 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.keyboard_layout import KeyboardLayout
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
+from pyanaconda.modules.common.task import TaskInterface
+
+
+@dbus_class
+class KeyboardConfigurationTaskInterface(TaskInterface):
+    """Interface to get keyboard configuration data."""
+
+    @staticmethod
+    def convert_result(value):
+        """Convert value to publishable result.
+
+        From:
+        (("us", "cs (qwerty)"), "cs-qwerty")
+        """
+        return get_variant(Tuple[List[Str], Str], value)
 
 
 @dbus_interface(LOCALIZATION.interface_name)
@@ -253,6 +268,17 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         return TaskContainer.to_object_path(
             self.implementation.populate_missing_keyboard_configuration_with_task()
+        )
+
+    def GetKeyboardConfigurationWithTask(self) -> ObjPath:
+        """Get current keyboard configuration without storing it into module.
+
+        This task will give you a potential configuration to be installed at the time of
+        task execution. The task is read only, the results are not used anywhere by
+        the localization module.
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.get_keyboard_configuration_with_task()
         )
 
     def ApplyKeyboardWithTask(self) -> ObjPath:
