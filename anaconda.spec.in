@@ -491,6 +491,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 04 2025 github-actions <github-actions@github.com> - 42.27.2-1
+- Add localization module API to get keyboard config (jkonecny)
+- Raise exception on unsupported layouts from Live (jkonecny)
+- Remove misleading TODO (jkonecny)
+- rpmlint: Ignore explicit-lib-dependency on libblockdev-tools (vtrefny)
+- spec: Add libblockdev-tools to install-env-deps (vtrefny)
+- dracut: use RPM library-provided headerGetString function (k.koukiou)
+- dracut: add static linkage to internal functions (k.koukiou)
+
 * Tue Feb 18 2025 Katerina Koukiou <k.koukiou@gmail.com> - 42.27.1-1
 - localization: discard space when sorting keyboards according to langtable
   entries (k.koukiou)
