@@ -499,6 +499,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 04 2025 github-actions <github-actions@github.com> - 43.3-1
+- rpmlint: Ignore explicit-lib-dependency on libblockdev-tools (vtrefny)
+- Bump required version of Blivet to 3.12 (vtrefny)
+- Disable LVM auto-activation during installation (vtrefny)
+- spec: bump pykickstartver in the spec file (k.koukiou)
+- Update RAID array name after scheduling its creation (vtrefny)
+- kickstart: Update RAID command version (vtrefny)
+- fedora-welcome: stop assuming Fedora Linux (k.koukiou)
+- spec: Remove ntfs-3g from install-env-deps (vtrefny)
+- spec: Add libblockdev-tools to install-env-deps (vtrefny)
+- Add the locale1-x11-sync script to the anaconda-live subpackage (mkolman)
+- network: disable autoconnections on RHEL also for BOOTIF option (rvykydal)
+
 * Tue Feb 25 2025 github-actions <github-actions@github.com> - 43.2-1
 - dracut: use RPM library-provided headerGetString function (k.koukiou)
 - dracut: add static linkage to internal functions (k.koukiou)
