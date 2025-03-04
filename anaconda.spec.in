@@ -499,6 +499,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 04 2025 github-actions <github-actions@github.com> - 43.4-1
+- Add localization module API to get keyboard config (jkonecny)
+- Raise exception on unsupported layouts from Live (jkonecny)
+- Remove misleading TODO (jkonecny)
+
 * Tue Mar 04 2025 github-actions <github-actions@github.com> - 43.3-1
 - rpmlint: Ignore explicit-lib-dependency on libblockdev-tools (vtrefny)
 - Bump required version of Blivet to 3.12 (vtrefny)
