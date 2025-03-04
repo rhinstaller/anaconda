@@ -8,6 +8,7 @@ Filters = [
     # Discard explicite library dependencies
     'explicit-lib-dependency flatpak-libs',
     'explicit-lib-dependency libblockdev-lvm-dbus',
+    'explicit-lib-dependency libblockdev-tools',
     'explicit-lib-dependency librsvg2',
     # Discard warning about binary debug symbols. Those are our helper
     # binaries and it is not important for them to be stripped
