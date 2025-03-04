@@ -23,7 +23,6 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # Add development repositories instead of the production ones
 # We need development repositories to get our dependencies sooner
-RUN rm -f /etc/yum.repos.d/*.repo
 COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
 
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
@@ -32,6 +31,8 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
+  # Disable production repositories
+  dnf config-manager --disable baseos appstream crb; \
   dnf update -y; \
   # Install dependencies
   dnf install -y \
