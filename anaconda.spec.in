@@ -500,6 +500,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 05 2025 github-actions <github-actions@github.com> - 42.27.3-1
+- Fix bad formatting for `format` function (jkonecny)
+- Add the locale1-x11-sync script to the anaconda-live subpackage (#2346855)
+  (mkolman)
+
 * Tue Mar 04 2025 github-actions <github-actions@github.com> - 42.27.2-1
 - Add localization module API to get keyboard config (jkonecny)
 - Raise exception on unsupported layouts from Live (jkonecny)
