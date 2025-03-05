@@ -42,14 +42,15 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
                                               mocked_exec_with_capture,
                                               system_input,
                                               output,
-                                              should_raise):
+                                              unsupported_layout):
         mocked_exec_with_capture.reset_mock()
         mocked_exec_with_capture.return_value = system_input
 
         gs = GnomeShellKeyboard()
 
-        if should_raise:
-            with pytest.raises(KeyboardConfigurationError):
+        if unsupported_layout:
+            match = fr'.*{unsupported_layout}.*'
+            with pytest.raises(KeyboardConfigurationError, match=match):
                 gs.read_keyboard_layouts()
             return
 
@@ -69,7 +70,7 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"[('xkb', 'cz')]",
             output=["cz"],
-            should_raise=False
+            unsupported_layout=None
         )
 
         # test one complex layout is set
@@ -77,7 +78,7 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"[('xkb', 'cz+qwerty')]",
             output=["cz (qwerty)"],
-            should_raise=False
+            unsupported_layout=None
         )
 
         # test multiple layouts are set
@@ -85,7 +86,7 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"[('xkb', 'cz+qwerty'), ('xkb', 'us'), ('xkb', 'cz+dvorak-ucw')]",
             output=["cz (qwerty)", "us", "cz (dvorak-ucw)"],
-            should_raise=False
+            unsupported_layout=None
         )
 
         # test layouts with ibus (ibus will raise error)
@@ -93,7 +94,7 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"[('xkb', 'cz'), ('ibus', 'libpinyin')]",
             output=[],
-            should_raise=True
+            unsupported_layout='libpinyin'
         )
 
         # test only ibus layout (raise the error)
@@ -101,7 +102,7 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"[('ibus', 'libpinyin')]",
             output=[],
-            should_raise=True
+            unsupported_layout='libpinyin'
         )
 
         # test wrong input
@@ -109,5 +110,5 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"wrong input",
             output=[],
-            should_raise=False
+            unsupported_layout=None
         )

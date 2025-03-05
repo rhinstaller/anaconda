@@ -95,7 +95,7 @@ class GnomeShellKeyboard(LiveSystemKeyboardBase):
             # keep only 'xkb' type and raise an error on 'ibus' variants which can't
             # be used in localed
             if t[0] != "xkb":
-                msg = _("The live system has layout '%s' which can't be used for installation.")
+                msg = _("The live system has layout '{}' which can't be used for installation.")
                 raise KeyboardConfigurationError(msg.format(t[1]))
 
             layout = t[1]
