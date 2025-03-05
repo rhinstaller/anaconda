@@ -13,6 +13,7 @@
 
 import os
 import shutil
+import subprocess
 import sys
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -21,7 +22,7 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 # configuration required to import test modules
-for path in ["../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets"]:
+for path in ["../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets", "../pyanaconda/modules"]:
     sys.path.append(os.path.abspath(path))
 
 # -- General configuration -----------------------------------------------------
@@ -32,8 +33,16 @@ for path in ["../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widge
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = []
-if not os.environ.get("READTHEDOCS") == "True":
-    extensions.extend(['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.coverage', 'sphinx.ext.inheritance_diagram', 'sphinx.ext.todo'])
+extensions.extend(['sphinx.ext.autodoc',
+                   'sphinx.ext.intersphinx',
+                   'sphinx.ext.coverage',
+                   'sphinx.ext.inheritance_diagram',
+                   'sphinx.ext.todo',
+                   'sphinx_autodoc_typehints',
+                   'sphinx.ext.viewcode',
+                   'sphinx.ext.napoleon',
+                   'autoapi.extension',
+                   ])
 
 shutil.copy2("../CONTRIBUTING.rst", "contributing.rst")
 
@@ -117,12 +126,21 @@ inheritance_node_attrs = {"style": 'rounded', "margin": '"0.07, 0.07"'}
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'navigation_depth': 4,
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'prev_next_buttons_location': 'both',
+}
+
+html_css_files = [
+    'custom.css',
+]
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -146,7 +164,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -312,7 +330,9 @@ epub_copyright = '2015, Anaconda Team'
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/3': None}
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', 'https://docs.python.org/3/objects.inv')
+}
 
 # on_rtd is whether we are on readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
@@ -323,6 +343,46 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Group by class
-autodoc_member_order = 'source'
+autodoc_member_order = 'bysource'
 
-# otherwise, readthedocs.org uses their theme by default, so no need to specify it
+# AutoAPI configuration
+autoapi_type = 'python'
+autoapi_dirs = ['../pyanaconda/modules']
+autoapi_add_toctree_entry = False
+autoapi_file_patterns = ['*_interface.py']
+autoapi_mock_imports = [
+    'gi.repository',
+    'dasbus',
+    'pydbus',
+    'dbus',
+    'blivet',
+    'pykickstart',
+    'pyanaconda.core',
+    'pyanaconda.anaconda_loggers'
+]
+
+autoapi_options = [
+    'members',
+    'undoc-members',
+    'show-inheritance',
+    'show-module-summary',
+    'special-members: __init__',
+    'private-members',
+]
+
+autoapi_python_class_content = 'both'
+autodoc_typehints = "description"
+
+def generate_modules_rst(app):
+    """
+    Runs the generate_modules.py script after AutoAPI has generated documentation.
+
+    It is triggered by "builder-inited", ensuring that AutoAPI files exist
+    before structuring them in modules.rst.
+    """
+    print("[Sphinx] Waiting for AutoAPI to generate documentation...")
+    subprocess.run(["python", "generate_modules.py"], check=True)
+    print("[Sphinx] modules.rst generated successfully.")
+
+def setup(app):
+    app.connect("builder-inited", generate_modules_rst)
