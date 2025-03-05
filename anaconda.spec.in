@@ -182,6 +182,11 @@ BuildRequires: desktop-file-utils
 Requires: anaconda-gui = %{version}-%{release}
 Requires: zenity
 Recommends: xhost
+# FIXME: This is currently needed by the locale1-x11-sync script.
+# It makes little sense for Anaconda to pull in two Python DBus libraries,
+# so we should either split the script to a separate or change it to also
+# use dasbus like the rest of Anaconda.
+Requires: python3-dbus-next
 
 %description live
 The anaconda-live package contains scripts, data and dependencies required
@@ -382,6 +387,8 @@ rm -rf \
   %{buildroot}/%{_sysconfdir}/xdg/autostart/liveinst-setup.desktop \
   %{buildroot}/%{_bindir}/liveinst \
   %{buildroot}/%{_libexecdir}/liveinst-setup.sh \
+  %{buildroot}/%{_libexecdir}/locale1-x11-sync \
+  %{buildroot}/%{_userunitdir}/locale1-x11-sync.service \
   %{buildroot}/%{_datadir}/anaconda/gnome \
   %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome \
   %{buildroot}/%{_datadir}/anaconda/gnome/org.fedoraproject.welcome-screen.desktop \
@@ -444,9 +451,11 @@ rm -rf \
 # do not provide the live subpackage on RHEL
 
 %files live
+%{_userunitdir}/locale1-x11-sync.service
 %{_bindir}/liveinst
 %{_datadir}/polkit-1/actions/*
 %{_libexecdir}/liveinst-setup.sh
+%{_libexecdir}/locale1-x11-sync
 %{_datadir}/applications/*.desktop
 %{_datadir}/anaconda/gnome
 %config(noreplace) %{_sysconfdir}/xdg/autostart/*.desktop
