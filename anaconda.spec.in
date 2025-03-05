@@ -499,6 +499,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 05 2025 github-actions <github-actions@github.com> - 43.5-1
+- Fix bad formatting for `format` function (jkonecny)
+- network: pass 16-dns-backend.conf to target system (rvykydal)
+- network: enable dnsconfd service in installer environment (rvykydal)
+- network: enable dnsconfd service on installed system if required (rvykydal)
+
 * Tue Mar 04 2025 github-actions <github-actions@github.com> - 43.4-1
 - Add localization module API to get keyboard config (jkonecny)
 - Raise exception on unsupported layouts from Live (jkonecny)
