@@ -46,9 +46,9 @@ def exitHandler(rebootData):
 
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
-    if "nokill" in kernel_arguments:
+    if "inst.nokill" in kernel_arguments:
         util.vtActivate(1)
-        print("anaconda halting due to nokill flag.")
+        print("Anaconda halting due to inst.nokill flag.")
         print("The system will be rebooted when you press Ctrl-Alt-Delete.")
         while True:
             time.sleep(10000)
