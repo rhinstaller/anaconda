@@ -193,7 +193,7 @@ if __name__ == "__main__":
         print("anaconda must be run as root.")
         sys.exit(1)
 
-    print("Starting installer, one moment...")
+    print("Starting installer, eDNS image build, one moment...")
 
     # Allow a file to be loaded as early as possible
     try:
