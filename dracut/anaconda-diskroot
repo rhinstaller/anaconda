@@ -57,10 +57,14 @@ debug_msg "Trying to find a root image on the device $dev."
 # However, it will fail if one of its partitions is already mounted, for example here.
 # Therefore, skip the partitions and use the disk to find our root image.
 # See the bug 1878784.
-if [[ "$root" =~ "by-label"|"by-uuid" ]] && dev_is_on_disk_with_iso9660 "$dev"; then
-  debug_msg "Skipping $dev on a disk with iso9660."
-  exit 1
-fi
+case $root in
+  *"by-label"*|*"by-uuid"*)
+    if dev_is_on_disk_with_iso9660 "$dev"; then
+      debug_msg "Skipping $dev on a disk with iso9660."
+      exit 1
+    fi
+    ;;
+esac
 
 # If we're waiting for a cdrom kickstart, the user might need to swap discs.
 # So if this is a CDROM drive, make a note of it, but don't mount it (yet).
