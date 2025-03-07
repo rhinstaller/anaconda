@@ -9,6 +9,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# FIXME: Can be removed once https://github.com/rpm-software-management/dnf5/pull/2110 reaches composes
+env:
+  COLUMNS: 120
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
