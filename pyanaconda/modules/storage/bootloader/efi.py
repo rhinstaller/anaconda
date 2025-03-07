@@ -52,7 +52,8 @@ class EFIBase:
 
     @property
     def _efi_config_dir(self):
-        return "efi/EFI/{}".format(conf.bootloader.efi_dir)
+        version_id = self._get_os_version_id()
+        return "efi/EFI/{}_{}".format(conf.bootloader.efi_dir, version_id)
 
     def get_fw_platform_size(self):
         try:
@@ -87,14 +88,27 @@ class EFIBase:
         ret = self._efi_config_dir.replace('efi/', '')
         return "\\" + ret.replace('/', '\\')
 
+    def _get_os_version_id(self):
+        version_id = "default"
+        try:
+            with open("/etc/os-release") as f:
+                for line in f:
+                    if line.startswith("VERSION_ID"):
+                        version_id = line.split("=")[1].strip().strip('"')
+                        break
+        except FileNotFoundError:
+            log.warning("/etc/os-release not found; using default version_id")
+        return version_id
+
     def _add_single_efi_boot_target(self, partition):
         boot_disk = partition.disk
         boot_part_num = str(partition.parted_partition.number)
+        version_id = self._get_os_version_id()
 
         create_method = "-C" if self.keep_boot_order else "-c" # pylint: disable=no-member
 
         rc = self.efibootmgr(
-            create_method, "-w", "-L", get_product_name().split("-")[0],  # pylint: disable=no-member
+            create_method, "-w", "-L", get_product_name().split("-")[0] + version_id,  # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
             root=conf.target.system_root
@@ -114,6 +128,7 @@ class EFIBase:
         # FIXME: Stop using replace_utf_decode_errors=True once
         # https://github.com/rhboot/efibootmgr/pull/221/ is merged
         buf = self.efibootmgr(capture=True, replace_utf_decode_errors=True)
+        version_id = self._get_os_version_id()
         for line in buf.splitlines():
             try:
                 (slot, _product) = line.split(None, 1)
@@ -122,7 +137,7 @@ class EFIBase:
             except ValueError:
                 continue
 
-            if _product == get_product_name().split("-")[0]:           # pylint: disable=no-member
+            if _product == get_product_name().split("-")[0] + version_id:           # pylint: disable=no-member
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
@@ -150,8 +165,8 @@ class EFIBase:
         return True
 
     def install(self, args=None):
-        if not self.keep_boot_order:  # pylint: disable=no-member
-            self.remove_efi_boot_target()
+        # if not self.keep_boot_order:  # pylint: disable=no-member
+        #     self.remove_efi_boot_target()
         self.add_efi_boot_target()
 
 
