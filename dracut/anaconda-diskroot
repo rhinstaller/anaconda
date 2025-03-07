@@ -57,7 +57,7 @@ debug_msg "Trying to find a root image on the device $dev."
 # However, it will fail if one of its partitions is already mounted, for example here.
 # Therefore, skip the partitions and use the disk to find our root image.
 # See the bug 1878784.
-case $root in
+case "$root" in
   *"by-label"*|*"by-uuid"*)
     if dev_is_on_disk_with_iso9660 "$dev"; then
       debug_msg "Skipping $dev on a disk with iso9660."
