@@ -24,6 +24,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.installation import (
     CopyDriverDisksFilesTask,
     PrepareSystemForInstallationTask,
@@ -89,6 +90,12 @@ class PayloadsService(KickstartService):
     def activate_payload(self, payload):
         """Activate the payload."""
         self._active_payload = payload
+
+        if self._active_payload.needs_flatpak_side_payload():
+            side_payload = self.create_payload(PayloadType.FLATPAK)
+            self._active_payload.side_payload = side_payload
+            log.debug("Created side payload %s.", side_payload.type)
+
         self.active_payload_changed.emit()
         log.debug("Activated the payload %s.", payload.type)
 
@@ -135,15 +142,29 @@ class PayloadsService(KickstartService):
     def calculate_required_space(self):
         """Calculate space required for the installation.
 
+        Calculate required space for the main payload and the side payload if exists.
+
         :return: required size in bytes
         :rtype: int
         """
-        total = 0
+        if not self.active_payload:
+            return 0
 
-        if self.active_payload:
-            total += self.active_payload.calculate_required_space()
+        main_size = self.active_payload.calculate_required_space()
+        side_size = 0
 
-        return total
+
+        if self.active_payload.side_payload:
+            side_size = self.active_payload.side_payload.calculate_required_space()
+
+        log.debug(
+            "Main payload size: %s, side payload size: %s, total: %s",
+            main_size,
+            side_size,
+            main_size + side_size,
+        )
+
+        return main_size + side_size
 
     def get_kernel_version_list(self):
         """Get the kernel versions list.
@@ -164,6 +185,8 @@ class PayloadsService(KickstartService):
     def install_with_tasks(self):
         """Return a list of installation tasks.
 
+        Concatenate tasks of the main payload together with side payload of that payload.
+
         :return: list of tasks
         """
         if not self.active_payload:
@@ -176,10 +199,16 @@ class PayloadsService(KickstartService):
         ]
 
         tasks += self.active_payload.install_with_tasks()
+
+        if self.active_payload.side_payload:
+            tasks += self.active_payload.side_payload.install_with_tasks()
+
         return tasks
 
     def post_install_with_tasks(self):
         """Return a list of post-installation tasks.
+
+        Concatenate tasks of the main payload together with side payload of that payload.
 
         :return: a list of tasks
         """
@@ -193,16 +222,25 @@ class PayloadsService(KickstartService):
         ]
 
         tasks += self.active_payload.post_install_with_tasks()
+
+        if self.active_payload.side_payload:
+            tasks += self.active_payload.side_payload.post_install_with_tasks()
+
         return tasks
 
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
 
+        Concatenate tasks of the main payload together with side payload of that payload.
+
         :return: a list of tasks
         """
-        tasks = []
+        if not self.active_payload:
+            return []
 
-        if self.active_payload:
-            tasks += self.active_payload.tear_down_with_tasks()
+        tasks = self.active_payload.tear_down_with_tasks()
+
+        if self.active_payload.side_payload:
+            tasks += self.active_payload.side_payload.tear_down_with_tasks()
 
         return tasks
