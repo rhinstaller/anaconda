@@ -166,6 +166,15 @@ def generate_image_timestamp_option():
     print("** using time stamp option: %s" % timestamp)
     return timestamp
 
+def fix_permission():
+    """Fix permissions of the created iso.
+
+    The iso has root permissions because mkksiso is created as root.
+
+    Set the permission of the ISO to be the same as the current directory.
+    """
+    os.system(f"sudo chown -v --reference='.' '{UPDATED_ISO}'")
+
 def generate_updated_iso(ks_file, custom_boot_options):
     """Generate an updated boot ISO with an optional kickstart file and custom boot options.
 
@@ -307,6 +316,9 @@ def main():
 
     # Check the updated ISO has been generated
     check_updated_iso_available()
+
+    # Fix permissions
+    fix_permission()
 
     # check if we should run the image in virt-install
     if args.virt_install:
