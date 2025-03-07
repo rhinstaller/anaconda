@@ -37,6 +37,5 @@ L10N_DIR ?= main
 BASE_CONTAINER ?= registry.fedoraproject.org/fedora:rawhide
 
 # COPR repo for use in container builds.
-# Can be @rhinstaller/Anaconda for main, or @rhinstaller/Anaconda-devel for branched Fedora.
 COPR_REPO ?= \@rhinstaller/Anaconda
 
