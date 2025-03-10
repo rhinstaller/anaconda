@@ -50,6 +50,12 @@ log = get_module_logger(__name__)
 __all__ = ["FlatpakManager"]
 
 
+# FIXME: Workaround for https://issues.redhat.com/browse/RHEL-85624 - remove when fixed
+# We use this when disabling downloads. .invalid URLS are
+# guaranteed not to resolve by RFC 2606
+INVALID_DOWNLOAD_URL = 'oci+https://no-download.invalid'
+
+
 class FlatpakManager:
     """Root object for handling Flatpak pre-installation"""
 
@@ -233,21 +239,35 @@ class FlatpakManager:
         log.debug("Installing Flatpaks")
 
         installation = self._create_flatpak_installation()
-        self._transaction = self._create_flatpak_transaction(installation)
-
-        if self._collection_location:
-            self._transaction.add_sideload_image_collection(self._collection_location, None)
-
-        self._transaction.add_sync_preinstalled()
+        saved_urls = None
 
         try:
+            if self._collection_location:
+                # If we're installing from a local source, we need to disable
+                # loading the list of current Flatpaks from the network - we
+                # want to install what was in the install image even if it is
+                # out of date.
+                saved_urls = self._disable_network_download(installation)
+
+            self._transaction = self._create_flatpak_transaction(installation)
+
+            if self._collection_location:
+                self._transaction.add_sideload_image_collection(self._collection_location, None)
+
+            self._transaction.add_sync_preinstalled()
+
             self._progress = progress
             self._transaction.run()
         except GError as e:
             raise PayloadInstallationError("Failed to install flatpaks: {}".format(e)) from e
         finally:
-            self._transaction.run_dispose()
-            self._transaction = None
+            if self._transaction:
+                self._transaction.run_dispose()
+                self._transaction = None
+
+            if saved_urls:
+                self._reenable_network_download(installation, saved_urls)
+
             self._progress = None
 
     def _create_flatpak_installation(self):
@@ -260,6 +280,29 @@ class FlatpakManager:
         transaction.connect("operation_error", self._operation_error_callback)
 
         return transaction
+
+    # FlatpakTransaction.set_no_pull() does not leave sideload
+    # repositories working - it basically entirely disables all
+    # remote handling. So we have to resort to an uglier
+    # workaround for now.
+
+    def _disable_network_download(self, installation):
+        saved_urls = {}
+        for remote in installation.list_remotes():
+            old_url = remote.get_url()
+            if old_url.startswith("oci+https:"):
+                saved_urls[remote.get_name()] = old_url
+                remote.set_url(INVALID_DOWNLOAD_URL)
+                installation.modify_remote(remote)
+
+        return saved_urls
+
+    def _reenable_network_download(self, installation, saved_urls):
+        for remote in installation.list_remotes():
+            old_url = saved_urls.get(remote.get_name())
+            if old_url:
+                remote.set_url(old_url)
+                installation.modify_remote(remote)
 
     def _operation_started_callback(self, transaction, operation, progress):
         """Start of the new operation.
