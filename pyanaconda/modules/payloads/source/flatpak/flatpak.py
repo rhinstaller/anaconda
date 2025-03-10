@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
@@ -31,6 +33,21 @@ from pyanaconda.modules.payloads.source.flatpak.initialization import (
     GetFlatpaksSizeTask,
 )
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+
+# We need Flatpak to read configuration files from the target and write
+# to the target system installation. Since we use the Flatpak API
+# in process, we need to do this by modifying the environment before
+# we start any threads. Setting these variables will be harmless if
+# we aren't actually using Flatpak.
+
+# pylint: disable=environment-modify
+os.environ["FLATPAK_DOWNLOAD_TMPDIR"] = os.path.join(conf.target.system_root, "var/tmp")
+# pylint: disable=environment-modify
+os.environ["FLATPAK_CONFIG_DIR"] = os.path.join(conf.target.system_root, "etc/flatpak")
+# pylint: disable=environment-modify
+os.environ["FLATPAK_OS_CONFIG_DIR"] = os.path.join(conf.target.system_root, "usr/share/flatpak")
+# pylint: disable=environment-modify
+os.environ["FLATPAK_SYSTEM_DIR"] = os.path.join(conf.target.system_root, "var/lib/flatpak")
 
 log = get_module_logger(__name__)
 
