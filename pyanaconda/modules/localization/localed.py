@@ -347,6 +347,7 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         self._set_layouts(layouts_variants, options, convert)
         log.debug("Storing layouts for compositor configured by user")
         self._user_layouts_variants = layouts_variants
+        self.compositor_layouts_changed.emit(self._user_layouts_variants)
 
     def _set_layouts(self, layouts_variants, options=None, convert=False):
         """Set a new layouts for compositor.
@@ -391,6 +392,7 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         try:
             new_layouts = self._shift_list(layouts, layout_variant)
             self._set_layouts(new_layouts)
+            self.compositor_selected_layout_changed.emit(new_layouts)
             return True
         except ValueError:
             log.warning("Can't set layout: '%s' as first to the current set: %s",
