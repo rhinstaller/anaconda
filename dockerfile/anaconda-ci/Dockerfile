@@ -22,7 +22,6 @@ ARG git_branch
 # The `copr_repo` arg will set Anaconda daily builds copr repository.
 # possible values:
 #   @rhinstaller/Anaconda
-#   @rhinstaller/Anaconda-devel
 ARG copr_repo
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 

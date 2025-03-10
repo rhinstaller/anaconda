@@ -29,5 +29,5 @@
 GIT_BRANCH ?= fedora-42
 L10N_DIR ?= f42
 BASE_CONTAINER ?= registry.fedoraproject.org/fedora:42
-COPR_REPO ?= \@rhinstaller/Anaconda-devel
+COPR_REPO ?= \@rhinstaller/Anaconda
 
