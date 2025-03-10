@@ -6,5 +6,5 @@
 # called after parsing kickstart, see anaconda-lib.
 
 . /lib/anaconda-lib.sh
-start_dnsconfd "Anaconda boot options have been parsed"
+start_dnsconfd boot_options "Anaconda boot options have been parsed"
 
