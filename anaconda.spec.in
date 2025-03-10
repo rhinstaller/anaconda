@@ -487,6 +487,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 10 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.26-1
+- network: start dnsconfd in initramfs (rvykydal)
+  Resolves: RHEL-80302
+- network: enable dnsconfd service on installed system if required (rvykydal)
+  Resolves: RHEL-80011
+- network: pass 16-dns-backend.conf to target system (rvykydal)
+  Resolves: RHEL-80232
+- netowrk: enable dnsconfd service in installer environment (rvykydal)
+  Resolves: RHEL-80011
+
 * Mon Feb 17 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.25-1
 - network: add dnsconfd to installer environment (rvykydal)
   Resolves: RHEL-79800
