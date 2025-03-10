@@ -587,16 +587,38 @@ class DNFManager:
         :param include_list: a list of specs for inclusion
         :param exclude_list: a list of specs for exclusion
         """
+        environment_excludes = []
+        group_excludes = []
+        package_excludes = []
+        for spec in exclude_list:
+            if spec.startswith("@^"):
+                environment_excludes.append(spec[2:])
+            elif spec.startswith("@"):
+                group_excludes.append(spec[1:])
+            else:
+                package_excludes.append(spec)
+
+        log.info("Excluding package specs: %s", package_excludes)
+        excludes = libdnf5.rpm.PackageQuery(self._base)
+        excludes.filter_name(package_excludes, libdnf5.common.QueryCmp_GLOB)
+        self._base.get_rpm_package_sack().add_user_excludes(excludes)
+
+        comps_sack = self._base.get_comps_sack()
+
+        log.info("Excluding environment specs: %s", environment_excludes)
+        excludes = libdnf5.comps.EnvironmentQuery(self._base)
+        excludes.filter_environmentid(environment_excludes, libdnf5.common.QueryCmp_GLOB)
+        comps_sack.add_user_environment_excludes(excludes)
+
+        log.info("Excluding group specs: %s", group_excludes)
+        excludes = libdnf5.comps.GroupQuery(self._base)
+        excludes.filter_groupid(group_excludes, libdnf5.common.QueryCmp_GLOB)
+        comps_sack.add_user_group_excludes(excludes)
+
         log.info("Including specs: %s", include_list)
         for spec in include_list:
             self._goal.add_install(spec)
             self._goal_skip_unavailable.add_install(spec)
-
-        log.info("Excluding specs: %s", exclude_list)
-        # FIXME: Make the excludes work also for groups. Right now, only packages are excluded.
-        excludes = libdnf5.rpm.PackageQuery(self._base)
-        excludes.filter_name(exclude_list, libdnf5.common.QueryCmp_GLOB)
-        self._base.get_rpm_package_sack().add_user_excludes(excludes)
 
     def resolve_selection(self):
         """Resolve the software selection."""
