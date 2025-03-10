@@ -18,7 +18,7 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 import gi
 import pytest
@@ -281,6 +281,9 @@ class FlatpakManagerTestCase(unittest.TestCase):
         transaction = Mock()
         installation_mock.new_system.return_value = installation
         transaction_mock.new_for_installation.return_value = transaction
+        remote = Mock()
+        remote.get_url.return_value = "https://example.org"
+        installation.list_remotes.return_value = [remote]
 
         fm = FlatpakManager()
 
@@ -300,7 +303,52 @@ class FlatpakManagerTestCase(unittest.TestCase):
         transaction.add_sync_preinstalled.assert_called_once()
         transaction.run.assert_called_once()
         transaction.run_dispose.assert_called_once()
+        installation.modify_remote.assert_not_called()
+        remote.set_url.assert_not_called()
 
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Transaction")
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Installation")
+    def test_install_with_collection_local_remote(self, installation_mock, transaction_mock):
+        """Test FlatpakManager the install method with workaround for local remote."""
+        progress = Mock()
+        installation = Mock()
+        transaction = Mock()
+        installation_mock.new_system.return_value = installation
+        transaction_mock.new_for_installation.return_value = transaction
+        remote = Mock()
+        remote1 = Mock()
+        remote.get_url.return_value = "oci+https://example.org"
+        remote.get_name.return_value = "remote"
+        remote1.get_url.return_value = "https://example.org"
+        remote1.get_name.return_value = "remote1"
+        installation.list_remotes.return_value = [remote, remote1]
+
+        fm = FlatpakManager()
+
+        # Working prerequisites
+        fm._skip_installation = False
+        refs = ["org.fedoraproject.Stable:app/org.example.App1/amd64/stable"]
+        fm.set_flatpak_refs(refs)
+
+        # set collection
+        fm._collection_location = "/example/location"
+
+        # run installation
+        fm.install(progress)
+        installation_mock.new_system.assert_called_once_with(None)
+        transaction_mock.new_for_installation.assert_called_once_with(installation)
+        transaction.add_sideload_image_collection("/example/location")
+        transaction.add_sync_preinstalled.assert_called_once()
+        transaction.run.assert_called_once()
+        transaction.run_dispose.assert_called_once()
+        # change the URL because of workaround to avoid blocking the installation on
+        # an inaccessible mirror; this mirror is returned after the installation so
+        # it could be used for updates
+        remote.set_url.assert_has_calls(
+            [call("oci+https://no-download.invalid"), call("oci+https://example.org")]
+        )
+        remote1.set_url.assert_not_called()
+        installation.modify_remote.assert_called()
 
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Installation")
