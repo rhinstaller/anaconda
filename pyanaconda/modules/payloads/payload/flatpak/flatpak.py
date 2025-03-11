@@ -95,6 +95,7 @@ class FlatpakModule(PayloadBase):
         :param sources: set a new sources
         :type sources: instance of pyanaconda.modules.payloads.source.source_base.PayloadSourceBase
         """
+        log.debug("Flatpak input sources set to: %s", sources)
         self._flatpak_manager.set_sources(sources)
 
     def set_flatpak_refs(self, refs):
@@ -102,6 +103,7 @@ class FlatpakModule(PayloadBase):
 
         :param refs: a list of flatpak refs
         """
+        log.debug("Flatpak refs are set to: %s", refs)
         self._flatpak_manager.set_flatpak_refs(refs)
 
     def calculate_required_space(self):
