@@ -529,7 +529,7 @@ class MediaCheckDialog(GUIObject):
             "This media is good to install from."
         ))
         self.verify_result_icon.set_visible(True)
-        self.verify_result_icon.set_from_icon_name("emblem-default-symbolic", Gtk.IconSize.DIALOG)
+        self.verify_result_icon.set_from_icon_name("selection-mode-symbolic", Gtk.IconSize.DIALOG)
 
     def set_state_bad(self):
         self.close_button.set_label(C_(

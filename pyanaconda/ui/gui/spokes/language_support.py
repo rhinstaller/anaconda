@@ -194,7 +194,7 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
 
     def _render_lang_highlighted(self, column, renderer, model, itr, user_data=None):
         if self._is_lang_selected(model[itr][2]):
-            return "emblem-ok-symbolic"
+            return "object-select-symbolic"
         else:
             return None
 

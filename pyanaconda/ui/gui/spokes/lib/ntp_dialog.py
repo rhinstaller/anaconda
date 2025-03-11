@@ -68,7 +68,7 @@ class NTPConfigDialog(GUIObject):
         if value == constants.NTP_SERVER_QUERY:
             return "dialog-question-symbolic"
         elif value == constants.NTP_SERVER_OK:
-            return "emblem-default-symbolic"
+            return "object-select-symbolic"
         else:
             return "dialog-error-symbolic"
 
