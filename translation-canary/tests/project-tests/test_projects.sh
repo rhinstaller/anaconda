@@ -9,8 +9,8 @@
 # warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
 # the GNU Lesser General Public License for more details.  You should have
 # received a copy of the GNU Lesser General Public License along with this
-# program; if not, write to the Free Software Foundation, Inc., 51 Franklin
-# Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat trademarks
+# program; if not, write to the Free Software Foundation, Inc., 31 Milk
+# Street #960789 Boston, MA 02196 USA.  Any Red Hat trademarks
 # that are incorporated in the source code or documentation are not subject
 # to the GNU Lesser General Public License and may only be used or
 # replicated with the express permission of Red Hat, Inc.
