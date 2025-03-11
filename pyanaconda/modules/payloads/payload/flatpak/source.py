@@ -236,9 +236,9 @@ class FlatpakStaticSource(FlatpakSource):
                     if progress:
                         progress.report_progress(_("Downloading {}").format(image.ref))
 
-                    manifest_len = self._download_blob(downloader, download_location, image.digest)
+                    manifest_len = self._download_blob(downloader, collection_location, image.digest)
                     self._download_blob(downloader,
-                                        download_location, image.manifest_json["config"]["digest"])
+                                        collection_location, image.manifest_json["config"]["digest"])
                     index_json["manifests"].append({
                         "mediaType": "application/vnd.oci.image.manifest.v1+json",
                         "digest": image.digest,
@@ -247,7 +247,7 @@ class FlatpakStaticSource(FlatpakSource):
 
                     for layer in image.manifest_json["layers"]:
                         self._download_blob(downloader,
-                                            download_location, layer["digest"],
+                                            collection_location, layer["digest"],
                                             stream=True)
 
         os.makedirs(collection_location, exist_ok=True)
