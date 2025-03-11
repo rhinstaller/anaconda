@@ -106,10 +106,12 @@ class FlatpakManager:
         if isinstance(source, RepositorySourceMixin):
             if self._source and isinstance(self._source, FlatpakStaticSource) \
                     and self._source.repository_config == source.repository:
+                log.debug("Skipping static source: %s as it is already set.", source)
                 return
             self._source = FlatpakStaticSource(source.repository, relative_path="Flatpaks")
         elif source.type in (SourceType.CDN, SourceType.CLOSEST_MIRROR):
             if self._source and isinstance(self._source, FlatpakRegistrySource):
+                log.debug("Skipping registry source: %s as it is already set.", source)
                 return
             _, remote_url = conf.payload.flatpak_remote
             log.debug("Using Flatpak registry source: %s", remote_url)
@@ -127,12 +129,15 @@ class FlatpakManager:
         self._skip_installation = False
         self._flatpak_refs = refs if refs is not None else []
 
+        log.debug("Flatpak refs are set to: %s", self._flatpak_refs)
+
     def set_download_location(self, path: str):
         """Sets a location that can be used for temporary download of Flatpak content.
 
         :param path: parent directory to store downloaded Flatpak content
            (the download should be to a subdirectory of this path)
         """
+        log.debug("Flatpak download location set to: %s", path)
         self._download_location = path
 
     @property
@@ -174,7 +179,7 @@ class FlatpakManager:
             self._download_size, self._install_size = \
                 self.get_source().calculate_size(self._flatpak_refs)
         except NoSourceError as e:
-            log.error("Flatpak source not available, skipping installing %s: %s",
+            log.error("Flatpak source not available, skipping size calculation %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
 
@@ -195,7 +200,12 @@ class FlatpakManager:
 
         This is only needed if Flatpak can't install the content directly.
         """
-        if self._skip_installation or len(self._flatpak_refs) == 0:
+        if self._skip_installation:
+            log.debug("Flatpak download is going to be skipped.")
+            return
+
+        if len(self._flatpak_refs) == 0:
+            log.debug("No flatpaks are marked for download.")
             return
 
         try:
@@ -203,7 +213,7 @@ class FlatpakManager:
                                                                    self._download_location,
                                                                    progress)
         except NoSourceError as e:
-            log.error("Flatpak source not available, skipping installing %s: %s",
+            log.error("Flatpak source not available, skipping download %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
 
@@ -212,8 +222,15 @@ class FlatpakManager:
 
         :param progress: used to report progress of the operation
         """
-        if self._skip_installation or len(self._flatpak_refs) == 0:
+        if self._skip_installation:
+            log.debug("Flatpak install is going to be skipped.")
             return
+
+        if len(self._flatpak_refs) == 0:
+            log.debug("No flatpaks are marked for install.")
+            return
+
+        log.debug("Installing Flatpaks")
 
         installation = self._create_flatpak_installation()
         self._transaction = self._create_flatpak_transaction(installation)
