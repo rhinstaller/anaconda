@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/bin/bash
+
+# Disable only on system with rhel policy (RHEL, CentOS, Alma Linux, Rocky Linux, ...)
+if [ "$1" == "rhel" ]; then
+    source /etc/os-release
+    if [[ ! "${ID}" == "rhel" ]] && [[ ! "${ID}" == "centos" ]] && [[ ! "${ID_LIKE}" =~ "rhel" ]]; then
+        echo "Skipping the RHEL NM autoconnections policy setting on system with ID: ${ID}, ID_LIKE: ${ID_LIKE}."
+        exit 0
+    fi
+fi
+
+echo "Disabling NetworkManager autoconnections."
 cat > /etc/NetworkManager/conf.d/90-anaconda-no-auto-default.conf << EOF
 [main]
 no-auto-default=*
