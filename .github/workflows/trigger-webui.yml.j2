@@ -19,8 +19,8 @@ on:
       - 'data/conf.d/**/'
       - 'data/profile.d/**'
       - 'po/l10n-config.mk'
-    branches:
-      - 'main'
+    branches: [ main, fedora-* ]
+
 jobs:
   trigger:
     runs-on: ubuntu-24.04
