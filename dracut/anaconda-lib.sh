@@ -486,12 +486,17 @@ start_dnsconfd() {
         return 0
     else
         if [ "${stage}" == "kickstart_parsed" ]; then
-            echo "Attempting to start dnsconfd. Restarting after kickstart input."
-            # TODO check for imported certificates
-            systemctl restart unbound.service
-            return 0
+            if ! [ -d /run/install/certificates ]; then
+                echo "Attempting to start dnsconfd. Not restarting - no certificates imported via kickstart."
+                return 1
+            else
+                echo "Attempting to start dnsconfd. Restarting - certificates imported via kickstart."
+                systemctl restart unbound.service
+                return 0
+            fi
         else
             echo "Attempting to start dnsconfd. Not starting, already active."
+            return 1
         fi
     fi
 }
