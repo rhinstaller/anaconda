@@ -381,7 +381,7 @@ run_kickstart() {
     fi
 
     if [ "$do_net" ]; then
-        start_dnsconfd kickstart_parsed "The network may have become required"
+        start_dnsconfd kickstart_parsed_net "The network may have become required"
     fi
 
     # net: re-run online hooks
