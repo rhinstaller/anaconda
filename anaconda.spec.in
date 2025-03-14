@@ -500,6 +500,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 14 2025 github-actions <github-actions@github.com> - 42.27.4-1
+- pyanaconda: storage: fix getting of usable devices (k.koukiou)
+
 * Wed Mar 05 2025 github-actions <github-actions@github.com> - 42.27.3-1
 - Fix bad formatting for `format` function (jkonecny)
 - Add the locale1-x11-sync script to the anaconda-live subpackage (#2346855)
