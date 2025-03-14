@@ -151,6 +151,12 @@ jobs:
       - fedora-{$ distro_release $}
 
   - job: copr_build
+    trigger: pull_request
+    packages: [anaconda-fedora]
+    targets:
+      - fedora-{$ distro_release $}
+
+  - job: copr_build
     trigger: commit
     packages: [anaconda-fedora]
     targets:
