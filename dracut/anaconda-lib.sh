@@ -297,11 +297,14 @@ set_neednet() {
 }
 
 parse_kickstart() {
-    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
+    local stage=kickstart_parsed
+    local ksconf=/etc/cmdline.d/80-kickstart.conf
+    [ -e ${ksconf} ] && stage=kickstart_parsed_again
+    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > "${ksconf}"
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
-    start_dnsconfd kickstart_parsed "The certificates may have been imported."
+    start_dnsconfd ${stage} "The certificates may have been imported."
 }
 
 # print a list of net devices that dracut says are set up.
