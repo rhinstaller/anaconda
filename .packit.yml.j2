@@ -50,37 +50,6 @@ jobs:
     dist_git_branches:
       - main
 
-  - job: koji_build
-    trigger: commit
-    packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dist_git_branches:
-      - main
-    allowed_committers:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-    allowed_pr_authors:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-
-  - job: bodhi_update
-    trigger: koji_build
-    packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dependencies:
-      - anaconda-webui
-    dist_git_branches:
-      - main
-    allowed_builders:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-
   - job: tests
     trigger: pull_request
     packages: [anaconda-fedora]
@@ -112,37 +81,6 @@ jobs:
     packages: [anaconda-fedora]
     dist_git_branches:
       - f{$ distro_release $}
-
-  - job: koji_build
-    trigger: commit
-    packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dist_git_branches:
-      - f{$ distro_release $}
-    allowed_committers:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-    allowed_pr_authors:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-
-  - job: bodhi_update
-    trigger: koji_build
-    packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dependencies:
-      - anaconda-webui
-    dist_git_branches:
-      - f{$ distro_release $}
-    allowed_builders:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
 
   - job: tests
     trigger: pull_request
@@ -180,4 +118,36 @@ jobs:
     packages: [anaconda-centos]
     dist_git_branches: c{$ distro_release $}s
 
+{% endif %}
+{% if distro_name == "fedora" %}
+  - job: koji_build
+    trigger: commit
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dist_git_branches:
+      - fedora-development
+    allowed_committers:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+    allowed_pr_authors:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+
+  - job: bodhi_update
+    trigger: koji_build
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dependencies:
+      - anaconda-webui
+    dist_git_branches:
+      - fedora-development
+    allowed_builders:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
 {% endif %}
