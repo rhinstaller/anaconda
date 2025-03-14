@@ -156,7 +156,7 @@ class ManualPartitioningModule(PartitioningModule):
                 continue
 
             # All device's disks have to be in selected disks.
-            if selected_disks and not selected_disks.issuperset({d.name for d in device.disks}):
+            if selected_disks and not selected_disks.issuperset({d.device_id for d in device.disks}):
                 continue
 
             yield device
