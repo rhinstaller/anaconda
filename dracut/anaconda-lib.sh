@@ -312,7 +312,7 @@ parse_kickstart() {
     local stage=kickstart_parsed
     local ksconf=/etc/cmdline.d/80-kickstart.conf
     [ -e ${ksconf} ] && stage=kickstart_parsed_again
-    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > ${ksconf}
+    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > "${ksconf}"
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp "$parsed_kickstart" /run/install/ks.cfg
