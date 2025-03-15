@@ -69,7 +69,7 @@ def get_product_values():
     Order of precedence for the values is:
       1) Buildstamp file specified by the PRODBUILDPATH environment variable
       2) Buildstamp file /.buildstamp
-      3) Environment variable ANACONDA_ISFINAL
+      3) ANACONDA_ISFINAL based on /etc/os-release RELEASE_TYPE field
       4) In absence of any data, fall back to "false"
 
     :return: Data about product
@@ -80,7 +80,17 @@ def get_product_values():
     # .buildstamp, environment, stupid last ditch hardcoded defaults.
     config = configparser.ConfigParser()
     config.add_section("Main")
-    config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
+
+    # Get IsFinal property from /etc/os-release file
+    with open('/etc/os-release') as file:
+        for line in file:
+            key, value = line.split('=')
+            value = value.strip()
+            if key == 'RELEASE_TYPE':
+                config.set("Main", "IsFinal", str(value in {'release', 'stable'}))
+                # pylint: disable=environment-modify
+                os.environ["ANACONDA_ISFINAL"] = str(value in {'release', 'stable'})
+
     config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
     config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
