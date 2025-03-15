@@ -5,6 +5,9 @@
 # initqueue/online hook passes interface name as $1
 netif="$1"
 
+# do not use 'lo' device
+[ "$netif" == "lo" ] && return 0
+
 # we already processed the kickstart - exit
 [ -e /tmp/ks.cfg.done ] && return 0
 
