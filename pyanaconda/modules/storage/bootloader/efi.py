@@ -24,7 +24,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import join_paths
-from pyanaconda.core.product import get_product_name
+from pyanaconda.core.product import get_product_short_name, get_product_version
 from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
@@ -52,7 +52,7 @@ class EFIBase:
 
     @property
     def _efi_config_dir(self):
-        return "efi/EFI/{}".format(conf.bootloader.efi_dir)
+        return "efi/EFI/{}{}".format(conf.bootloader.efi_dir, get_product_short_name())
 
     def get_fw_platform_size(self):
         try:
@@ -87,6 +87,47 @@ class EFIBase:
         ret = self._efi_config_dir.replace('efi/', '')
         return "\\" + ret.replace('/', '\\')
 
+    def _reorder_boot_to_new_label(self):
+        """Put the new Fedora label as the first entry in BootOrder."""
+        label = get_product_short_name() + get_product_version()
+
+        # 1) Načti vše z efibootmgr
+        buf = self.efibootmgr(capture=True, replace_utf_decode_errors=True)
+        new_slot = None
+        bootorder_line = None
+
+        # 2) Najdeme "BootOrder" a také novou položku
+        for line in buf.splitlines():
+            if line.startswith("BootOrder:"):
+                # např. "BootOrder: 0000,0001,0002"
+                bootorder_line = line.partition(":")[2].strip()
+            elif label in line:
+                # např. "Boot0003* Fedora38 HD(...)"
+                new_slot = line[4:8]  # Boot ID = "0003"
+
+        # Bez nového slotu nebo staré bootorder nic neuděláme
+        if not new_slot or not bootorder_line:
+            log.info("Can't reorder BootOrder (new_slot=%s, bo_line=%s).", new_slot, bootorder_line)
+            return
+
+        # 3) Seřaď nové (new_slot) před existující
+        # BootOrder: "0000,0001,0002" -> list ["0000","0001","0002"]
+        slots = [s.strip() for s in bootorder_line.split(",") if s.strip()]
+        # Nové dám dopředu, zbytek nechám v původním pořadí
+        # ale vyřadím new_slot, pokud tam už je
+        slots = [s for s in slots if s != new_slot]
+        slots.insert(0, new_slot)  # novou dáme na začátek
+
+        new_order = ",".join(slots)
+        log.info("Setting new BootOrder: %s", new_order)
+
+        # 4) Zavoláme efibootmgr -o s novým pořadím
+        rc = self.efibootmgr("-o", new_order)
+        if rc:
+            log.warning("Failed to set new boot order to: %s", new_order)
+        else:
+            log.info("Boot order updated successfully -> new entry should be first.")
+
     def _add_single_efi_boot_target(self, partition):
         boot_disk = partition.disk
         boot_part_num = str(partition.parted_partition.number)
@@ -94,7 +135,7 @@ class EFIBase:
         create_method = "-C" if self.keep_boot_order else "-c" # pylint: disable=no-member
 
         rc = self.efibootmgr(
-            create_method, "-w", "-L", get_product_name().split("-")[0],  # pylint: disable=no-member
+            create_method, "-w", "-L", get_product_short_name() + get_product_version(),  # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
             root=conf.target.system_root
@@ -122,7 +163,7 @@ class EFIBase:
             except ValueError:
                 continue
 
-            if _product == get_product_name().split("-")[0]:           # pylint: disable=no-member
+            if _product == get_product_short_name() + get_product_version():           # pylint: disable=no-member
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
@@ -150,9 +191,10 @@ class EFIBase:
         return True
 
     def install(self, args=None):
-        if not self.keep_boot_order:  # pylint: disable=no-member
-            self.remove_efi_boot_target()
+        # if not self.keep_boot_order:  # pylint: disable=no-member
+        #     self.remove_efi_boot_target()
         self.add_efi_boot_target()
+        self._reorder_boot_to_new_label()
 
 
 class EFIGRUB(EFIBase, GRUB2):
@@ -190,6 +232,9 @@ class EFIGRUB(EFIBase, GRUB2):
 
     def write_config(self):
         config_path = "%s%s" % (conf.target.system_root, self.efi_config_file)
+
+        # vytvořit cílovou složku, pokud neexistuje
+        os.makedirs(os.path.dirname(config_path), exist_ok=True)
 
         with open(config_path, "w") as fd:
             grub_dir = self.config_dir
