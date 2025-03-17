@@ -53,37 +53,6 @@ jobs:
     dist_git_branches:
       - f42
 
-  - job: koji_build
-    trigger: commit
-    packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dist_git_branches:
-      - f42
-    allowed_committers:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-    allowed_pr_authors:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-
-  - job: bodhi_update
-    trigger: koji_build
-    packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dependencies:
-      - anaconda-webui
-    dist_git_branches:
-      - f42
-    allowed_builders:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-
   - job: tests
     trigger: pull_request
     packages: [anaconda-fedora]
@@ -111,3 +80,33 @@ jobs:
       # Mainly useful when there is a package which is not yet in Rawhide but build is available.
       - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
 
+  - job: koji_build
+    trigger: commit
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dist_git_branches:
+      - fedora-development
+    allowed_committers:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+    allowed_pr_authors:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+
+  - job: bodhi_update
+    trigger: koji_build
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dependencies:
+      - anaconda-webui
+    dist_git_branches:
+      - fedora-development
+    allowed_builders:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
