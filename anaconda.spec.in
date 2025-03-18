@@ -505,6 +505,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 18 2025 github-actions <github-actions@github.com> - 43.8-1
+- network: do not use lo device to fetch kickstart (rvykydal)
+
 * Fri Mar 14 2025 github-actions <github-actions@github.com> - 43.7-1
 - pyanaconda: storage: fix getting of usable devices (k.koukiou)
 - gui: replace emblem icons removed from adwaita package (rvykydal)
