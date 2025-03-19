@@ -37,4 +37,4 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 # Download and extract the updates image.
-(cd / ; curl -f "${URL}" | gzip -dc  | cpio -idu )
+(cd / ; curl -L -f "${URL}" | gzip -dc  | cpio -idu )
