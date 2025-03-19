@@ -27,11 +27,12 @@ from pyanaconda.core.constants import (
     DisplayModes,
 )
 from pyanaconda.core.dbus import DBus
-from pyanaconda.core.product import get_product_is_final_release
+from pyanaconda.core.product import get_product_is_final_release, get_product_values
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
+from pyanaconda.modules.common.structures.product import ProductData
 from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 
@@ -201,3 +202,20 @@ class UIModule(KickstartBaseModule):
         :return bool: final or not
         """
         return get_product_is_final_release()
+
+    @property
+    def product_data(self):
+        """Load the product data and convert it into the ProductData structure.
+
+        :return: An instance of the ProductData structure containing product information.
+        :rtype: ProductData
+        """
+        product_data = ProductData()
+        product_values = get_product_values()
+
+        product_data.is_final_release = product_values.is_final_release
+        product_data.name = product_values.name
+        product_data.version = product_values.version
+        product_data.short_name = product_values.short_name
+
+        return product_data
