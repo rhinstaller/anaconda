@@ -198,7 +198,7 @@ jobs:
         working-directory: ./kickstart-tests
         run: |
           LAUNCH_ARGS=$(scripts/generate-launch-args.py ${{ needs.pr-info.outputs.comment_args }} \
-             --branch ${{ needs.pr-info.outputs.target_branch }} ) || RC=$?
+             --branch ${{ needs.pr-info.outputs.target_branch }} ) --anaconda-pr || RC=$?
           if [ -z ${RC} ] || [ ${RC} == 0 ]; then
             echo "Generated launch arguments: $LAUNCH_ARGS"
           else
