@@ -17,7 +17,7 @@
 #
 from blivet import arch, blockdev, udev
 from blivet import util as blivet_util
-from blivet.devicelibs import crypto
+from blivet.devicelibs import crypto, lvm
 from blivet.flags import flags as blivet_flags
 from blivet.formats import get_device_format_class
 from blivet.static_data import luks_data
@@ -80,6 +80,13 @@ def enable_installer_mode():
 
     # We need this so all the /dev/disk/* stuff is set up.
     udev.trigger(subsystem="block", action="change")
+
+    # Disable LVM auto-activation during installation
+    if not conf.target.is_directory and not conf.target.is_image:
+        try:
+            lvm.disable_lvm_autoactivation()
+        except RuntimeError as e:
+            log.error("Failed to disable LVM auto-activation: %s", str(e))
 
 
 def _set_default_label_type():
