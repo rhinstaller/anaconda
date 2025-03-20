@@ -18,10 +18,11 @@
 import unittest
 
 from dasbus.structure import compare_data
-from dasbus.typing import Bool, UInt16, get_variant
+from dasbus.typing import Bool, Str, UInt16, get_variant
 
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
+from pyanaconda.modules.common.structures.product import ProductData
 from pyanaconda.modules.runtime.user_interface import UIModule
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
@@ -68,3 +69,20 @@ class UIInterfaceTestCase(unittest.TestCase):
             "PasswordPolicies",
             {"luks": policy}
         )
+
+    def test_product_data_property(self):
+        """Test the ProductData property."""
+        # Fetch the ProductData from the DBus interface
+        product_data = ProductData.from_structure(self.interface.ProductData)
+
+        # Check if the product data has the correct structure
+        assert isinstance(product_data, ProductData)
+        assert isinstance(product_data.is_final_release, Bool)
+        assert isinstance(product_data.name, Str)
+        assert isinstance(product_data.version, Str)
+        assert isinstance(product_data.short_name, Str)
+
+        assert product_data.is_final_release is False
+        assert product_data.name == "anaconda"
+        assert product_data.version == "bluesky"
+        assert product_data.short_name == "anaconda"
