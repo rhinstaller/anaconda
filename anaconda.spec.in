@@ -288,6 +288,9 @@ Requires: skopeo
 Requires: nvme-cli
 # Needed for bootc
 Requires: podman
+# needed for encrypted DNS
+Requires: dnsconfd
+Requires: dnsconfd-dracut
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
@@ -354,6 +357,9 @@ Requires: dracut-live
 Requires: xz
 Requires: python3-kickstart
 Requires: iputils
+# Required for encrypted DNS
+Requires: dnsconfd-dracut
+Requires: dnsconfd
 
 %description dracut
 The 'anaconda' dracut module handles installer-specific boot tasks and

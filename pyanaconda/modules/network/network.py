@@ -422,6 +422,17 @@ class NetworkService(KickstartService):
                 reason="Necessary for biosdevname network device naming feature."
             ))
 
+        # encrypted dns
+        if self._is_using_dnsconfd(kernel_arguments):
+            requirements.append(Requirement.for_package(
+                "dnsconfd",
+                reason="Necessary for encrypted DNS configurtion."
+            ))
+            requirements.append(Requirement.for_package(
+                "dnsconfd-dracut",
+                reason="Necessary for encrypted DNS configuration in initramfs."
+            ))
+
         return requirements
 
     def configure_activation_on_boot_with_task(self, onboot_ifaces):
@@ -810,3 +821,6 @@ class NetworkService(KickstartService):
 
     def _is_using_biosdevname(self, kernel_args):
         return kernel_args.get('biosdevname') == "1"
+
+    def _is_using_dnsconfd(self, kernel_args):
+        return kernel_args.get('rd.net.dns-backend') == "dnsconfd"
