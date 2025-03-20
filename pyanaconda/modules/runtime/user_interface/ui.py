@@ -27,7 +27,7 @@ from pyanaconda.core.constants import (
     DisplayModes,
 )
 from pyanaconda.core.dbus import DBus
-from pyanaconda.core.product import get_product_is_final_release, get_product_values
+from pyanaconda.core.product import get_product_values
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
@@ -190,18 +190,6 @@ class UIModule(KickstartBaseModule):
             PASSWORD_POLICY_USER: PasswordPolicy.from_defaults(PASSWORD_POLICY_USER),
             PASSWORD_POLICY_LUKS: PasswordPolicy.from_defaults(PASSWORD_POLICY_LUKS),
         }
-
-    @property
-    def is_final(self):
-        """Does the installation environment declare itself as "final"?
-
-        This is false for Rawhide and Beta, true for GA/Gold.
-
-        FIXME: This is a temporary getter. Replace it by the intended product API
-
-        :return bool: final or not
-        """
-        return get_product_is_final_release()
 
     @property
     def product_data(self):

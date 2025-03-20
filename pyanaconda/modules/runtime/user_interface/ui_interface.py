@@ -125,14 +125,6 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         )
 
     @property
-    def IsFinal(self) -> Bool:
-        """Does the installation environment declare itself as "final"?
-
-        FIXME: This is a temporary getter. Replace it by the intended product API
-        """
-        return self.implementation.is_final
-
-    @property
     def ProductData(self) -> Structure:
         """Expose product data including name, version, and final release status."""
         return ProductData.to_structure(
