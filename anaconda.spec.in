@@ -500,6 +500,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 20 2025 github-actions <github-actions@github.com> - 42.27.5-1
+- Support redirects in apply-updates (jkonecny)
+- Bump required version of Blivet to 3.12 (vtrefny)
+- Disable LVM auto-activation during installation (vtrefny)
+- Fix tui error after rd question (adamkankovsky)
+- Update FSF address (adamkankovsky)
+- gui: replace emblem icons removed from adwaita package (rvykydal)
+
 * Fri Mar 14 2025 github-actions <github-actions@github.com> - 42.27.4-1
 - pyanaconda: storage: fix getting of usable devices (k.koukiou)
 
