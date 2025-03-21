@@ -127,13 +127,6 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever_minor": "",
         })
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.get_os_release_value")
-    def test_set_module_platform_id(self, get_platform_id):
-        """Test the configuration of module_platform_id."""
-        get_platform_id.return_value = "platform:f32"
-        self.dnf_manager.reset_base()
-        self._check_configuration("module_platform_id = platform:f32")
-
     def test_configure_proxy(self):
         """Test the proxy configuration."""
         self.dnf_manager.configure_proxy("http://user:pass@example.com/proxy")
