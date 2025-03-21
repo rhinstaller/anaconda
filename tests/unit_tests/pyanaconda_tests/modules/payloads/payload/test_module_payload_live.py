@@ -106,7 +106,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         exec_readlines.return_value = self._make_reader(0)
         exec_with_redirect.return_value = 0
 
-        with tempfile.TemporaryDirectory() as mount_point:
+        with tempfile.TemporaryDirectory(dir="/var/tmp") as mount_point:
             task = InstallFromImageTask(
                 sysroot="/mnt/root",
                 mount_point=mount_point
