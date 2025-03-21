@@ -25,10 +25,10 @@ from pyanaconda.core.constants import DisplayModes
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
+from pyanaconda.modules.common.structures.product import ProductData
+from pyanaconda.modules.common.structures.vnc import VncData
 
 __all__ = ["UIInterface"]
-
-from pyanaconda.modules.common.structures.vnc import VncData
 
 
 @dbus_interface(USER_INTERFACE.interface_name)
@@ -125,9 +125,8 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         )
 
     @property
-    def IsFinal(self) -> Bool:
-        """Does the installation environment declare itself as "final"?
-
-        FIXME: This is a temporary getter. Replace it by the intended product API
-        """
-        return self.implementation.is_final
+    def ProductData(self) -> Structure:
+        """Expose product data including name, version, and final release status."""
+        return ProductData.to_structure(
+            self.implementation.product_data
+        )
