@@ -167,7 +167,9 @@ class X86(Platform):
     def stage1_constraints(self):
         """The platform-specific constraints for the stage1 device."""
         constraints = {
-            PLATFORM_DEVICE_TYPES: ["disk"]
+            PLATFORM_DEVICE_TYPES: ["disk"],
+            PLATFORM_RAID_LEVELS: [raid.RAID1],
+            PLATFORM_RAID_METADATA: ["1.0"]
         }
         return dict(super().stage1_constraints, **constraints)
 

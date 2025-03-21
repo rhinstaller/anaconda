@@ -112,6 +112,8 @@ class PlatformTestCase(unittest.TestCase):
         self._check_constraints(
             constraints={
                 "device_types": ["disk"],
+                "raid_levels": [raid.RAID1],
+                "raid_metadata": ["1.0"]
             },
             descriptions={
                 "disk": "Master Boot Record",
