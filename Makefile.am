@@ -98,7 +98,7 @@ RELEASE_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-release
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 LIVE_ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-live-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
-CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z
+CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z --tmpfs=/var/tmp:rw,mode=1777
 CI_CMD ?= make ci
 
 SKIP_BRANCHING_CHECK ?= "false"

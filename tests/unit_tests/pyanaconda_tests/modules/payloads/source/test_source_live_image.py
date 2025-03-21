@@ -356,7 +356,7 @@ class LiveImageInstallationTestCase(unittest.TestCase):
     @contextmanager
     def _create_directory(self):
         """Create a temporary directory."""
-        with tempfile.TemporaryDirectory() as d:
+        with tempfile.TemporaryDirectory(dir="/var/tmp") as d:
             self.directory = d
             yield
             self.directory = None
