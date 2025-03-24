@@ -557,11 +557,12 @@ class BootLoader:
                                        desc=description):
             valid = False
 
-        if not self._is_valid_md(device,
-                                 raid_levels=constraints[PLATFORM_RAID_LEVELS],
-                                 metadata=constraints[PLATFORM_RAID_METADATA],
-                                 desc=description):
-            valid = False
+        for dev in [device, *device.parents]:
+            if not self._is_valid_md(dev,
+                                     raid_levels=constraints[PLATFORM_RAID_LEVELS],
+                                     metadata=constraints[PLATFORM_RAID_METADATA],
+                                     desc=description):
+                valid = False
 
         if not self.stage2_bootable and not getattr(device, "bootable", True):
             log.warning("%s not bootable", device.name)
