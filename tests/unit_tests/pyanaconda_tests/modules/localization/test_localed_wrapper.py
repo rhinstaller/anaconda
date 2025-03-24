@@ -227,6 +227,12 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         localed_wrapper.set_layouts(["cz", "us (euro)"])
         assert localed_wrapper._user_layouts_variants == ["cz", "us (euro)"]
 
+        # we are removing all the grp: switching keyboard layouts below as we don't support
+        # this to easy the life of the compositors
+        # The issue is that in this case they need to signal us current layout change which
+        # is tricky for more reasons but one of it is that it could be window specific and
+        # backend doesn't own window
+
         # test set_layout on proxy without options
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         localed_wrapper.set_layouts(["cz (qwerty)", "us"])
@@ -234,7 +240,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             "cz,us",
             "pc105",  # hardcoded
             "qwerty,",
-            "eurosign:2,grp:alt_shift_toggle,grp:ctrl_alt_toggle,grp_led:caps",
+            "eurosign:2,grp_led:caps",
             False,
             False
         )
@@ -246,13 +252,12 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             "cz,us",
             "pc105",  # hardcoded
             "qwerty,",
-            "eurosign:2,grp:alt_shift_toggle,grp:ctrl_alt_toggle,grp_led:caps",
+            "eurosign:2,grp_led:caps",
             False,
             False
         )
 
-        # test set_layout on proxy when shortcut layout switching is broken
-        # TODO: Remove when https://issues.redhat.com/browse/RHEL-71880 is fixed
+        # test set_layout on proxy when shortcut layout switching is disabled
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         mocked_conf.system.supports_compositor_keyboard_layout_shortcut = False
         localed_wrapper.set_layouts(["cz (qwerty)", "us"], options=None)
@@ -260,12 +265,12 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             "cz,us",
             "pc105",  # hardcoded
             "qwerty,",
-            "eurosign:2,grp_led:caps",  # Remove after fix of RHEL-71880
+            "eurosign:2,grp_led:caps",
             False,
             False
         )
 
-        # test set_layout on proxy when layout switching is broken and options are specified
+        # test set_layout on proxy when layout switching is disabled and options are specified
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         localed_wrapper.set_layouts(["us"], options=("grp:ctrl_alt_toggle", "grp_led:caps"))
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
@@ -277,7 +282,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             False
         )
 
-        # test set_layout on proxy when layout switching is broken and options are empty
+        # test set_layout on proxy when layout switching is disabled and options are empty
         mocked_localed_proxy.SetX11Keyboard.reset_mock()
         localed_wrapper.set_layouts(["us"], options="", convert=True)
         mocked_localed_proxy.SetX11Keyboard.assert_called_once_with(
