@@ -35,6 +35,7 @@ from pyanaconda.modules.common.errors.installation import (
     BootloaderInstallationError,
     PayloadInstallationError,
 )
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
@@ -70,6 +71,10 @@ def _get_ref(data):
     :param data: OSTree source structure
     :return str: ref or name based on source
     """
+    if isinstance(data, BootcConfigurationData):
+        # Bootc uses sourceImgRef instead of url
+        return data.sourceImgRef
+
     # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
     if data.is_container():
         # we don't have ref with container; there are not multiple references in one container
@@ -86,6 +91,10 @@ def _get_stateroot(data):
     :param data: OSTree source structure
     :return str: stateroot or osname value based on source
     """
+    if isinstance(data, BootcConfigurationData):
+        # Bootc uses stateroot instead of osname
+        return data.stateroot
+
     if data.is_container():
         # osname was renamed to stateroot so let's use the new name
         if data.stateroot:
@@ -638,12 +647,33 @@ class DeployOSTreeTask(Task):
 
     @property
     def name(self):
-        return "Deploy OSTree"
+        if isinstance(self._data, BootcConfigurationData):
+            return "Deploy bootc"
+        return"Deploy OSTree"
 
     def run(self):
-        ref = _get_ref(self._data)
         stateroot = _get_stateroot(self._data)
+        ref = _get_ref(self._data)
 
+        if isinstance(self._data, BootcConfigurationData):
+            log.debug("XXX RUN started for bootc")
+            self.report_progress(_("Bootc deployment starting: {}").format(ref))
+
+            safe_exec_program(
+                "bootc",
+                ["install",
+                "to-filesystem",
+                "--stateroot=" + stateroot,
+                "--source-imgref=" + self._data.sourceImgRef,
+                "--target-imgref=" + self._data.targetImgRef,
+                stateroot]
+            )
+
+            log.info("Bootc deploy complete")
+            self.report_progress(_("Bootc deployment complete: {}").format(ref))
+            return
+
+        log.debug("XXX RUN started for ostree")
         self.report_progress(_("Deployment starting: {}").format(ref))
 
         if arch.is_s390():
