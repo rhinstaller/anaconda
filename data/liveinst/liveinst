@@ -22,6 +22,21 @@ BACKEND_READY_FLAG=/run/anaconda/backend_ready
 
 WAYLAND_DISPLAY_SOCKET=/tmp/anaconda-wldisplay
 
+
+# Start locale1-x11-sync.service unit to enable Anaconda to control keyboard layouts
+# This needs to be started only on X11 based systems
+start_locale_sync_unit() {
+    if rpm -q "xorg-x11-server-Xorg" > /dev/null && [ -e "/usr/lib/systemd/user/locale1-x11-sync.service" ]; then
+        systemctl --user start locale1-x11-sync.service
+    fi
+}
+
+stop_locale_sync_unit() {
+    if rpm -q "xorg-x11-server-Xorg" > /dev/null && [ -e "/usr/lib/systemd/user/locale1-x11-sync.service" ]; then
+        systemctl --user stop locale1-x11-sync.service
+    fi
+}
+
 # Detect and save the wayland socket before re-exec
 if [ -n "$WAYLAND_DISPLAY" ]; then
     if [ -e "$WAYLAND_DISPLAY_SOCKET" ]; then
@@ -37,8 +52,13 @@ if [ "$(id -u)" -ne 0 ]; then
     if [ -z "$WAYLAND_DISPLAY" ]; then
         xhost +si:localuser:root
     fi
+
+    start_locale_sync_unit
     pkexec "$0" "$@"
-    exit $?
+    ret=$?
+    stop_locale_sync_unit
+
+    exit $ret
 fi
 
 # pkexec clears the environment, so get it back
