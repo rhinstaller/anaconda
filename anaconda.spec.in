@@ -500,6 +500,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 24 2025 github-actions <github-actions@github.com> - 42.27.6-1
+- platform: set PLATFORM_RAID_METADATA and PLATFORM_RAID_LEVEL for x86
+  (k.koukiou)
+- pyanaconda: storage: when checking the md device validity check also parent
+  (k.koukiou)
+
 * Thu Mar 20 2025 github-actions <github-actions@github.com> - 42.27.5-1
 - Support redirects in apply-updates (jkonecny)
 - Bump required version of Blivet to 3.12 (vtrefny)
