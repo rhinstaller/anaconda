@@ -38,6 +38,11 @@ class RPMOSTreeConfigurationData(DBusData):
         """Is this native container source?"""
         return False
 
+    @staticmethod
+    def is_bootc():
+        """Is this bootc container source?"""
+        return False
+
     @property
     def osname(self) -> Str:
         """Management root for OS installation."""
