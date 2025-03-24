@@ -500,6 +500,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 24 2025 github-actions <github-actions@github.com> - 42.27.7-1
+- Start/stop locale-sync systemd unit in liveinst (jkonecny)
+- Fix WantedBy in locale1-x11-sync service (jkonecny)
+
 * Mon Mar 24 2025 github-actions <github-actions@github.com> - 42.27.6-1
 - platform: set PLATFORM_RAID_METADATA and PLATFORM_RAID_LEVEL for x86
   (k.koukiou)
