@@ -8,5 +8,4 @@ ExecStart=/usr/libexec/locale1-x11-sync
 Restart=on-failure
 
 [Install]
-WantedBy=graphical.target
-
+WantedBy=default.target
