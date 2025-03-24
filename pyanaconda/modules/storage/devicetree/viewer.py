@@ -26,6 +26,8 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import (
     DeviceActionData,
@@ -37,6 +39,9 @@ from pyanaconda.modules.common.structures.storage import (
 from pyanaconda.modules.storage.constants import (
     EFI_PARTITION_TYPE,
     WINDOWS_PARTITION_TYPES,
+)
+from pyanaconda.core.constants import (
+    BOOTLOADER_LOCATION_PARTITION,
 )
 from pyanaconda.modules.storage.devicetree.utils import (
     get_required_device_size,
@@ -593,6 +598,14 @@ class DeviceTreeViewer(ABC):
                 constraint = self._get_mount_point_constraints_data(p)
                 if p.mountpoint == "/boot":
                     constraint.recommended = True
+                # On MBR neither a BIOS boot partition (typically labeled as biosboot) nor a /boot/efi partition is required.
+                if p.fstype == "biosboot" or p.mountpoint == "/boot/efi":
+                    stage1_disk = self.storage.bootloader.stage1_disk
+                    stage1_device = stage1_disk and self.storage.devicetree.resolve_device(stage1_disk)
+                    is_gpt = (stage1_device and
+                              getattr(stage1_device.format, "label_type", None) == "gpt")
+                    if is_gpt:
+                        constraint.required = True
                 else:
                     constraint.required = True
                 constraints.append(constraint)
