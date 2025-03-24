@@ -44,27 +44,20 @@ RUN set -ex; \
   git \
 # to be able to read ip of the container and pass that to VM
   iproute \
-  lorax-lmc-virt; \
+  kiwi \
+  kiwi-systemdeps \
+  distribution-gpg-keys; \
   dnf clean all
 
-RUN mkdir /lorax /anaconda-rpms /images
+RUN mkdir /build /anaconda-rpms /images
 
 # Generate kickstart file for Fedora Workstation
 # TODO: add our local repository to the kickstart file
 RUN set -ex; \
-  dnf install -y \
-# required for ksflatten
-  pykickstart; \
-  mkdir /fedora-kickstarts; \
-  git clone -b main https://pagure.io/fedora-kickstarts.git /fedora-kickstarts; \
-  cd /fedora-kickstarts; \
-  ksflatten -o /lorax/workstation.ks -c fedora-live-workstation.ks; \
-# cleanups of parts which don't need to be part of the container
-  dnf remove -y pykickstart; dnf clean all; \
-  rm -rf /fedora-kickstarts
+  git clone -b main https://pagure.io/fedora-kiwi-descriptions.git;
 
-COPY ["lmc-build", "/"]
+COPY ["kiwi-build", "/"]
 
-WORKDIR /lorax
+WORKDIR /build
 
-ENTRYPOINT /lmc-build
+ENTRYPOINT /kiwi-build

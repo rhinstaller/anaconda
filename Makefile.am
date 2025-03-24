@@ -101,6 +101,10 @@ CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z --tmpfs=/var/tmp:rw,mode=1777
 CI_CMD ?= make ci
 
+# Set what type of ISO should kiwi build
+# see https://pagure.io/fedora-kiwi-descriptions/blob/rawhide/f/VARIANTS.md (only iso)
+LIVE_ISO_PROFILE ?= Workstation-Live
+
 SKIP_BRANCHING_CHECK ?= "false"
 
 # If translations are present, run tests on the .po files before tarring them
@@ -223,9 +227,7 @@ anaconda-iso-creator-build:
 anaconda-live-iso-creator-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
 
-	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
-
-	sudo $(CONTAINER_ENGINE) build \
+	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
@@ -375,6 +377,7 @@ container-iso-build:
 	--privileged \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
+	--env=ISO_PROFILE=$(LIVE_ISO_PROFILE) \
 	$(CONTAINER_ADD_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
 	$(ISO_CREATOR_NAME):$(CI_TAG)
@@ -390,8 +393,6 @@ container-webui-iso-build:
 container-live-iso-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
 
-	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
-
 	@echo 'If you need VPN access, please use `CONTAINER_ADD_ARGS=--network=host`'
 
 	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
@@ -399,8 +400,8 @@ container-live-iso-build:
 		exit 1; \
 	fi
 
-	mkdir -p result/iso/logs
-	sudo $(CONTAINER_ENGINE) run \
+	mkdir -p result/iso
+	$(CONTAINER_ENGINE) run \
 	--rm \
 	--tty \
 	--privileged \
