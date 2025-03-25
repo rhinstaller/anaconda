@@ -26,13 +26,13 @@ WAYLAND_DISPLAY_SOCKET=/tmp/anaconda-wldisplay
 # Start locale1-x11-sync.service unit to enable Anaconda to control keyboard layouts
 # This needs to be started only on X11 based systems
 start_locale_sync_unit() {
-    if rpm -q "xorg-x11-server-Xorg" > /dev/null && [ -e "/usr/lib/systemd/user/locale1-x11-sync.service" ]; then
+    if [ -z "${WAYLAND_DISPLAY}" ] && [ -n "${DISPLAY}" ] && [ -e "/usr/lib/systemd/user/locale1-x11-sync.service" ]; then
         systemctl --user start locale1-x11-sync.service
     fi
 }
 
 stop_locale_sync_unit() {
-    if rpm -q "xorg-x11-server-Xorg" > /dev/null && [ -e "/usr/lib/systemd/user/locale1-x11-sync.service" ]; then
+    if [ -z "${WAYLAND_DISPLAY}" ] && [ -n "${DISPLAY}" ] && [ -e "/usr/lib/systemd/user/locale1-x11-sync.service" ]; then
         systemctl --user stop locale1-x11-sync.service
     fi
 }
