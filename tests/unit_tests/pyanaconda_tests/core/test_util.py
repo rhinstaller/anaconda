@@ -739,7 +739,6 @@ class MiscTests(unittest.TestCase):
                 f.write("# blah\nVERSION_ID=foo256bar  \n VERSION_ID = wrong\n\n")
             version = util.get_os_release_value("VERSION_ID", root)
             assert version == "foo256bar"
-            assert util.get_os_release_value("PLATFORM_ID", root) is None
 
             # main file and backup too
             with open(root + "/etc/os-release", "w") as f:
@@ -755,9 +754,8 @@ class MiscTests(unittest.TestCase):
 
             # quoted values
             with open(root + "/etc/os-release", "w") as f:
-                f.write("PRETTY_NAME=\"Fedora 32\"\nPLATFORM_ID='platform:f32'\n")
+                f.write("PRETTY_NAME=\"Fedora 32\"\n")
             assert util.get_os_release_value("PRETTY_NAME", root) == "Fedora 32"
-            assert util.get_os_release_value("PLATFORM_ID", root) == "platform:f32"
 
             # no files
             os.remove(root + "/usr/lib/os-release")

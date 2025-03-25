@@ -42,7 +42,6 @@ from pyanaconda.core.constants import (
 )
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import (
     UnknownCompsEnvironmentError,
@@ -150,13 +149,6 @@ class DNFManager:
         # Set the installation root.
         base.conf.installroot = conf.target.system_root
         base.conf.prepend_installroot('persistdir')
-
-        # Set the platform id based on the /os/release present
-        # in the installation environment.
-        platform_id = get_os_release_value("PLATFORM_ID")
-
-        if platform_id is not None:
-            base.conf.module_platform_id = platform_id
 
         # Start with an empty comps so we can go ahead and use
         # the environment and group properties. Unset reposdir
