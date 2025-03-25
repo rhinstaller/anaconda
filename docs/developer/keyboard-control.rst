@@ -57,7 +57,6 @@ To resolve this flaw of Wayland systems on Fedora 42 is proposal to require all 
 
   * Ideally by listening to signals on systemd-localed configuration and reacting on these
   * Includes configuration of X11Layout, X11Variant, X11Options
-* Reflect changes in running system to systemd-localed
 
 Anaconda is also required to follow systemd-localed in similar way:
 
@@ -83,6 +82,11 @@ Anaconda is also required to follow systemd-localed in similar way:
         "qwerty,"
 
     Beware of the X11Variant needs to also change to follow the ordering of the X11Layout!
+
+.. note::
+
+    After facing issues we have decided to drop requirement ``Reflect changes in running system to systemd-localed`` as it is hard to achieve from the system side.
+    TODO: Add a link to release notes
 
 Keyboard control implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
