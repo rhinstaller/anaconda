@@ -505,6 +505,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 25 2025 github-actions <github-actions@github.com> - 43.10-1
+- Fix condition to run locale1-sync script (jkonecny)
+- Update doc after disabling keyboard shortcuts (jkonecny)
+- Add release note for disabling keyboard shortcuts (jkonecny)
+- Disable keyboard shortcuts for layouts switching (jkonecny)
+- Stop parsing PLATFORM_ID from os-release (mkolman)
+
 * Mon Mar 24 2025 github-actions <github-actions@github.com> - 43.9-1
 - Start/stop locale-sync systemd unit in liveinst (jkonecny)
 - Fix WantedBy in locale1-x11-sync service (jkonecny)
