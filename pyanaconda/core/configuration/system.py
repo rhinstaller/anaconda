@@ -187,8 +187,3 @@ class SystemSection(Section):
     def supports_web_ui(self):
         """Can we run Web UI on this system?"""
         return self._is_boot_iso or self._is_live_os
-
-    @property
-    def supports_compositor_keyboard_layout_shortcut(self):
-        """Does the compositor support keyboard layout options correctly?"""
-        return not self._is_boot_iso
