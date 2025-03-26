@@ -51,7 +51,7 @@ jobs:
           for _ in $(seq 60); do
               sleep 60;
               if dnf copr enable -y packit/$COPR_NAME {$ distro_name $}-{$ distro_release $}-x86_64 &&
-                 out=$(dnf info --refresh --repo='copr:*anaconda*' --releasever=rawhide anaconda) &&
+                 out=$(dnf info --refresh --repo='copr:*anaconda*' --releasever={$ distro_release $} anaconda) &&
                  stamp=$(echo "$out" | awk '/^Release/ { split($3, v, "."); print substr(v[2], 0, 14)}' | head -1) &&
                  [ "$stamp" -gt "$PUSH_TIME" ]; then
                   exit 0
