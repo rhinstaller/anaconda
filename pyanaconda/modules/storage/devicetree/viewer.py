@@ -36,7 +36,9 @@ from pyanaconda.modules.common.structures.storage import (
 )
 from pyanaconda.modules.storage.constants import (
     EFI_PARTITION_TYPE,
+    MACOS_PARTITION_TYPES,
     WINDOWS_PARTITION_TYPES,
+    WINDOWS_PARTITION_TYPES_EXPECTED_FS,
 )
 from pyanaconda.modules.storage.devicetree.utils import (
     get_required_device_size,
@@ -48,6 +50,10 @@ from pyanaconda.modules.storage.platform import platform
 log = get_module_logger(__name__)
 
 __all__ = ["DeviceTreeViewer"]
+
+
+WINDOWS = "Windows"
+MAC_OS = "Mac OS"
 
 
 class DeviceTreeViewer(ABC):
@@ -506,9 +512,14 @@ class DeviceTreeViewer(ABC):
         os_list = list(map(self._get_os_data, self.storage.roots))
 
         # Append windows systems if windows partition types are present
-        windows_data = self._get_windows_data()
+        windows_data = self._get_other_os_data(WINDOWS)
         if windows_data is not None:
             os_list.append(windows_data)
+
+        # Append mac os systems if mac os partition types are present
+        macos_data = self._get_other_os_data(MAC_OS)
+        if macos_data is not None:
+            os_list.append(macos_data)
 
         return os_list
 
@@ -528,14 +539,17 @@ class DeviceTreeViewer(ABC):
         }
         return data
 
-    def _get_windows_data(self):
-        """ Get data about Windows installations.
-
-        :return: a list of OSData
+    def _get_other_os_data(self, os_name):
+        """ Get data about Windows and Mac OS installations.
+        : return: a list of OSData
         """
-        windows_data = OSData()
-        windows_data.os_name = "Windows"
-        windows_data.devices = []
+
+        other_os_data = OSData()
+        other_os_data.os_name = os_name
+        other_os_data.devices = []
+
+        partition_types = WINDOWS_PARTITION_TYPES if os_name == WINDOWS else MACOS_PARTITION_TYPES if os_name == MAC_OS else None
+        partition_types_expected_fs = WINDOWS_PARTITION_TYPES_EXPECTED_FS if os_name == WINDOWS else {}
 
         efi_partition = None
         for blivet_device in self.storage.devicetree.devices:
@@ -547,14 +561,18 @@ class DeviceTreeViewer(ABC):
                 efi_partition = device
                 continue
 
-            if str(device.part_type_uuid) in WINDOWS_PARTITION_TYPES:
-                windows_data.devices.append(device.name)
+            if str(device.part_type_uuid) in partition_types:
+                expected_fs = partition_types_expected_fs.get(str(device.part_type_uuid), [])
+                if not expected_fs or device.format.type in expected_fs:
+                    other_os_data.devices.append(device.name)
 
-        if len(windows_data.devices) > 0:
+        if len(other_os_data.devices) > 0:
             if efi_partition is not None:
-                windows_data.devices.append(efi_partition.name)
+                other_os_data.devices.append(efi_partition.name)
 
-            return windows_data
+            return other_os_data
+
+        return None
 
     def _get_mount_point_constraints_data(self, spec):
         """Get the mount point data.
