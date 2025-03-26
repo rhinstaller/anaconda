@@ -505,6 +505,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 26 2025 github-actions <github-actions@github.com> - 43.11-1
+- pyanaconda: add support for Mac OS detection (k.koukiou)
+
 * Tue Mar 25 2025 github-actions <github-actions@github.com> - 43.10-1
 - Fix condition to run locale1-sync script (jkonecny)
 - Update doc after disabling keyboard shortcuts (jkonecny)
