@@ -270,7 +270,10 @@ class DNFManager:
 
         :return: a list of ids
         """
-        return [env.get_environmentid() for env in self._environments]
+        return [
+            env.get_environmentid()
+            for env in sorted(self._environments, key=lambda x: int(x.get_order_int()))
+        ]
 
     def _get_environment(self, environment_name):
         """Translate the given environment name to a DNF object.
@@ -357,7 +360,7 @@ class DNFManager:
 
         :return: a list of IDs
         """
-        return [g.get_groupid() for g in self._groups]
+        return [g.get_groupid() for g in sorted(self._groups, key=lambda x: x.get_order_int())]
 
     def _get_group(self, group_name):
         """Translate the given group name into a DNF object.
