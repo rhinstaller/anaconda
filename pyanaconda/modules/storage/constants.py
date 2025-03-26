@@ -95,6 +95,14 @@ WINDOWS_PARTITION_TYPES = [
     "de94bba4-06d1-4d40-a16a-bfd50179d6ac",  # Windows Recovery Environment
     "af9b60a0-1431-4f62-bc68-3311714a69ad",  # Logical Disk Manager Data Partition
 ]
+WINDOWS_PARTITION_TYPES_EXPECTED_FS = {
+    "ebd0a0a2-b9e5-4433-87c0-68b6b72699c7": ["ntfs", "refs"]
+}
 
+MACOS_PARTITION_TYPES = [
+    "48465300-0000-11aa-aa11-00306543ecac",  # Apple HFS/HFS+
+    "7c3457ef-0000-11aa-aa11-00306543ecac",  # Apple APFS
+    "426f6f74-0000-11aa-aa11-00306543ecac",  # Apple Boot
+]
 
 EFI_PARTITION_TYPE = "c12a7328-f81f-11d2-ba4b-00a0c93ec93b"

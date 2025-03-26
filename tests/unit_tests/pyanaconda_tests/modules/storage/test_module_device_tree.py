@@ -96,6 +96,10 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
 
+    def _remove_device(self, device):
+        """Remove a device from the device tree."""
+        self.storage.devicetree._remove_device(device)
+
     def test_get_attribute(self):
         """Test the _get_attribute method."""
         value = None
@@ -902,7 +906,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         sda1 = PartitionDevice(
             "dev1",
             size=Size("500 MiB"),
-            fmt=get_format("ntfs", exists=True),
+            fmt=get_format("ext4", exists=True),
             part_type_uuid="ebd0a0a2-b9e5-4433-87c0-68b6b72699c7",
         )
         efi = PartitionDevice(
@@ -917,10 +921,32 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetExistingSystems() == []
 
         self._add_device(sda1)
+        # ebd0a0a2-b9e5-4433-87c0-68b6b72699c7 corresponds to Windows only if FS matches the expected types
+        assert self.interface.GetExistingSystems() == []
+
+        self._remove_device(sda1)
+        sda1.format = get_format("ntfs", exists=True)
+        self._add_device(sda1)
 
         assert self.interface.GetExistingSystems() == [{
             'os-name': get_variant(Str, 'Windows'),
             'devices': get_variant(List[Str], ['dev1', 'dev2']),
+            'mount-points': get_variant(Dict[Str, Str], {}),
+        }]
+
+    def test_get_existing_systems_mac_os(self):
+        sda1 = PartitionDevice(
+            "dev1",
+            size=Size("500 MiB"),
+            fmt=get_format("hfs+", exists=True),
+            part_type_uuid="48465300-0000-11aa-aa11-00306543ecac",
+        )
+
+        self._add_device(sda1)
+
+        assert self.interface.GetExistingSystems() == [{
+            'os-name': get_variant(Str, 'Mac OS'),
+            'devices': get_variant(List[Str], ['dev1']),
             'mount-points': get_variant(Dict[Str, Str], {}),
         }]
 
