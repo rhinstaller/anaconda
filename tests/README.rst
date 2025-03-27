@@ -121,7 +121,7 @@ Run unit tests with patched pykickstart or other libraries
 
 2. Run the container temporary with your required resources (pykickstart in this example)::
 
-      podman run --name=cnt-add --rm -it -v pykickstart:/pykickstart:z quay.io/rhinstaller/anaconda-ci:main sh
+      podman run --name=cnt-add --rm -it -v ./pykickstart:/pykickstart:z quay.io/rhinstaller/anaconda-ci:main sh
 
 3. Do your required changes in the container (install pykickstart in this example)::
 
@@ -177,16 +177,11 @@ ________________________
 
 The `kickstart-tests.yml workflow`_ allows rhinstaller organization members to
 run kickstart-tests_ against an anaconda PR (only ``main`` for now). Send a
-comment that starts with ``/kickstart-tests <launch options>`` to the pull
-request to trigger this. See the `kickstart launch script`_ documentation and
-its ``--help`` for details what is supported; the two basic modes are running
-a set of individual tests::
-
-   /kickstart-tests keyboard [test2 test3 ...]
-
-or running all tests of one or more given types::
-
-   /kickstart-tests --testtype network,autopart
+comment that starts with ``/kickstart-tests <options>`` to the pull request to
+trigger it. It is possible to use tests updated via a kickstart-tests
+repository PR. See the `kickstart-tests.yml workflow`_ for supported
+options. For more detailed information on tests selection see the
+`kickstart launch script`_ documentation and-its ``--help``
 
 Container maintenance
 ---------------------
@@ -277,7 +272,7 @@ represents a different class of tests. They are
 
 - *cppcheck/* - static C/C++ code analysis using the *cppcheck* tool;
 - *shellcheck/* - shell code analyzer config;
-- *dd_tests/* - Python unit tests for driver disk utilities (utils/dd);
+- *dd_tests/* - Python unit tests for driver disk utilities (dracut/dd);
 - *unit_tests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
   installation environment and load Anaconda;
 - *gettext/* - sanity tests of files used for translation; Written in Python and
