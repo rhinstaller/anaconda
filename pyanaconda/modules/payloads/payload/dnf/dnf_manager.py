@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 import multiprocessing
+import multiprocessing.dummy
 import shutil
 import threading
 import traceback
@@ -669,7 +670,7 @@ class DNFManager(object):
         """
         queue = multiprocessing.Queue()
         display = TransactionProgress(queue)
-        process = multiprocessing.Process(
+        process = multiprocessing.dummy.Process(
             target=self._run_transaction,
             args=(self._base, display)
         )
@@ -687,7 +688,6 @@ class DNFManager(object):
         finally:
             # Kill the transaction after the timeout.
             process.join(timeout)
-            process.kill()
             log.debug("The transaction process exited with %s.", process.exitcode)
 
     @staticmethod
