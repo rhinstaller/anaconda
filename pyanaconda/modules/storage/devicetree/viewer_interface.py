@@ -199,7 +199,7 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return OSData.to_structure_list(self.implementation.get_existing_systems())
 
-    def GetMountPointConstraints(self) -> List[Structure]:
+    def GetMountPointConstraints(self, disk_ids: List[Str]) -> List[Structure]:
         """Get list of constraints on mountpoints for the current platform
 
         Also provides hints if the partition is required or recommended.
@@ -207,7 +207,8 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         This includes mount points required to boot (e.g. /boot/efi, /boot)
         and the / partition which is always considered to be required.
 
+        :param disk_ids: a list of disk IDs
         :return: a list of mount points with its constraints
         """
         return MountPointConstraintsData.to_structure_list(
-            self.implementation.get_mount_point_constraints())
+            self.implementation.get_mount_point_constraints(disk_ids))
