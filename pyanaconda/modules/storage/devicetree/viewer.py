@@ -613,6 +613,12 @@ class DeviceTreeViewer(ABC):
                     constraint.recommended = True
                 else:
                     constraint.required = True
+                # On MBR BIOS boot partition (typically labelled as biosboot) is not required.
+                if p.fstype == "biosboot":
+                    stage1_disk = self.storage.bootloader.stage1_disk
+                    is_gpt = (stage1_disk and getattr(stage1_disk.format, "label_type", None) == "gpt")
+                    if not is_gpt:
+                        constraint.required = False
                 constraints.append(constraint)
 
         return constraints
