@@ -505,6 +505,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 28 2025 github-actions <github-actions@github.com> - 43.12-1
+- storage: remove EFI and BIOS boot partition requirements for MBR disks
+  (k.koukiou)
+- Limit support for only RAID1 on /boot (jkonecny)
+
 * Wed Mar 26 2025 github-actions <github-actions@github.com> - 43.11-1
 - pyanaconda: add support for Mac OS detection (k.koukiou)
 
