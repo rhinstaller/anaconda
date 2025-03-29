@@ -27,11 +27,12 @@ from pyanaconda.core.constants import (
     DisplayModes,
 )
 from pyanaconda.core.dbus import DBus
-from pyanaconda.core.product import get_product_is_final_release
+from pyanaconda.core.product import get_product_values
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
+from pyanaconda.modules.common.structures.product import ProductData
 from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 
@@ -191,13 +192,18 @@ class UIModule(KickstartBaseModule):
         }
 
     @property
-    def is_final(self):
-        """Does the installation environment declare itself as "final"?
+    def product_data(self):
+        """Load the product data and convert it into the ProductData structure.
 
-        This is false for Rawhide and Beta, true for GA/Gold.
-
-        FIXME: This is a temporary getter. Replace it by the intended product API
-
-        :return bool: final or not
+        :return: An instance of the ProductData structure containing product information.
+        :rtype: ProductData
         """
-        return get_product_is_final_release()
+        product_data = ProductData()
+        product_values = get_product_values()
+
+        product_data.is_final_release = product_values.is_final_release
+        product_data.name = product_values.name
+        product_data.version = product_values.version
+        product_data.short_name = product_values.short_name
+
+        return product_data
