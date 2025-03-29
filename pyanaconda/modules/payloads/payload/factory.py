@@ -52,6 +52,12 @@ class PayloadFactory:
             )
             return RPMOSTreeModule()
 
+        if payload_type == PayloadType.RPM_BOOTC:
+            from pyanaconda.modules.payloads.payload.rpm_bootc.rpm_bootc import (
+                RPMBootcModule,
+            )
+            return RPMBootcModule()
+
         raise ValueError("Unknown payload type: {}".format(payload_type))
 
     @classmethod
@@ -63,6 +69,9 @@ class PayloadFactory:
         """
         if data.ostreesetup.seen or data.ostreecontainer.seen:
             return PayloadType.RPM_OSTREE
+
+        if data.bootcsetup.seen or data.bootccontainer.seen:
+            return PayloadType.RPM_BOOTC
 
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE

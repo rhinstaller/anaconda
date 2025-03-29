@@ -98,6 +98,23 @@ class SourceFactory:
                 FlatpakSourceModule,
             )
             return FlatpakSourceModule()
+        elif source_type == SourceType.RPM_BOOTC:
+            from pyanaconda.modules.payloads.source.rpm_bootc.rpm_bootc import (
+                RPMBootcSourceModule,
+            )
+            return RPMBootcSourceModule()
+        elif source_type == SourceType.RPM_BOOTC_CONTAINER:
+            from pyanaconda.modules.payloads.source.rpm_bootc_container.rpm_bootc_container import (
+                RPMBootcContainerSourceModule,
+            )
+            return RPMBootcContainerSourceModule()
+        elif source_type == SourceType.FLATPAK:
+            from pyanaconda.modules.payloads.source.flatpak.flatpak import (
+                FlatpakSourceModule,
+            )
+            return FlatpakSourceModule()
+
+
 
         raise ValueError("Unknown source type: {}".format(source_type))
 
@@ -136,6 +153,20 @@ class SourceFactory:
             return SourceType.RPM_OSTREE_CONTAINER
         if ks_data.ostreesetup.seen:
             return SourceType.RPM_OSTREE
+
+        return None
+
+    @staticmethod
+    def get_rpm_bootc_type_for_kickstart(ks_data):
+        """Generate source type from RPM Bootc kickstart data.
+
+        :param ks_data: kickstart data from DNF payload
+        :return: SourceType value
+        """
+        if ks_data.bootccontainer.seen:
+            return SourceType.RPM_BOOTC_CONTAINER
+        if ks_data.bootcsetup.seen:
+            return SourceType.RPM_BOOTC
 
         return None
 
