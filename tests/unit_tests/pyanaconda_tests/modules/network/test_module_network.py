@@ -1246,6 +1246,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         # Will be created as existing or not in tests
         self._sysconf_dir = os.path.dirname(NetworkInstallationTask.SYSCONF_NETWORK_FILE_PATH)
         self._sysctl_dir = os.path.dirname(NetworkInstallationTask.ANACONDA_SYSCTL_FILE_PATH)
+        self._resolv_conf_dir = os.path.dirname(NetworkInstallationTask.RESOLV_CONF_FILE_PATH)
         self._network_scripts_dir = NetworkInstallationTask.NETWORK_SCRIPTS_DIR_PATH
         self._nm_syscons_dir = NetworkInstallationTask.NM_SYSTEM_CONNECTIONS_DIR_PATH
         self._systemd_network_dir = NetworkInstallationTask.SYSTEMD_NETWORK_CONFIG_DIR
@@ -1295,6 +1296,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         # Mock the paths in the task
         task.SYSCONF_NETWORK_FILE_PATH = self._mocked_root + type(task).SYSCONF_NETWORK_FILE_PATH
         task.ANACONDA_SYSCTL_FILE_PATH = self._mocked_root + type(task).ANACONDA_SYSCTL_FILE_PATH
+        task.RESOLV_CONF_FILE_PATH = self._mocked_root + type(task).RESOLV_CONF_FILE_PATH
         task.NETWORK_SCRIPTS_DIR_PATH = self._mocked_root + type(task).NETWORK_SCRIPTS_DIR_PATH
         task.NM_SYSTEM_CONNECTIONS_DIR_PATH = self._mocked_root + \
             type(task).NM_SYSTEM_CONNECTIONS_DIR_PATH
@@ -1311,6 +1313,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             installer_dirs=[
                 self._sysconf_dir,
                 self._sysctl_dir,
+                self._resolv_conf_dir,
                 self._network_scripts_dir,
                 self._nm_syscons_dir,
                 self._systemd_network_dir,
@@ -1319,6 +1322,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             target_system_dirs=[
                 self._sysconf_dir,
                 self._sysctl_dir,
+                self._resolv_conf_dir,
                 self._network_scripts_dir,
                 self._nm_syscons_dir,
                 self._systemd_network_dir,
@@ -1408,8 +1412,10 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
 
-    def test_network_instalation_task_all_src_files(self):
+    @patch("pyanaconda.modules.network.installation.conf")
+    def test_network_instalation_task_all_src_files(self, mock_conf):
         """Test the task for network installation with all src files available."""
+        mock_conf.system.provides_resolver_config = True
 
         self._create_all_expected_dirs()
 
@@ -1445,6 +1451,10 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._dump_config_files(
             self._sysconf_dir,
             (("network", "Zeug"),)
+        )
+        self._dump_config_files(
+            self._resolv_conf_dir,
+            (("resolv.conf", "nomen"),)
         )
         self._dump_config_files(
             self._systemd_network_dir,
@@ -1488,6 +1498,8 @@ class InstallationTaskTestCase(unittest.TestCase):
             net.ipv6.conf.default.disable_ipv6=1
             """
         )
+        # on Fedora, systemd-resolved in used, so there should be no copied-over resolv.conf
+        self._check_config_file_does_not_exist(self._resolv_conf_dir, "resolv.conf")
         self._check_config_file(
             self._network_scripts_dir,
             "ifcfg-ens3",
@@ -1584,7 +1596,72 @@ class InstallationTaskTestCase(unittest.TestCase):
             "70-shouldnt-be-copied"
         )
 
+    @patch("pyanaconda.modules.network.installation.conf")
+    def test_network_instalation_resolv_conf_skip_on_provides_resolver_false(self, mock_conf):
+        """Test the task for network install with provides_resolver_config False in config."""
+        mock_conf.system.provides_resolver_config = False
+
+        self._create_all_expected_dirs()
+
+        # Create just resolv.conf for this test.
+
+        self._dump_config_files(
+            self._resolv_conf_dir,
+            (("resolv.conf", "nomen"),)
+        )
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=True,
+            overwrite=False,
+            network_ifaces=["ens3", "ens7", "ens10", "ens11"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            # Perhaps does not make sense together with ifname option, but for
+            # test it is fine
+            configure_persistent_device_names=True,
+        )
+        self._mock_task_paths(task)
+        task.run()
+        # the config says we don't provide resolver config, so there should not be any
+        self._check_config_file_does_not_exist(self._resolv_conf_dir, "resolv.conf")
+
+    @patch("pyanaconda.modules.network.installation.service")
+    @patch("pyanaconda.modules.network.installation.conf")
+    def test_network_instalation_resolv_conf_skipped_with_resolved(self, mock_conf, mocked_service):
+        """Test the task for network installation with systemd-resolved being used."""
+        mock_conf.system.provides_resolver_config = True
+        mocked_service.is_service_installed.return_value = True
+
+        self._create_all_expected_dirs()
+
+        # Create just resolv.conf for this test.
+        self._dump_config_files(
+            self._resolv_conf_dir,
+            (("resolv.conf", "nomen"),)
+        )
+
+        # Create the task
+        task = NetworkInstallationTask(
+            sysroot=self._target_root,
+            disable_ipv6=True,
+            overwrite=False,
+            network_ifaces=["ens3", "ens7", "ens10", "ens11"],
+            ifname_option_values=["ens3:00:15:17:96:75:0a"],
+            # Perhaps does not make sense together with ifname option, but for
+            # test it is fine
+            configure_persistent_device_names=True,
+        )
+        self._mock_task_paths(task)
+        task.run()
+        # systemd-resolved is in use, so we should have not copied resolv.conf by ourselves
+        self._check_config_file_does_not_exist(self._resolv_conf_dir, "resolv.conf")
+
     def _create_config_files_to_check_overwrite(self):
+        self._dump_config_files_in_target(
+            self._resolv_conf_dir,
+            (("resolv.conf", "original target system content"),)
+        )
         self._dump_config_files_in_target(
             self._sysconf_dir,
             (("network", "original target system content"),)
@@ -1610,6 +1687,10 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("71-net-ifnames-prefix-XYZ", "original target system content"),)
         )
 
+        self._dump_config_files(
+            self._resolv_conf_dir,
+            (("resolv.conf", "installer environment content"),)
+        )
         self._dump_config_files(
             self._network_scripts_dir,
             (("ifcfg-ens3", "installer environment content"),)
@@ -1686,6 +1767,13 @@ class InstallationTaskTestCase(unittest.TestCase):
         # Files that are copied are not actually overwritten in spite of the
         # task argument
         self._check_config_file(
+            self._resolv_conf_dir,
+            "resolv.conf",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
             self._network_scripts_dir,
             "ifcfg-ens3",
             """
@@ -1734,6 +1822,13 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._check_config_file(
             self._sysconf_dir,
             "network",
+            """
+            original target system content
+            """
+        )
+        self._check_config_file(
+            self._resolv_conf_dir,
+            "resolv.conf",
             """
             original target system content
             """
