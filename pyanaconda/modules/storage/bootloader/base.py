@@ -329,25 +329,33 @@ class BootLoader:
     def _is_valid_md(self, device, raid_levels=None,
                      metadata=None, member_types=None, desc=""):
         ret = True
-        if device.type != "mdarray":
+        device_on_md = False
+
+        for dev in [device, *device.parents]:
+            if dev.type != "mdarray":
+                continue
+
+            device_on_md = True
+
+            if raid_levels and dev.level not in raid_levels:
+                levels_str = ",".join("%s" % level for level in raid_levels)
+                self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
+                                     "of the following raid levels: %(raid_level)s.")
+                                   % {"desc": desc, "raid_level": levels_str})
+                ret = False
+
+            # new arrays will be created with an appropriate metadata format
+            if dev.exists and \
+               metadata and dev.metadata_version not in metadata:
+                self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
+                                     "of the following metadata versions: %(metadata_versions)s.")
+                                   % {"desc": desc, "metadata_versions": ",".join(metadata)})
+                ret = False
+
+        if not device_on_md:
             return ret
 
-        if raid_levels and device.level not in raid_levels:
-            levels_str = ",".join("%s" % level for level in raid_levels)
-            self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
-                                 "of the following raid levels: %(raid_level)s.")
-                               % {"desc": desc, "raid_level": levels_str})
-            ret = False
-
-        # new arrays will be created with an appropriate metadata format
-        if device.exists and \
-           metadata and device.metadata_version not in metadata:
-            self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
-                                 "of the following metadata versions: %(metadata_versions)s.")
-                               % {"desc": desc, "metadata_versions": ",".join(metadata)})
-            ret = False
-
-        if member_types:
+        if member_types and device.type == "mdarray":
             for member in device.members:
                 if not self._device_type_match(member, member_types):
                     self.errors.append(_("RAID sets that contain '%(desc)s' must "
@@ -557,12 +565,11 @@ class BootLoader:
                                        desc=description):
             valid = False
 
-        for dev in [device, *device.parents]:
-            if not self._is_valid_md(dev,
-                                     raid_levels=constraints[PLATFORM_RAID_LEVELS],
-                                     metadata=constraints[PLATFORM_RAID_METADATA],
-                                     desc=description):
-                valid = False
+        if not self._is_valid_md(device,
+                                 raid_levels=constraints[PLATFORM_RAID_LEVELS],
+                                 metadata=constraints[PLATFORM_RAID_METADATA],
+                                 desc=description):
+            valid = False
 
         if not self.stage2_bootable and not getattr(device, "bootable", True):
             log.warning("%s not bootable", device.name)
