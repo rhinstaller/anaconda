@@ -9,6 +9,7 @@ ConditionKernelCommandLine=!inst.notmux
 Type=idle
 WorkingDirectory=/root
 Environment=LANG=en_US.UTF-8
+PassEnvironment=TERM
 ExecStart=/usr/bin/tmux -u attach -t anaconda
 StandardInput=tty
 StandardOutput=tty
