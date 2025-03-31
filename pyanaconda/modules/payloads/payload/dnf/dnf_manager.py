@@ -151,7 +151,7 @@ class DNFManager:
         base.get_logger().add_logger(libdnf5.logger.create_file_logger(base, "dnf.log"))
 
         # Set installer defaults
-        config.gpgcheck = False
+        config.pkg_gpgcheck = False
         config.skip_if_unavailable = False
 
         # Set the default release version.

@@ -151,7 +151,7 @@ class DNFManagerTestCase(unittest.TestCase):
     def test_set_default_configuration(self):
         """Test the default configuration of the DNF base."""
         config = self._get_configuration()
-        assert config.gpgcheck is False
+        assert config.pkg_gpgcheck is False
         assert config.skip_if_unavailable is False
         assert config.cachedir == "/tmp/dnf.cache"
         assert config.pluginconfpath == "/tmp/dnf.pluginconf"
