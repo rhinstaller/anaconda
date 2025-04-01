@@ -500,6 +500,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 01 2025 github-actions <github-actions@github.com> - 42.27.11-1
+- pyanaconda: storage: when checking the md device validity check also parent
+  (k.koukiou)
+
 * Fri Mar 28 2025 github-actions <github-actions@github.com> - 42.27.10-1
 - storage: remove EFI and BIOS boot partition requirements for MBR disks
   (k.koukiou)
