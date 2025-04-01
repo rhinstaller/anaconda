@@ -165,6 +165,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/payloads/Makefile
                  pyanaconda/modules/payloads/payload/Makefile
                  pyanaconda/modules/payloads/payload/dnf/Makefile
+                 pyanaconda/modules/payloads/payload/flatpak/Makefile
                  pyanaconda/modules/payloads/payload/live_os/Makefile
                  pyanaconda/modules/payloads/payload/live_image/Makefile
                  pyanaconda/modules/payloads/payload/rpm_ostree/Makefile

@@ -74,6 +74,11 @@ PAYLOAD_DNF = DBusInterfaceIdentifier(
     basename="DNF"
 )
 
+PAYLOAD_FLATPAK = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="FLATPAK"
+)
+
 PAYLOAD_LIVE_IMAGE = DBusInterfaceIdentifier(
     namespace=PAYLOAD_NAMESPACE,
     basename="LiveImage"
