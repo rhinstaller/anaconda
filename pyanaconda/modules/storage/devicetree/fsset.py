@@ -25,22 +25,20 @@ from blivet.devices import (
     FileDevice,
     MDRaidArrayDevice,
     NetworkStorageDevice,
-    NFSDevice,
     NoDevice,
     OpticalDevice,
 )
 from blivet.errors import (
-    FSTabTypeMismatchError,
     StorageError,
     SwapSpaceError,
     UnrecognizedFSTabEntryError,
 )
-from blivet.formats import get_device_format_class, get_format
+from blivet.formats import get_format
+from blivet.fstab import FSTabManager
 from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.platform import EFI, platform
 
 log = get_module_logger(__name__)
@@ -320,7 +318,9 @@ class FSSet:
         self.blkid_tab = None
         self._fstab_swaps = set()
         self._system_filesystems = []
-        self.preserve_lines = []     # lines we just ignore and preserve
+
+        # unrecognized or ignored entries in fstab (blivet.fstab.FSTabEntry)
+        self.preserve_entries = []
 
     @property
     def system_filesystems(self):
@@ -339,134 +339,17 @@ class FSSet:
     def mountpoints(self):
         return self.devicetree.mountpoints
 
-    def _parse_one_line(self, devspec, mountpoint, fstype, options, _dump="0", _passno="0"):
-        """Parse an fstab entry for a device, return the corresponding device.
-
-        The parameters correspond to the items in a single entry in the
-        order in which they occur in the entry.
-
-        :return: the device corresponding to the entry
-        :rtype: :class:`blivet.devices.Device`
-        """
-
-        # no sense in doing any legwork for a noauto entry
-        if "noauto" in options.split(","):
-            log.info("ignoring noauto entry")
-            raise UnrecognizedFSTabEntryError()
-
-        # find device in the tree
-        device = self.devicetree.resolve_device(devspec,
-                                                crypt_tab=self.crypt_tab,
-                                                blkid_tab=self.blkid_tab,
-                                                options=options)
-
-        if device:
-            # fall through to the bottom of this block
-            pass
-        elif devspec.startswith("/dev/loop"):
-            # FIXME: create devices.LoopDevice
-            log.warning("completely ignoring your loop mount")
-        elif ":" in devspec and fstype.startswith("nfs"):
-            # NFS -- preserve but otherwise ignore
-            device = NFSDevice(devspec,
-                               fmt=get_format(fstype,
-                                              exists=True,
-                                              device=devspec))
-        elif devspec.startswith("/") and fstype == "swap":
-            # swap file
-            device = FileDevice(devspec,
-                                parents=get_containing_device(devspec, self.devicetree),
-                                fmt=get_format(fstype,
-                                               device=devspec,
-                                               exists=True),
-                                exists=True)
-        elif fstype == "bind" or "bind" in options:
-            # bind mount... set fstype so later comparison won't
-            # turn up false positives
-            fstype = "bind"
-
-            # This is probably not going to do anything useful, so we'll
-            # make sure to try again from FSSet.mount_filesystems. The bind
-            # mount targets should be accessible by the time we try to do
-            # the bind mount from there.
-            parents = get_containing_device(devspec, self.devicetree)
-            device = DirectoryDevice(devspec, parents=parents, exists=True)
-            device.format = get_format("bind",
-                                       device=device.path,
-                                       exists=True)
-        elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts",
-                            "/sys/fs/selinux", "/proc/bus/usb", "/sys/firmware/efi/efivars"):
-            # drop these now -- we'll recreate later
-            return None
-        else:
-            # nodev filesystem -- preserve or drop completely?
-            fmt = get_format(fstype)
-            fmt_class = get_device_format_class("nodev")
-            if devspec == "none" or \
-               (fmt_class and isinstance(fmt, fmt_class)):
-                device = NoDevice(fmt=fmt)
-
-        if device is None:
-            log.error("failed to resolve %s (%s) from fstab", devspec,
-                      fstype)
-            raise UnrecognizedFSTabEntryError()
-
-        device.setup()
-        fmt = get_format(fstype, device=device.path, exists=True)
-        if fstype != "auto" and None in (device.format.type, fmt.type):
-            log.info("Unrecognized filesystem type for %s (%s)",
-                     device.name, fstype)
-            device.teardown()
-            raise UnrecognizedFSTabEntryError()
-
-        # make sure, if we're using a device from the tree, that
-        # the device's format we found matches what's in the fstab
-        ftype = getattr(fmt, "mount_type", fmt.type)
-        dtype = getattr(device.format, "mount_type", device.format.type)
-        if hasattr(fmt, "test_mount") and fstype != "auto" and ftype != dtype:
-            log.info("fstab says %s at %s is %s", dtype, mountpoint, ftype)
-            if fmt.test_mount():     # pylint: disable=no-member
-                device.format = fmt
-            else:
-                device.teardown()
-                raise FSTabTypeMismatchError(_(
-                    "There is an entry in your /etc/fstab file that contains "
-                    "an invalid or incorrect file system type. The file says that "
-                    "{detected_type} at {mount_point} is {fstab_type}.").format(
-                    detected_type=dtype,
-                    mount_point=mountpoint,
-                    fstab_type=ftype
-                ))
-
-        del ftype
-        del dtype
-
-        if hasattr(device.format, "mountpoint"):
-            device.format.mountpoint = mountpoint
-
-        device.format.options = options
-
-        return device
-
     def parse_fstab(self, chroot=None):
-        """Parse /etc/fstab.
-
-        preconditions:
-            all storage devices have been scanned, including filesystems
-
-        FIXME: control which exceptions we raise
-
-        XXX do we care about bind mounts?
-            how about nodev mounts?
-            loop mounts?
+        """ Process fstab. Devices in there but not in devicetree are added into it.
+            Unrecognized fstab entries are stored so they can be preserved
         """
+
         if not chroot or not os.path.isdir(chroot):
             chroot = conf.target.system_root
 
-        path = "%s/etc/fstab" % chroot
-        if not os.access(path, os.R_OK):
-            # XXX should we raise an exception instead?
-            log.info("cannot open %s for read", path)
+        fstab_path = "%s/etc/fstab" % chroot
+        if not os.access(fstab_path, os.R_OK):
+            log.info("cannot open %s for read", fstab_path)
             return
 
         blkid_tab = BlkidTab(chroot=chroot)
@@ -488,35 +371,22 @@ class FSSet:
         self.blkid_tab = blkid_tab
         self.crypt_tab = crypt_tab
 
-        with open(path) as f:
-            log.debug("parsing %s", path)
+        fstab = FSTabManager(src_file=fstab_path)
+        fstab.read()
 
-            lines = f.readlines()
+        for entry in fstab:
+            try:
+                device = fstab.get_device(self.devicetree, entry=entry)
+            except UnrecognizedFSTabEntryError:
+                self.preserve_entries.append(entry)
+                continue
 
-            for line in lines:
-
-                (line, _pound, _comment) = line.partition("#")
-                fields = line.split()
-
-                if not 4 <= len(fields) <= 6:
-                    continue
-
+            if device not in self.devicetree.devices:
                 try:
-                    device = self._parse_one_line(*fields)
-                except UnrecognizedFSTabEntryError:
-                    # just write the line back out as-is after upgrade
-                    self.preserve_lines.append(line)
-                    continue
+                    self.devicetree._add_device(device)
+                except ValueError:
+                    self.preserve_entries.append(entry)
 
-                if not device:
-                    continue
-
-                if device not in self.devicetree.devices:
-                    try:
-                        self.devicetree._add_device(device)
-                    except ValueError:
-                        # just write duplicates back out post-install
-                        self.preserve_lines.append(line)
 
     def turn_on_swap(self, root_path=""):
         """Activate the system's swap space."""
@@ -657,9 +527,8 @@ class FSSet:
         """Write out all config files based on the set of filesystems."""
         sysroot = conf.target.system_root
         # /etc/fstab
-        fstab_path = os.path.normpath("%s/etc/fstab" % sysroot)
         fstab = self.fstab()
-        open(fstab_path, "w").write(fstab)
+        fstab.write(dest_file=os.path.normpath("%s/etc/fstab" % sysroot))
 
         # /etc/crypttab
         crypttab_path = os.path.normpath("%s/etc/crypttab" % sysroot)
@@ -732,8 +601,10 @@ class FSSet:
         return content
 
     def fstab(self):
-        fmt_str = "%-23s %-23s %-7s %-15s %d %d\n"
-        fstab = """
+        """ Create a FSTabManager object, fill it with current devices
+            and return it as a result to be written
+        """
+        intro_comment = """
 #
 # /etc/fstab
 # Created by anaconda on %s
@@ -757,6 +628,10 @@ class FSSet:
         rootdev = devices[0]
         root_on_netdev = any(rootdev.depends_on(netdev) for netdev in netdevs)
 
+        fstab = FSTabManager(src_file=None, dest_file=None)
+
+        fstab._table.intro_comment = intro_comment
+
         for device in devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
@@ -766,43 +641,31 @@ class FSSet:
             if isinstance(device, OpticalDevice):
                 continue
 
-            fstype = getattr(device.format, "mount_type", device.format.type)
-            if fstype == "swap":
-                mountpoint = "none"
-                options = device.format.options
-            else:
-                mountpoint = device.format.mountpoint
-                options = device.format.options
-                if not mountpoint:
-                    log.warning("%s filesystem on %s has no mount point",
-                                fstype,
-                                device.path)
-                    continue
+            try:
+                new_entry = fstab.entry_from_device(device)
+            except ValueError:
+                fstype = getattr(device.format, "mount_type", device.format.type)
+                log.warning("%s filesystem on %s has no mount point",
+                            fstype,
+                            device.path)  # legacy warning message # TODO change to e.msg?
+                continue
 
-            options = options or "defaults"
             for netdev in netdevs:
                 if device.depends_on(netdev):
-                    if root_on_netdev and mountpoint == "/var":
-                        options = options + ",x-initrd.mount"
+                    if root_on_netdev and new_entry.file == "/var":
+                        new_entry.mntopts_add("x-initrd.mount")
                     break
-            if device.encrypted:
-                options += ",x-systemd.device-timeout=0"
-            devspec = device.fstab_spec
-            dump = device.format.dump
-            if device.format.check and mountpoint == "/":
-                passno = 1
-            elif device.format.check:
-                passno = 2
-            else:
-                passno = 0
-            fstab = fstab + device.fstab_comment
-            fstab = fstab + fmt_str % (devspec, mountpoint, fstype,
-                                       options, dump, passno)
 
-        # now, write out any lines we were unable to process because of
+            if device.encrypted:
+                new_entry.mntopts_add("x-systemd.device-timeout=0")
+
+            new_entry.comment = device.fstab_comment
+            fstab.add_entry(entry=new_entry)
+
+        # now, write out any entries we were unable to process because of
         # unrecognized filesystems or unresolvable device specifications
-        for line in self.preserve_lines:
-            fstab += line
+        for preserved_entry in self.preserve_entries:
+            fstab.add_entry(entry=preserved_entry)
 
         return fstab
 
