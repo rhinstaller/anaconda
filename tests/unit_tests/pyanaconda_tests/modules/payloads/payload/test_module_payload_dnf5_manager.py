@@ -25,6 +25,7 @@ from unittest.mock import Mock, call, patch
 import libdnf5
 import pytest
 from blivet.size import ROUND_UP, Size
+from dasbus.structure import compare_data
 
 from pyanaconda.core.constants import (
     MULTILIB_POLICY_ALL,
@@ -38,7 +39,7 @@ from pyanaconda.modules.common.errors.payload import (
     UnknownCompsGroupError,
     UnknownRepositoryError,
 )
-from pyanaconda.modules.common.structures.comps import CompsEnvironmentData
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
@@ -612,27 +613,216 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         self.dnf_manager = DNFManager()
         self.dnf_manager.setup_base()
 
+    def _group(self, group_id, visible=True, default=False):
+        """Add a mocked group with the specified id."""
+        group = Mock(spec=libdnf5.comps.Group)
+        group.get_groupid.return_value = group_id
+        group.get_name.return_value = "The '{}' group".format(group_id)
+        group.get_description.return_value = "This is the '{}' group.".format(group_id)
+        group.get_translated_name.return_value = "The '{}' group".format(group_id)
+        group.get_translated_description.return_value = "This is the '{}' group.".format(group_id)
+        group.get_order.return_value = "1"
+        group.get_order_int.return_value = 1
+        group.get_uservisible.return_value = visible
+        group.get_default.return_value = default
+        #group.get_packages.return_value = []
+        #group.get_packages_of_type.return_value = []
+        #group.get_repos.return_value = set()
+
+        return group
+
+    def _environment(self, env_id, optional=()):
+        """Add a mocked environment with the specified id."""
+        environment = Mock(spec=libdnf5.comps.Environment)
+        environment.get_environmentid.return_value = env_id
+        environment.get_name.return_value = "The '{}' environment".format(env_id)
+        environment.get_description.return_value = "This is the '{}' environment.".format(env_id)
+        environment.get_translated_name.return_value = "The '{}' environment".format(env_id)
+        environment.get_translated_description.return_value = "This is the '{}' environment.".format(env_id)
+        environment.get_optional_groups.return_value = list(optional)
+        environment.get_order.return_value = "1"
+        environment.get_order_int.return_value = 1
+
+        return environment
+
     def test_groups(self):
         """Test the groups property."""
         assert self.dnf_manager.groups == []
+
+        # Replace the DNFManager._query_groups which store the GroupQuery with mocked groups.
+        self.dnf_manager._query_groups = [
+            self._group("g1"),
+            self._group("g2"),
+            self._group("g3")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        assert self.dnf_manager.groups == ["g1", "g2", "g3"]
+
+    def test_resolve_group(self):
+        """Test the resolve_group method."""
+        assert self.dnf_manager.resolve_group("") is None
+        assert self.dnf_manager.resolve_group("g1") is None
+
+        # Replace the DNFManager._query_groups which store the GroupQuery with mocked groups.
+        self.dnf_manager._query_groups = [self._group("g1")]
+        self.dnf_manager._repositories_loaded = True
+
+        assert self.dnf_manager.resolve_group("g1") == "g1"
+        assert self.dnf_manager.resolve_group("g2") is None
 
     def test_get_group_data_error(self):
         """Test the failed get_group_data method."""
         with pytest.raises(UnknownCompsGroupError):
             self.dnf_manager.get_group_data("g1")
 
+    def test_get_group_data(self):
+        """Test the get_group_data method."""
+        # Replace the DNFManager._query_groups which store the GroupQuery with mocked groups.
+        self.dnf_manager._query_groups = [
+            self._group("g1")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        expected = CompsGroupData()
+        expected.id = "g1"
+        expected.name = "The 'g1' group"
+        expected.description = "This is the 'g1' group."
+
+        data = self.dnf_manager.get_group_data("g1")
+        assert isinstance(data, CompsGroupData)
+        assert compare_data(data, expected)
+
     def test_no_default_environment(self):
         """Test the default_environment property with no environments."""
         assert self.dnf_manager.default_environment is None
+
+    def test_default_environment(self):
+        """Test the default_environment property with some environments."""
+        # Replace the DNFManager._query_environments which store the EnvironmentQuery
+        # with mocked environments.
+        self.dnf_manager._query_environments = [
+            self._environment("e1"),
+            self._environment("e2"),
+            self._environment("e3")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        with patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.conf") as conf:
+            # Choose the first environment.
+            conf.payload.default_environment = ""
+            assert self.dnf_manager.default_environment == "e1"
+
+            # Choose the configured environment.
+            conf.payload.default_environment = "e2"
+            assert self.dnf_manager.default_environment == "e2"
 
     def test_environments(self):
         """Test the environments property."""
         assert self.dnf_manager.environments == []
 
+        # Replace the DNFManager._query_environments which store the EnvironmentQuery
+        # with mocked environments.
+        self.dnf_manager._query_environments = [
+            self._environment("e1"),
+            self._environment("e2"),
+            self._environment("e3")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        assert self.dnf_manager.environments == ["e1", "e2", "e3"]
+
+    def test_resolve_environment(self):
+        """Test the resolve_environment method."""
+        assert self.dnf_manager.resolve_environment("") is None
+        assert self.dnf_manager.resolve_environment("e1") is None
+
+        # Replace the DNFManager._query_environments which store the EnvironmentQuery
+        # with mocked environments.
+        self.dnf_manager._query_environments = [
+            self._environment("e1")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        assert self.dnf_manager.resolve_environment("e1") == "e1"
+        assert self.dnf_manager.resolve_environment("e2") is None
+
     def test_get_environment_data_error(self):
         """Test the failed get_environment_data method."""
         with pytest.raises(UnknownCompsEnvironmentError):
             self.dnf_manager.get_environment_data("e1")
+
+    def test_get_environment_data(self):
+        """Test the get_environment_data method."""
+        # Replace the DNFManager._query_environments which store the EnvironmentQuery
+        # with mocked environments.
+        self.dnf_manager._query_environments = [
+            self._environment("e1")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        expected = CompsEnvironmentData()
+        expected.id = "e1"
+        expected.name = "The 'e1' environment"
+        expected.description = "This is the 'e1' environment."
+
+        data = self.dnf_manager.get_environment_data("e1")
+        assert isinstance(data, CompsEnvironmentData)
+        assert compare_data(data, expected)
+
+    def test_get_environment_data_visible_groups(self):
+        """Test the get_environment_data method with visible groups."""
+        # Replace the DNFManager._query_environments and DNFManager._query_groups
+        # with mocked environments and groups.
+        self.dnf_manager._query_groups = [
+            self._group("g1"),
+            self._group("g2", visible=False),
+            self._group("g3"),
+            self._group("g4", visible=False)
+        ]
+        self.dnf_manager._query_environments = [
+            self._environment("e1")
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        data = self.dnf_manager.get_environment_data("e1")
+        assert data.visible_groups == ["g1", "g3"]
+
+    def test_get_environment_data_optional_groups(self):
+        """Test the get_environment_data method with optional groups."""
+        # Replace the DNFManager._query_environments and DNFManager._query_groups
+        # with mocked environments and groups.
+        self.dnf_manager._query_groups = [
+            self._group("g1"),
+            self._group("g2"),
+            self._group("g3"),
+            self._group("g4")
+        ]
+        self.dnf_manager._query_environments = [
+            self._environment("e1", optional=["g1", "g3"])
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        data = self.dnf_manager.get_environment_data("e1")
+        assert data.optional_groups == ["g1", "g3"]
+
+    def test_get_environment_data_default_groups(self):
+        """Test the get_environment_data method with default groups."""
+        # Replace the DNFManager._query_environments and DNFManager._query_groups
+        # with mocked environments and groups.
+        self.dnf_manager._query_groups = [
+            self._group("g1", default=True),
+            self._group("g2"),
+            self._group("g3", default=True),
+            self._group("g4")
+        ]
+        self.dnf_manager._query_environments = [
+            self._environment("e1", optional=["g1", "g2", "g3"])
+        ]
+        self.dnf_manager._repositories_loaded = True
+
+        data = self.dnf_manager.get_environment_data("e1")
+        assert data.default_groups == ["g1", "g3"]
 
     def test_environment_data_available_groups(self):
         """Test the get_available_groups method."""
