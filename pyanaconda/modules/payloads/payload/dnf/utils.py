@@ -19,9 +19,11 @@ import fnmatch
 import hashlib
 
 import rpm
+from libdnf5 import comps
 from libdnf5.transaction import TransactionItemState_ERROR
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.hw import is_lpae_available
 from pyanaconda.core.payload import parse_hdd_url
@@ -149,6 +151,22 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
         include_list.append(pkg_name)
 
     return include_list, exclude_list
+
+
+def get_group_package_types(spec):
+    package_types = 0
+    if spec.startswith("@") and '/' in spec:
+        spec, types = spec.split('/')
+        types = types.split(',')
+        if constants.GROUP_PACKAGE_TYPE_MANDATORY in types:
+            package_types += comps.PackageType_MANDATORY
+        if constants.GROUP_PACKAGE_TYPE_CONDITIONAL in types:
+            package_types += comps.PackageType_CONDITIONAL
+        if constants.GROUP_PACKAGE_TYPE_DEFAULT in types:
+            package_types += comps.PackageType_DEFAULT
+        if constants.GROUP_PACKAGE_TYPE_OPTIONAL in types:
+            package_types += comps.PackageType_OPTIONAL
+    return spec, package_types
 
 
 def get_kernel_version_list():
