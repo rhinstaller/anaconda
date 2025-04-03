@@ -60,6 +60,7 @@ from pyanaconda.modules.payloads.payload.dnf.transaction_progress import (
 )
 from pyanaconda.modules.payloads.payload.dnf.utils import (
     calculate_hash,
+    get_group_package_types,
     get_product_release_version,
     transaction_has_errors,
 )
@@ -620,8 +621,12 @@ class DNFManager:
 
         log.info("Including specs: %s", include_list)
         for spec in include_list:
-            self._goal.add_install(spec)
-            self._goal_skip_unavailable.add_install(spec)
+            spec, package_types = get_group_package_types(spec)
+            settings = libdnf5.base.GoalJobSettings()
+            if package_types:
+                settings.set_group_package_types(package_types)
+            self._goal.add_install(spec, settings)
+            self._goal_skip_unavailable.add_install(spec, settings)
 
     def resolve_selection(self):
         """Resolve the software selection."""
