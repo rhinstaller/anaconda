@@ -20,7 +20,7 @@ import tempfile
 import unittest
 from contextlib import contextmanager
 from textwrap import dedent
-from unittest.mock import Mock, call, patch
+from unittest.mock import Mock, call, create_autospec, patch
 
 import pytest
 
@@ -36,6 +36,7 @@ from pyanaconda.modules.localization.installation import (
     write_vc_configuration,
     write_x_configuration,
 )
+from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
     AssignGenericKeyboardSettingTask,
@@ -536,12 +537,12 @@ class LocalizationTasksTestCase(unittest.TestCase):
 
     def test_write_x_configuration(self):
         """Test write_x_configuration_test."""
-        localed_wrapper = Mock()
+        localed_wrapper = create_autospec(LocaledWrapper)
         runtime_x_layouts = ["us (euro)"]
         runtime_options = []
         configured_x_layouts = ["cz (qwerty)"]
         configured_options = ["grp:alt_shift_toggle"]
-        localed_wrapper.layouts_variants = runtime_x_layouts
+        localed_wrapper.get_layouts_variants.return_value = runtime_x_layouts
         localed_wrapper.options = runtime_options
 
         def create_config(conf_dir):

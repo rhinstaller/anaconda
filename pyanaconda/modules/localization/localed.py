@@ -52,9 +52,8 @@ class LocaledWrapperBase(ABC):
 
         self._localed_proxy = LOCALED.get_proxy()
 
-    @property
-    def layouts_variants(self):
-        """Get current X11 layouts with variants.
+    def get_layouts_variants(self):
+        """Read current X11 layouts with variants from system.
 
         :return: a list of "layout (variant)" or "layout" layout specifications
         :rtype: list(str)
@@ -190,7 +189,7 @@ class LocaledWrapper(LocaledWrapperBase):
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
-        orig_layouts_variants = self.layouts_variants
+        orig_layouts_variants = self.get_layouts_variants()
         orig_keymap = self.keymap
         converted_layouts = self.set_and_convert_keymap(keymap)
         self.set_layouts(orig_layouts_variants)
@@ -209,7 +208,7 @@ class LocaledWrapper(LocaledWrapperBase):
         """
         self.set_keymap(keymap, convert=True)
 
-        return self.layouts_variants
+        return self.get_layouts_variants()
 
     def set_and_convert_layouts(self, layouts_variants):
         """Set X11 layouts and set and get converted VConsole keymap.
@@ -243,7 +242,7 @@ class LocaledWrapper(LocaledWrapperBase):
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
-        orig_layouts_variants = self.layouts_variants
+        orig_layouts_variants = self.get_layouts_variants()
         orig_keymap = self.keymap
         ret = self.set_and_convert_layouts(layouts_variants)
         self.set_layouts(orig_layouts_variants)
@@ -317,21 +316,18 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         :return: a list of "layout (variant)" or "layout" layout specifications
         :rtype: list(str)
         """
-        # TODO: This is a hotfix for a race condition because layouts_variants is read from DBus
-        #       and can change between the calls - caused rhbz#2357836
-        layouts_variants = self.layouts_variants
+        layouts_variants = self.get_layouts_variants()
         return "" if not layouts_variants else layouts_variants[0]
 
-    @property
-    def layouts_variants(self):
-        """Get current X11 layouts with variants.
+    def get_layouts_variants(self):
+        """Read current X11 layouts with variants from system.
 
         Store information about the last selected layout variant used.
 
         :return: a list of "layout (variant)" or "layout" layout specifications
         :rtype: list(str)
         """
-        self._last_layouts_variants = super().layouts_variants
+        self._last_layouts_variants = super().get_layouts_variants()
         return self._last_layouts_variants
 
     def set_layouts(self, layouts_variants, options=None, convert=False):
