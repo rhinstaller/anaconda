@@ -317,7 +317,10 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         :return: a list of "layout (variant)" or "layout" layout specifications
         :rtype: list(str)
         """
-        return "" if not self.layouts_variants else self.layouts_variants[0]
+        # TODO: This is a hotfix for a race condition because layouts_variants is read from DBus
+        #       and can change between the calls - caused rhbz#2357836
+        layouts_variants = self.layouts_variants
+        return "" if not layouts_variants else layouts_variants[0]
 
     @property
     def layouts_variants(self):
