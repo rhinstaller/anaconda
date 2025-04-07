@@ -18,7 +18,7 @@
 # What to pull from the l10n repo when getting translations
 # This supports anything that git can use, but is intended to be a SHA of a commit that works.
 # This line must be always in the same format, because it is changed by automation.
-GIT_L10N_SHA ?= 3b3cf99aa4f46b7cf98b4ab52db4724de23e5c65
+GIT_L10N_SHA ?= 8efec074607900aaa4c7305c3beee6026ee34933
 
 # Localization repository location
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
