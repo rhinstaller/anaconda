@@ -249,14 +249,14 @@ class BossInterfaceTestCase(unittest.TestCase):
         assert len(task_list) == 2
 
         task_path = task_list[0]
-        task_proxy = check_task_creation(task_path, publisher, SetContextsTask, 0)
-        task = task_proxy.implementation
-        assert task.name == "Set file contexts"
-
-        task_path = task_list[1]
-        task_proxy = check_task_creation(task_path, publisher, CopyLogsTask, 1)
+        task_proxy = check_task_creation(task_path, publisher, CopyLogsTask, 0)
         task = task_proxy.implementation
         assert task.name == "Copy installation logs"
+
+        task_path = task_list[1]
+        task_proxy = check_task_creation(task_path, publisher, SetContextsTask, 1)
+        task = task_proxy.implementation
+        assert task.name == "Set file contexts"
 
     def test_quit(self):
         """Test Quit."""
