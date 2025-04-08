@@ -500,6 +500,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 08 2025 github-actions <github-actions@github.com> - 42.27.12-1
+- storage: Fix EFI partition detection for other OSes (Windows, MacOS)
+  (rvykydal)
+- Fix race condition when reading localed layouts (jkonecny)
+
 * Tue Apr 01 2025 github-actions <github-actions@github.com> - 42.27.11-1
 - pyanaconda: storage: when checking the md device validity check also parent
   (k.koukiou)
