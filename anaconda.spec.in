@@ -273,10 +273,11 @@ Requires: gnome-kiosk
 Requires: gnome-remote-desktop
 # needed to generate RDP certs at runtime
 Requires: openssl
-# needed by GNOME kiosk but not declared a as explicit dep,
-# instead expected to be declared like this according to the
-# maintainers
+# the mesa packages are needed by GNOME kiosk but not declared as explicit dependency,
+# instead expected to be declared like this for image creation purposes,
+# according to the GNOME kiosk maintainers
 Requires: mesa-dri-drivers
+Requires: mesa-vulkan-drivers
 Requires: brltty
 Requires: python3-pam
 # dependencies for rpm-ostree payload module
