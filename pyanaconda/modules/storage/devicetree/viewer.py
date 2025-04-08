@@ -546,28 +546,44 @@ class DeviceTreeViewer(ABC):
         partition_types = WINDOWS_PARTITION_TYPES if os_name == WINDOWS else MACOS_PARTITION_TYPES if os_name == MAC_OS else None
         partition_types_expected_fs = WINDOWS_PARTITION_TYPES_EXPECTED_FS if os_name == WINDOWS else {}
 
-        efi_partition = None
+        efi_partitions = []
+        os_disks = set()
         for blivet_device in self.storage.devicetree.devices:
             if not isinstance(blivet_device, PartitionDevice):
                 continue
 
             device = self._get_device(blivet_device.name)
             if str(device.part_type_uuid) == EFI_PARTITION_TYPE:
-                efi_partition = device
+                efi_partitions.append(device)
                 continue
 
             if str(device.part_type_uuid) in partition_types:
                 expected_fs = partition_types_expected_fs.get(str(device.part_type_uuid), [])
                 if not expected_fs or device.format.type in expected_fs:
                     other_os_data.devices.append(device.name)
+                    os_disks.add(device.disk)
 
-        if len(other_os_data.devices) > 0:
-            if efi_partition is not None:
-                other_os_data.devices.append(efi_partition.name)
+        if not other_os_data.devices:
+            return None
 
-            return other_os_data
+        # Handle EFI partitions
+        log.debug("Other OS - EFI partitions detected: %s",
+                  [device.name for device in efi_partitions])
+        if len(efi_partitions) == 1:
+            other_os_data.devices.append(efi_partitions[0].name)
+        else:
+            # In case of multiple EFI partitions select only those that reside on
+            # the disk(s) where other OS partitions are.
+            for efi_partition in efi_partitions:
+                if efi_partition.disk:
+                    if efi_partition.disk in os_disks:
+                        other_os_data.devices.append(efi_partition.name)
+                    else:
+                        log.debug("Ignoring EFI partition %s (not on OS disks %s)",
+                                  device.name, [device.name for device in os_disks])
 
-        return None
+        log.debug("Other OS %s detected on devices %s", os_name, other_os_data.devices)
+        return other_os_data
 
     def _get_mount_point_constraints_data(self, spec):
         """Get the mount point data.
