@@ -3,6 +3,7 @@
 Filters = [
     # Discard no-binary error for anaconda packages which cant be a noarch type
     'anaconda.x86_64: E: no-binary',
+    'anaconda-core-debuginfo.x86_64: E: no-binary',
     'anaconda-install-env-deps.x86_64: E: no-binary',
     'anaconda-install-img-deps.x86_64: E: no-binary',
     # Discard explicite library dependencies

@@ -80,9 +80,6 @@ Requires: anaconda-tui = %{version}-%{release}
 The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
-# Since the binaries in anaconda-core are shell or Python scripts,
-# there's no need to generate a debuginfo package
-%define debug_package %{nil}
 Summary: Core of the Anaconda installer
 # core/signal.py is under MIT
 License: GPL-2.0-or-later AND MIT
@@ -176,7 +173,7 @@ system.
 
 %package live
 Summary: Live installation specific files and dependencies
-BuildArchitectures: noarch
+BuildArch: noarch
 BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
