@@ -4,6 +4,6 @@
 
 dns_backend=$(getarg rd.net.dns-backend=)
 
-if [ ${dns_backend} == "dnsconfd" ]; then
+if [ "${dns_backend}" == "dnsconfd" ]; then
     systemctl --root=/sysroot enable dnsconfd.service
 fi
