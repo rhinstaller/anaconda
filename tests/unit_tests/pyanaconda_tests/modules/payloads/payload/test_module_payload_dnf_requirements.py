@@ -143,7 +143,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         dnf_manager.is_package_available.return_value = True
         requirements = collect_dnf_requirements(dnf_manager, data)
         r = self._create_requirement(
-            name="dnf5-modules",
+            name="dnf5-plugins",
             reason="Needed to enable multilib support."
         )
         self._compare_requirements(requirements, [r])
