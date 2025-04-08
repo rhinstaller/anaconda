@@ -163,6 +163,6 @@ class Boss(Service):
         :return: a list of installation tasks
         """
         return [
-            SetContextsTask(conf.target.system_root),
-            CopyLogsTask(conf.target.system_root)
+            CopyLogsTask(conf.target.system_root),
+            SetContextsTask(conf.target.system_root)
         ]
