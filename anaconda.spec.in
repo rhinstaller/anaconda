@@ -505,6 +505,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 08 2025 github-actions <github-actions@github.com> - 43.14-1
+
 * Tue Apr 01 2025 github-actions <github-actions@github.com> - 43.13-1
 - Add release notes for TERM passthrough (jkonecny)
 - pyanaconda: storage: when checking the md device validity check also parent
