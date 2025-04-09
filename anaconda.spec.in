@@ -436,11 +436,11 @@ rm -rf \
 %exclude %{_datadir}/anaconda/anaconda-gtk.css
 %dir %{_datadir}/anaconda/post-scripts
 %exclude %{_prefix}/libexec/anaconda/dd_*
-%{python3_sitearch}/pyanaconda
-%exclude %{python3_sitearch}/pyanaconda/rescue.py*
-%exclude %{python3_sitearch}/pyanaconda/__pycache__/rescue.*
-%exclude %{python3_sitearch}/pyanaconda/ui/gui/*
-%exclude %{python3_sitearch}/pyanaconda/ui/tui/*
+%{python3_sitelib}/pyanaconda
+%exclude %{python3_sitelib}/pyanaconda/rescue.py*
+%exclude %{python3_sitelib}/pyanaconda/__pycache__/rescue.*
+%exclude %{python3_sitelib}/pyanaconda/ui/gui/*
+%exclude %{python3_sitelib}/pyanaconda/ui/tui/*
 %{_bindir}/anaconda-cleanup
 # Installer configuration files aren’t updated post-installation,
 # so the noreplace flag doesn't offer a practical benefit in this context.
@@ -468,22 +468,22 @@ rm -rf \
 %endif
 
 %files gui
-%{python3_sitearch}/pyanaconda/ui/gui/*
+%{python3_sitelib}/pyanaconda/ui/gui/*
 %{_datadir}/anaconda/pixmaps
 %{_datadir}/anaconda/ui
 %if 0%{?rhel}
 # Remove blivet-gui
 %exclude %{_datadir}/anaconda/ui/spokes/blivet_gui.*
-%exclude %{python3_sitearch}/pyanaconda/ui/gui/spokes/blivet_gui.*
+%exclude %{python3_sitelib}/pyanaconda/ui/gui/spokes/blivet_gui.*
 %endif
 %{_datadir}/anaconda/window-manager
 %{_datadir}/anaconda/anaconda-gtk.css
 %{_datadir}/anaconda/gtk-4.0/settings.ini
 
 %files tui
-%{python3_sitearch}/pyanaconda/rescue.py
-%{python3_sitearch}/pyanaconda/__pycache__/rescue.*
-%{python3_sitearch}/pyanaconda/ui/tui/*
+%{python3_sitelib}/pyanaconda/rescue.py
+%{python3_sitelib}/pyanaconda/__pycache__/rescue.*
+%{python3_sitelib}/pyanaconda/ui/tui/*
 
 %files widgets
 %{_libdir}/libAnacondaWidgets.so.*
