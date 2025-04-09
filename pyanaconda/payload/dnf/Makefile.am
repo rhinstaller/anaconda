@@ -15,8 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-payloaddir = $(pkgpyexecdir)/payload/dnf
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+payloaddir = $(pkgpythondir)/payload/dnf
 dist_payload_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

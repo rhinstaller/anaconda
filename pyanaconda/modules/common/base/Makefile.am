@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modules_basedir = $(pkgpyexecdir)/modules/common/base
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+modules_basedir = $(pkgpythondir)/modules/common/base
 dist_modules_base_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

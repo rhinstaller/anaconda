@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-core_kickstartdir = $(pkgpyexecdir)/core/kickstart
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+core_kickstartdir = $(pkgpythondir)/core/kickstart
 dist_core_kickstart_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

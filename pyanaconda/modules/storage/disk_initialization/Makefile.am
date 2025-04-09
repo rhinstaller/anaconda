@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-disk_init_moduledir = $(pkgpyexecdir)/modules/storage/disk_initialization
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+disk_init_moduledir = $(pkgpythondir)/modules/storage/disk_initialization
 dist_disk_init_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -17,6 +17,6 @@ SUBDIRS = categories gui lib tui webui
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+uidir        = $(pkgpythondir)/ui
 ui_PYTHON    = $(srcdir)/*.py

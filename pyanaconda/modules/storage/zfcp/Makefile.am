@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-zfcp_moduledir = $(pkgpyexecdir)/modules/storage/zfcp
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+zfcp_moduledir = $(pkgpythondir)/modules/storage/zfcp
 dist_zfcp_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

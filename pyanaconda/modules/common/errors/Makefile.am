@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modules_errorsdir = $(pkgpyexecdir)/modules/common/errors
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+modules_errorsdir = $(pkgpythondir)/modules/common/errors
 dist_modules_errors_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

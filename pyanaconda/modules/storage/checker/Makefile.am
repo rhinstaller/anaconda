@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-checker_moduledir = $(pkgpyexecdir)/modules/storage/checker
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+checker_moduledir = $(pkgpythondir)/modules/storage/checker
 dist_checker_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

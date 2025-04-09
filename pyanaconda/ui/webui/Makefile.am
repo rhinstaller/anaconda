@@ -17,6 +17,6 @@ SUBDIRS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-webuidir        = $(pkgpyexecdir)/ui/webui
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+webuidir        = $(pkgpythondir)/ui/webui
 webui_PYTHON    = $(srcdir)/*.py

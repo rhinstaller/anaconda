@@ -17,6 +17,6 @@ SUBDIRS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-spokesdir        = $(pkgpyexecdir)/ui/tui/spokes
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+spokesdir        = $(pkgpythondir)/ui/tui/spokes
 spokes_PYTHON    = $(srcdir)/*.py

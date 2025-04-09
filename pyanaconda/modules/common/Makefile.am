@@ -16,8 +16,8 @@
 
 SUBDIRS = base task errors constants structures
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modules_commondir = $(pkgpyexecdir)/modules/common
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+modules_commondir = $(pkgpythondir)/modules/common
 dist_modules_common_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

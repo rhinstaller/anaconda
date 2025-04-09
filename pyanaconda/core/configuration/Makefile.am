@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-core_configdir = $(pkgpyexecdir)/core/configuration
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+core_configdir = $(pkgpythondir)/core/configuration
 dist_core_config_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

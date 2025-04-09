@@ -16,8 +16,8 @@
 
 SUBDIRS = base payload source
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-payload_moduledir = $(pkgpyexecdir)/modules/payloads
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+payload_moduledir = $(pkgpythondir)/modules/payloads
 dist_payload_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

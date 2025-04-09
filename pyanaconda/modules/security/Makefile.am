@@ -16,8 +16,8 @@
 
 SUBDIRS = certificates
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-securitydir = $(pkgpyexecdir)/modules/security
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+securitydir = $(pkgpythondir)/modules/security
 dist_security_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

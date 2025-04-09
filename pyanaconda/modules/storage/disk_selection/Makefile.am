@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-disk_select_moduledir = $(pkgpyexecdir)/modules/storage/disk_selection
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+disk_select_moduledir = $(pkgpythondir)/modules/storage/disk_selection
 dist_disk_select_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

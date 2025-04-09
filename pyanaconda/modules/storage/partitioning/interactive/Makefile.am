@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-interactive_moduledir = $(pkgpyexecdir)/modules/storage/partitioning/interactive
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+interactive_moduledir = $(pkgpythondir)/modules/storage/partitioning/interactive
 dist_interactive_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -17,8 +17,8 @@
 
 SUBDIRS = dracut_commands scripts user_interface
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-runtimedir = $(pkgpyexecdir)/modules/runtime
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+runtimedir = $(pkgpythondir)/modules/runtime
 dist_runtime_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

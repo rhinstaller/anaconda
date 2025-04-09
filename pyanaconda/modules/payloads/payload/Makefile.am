@@ -16,8 +16,8 @@
 
 SUBDIRS = dnf live_os live_image rpm_ostree
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-dnf_moduledir = $(pkgpyexecdir)/modules/payloads/payload
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+dnf_moduledir = $(pkgpythondir)/modules/payloads/payload
 dist_dnf_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

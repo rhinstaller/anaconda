@@ -17,8 +17,8 @@
 
 SUBDIRS = kickstart configuration startup
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-coredir = $(pkgpyexecdir)/core
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+coredir = $(pkgpythondir)/core
 dist_core_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

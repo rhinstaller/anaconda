@@ -15,6 +15,6 @@
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir        = $(pyexecdir)/py$(PACKAGE_NAME)
-categoriesdir       = $(pkgpyexecdir)/ui/categories
+pkgpythondir        = $(pythondir)/py$(PACKAGE_NAME)
+categoriesdir       = $(pkgpythondir)/ui/categories
 categories_PYTHON   = $(srcdir)/*.py

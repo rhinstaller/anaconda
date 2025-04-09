@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modules_constantsdir = $(pkgpyexecdir)/modules/common/constants
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+modules_constantsdir = $(pkgpythondir)/modules/common/constants
 dist_modules_constants_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

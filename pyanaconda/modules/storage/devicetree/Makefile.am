@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-devicetree_moduledir = $(pkgpyexecdir)/modules/storage/devicetree
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+devicetree_moduledir = $(pkgpythondir)/modules/storage/devicetree
 dist_devicetree_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

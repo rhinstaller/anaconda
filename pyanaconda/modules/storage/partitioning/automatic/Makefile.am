@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-automatic_moduledir = $(pkgpyexecdir)/modules/storage/partitioning/automatic
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+automatic_moduledir = $(pkgpythondir)/modules/storage/partitioning/automatic
 dist_automatic_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

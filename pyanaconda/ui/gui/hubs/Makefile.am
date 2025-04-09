@@ -15,8 +15,8 @@
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir   = $(pyexecdir)/py$(PACKAGE_NAME)
-hubsdir        = $(pkgpyexecdir)/ui/gui/hubs
+pkgpythondir   = $(pythondir)/py$(PACKAGE_NAME)
+hubsdir        = $(pkgpythondir)/ui/gui/hubs
 hubs_PYTHON    = $(srcdir)/*.py
 
 uidir          = $(datadir)/$(PACKAGE_NAME)/ui/hubs

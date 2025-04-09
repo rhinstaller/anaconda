@@ -17,6 +17,6 @@ SUBDIRS = hubs spokes
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-tuidir        = $(pkgpyexecdir)/ui/tui
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+tuidir        = $(pkgpythondir)/ui/tui
 tui_PYTHON    = $(srcdir)/*.py

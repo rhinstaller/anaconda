@@ -17,8 +17,8 @@
 
 SUBDIRS = dnf live
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-payloaddir = $(pkgpyexecdir)/payload
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+payloaddir = $(pkgpythondir)/payload
 dist_payload_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

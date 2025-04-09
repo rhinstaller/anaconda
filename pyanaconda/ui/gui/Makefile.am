@@ -17,8 +17,8 @@ SUBDIRS = hubs spokes
 
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-guidir       = $(pkgpyexecdir)/ui/gui
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+guidir       = $(pkgpythondir)/ui/gui
 gui_PYTHON   = $(srcdir)/*.py
 
 uidir        = $(datadir)/$(PACKAGE_NAME)/ui/

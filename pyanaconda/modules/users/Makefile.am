@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-usersdir = $(pkgpyexecdir)/modules/users
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+usersdir = $(pkgpythondir)/modules/users
 dist_users_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

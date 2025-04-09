@@ -17,8 +17,8 @@
 
 SUBDIRS = common boss timezone network localization security users payloads storage services subscription runtime
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modulesdir = $(pkgpyexecdir)/modules
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+modulesdir = $(pkgpythondir)/modules
 dist_modules_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in

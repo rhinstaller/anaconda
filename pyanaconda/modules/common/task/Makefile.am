@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modules_taskdir = $(pkgpyexecdir)/modules/common/task
+pkgpythondir = $(pythondir)/py$(PACKAGE_NAME)
+modules_taskdir = $(pkgpythondir)/modules/common/task
 dist_modules_task_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
