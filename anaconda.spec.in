@@ -487,6 +487,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 10 2025 Martin Kolman <mkolman@redhat.com> - 40.22.3.27-1
+- Update the tests/README.rst file (jkonecny)
+  Related: RHEL-48821
+- Move shell testing to a separated directory (jkonecny)
+  Related: RHEL-48821
+- Enable dynamic bash commands disable for tests (jkonecny)
+  Related: RHEL-48821
+- Add test for config_get dracut function (jkonecny)
+  Related: RHEL-48821
+- Fix trailing `/` when downloading stage2 image (jkonecny)
+  Resolves: RHEL-48821
+- Fix whitespace chars broke Dracut config parsing (jkonecny)
+  Related: RHEL-48821
+
 * Mon Mar 10 2025 Radek Vykydal <rvykydal@redhat.com> - 40.22.3.26-1
 - network: start dnsconfd in initramfs (rvykydal)
   Resolves: RHEL-80302
