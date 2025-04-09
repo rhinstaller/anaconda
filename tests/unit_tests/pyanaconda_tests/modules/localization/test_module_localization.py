@@ -530,7 +530,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         # pylint: disable=no-member
         manager_mock.select_next_layout.assert_called_once()
 
-        manager_mock.layouts_variants = ["us", "es"]
+        manager_mock.get_layouts_variants.return_value = ["us", "es"]
         assert self.localization_interface.GetCompositorLayouts() == ["us", "es"]
 
         self.localization_interface.SetCompositorLayouts(["cz (qwerty)", "cn (mon_todo_galik)"],

@@ -191,7 +191,7 @@ def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir
     if root != "/":
         # Writing to a different root, we need to save these values, so that
         # we can restore them when we have the file written out.
-        saved_layouts_variants = localed_wrapper.layouts_variants
+        saved_layouts_variants = localed_wrapper.get_layouts_variants()
         saved_options = localed_wrapper.options
 
     # Set systemd-localed's layouts, variants and switch options, which

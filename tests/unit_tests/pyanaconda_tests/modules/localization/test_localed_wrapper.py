@@ -37,7 +37,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         """Test that calls to LocaledWrapper are guarded not to fail."""
         assert localed_wrapper.keymap == ""
         assert localed_wrapper.options == []
-        assert localed_wrapper.layouts_variants == []
+        assert localed_wrapper.get_layouts_variants() == []
         localed_wrapper.set_keymap("cz")
         localed_wrapper.set_keymap("cz", convert=True)
         localed_wrapper.convert_keymap("cz")
@@ -66,7 +66,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
         assert localed_wrapper.keymap == \
             "cz"
-        assert localed_wrapper.layouts_variants == \
+        assert localed_wrapper.get_layouts_variants() == \
             ["cz (qwerty)", "fi", "us (euro)", "fr"]
         assert localed_wrapper.options == \
             ["grp:alt_shift_toggle", "grp:ctrl_alt_toggle"]
@@ -77,7 +77,7 @@ class LocaledWrapperTestCase(unittest.TestCase):
         mocked_localed_proxy.X11Options = ""
         assert localed_wrapper.keymap == ""
         assert localed_wrapper.options == []
-        assert localed_wrapper.layouts_variants == []
+        assert localed_wrapper.get_layouts_variants() == []
 
     @patch("pyanaconda.modules.localization.localed.SystemBus")
     @patch("pyanaconda.modules.localization.localed.LOCALED")
@@ -182,7 +182,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
         mocked_localed_proxy.X11Variant = "qwerty,,euro"
         mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
-        assert localed_wrapper.layouts_variants == \
+        assert localed_wrapper.get_layouts_variants() == \
             ["cz (qwerty)", "fi", "us (euro)", "fr"]
         assert localed_wrapper.current_layout_variant == "cz (qwerty)"
         assert localed_wrapper.options == \
@@ -193,7 +193,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
         mocked_localed_proxy.X11Variant = ""
         mocked_localed_proxy.X11Options = ""
         assert localed_wrapper.options == []
-        assert localed_wrapper.layouts_variants == []
+        assert localed_wrapper.get_layouts_variants() == []
         assert localed_wrapper.current_layout_variant == ""
 
     @patch("pyanaconda.modules.localization.localed.SystemBus")
@@ -565,7 +565,7 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             mocked_localed_proxy.X11Variant = ",".join(map(lambda x: x[1], last_known_state))
             # loading the above values to local last known list
             # pylint: disable=pointless-statement
-            localed_wrapper.layouts_variants
+            localed_wrapper.get_layouts_variants()
 
             for k in compositor_state:
                 compositor_state[k] = Variant('s', compositor_state[k])
