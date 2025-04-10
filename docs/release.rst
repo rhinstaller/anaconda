@@ -491,7 +491,7 @@ The only place where Python is explicitly listed in Anaconda code base and needs
 ``scripts/makeupdates``::
 
     # The Python site-packages path for pyanaconda.
-    SITE_PACKAGES_PATH = "./usr/lib64/python3.12/site-packages/"
+    SITE_PACKAGES_PATH = "./usr/lib/python3.12/site-packages/"
 
 If this path is not correct, updates images "mysteriously stop working".
 
