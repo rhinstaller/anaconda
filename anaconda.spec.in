@@ -80,9 +80,7 @@ Requires: anaconda-tui = %{version}-%{release}
 The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
-# Since the binaries in anaconda-core are shell or Python scripts,
-# there's no need to generate a debuginfo package
-%define debug_package %{nil}
+BuildArch: noarch
 Summary: Core of the Anaconda installer
 # core/signal.py is under MIT
 License: GPL-2.0-or-later AND MIT
@@ -176,7 +174,7 @@ system.
 
 %package live
 Summary: Live installation specific files and dependencies
-BuildArchitectures: noarch
+BuildArch: noarch
 BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
@@ -298,6 +296,7 @@ ensure all Anaconda capabilities are supported in the resulting image.
 
 %package gui
 Summary: Graphical user interface for the Anaconda installer
+BuildArch: noarch
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
@@ -322,6 +321,7 @@ This package contains graphical user interface for the Anaconda installer.
 
 %package tui
 Summary: Textual user interface for the Anaconda installer
+BuildArch: noarch
 Requires: anaconda-core = %{version}-%{release}
 Requires: python3-simpleline >= %{simplelinever}
 
