@@ -21,6 +21,7 @@ import shutil
 from pyanaconda.core import service
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import make_directories, join_paths
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.installation import NetworkInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -100,6 +101,7 @@ class NetworkInstallationTask(Task):
 
     SYSCONF_NETWORK_FILE_PATH = "/etc/sysconfig/network"
     ANACONDA_SYSCTL_FILE_PATH = "/etc/sysctl.d/anaconda.conf"
+    RESOLV_CONF_FILE_PATH = "/etc/resolv.conf"
     NETWORK_SCRIPTS_DIR_PATH = IFCFG_DIR
     PREFIXDEVNAME_CONFIG_FILE_PREFIX = "71-net-ifnames-prefix-"
     NETWORK_SCRIPTS_CONFIG_FILE_PREFIXES = ("ifcfg-", "keys-", "route-")
@@ -159,6 +161,18 @@ Name={}
             self._disable_ipv6_on_system(self._sysroot)
         self._copy_device_config_files(self._sysroot)
         self._copy_dhclient_config_files(self._sysroot, self._network_ifaces)
+
+        # Make sure DNS resolution works in %post scripts
+        # when systemd-resolved is not available.
+        #
+        # Main use-case for this is currently image mode on RHEL.
+        # In this case there is no systemd-resolved in use by default and
+        # image mode deploys the target system rootfs only after the early
+        # resolv.conf copy action has run, clobbering the resolv.conf we copy earlier
+        # in the copy_resolv_conf_to_root() method.
+        if conf.system.provides_resolver_config and \
+                not service.is_service_installed("systemd-resolved.service"):
+            self._copy_resolv_conf(self._sysroot, self._overwrite)
         if self._configure_persistent_device_names:
             self._copy_prefixdevname_files(self._sysroot)
         self._copy_global_dns_config(self._sysroot)
@@ -226,6 +240,16 @@ Name={}
         except OSError as e:
             msg = "Cannot disable ipv6 on the system: {}".format(e.strerror)
             raise NetworkInstallationError(msg) from e
+
+    def _copy_resolv_conf(self, root, overwrite):
+        """Copy resolf.conf file to target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        :param overwrite: overwrite existing configuration file
+        :type overwrite: bool
+        """
+        self._copy_file_to_root(root, self.RESOLV_CONF_FILE_PATH, follow_symlinks=False)
 
     def _copy_file_to_root(self, root, config_file, overwrite=False, follow_symlinks=True):
         """Copy the file to target system.
