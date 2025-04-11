@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 import multiprocessing
+import re
 import shutil
 import threading
 import traceback
@@ -589,6 +590,20 @@ class DNFManager:
 
         log.info("The software selection has been resolved (%d packages selected).",
                  len(self._base.transaction))
+
+    def get_flatpak_refs(self):
+        """Determine what Flatpaks need to be preinstalled based on resolved transaction"""
+        if self._base.transaction is None:
+            return []
+
+        refs = []
+        for tsi in self._base.transaction:
+            for provide in tsi.pkg.provides:
+                m = re.match(r"^flatpak-preinstall\((.*)\)$", str(provide))
+                if m:
+                    refs.append(m.group(1))
+
+        return refs
 
     def clear_selection(self):
         """Clear the software selection."""
