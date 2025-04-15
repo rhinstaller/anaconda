@@ -502,6 +502,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 15 2025 github-actions <github-actions@github.com> - 43.15-1
+- edns: restart dnsconfd only after the first kickstart parsing (rvykydal)
+- edns: allow dnsconfd name resolution for kickstart fetching (rvykydal)
+- spec: Properly strip objects and fix generation of debuginfo packages
+  (decathorpe)
+- Change localed layouts_variants to method (jkonecny)
+- Remove temporary isFinal getter and DBUS API (adamkankovsky)
+- Add test for product DBUS API (adamkankovsky)
+- New getter for product in Runtime module (adamkankovsky)
+- security: transfer certificates from intiramfs to root in dracut (rvykydal)
+- security: handle exception on early anaconda certificate import (rvykydal)
+- Fix race condition when reading localed layouts (jkonecny)
+- storage: Fix EFI partition detection for other OSes (Windows, MacOS)
+  (rvykydal)
+
 * Tue Apr 08 2025 github-actions <github-actions@github.com> - 43.14-1
 
 * Tue Apr 01 2025 github-actions <github-actions@github.com> - 43.13-1
