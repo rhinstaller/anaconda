@@ -52,3 +52,6 @@ Using your overlay image
 - In the normal installation environment, you can further check that your changes had the desired
   effect.
 
+| **Note**:
+| If you need to change just a few files, a new-style ``newc:`` syntax allows you don't bother creating an initrd image yourself:
+| https://www.gnu.org/software/grub/manual/grub/html_node/initrd.html
