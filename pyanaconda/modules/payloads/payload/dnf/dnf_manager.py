@@ -739,7 +739,7 @@ class DNFManager:
 
         try:
             downloader.download()
-        except RuntimeError as e:
+        except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception) as e:
             msg = "Failed to download the following packages: " + str(e)
             raise PayloadInstallationError(msg) from None
 
@@ -873,7 +873,7 @@ class DNFManager:
         try:
             weak_repo_ref = repositories.get()
             return weak_repo_ref.get()
-        except RuntimeError:
+        except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception):
             raise UnknownRepositoryError(repo_id) from None
 
     def add_repository(self, data: RepoConfigurationData):
@@ -1103,7 +1103,7 @@ class DNFManager:
         repo_sack = self._base.get_repo_sack()
         try:
             repo_sack.load_repos(False)
-        except RuntimeError as e:
+        except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception) as e:
             log.warning(str(e))
             raise MetadataError(str(e)) from None
         self._repositories_loaded = True

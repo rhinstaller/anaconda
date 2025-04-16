@@ -55,7 +55,7 @@ class DNF5TestCase(unittest.TestCase):
         base = libdnf5.base.Base()
         query = libdnf5.repo.RepoQuery(base)
 
-        with pytest.raises(RuntimeError):
+        with pytest.raises(libdnf5.exception.Error):
             query.get()
 
     def test_undefined_variables(self):
@@ -70,7 +70,7 @@ class DNF5TestCase(unittest.TestCase):
         base = libdnf5.base.Base()
         goal = libdnf5.base.Goal(base)
 
-        with pytest.raises(RuntimeError):
+        with pytest.raises(libdnf5.exception.UserAssertionError):
             goal.resolve()
 
     def test_environment_query(self):
@@ -90,7 +90,7 @@ class DNF5TestCase(unittest.TestCase):
         base.setup()
 
         # First check that load_repos fails (because of missing baseurl of the r1 repo)
-        with pytest.raises(RuntimeError):
+        with pytest.raises(libdnf5.exception.Error):
             sack.load_repos()
         # When the repo is disabled, load_repos succeeds
         repo = self._get_repo(base, "r1")
