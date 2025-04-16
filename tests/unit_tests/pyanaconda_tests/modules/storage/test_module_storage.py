@@ -1547,7 +1547,7 @@ class StorageTasksTestCase(unittest.TestCase):
         core_run_program.assert_any_call(
                 ['mount', '--rbind', '/mnt/sysimage', '/mnt/sysroot'],
                 stdin=None, stdout=None, root='/', env_prune=None, env_add=None,
-                log_output=True, binary_output=False, do_preexec=True)
+                log_output=True, binary_output=False, replace_utf_decode_errors=False, do_preexec=True)
 
     @patch_dbus_get_proxy
     @patch("pyanaconda.modules.storage.installation.conf")

@@ -80,6 +80,10 @@ class EFIBase:
         if "root" not in kwargs:
             kwargs["root"] = conf.target.system_root
 
+        # Add replace_utf_decode_errors=True to kwargs
+        # to avoid decoding errors with non-utf8 characters
+        kwargs["replace_utf_decode_errors"] = True
+
         return exec_func("efibootmgr", list(args), **kwargs)
 
     @property
@@ -111,9 +115,7 @@ class EFIBase:
                 self._add_single_efi_boot_target(parent)
 
     def remove_efi_boot_target(self):
-        # FIXME: Stop using replace_utf_decode_errors=True once
-        # https://github.com/rhboot/efibootmgr/pull/221/ is merged
-        buf = self.efibootmgr(capture=True, replace_utf_decode_errors=True)
+        buf = self.efibootmgr(capture=True)
         for line in buf.splitlines():
             try:
                 (slot, _product) = line.split(None, 1)
