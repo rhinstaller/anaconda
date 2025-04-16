@@ -422,6 +422,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 16 2025 Martin Kolman <mkolman@redhat.com> - 34.25.7.1-1
+- network: disable NM autoconnections also when BOOTIF is used (rvykydal)
+  Resolves: RHEL-78272
+- network: support inst.net.noautodefault option (rvykydal)
+  Related: RHEL-78272
+- security: fix dnsconfd backend option check in initramfs (rvykydal)
+  Resolves: RHEL-83214
+- Support leavebootorder for bootupd (jkonecny)
+  Resolves: RHEL-40897
+- bootupd: call bootupctl with --update-firmware (awilliam)
+  Resolves: RHEL-40897
+
 * Thu Mar 06 2025 Radek Vykydal <rvykydal@redhat.com> - 34.25.5.17-1
 - network: start dnsconfd in initramfs (rvykydal)
   Resolves: RHEL-80303
