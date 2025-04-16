@@ -18,6 +18,8 @@
 import os
 import re
 
+from blivet.devicelibs import raid
+
 from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderArguments,\
     BootLoaderError
 from pyanaconda.core import util
@@ -38,7 +40,10 @@ class ZIPL(BootLoader):
     packages = ["s390utils-core"]
 
     # stage2 device requirements
-    stage2_device_types = ["partition"]
+    stage2_device_types = ["partition", "mdarray"]
+    stage2_raid_levels = [raid.RAID1]
+    stage2_raid_member_types = ["partition"]
+    stage2_raid_metadata = ["1.2"]
 
     @property
     def stage2_format_types(self):
