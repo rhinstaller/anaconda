@@ -1,10 +1,9 @@
 [Unit]
 ConditionKernelCommandLine=|ip
 ConditionKernelCommandLine=|inst.ks
-ConditionOSRelease=ID=rhel
 Description=NetworkManager autoconnections configuration for Anaconda installation environment for RHEL
 Before=NetworkManager.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/anaconda-nm-disable-autocons
+ExecStart=/usr/bin/anaconda-nm-disable-autocons rhel
