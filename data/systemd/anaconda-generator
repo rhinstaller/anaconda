@@ -42,5 +42,6 @@ done
 
 ln -sf $systemd_dir/anaconda-nm-config.service $target_dir/anaconda-nm-config.service
 ln -sf $systemd_dir/anaconda-nm-disable-autocons.service $target_dir/anaconda-nm-disable-autocons.service
+ln -sf $systemd_dir/anaconda-nm-disable-autocons-rhel.service $target_dir/anaconda-nm-disable-autocons-rhel.service
 ln -sf $systemd_dir/anaconda-pre.service $target_dir/anaconda-pre.service
 ln -sf "$systemd_dir/anaconda-import-initramfs-certs.service" "$target_dir/anaconda-import-initramfs-certs.service"
