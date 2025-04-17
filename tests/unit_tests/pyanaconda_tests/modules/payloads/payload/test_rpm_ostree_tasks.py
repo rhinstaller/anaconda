@@ -715,7 +715,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 ),
                 call(
                     "ostree",
-                    ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                    ["admin", "instutil", "set-kargs", "--merge", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
                     root=sysroot
                 )
             ])
