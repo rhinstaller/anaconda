@@ -21,7 +21,7 @@ import functools
 import os
 import stat
 
-from distutils.version import LooseVersion
+from packaging.version import parse as parse_version
 
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import mkdirChain
@@ -100,6 +100,6 @@ def sort_kernel_version_list(kernel_version_list):
 
 def _compare_versions(v1, v2):
     """Compare two version number strings."""
-    first_version = LooseVersion(v1)
-    second_version = LooseVersion(v2)
+    first_version = parse_version(v1)
+    second_version = parse_version(v2)
     return (first_version > second_version) - (first_version < second_version)
