@@ -72,3 +72,4 @@ jobs:
           echo '${{ secrets.GITHUB_TOKEN }}' > ~/.config/cockpit-dev/github-token
           TEST_OS="fedora-rawhide-boot"
           bots/tests-trigger --force --repo ${{ github.repository }} ${{ github.event.number }} $TEST_OS/anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
+          bots/tests-trigger --force --repo ${{ github.repository }} ${{ github.event.number }} $TEST_OS/efi-anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
