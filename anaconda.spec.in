@@ -502,6 +502,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 22 2025 github-actions <github-actions@github.com> - 43.16-1
+- Bump required version of blivet to 3.12.1 (vtrefny)
+- Fstab handling moves to blivet (japokorn)
+- s390x - enable raid1 as a stage2 device (dan)
+
 * Tue Apr 15 2025 github-actions <github-actions@github.com> - 43.15-1
 - edns: restart dnsconfd only after the first kickstart parsing (rvykydal)
 - edns: allow dnsconfd name resolution for kickstart fetching (rvykydal)
