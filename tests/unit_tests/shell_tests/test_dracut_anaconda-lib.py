@@ -168,3 +168,30 @@ abc\t=\t\tcde
 """,
             "s390",
         )
+
+        # test query for missing value
+        self._check_get_text_with_content(
+            """
+[tree]
+""",
+            "",
+        )
+
+
+    # Test file without a section
+        self._check_get_text_with_content(
+            """
+[other_section]
+key=value
+""",
+            "",
+        )
+
+        # Test file with [tree] section but missing arch
+        self._check_get_text_with_content(
+            """
+[tree]
+other_key=value
+""",
+            "",
+        )
