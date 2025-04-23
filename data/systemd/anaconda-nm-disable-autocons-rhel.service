@@ -1,7 +1,7 @@
 [Unit]
 ConditionKernelCommandLine=|ip
 ConditionKernelCommandLine=|inst.ks
-CondidionKernelCommandLine=|BOOTIF
+ConditionKernelCommandLine=|BOOTIF
 Description=NetworkManager autoconnections configuration for Anaconda installation environment for RHEL
 Before=NetworkManager.service
 
