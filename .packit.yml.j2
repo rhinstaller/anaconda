@@ -6,6 +6,7 @@ downstream_package_name: anaconda
 
 files_to_sync:
   - rpmlint.toml
+  - .packit.yml
 
 srpm_build_deps:
   - automake
@@ -46,7 +47,8 @@ jobs:
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
-    dist_git_branches: main
+    dist_git_branches:
+      - main
 
   - job: tests
     trigger: pull_request
@@ -77,9 +79,16 @@ jobs:
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
-    dist_git_branches: f{$ distro_release $}
+    dist_git_branches:
+      - f{$ distro_release $}
 
   - job: tests
+    trigger: pull_request
+    packages: [anaconda-fedora]
+    targets:
+      - fedora-{$ distro_release $}
+
+  - job: copr_build
     trigger: pull_request
     packages: [anaconda-fedora]
     targets:
@@ -92,7 +101,7 @@ jobs:
       - fedora-{$ distro_release $}
     branch: fedora-{$ distro_release $}
     owner: "@rhinstaller"
-    project: Anaconda-devel
+    project: Anaconda
     preserve_project: True
     additional_repos:
       - "copr://@storage/blivet-daily"
@@ -109,4 +118,39 @@ jobs:
     packages: [anaconda-centos]
     dist_git_branches: c{$ distro_release $}s
 
+{% endif %}
+{% if distro_name == "fedora" %}
+  - job: koji_build
+    trigger: commit
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dist_git_branches:
+      - fedora-development
+    allowed_committers:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+      - packit
+    allowed_pr_authors:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+      - packit
+
+  - job: bodhi_update
+    trigger: koji_build
+    packages: [anaconda-fedora]
+    sidetag_group: anaconda-releases
+    dependencies:
+      - anaconda-webui
+    dist_git_branches:
+      - fedora-development
+    allowed_builders:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+      - packit
 {% endif %}

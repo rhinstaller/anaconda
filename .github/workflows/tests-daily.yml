@@ -35,7 +35,7 @@ permissions:
 
 jobs:
   unit-tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
@@ -80,7 +80,7 @@ jobs:
           path: test-logs/*
 
   rpm-tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'

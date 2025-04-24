@@ -13,6 +13,7 @@ downstream_package_name: anaconda
 
 files_to_sync:
   - rpmlint.toml
+  - .packit.yml
 
 srpm_build_deps:
   - automake
