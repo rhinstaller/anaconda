@@ -10,7 +10,7 @@ permissions:
 jobs:
   infra-check:
     if: contains(github.event.pull_request.labels.*.name, 'infrastructure')
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Infra tags in commit messages
 
     steps:
@@ -74,7 +74,7 @@ jobs:
           fi
 
   infra-reload-check:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Templates match results
 
     steps:
