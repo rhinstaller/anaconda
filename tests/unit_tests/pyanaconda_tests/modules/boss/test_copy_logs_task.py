@@ -24,11 +24,10 @@ from pyanaconda.modules.boss.installation import CopyLogsTask
 class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
-    @patch("pyanaconda.modules.boss.installation.restorecon")
     @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open_with_perm")
-    def test_run_all(self, open_mock, conf_mock, mkdir_mock, restore_mock, exec_wr_mock,
+    def test_run_all(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock,
                      glob_mock):
         """Test the log copying task."""
         glob_mock.side_effect = [
@@ -77,12 +76,6 @@ class CopyLogsTaskTest(unittest.TestCase):
             ["-b"],
             stdout=log_file,
             log_output=False
-        )
-
-        restore_mock.assert_called_once_with(
-            ["/var/log/anaconda/"],
-            root="/somewhere",
-            skip_nonexistent=True
         )
 
     @patch("pyanaconda.modules.boss.installation.glob.glob")
@@ -215,28 +208,3 @@ class CopyLogsTaskTest(unittest.TestCase):
         exists_mock.assert_called_with("/more/data")
         copytree_mock.assert_not_called()
         chmod_mock.assert_not_called()
-
-    @patch("pyanaconda.core.util.execWithRedirect")
-    @patch("pyanaconda.modules.boss.installation.log")
-    def test_relabel_log_files(self, log_mock, exec_wr_mock):
-        """Test _relabel_log_files"""
-        task = CopyLogsTask("/somewhere")
-
-        exec_wr_mock.return_value = 0
-        task._relabel_log_files()
-        exec_wr_mock.assert_called_with(
-            "restorecon",
-            ["-ir", "/var/log/anaconda/"],
-            root="/somewhere"
-        )
-        log_mock.error.assert_not_called()
-
-        exec_wr_mock.reset_mock()
-        log_mock.reset_mock()
-        log_mock.error.reset_mock()
-
-        exec_wr_mock.side_effect = FileNotFoundError("Testing missing executable")
-        task._relabel_log_files()
-        exec_wr_mock.assert_called()
-        assert "restorecon was not installed" in str(log_mock.error.mock_calls)
-        # implied also: assert that the exception didn't escape
