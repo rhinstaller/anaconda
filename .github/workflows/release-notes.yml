@@ -12,7 +12,7 @@ permissions:
 jobs:
   release-note-check:
     if: contains(github.event.pull_request.labels.*.name, 'release note required')
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Release notes present
 
     steps:
