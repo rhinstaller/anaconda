@@ -29,6 +29,7 @@ class KeyboardLayout(DBusData):
     def __init__(self):
         self._layout_id = ""
         self._description = ""
+        self._is_common = False
         self._langs = []
 
     @property
@@ -48,6 +49,15 @@ class KeyboardLayout(DBusData):
     @description.setter
     def description(self, value: Str):
         self._description = value
+
+    @property
+    def is_common(self) -> bool:
+        """Return whether the layout is common."""
+        return self._is_common
+
+    @is_common.setter
+    def is_common(self, value: bool):
+        self._is_common = value
 
     @property
     def langs(self) -> List[Str]:
