@@ -297,11 +297,14 @@ set_neednet() {
 }
 
 parse_kickstart() {
-    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
+    local stage=kickstart_parsed
+    local ksconf=/etc/cmdline.d/80-kickstart.conf
+    [ -e "${ksconf}" ] && stage=kickstart_parsed_again
+    PYTHONHASHSEED=42 /sbin/parse-kickstart "$1" > "${ksconf}"
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
-    start_dnsconfd "The certificates may have been imported."
+    start_dnsconfd ${stage} "The certificates may have been imported."
 }
 
 # print a list of net devices that dracut says are set up.
@@ -381,7 +384,7 @@ run_kickstart() {
     fi
 
     if [ "$do_net" ]; then
-        start_dnsconfd "The network may have become required"
+        start_dnsconfd kickstart_parsed_net "The network may have become required"
     fi
 
     # net: re-run online hooks
@@ -456,7 +459,8 @@ wait_for_disks() {
 # This script should start dnsconfd if all required conditions to run it are met
 start_dnsconfd() {
 
-    local reason="$1"
+    local stage="$1"
+    local reason="$2"
     local start="yes"
 
     echo "Attempting to start dnsconfd. Reason: ${reason}"
@@ -475,19 +479,30 @@ start_dnsconfd() {
         start="no"
     fi
 
-    # It is not possible certificates for dnsconfd will be imported after start by kickstart
-    kickstart="$(getarg inst.ks=)"
-    # If kickstart has not been parsed yet && is reqiured by boot options
-    if [ ! -e /run/install/ks.cfg ] && ([ -n "$kickstart" ] || getargbool 0 inst.ks); then
-        echo "Attempting to start dnsconfd. Not starting because certificates can be imported via kickstart later."
-        start="no"
+    if [ "${start}" != "yes" ]; then
+        return 1
     fi
 
-    if [ "${start}" == "yes" ]; then
+    if [ "$(systemctl is-active unbound)" != "active" ]; then
         echo "Attempting to start dnsconfd. Starting."
         systemctl start --no-block unbound.service
         return 0
     else
-        return 1
+        # Restart if certificates were imported via kickstart
+        # Do not restart in kickstart_parsed_net stage because if it is active
+        # it has been already restarted in kickstart_parsed stage.
+        if [ "${stage}" == "kickstart_parsed" ]; then
+            if ! [ -d /run/install/certificates ]; then
+                echo "Attempting to start dnsconfd. Not restarting - no certificates imported via kickstart."
+                return 1
+            else
+                echo "Attempting to start dnsconfd. Restarting - certificates imported via kickstart."
+                systemctl restart unbound.service
+                return 0
+            fi
+        else
+            echo "Attempting to start dnsconfd. Not starting, already active."
+            return 1
+        fi
     fi
 }
