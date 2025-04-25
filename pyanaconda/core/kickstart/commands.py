@@ -54,6 +54,7 @@ from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F40_Nvdimm as Nvdimm
 from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeContainer
 from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
+from pykickstart.commands.bootcsetup import F41_BootcSetup as BootcSetup
 from pykickstart.commands.partition import F41_Partition as Partition
 from pykickstart.commands.raid import F43_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
