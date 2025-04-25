@@ -487,6 +487,23 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 25 2025 Martin Kolman <mkolman@redhat.com> - 40.22.3.28-1
+- network: update NM autoconnections configuration for centos (rvykydal)
+  Resolves: RHEL-67815
+- Run restorecon after copying logs (champetier.etienne)
+  Resolves: RHEL-86788
+- s390x - enable raid1 as a stage2 device (dan)
+  Resolves: RHEL-83924
+  Resolves: INSTALLER-4148
+- edns: restart dnsconfd only after the first kickstart parsing (rvykydal)
+  Resolves: RHEL-83931
+- edns: allow dnsconfd name resolution for kickstart fetching (rvykydal)
+  Resolves: RHEL-83931
+- network: disable autoconnections on RHEL also for BOOTIF option (rvykydal)
+  Resolves: RHEL-69400
+- security: fix dnsconfd backend option check in initramfs (rvykydal)
+  Resolves: RHEL-83576
+
 * Thu Apr 10 2025 Martin Kolman <mkolman@redhat.com> - 40.22.3.27-1
 - Update the tests/README.rst file (jkonecny)
   Related: RHEL-48821
