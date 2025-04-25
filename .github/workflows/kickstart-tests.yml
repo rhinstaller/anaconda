@@ -349,11 +349,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}
-          # skip the /anaconda subdirectories, too large
           path: |
             kickstart-tests/data/logs/kstest*.log
+            kickstart-tests/data/logs/kstest-*/anaconda/*
             kickstart-tests/data/logs/kstest-*/*.log
+            kickstart-tests/data/logs/kstest-*/anaconda-ks.cfg
             kickstart-tests/data/logs/kstest-*/original-ks.cfg
+            kickstart-tests/data/logs/kstest-*/RESULT
             kickstart-tests/data/logs/kstest-list-substituted/
             kickstart-tests/data/additional_repo/*.rpm
             permian/permian.log
