@@ -50,7 +50,7 @@ class CopyLogsTask(Task):
 
         - Copy logs of all kinds, incl. ks scripts, journal dump, and lorax pkg list
         - Copy input kickstart file
-        - Autorelabel everything in the destination
+        - SELinux contexts are left as is (fixed by SetContextsTask)
         """
         self._copy_kickstart()
         self._copy_logs()
@@ -70,7 +70,6 @@ class CopyLogsTask(Task):
         self._copy_dnf_debugdata()
         self._copy_post_script_logs()
         self._dump_journal()
-        self._relabel_log_files()
 
     def _create_logs_directory(self):
         """Create directory for Anaconda logs on the install target"""
@@ -144,15 +143,6 @@ class CopyLogsTask(Task):
         else:
             log.warning("Input kickstart will not be saved to the installed system due to the "
                         "nosave option.")
-
-    def _relabel_log_files(self):
-        """Relabel the anaconda logs.
-
-        The files we've just copied could be incorrectly labeled, like hawkey.log:
-        https://bugzilla.redhat.com/show_bug.cgi?id=1885772
-        """
-        if not restorecon([TARGET_LOG_DIR], root=self._sysroot, skip_nonexistent=True):
-            log.error("Log file contexts were not restored because restorecon was not installed.")
 
     def _copy_file_to_sysroot(self, src, dest):
         """Copy a file, if it exists, and set its access bits.
