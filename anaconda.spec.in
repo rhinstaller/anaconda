@@ -422,6 +422,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 25 2025 Martin Kolman <mkolman@redhat.com> - 34.25.7.2-1
+- Fix typo in systemd service (jstodola)
+  Resolves: RHEL-78272
+- s390x - enable raid1 as a stage2 device (dan)
+  Resolves: INSTALLER-4148
+  Resolves: RHEL-21691
+- edns: restart dnsconfd only after the first kickstart parsing (rvykydal)
+  Resolves: RHEL-82694
+- edns: allow dnsconfd name resolution for kickstart fetching (rvykydal)
+  Resolves: RHEL-82694
+
 * Wed Apr 16 2025 Martin Kolman <mkolman@redhat.com> - 34.25.7.1-1
 - network: disable NM autoconnections also when BOOTIF is used (rvykydal)
   Resolves: RHEL-78272
