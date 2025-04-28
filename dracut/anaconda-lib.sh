@@ -26,6 +26,10 @@ config_get() {
             \[*\]*) cursec="${line#[}"; cursec="${cursec%%]*}" ;;
             *=*) k=$(echo ${line%%=*}); v=$(echo ${line#*=}) ;;
         esac
+        # trim leading and trailing whitespace characters
+        k=$(echo "$k" | sed 's/^\s*//;s/\s*$//')
+        v=$(echo "$v" | sed 's/^\s*//;s/\s*$//')
+
         if [ "$cursec" = "$section" ] && [ "$k" == "$key" ]; then
             echo $v
             break
@@ -106,6 +110,10 @@ anaconda_live_root_dir() {
 anaconda_net_root() {
     local repo="$1"
     info "anaconda: fetching stage2 from $repo"
+
+    # Remove last `/` from repo to enable constructs like ...os/../BaseOS/image/install.img
+    # Otherwise curl will fail to work with `...os//../BaseOS...`
+    repo=${repo%/}
 
     # Try to get the local path to stage2 from treeinfo.
     treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
