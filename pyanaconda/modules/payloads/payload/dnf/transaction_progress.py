@@ -54,7 +54,11 @@ def process_transaction_progress(queue, callback):
             log.error(msg)
             raise PayloadInstallationError("An error occurred during the transaction: " + msg)
 
-        (token, msg) = queue.get()
+        try:
+            (token, msg) = queue.get()
+        except Exception as e:
+            log.debug("AAA TYPE ERROR IN PROGRESS REPORTING")
+            log.exception(e)
 
 
 class TransactionProgress(dnf.callback.TransactionProgress):
