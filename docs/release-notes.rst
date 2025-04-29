@@ -5,11 +5,154 @@ This document describes major installer-related changes in Fedora releases.
 
 A guide on adding new entries is in the release documentation.
 
+Fedora 42
+#########
+
+Changes in the graphical interface
+----------------------------------
+
+Replace VNC with RDP
+^^^^^^^^^^^^^^^^^^^^
+
+As part of the X11 dependencies removals, Anaconda also drops VNC. As a replacement
+RDP (Remote Desktop Protocol) is implemented.
+
+What has changed:
+- Adding new kernel boot arguments: ``inst.rdp``, ``inst.rdp.username``, ``inst.rdp.password``.
+- Drop existing kernel boot argument: ``inst.vnc``, ``inst.vncpassword``, ``inst.vncconnect``.
+- Drop the existing ``vnc`` kickstart command.
+
+See also:
+    - https://fedoraproject.org/wiki/Changes/Anaconda_As_Native_Wayland_Application
+    - https://github.com/rhinstaller/anaconda/pull/5829
+    - https://bugzilla.redhat.com/show_bug.cgi?id=1955025
+
+Migrate Anaconda to Wayland application
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This change enables Anaconda to run natively on Wayland. Previously, Anaconda operated as an
+Xorg application or relied on XWayland for support.
+
+By implementing this update, we can eliminate dependencies on X11 and embrace newer, more
+secure technologies.
+
+By this change some kernel boot options can't be used:
+
+- inst.usefbx
+- inst.xdriver
+
+See also:
+    - https://fedoraproject.org/wiki/Changes/Anaconda_As_Native_Wayland_Application
+    - https://github.com/rhinstaller/anaconda/pull/5829
+
+Changes in the text interface
+-----------------------------
+
+Pass of the TERM environment variable to tmux
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda is now able to pass the ``TERM`` environment variable from kernel parameters to
+the Anaconda tmux session.
+
+This could be used for example to pass ``TERM=xterm-256color`` from kernel parameters to
+make Anaconda tmux use colors in the host's terminal. Useful especially for VMs, as
+serial terminal type can't properly be detected there.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/6318
+
+
+Changes in kickstart support
+----------------------------
+
+Support certificates import via kickstart file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+New kickstart section %certificate is supported.  It allows users to securely embed
+certificates directly within the kickstart file. The certificates are imported both into
+the installer environment and the installed system.
+
+See also:
+    - https://issues.redhat.com/browse/RHELBU-2913
+    - https://issues.redhat.com/browse/INSTALLER-4027
+    - https://github.com/rhinstaller/anaconda/pull/6045
+    - https://github.com/pykickstart/pykickstart/pull/517
+
+Changes in Anaconda configuration files
+---------------------------------------
+
+Support for Hiding Specific Pages in the Web UI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Web UI now supports hiding specific pages by adding their page IDs to the
+hidden-webui-pages option in the anaconda.conf file.
+
+For example, in the Workstation ISO, the 'Account Creation' page should not be displayed,
+as this step is handled by GNOME Initial Setup during first boot. To hide this page,
+the following configuration should be added:
+
+hidden-webui-pages = anaconda-screen-accounts
+
+This feature allows tailoring the Web UI experience to meet the specific needs of
+different ISOs or spins.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/6047
+
+Architecture and hardware support changes
+-----------------------------------------
+
+Remove i686 builds
+^^^^^^^^^^^^^^^^^^
+
+Anaconda is still (not explicitly) supporting i686 builds even though
+that Fedora dropped the support a long time ago.
+
+Anaconda now excludes the i686 builds explicitly in Anaconda to allow
+our dependent packages drop of the i686 build.
+
+See also:
+    - https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+    - https://github.com/coreos/fedora-coreos-tracker/issues/1716
+
 Fedora 41
 #########
 
 Changes in the graphical interface
 ----------------------------------
+
+Disable keyboard shortcuts to switch keyboard layouts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As part of the system-wide change in Fedora to migrate Anaconda to Wayland we also had
+to remove libXklavier from our codebase. That resulted in a new solution built on localed.
+
+The original idea was to have bidirectional communication between Anaconda and the running
+system using localed as middle layer to control keyboard layouts in the system but also
+to give a system a possibility to reflect changes from system to Anaconda. Unfortunately,
+we are facing issues that the system has a hard time reacting to keyboard layout changes.
+The selected layout is especially problematic as it is not a term to be easily defined and
+is tricky to resolve. One of the reasons is that the layout could be specific to a window
+and Anaconda is not the same process as the localed daemon.
+
+To simplify this issue, we have decided to disable keyboard layout switching by keyboard
+shortcuts. This will allow us to change the bidirectional solution in Anaconda to one direction
+which is only::
+
+        Anaconda > localed > system
+
+    That should make Anaconda solution more robust and also will remove burden from the Desktop
+    maintainers that they don't need to add implementation to be able to detect changes and set
+    them correctly to the localed.
+
+That should make Anaconda solution more robust and also will remove burden from the Desktop
+maintainers that they don't need to add implementation to be able to detect changes and set
+them correctly to the localed.
+
+See also:
+    - https://fedoraproject.org/wiki/Changes/Anaconda_As_Native_Wayland_Application
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2307282
+    - https://bugzilla.redhat.com/show_bug.cgi?id=1955025
 
 Changes in kickstart support
 ----------------------------
