@@ -25,6 +25,7 @@
 # Supported kickstart commands.
 from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import F41_AutoPart as AutoPart
+from pykickstart.commands.bootc import F43_Bootc as Bootc
 from pykickstart.commands.bootloader import F39_Bootloader as Bootloader
 from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
@@ -52,8 +53,8 @@ from pykickstart.commands.mount import F27_Mount as Mount
 from pykickstart.commands.network import F39_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F40_Nvdimm as Nvdimm
-from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeContainer
-from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
+from pykickstart.commands.ostreecontainer import F43_OSTreeContainer as OSTreeContainer
+from pykickstart.commands.ostreesetup import F43_OSTreeSetup as OSTreeSetup
 from pykickstart.commands.partition import F41_Partition as Partition
 from pykickstart.commands.raid import F43_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
