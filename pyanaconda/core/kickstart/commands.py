@@ -25,6 +25,7 @@
 # Supported kickstart commands.
 from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import RHEL10_AutoPart as AutoPart
+from pykickstart.commands.bootc import RHEL10_Bootc as Bootc
 from pykickstart.commands.bootloader import F39_Bootloader as Bootloader
 from pykickstart.commands.btrfs import RHEL10_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
