@@ -31,7 +31,7 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Replace standalone systemd package with systemd as these are conflicting
 RUN set -ex; \
-    dnf swap -y systemd-standalone-sysusers systemd
+    dnf install -y systemd --allowerasing
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
