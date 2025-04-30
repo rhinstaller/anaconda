@@ -279,6 +279,7 @@ class PayloadKickstartSpecification(KickstartSpecification):
         "nfs": COMMANDS.NFS,
         "ostreecontainer": COMMANDS.OSTreeContainer,
         "ostreesetup": COMMANDS.OSTreeSetup,
+        "bootc": COMMANDS.Bootc,
         "repo": COMMANDS.Repo,
         "url": COMMANDS.Url
     }

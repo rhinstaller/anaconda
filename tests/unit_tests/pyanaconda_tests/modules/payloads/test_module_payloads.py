@@ -76,6 +76,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "nfs",
             "ostreecontainer",
             "ostreesetup",
+            "bootc",
             "repo",
             "url"
         ]
