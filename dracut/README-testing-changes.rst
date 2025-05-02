@@ -34,8 +34,8 @@ Using your overlay image
 
 - Start the testing system, and edit boot options.
 
-- After ``initrd=<something>`` add immediately (without space) a comma and a path to your
-  overlay: ``initrd=<something>,<your-overlay-image-file>``.
+- After ``initrd=<something>`` add a space and a path to your
+  overlay: ``initrd=<something> <your-overlay-image-file>``.
 
 - Make `dracut` stop so that you can check your changes were applied. Add to the end of boot
   options also: ``rd.break=pre-pivot rd.shell``.
@@ -52,3 +52,6 @@ Using your overlay image
 - In the normal installation environment, you can further check that your changes had the desired
   effect.
 
+| **Note**:
+| If you need to change just a few files, a new-style ``newc:`` syntax allows you don't bother creating an initrd image yourself:
+| https://www.gnu.org/software/grub/manual/grub/html_node/initrd.html
