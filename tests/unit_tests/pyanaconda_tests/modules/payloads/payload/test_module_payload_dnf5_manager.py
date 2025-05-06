@@ -1275,11 +1275,16 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self.dnf_manager.load_repomd_hashes()
         assert self.dnf_manager._md_hashes == {}
 
-    @pytest.mark.skip("Not implemented")
     def test_load_one_repomd_hash(self):
         """Test the load_repomd_hashes method with one repository."""
         with TemporaryDirectory() as d:
             self._add_repository("r1", repo_dir=d)
+            self.dnf_manager.load_repositories()
+
+            # Replace repomd.xml, so that the hash is deterministic
+            with open(os.path.join(d, "repodata", "repomd.xml"), 'w') as f:
+                f.write("Metadata for r1.")
+
             self.dnf_manager.load_repomd_hashes()
             assert self.dnf_manager._md_hashes == {
                 'r1': b"\x90\xa0\xb7\xce\xc2H\x85#\xa3\xfci"
@@ -1287,7 +1292,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
                       b"\x90\x1d\xcey\xb3\xd4p\xc3\x1d\xfb",
             }
 
-    @pytest.mark.skip("Not implemented")
     def test_load_repomd_hashes(self):
         """Test the load_repomd_hashes method."""
         with TemporaryDirectory() as d:
@@ -1298,7 +1302,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
                     "file://nonexistent/2",
                     "file://nonexistent/3",
                 ],
-                repo_dir=d + "/r1",
+                repo_dir=os.path.join(d, "r1"),
             )
             self._add_repository(
                 repo_id="r2",
@@ -1316,6 +1320,16 @@ class DNFManagerReposTestCase(unittest.TestCase):
                 repo_id="r4",
                 mirrorlist="file://mirrorlist"
             )
+
+            try:
+                self.dnf_manager.load_repositories()
+            except MetadataError:
+                pass
+
+            # Replace repomd.xml, so that the hash is deterministic
+            with open(os.path.join(d, "r1", "repodata", "repomd.xml"), 'w') as f:
+                f.write("Metadata for r1.")
+
             self.dnf_manager.load_repomd_hashes()
             assert self.dnf_manager._md_hashes == {
                 'r1': b"\x90\xa0\xb7\xce\xc2H\x85#\xa3\xfci"
@@ -1326,7 +1340,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
                 'r4': None,
             }
 
-    @pytest.mark.skip("Not implemented")
     def test_verify_repomd_hashes(self):
         """Test the verify_repomd_hashes method."""
         with TemporaryDirectory() as d:
@@ -1335,6 +1348,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
             # Create a repository.
             self._add_repository(repo_id="r1", repo_dir=d)
+            self.dnf_manager.load_repositories()
 
             # Test no loaded repository.
             assert self.dnf_manager.verify_repomd_hashes() is False
