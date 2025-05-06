@@ -18,8 +18,10 @@
 # Red Hat, Inc.
 #
 import multiprocessing
+import os
 import re
 import shutil
+import tempfile
 import threading
 import traceback
 
@@ -1147,18 +1149,16 @@ class DNFManager:
         :param repo: a DNF repo
         :return: a content of the repomd.xml file
         """
-        urls = repo.get_config().baseurl
-
-        for url in urls:
+        for baseurl in repo.get_config().baseurl:
+            repomd_file = tempfile.NamedTemporaryFile(prefix="repomd-", delete=False)
+            downloader = libdnf5.repo.FileDownloader(self._base)
+            downloader.add(repo, os.path.join(baseurl, "repodata/repomd.xml"), repomd_file.name)
             try:
-                repomd_url = "{}/repodata/repomd.xml".format(url)
-
-                # FIXME: Should we use is_repomd_in_sync instead?
-                # with self._base.urlopen(repomd_url, repo=repo, mode="w+t") as f:
-                #    return f.read()
-
-            except OSError as e:
-                log.debug("Can't download repomd.xml from: %s", str(e))
+                downloader.download()
+            except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception) as e:
+                log.debug("Can't download repomd.xml: %s", str(e))
                 continue
+            with open(repomd_file.name, encoding="utf-8") as f:
+                return f.read()
 
         return ""
