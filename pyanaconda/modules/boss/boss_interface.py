@@ -100,35 +100,11 @@ class BossInterface(InterfaceTemplate):
     def InstallWithTasks(self) -> List[ObjPath]:
         """Returns installation tasks of this module.
 
-        FIXME: This is a temporary workaround for the Web UI.
-
         :returns: list of object paths of installation tasks
         """
         return TaskContainer.to_object_path_list(
             self.implementation.install_with_tasks()
         )
-
-    def CollectConfigureRuntimeTasks(self) -> List[Tuple[BusName, ObjPath]]:
-        """Collect tasks for configuration of the runtime environment.
-
-        FIXME: This is a temporary workaround for add-ons.
-
-        :return: a list of service names and object paths of tasks
-        """
-        proxies = self.implementation.collect_configure_runtime_tasks()
-        return list(map(get_proxy_identification, proxies))
-
-    def CollectConfigureBootloaderTasks(self, kernel_versions: List[Str]) \
-            -> List[Tuple[BusName, ObjPath]]:
-        """Collect tasks for configuration of the bootloader.
-
-        FIXME: This is a temporary workaround for add-ons.
-
-        :param kernel_versions: a list of kernel versions
-        :return: a list of service names and object paths of tasks
-        """
-        proxies = self.implementation.collect_configure_bootloader_tasks(kernel_versions)
-        return list(map(get_proxy_identification, proxies))
 
     def CollectInstallSystemTasks(self) -> List[Tuple[BusName, ObjPath]]:
         """Collect tasks for installation of the system.
@@ -139,16 +115,6 @@ class BossInterface(InterfaceTemplate):
         """
         proxies = self.implementation.collect_install_system_tasks()
         return list(map(get_proxy_identification, proxies))
-
-    def FinishInstallationWithTasks(self) -> List[ObjPath]:
-        """Finish installation with tasks.
-
-        FIXME: This is a temporary workaround for the Boss module.
-
-        :return: a list of D-Bus paths of tasks
-        """
-        tasks = self.implementation.finish_installation_with_tasks()
-        return TaskContainer.to_object_path_list(tasks)
 
     def Quit(self):
         """Stop all modules and then stop the boss."""
