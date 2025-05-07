@@ -17,23 +17,17 @@
 #
 import tempfile
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pykickstart.base import KickstartHandler
 
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.installation import RunInstallationTask
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
-from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.payload.migrated import ActiveDBusPayload
 from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
-    check_task_creation_list,
-    patch_dbus_get_proxy,
     patch_dbus_publish_object,
 )
 
@@ -75,14 +69,6 @@ class BossInterfaceTestCase(unittest.TestCase):
         module_proxy.CollectRequirements.return_value = \
             Requirement.to_structure_list([requirement])
 
-        self._add_module(service_name, available=available, proxy=module_proxy)
-
-    def _add_module_with_tasks(self, service_name, available=True):
-        """Add a DBus module with a package requirement."""
-        module_proxy = Mock()
-        module_proxy.ConfigureWithTasks.return_value = ["/task/1", "/task/2"]
-        module_proxy.InstallWithTasks.return_value = ["/task/3", "/task/4"]
-        module_proxy.ConfigureBootloaderWithTasks.return_value = ["/task/5", "/task/6"]
         self._add_module(service_name, available=available, proxy=module_proxy)
 
     def _get_mocked_proxy(self, service_name, object_path):
@@ -168,95 +154,6 @@ class BossInterfaceTestCase(unittest.TestCase):
                 "reason": get_variant(Str, "Required by B.")
             }
         ]
-
-    @patch_dbus_publish_object
-    @patch_dbus_get_proxy
-    def test_install_with_tasks(self, proxy_getter, publisher):
-        """Test InstallWithTasks."""
-        task_paths = self.interface.InstallWithTasks()
-        task_proxies = check_task_creation_list(task_paths, publisher, [RunInstallationTask])
-        task = task_proxies[0].implementation
-
-        assert isinstance(task._payload, ActiveDBusPayload)
-        assert isinstance(task._ksdata, KickstartHandler)
-
-    @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
-    @patch_dbus_get_proxy
-    def test_collect_configure_runtime_tasks(self, proxy_getter, handler_getter):
-        """Test CollectConfigureRuntimeTasks."""
-        assert self.interface.CollectConfigureRuntimeTasks() == []
-
-        self._add_module_with_tasks("A")
-        self._add_module_with_tasks("B")
-        self._add_module_with_tasks("C", available=False)
-
-        proxy_getter.side_effect = self._get_mocked_proxy
-        handler_getter.side_effect = self._get_mocked_handler
-
-        assert self.interface.CollectConfigureRuntimeTasks() == [
-            ("A", "/task/1"),
-            ("A", "/task/2"),
-            ("B", "/task/1"),
-            ("B", "/task/2"),
-        ]
-
-    @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
-    @patch_dbus_get_proxy
-    def test_collect_configure_bootloader_tasks(self, proxy_getter, handler_getter):
-        """Test CollectConfigureBootloaderTasks."""
-        version = "4.17.7-200.fc28.x86_64"
-        assert self.interface.CollectConfigureBootloaderTasks([version]) == []
-
-        self._add_module_with_tasks("A")
-        self._add_module_with_tasks("B")
-        self._add_module_with_tasks("C", available=False)
-
-        proxy_getter.side_effect = self._get_mocked_proxy
-        handler_getter.side_effect = self._get_mocked_handler
-
-        assert self.interface.CollectConfigureBootloaderTasks([version]) == [
-            ("A", "/task/5"),
-            ("A", "/task/6"),
-            ("B", "/task/5"),
-            ("B", "/task/6"),
-        ]
-
-    @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
-    @patch_dbus_get_proxy
-    def test_collect_install_system_tasks(self, proxy_getter, handler_getter):
-        """Test CollectInstallSystemTasks."""
-        assert self.interface.CollectInstallSystemTasks() == []
-
-        self._add_module_with_tasks("A")
-        self._add_module_with_tasks("B")
-        self._add_module_with_tasks("C", available=False)
-
-        proxy_getter.side_effect = self._get_mocked_proxy
-        handler_getter.side_effect = self._get_mocked_handler
-
-        assert self.interface.CollectInstallSystemTasks() == [
-            ("A", "/task/3"),
-            ("A", "/task/4"),
-            ("B", "/task/3"),
-            ("B", "/task/4"),
-        ]
-
-    @patch_dbus_publish_object
-    def test_finish_installation_with_tasks(self, publisher):
-        """Test FinishInstallationWithTasks."""
-        task_list = self.interface.FinishInstallationWithTasks()
-
-        assert len(task_list) == 2
-
-        task_path = task_list[0]
-        task_proxy = check_task_creation(task_path, publisher, CopyLogsTask, 0)
-        task = task_proxy.implementation
-        assert task.name == "Copy installation logs"
-
-        task_path = task_list[1]
-        task_proxy = check_task_creation(task_path, publisher, SetContextsTask, 1)
-        task = task_proxy.implementation
-        assert task.name == "Set file contexts"
 
     def test_quit(self):
         """Test Quit."""
