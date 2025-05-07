@@ -19,14 +19,17 @@
 #
 import os
 
-from pyanaconda.core.configuration.anaconda import conf
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.payloads.base.utils import calculate_required_space
 from pyanaconda.modules.payloads.constants import PayloadType
-from pyanaconda.modules.payloads.payload.flatpak.flatpak_interface import FlatpakInterface
+from pyanaconda.modules.payloads.payload.flatpak.flatpak_interface import (
+    FlatpakInterface,
+)
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import FlatpakManager
-from pyanaconda.modules.payloads.payload.flatpak.initialization import CalculateFlatpaksSizeTask
+from pyanaconda.modules.payloads.payload.flatpak.initialization import (
+    CalculateFlatpaksSizeTask,
+)
 from pyanaconda.modules.payloads.payload.flatpak.installation import (
     CleanUpDownloadLocationTask,
     DownloadFlatpaksTask,
