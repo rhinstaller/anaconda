@@ -55,7 +55,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         self.initialize_start()
         super().__init__(ksdata, storage, payload)
         self.title = N_("Progress")
-        self._task = None
+        self._task_proxy = None
         self._stepped = False
         self.initialize_done()
 
@@ -88,20 +88,24 @@ class ProgressSpoke(StandaloneTUISpoke):
 
     def show_all(self):
         super().show_all()
-        from pyanaconda.installation import RunInstallationTask
+        from pyanaconda.core.dbus import DBus
+        from pyanaconda.core.threads import thread_manager
+        from pyanaconda.modules.common.constants.services import BOSS
 
-        # Start the installation task.
-        self._task = RunInstallationTask(
-            payload=self.payload,
-            ksdata=self.data
-        )
-        self._task.progress_changed_signal.connect(
-            self._on_progress_changed
-        )
-        self._task.stopped_signal.connect(
-            self._on_installation_done
-        )
-        self._task.start()
+        # Wait for background threads to finish
+        if thread_manager.running > 1:
+            print(_("Waiting for %s threads to finish...") % (thread_manager.running - 1))
+            thread_manager.wait_all()
+
+        # Start the installation task via DBus
+        boss_proxy = BOSS.get_proxy()
+        task_path = boss_proxy.InstallWithTasks()[0]
+        self._task_proxy = DBus.get_proxy(BOSS.service_name, task_path)
+
+        self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
+        self._task_proxy.Stopped.connect(self._on_installation_done)
+
+        self._task_proxy.Start()
 
         log.debug("The installation has started.")
 
@@ -123,7 +127,7 @@ class ProgressSpoke(StandaloneTUISpoke):
             print('')
 
         # Finish the installation task. Re-raise tracebacks if any.
-        self._task.finish()
+        self._task_proxy.Finish()
 
         util.ipmi_report(IPMI_FINISHED)
 
