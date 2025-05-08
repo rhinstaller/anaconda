@@ -15,8 +15,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import glob
 import os
 import blivet.util
+from blivet import arch
 
 from subprocess import CalledProcessError
 
@@ -580,6 +582,41 @@ class ConfigureBootloader(Task):
 
         safe_exec_with_redirect("ostree", set_kargs_args, root=self._sysroot)
 
+        if arch.is_s390():
+            # Deployment was done. Enable ostree's zipl support; this is how things are currently done in e.g.
+            # https://github.com/coreos/coreos-assembler/blob/7d6fa376fc9f73625487adbb9386785bb09f1bb2/src/osbuild-manifests/coreos.osbuild.s390x.mpp.yaml#L261
+            safe_exec_with_redirect(
+                "ostree",
+                ["config",
+                 "--repo=" + self._sysroot + "/ostree/repo",
+                 "set", "sysroot.bootloader", "zipl"]
+            )
+
+            for bls_path in sorted(glob.glob(self._sysroot + "/boot/loader/entries/*.conf")):
+                log.info("found %s", bls_path)
+                with open(bls_path, "r") as bls:
+                    for line in bls.readlines():
+                        if line.startswith("options "):
+                            cmdline = line.split()[1]
+                        if line.startswith("linux"):
+                            kernel = self._sysroot + "/boot" + line.split()[1]
+                        if line.startswith("initrd"):
+                            initrd = self._sysroot + "/boot" + line.split()[1]
+                break
+
+            # pylint: disable=possibly-used-before-assignment
+            safe_exec_with_redirect(
+                "zipl",
+                ["-V",
+                 "-i",
+                 kernel,
+                 "-r",
+                 initrd,
+                 "-P",
+                 f"\"{cmdline}\"",
+                 "-t",
+                 self._sysroot + "/boot"])
+
 
 class DeployOSTreeTask(Task):
     """Task to deploy OSTree."""
@@ -603,6 +640,16 @@ class DeployOSTreeTask(Task):
         stateroot = _get_stateroot(self._data)
 
         self.report_progress(_("Deployment starting: {}").format(ref))
+
+        if arch.is_s390():
+            # Disable ostree's builtin zipl support; this is how things are currently done in e.g.
+            # https://github.com/coreos/coreos-assembler/blob/7d6fa376fc9f73625487adbb9386785bb09f1bb2/src/osbuild-manifests/coreos.osbuild.s390x.mpp.yaml#L168
+            safe_exec_with_redirect(
+                "ostree",
+                ["config",
+                 "--repo=" + self._physroot + "/ostree/repo",
+                 "set", "sysroot.bootloader", "none"]
+            )
 
         safe_exec_with_redirect(
             "ostree",
