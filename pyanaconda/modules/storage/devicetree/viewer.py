@@ -599,7 +599,7 @@ class DeviceTreeViewer(ABC):
 
         return data
 
-    def get_mount_point_constraints(self):
+    def get_mount_point_constraints(self, disk_ids):
         """Get list of constraints on mountpoints for the current platform
 
         Also provides hints if the partition is required or recommended.
@@ -610,6 +610,7 @@ class DeviceTreeViewer(ABC):
         /boot is not required in general but can be required in some cases,
         depending on the filesystem on the root partition (ie crypted root).
 
+        :param disk_ids: a list of disk IDs
         :return: a list of mount points with its constraints
         """
 
@@ -621,6 +622,12 @@ class DeviceTreeViewer(ABC):
         root_constraint.required = True
         constraints.append(root_constraint)
 
+        has_msdos_label_disk = any(
+            getattr(disk.format, "label_type", None) == "msdos"
+            for disk in self.storage.disks
+            if disk.device_id in disk_ids
+        )
+
         # Platform partitions are required except for /boot partiotion which is recommended
         for p in platform.partitions:
             if p:
@@ -629,11 +636,11 @@ class DeviceTreeViewer(ABC):
                     constraint.recommended = True
                 else:
                     constraint.required = True
-                # On MBR BIOS boot partition (typically labelled as biosboot) is not required.
-                if p.fstype == "biosboot":
-                    stage1_disk = self.storage.bootloader.stage1_disk
-                    is_gpt = (stage1_disk and getattr(stage1_disk.format, "label_type", None) == "gpt")
-                    if not is_gpt:
+                # On MBR partitions neither BIOS boot partition nor EFI partition is required.
+                if has_msdos_label_disk:
+                    if p.fstype == "biosboot" or p.mountpoint == "/boot/efi":
+                        log.debug("Not requiring %s because MBR disk is selected",
+                                  constraint.mount_point)
                         constraint.required = False
                 constraints.append(constraint)
 
