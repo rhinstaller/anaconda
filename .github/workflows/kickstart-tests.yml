@@ -331,11 +331,19 @@ jobs:
         run:
           sudo chown -R github:github .
 
+      - name: Construct image description
+        id: kstest_run_description
+        run: |
+          set -eux
+          pr_num="${{ github.event.issue.number }}"
+          timestamp=$(date +'%Y-%m-%d_%H:%M:%S')
+          echo "image_description=pr$pr_num-$timestamp-${{ needs.pr-info.outputs.sha }}" >> $GITHUB_OUTPUT
+
       - name: Collect logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: 'logs'
+          name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}
           # skip the /anaconda subdirectories, too large
           path: |
             kickstart-tests/data/logs/kstest*.log
