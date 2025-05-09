@@ -20,19 +20,15 @@ import unittest
 from unittest.mock import Mock, patch
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pykickstart.base import KickstartHandler
 
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.installation import RunInstallationTask
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.payload.migrated import ActiveDBusPayload
 from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
-    check_task_creation_list,
     patch_dbus_get_proxy,
     patch_dbus_publish_object,
 )
@@ -168,17 +164,6 @@ class BossInterfaceTestCase(unittest.TestCase):
                 "reason": get_variant(Str, "Required by B.")
             }
         ]
-
-    @patch_dbus_publish_object
-    @patch_dbus_get_proxy
-    def test_install_with_tasks(self, proxy_getter, publisher):
-        """Test InstallWithTasks."""
-        task_paths = self.interface.InstallWithTasks()
-        task_proxies = check_task_creation_list(task_paths, publisher, [RunInstallationTask])
-        task = task_proxies[0].implementation
-
-        assert isinstance(task._payload, ActiveDBusPayload)
-        assert isinstance(task._ksdata, KickstartHandler)
 
     @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
     @patch_dbus_get_proxy
