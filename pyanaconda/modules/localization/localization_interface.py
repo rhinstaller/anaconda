@@ -107,24 +107,16 @@ class LocalizationInterface(KickstartModuleInterface):
         locale_data = self.implementation.get_locale_data(locale_id)
         return LocaleData.to_structure(locale_data)
 
-    def GetLocaleKeyboardLayouts(self, lang: Str) -> List[Structure]:
-        """Get keyboard layouts for the specified language.
+    def GetKeyboardLayouts(self) -> List[Structure]:
+        """Get keyboard layouts.
 
-        Returns a list of keyboard layouts available for the given language.
+        Returns a list of all available keyboard layouts.
         Each layout is represented as a `KeyboardLayout` structure.
 
-        Example output:
-        [
-            KeyboardLayout(layout_id="us", description="English (US)", langs=["English"]),
-            KeyboardLayout(layout_id="cz", description="Czech", langs=["Czech"]),
-            KeyboardLayout(layout_id="cz (qwerty)", description="Czech (QWERTY)", langs=["Czech"])
-        ]
-
-        :param lang: Language code string (e.g., "en_US.UTF-8")
         :return: List of `KeyboardLayout` structures
         """
         return KeyboardLayout.to_structure_list(
-            self.implementation.get_locale_keyboard_layouts(lang)
+            self.implementation.get_keyboard_layouts()
         )
 
     @property

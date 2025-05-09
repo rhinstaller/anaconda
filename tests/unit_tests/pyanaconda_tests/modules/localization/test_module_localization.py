@@ -221,88 +221,32 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         }
         assert data == english_us
 
-    def test_keyboard_layouts_for_language(self):
-        get_keyboard_layouts = self.localization_interface.GetLocaleKeyboardLayouts
-        layouts = get_keyboard_layouts("cs_CZ.UTF-8")
+    def test_keyboard_layouts(self):
+        get_keyboard_layouts = self.localization_interface.GetKeyboardLayouts
+        layouts = get_keyboard_layouts()
 
         normalized_layouts = KeyboardLayout.from_structure_list(layouts)
 
         layouts_expectation = [
-            ("cz", "Czech"),
-            ("cz (bksl)", "Czech (extra backslash)"),
-            ("cz (dvorak-ucw)", "Czech (US, Dvorak, UCW support)"),
-            ("cz (qwerty)", "Czech (QWERTY)"),
-            ("cz (qwerty-mac)", "Czech (QWERTY, Macintosh)"),
-            ("cz (qwerty_bksl)", "Czech (QWERTY, extra backslash)"),
-            ("cz (ucw)", "Czech (UCW, only accented letters)"),
-            ("cz (winkeys)", "Czech (QWERTZ, Windows)"),
-            ("cz (winkeys-qwerty)", "Czech (QWERTY, Windows)"),
+            ("ara (olpc)", "Arabic (OLPC)", "Arabic", False),
+            ("cz", "Czech", "Czech", True),
+            ("de", "German", "German", True),
+            ("es", "Spanish", "Spanish; Castilian", True),
+            ("fr", "French", "French", True),
+            ("gr", "Greek", "Greek, Modern (1453-); Greek", False),
+            ("it", "Italian", "Italian", True),
+            ("jp", "Japanese", "Japanese", True),
+            ("us", "English (US)", "English", True),
         ]
 
-        expected_layouts = []
-        for layout_id, description in layouts_expectation:
+        for layout_id, description, lang, is_common in layouts_expectation:
             layout = KeyboardLayout()
             layout.layout_id = layout_id
             layout.description = description
-            layout.langs = ["Czech"]
-            expected_layouts.append(layout)
+            layout.is_common = is_common
+            layout.langs = [lang]
 
-        assert normalized_layouts == expected_layouts
-
-        # Test also a locale whose name in iso639 has more than one word
-        # Examples of such locales are:
-        #
-        # >>> iso639.find(iso639_2="ell")
-        # {'iso639_2_b': 'gre', 'iso639_2_t': 'ell', 'iso639_1': 'el', 'name': 'Greek, Modern (1453-); Greek', 'native': 'ελληνικά'}
-        # >>> iso639.find(iso639_2="spa")
-        # {'iso639_2_b': 'spa', 'iso639_2_t': '', 'iso639_1': 'es', 'name': 'Spanish; Castilian', 'native': 'español'}
-        #
-        # Other languages have a single word name:
-        #
-        # >>> iso639.find(iso639_2="cze")
-        # {'iso639_2_b': 'cze', 'iso639_2_t': 'ces', 'iso639_1': 'cs', 'name': 'Czech', 'native': 'čeština; český jazyk'}
-
-        layouts = get_keyboard_layouts("el_GR.UTF-8")
-
-        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
-
-        layouts_expectation = [
-            ("gr", "Greek"),
-            ("gr (nodeadkeys)", "Greek (no dead keys)"),
-            ("gr (polytonic)", "Greek (polytonic)"),
-            ("gr (simple)", "Greek (simple)"),
-        ]
-
-        expected_layouts = []
-        for layout_id, description in layouts_expectation:
-            layout = KeyboardLayout()
-            layout.layout_id = layout_id
-            layout.description = description
-            layout.langs = ['Greek, Modern (1453-); Greek']
-            expected_layouts.append(layout)
-
-        assert normalized_layouts == expected_layouts
-
-        # Test that for english the common layouts are correctly sorted
-        layouts = get_keyboard_layouts("en_US.UTF-8")
-
-        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
-
-        assert normalized_layouts[0].layout_id == "us"
-        assert normalized_layouts[1].layout_id == "gb"
-        assert normalized_layouts[2].layout_id == "au"
-
-        # Test that for german the common layouts are correctly sorted
-        # German  has multiple 'priority' layouts suggested by the langtable
-        # The languages above have only one layout listed in langtable
-        layouts = get_keyboard_layouts("de_DE.UTF-8")
-
-        normalized_layouts = KeyboardLayout.from_structure_list(layouts)
-
-        assert normalized_layouts[0].layout_id == "de (nodeadkeys)"
-        assert normalized_layouts[1].layout_id == "de (deadacute)"
-        assert normalized_layouts[2].layout_id == "at (nodeadkeys)"
-        assert normalized_layouts[3].layout_id == "ch"
+            assert layout in normalized_layouts
 
     def test_common_locales(self):
         common_locales = self.localization_interface.GetCommonLocales()
