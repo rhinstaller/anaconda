@@ -21,6 +21,7 @@
 BACKEND_READY_FLAG=/run/anaconda/backend_ready
 
 WAYLAND_DISPLAY_SOCKET=/tmp/anaconda-wldisplay
+ATSPI_BUSADDR=/tmp/anaconda-atspibusaddr
 
 # Detect and save the wayland socket before re-exec
 if [ -n "$WAYLAND_DISPLAY" ]; then
@@ -30,6 +31,22 @@ if [ -n "$WAYLAND_DISPLAY" ]; then
     touch "${WAYLAND_DISPLAY_SOCKET}"
     echo "${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}" > ${WAYLAND_DISPLAY_SOCKET}
 fi
+
+# Detect and save the a11y bus path before re-exec
+if [ -n "$WAYLAND_DISPLAY" ] && [ -z "$AT_SPI_BUS_ADDRESS" ]; then
+    if [ -e "$ATSPI_BUSADDR" ]; then
+        rm -f "${ATSPI_BUSADDR}"
+    fi
+    _BUSCTL_OUTPUTREGEX='"([^"]+)"'
+    _ATSPIADDR="$( busctl call --user org.a11y.Bus /org/a11y/bus org.a11y.Bus GetAddress )"
+    # Check that the busctl call did not fail and grab expected output
+    # shellcheck disable=SC2181
+    if [ "$?" -eq 0 ] && [[ $_ATSPIADDR =~ $_BUSCTL_OUTPUTREGEX ]]; then
+        touch "${ATSPI_BUSADDR}"
+        echo "${BASH_REMATCH[1]}" > ${ATSPI_BUSADDR}
+    fi
+fi
+
 
 # The command needs to be run with root privileges, so if it was started
 # unprivileged, restart running as root.
@@ -50,6 +67,12 @@ fi
 if [ -z "$WAYLAND_DISPLAY" ] && [ -e "$WAYLAND_DISPLAY_SOCKET" ]; then
     WAYLAND_DISPLAY=$(cat "${WAYLAND_DISPLAY_SOCKET}")
     export WAYLAND_DISPLAY
+fi
+
+# needed to enable a11y features on Wayland environments
+if [ -n "$WAYLAND_DISPLAY" ] && [ -z "$AT_SPI_BUS_ADDRESS" ]; then
+    AT_SPI_BUS_ADDRESS=$(cat "${ATSPI_BUSADDR}")
+    export AT_SPI_BUS_ADDRESS
 fi
 
 # use the correct home and config directories for system settings
