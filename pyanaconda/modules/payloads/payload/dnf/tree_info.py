@@ -20,7 +20,6 @@ import copy
 import os
 import time
 from collections import namedtuple
-from functools import partial
 
 from productmd.treeinfo import TreeInfo
 from requests import RequestException
@@ -29,16 +28,15 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     DEFAULT_REPOS,
-    NETWORK_CONNECTION_TIMEOUT,
     REPO_ORIGIN_TREEINFO,
     URL_TYPE_BASEURL,
-    USER_AGENT,
 )
 from pyanaconda.core.path import join_paths
-from pyanaconda.core.payload import ProxyString, ProxyStringError, split_protocol
+from pyanaconda.core.payload import split_protocol
 from pyanaconda.core.util import requests_session, xprogressive_delay
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.base.utils import get_downloader_for_repo_configuration
 
 log = get_module_logger(__name__)
 
@@ -240,62 +238,13 @@ class TreeInfoMetadata:
         log.debug("Load treeinfo metadata for '%s'.", data.url)
 
         with requests_session() as session:
-            downloader = self._get_downloader(session, data)
+            downloader = get_downloader_for_repo_configuration(session, data)
             content = self._download_metadata(downloader, data.url)
 
         # Process the metadata.
         self._load_tree_info(
             root_url=data.url,
             file_content=content
-        )
-
-    def _get_downloader(self, session, data):
-        """Get a configured session.get method.
-
-        :return: a partial function
-        """
-        # Prepare the SSL configuration.
-        ssl_enabled = conf.payload.verify_ssl and data.ssl_verification_enabled
-
-        # ssl_verify can be:
-        #   - the path to a cert file
-        #   - True, to use the system's certificates
-        #   - False, to not verify
-        ssl_verify = data.ssl_configuration.ca_cert_path or ssl_enabled
-
-        # ssl_cert can be:
-        #   - a tuple of paths to a client cert file and a client key file
-        #   - None
-        ssl_client_cert = data.ssl_configuration.client_cert_path or None
-        ssl_client_key = data.ssl_configuration.client_key_path or None
-        ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
-
-        # Prepare the proxy configuration.
-        proxy_url = data.proxy or None
-        proxies = {}
-
-        if proxy_url:
-            try:
-                proxy = ProxyString(proxy_url)
-                proxies = {
-                    "http": proxy.url,
-                    "https": proxy.url,
-                    "ftp": proxy.url
-                }
-            except ProxyStringError as e:
-                log.debug("Failed to parse the proxy '%s': %s", proxy_url, e)
-
-        # Prepare headers.
-        headers = {"user-agent": USER_AGENT}
-
-        # Return a partial function.
-        return partial(
-            session.get,
-            headers=headers,
-            proxies=proxies,
-            verify=ssl_verify,
-            cert=ssl_cert,
-            timeout=NETWORK_CONNECTION_TIMEOUT
         )
 
     def _download_metadata(self, downloader, url):
