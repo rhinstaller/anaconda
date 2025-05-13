@@ -422,6 +422,27 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 13 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.7.3-1
+- Sort RPM versions via rpm.labelCompare() and not via
+  packaging.version.LegacyVersion() (miro)
+  Resolves: RHEL-87358
+- rpm_ostree/installation.py: fix image deployment on s390x (rvykydal)
+  Resolves: RHEL-63237
+- Add additional config_get Dracut function tests (jkonecny)
+  Related: RHEL-48837
+- Update the tests/README.rst file (jkonecny)
+  Related: RHEL-48837
+- Move shell testing to a separated directory (jkonecny)
+  Related: RHEL-48837
+- Enable dynamic bash commands disable for tests (jkonecny)
+  Related: RHEL-48837
+- Add test for config_get dracut function (jkonecny)
+  Related: RHEL-48837
+- Fix trailing `/` when downloading stage2 image (jkonecny)
+  Resolves: RHEL-48837
+- Fix whitespace chars broke Dracut config parsing (jkonecny)
+  Related: RHEL-48837
+
 * Fri Apr 25 2025 Martin Kolman <mkolman@redhat.com> - 34.25.7.2-1
 - Fix typo in systemd service (jstodola)
   Resolves: RHEL-78272
