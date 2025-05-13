@@ -569,7 +569,7 @@ class DNFManager:
         query.filter_name([package_spec])
         query.filter_available()
 
-        return bool(query)
+        return not query.empty()
 
     def match_available_packages(self, pattern):
         """Find available packages that match the specified pattern.
