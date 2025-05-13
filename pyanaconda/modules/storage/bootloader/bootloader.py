@@ -17,26 +17,43 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.constants import (
+    SECURE_BOOT_AUTO,
+    SECURE_BOOT_DISABLED,
+    SECURE_BOOT_ENABLED,
+)
 from pykickstart.errors import KickstartParseError
-from pykickstart.constants import SECURE_BOOT_AUTO, SECURE_BOOT_ENABLED, SECURE_BOOT_DISABLED
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.storage.bootloader import BootLoaderFactory
-from pyanaconda.modules.storage.bootloader.efi import EFIBase
-from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.bootloader import BootloaderType
-from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
-from pyanaconda.core.i18n import _
+from pyanaconda.core.constants import (
+    BOOTLOADER_LOCATION_DEFAULT,
+    BOOTLOADER_LOCATION_MBR,
+    BOOTLOADER_LOCATION_PARTITION,
+    BOOTLOADER_TIMEOUT_UNSET,
+)
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
-from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
-    CreateRescueImagesTask, CreateBLSEntriesTask, CollectKernelArgumentsTask
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory
+from pyanaconda.modules.storage.bootloader.bootloader_interface import (
+    BootloaderInterface,
+)
+from pyanaconda.modules.storage.bootloader.efi import EFIBase
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
+from pyanaconda.modules.storage.bootloader.installation import (
+    CollectKernelArgumentsTask,
+    ConfigureBootloaderTask,
+    CreateBLSEntriesTask,
+    CreateRescueImagesTask,
+    FixBTRFSBootloaderTask,
+    FixZIPLBootloaderTask,
+    InstallBootloaderTask,
+    RecreateInitrdsTask,
+)
 from pyanaconda.modules.storage.constants import BootloaderMode, ZIPLSecureBoot
 from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 

@@ -18,28 +18,42 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import patch, MagicMock
-
 from collections import OrderedDict
+from unittest.mock import MagicMock, patch
 
 from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL, \
-    TIMEZONE_PRIORITY_DEFAULT, TIMEZONE_PRIORITY_LANGUAGE, TIMEZONE_PRIORITY_GEOLOCATION, \
-    TIMEZONE_PRIORITY_KICKSTART, TIMEZONE_PRIORITY_USER
-from pyanaconda.timezone import get_timezone
+from pyanaconda.core.constants import (
+    TIME_SOURCE_POOL,
+    TIME_SOURCE_SERVER,
+    TIMEZONE_PRIORITY_DEFAULT,
+    TIMEZONE_PRIORITY_GEOLOCATION,
+    TIMEZONE_PRIORITY_KICKSTART,
+    TIMEZONE_PRIORITY_LANGUAGE,
+    TIMEZONE_PRIORITY_USER,
+)
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask, \
-    ConfigureNTPTask, ConfigureTimezoneTask
-from pyanaconda.modules.common.structures.timezone import GeolocationData
+from pyanaconda.modules.common.structures.timezone import (
+    GeolocationData,
+    TimeSourceData,
+)
+from pyanaconda.modules.timezone.initialization import GeolocationTask
+from pyanaconda.modules.timezone.installation import (
+    ConfigureHardwareClockTask,
+    ConfigureNTPTask,
+    ConfigureTimezoneTask,
+)
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
-from pyanaconda.modules.timezone.initialization import GeolocationTask
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
-    patch_dbus_publish_object, check_task_creation_list, check_dbus_property
+from pyanaconda.timezone import get_timezone
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_kickstart_interface,
+    check_task_creation_list,
+    patch_dbus_publish_object,
+)
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):

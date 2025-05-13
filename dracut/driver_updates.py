@@ -63,11 +63,11 @@ During system installation, anaconda will install the packages listed in
 /run/install/dd_packages to the target system.
 """
 
+import fnmatch
 import logging
-import sys
 import os
 import subprocess
-import fnmatch
+import sys
 
 # Import readline so raw_input gets readline features, like history, and
 # backspace working right. Do not import readline if not connected to a tty
@@ -75,7 +75,6 @@ import fnmatch
 if os.isatty(0):
     import readline  # pylint:disable=unused-import
 import shutil
-
 from contextlib import contextmanager
 from logging.handlers import SysLogHandler
 

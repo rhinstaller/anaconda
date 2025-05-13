@@ -24,22 +24,27 @@ import pyanaconda.core.timer
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 
-import queue
-import time
-import threading
 import functools
-
-from gi.repository import Gdk, Gtk
+import queue
+import threading
+import time
 from contextlib import contextmanager
 
-from pyanaconda.core import glib
-from pyanaconda.core.threads import thread_manager
-from pyanaconda.core.async_utils import async_action_wait, run_in_loop
-from pyanaconda.core.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
-                                      PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
-from pyanaconda.core.i18n import _
+from gi.repository import Gdk, Gtk
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import glib
+from pyanaconda.core.async_utils import async_action_wait, run_in_loop
+from pyanaconda.core.constants import (
+    NOTICEABLE_FREEZE,
+    PASSWORD_HIDE,
+    PASSWORD_HIDE_ICON,
+    PASSWORD_SHOW,
+    PASSWORD_SHOW_ICON,
+)
+from pyanaconda.core.i18n import _
+from pyanaconda.core.threads import thread_manager
+
 log = get_module_logger(__name__)
 
 # any better idea how to create a unique, distinguishable object that cannot be

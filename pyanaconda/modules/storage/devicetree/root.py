@@ -23,12 +23,12 @@ from blivet import util as blivet_util
 from blivet.errors import StorageError
 from blivet.storage_log import log_exception_info
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import set_system_root
 from pyanaconda.modules.storage.devicetree.fsset import BlkidTab, CryptTab
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["mount_existing_system", "find_existing_installations", "Root"]

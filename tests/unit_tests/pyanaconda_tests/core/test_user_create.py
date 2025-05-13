@@ -17,16 +17,18 @@
 # Red Hat, Inc.
 #
 
+import crypt  # pylint: disable=deprecated-module
+import os
+import shutil
+import tempfile
 import unittest
 from unittest.mock import patch
-import tempfile
-import shutil
-import os
-import crypt  # pylint: disable=deprecated-module
+
 import pytest
 
 from pyanaconda.core import users
 from pyanaconda.core.path import make_directories, touch
+
 
 @unittest.skipIf(os.geteuid() != 0, "user creation must be run as root")
 class UserCreateTest(unittest.TestCase):

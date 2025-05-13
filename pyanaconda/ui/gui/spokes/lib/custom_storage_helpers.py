@@ -21,19 +21,29 @@ from collections import namedtuple
 from dasbus.structure import get_fields
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _, N_, CN_, C_
-from pyanaconda.core.storage import PROTECTED_FORMAT_TYPES, SIZE_POLICY_AUTO, SIZE_POLICY_MAX, \
-    DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD, Size
+from pyanaconda.core.i18n import C_, CN_, N_, _
+from pyanaconda.core.storage import (
+    DEVICE_TYPE_BTRFS,
+    DEVICE_TYPE_LVM,
+    DEVICE_TYPE_LVM_THINP,
+    DEVICE_TYPE_MD,
+    PROTECTED_FORMAT_TYPES,
+    SIZE_POLICY_AUTO,
+    SIZE_POLICY_MAX,
+    Size,
+)
 from pyanaconda.core.string import lower_ascii
-from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
-    DeviceFactoryPermissions
-from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
+from pyanaconda.modules.common.structures.device_factory import (
+    DeviceFactoryPermissions,
+    DeviceFactoryRequest,
+)
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.ui.lib.storage import size_from_input
-from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
+from pyanaconda.ui.helpers import InputCheck
+from pyanaconda.ui.lib.storage import size_from_input
 
 log = get_module_logger(__name__)
 

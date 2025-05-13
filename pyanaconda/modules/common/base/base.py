@@ -21,20 +21,26 @@
 import os
 import warnings
 from abc import ABC
-from locale import setlocale, LC_ALL
+from locale import LC_ALL, setlocale
 
 from pykickstart.errors import KickstartError, KickstartParseWarning
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.dbus import DBus
 from pyanaconda.core.glib import create_main_loop
+from pyanaconda.core.kickstart.specification import (
+    KickstartSpecificationHandler,
+    KickstartSpecificationParser,
+    NoKickstartSpecification,
+)
+from pyanaconda.core.signal import Signal
 from pyanaconda.core.timer import Timer
 from pyanaconda.core.util import setenv
-from pyanaconda.core.dbus import DBus
-from pyanaconda.core.signal import Signal
-from pyanaconda.core.kickstart.specification import NoKickstartSpecification, \
-    KickstartSpecificationHandler, KickstartSpecificationParser
-from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
+from pyanaconda.modules.common.structures.kickstart import (
+    KickstartMessage,
+    KickstartReport,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

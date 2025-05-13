@@ -15,14 +15,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import unittest
 import os
+import unittest
+from tempfile import TemporaryDirectory
+from unittest.mock import Mock, call, patch
+
 import gi
 
-from tempfile import TemporaryDirectory
-from unittest.mock import patch, Mock, call
-
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
+    FlatpakManager,
+)
 
 gi.require_version("Flatpak", "1.0")
 from gi.repository.Flatpak import TransactionOperationType

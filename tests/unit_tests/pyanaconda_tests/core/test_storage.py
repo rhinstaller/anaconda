@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import patch
 
 from blivet.size import Size
-from bytesize import KiB, ROUND_HALF_UP
+from bytesize import ROUND_HALF_UP, KiB
 
 from pyanaconda.core.storage import suggest_swap_size
 

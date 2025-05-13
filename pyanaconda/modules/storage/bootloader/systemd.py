@@ -15,16 +15,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
-from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.product import get_product_name
+from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["SystemdBoot"]

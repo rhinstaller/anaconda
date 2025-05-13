@@ -24,8 +24,10 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask
+from pyanaconda.modules.payloads.installation import (
+    CopyDriverDisksFilesTask,
+    PrepareSystemForInstallationTask,
+)
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface

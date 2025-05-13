@@ -18,26 +18,31 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import Mock, PropertyMock, patch
 
+import pytest
 from blivet.devices import PartitionDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    patch_dbus_get_proxy
-
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
-from pyanaconda.modules.storage.devicetree.model import InstallerStorage
-from pyanaconda.modules.storage.partitioning.custom.custom_module import CustomPartitioningModule
-from pyanaconda.modules.storage.partitioning.custom.custom_interface import \
-    CustomPartitioningInterface
-from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import \
-    CustomPartitioningTask
-from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.devicetree.model import InstallerStorage
+from pyanaconda.modules.storage.partitioning.custom.custom_interface import (
+    CustomPartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.custom.custom_module import (
+    CustomPartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.custom.custom_partitioning import (
+    CustomPartitioningTask,
+)
+from pyanaconda.modules.storage.storage import StorageService
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_get_proxy,
+    patch_dbus_publish_object,
+)
 
 
 class CustomPartitioningInterfaceTestCase(unittest.TestCase):

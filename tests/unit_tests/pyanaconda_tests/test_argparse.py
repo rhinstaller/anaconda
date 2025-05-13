@@ -16,13 +16,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import unittest
+
 import pytest
 
 from pyanaconda import argument_parsing
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
-from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.core.constants import DisplayModes
-import unittest
+from pyanaconda.core.kernel import KernelArguments
 
 
 class ArgparseTest(unittest.TestCase):
@@ -93,6 +94,7 @@ class ArgparseTest(unittest.TestCase):
 
     def test_selinux(self):
         from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
+
         from pyanaconda.core.constants import SELINUX_DEFAULT
 
         # with no arguments, use SELINUX_DEFAULT

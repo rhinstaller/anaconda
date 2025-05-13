@@ -18,6 +18,7 @@
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
 from enum import Enum
+
 from pyanaconda.core.configuration.base import Section
 
 

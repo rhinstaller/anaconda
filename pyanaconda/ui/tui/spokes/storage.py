@@ -18,41 +18,66 @@
 #
 from collections import OrderedDict
 
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER, DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.partitioning import MountPointRequest, \
-    PartitioningRequest
-from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
-from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, \
-    select_default_disks, apply_disk_selection, get_disks_summary, apply_partitioning, \
-    create_partitioning, filter_disks_by_names, is_passphrase_required, set_required_passphrase
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
-from pyanaconda.core.storage import get_supported_autopart_choices
-from pyanaconda.ui.lib.format_dasd import DasdFormatting
-
 from blivet.size import Size
-from pyanaconda.flags import flags
-from pyanaconda.core.threads import thread_manager
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
-    PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
-    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, SecretType, WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, PASSWORD_POLICY_LUKS
-from pyanaconda.core.i18n import _, N_
-
+from simpleline.render.adv_widgets import YesNoDialog
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, CheckboxWidget, EntryWidget
-from simpleline.render.adv_widgets import YesNoDialog
+from simpleline.render.widgets import CheckboxWidget, EntryWidget, TextWidget
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    BOOTLOADER_LOCATION_MBR,
+    CLEAR_PARTITIONS_ALL,
+    CLEAR_PARTITIONS_DEFAULT,
+    CLEAR_PARTITIONS_LINUX,
+    CLEAR_PARTITIONS_NONE,
+    PARTITIONING_METHOD_AUTOMATIC,
+    PARTITIONING_METHOD_MANUAL,
+    PASSWORD_POLICY_LUKS,
+    PAYLOAD_STATUS_PROBING_STORAGE,
+    THREAD_STORAGE,
+    THREAD_STORAGE_WATCHER,
+    WARNING_NO_DISKS_DETECTED,
+    WARNING_NO_DISKS_SELECTED,
+    SecretType,
+)
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.storage import get_supported_autopart_choices
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import (
+    BOOTLOADER,
+    DEVICE_TREE,
+    DISK_INITIALIZATION,
+    DISK_SELECTION,
+)
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.partitioning import (
+    MountPointRequest,
+    PartitioningRequest,
+)
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
+from pyanaconda.modules.common.structures.validation import ValidationReport
+from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.lib.format_dasd import DasdFormatting
+from pyanaconda.ui.lib.storage import (
+    apply_disk_selection,
+    apply_partitioning,
+    create_partitioning,
+    filter_disks_by_names,
+    find_partitioning,
+    get_disks_summary,
+    is_passphrase_required,
+    reset_storage,
+    select_default_disks,
+    set_required_passphrase,
+)
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
+
 log = get_module_logger(__name__)
 
 __all__ = ["StorageSpoke"]

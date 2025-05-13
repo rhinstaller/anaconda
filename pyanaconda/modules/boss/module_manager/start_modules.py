@@ -19,8 +19,9 @@
 from functools import partial
 from queue import SimpleQueue
 
-from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.constants import DBUS_FLAG_NONE, DBUS_START_REPLY_SUCCESS
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.boss.module_manager import ModuleObserver
 from pyanaconda.modules.common.errors.module import UnavailableModuleError
 from pyanaconda.modules.common.task import Task

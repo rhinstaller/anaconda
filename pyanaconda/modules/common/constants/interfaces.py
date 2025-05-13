@@ -17,10 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.identifier import DBusInterfaceIdentifier
-from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, \
-    MODULES_NAMESPACE, PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, PAYLOAD_NAMESPACE, \
-    SOURCE_NAMESPACE
 
+from pyanaconda.modules.common.constants.namespaces import (
+    ANACONDA_NAMESPACE,
+    DEVICE_TREE_NAMESPACE,
+    MODULES_NAMESPACE,
+    PARTITIONING_NAMESPACE,
+    PAYLOAD_NAMESPACE,
+    SOURCE_NAMESPACE,
+)
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE

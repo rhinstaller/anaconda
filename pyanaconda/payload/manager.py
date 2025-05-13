@@ -15,17 +15,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, THREAD_STORAGE_WATCHER, \
-    THREAD_EXECUTE_STORAGE, PAYLOAD_STATUS_PROBING_STORAGE, PAYLOAD_STATUS_SETTING_SOURCE
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import (
+    PAYLOAD_STATUS_PROBING_STORAGE,
+    PAYLOAD_STATUS_SETTING_SOURCE,
+    THREAD_EXECUTE_STORAGE,
+    THREAD_PAYLOAD,
+    THREAD_PAYLOAD_RESTART,
+    THREAD_STORAGE,
+    THREAD_STORAGE_WATCHER,
+    THREAD_SUBSCRIPTION,
+    THREAD_WAIT_FOR_CONNECTING_NM,
+)
 from pyanaconda.core.i18n import _
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.errors import ERROR_RAISE
+from pyanaconda.errors import errorHandler as error_handler
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.core.threads import thread_manager
-from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 

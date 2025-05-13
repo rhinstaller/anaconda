@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.storage.bootloader.base import BootLoaderError
-from pyanaconda.modules.storage.bootloader.factory import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.bootloader import BootloaderModule
+from pyanaconda.modules.storage.bootloader.factory import BootLoaderFactory
 
 __all__ = ["BootLoaderError", "BootLoaderFactory", "BootloaderModule"]

@@ -16,14 +16,19 @@
 # Red Hat, Inc.
 #
 import unittest
-
 from unittest.mock import Mock, patch
 
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import InvalidSelectionError, \
-    MissingSpecsError, BrokenSpecsError, DNFManager
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
-    VerifyRepomdHashesTask
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
+    BrokenSpecsError,
+    DNFManager,
+    InvalidSelectionError,
+    MissingSpecsError,
+)
+from pyanaconda.modules.payloads.payload.dnf.validation import (
+    CheckPackagesSelectionTask,
+    VerifyRepomdHashesTask,
+)
 
 
 class CheckPackagesSelectionTaskTestCase(unittest.TestCase):

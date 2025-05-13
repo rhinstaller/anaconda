@@ -25,7 +25,10 @@ from pyanaconda.modules.common.constants.objects import DASD
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
-from pyanaconda.modules.storage.dasd.format import DASDFormatTask, FindFormattableDASDTask
+from pyanaconda.modules.storage.dasd.format import (
+    DASDFormatTask,
+    FindFormattableDASDTask,
+)
 from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
 log = get_module_logger(__name__)

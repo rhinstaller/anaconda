@@ -17,18 +17,22 @@
 #
 import os
 import unittest
-import pytest
-
 from tempfile import TemporaryDirectory
+
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_REPO_FILES
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.repo_files.repo_files import RepoFilesSourceModule
-from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import \
-    RepoFilesSourceInterface
-from pyanaconda.modules.payloads.source.repo_files.initialization import \
-    SetUpRepoFilesSourceTask
+from pyanaconda.modules.payloads.source.repo_files.initialization import (
+    SetUpRepoFilesSourceTask,
+)
+from pyanaconda.modules.payloads.source.repo_files.repo_files import (
+    RepoFilesSourceModule,
+)
+from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import (
+    RepoFilesSourceInterface,
+)
 
 
 class RepoFilesSourceInterfaceTestCase(unittest.TestCase):

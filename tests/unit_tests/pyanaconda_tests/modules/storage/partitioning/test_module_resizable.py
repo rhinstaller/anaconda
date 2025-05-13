@@ -18,21 +18,22 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import patch
 
-from blivet.devices import StorageDevice, DiskDevice, PartitionDevice
+import pytest
+from blivet.devices import DiskDevice, PartitionDevice, StorageDevice
 from blivet.formats import get_format
 from blivet.formats.fs import FS
 from blivet.size import Size
 
-from pyanaconda.modules.storage.partitioning.automatic.resizable_interface import \
-    ResizableDeviceTreeInterface
-from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
-    ResizableDeviceTreeModule
 from pyanaconda.modules.common.errors.storage import ProtectedDeviceError
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.partitioning.automatic.resizable_interface import (
+    ResizableDeviceTreeInterface,
+)
+from pyanaconda.modules.storage.partitioning.automatic.resizable_module import (
+    ResizableDeviceTreeModule,
+)
 
 
 class ResizableDeviceTreeTestCase(unittest.TestCase):

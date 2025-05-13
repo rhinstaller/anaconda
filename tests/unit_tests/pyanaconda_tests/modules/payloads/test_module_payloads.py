@@ -18,32 +18,41 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import os
-import pytest
-
 from tempfile import TemporaryDirectory
 from textwrap import dedent
 from unittest import TestCase
-from unittest.mock import patch, create_autospec, DEFAULT
+from unittest.mock import DEFAULT, create_autospec, patch
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadKickstartSharedTest
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.containers import PayloadContainer
 from pyanaconda.modules.common.errors.general import UnavailableValueError
-from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
+from pyanaconda.modules.common.errors.payload import (
+    SourceSetupError,
+    SourceTearDownError,
+)
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask
+from pyanaconda.modules.payloads.base.initialization import (
+    SetUpSourcesTask,
+    TearDownSourcesTask,
+)
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
-from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_object_creation,
+    patch_dbus_publish_object,
+)
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+)
 
 
 class PayloadsInterfaceTestCase(TestCase):

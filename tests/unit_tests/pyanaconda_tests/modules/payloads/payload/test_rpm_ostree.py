@@ -17,24 +17,39 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE_CONTAINER, \
-    SOURCE_TYPE_FLATPAK, PAYLOAD_TYPE_RPM_OSTREE
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_RPM_OSTREE,
+    SOURCE_TYPE_FLATPAK,
+    SOURCE_TYPE_RPM_OSTREE,
+    SOURCE_TYPE_RPM_OSTREE_CONTAINER,
+)
 from pyanaconda.modules.payloads.base.initialization import TearDownSourcesTask
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
-from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
-    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, TearDownOSTreeMountTargetsTask, \
-    ConfigureBootloader
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
+    InstallFlatpaksTask,
+)
+from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+    ChangeOSTreeRemoteTask,
+    ConfigureBootloader,
+    CopyBootloaderDataTask,
+    DeployOSTreeTask,
+    InitOSTreeFsAndRepoTask,
+    PrepareOSTreeMountTargetsTask,
+    PullRemoteAndDeleteTask,
+    SetSystemRootTask,
+    TearDownOSTreeMountTargetsTask,
+)
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
-from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
+from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
+    RPMOSTreeInterface,
+)
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from tests.unit_tests.pyanaconda_tests import check_instances
-
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadKickstartSharedTest
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+)
 
 
 class RPMOSTreeInterfaceTestCase(unittest.TestCase):

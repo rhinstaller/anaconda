@@ -21,49 +21,70 @@ import logging
 import os
 import tempfile
 import unittest
+from unittest.mock import Mock, PropertyMock, patch
+
 import pytest
-
-from unittest.mock import patch, Mock, PropertyMock
-
 from blivet.formats.fs import BTRFS
+from dasbus.server.container import DBusContainerError
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pykickstart.base import RemovedCommand
 from pykickstart.errors import KickstartParseError
 
-from pyanaconda.modules.storage.bootloader import BootLoaderFactory
-from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
-from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
-from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
-    PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_CUSTOM
-from dasbus.server.container import DBusContainerError
+from pyanaconda.core.constants import (
+    PARTITIONING_METHOD_AUTOMATIC,
+    PARTITIONING_METHOD_CUSTOM,
+    PARTITIONING_METHOD_INTERACTIVE,
+    PARTITIONING_METHOD_MANUAL,
+)
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
-from pyanaconda.modules.storage.initialization import enable_installer_mode
-from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
-    AutoPartitioningModule
-from pyanaconda.modules.storage.partitioning.manual.manual_module import ManualPartitioningModule
-from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.interactive.interactive_module import \
-    InteractivePartitioningModule
-from pyanaconda.modules.storage.devicetree import create_storage
-from pyanaconda.modules.storage.platform import S390
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, \
-    reset_boot_loader_factory, reset_dbus_container
-from pyanaconda.modules.storage.bootloader.grub2 import IPSeriesGRUB2, GRUB2
-from pyanaconda.modules.storage.bootloader.zipl import ZIPL
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.storage.installation import CreateStorageLayoutTask, \
-    MountFilesystemsTask, WriteConfigurationTask
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory
+from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
+from pyanaconda.modules.storage.bootloader.grub2 import GRUB2, IPSeriesGRUB2
+from pyanaconda.modules.storage.bootloader.zipl import ZIPL
+from pyanaconda.modules.storage.checker.utils import StorageCheckerReport
+from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.initialization import enable_installer_mode
+from pyanaconda.modules.storage.installation import (
+    CreateStorageLayoutTask,
+    MountFilesystemsTask,
+    WriteConfigurationTask,
+)
+from pyanaconda.modules.storage.kickstart import (
+    StorageKickstartSpecification,
+    fips_check_luks_passphrase,
+)
+from pyanaconda.modules.storage.partitioning.automatic.automatic_module import (
+    AutoPartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
+from pyanaconda.modules.storage.partitioning.interactive.interactive_module import (
+    InteractivePartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.manual.manual_module import (
+    ManualPartitioningModule,
+)
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.modules.storage.platform import S390
 from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.storage_interface import StorageInterface
-from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
-from pyanaconda.modules.storage.checker.utils import StorageCheckerReport
-from pyanaconda.modules.storage.kickstart import fips_check_luks_passphrase
+from pyanaconda.modules.storage.teardown import (
+    TeardownDiskImagesTask,
+    UnmountFilesystemsTask,
+)
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_kickstart_interface,
+    check_task_creation,
+    patch_dbus_get_proxy,
+    patch_dbus_publish_object,
+    reset_boot_loader_factory,
+    reset_dbus_container,
+)
 
 
 class StorageInterfaceTestCase(unittest.TestCase):

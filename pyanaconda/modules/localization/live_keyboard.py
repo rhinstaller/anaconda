@@ -15,12 +15,13 @@
 # Red Hat, Inc.
 #
 
-from abc import ABC, abstractmethod
 import ast
-from pyanaconda.core.util import execWithCaptureAsLiveUser
-from pyanaconda.core.configuration.anaconda import conf
+from abc import ABC, abstractmethod
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import execWithCaptureAsLiveUser
+
 log = get_module_logger(__name__)
 
 

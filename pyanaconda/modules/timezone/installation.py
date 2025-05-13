@@ -18,16 +18,15 @@
 import os
 import os.path
 
+from blivet import arch
+
 from pyanaconda import ntp
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import service, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.timezone import NTP_SERVICE
-from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.timezone import is_valid_timezone
-
-from blivet import arch
+from pyanaconda.timezone import NTP_SERVICE, is_valid_timezone
 
 __all__ = ["ConfigureHardwareClockTask", "ConfigureNTPTask", "ConfigureTimezoneTask"]
 

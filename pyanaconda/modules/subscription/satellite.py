@@ -23,13 +23,12 @@ import tempfile
 
 from requests import RequestException
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants, util
-
-from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 # the well-known path of the Satellite instance URL where

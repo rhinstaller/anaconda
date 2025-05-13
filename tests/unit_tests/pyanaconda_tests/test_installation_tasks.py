@@ -18,11 +18,9 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-
 from textwrap import dedent
 
-from pyanaconda.installation_tasks import Task
-from pyanaconda.installation_tasks import TaskQueue
+from pyanaconda.installation_tasks import Task, TaskQueue
 
 
 class InstallTasksTestCase(unittest.TestCase):

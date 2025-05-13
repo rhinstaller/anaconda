@@ -16,26 +16,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-import unittest
 import os
-import tempfile
 import signal
 import sys
-import pytest
-
-from threading import Lock
-from unittest.mock import Mock, patch
-from timer import timer
+import tempfile
+import unittest
 from io import StringIO
 from textwrap import dedent
+from threading import Lock
+from unittest.mock import Mock, patch
 
-from pyanaconda.core.path import make_directories
-from pyanaconda.errors import ExitError
-from pyanaconda.core.process_watchers import WatchProcesses
+import pytest
+from timer import timer
+
 from pyanaconda.core import util
-from pyanaconda.core.util import synchronized, LazyObject, is_stage2_on_nfs
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.live_user import User
+from pyanaconda.core.path import make_directories
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.core.util import LazyObject, is_stage2_on_nfs, synchronized
+from pyanaconda.errors import ExitError
 
 
 class RunProgramTests(unittest.TestCase):

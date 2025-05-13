@@ -17,11 +17,11 @@
 #
 import glob
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["SetUpRepoFilesSourceTask"]

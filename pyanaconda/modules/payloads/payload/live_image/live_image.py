@@ -20,9 +20,10 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.payload.live_image.live_image_interface import (
+    LiveImageInterface,
+)
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
-    LiveImageInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 log = get_module_logger(__name__)

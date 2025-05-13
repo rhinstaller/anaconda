@@ -18,10 +18,10 @@
 import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.task import Task
+from pyanaconda.core.constants import INSTALLATION_PHASE_PREINSTALL, PAYLOAD_TYPE_DNF
+from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
-from pyanaconda.core.path import make_directories, join_paths
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, INSTALLATION_PHASE_PREINSTALL
+from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
 

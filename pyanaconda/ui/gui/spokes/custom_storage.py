@@ -27,51 +27,100 @@
 # - Activating reformat should always enable resize for existing devices.
 import copy
 
+import gi
 from dasbus.structure import compare_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    PARTITIONING_METHOD_INTERACTIVE
-from pyanaconda.core.i18n import _, N_, CP_, C_
+from pyanaconda.core.constants import (
+    PARTITIONING_METHOD_INTERACTIVE,
+    THREAD_EXECUTE_STORAGE,
+    THREAD_STORAGE,
+)
+from pyanaconda.core.i18n import C_, CP_, N_, _
+from pyanaconda.core.product import get_product_name, get_product_version
+from pyanaconda.core.storage import (
+    CONTAINER_DEVICE_TYPES,
+    DEVICE_TEXT_MAP,
+    DEVICE_TYPE_BTRFS,
+    DEVICE_TYPE_MD,
+    DEVICE_TYPE_UNSUPPORTED,
+    MOUNTPOINT_DESCRIPTIONS,
+    NAMED_DEVICE_TYPES,
+    PROTECTED_FORMAT_TYPES,
+    Size,
+    device_type_from_autopart,
+)
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData, DeviceData
+from pyanaconda.modules.common.errors.configuration import (
+    BootloaderConfigurationError,
+    StorageConfigurationError,
+)
+from pyanaconda.modules.common.structures.device_factory import (
+    DeviceFactoryPermissions,
+    DeviceFactoryRequest,
+)
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.common.structures.storage import (
+    DeviceData,
+    DeviceFormatData,
+    OSData,
+)
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
-    StorageConfigurationError
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
-    DeviceFactoryPermissions
-from pyanaconda.core.product import get_product_name, get_product_version
-from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning, \
-    filter_disks_by_names
-from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
-    MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
-    PROTECTED_FORMAT_TYPES, DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD, Size
-
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.spokes.lib.accordion import MountPointSelector, Accordion, Page, \
-    CreateNewPage, UnknownPage
+from pyanaconda.ui.gui.spokes.lib.accordion import (
+    Accordion,
+    CreateNewPage,
+    MountPointSelector,
+    Page,
+    UnknownPage,
+)
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_size_from_entry, \
-    get_selected_raid_level, get_default_raid_level, get_container_type, AddDialog,\
-    ConfirmDeleteDialog, DisksDialog, ContainerDialog, NOTEBOOK_LABEL_PAGE, NOTEBOOK_DETAILS_PAGE,\
-    NOTEBOOK_LUKS_PAGE, NOTEBOOK_UNEDITABLE_PAGE, NOTEBOOK_INCOMPLETE_PAGE, NEW_CONTAINER_TEXT,\
-    CONTAINER_TOOLTIP, DESIRED_CAPACITY_ERROR, get_supported_device_raid_levels, \
-    generate_request_description
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import (
+    CONTAINER_TOOLTIP,
+    DESIRED_CAPACITY_ERROR,
+    NEW_CONTAINER_TEXT,
+    NOTEBOOK_DETAILS_PAGE,
+    NOTEBOOK_INCOMPLETE_PAGE,
+    NOTEBOOK_LABEL_PAGE,
+    NOTEBOOK_LUKS_PAGE,
+    NOTEBOOK_UNEDITABLE_PAGE,
+    AddDialog,
+    ConfirmDeleteDialog,
+    ContainerDialog,
+    DisksDialog,
+    generate_request_description,
+    get_container_type,
+    get_default_raid_level,
+    get_selected_raid_level,
+    get_size_from_entry,
+    get_supported_device_raid_levels,
+)
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape, \
-    really_hide, really_show, timed_action, escape_markup, set_password_visibility
+from pyanaconda.ui.gui.utils import (
+    escape_markup,
+    fancy_set_sensitive,
+    ignoreEscape,
+    really_hide,
+    really_show,
+    set_password_visibility,
+    setViewportBackground,
+    timed_action,
+)
 from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.ui.lib.storage import (
+    apply_partitioning,
+    create_partitioning,
+    filter_disks_by_names,
+)
 
-import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 from gi.repository import Gdk, Gtk

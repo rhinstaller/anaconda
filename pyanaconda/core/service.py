@@ -15,8 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.core.util import execWithRedirect, execWithCapture
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.util import execWithCapture, execWithRedirect
 
 log = get_module_logger(__name__)
 

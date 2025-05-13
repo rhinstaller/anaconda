@@ -20,22 +20,23 @@
 import itertools
 import os
 import shutil
-import parted
-
 from datetime import timedelta
 from time import sleep
 
-from blivet import callbacks as blivet_callbacks, util as blivet_util, arch, blockdev
-from blivet.errors import FSResizeError, FormatResizeError, StorageError
-from blivet.util import get_current_entropy
+import parted
+from blivet import arch, blockdev
+from blivet import callbacks as blivet_callbacks
+from blivet import util as blivet_util
 from blivet.devicelibs.lvm import HAVE_LVMDEVICES
+from blivet.errors import FormatResizeError, FSResizeError, StorageError
+from blivet.util import get_current_entropy
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _
-from pyanaconda.core.util import join_paths, execWithRedirect
-from pyanaconda.core.path import make_directories
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, NVME
+from pyanaconda.core.i18n import _
+from pyanaconda.core.path import make_directories
+from pyanaconda.core.util import execWithRedirect, join_paths
+from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, NVME
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import StorageInstallationError
 from pyanaconda.modules.common.task import Task

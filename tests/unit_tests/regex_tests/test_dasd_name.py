@@ -21,6 +21,7 @@
 import unittest
 
 from regexcheck import regex_match
+
 from pyanaconda.core.regexes import DASD_DEVICE_NUMBER
 
 

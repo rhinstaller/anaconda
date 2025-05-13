@@ -17,17 +17,21 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.storage.disk_initialization.configuration import DiskInitializationConfig
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.storage.disk_initialization.configuration import (
+    DiskInitializationConfig,
+)
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import \
-    InteractivePartitioningInterface
-from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
-    InteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
-    DeviceTreeSchedulerModule
+from pyanaconda.modules.storage.partitioning.interactive.interactive_interface import (
+    InteractivePartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import (
+    InteractivePartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import (
+    DeviceTreeSchedulerModule,
+)
 
 log = get_module_logger(__name__)
 

@@ -47,10 +47,13 @@ Altogether this means that once the proxy is correctly created, we call Inhibit,
 the proxy object must exist as long as we want the inhibition to be in effect.
 """
 import os
+
 from dasbus.connection import SessionMessageBus
 from dasbus.error import DBusError
 from dasbus.identifier import DBusServiceIdentifier
+
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ["inhibit_screensaver", "uninhibit_screensaver"]

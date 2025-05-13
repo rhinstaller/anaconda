@@ -16,34 +16,37 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import shutil
-import socket
+import ipaddress
 import itertools
 import os
-import time
-import threading
 import re
-import ipaddress
+import shutil
+import socket
+import threading
+import time
 
+import gi
 from dasbus.typing import get_native
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util, constants
+from pyanaconda.core import constants, util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import TIME_SOURCE_SERVER
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import make_directories
-from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
-    IPV6_ADDRESS_IN_DRACUT_IP_OPTION, MAC_OCTET
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TIME_SOURCE_SERVER
-from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE, STORAGE
+from pyanaconda.core.regexes import (
+    HOSTNAME_PATTERN_WITHOUT_ANCHORS,
+    IPV6_ADDRESS_IN_DRACUT_IP_OPTION,
+    MAC_OCTET,
+)
 from pyanaconda.modules.common.constants.objects import FCOE
-from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE, TIMEZONE
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.util import is_module_available
 
-import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
 

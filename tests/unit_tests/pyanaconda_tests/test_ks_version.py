@@ -14,17 +14,19 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import unittest
-import pytest
 import importlib
 import os
 import shutil
 import sys
 import tempfile
+import unittest
 import warnings
+
+import pytest
+from pykickstart.version import isRHEL as is_rhel
+
 from pyanaconda import kickstart
 from pyanaconda.core.kickstart.version import VERSION
-from pykickstart.version import isRHEL as is_rhel
 
 
 # Verify that each kickstart command in anaconda uses the correct version of

@@ -19,12 +19,16 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeContainerConfigurationData
+from pyanaconda.modules.common.structures.rpm_ostree import (
+    RPMOSTreeContainerConfigurationData,
+)
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import \
-    RPMOSTreeSourceModule
-from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container_interface import \
-    RPMOSTreeContainerSourceInterface
+from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import (
+    RPMOSTreeSourceModule,
+)
+from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container_interface import (
+    RPMOSTreeContainerSourceInterface,
+)
 
 log = get_module_logger(__name__)
 

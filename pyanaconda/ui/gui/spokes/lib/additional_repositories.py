@@ -20,9 +20,11 @@ import copy
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import \
-    validate_additional_repositories, collect_conflicting_repo_names, \
-    generate_repository_description
+from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import (
+    collect_conflicting_repo_names,
+    generate_repository_description,
+    validate_additional_repositories,
+)
 
 log = get_module_logger(__name__)
 

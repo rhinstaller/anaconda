@@ -19,18 +19,26 @@
 # easy to test but we can try to improve that.
 #
 
-import unittest
 import os
-
-from unittest.mock import patch, mock_open, Mock, PropertyMock
+import unittest
 from textwrap import dedent
+from unittest.mock import Mock, PropertyMock, mock_open, patch
 
-from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used, \
-    start_geolocation_conditionally, wait_for_geolocation_and_use, apply_geolocation_result, \
-    fallback_to_tui_if_gtk_ui_is_not_available
-from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION, \
-    DisplayModes
+from pyanaconda.core.constants import (
+    GEOLOC_CONNECTION_TIMEOUT,
+    TIMEZONE_PRIORITY_GEOLOCATION,
+    DisplayModes,
+)
 from pyanaconda.modules.common.structures.timezone import GeolocationData
+from pyanaconda.startup_utils import (
+    apply_geolocation_result,
+    check_if_geolocation_should_be_used,
+    fallback_to_tui_if_gtk_ui_is_not_available,
+    print_dracut_errors,
+    start_geolocation_conditionally,
+    wait_for_geolocation_and_use,
+)
+
 
 class StartupUtilsTestCase(unittest.TestCase):
 

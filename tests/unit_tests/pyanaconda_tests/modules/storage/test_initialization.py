@@ -19,6 +19,7 @@ import unittest
 from unittest.mock import patch
 
 from blivet.formats import get_device_format_class
+
 from pyanaconda.modules.storage.initialization import _set_default_label_type
 
 

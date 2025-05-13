@@ -25,31 +25,43 @@ import sys
 import tempfile
 import time
 import warnings
-
 from contextlib import contextmanager
 
-from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
-from pyanaconda.core import util
-from pyanaconda.core.path import open_with_perm
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
-from pyanaconda.core.kickstart.specification import KickstartSpecification
-from pyanaconda.core.constants import IPMI_ABORTED
-from pyanaconda.errors import ScriptError, errorHandler
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _
-from pyanaconda.modules.common.constants.services import BOSS
-from pyanaconda.modules.common.structures.kickstart import KickstartReport
-
 from pykickstart.base import KickstartCommand, RemovedCommand
-from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
+from pykickstart.constants import (
+    KS_SCRIPT_POST,
+    KS_SCRIPT_PRE,
+    KS_SCRIPT_PREINSTALL,
+    KS_SCRIPT_TRACEBACK,
+)
 from pykickstart.errors import KickstartError, KickstartParseWarning
 from pykickstart.ko import KickstartObject
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PostScriptSection, PreScriptSection, \
-    PreInstallScriptSection, OnErrorScriptSection, TracebackScriptSection, Section
+from pykickstart.sections import (
+    NullSection,
+    OnErrorScriptSection,
+    PostScriptSection,
+    PreInstallScriptSection,
+    PreScriptSection,
+    Section,
+    TracebackScriptSection,
+)
 from pykickstart.version import returnClassForVersion
+
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import IPMI_ABORTED
+from pyanaconda.core.i18n import _
+from pyanaconda.core.kickstart import VERSION
+from pyanaconda.core.kickstart import commands as COMMANDS
+from pyanaconda.core.kickstart.specification import KickstartSpecification
+from pyanaconda.core.path import open_with_perm
+from pyanaconda.errors import ScriptError, errorHandler
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 
 log = get_module_logger(__name__)
 stdoutLog = get_stdout_logger()

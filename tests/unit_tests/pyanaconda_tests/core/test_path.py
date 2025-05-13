@@ -18,10 +18,19 @@ import os
 import shutil
 import tempfile
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import call, patch
+
 import pytest
-from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths, \
-    open_with_perm, join_paths, touch, set_mode
+
+from pyanaconda.core.path import (
+    get_mount_paths,
+    join_paths,
+    make_directories,
+    open_with_perm,
+    set_mode,
+    set_system_root,
+    touch,
+)
 
 
 class SetSystemRootTests(unittest.TestCase):

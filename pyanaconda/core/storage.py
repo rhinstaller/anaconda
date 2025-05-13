@@ -16,16 +16,20 @@
 # Red Hat, Inc.
 #
 import os
-
 from decimal import Decimal
 
 from blivet import udev
 from blivet.size import Size
 from blivet.util import total_memory
+from pykickstart.constants import (
+    AUTOPART_TYPE_BTRFS,
+    AUTOPART_TYPE_LVM,
+    AUTOPART_TYPE_LVM_THINP,
+    AUTOPART_TYPE_PLAIN,
+)
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import N_
-from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
-    AUTOPART_TYPE_LVM_THINP
 
 log = get_module_logger(__name__)
 

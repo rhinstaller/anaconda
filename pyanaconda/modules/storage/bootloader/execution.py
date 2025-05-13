@@ -18,17 +18,22 @@
 import blivet.arch
 from blivet.devices import iScsiDiskDevice
 
-from pyanaconda.modules.storage.bootloader.base import BootLoaderError, \
-    is_on_non_ibft_sw_iscsi
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_SKIPPED, \
-    BOOTLOADER_LOCATION_PARTITION
+from pyanaconda.core.constants import (
+    BOOTLOADER_ENABLED,
+    BOOTLOADER_LOCATION_PARTITION,
+    BOOTLOADER_SKIPPED,
+)
 from pyanaconda.core.i18n import _
+from pyanaconda.core.storage import device_matches
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.core.storage import device_matches
+from pyanaconda.modules.storage.bootloader.base import (
+    BootLoaderError,
+    is_on_non_ibft_sw_iscsi,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["setup_bootloader"]

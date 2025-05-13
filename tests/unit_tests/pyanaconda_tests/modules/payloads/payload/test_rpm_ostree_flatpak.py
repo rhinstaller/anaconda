@@ -16,14 +16,15 @@
 # Red Hat, Inc.
 #
 import unittest
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
+
 import pytest
 
-from unittest.mock import patch
-from tempfile import TemporaryDirectory
-
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
-    InstallFlatpaksTask
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
+    InstallFlatpaksTask,
+)
 
 
 class InstallFlatpakTaskTest(unittest.TestCase):

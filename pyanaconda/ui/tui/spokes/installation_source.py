@@ -16,42 +16,52 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.payload import parse_nfs_url
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.payload.utils import get_device_path
-from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.context import context
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.tuiobject import Dialog
-from pyanaconda.core.threads import thread_manager
-from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
-    get_hdiso_source_description
-
-from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, PAYLOAD_STATUS_SETTING_SOURCE, \
-    PAYLOAD_STATUS_INVALID_SOURCE
-from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
-from pyanaconda.core.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
-from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
-
-from pyanaconda.ui.helpers import SourceSwitchHandler
+import fnmatch
+import os
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, EntryWidget
-
-import os
-import fnmatch
+from simpleline.render.widgets import EntryWidget, TextWidget
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    DRACUT_ISODIR,
+    ISO_DIR,
+    PAYLOAD_STATUS_INVALID_SOURCE,
+    PAYLOAD_STATUS_PROBING_STORAGE,
+    PAYLOAD_STATUS_SETTING_SOURCE,
+    PAYLOAD_TYPE_DNF,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_URL,
+    THREAD_CHECK_SOFTWARE,
+    THREAD_PAYLOAD,
+    THREAD_SOURCE_WATCHER,
+    THREAD_STORAGE_WATCHER,
+)
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.payload import parse_nfs_url
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.payload import utils as payload_utils
+from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.payload.utils import get_device_path
+from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.context import context
+from pyanaconda.ui.helpers import SourceSwitchHandler
+from pyanaconda.ui.lib.payload import (
+    find_potential_hdiso_sources,
+    get_hdiso_source_description,
+    get_hdiso_source_info,
+)
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import Dialog
+
 log = get_module_logger(__name__)
 
 __all__ = ["SourceSpoke"]

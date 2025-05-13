@@ -16,6 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import gi
+
 from pyanaconda import input_checking
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
@@ -24,7 +26,6 @@ from pyanaconda.keyboard import can_configure_keyboard
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 
-import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

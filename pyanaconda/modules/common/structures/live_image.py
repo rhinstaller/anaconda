@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from dasbus.structure import DBusData
-from dasbus.typing import Str, Bool
+from dasbus.typing import Bool, Str
 
 __all__ = ["LiveImageConfigurationData"]
 

@@ -28,6 +28,7 @@
 #    than the constants module.
 
 import logging
+
 from pyanaconda.core import constants
 
 

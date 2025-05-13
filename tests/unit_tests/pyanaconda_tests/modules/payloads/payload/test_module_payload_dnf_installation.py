@@ -18,24 +18,39 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import Mock, call, patch
+
 import pytest
 
-from unittest.mock import patch, call, Mock
-
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL
+from pyanaconda.core.constants import MULTILIB_POLICY_ALL, RPM_LANGUAGES_NONE
 from pyanaconda.core.path import join_paths
-from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
-    PayloadInstallationError
-from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
-    PackagesSelectionData
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+)
+from pyanaconda.modules.common.structures.packages import (
+    PackagesConfigurationData,
+    PackagesSelectionData,
+)
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MissingSpecsError, \
-    BrokenSpecsError, InvalidSelectionError
-from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
-    CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
-    WriteRepositoriesTask
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
+    BrokenSpecsError,
+    DNFManager,
+    InvalidSelectionError,
+    MissingSpecsError,
+)
+from pyanaconda.modules.payloads.payload.dnf.installation import (
+    CleanUpDownloadLocationTask,
+    DownloadPackagesTask,
+    ImportRPMKeysTask,
+    InstallPackagesTask,
+    PrepareDownloadLocationTask,
+    ResolvePackagesTask,
+    SetRPMMacrosTask,
+    UpdateDNFConfigurationTask,
+    WriteRepositoriesTask,
+)
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):

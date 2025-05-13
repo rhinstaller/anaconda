@@ -15,10 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from threading import Lock
 from abc import ABC
+from threading import Lock
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ['Cancellable']

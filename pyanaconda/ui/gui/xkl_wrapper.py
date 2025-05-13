@@ -16,17 +16,18 @@
 # Red Hat, Inc.
 #
 
-import iso639
-import threading
 import gettext
+import threading
 from collections import namedtuple
+
+import iso639
 from xkbregistry import rxkb
 
+from pyanaconda import localization
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.core.string import upcase_first_letter
 from pyanaconda.keyboard import normalize_layout_variant
 from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda import localization
 
 Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
 iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)

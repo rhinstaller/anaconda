@@ -23,13 +23,17 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule
-from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
-from pyanaconda.modules.storage.partitioning.interactive.change_device import ChangeDeviceTask
-from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
-    InteractiveAutoPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
-    DeviceTreeSchedulerInterface
 from pyanaconda.modules.storage.partitioning.interactive import utils
+from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
+from pyanaconda.modules.storage.partitioning.interactive.change_device import (
+    ChangeDeviceTask,
+)
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import (
+    InteractiveAutoPartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import (
+    DeviceTreeSchedulerInterface,
+)
 
 log = get_module_logger(__name__)
 

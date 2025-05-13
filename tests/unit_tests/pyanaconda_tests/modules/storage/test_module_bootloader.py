@@ -20,39 +20,62 @@
 import os
 import tempfile
 import unittest
-import pytest
-
 from unittest import mock
 from unittest.mock import Mock, patch
 
+import pytest
 from blivet.devices import BTRFSDevice, DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.modules.storage.devicetree import create_storage
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    reset_boot_loader_factory, check_task_creation_list, check_task_creation
-
+from pyanaconda.core.constants import (
+    BOOTLOADER_LOCATION_PARTITION,
+    BOOTLOADER_SKIPPED,
+    PAYLOAD_TYPE_DNF,
+    PAYLOAD_TYPE_LIVE_IMAGE,
+    PAYLOAD_TYPE_RPM_OSTREE,
+)
 from pyanaconda.core.path import make_directories, touch
-from pyanaconda.modules.storage import platform
-from pyanaconda.modules.storage.bootloader import BootLoaderFactory
-from pyanaconda.modules.storage.bootloader.base import BootLoader
-from pyanaconda.modules.storage.bootloader.efi import EFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
-from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
-from pyanaconda.modules.storage.bootloader.grub2 import GRUB2, IPSeriesGRUB2, PowerNVGRUB2
-from pyanaconda.modules.storage.bootloader.zipl import ZIPL
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
-from pyanaconda.modules.storage.constants import BootloaderMode
-
-from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
-from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_LOCATION_PARTITION, \
-    PAYLOAD_TYPE_RPM_OSTREE, PAYLOAD_TYPE_LIVE_IMAGE, PAYLOAD_TYPE_DNF
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.storage.bootloader import BootloaderModule
-from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
-from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
-    InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
-    CreateRescueImagesTask, CreateBLSEntriesTask, CollectKernelArgumentsTask
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.storage import platform
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory, BootloaderModule
+from pyanaconda.modules.storage.bootloader.base import BootLoader
+from pyanaconda.modules.storage.bootloader.bootloader_interface import (
+    BootloaderInterface,
+)
+from pyanaconda.modules.storage.bootloader.efi import (
+    EFIGRUB,
+    Aarch64EFIGRUB,
+    ArmEFIGRUB,
+)
+from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
+from pyanaconda.modules.storage.bootloader.grub2 import (
+    GRUB2,
+    IPSeriesGRUB2,
+    PowerNVGRUB2,
+)
+from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
+from pyanaconda.modules.storage.bootloader.installation import (
+    CollectKernelArgumentsTask,
+    ConfigureBootloaderTask,
+    CreateBLSEntriesTask,
+    CreateRescueImagesTask,
+    FixBTRFSBootloaderTask,
+    FixZIPLBootloaderTask,
+    InstallBootloaderTask,
+    RecreateInitrdsTask,
+)
+from pyanaconda.modules.storage.bootloader.zipl import ZIPL
+from pyanaconda.modules.storage.constants import BootloaderMode
+from pyanaconda.modules.storage.devicetree import create_storage
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_task_creation,
+    check_task_creation_list,
+    patch_dbus_publish_object,
+    reset_boot_loader_factory,
+)
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):

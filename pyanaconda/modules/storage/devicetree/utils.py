@@ -16,20 +16,20 @@
 # Red Hat, Inc.
 #
 import time
-import requests
 
+import requests
 from blivet import udev
 from blivet.errors import StorageError
 from blivet.formats import device_formats, get_format
 from blivet.formats.fs import FS
-from bytesize.bytesize import MiB, ROUND_UP
+from bytesize.bytesize import ROUND_UP, MiB
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 

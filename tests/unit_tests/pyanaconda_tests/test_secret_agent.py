@@ -18,13 +18,14 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
-from pyanaconda.ui.gui.spokes.lib.network_secret_agent import SecretAgent
 
 import gi
+
+from pyanaconda.ui.gui.spokes.lib.network_secret_agent import SecretAgent
+
 gi.require_version("NM", "1.0")
 gi.require_version("GLib", "2.0")
-from gi.repository import NM
-from gi.repository import GLib
+from gi.repository import NM, GLib
 
 
 class SecretAgentTestCase(unittest.TestCase):

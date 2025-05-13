@@ -15,11 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.payload.live_image.installation import DownloadImageTask, \
-    VerifyImageChecksumTask, RemoveImageTask, InstallFromTarTask
-from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.payload.live_image.installation import (
+    DownloadImageTask,
+    InstallFromTarTask,
+    RemoveImageTask,
+    VerifyImageChecksumTask,
+)
+from pyanaconda.modules.payloads.payload.live_image.utils import (
+    get_kernel_version_list_from_tar,
+)
 
 __all__ = ["InstallLiveTarTask"]
 

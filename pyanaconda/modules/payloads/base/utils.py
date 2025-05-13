@@ -19,6 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.payload import rpm_version_key
+
 log = get_module_logger(__name__)
 
 

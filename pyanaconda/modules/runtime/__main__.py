@@ -18,8 +18,10 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common import init
+
 init()
 
 from pyanaconda.modules.runtime.runtime import RuntimeService
+
 service = RuntimeService()
 service.run()

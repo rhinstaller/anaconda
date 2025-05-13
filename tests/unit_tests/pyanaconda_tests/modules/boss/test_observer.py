@@ -18,10 +18,11 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
 from unittest.mock import Mock
 
+import pytest
 from dasbus.client.observer import DBusObserverError
+
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
 
 

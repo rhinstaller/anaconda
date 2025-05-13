@@ -18,23 +18,27 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from functools import partial
-from unittest.mock import patch, Mock, mock_open, PropertyMock
+from unittest.mock import Mock, PropertyMock, mock_open, patch
 
+import pytest
 from blivet.devices import StorageDevice
 from blivet.formats import get_format
 from blivet.formats.fs import XFS
 from blivet.size import Size
-from dasbus.typing import get_variant, Int
-from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
+from dasbus.typing import Int, get_variant
+
+from pyanaconda.core.constants import STORAGE_LUKS2_MIN_RAM, STORAGE_MIN_RAM
 from pyanaconda.modules.common.errors.general import UnsupportedValueError
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
-from pyanaconda.modules.storage.checker.utils import storage_checker, verify_lvm_destruction, \
-    verify_opal_compatibility, _get_opal_firmware_kernel_version, \
-    _check_opal_firmware_kernel_version
+from pyanaconda.modules.storage.checker.utils import (
+    _check_opal_firmware_kernel_version,
+    _get_opal_firmware_kernel_version,
+    storage_checker,
+    verify_lvm_destruction,
+    verify_opal_compatibility,
+)
 from pyanaconda.modules.storage.devicetree import create_storage
 
 

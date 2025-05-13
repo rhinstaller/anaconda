@@ -17,10 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.task import Task
-from pyanaconda.anaconda_loggers import get_module_logger
-
 from blivet import blockdev
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
 

@@ -18,7 +18,9 @@
 # Red Hat, Inc.
 #
 from pykickstart.errors import KickstartParseError
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+
+from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import commands as COMMANDS
 from pyanaconda.network import is_valid_hostname
 
 DEFAULT_DEVICE_SPECIFICATION = "link"

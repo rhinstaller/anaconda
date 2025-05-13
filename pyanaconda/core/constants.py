@@ -24,7 +24,6 @@ from enum import Enum
 from pyanaconda.core.i18n import N_
 from pyanaconda.core.product import get_product_name, get_product_version
 
-
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
 
