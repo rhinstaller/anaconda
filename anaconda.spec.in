@@ -487,6 +487,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 13 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.29-1
+- liveinst: Propagate the AT-SPI bus address to Anaconda for Wayland (neal)
+  Resolves: RHEL-88645
+- Revert "Do not copy resolv.conf to target system at the end of installation"
+  (mkolman)
+  Resolves: RHEL-84110
+- rpm_ostree/installation.py: fix image deployment on s390x (nikita)
+  Resolves: RHEL-88558
+
 * Fri Apr 25 2025 Martin Kolman <mkolman@redhat.com> - 40.22.3.28-1
 - network: update NM autoconnections configuration for centos (rvykydal)
   Resolves: RHEL-67815
