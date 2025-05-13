@@ -502,6 +502,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 13 2025 github-actions <github-actions@github.com> - 43.19-1
+
 * Tue May 06 2025 github-actions <github-actions@github.com> - 43.18-1
 - liveinst: Propagate the AT-SPI bus address to Anaconda for Wayland (neal)
 - Include bootc command in expected pykickstart commands (ppolawsk)
