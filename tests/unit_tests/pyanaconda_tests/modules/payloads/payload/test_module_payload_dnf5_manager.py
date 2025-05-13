@@ -280,7 +280,8 @@ class DNFManagerTestCase(unittest.TestCase):
         transaction.get_transaction_packages.return_value = tspkgs
         return transaction
 
-    def test_apply_specs(self):
+    @patch("libdnf5.base.Goal.add_install")
+    def test_apply_specs(self, add_install):
         """Test the apply_specs method."""
         self.dnf_manager.setup_base()
 
@@ -289,8 +290,7 @@ class DNFManagerTestCase(unittest.TestCase):
             exclude_list=["@g2", "p2"]
         )
 
-        # FIXME: Check the goal.
-        assert self.dnf_manager._goal
+        add_install.assert_called()
 
     def test_resolve_no_selection(self):
         """Test the resolve_selection method with no selection."""
@@ -589,6 +589,133 @@ class DNFManagerTestCase(unittest.TestCase):
         """Simulate the failed installation of packages."""
         progress.error("The p1 package couldn't be installed!")
 
+    def test_install_packages_dnf_ts_item_ok(self):
+        """Test install_packages method failing on transaction environment error."""
+        env = Mock(spec=libdnf5.base.TransactionEnvironment)
+        env.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        grp = Mock(spec=libdnf5.base.TransactionGroup)
+        grp.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        pkg = Mock(spec=libdnf5.base.TransactionPackage)
+        pkg.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.get_transaction_environments.return_value = [env]
+        self.dnf_manager._transaction.get_transaction_groups.return_value = [grp]
+        self.dnf_manager._transaction.get_transaction_packages.return_value = [pkg]
+
+        calls = []
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended with errors."
+
+        assert str(cm.value) == msg
+        assert calls == []
+
+    def test_install_packages_dnf_ts_item_error_environment(self):
+        """Test install_packages method failing on transaction environment error."""
+        env = Mock(spec=libdnf5.base.TransactionEnvironment)
+        env.get_state.return_value = libdnf5.transaction.TransactionItemState_ERROR
+        env2 = Mock(spec=libdnf5.base.TransactionEnvironment)
+        env2.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        grp = Mock(spec=libdnf5.base.TransactionGroup)
+        grp.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        pkg = Mock(spec=libdnf5.base.TransactionPackage)
+        pkg.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.get_transaction_environments.return_value = [env, env2]
+        self.dnf_manager._transaction.get_transaction_groups.return_value = [grp]
+        self.dnf_manager._transaction.get_transaction_packages.return_value = [pkg]
+
+        calls = []
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended with errors."
+
+        assert str(cm.value) == msg
+        assert calls == []
+
+    def test_install_packages_dnf_ts_item_error_group(self):
+        """Test install_packages method failing on transaction group error."""
+        env = Mock(spec=libdnf5.base.TransactionEnvironment)
+        env.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        grp = Mock(spec=libdnf5.base.TransactionGroup)
+        grp.get_state.return_value = libdnf5.transaction.TransactionItemState_ERROR
+        grp2 = Mock(spec=libdnf5.base.TransactionEnvironment)
+        grp2.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        pkg = Mock(spec=libdnf5.base.TransactionPackage)
+        pkg.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.get_transaction_environments.return_value = [env]
+        self.dnf_manager._transaction.get_transaction_groups.return_value = [grp, grp2]
+        self.dnf_manager._transaction.get_transaction_packages.return_value = [pkg]
+
+        calls = []
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended with errors."
+
+        assert str(cm.value) == msg
+        assert calls == []
+
+    def test_install_packages_dnf_ts_item_error_package(self):
+        """Test install_packages method failing on transaction package error."""
+        env = Mock(spec=libdnf5.base.TransactionEnvironment)
+        env.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        grp = Mock(spec=libdnf5.base.TransactionGroup)
+        grp.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+        pkg = Mock(spec=libdnf5.base.TransactionPackage)
+        pkg.get_state.return_value = libdnf5.transaction.TransactionItemState_ERROR
+        pkg2 = Mock(spec=libdnf5.base.TransactionEnvironment)
+        pkg2.get_state.return_value = libdnf5.transaction.TransactionItemState_OK
+
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.get_transaction_environments.return_value = [env]
+        self.dnf_manager._transaction.get_transaction_groups.return_value = [grp]
+        self.dnf_manager._transaction.get_transaction_packages.return_value = [pkg, pkg2]
+
+        calls = []
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended with errors."
+
+        assert str(cm.value) == msg
+        assert calls == []
+
+    def test_install_packages_quit(self):
+        """Test the terminated install_packages method."""
+        self.dnf_manager._transaction = Mock(spec=libdnf5.base.Transaction)
+        self.dnf_manager._transaction.run.side_effect = self._transaction_quit
+
+        calls = []
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended abruptly: " \
+              "Something went wrong with the p1 package!"
+
+        assert msg in str(cm.value)
+        assert calls == []
+
+    def _transaction_quit(self):
+        """Simulate the terminated installation of packages."""
+        raise RuntimeError("Something went wrong with the p1 package!")
+
     def test_set_download_location(self):
         """Test the set_download_location method."""
         self.dnf_manager.set_download_location("/my/download/location")
@@ -603,6 +730,78 @@ class DNFManagerTestCase(unittest.TestCase):
 
         self.dnf_manager.reset_base()
         assert self.dnf_manager.download_location is None
+
+    def test_is_package_available(self):
+        """Test the is_package_available method."""
+        self.dnf_manager.setup_base()
+
+        # No metadata.
+        with self.assertLogs(level="WARNING") as cm:
+            assert self.dnf_manager.is_package_available("kernel") is False
+
+        msg = "There is no metadata about packages!"
+        assert any(map(lambda x: msg in x, cm.output))
+
+        # No package.
+        self.dnf_manager._repositories_loaded = True
+        assert self.dnf_manager.is_package_available("kernel") is False
+
+    @patch("libdnf5.rpm.PackageQuery.empty")
+    def test_is_package_available_query_empty(self, package_query_empty):
+        """Test the is_package_available method."""
+        self.dnf_manager.setup_base()
+        self.dnf_manager._repositories_loaded = True
+
+        package_query_empty.return_value = False
+
+        assert self.dnf_manager.is_package_available("kernel") is True
+
+    def _query_next(self):
+        return None
+
+    class MockPackageQuery():
+        def __init__(self, base):
+            self.items = []
+            for name in ["langpacks-cs", "langpacks-core-cs", "langpacks-core-font-cs"]:
+                package = Mock(spec=libdnf5.rpm.Package)
+                package.get_name.return_value = name
+                self.items.append(package)
+
+        def filter_name(self, pattern, cmp=None):
+            pass
+
+        def filter_available(self):
+            pass
+
+        def __iter__(self):
+            return (i for i in self.items)
+
+        def __next__(self):
+            return next(self.items)
+
+    @patch("libdnf5.rpm.PackageQuery")
+    def test_match_available_packages(self, query):
+        """Test the match_available_packages method"""
+        self.dnf_manager.setup_base()
+
+        # No metadata.
+        with self.assertLogs(level="WARNING") as cm:
+            assert self.dnf_manager.match_available_packages("langpacks-*") == []
+
+        msg = "There is no metadata about packages!"
+        assert any(map(lambda x: msg in x, cm.output))
+
+        # No packages.
+        self.dnf_manager._repositories_loaded = True
+        assert self.dnf_manager.match_available_packages("langpacks-*") == []
+
+        # With packages
+        query.side_effect = self.MockPackageQuery
+        assert self.dnf_manager.match_available_packages("langpacks-*") == [
+            "langpacks-cs",
+            "langpacks-core-cs",
+            "langpacks-core-font-cs"
+        ]
 
 
 class DNFManagerCompsTestCase(unittest.TestCase):
@@ -1190,10 +1389,25 @@ class DNFManagerReposTestCase(unittest.TestCase):
         content = self.dnf_manager.generate_repo_file(repo_data)
         assert content == expected_content
 
-        # FIXME: Try to recreate the generated repository.
-        # expected_attrs = expected_content.splitlines(keepends=False)
-        # self.dnf_manager.add_repository(repo_data)
-        # self._check_repo(repo_data.name, expected_attrs)
+        # Try to recreate the generated repository.
+        expected_attrs = expected_content.splitlines(keepends=False)
+        self.dnf_manager.add_repository(repo_data)
+        self._check_repo(repo_data.name, expected_attrs)
+
+    def _check_repo(self, repo_id, expected_attrs):
+        """Check the repository attributes."""
+        repo_config = self.dnf_manager._get_repository(repo_id).get_config()
+        # Check all attributes. Skip the first line that contains just "[repo_id]".
+        for attr in expected_attrs[1:]:
+            key, value = attr.split('=')
+            # Skip name, because that is not set (it's actually id).
+            if key.strip() == "name":
+                continue
+            option = repo_config.__getattribute__("get_{}_option".format(key.strip()))()
+            if isinstance(option.get_value(), bool):
+                assert option.get_value() == (value.strip() == "1")
+            else:
+                assert option.get_value_string() == value.strip()
 
     def test_read_system_repositories(self):
         """Test the read_system_repositories method."""
