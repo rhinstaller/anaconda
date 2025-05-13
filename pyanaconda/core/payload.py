@@ -15,11 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from functools import cmp_to_key
 from urllib.parse import quote, unquote
+
+import rpm
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.core.util import ensure_str
+
+
+rpm_version_key = cmp_to_key(rpm.labelCompare)
 
 
 def parse_nfs_url(nfs_url):
