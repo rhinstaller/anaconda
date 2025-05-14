@@ -16,9 +16,10 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
 
-from dasbus.typing import get_variant, Int
+import pytest
+from dasbus.typing import Int, get_variant
+
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 
 

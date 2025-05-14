@@ -18,23 +18,38 @@
 import copy
 import re
 
-from pyanaconda.core.regexes import NM_MAC_INITRAMFS_CONNECTION
-from pyanaconda.core.constants import NETWORK_CAPABILITY_TEAM
-from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
-from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
-    update_connection_from_ksdata, add_connection_from_ksdata, bound_hwaddr_of_device, \
-    update_connection_values, commit_changes_with_autoconnection_blocked, \
-    get_config_file_connection_of_device, clone_connection_sync, nm_client_in_thread, \
-    is_bootif_connection
-from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
-    virtual_device_types
-from pyanaconda.modules.network.utils import guard_by_system_configuration, is_nbft_device
+from pyanaconda.core.constants import NETWORK_CAPABILITY_TEAM
+from pyanaconda.core.regexes import NM_MAC_INITRAMFS_CONNECTION
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.network.device_configuration import (
+    supported_wired_device_types,
+    virtual_device_types,
+)
+from pyanaconda.modules.network.network_interface import (
+    NetworkInitializationTaskInterface,
+)
+from pyanaconda.modules.network.nm_client import (
+    add_connection_from_ksdata,
+    bound_hwaddr_of_device,
+    clone_connection_sync,
+    commit_changes_with_autoconnection_blocked,
+    get_config_file_connection_of_device,
+    get_device_name_from_network_data,
+    is_bootif_connection,
+    nm_client_in_thread,
+    update_connection_from_ksdata,
+    update_connection_values,
+)
+from pyanaconda.modules.network.utils import (
+    guard_by_system_configuration,
+    is_nbft_device,
+)
 
 log = get_module_logger(__name__)
 
 import gi
+
 gi.require_version("NM", "1.0")
 from gi.repository import NM
 

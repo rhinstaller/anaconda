@@ -17,11 +17,15 @@
 # Red Hat, Inc.
 
 import unittest
-from unittest.mock import patch
-from textwrap import dedent
 from io import StringIO
+from textwrap import dedent
+from unittest.mock import patch
 
-from pyanaconda.core.hw import is_lpae_available, detect_virtualized_platform, is_smt_enabled
+from pyanaconda.core.hw import (
+    detect_virtualized_platform,
+    is_lpae_available,
+    is_smt_enabled,
+)
 
 
 class MiscHwUtilsTests(unittest.TestCase):

@@ -15,8 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import blockdev
-from blivet import util as blivet_util, udev, arch
+from blivet import arch, blockdev, udev
+from blivet import util as blivet_util
 from blivet.devicelibs import crypto
 from blivet.flags import flags as blivet_flags
 from blivet.formats import get_device_format_class

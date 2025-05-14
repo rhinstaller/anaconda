@@ -15,11 +15,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import configparser
-from functools import cache
+import os
 from collections import namedtuple
-
+from functools import cache
 
 ProductData = namedtuple("ProductData", [
     "is_final_release",

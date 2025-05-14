@@ -16,20 +16,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.core import util
-from pyanaconda.core.constants import IPMI_FINISHED
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
-from pyanaconda.ui.tui.hubs.summary import SummaryHub
-
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 from simpleline import App
+from simpleline.event_loop import AbstractSignal, ExitMainLoop
 from simpleline.render.prompt import Prompt
-from simpleline.event_loop import ExitMainLoop, AbstractSignal
 
-from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import IPMI_FINISHED
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.flags import flags
+from pyanaconda.ui.tui.hubs.summary import SummaryHub
+from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 
 log = get_module_logger(__name__)
 

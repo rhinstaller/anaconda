@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
+
 from pyanaconda.kexec import unquote
 
 

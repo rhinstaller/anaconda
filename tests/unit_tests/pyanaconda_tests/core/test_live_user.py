@@ -18,8 +18,9 @@
 #
 
 from unittest import TestCase
-from unittest.mock import patch, Mock
-from pyanaconda.core.live_user import get_live_user, User
+from unittest.mock import Mock, patch
+
+from pyanaconda.core.live_user import User, get_live_user
 
 
 class GetLiveUserTests(TestCase):

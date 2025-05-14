@@ -20,11 +20,14 @@ from blivet.formats import get_format
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
-    NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
-    generate_device_factory_request
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import (
+    NonInteractivePartitioningTask,
+)
 from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
+from pyanaconda.modules.storage.partitioning.interactive.utils import (
+    destroy_device,
+    generate_device_factory_request,
+)
 
 log = get_module_logger(__name__)
 

@@ -17,9 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from blivet.arch import get_arch, is_arm
-from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.util import execWithCapture
+
 log = get_module_logger(__name__)
 
 
@@ -76,8 +77,8 @@ def is_smt_enabled():
 
     :return: True or False
     """
-    from pyanaconda.flags import flags
     from pyanaconda.core.configuration.anaconda import conf
+    from pyanaconda.flags import flags
 
     if flags.automatedInstall \
             or not conf.target.is_hardware \

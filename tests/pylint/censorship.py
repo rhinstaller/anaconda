@@ -30,13 +30,11 @@ msg-template='{msg_id}({symbol}):{path}:{line},{column}: {obj}: {msg}'
 
 __all__ = ["CensorshipLinter", "CensorshipConfig"]
 
-import sys
 import re
-
+import sys
 from io import StringIO
 
 import pylint.lint
-
 from pylint.reporters.text import TextReporter
 
 

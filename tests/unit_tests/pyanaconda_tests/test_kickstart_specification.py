@@ -18,36 +18,39 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
 import warnings
-
 from textwrap import dedent
 
+import pytest
 from pykickstart.base import RemovedCommand
-from pykickstart.errors import KickstartParseError
 from pykickstart.commands.skipx import FC3_SkipX
-from pykickstart.commands.user import F24_User, F19_UserData
+from pykickstart.commands.user import F19_UserData, F24_User
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.parser import Packages, Certificate
-from pykickstart.sections import PackageSection, CertificateSection
-from pykickstart.version import F30, isRHEL as is_rhel
+from pykickstart.parser import Certificate, Packages
+from pykickstart.sections import CertificateSection, PackageSection
+from pykickstart.version import F30
+from pykickstart.version import isRHEL as is_rhel
 
 from pyanaconda import kickstart
 from pyanaconda.core.kickstart.addon import AddonData, AddonRegistry
+from pyanaconda.core.kickstart.specification import (
+    KickstartSpecification,
+    KickstartSpecificationHandler,
+    KickstartSpecificationParser,
+)
 from pyanaconda.core.kickstart.version import VERSION
-from pyanaconda.core.kickstart.specification import KickstartSpecification,\
-    KickstartSpecificationHandler, KickstartSpecificationParser
 from pyanaconda.kickstart import AnacondaKickstartSpecification
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
-from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 
 
 class TestData1(AddonData):

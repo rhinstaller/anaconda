@@ -2,9 +2,11 @@
 
 line-length = 99
 
+[lint]
 select = [
     "E", # pycodestyle error
     "F", # pyflakes
+    "I", # isort
     "W", # pycodestyle warning (mostly whitespace related)
     "PL", # pylint
     "ICN", # flake8-import-conventions
@@ -12,7 +14,6 @@ select = [
     "RUF", # Ruff-specific rules
     "SIM", # flake8-simplify
 ]
-
 ignore = [
     "E501", # Line too long
     "E402", # Module level import not at top of file
@@ -46,3 +47,6 @@ ignore = [
     "PLR1714", # Consider merging multiple comparisons: `<expression>`. Use a `set` if the elements are hashable.
     "RUF015", # Prefer `next(...)` over single element slice
 ]
+
+[lint.isort]
+known-first-party = ["pyanaconda"]

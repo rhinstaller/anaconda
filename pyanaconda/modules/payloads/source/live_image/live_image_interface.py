@@ -23,7 +23,9 @@ from dasbus.typing import Structure
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 __all__ = ["LiveImageSourceInterface"]
 

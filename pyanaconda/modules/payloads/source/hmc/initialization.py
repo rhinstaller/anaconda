@@ -16,8 +16,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.path import make_directories
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 

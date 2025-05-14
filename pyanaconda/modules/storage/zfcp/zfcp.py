@@ -20,10 +20,10 @@
 from blivet import arch
 from blivet.zfcp import zfcp
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import ZFCP
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface

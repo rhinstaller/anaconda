@@ -15,11 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from io import StringIO
 import unittest
+from io import StringIO
 from unittest.mock import patch
 
-from pyanaconda.modules.payloads.source.utils import is_valid_install_disk, is_tar
+from pyanaconda.modules.payloads.source.utils import is_tar, is_valid_install_disk
 
 
 class SourceUtilsTestCase(unittest.TestCase):

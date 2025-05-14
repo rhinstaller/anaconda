@@ -18,13 +18,21 @@
 # Test the Python-based signal and slot implementation.
 #
 
-from textwrap import dedent
 import unittest
-from unittest.mock import patch, mock_open
-from pyanaconda.core.product import ProductData, get_product_values, get_product_name, \
-    get_product_is_final_release, get_product_short_name, get_product_version, \
-    trim_product_version_for_ui, shorten_product_name
+from textwrap import dedent
+from unittest.mock import mock_open, patch
+
 import pyanaconda.core.product  # needed for patching, see below
+from pyanaconda.core.product import (
+    ProductData,
+    get_product_is_final_release,
+    get_product_name,
+    get_product_short_name,
+    get_product_values,
+    get_product_version,
+    shorten_product_name,
+    trim_product_version_for_ui,
+)
 
 
 def make_buildstamp(product="Fedora", version="Rawhide", is_final=False):

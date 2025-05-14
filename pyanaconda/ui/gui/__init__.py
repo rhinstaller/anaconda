@@ -18,13 +18,13 @@
 #
 import inspect
 import os
-import sys
 import site
-import meh.ui.gui
-
+import sys
 from contextlib import contextmanager
 
 import gi
+import meh.ui.gui
+
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.4")
@@ -32,27 +32,31 @@ gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("GObject", "2.0")
 gi.require_version("GLib", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject, GLib
-
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.constants import WINDOW_TITLE_TEXT
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core import util, constants
-from pyanaconda.core.product import get_product_is_final_release
-from pyanaconda.core.threads import thread_manager
-
-from pyanaconda.core.glib import Bytes, GError
-from pyanaconda.keyboard import can_configure_keyboard
-from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.helpers import get_distribution_text
-from pyanaconda.ui.gui.utils import unbusyCursor, really_hide
-from pyanaconda.core.async_utils import async_action_wait
-from pyanaconda.ui.gui.utils import watch_children, unwatch_children
-from pyanaconda.ui.gui.helpers import autoinstall_stopped
 import os.path
 
+from gi.repository import AnacondaWidgets, Gdk, GdkPixbuf, GLib, GObject, Gtk
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants, util
+from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import WINDOW_TITLE_TEXT
+from pyanaconda.core.glib import Bytes, GError
+from pyanaconda.core.i18n import C_, _
+from pyanaconda.core.product import get_product_is_final_release
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.flags import flags
+from pyanaconda.keyboard import can_configure_keyboard
+from pyanaconda.ui import UserInterface, common
+from pyanaconda.ui.gui.helpers import autoinstall_stopped
+from pyanaconda.ui.gui.utils import (
+    really_hide,
+    unbusyCursor,
+    unwatch_children,
+    watch_children,
+)
+from pyanaconda.ui.helpers import get_distribution_text
+
 log = get_module_logger(__name__)
 
 __all__ = ["GraphicalUserInterface", "QuitDialog"]

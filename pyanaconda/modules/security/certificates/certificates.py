@@ -17,16 +17,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.parser import Certificate
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import INSTALLATION_PHASE_PREINSTALL
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.constants import INSTALLATION_PHASE_PREINSTALL
-from pyanaconda.core.configuration.anaconda import conf
-from pykickstart.parser import Certificate
-from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
 from pyanaconda.modules.common.structures.security import CertificateData
-from pyanaconda.modules.security.certificates.certificates_interface import CertificatesInterface
+from pyanaconda.modules.security.certificates.certificates_interface import (
+    CertificatesInterface,
+)
 from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
 
 log = get_module_logger(__name__)

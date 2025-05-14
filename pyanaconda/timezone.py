@@ -22,22 +22,23 @@ configuration, valid timezones recognition etc.
 
 """
 
-import langtable
-import zoneinfo
-import time
 import datetime
+import time
 from collections import OrderedDict
 from functools import cache
 
-from pyanaconda.core.util import execWithRedirect
-from pyanaconda.core.constants import THREAD_STORAGE
-from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.core.threads import thread_manager
+import langtable
+import zoneinfo
 from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import THREAD_STORAGE
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.util import execWithRedirect
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
+
 log = get_module_logger(__name__)
 
 # The Etc category in zoneinfo.available_timezones() includes some more,

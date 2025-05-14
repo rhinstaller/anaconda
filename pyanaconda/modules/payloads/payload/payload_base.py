@@ -21,14 +21,20 @@ from abc import ABCMeta, abstractmethod
 
 from dasbus.server.publishable import Publishable
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.errors.general import UnavailableValueError
-from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.common.errors.general import UnavailableValueError
+from pyanaconda.modules.common.errors.payload import (
+    IncompatibleSourceError,
+    SourceSetupError,
+)
+from pyanaconda.modules.payloads.base.initialization import (
+    SetUpSourcesTask,
+    TearDownSourcesTask,
+)
 from pyanaconda.modules.payloads.constants import SourceState
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

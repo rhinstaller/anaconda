@@ -20,9 +20,9 @@
 from blivet import blockdev
 
 from pyanaconda.core.regexes import DASD_DEVICE_NUMBER
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.core.util import execWithRedirect
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.task import Task
 
 
 class DASDDiscoverTask(Task):

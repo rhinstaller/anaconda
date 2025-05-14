@@ -24,25 +24,31 @@ from blivet.devices import NetworkStorageDevice
 from blivet.formats.disklabel import DiskLabel
 from blivet.iscsi import iscsi
 from blivet.size import Size
-
-from pyanaconda.core.constants import BOOTLOADER_TIMEOUT_UNSET
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.network import iface_for_host_ip
-from pyanaconda.modules.storage.platform import platform, PLATFORM_DEVICE_TYPES, \
-    PLATFORM_FORMAT_TYPES, PLATFORM_MOUNT_POINTS, PLATFORM_MAX_END, PLATFORM_RAID_LEVELS, \
-    PLATFORM_RAID_METADATA
-from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
-from pyanaconda.core import util
-from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.path import open_with_perm
-from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, BOOTLOADER
-from pyanaconda.modules.common.structures.iscsi import Node
-from pyanaconda.modules.common.constants.services import STORAGE, NETWORK, SECURITY
-from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pykickstart.constants import SELINUX_DISABLED
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import BOOTLOADER_TIMEOUT_UNSET
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.path import open_with_perm
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, FCOE, ISCSI
+from pyanaconda.modules.common.constants.services import NETWORK, SECURITY, STORAGE
+from pyanaconda.modules.common.structures.iscsi import Node
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
+from pyanaconda.modules.storage.platform import (
+    PLATFORM_DEVICE_TYPES,
+    PLATFORM_FORMAT_TYPES,
+    PLATFORM_MAX_END,
+    PLATFORM_MOUNT_POINTS,
+    PLATFORM_RAID_LEVELS,
+    PLATFORM_RAID_METADATA,
+    platform,
+)
+from pyanaconda.network import iface_for_host_ip
 
 log = get_module_logger(__name__)
 

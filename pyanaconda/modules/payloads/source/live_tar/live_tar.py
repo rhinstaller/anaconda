@@ -21,7 +21,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.source.live_image.live_image import LiveImageSourceModule
+from pyanaconda.modules.payloads.source.live_image.live_image import (
+    LiveImageSourceModule,
+)
 from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
 
 log = get_module_logger(__name__)

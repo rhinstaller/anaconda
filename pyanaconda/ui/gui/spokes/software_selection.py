@@ -18,29 +18,46 @@
 #
 import sys
 
+import gi
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
-    THREAD_CHECK_SOFTWARE, PAYLOAD_STATUS_CHECKING_SOFTWARE
-from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    PAYLOAD_STATUS_CHECKING_SOFTWARE,
+    PAYLOAD_TYPE_DNF,
+    THREAD_CHECK_SOFTWARE,
+    THREAD_PAYLOAD,
+    THREAD_SOFTWARE_WATCHER,
+)
+from pyanaconda.core.i18n import C_, CN_, _
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.spokes.lib.software_selection import GroupListBoxRow, SeparatorRow, \
-    EnvironmentListBoxRow
+from pyanaconda.ui.gui.spokes.lib.software_selection import (
+    EnvironmentListBoxRow,
+    GroupListBoxRow,
+    SeparatorRow,
+)
 from pyanaconda.ui.gui.utils import escape_markup
-from pyanaconda.ui.lib.software import SoftwareSelectionCache, get_software_selection_status, \
-    is_software_selection_complete, get_group_data, get_environment_data
+from pyanaconda.ui.lib.software import (
+    FEATURE_64K,
+    KernelFeatures,
+    SoftwareSelectionCache,
+    get_available_kernel_features,
+    get_environment_data,
+    get_group_data,
+    get_kernel_from_properties,
+    get_kernel_titles_and_descriptions,
+    get_software_selection_status,
+    is_software_selection_complete,
+)
 from pyanaconda.ui.lib.subscription import is_cdn_registration_required
-from pyanaconda.ui.lib.software import FEATURE_64K, KernelFeatures, get_kernel_from_properties, \
-    get_available_kernel_features, get_kernel_titles_and_descriptions
-from pyanaconda.core.configuration.anaconda import conf
 
-import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

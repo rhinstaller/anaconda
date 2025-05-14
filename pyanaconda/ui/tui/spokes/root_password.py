@@ -16,17 +16,20 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.ui.categories.user_settings import UserSettingsCategory
-from pyanaconda.ui.lib.users import can_modify_root_configuration, get_root_configuration_status
-from pyanaconda.ui.tui.tuiobject import PasswordDialog
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.common import FirstbootSpokeMixIn
+from simpleline.render.widgets import TextWidget
+
+from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
-
-from simpleline.render.widgets import TextWidget
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.ui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.lib.users import (
+    can_modify_root_configuration,
+    get_root_configuration_status,
+)
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import PasswordDialog
 
 
 class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):

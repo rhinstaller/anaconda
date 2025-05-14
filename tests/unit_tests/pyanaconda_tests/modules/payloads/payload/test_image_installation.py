@@ -17,17 +17,17 @@
 #
 import os
 import tempfile
-import unittest
 import time
-
+import unittest
 from unittest.mock import Mock, call, patch
 
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
-    InstallationProgress
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.payloads.payload.live_image.installation_progress import (
+    InstallationProgress,
+)
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 

@@ -17,15 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.iscsi import iscsi, TargetInfo
+from blivet.iscsi import TargetInfo, iscsi
 from blivet.safe_dbus import SafeDBusError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
-from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
+from pyanaconda.modules.common.structures.iscsi import Credentials, Node, Portal
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIDiscoverTaskInterface
 
 log = get_module_logger(__name__)

@@ -18,14 +18,19 @@
 import unittest
 
 from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE_CONTAINER
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_RPM_OSTREE_CONTAINER
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeContainerConfigurationData
-from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container import \
-    RPMOSTreeContainerSourceModule
-from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container_interface \
-    import RPMOSTreeContainerSourceInterface
-
+from pyanaconda.modules.common.constants.interfaces import (
+    PAYLOAD_SOURCE_RPM_OSTREE_CONTAINER,
+)
+from pyanaconda.modules.common.structures.rpm_ostree import (
+    RPMOSTreeContainerConfigurationData,
+)
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container import (
+    RPMOSTreeContainerSourceModule,
+)
+from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container_interface import (
+    RPMOSTreeContainerSourceInterface,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

@@ -20,24 +20,39 @@
 import os
 import tempfile
 import unittest
-import pytest
 from textwrap import dedent
 from unittest.mock import patch
 
+import pytest
 from blivet.size import Size
 from dasbus.namespace import get_dbus_name
 
-from pyanaconda.core.configuration.anaconda import AnacondaConfiguration, \
-    _convert_geoloc_provider_id_to_url
-from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
-    get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError, \
-    Configuration
+from pyanaconda.core.configuration.anaconda import (
+    AnacondaConfiguration,
+    _convert_geoloc_provider_id_to_url,
+)
+from pyanaconda.core.configuration.base import (
+    Configuration,
+    ConfigurationDataError,
+    ConfigurationError,
+    ConfigurationFileError,
+    create_parser,
+    get_option,
+    read_config,
+    set_option,
+    write_config,
+)
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.ui import UserInterfaceSection
-from pyanaconda.modules.common.constants import services, namespaces
-from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR, GEOLOC_DEFAULT_PROVIDER, \
-    GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, GEOLOC_URL_FEDORA_GEOIP, \
-    GEOLOC_URL_HOSTIP
+from pyanaconda.core.constants import (
+    GEOLOC_DEFAULT_PROVIDER,
+    GEOLOC_PROVIDER_FEDORA_GEOIP,
+    GEOLOC_PROVIDER_HOSTIP,
+    GEOLOC_URL_FEDORA_GEOIP,
+    GEOLOC_URL_HOSTIP,
+    SOURCE_TYPE_CLOSEST_MIRROR,
+)
+from pyanaconda.modules.common.constants import namespaces, services
 
 # Path to the configuration directory of the repo.
 CONFIG_DIR = os.environ.get("ANACONDA_DATA")

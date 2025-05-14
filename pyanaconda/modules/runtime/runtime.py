@@ -19,14 +19,14 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
-from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
-from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
-from pyanaconda.modules.runtime.user_interface import UIModule
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.submodule_manager import SubmoduleManager
+from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
+from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
+from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
+from pyanaconda.modules.runtime.user_interface import UIModule
 
 log = get_module_logger(__name__)
 

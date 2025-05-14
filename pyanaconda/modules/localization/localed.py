@@ -17,14 +17,17 @@
 #
 from abc import ABC
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import SystemBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.keyboard import (
+    InvalidLayoutVariantSpec,
+    join_layout_variant,
+    parse_layout_variant,
+)
 from pyanaconda.modules.common.constants.services import LOCALED
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
-    InvalidLayoutVariantSpec
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

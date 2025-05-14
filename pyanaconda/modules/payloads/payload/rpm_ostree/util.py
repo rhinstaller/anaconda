@@ -17,6 +17,7 @@
 #
 
 import os.path
+
 from pyanaconda.core.path import join_paths
 
 __all__ = ["have_bootupd"]

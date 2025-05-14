@@ -23,17 +23,24 @@ import unittest
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.core.constants import (
+    INSTALLATION_PHASE_PREINSTALL,
+    PAYLOAD_TYPE_DNF,
+    PAYLOAD_TYPE_LIVE_OS,
+)
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_LIVE_OS, \
-    INSTALLATION_PHASE_PREINSTALL
-from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
+from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.security.certificates.certificates import CertificatesModule
-from pyanaconda.modules.security.certificates.certificates_interface import CertificatesInterface
+from pyanaconda.modules.security.certificates.certificates_interface import (
+    CertificatesInterface,
+)
 from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
-from tests.unit_tests.pyanaconda_tests import check_dbus_property, check_task_creation, \
-    patch_dbus_publish_object
-
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 CERT_RVTEST = """-----BEGIN CERTIFICATE-----
 MIIBjTCCATOgAwIBAgIUWR5HO3v/0I80Ne0jQWVZFODuWLEwCgYIKoZIzj0EAwIw

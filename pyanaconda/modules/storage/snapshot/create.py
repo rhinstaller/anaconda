@@ -19,6 +19,7 @@
 #
 from blivet.formats.fs import XFS
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.task.task import Task
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device

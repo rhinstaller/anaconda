@@ -19,14 +19,15 @@
 #
 import tempfile
 import unittest
-import pytest
 from unittest.mock import patch
 
-from pyanaconda.core.dbus import AnacondaMessageBus, DefaultMessageBus
-from dasbus.constants import DBUS_STARTER_ADDRESS
-from pyanaconda.core.constants import DBUS_ANACONDA_SESSION_ADDRESS
-
 import gi
+import pytest
+from dasbus.constants import DBUS_STARTER_ADDRESS
+
+from pyanaconda.core.constants import DBUS_ANACONDA_SESSION_ADDRESS
+from pyanaconda.core.dbus import AnacondaMessageBus, DefaultMessageBus
+
 gi.require_version("Gio", "2.0")
 from gi.repository import Gio
 

@@ -16,13 +16,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import WARNING_SMT_ENABLED_GUI
-from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.hw import is_smt_enabled
+from pyanaconda.core.i18n import C_, _
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
-from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.ui.lib.space import DirInstallSpaceChecker, FileSystemSpaceChecker
 
 __all__ = ["SummaryHub"]
 

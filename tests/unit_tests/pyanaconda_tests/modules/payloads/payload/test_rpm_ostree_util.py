@@ -17,9 +17,10 @@
 #
 import tempfile
 import unittest
-from pyanaconda.core.path import join_paths, touch, make_directories
 
+from pyanaconda.core.path import join_paths, make_directories, touch
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
+
 
 class RPMOSTreeUtilTestCase(unittest.TestCase):
     """Test the RPM OSTree utils."""

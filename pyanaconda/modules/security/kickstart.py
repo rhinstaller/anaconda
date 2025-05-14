@@ -19,7 +19,9 @@
 #
 from pykickstart.parser import Certificate
 from pykickstart.sections import CertificateSection
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+
+from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import commands as COMMANDS
 
 
 class SecurityKickstartSpecification(KickstartSpecification):

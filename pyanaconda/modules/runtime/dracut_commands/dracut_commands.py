@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from collections import namedtuple
+
 from pyanaconda.modules.common.base import KickstartBaseModule
 
 __all__ = ["DracutCommandsModule"]

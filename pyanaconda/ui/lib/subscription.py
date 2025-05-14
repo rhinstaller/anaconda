@@ -19,19 +19,27 @@
 from enum import Enum
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
-    SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN, SECRET_TYPE_HIDDEN, \
-    SECRET_TYPE_TEXT, PAYLOAD_TYPE_DNF
-from pyanaconda.errors import errorHandler, ERROR_RAISE
-
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    SECRET_TYPE_HIDDEN,
+    SECRET_TYPE_TEXT,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPES_OVERRIDEN_BY_CDN,
+    THREAD_WAIT_FOR_CONNECTING_NM,
+)
+from pyanaconda.core.threads import thread_manager
+from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.modules.common import task
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.errors.subscription import (
+    MultipleOrganizationsError,
+    RegistrationError,
+    SatelliteProvisioningError,
+    UnregistrationError,
+)
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SatelliteProvisioningError, MultipleOrganizationsError
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 
 log = get_module_logger(__name__)

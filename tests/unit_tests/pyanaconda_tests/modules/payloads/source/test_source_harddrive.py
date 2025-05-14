@@ -25,10 +25,12 @@ from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_REPOSI
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
-    SetupHardDriveResult
+from pyanaconda.modules.payloads.source.harddrive.initialization import (
+    SetupHardDriveResult,
+    SetUpHardDriveSourceTask,
+)
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 

@@ -17,16 +17,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 
 from blivet.errors import FSError
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
+from pyanaconda.modules.common.errors.storage import (
+    MountFilesystemError,
+    UnknownDeviceError,
+)
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
-from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
-    MountExistingSystemTask
-from pyanaconda.modules.storage.devicetree.utils import find_optical_media, \
-    find_mountable_partitions, unlock_device, find_unconfigured_luks
+from pyanaconda.modules.storage.devicetree.rescue import (
+    FindExistingSystemsTask,
+    MountExistingSystemTask,
+)
+from pyanaconda.modules.storage.devicetree.utils import (
+    find_mountable_partitions,
+    find_optical_media,
+    find_unconfigured_luks,
+    unlock_device,
+)
 
 log = get_module_logger(__name__)
 

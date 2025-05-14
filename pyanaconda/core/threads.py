@@ -21,6 +21,7 @@
 import threading
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 

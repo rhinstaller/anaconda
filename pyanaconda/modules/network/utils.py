@@ -18,15 +18,15 @@
 # Red Hat, Inc.
 #
 
-import os
 import glob
+import os
 from functools import wraps
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

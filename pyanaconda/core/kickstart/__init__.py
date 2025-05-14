@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.core.kickstart.specification import KickstartSpecification
+from pyanaconda.core.kickstart.version import VERSION
 
 __all__ = ["VERSION", "KickstartSpecification"]

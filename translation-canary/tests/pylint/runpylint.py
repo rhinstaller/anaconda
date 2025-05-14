@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 import sys
+
 from pocketlint import PocketLintConfig, PocketLinter
+
 
 class TranslationCanaryLintConfig(PocketLintConfig):
     @property

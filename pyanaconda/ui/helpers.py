@@ -60,8 +60,8 @@ from pyanaconda.core import constants
 from pyanaconda.core.constants import DRACUT_REPO_DIR
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
+from pyanaconda.core.payload import create_hdd_url, create_nfs_url
 from pyanaconda.core.product import get_product_name, get_product_version
-from pyanaconda.core.payload import create_nfs_url, create_hdd_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 

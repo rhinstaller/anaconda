@@ -18,8 +18,11 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HMC
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 __all__ = ["HMCSourceInterface"]
 

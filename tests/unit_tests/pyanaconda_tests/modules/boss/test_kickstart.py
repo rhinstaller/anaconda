@@ -16,14 +16,17 @@
 # Red Hat, Inc.
 #
 
-import unittest
 import os
+import unittest
 from contextlib import contextmanager
 from unittest.mock import Mock
 
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
-from pyanaconda.modules.common.structures.kickstart import KickstartReport, KickstartMessage
+from pyanaconda.modules.common.structures.kickstart import (
+    KickstartMessage,
+    KickstartReport,
+)
 
 KICKSTART1 = """
 text

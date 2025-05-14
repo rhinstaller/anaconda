@@ -18,7 +18,9 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
-import sys, argparse
+import argparse
+import sys
+
 from . import testSourceTree
 
 ap = argparse.ArgumentParser(description='Validate translated strings')

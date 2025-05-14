@@ -16,17 +16,18 @@
 # Red Hat, Inc.
 #
 import time
+
 import requests
 
-from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

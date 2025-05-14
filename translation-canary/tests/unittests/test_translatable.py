@@ -16,15 +16,15 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
+import tempfile
 import unittest
 import unittest.mock
+
 from polib import POEntry, POFile
-import tempfile
-
-from translation_canary.translatable.test_markup import test_markup
+from translation_canary.translatable import testPOT, testString
 from translation_canary.translatable.test_comment import test_comment
+from translation_canary.translatable.test_markup import test_markup
 
-from translation_canary.translatable import testString, testPOT
 
 class TestMarkup(unittest.TestCase):
     def test_ok(self):

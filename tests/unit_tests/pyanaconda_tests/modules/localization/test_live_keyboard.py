@@ -18,8 +18,10 @@
 import unittest
 from unittest.mock import patch
 
-from pyanaconda.modules.localization.live_keyboard import GnomeShellKeyboard, \
-    get_live_keyboard_instance
+from pyanaconda.modules.localization.live_keyboard import (
+    GnomeShellKeyboard,
+    get_live_keyboard_instance,
+)
 
 
 class LiveSystemKeyboardTestCase(unittest.TestCase):

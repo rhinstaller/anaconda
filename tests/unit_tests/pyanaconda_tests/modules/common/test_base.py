@@ -19,14 +19,18 @@ import unittest
 import warnings
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from pykickstart.errors import (
+    KickstartDeprecationWarning,
+    KickstartParseError,
+    KickstartParseWarning,
+)
 
-from pykickstart.errors import KickstartParseError, KickstartParseWarning, \
-    KickstartDeprecationWarning
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation_list
-
-from pyanaconda.modules.common.base import KickstartService, KickstartModuleInterface
+from pyanaconda.modules.common.base import KickstartModuleInterface, KickstartService
 from pyanaconda.modules.common.task import Task
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation_list,
+    patch_dbus_publish_object,
+)
 
 
 class BaseModuleTestCase(unittest.TestCase):

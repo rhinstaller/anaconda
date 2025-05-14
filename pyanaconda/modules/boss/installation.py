@@ -15,13 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import glob
 import os.path
 import shutil
-import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories, join_paths, open_with_perm
+from pyanaconda.core.path import join_paths, make_directories, open_with_perm
 from pyanaconda.core.util import execWithRedirect, restorecon
 from pyanaconda.modules.common.task import Task
 

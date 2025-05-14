@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from functools import partial
 
 from blivet.formats import get_format
@@ -26,12 +26,19 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
-from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData, OSData, MountPointConstraintsData
-from pyanaconda.modules.storage.devicetree.utils import get_required_device_size, \
-    get_supported_filesystems
-from pyanaconda.modules.storage.platform import platform
+from pyanaconda.modules.common.structures.storage import (
+    DeviceActionData,
+    DeviceData,
+    DeviceFormatData,
+    MountPointConstraintsData,
+    OSData,
+)
+from pyanaconda.modules.storage.devicetree.utils import (
+    get_required_device_size,
+    get_supported_filesystems,
+)
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
+from pyanaconda.modules.storage.platform import platform
 
 log = get_module_logger(__name__)
 

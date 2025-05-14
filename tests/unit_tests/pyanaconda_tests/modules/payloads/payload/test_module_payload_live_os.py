@@ -21,19 +21,24 @@ import os
 import tempfile
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE, PAYLOAD_TYPE_LIVE_OS
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.core.path import join_paths, make_directories, touch
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.payload.live_image.installation import (
+    InstallFromImageTask,
+)
+from pyanaconda.modules.payloads.payload.live_os.installation import (
+    CopyTransientGnomeInitialSetupStateTask,
+)
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
-from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
-from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
-from pyanaconda.modules.payloads.payload.live_os.installation import \
-    CopyTransientGnomeInitialSetupStateTask
-
+from pyanaconda.modules.payloads.payload.live_os.live_os_interface import (
+    LiveOSInterface,
+)
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadSharedTest,
+)
 
 
 class LiveOSInterfaceTestCase(unittest.TestCase):

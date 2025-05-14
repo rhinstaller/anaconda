@@ -22,26 +22,41 @@ import datetime
 
 from pykickstart.errors import KickstartParseError
 
-from pyanaconda.core.i18n import _
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL, \
-    TIMEZONE_PRIORITY_USER, TIMEZONE_PRIORITY_DEFAULT, TIMEZONE_PRIORITY_KICKSTART
+from pyanaconda.core.constants import (
+    TIME_SOURCE_POOL,
+    TIME_SOURCE_SERVER,
+    TIMEZONE_PRIORITY_DEFAULT,
+    TIMEZONE_PRIORITY_KICKSTART,
+    TIMEZONE_PRIORITY_USER,
+)
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
-from pyanaconda.timezone import NTP_PACKAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.structures.timezone import (
+    GeolocationData,
+    TimeSourceData,
+)
 from pyanaconda.modules.timezone.initialization import GeolocationTask
-from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask, \
-    ConfigureNTPTask, ConfigureTimezoneTask
+from pyanaconda.modules.timezone.installation import (
+    ConfigureHardwareClockTask,
+    ConfigureNTPTask,
+    ConfigureTimezoneTask,
+)
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
-from pyanaconda.timezone import get_timezone, set_system_date_time, get_all_regions_and_timezones
+from pyanaconda.timezone import (
+    NTP_PACKAGE,
+    get_all_regions_and_timezones,
+    get_timezone,
+    set_system_date_time,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

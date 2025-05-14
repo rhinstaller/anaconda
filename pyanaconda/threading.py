@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.core.threads import thread_manager as threadMgr
 from pyanaconda.core.threads import AnacondaThread, ThreadManager
+from pyanaconda.core.threads import thread_manager as threadMgr
 
 __all__ = ["threadMgr", "AnacondaThread", "ThreadManager"]

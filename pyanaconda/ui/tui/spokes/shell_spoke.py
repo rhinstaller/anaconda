@@ -17,15 +17,15 @@
 #
 """Text mode shell spoke"""
 
-from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.i18n import N_, _
+from blivet import arch
+from simpleline.render.widgets import TextWidget
+
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.util import execConsole
-from blivet import arch
-
-from simpleline.render.widgets import TextWidget
+from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
 __all__ = ["ShellSpoke"]
 

@@ -17,13 +17,16 @@
 #
 import os
 
-from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderArguments,\
-    BootLoaderError
-from pyanaconda.core.util import execWithRedirect
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.product import get_product_name
+from pyanaconda.core.util import execWithRedirect
+from pyanaconda.modules.storage.bootloader.base import (
+    BootLoader,
+    BootLoaderArguments,
+    BootLoaderError,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["EXTLINUX"]

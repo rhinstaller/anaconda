@@ -20,10 +20,11 @@
 import time
 
 from dasbus.error import DBusError
-from pyanaconda.core.signal import Signal
-from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.modules.common.task import sync_run_task
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.signal import Signal
+from pyanaconda.errors import ERROR_RAISE, errorHandler
+from pyanaconda.modules.common.task import sync_run_task
 
 log = get_module_logger(__name__)
 

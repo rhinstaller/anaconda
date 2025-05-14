@@ -16,16 +16,19 @@
 # Red Hat, Inc.
 #
 from abc import ABCMeta, abstractmethod
+
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+)
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.base import Payload
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources
-from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
-        NonCriticalInstallationError
 
 log = get_module_logger(__name__)
 

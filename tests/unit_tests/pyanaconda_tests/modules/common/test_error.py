@@ -18,10 +18,11 @@
 import unittest
 
 from dasbus.error import DBusError
+
 from pyanaconda.core.dbus import error_mapper
+from pyanaconda.modules.common.errors.general import AnacondaError
 from pyanaconda.modules.common.errors.module import UnavailableModuleError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.errors.general import AnacondaError
 
 
 class DBusErrorTestCase(unittest.TestCase):

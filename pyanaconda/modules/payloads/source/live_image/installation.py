@@ -15,13 +15,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.payload.live_image.installation import (
+    DownloadImageTask,
+    InstallFromImageTask,
+    MountImageTask,
+    RemoveImageTask,
+    VerifyImageChecksumTask,
+)
+from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
-from pyanaconda.modules.payloads.payload.live_image.installation import DownloadImageTask, \
-    VerifyImageChecksumTask, MountImageTask, InstallFromImageTask, RemoveImageTask
-from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 __all__ = ["InstallLiveImageTask"]
 

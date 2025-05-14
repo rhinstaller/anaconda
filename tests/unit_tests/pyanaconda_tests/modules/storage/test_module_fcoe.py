@@ -18,16 +18,19 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import Mock, patch
+
+import pytest
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class FCOEInterfaceTestCase(unittest.TestCase):

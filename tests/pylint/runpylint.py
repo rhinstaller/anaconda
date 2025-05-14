@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 
 import atexit
+import os
 import shutil
 import sys
 import tempfile
 import time
-import os
-
 from os import path
 
 from censorship import CensorshipConfig, CensorshipLinter, FalsePositive

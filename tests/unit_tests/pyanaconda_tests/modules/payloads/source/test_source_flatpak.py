@@ -21,10 +21,11 @@ from unittest.mock import patch
 
 from pyanaconda.core.constants import SOURCE_TYPE_FLATPAK
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_RPM_OSTREE
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.source.flatpak.flatpak import FlatpakSourceModule
-from pyanaconda.modules.payloads.source.flatpak.initialization import GetFlatpaksSizeTask
-
+from pyanaconda.modules.payloads.source.flatpak.initialization import (
+    GetFlatpaksSizeTask,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

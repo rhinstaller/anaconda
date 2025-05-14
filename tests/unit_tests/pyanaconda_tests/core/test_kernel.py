@@ -17,8 +17,9 @@
 #
 
 import unittest
-from pyanaconda.core.kernel import KernelArguments, kernel_arguments
 from collections.abc import Iterable
+
+from pyanaconda.core.kernel import KernelArguments, kernel_arguments
 
 
 class KernelArgumentsTests(unittest.TestCase):

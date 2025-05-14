@@ -19,10 +19,11 @@
 #
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
-from pyanaconda.modules.common.structures.security import CertificateData
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.security import CertificateData
 
 
 @dbus_interface(CERTIFICATES.interface_name)

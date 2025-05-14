@@ -22,14 +22,19 @@ from unittest.mock import Mock, patch
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.modules.common.structures.iscsi import Portal, Credentials, Node
+from pyanaconda.modules.common.structures.iscsi import Credentials, Node, Portal
 from pyanaconda.modules.storage.constants import IscsiInterfacesMode
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.iscsi.discover import ISCSIDiscoverTask, ISCSILoginTask
-from pyanaconda.modules.storage.iscsi.iscsi_interface import ISCSIInterface, \
-    ISCSIDiscoverTaskInterface
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    check_dbus_property
+from pyanaconda.modules.storage.iscsi.iscsi_interface import (
+    ISCSIDiscoverTaskInterface,
+    ISCSIInterface,
+)
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class ISCSIInterfaceTestCase(unittest.TestCase):

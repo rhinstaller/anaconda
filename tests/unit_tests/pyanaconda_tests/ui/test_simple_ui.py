@@ -20,12 +20,11 @@
 import os
 import re
 import unittest
+from unittest.mock import Mock, create_autospec, patch
 
-from unittest.mock import Mock, patch, create_autospec
 from pyanaconda.ui import UserInterface
-from pyanaconda.ui.common import StandaloneSpoke, Hub, Screen
+from pyanaconda.ui.common import Hub, Screen, StandaloneSpoke
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy
-
 
 # blivet-gui is supported on Fedora, but not ELN/CentOS/RHEL
 HAVE_BLIVET_GUI = os.path.exists("/usr/bin/blivet-gui")

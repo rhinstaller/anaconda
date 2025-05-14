@@ -16,4 +16,5 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
+
 __all__ = ["FirewallModule"]

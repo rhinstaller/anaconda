@@ -20,7 +20,7 @@
 
 # Disable unused imports for the whole module.
 # pylint:disable=unused-import
-# ruff: noqa: F401
+# ruff: noqa: F401, I001
 
 # Supported kickstart commands.
 from pykickstart.commands.authselect import F28_Authselect as Authselect

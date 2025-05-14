@@ -18,20 +18,22 @@
 #
 
 import os
+import socket
 import sys
 import time
-from pyanaconda import network
-from pyanaconda.core import util
-from pyanaconda.core.util import execWithCapture, startProgram
-import socket
+
 from systemd import journal
 
-from pyanaconda.core.i18n import _
-
+from pyanaconda import network
 from pyanaconda.anaconda_loggers import get_stdout_logger
+from pyanaconda.core import util
+from pyanaconda.core.i18n import _
+from pyanaconda.core.util import execWithCapture, startProgram
+
 stdoutLog = get_stdout_logger()
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 OPENSSL_BINARY_PATH = "/usr/bin/openssl"
