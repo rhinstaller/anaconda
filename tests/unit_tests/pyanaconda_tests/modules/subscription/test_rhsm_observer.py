@@ -19,12 +19,11 @@
 #
 
 import unittest
+from unittest.mock import Mock, PropertyMock, patch
+
 import pytest
-
-from unittest.mock import patch, Mock, PropertyMock
-
-from dasbus.typing import get_variant, Str
 from dasbus.client.observer import DBusObserverError
+from dasbus.typing import Str, get_variant
 
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.modules.subscription.initialization import StartRHSMTask

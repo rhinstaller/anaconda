@@ -17,9 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from dasbus.identifier import DBusObjectIdentifier
-from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
-    PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
-    RHSM_NAMESPACE, BOSS_NAMESPACE, SECURITY_NAMESPACE
+
+from pyanaconda.modules.common.constants.namespaces import (
+    BOSS_NAMESPACE,
+    DEVICE_TREE_NAMESPACE,
+    NETWORK_NAMESPACE,
+    PARTITIONING_NAMESPACE,
+    RHSM_NAMESPACE,
+    SECURITY_NAMESPACE,
+    STORAGE_NAMESPACE,
+)
 
 # Boss objects.
 

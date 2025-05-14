@@ -18,13 +18,18 @@
 # Red Hat, Inc.
 #
 import gi
+
 gi.require_version("BlockDev", "2.0")
+from blivet.zfcp import zfcp
 from gi.repository import BlockDev as blockdev
 
-from blivet.zfcp import zfcp
-from pyanaconda.core.regexes import DASD_DEVICE_NUMBER, ZFCP_WWPN_NUMBER, ZFCP_LUN_NUMBER
-from pyanaconda.modules.common.task import Task
+from pyanaconda.core.regexes import (
+    DASD_DEVICE_NUMBER,
+    ZFCP_LUN_NUMBER,
+    ZFCP_WWPN_NUMBER,
+)
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.task import Task
 
 
 class ZFCPDiscoverTask(Task):

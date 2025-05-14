@@ -17,18 +17,18 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda import localization
-from pyanaconda.core.i18n import N_, _
-
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget
+
+from pyanaconda import localization
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.ui.categories.localization import LocalizationCategory
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
 # TRANSLATORS: 'b' to go back to language list
 PROMPT_BACK_DESCRIPTION = N_("to return to language list")

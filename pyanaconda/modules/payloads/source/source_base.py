@@ -22,9 +22,9 @@ from abc import ABC, ABCMeta, abstractmethod
 
 from dasbus.server.publishable import Publishable
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
-from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 

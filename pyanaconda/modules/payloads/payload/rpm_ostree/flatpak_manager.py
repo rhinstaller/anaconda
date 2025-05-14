@@ -19,21 +19,26 @@
 #
 import os
 import shutil
-import gi
-
 from abc import ABC, abstractmethod
 
+import gi
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.glib import Bytes, GError, Variant, VariantType
 from pyanaconda.core.i18n import _
-from pyanaconda.core.glib import GError, VariantType, Variant, Bytes
-from pyanaconda.progress import progressQ
 from pyanaconda.payload.errors import FlatpakInstallError
+from pyanaconda.progress import progressQ
 
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository.Flatpak import Transaction, Installation, Remote, \
-    TransactionOperationType, TransactionErrorDetails
+from gi.repository.Flatpak import (
+    Installation,
+    Remote,
+    Transaction,
+    TransactionErrorDetails,
+    TransactionOperationType,
+)
 from gi.repository.Gio import File
 
 log = get_module_logger(__name__)

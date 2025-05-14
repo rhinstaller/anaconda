@@ -16,11 +16,15 @@
 # Red Hat, Inc.
 #
 import blivet
-from blivet.deviceaction import ActionResizeFormat, ActionResizeDevice, ActionCreateFormat
-from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
+from blivet.deviceaction import (
+    ActionCreateFormat,
+    ActionResizeDevice,
+    ActionResizeFormat,
+)
+from blivet.devicelibs.lvm import KNOWN_THPOOL_PROFILES, LVM_PE_SIZE
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
-from blivet.errors import StorageError, BTRFSValueError
+from blivet.errors import BTRFSValueError, StorageError
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
@@ -32,12 +36,17 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
-    NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
-    schedule_partitions, get_pbkdf_args, lookup_alias
-from pyanaconda.modules.storage.platform import platform
 from pyanaconda.core.storage import suggest_swap_size
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import (
+    NonInteractivePartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    get_candidate_disks,
+    get_pbkdf_args,
+    lookup_alias,
+    schedule_partitions,
+)
+from pyanaconda.modules.storage.platform import platform
 
 log = get_module_logger(__name__)
 

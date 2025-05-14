@@ -16,28 +16,37 @@
 # Red Hat, Inc.
 #
 import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
 
+gi.require_version("BlockDev", "2.0")
 from collections import defaultdict
 
 from blivet import arch, util
 from blivet.devicefactory import get_device_type
 from blivet.size import Size
+from gi.repository import BlockDev as blockdev
 
 from pyanaconda import isys
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLOCKLIST, \
-    STORAGE_REFORMAT_ALLOWLIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
-    STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
-    STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, STORAGE_REQ_PARTITION_SIZES, \
-    STORAGE_MUST_NOT_BE_ON_ROOT
+from pyanaconda.core.constants import (
+    STORAGE_LUKS2_MIN_RAM,
+    STORAGE_MIN_PARTITION_SIZES,
+    STORAGE_MIN_RAM,
+    STORAGE_MUST_BE_ON_LINUXFS,
+    STORAGE_MUST_BE_ON_ROOT,
+    STORAGE_MUST_NOT_BE_ON_ROOT,
+    STORAGE_REFORMAT_ALLOWLIST,
+    STORAGE_REFORMAT_BLOCKLIST,
+    STORAGE_REQ_PARTITION_SIZES,
+    STORAGE_ROOT_DEVICE_TYPES,
+    STORAGE_SWAP_IS_RECOMMENDED,
+    productName,
+)
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import rpm_version_key
 from pyanaconda.core.storage import DEVICE_TEXT_MAP
 from pyanaconda.modules.storage.platform import platform
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

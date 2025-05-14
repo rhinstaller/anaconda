@@ -20,12 +20,11 @@
 
 import pwquality
 
-from pyanaconda.core.signal import Signal
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants, regexes, users
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core import constants, regexes
-from pyanaconda.core import users
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.policy import PasswordPolicy

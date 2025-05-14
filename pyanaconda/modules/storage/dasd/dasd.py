@@ -23,10 +23,16 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DASD
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError, UnknownDeviceError
+from pyanaconda.modules.common.errors.storage import (
+    UnavailableStorageError,
+    UnknownDeviceError,
+)
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
-from pyanaconda.modules.storage.dasd.format import DASDFormatTask, FindFormattableDASDTask
+from pyanaconda.modules.storage.dasd.format import (
+    DASDFormatTask,
+    FindFormattableDASDTask,
+)
 
 log = get_module_logger(__name__)
 

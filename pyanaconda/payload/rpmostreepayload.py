@@ -20,20 +20,30 @@
 
 from subprocess import CalledProcessError
 
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE, \
-    SOURCE_TYPE_RPM_OSTREE_CONTAINER
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData, \
-    RPMOSTreeContainerConfigurationData
-from pyanaconda.progress import progressQ
-from pyanaconda.payload.base import Payload
-from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.errors import PayloadInstallError
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
-
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_RPM_OSTREE,
+    SOURCE_TYPE_RPM_OSTREE,
+    SOURCE_TYPE_RPM_OSTREE_CONTAINER,
+)
+from pyanaconda.modules.common.structures.rpm_ostree import (
+    RPMOSTreeConfigurationData,
+    RPMOSTreeContainerConfigurationData,
+)
+from pyanaconda.payload import utils as payload_utils
+from pyanaconda.payload.base import Payload
+from pyanaconda.payload.errors import PayloadInstallError
+from pyanaconda.progress import progressQ
+from pyanaconda.ui.lib.payload import (
+    get_payload,
+    get_source,
+    set_up_sources,
+    tear_down_sources,
+)
+
 log = get_module_logger(__name__)
 
 
@@ -115,15 +125,17 @@ class RPMOSTreePayload(Payload):
     def _install(self, data):
         log.info("executing ostreesetup=%r", data)
 
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            InitOSTreeFsAndRepoTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            InitOSTreeFsAndRepoTask,
+        )
         task = InitOSTreeFsAndRepoTask(conf.target.physical_root)
         task.run()
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            ChangeOSTreeRemoteTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            ChangeOSTreeRemoteTask,
+        )
         task = ChangeOSTreeRemoteTask(
             data,
             use_root=False,
@@ -132,25 +144,31 @@ class RPMOSTreePayload(Payload):
         task.run()
 
         if not data.is_container():
-            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-                PullRemoteAndDeleteTask
+            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+                PullRemoteAndDeleteTask,
+            )
             task = PullRemoteAndDeleteTask(data)
             task.progress_changed_signal.connect(self._progress_cb)
             task.run()
 
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import DeployOSTreeTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            DeployOSTreeTask,
+        )
         task = DeployOSTreeTask(data, conf.target.physical_root)
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
         # Reload now that we've deployed, find the path to the new deployment
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import SetSystemRootTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            SetSystemRootTask,
+        )
         task = SetSystemRootTask(conf.target.physical_root)
         task.run()
 
         try:
-            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-                CopyBootloaderDataTask
+            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+                CopyBootloaderDataTask,
+            )
             task = CopyBootloaderDataTask(
                 sysroot=conf.target.system_root,
                 physroot=conf.target.physical_root
@@ -161,8 +179,9 @@ class RPMOSTreePayload(Payload):
 
     def _prepare_mount_targets(self, data):
         """ Prepare the ostree root """
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            PrepareOSTreeMountTargetsTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            PrepareOSTreeMountTargetsTask,
+        )
         task = PrepareOSTreeMountTargetsTask(
             sysroot=conf.target.system_root,
             physroot=conf.target.physical_root,
@@ -197,8 +216,9 @@ class RPMOSTreePayload(Payload):
         # Note here we use the deployment as sysroot, because it's that version of /etc that we
         # want.
 
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            ChangeOSTreeRemoteTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            ChangeOSTreeRemoteTask,
+        )
         task = ChangeOSTreeRemoteTask(
             data,
             use_root=True,
@@ -207,8 +227,9 @@ class RPMOSTreePayload(Payload):
         task.run()
 
         # Handle bootloader configuration
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            ConfigureBootloader
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+            ConfigureBootloader,
+        )
         task = ConfigureBootloader(
             sysroot=conf.target.system_root,
             is_dirinstall=conf.target.is_directory
@@ -226,8 +247,9 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         super().__init__(*args, **kwargs)
 
         # find Flatpak installation size and cache it
-        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import \
-            GetFlatpaksSizeTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import (
+            GetFlatpaksSizeTask,
+        )
         task = GetFlatpaksSizeTask(conf.target.system_root)
         self._flatpak_required_size = task.run()
 
@@ -247,8 +269,9 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         progressQ.send_message(message)
 
     def _flatpak_install(self):
-        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
-            InstallFlatpaksTask
+        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
+            InstallFlatpaksTask,
+        )
         task = InstallFlatpaksTask(conf.target.system_root)
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()

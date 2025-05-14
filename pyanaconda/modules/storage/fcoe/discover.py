@@ -18,8 +18,9 @@
 # Red Hat, Inc.
 #
 from blivet.fcoe import fcoe
-from pyanaconda.modules.common.task import Task
+
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.task import Task
 
 
 class FCOEDiscoverTask(Task):

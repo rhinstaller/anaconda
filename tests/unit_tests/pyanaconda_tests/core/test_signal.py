@@ -24,6 +24,7 @@ import unittest
 
 from pyanaconda.core.signal import Signal
 
+
 class FooClass(object):
     def __init__(self):
         self._var = None

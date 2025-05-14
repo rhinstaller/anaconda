@@ -18,8 +18,10 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
-from pocketlint.pangocheck import is_markup, markup_necessary
 import xml.etree.ElementTree as ET
+
+from pocketlint.pangocheck import is_markup, markup_necessary
+
 
 def test_markup(poentry):
     # Unnecessary markup is markup applied to an entire string, such as

@@ -21,23 +21,33 @@ import os
 import tempfile
 import unittest
 from textwrap import dedent
-
 from unittest.mock import patch
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
-    PropertiesChangedCallback
-
-from pyanaconda.core.constants import SETUP_ON_BOOT_DISABLED, \
-    SETUP_ON_BOOT_RECONFIG, SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_DEFAULT, \
-    TEXT_ONLY_TARGET, GRAPHICAL_TARGET
+from pyanaconda.core.constants import (
+    GRAPHICAL_TARGET,
+    SETUP_ON_BOOT_DEFAULT,
+    SETUP_ON_BOOT_DISABLED,
+    SETUP_ON_BOOT_ENABLED,
+    SETUP_ON_BOOT_RECONFIG,
+    TEXT_ONLY_TARGET,
+)
 from pyanaconda.modules.common.constants.services import SERVICES
-from pyanaconda.modules.services.installation import ConfigurePostInstallationToolsTask
 from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.modules.services.constants import SetupOnBootAction
+from pyanaconda.modules.services.installation import (
+    ConfigureDefaultDesktopTask,
+    ConfigureInitialSetupTask,
+    ConfigurePostInstallationToolsTask,
+    ConfigureServicesTask,
+    ConfigureSystemdDefaultTargetTask,
+)
 from pyanaconda.modules.services.services import ServicesService
 from pyanaconda.modules.services.services_interface import ServicesInterface
-from pyanaconda.modules.services.constants import SetupOnBootAction
-from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
-    ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, ConfigureDefaultDesktopTask
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_kickstart_interface,
+    patch_dbus_publish_object,
+)
 
 
 class ServicesInterfaceTestCase(unittest.TestCase):

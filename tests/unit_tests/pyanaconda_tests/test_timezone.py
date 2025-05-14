@@ -16,9 +16,10 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda import timezone
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
+from pyanaconda import timezone
 
 
 class TimezonesListings(unittest.TestCase):

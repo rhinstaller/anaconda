@@ -17,32 +17,34 @@
 # Red Hat, Inc.
 #
 
-import sys
-import re
 import os
+import re
+import sys
 
 import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
+from pyanaconda import flags, localization
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda.core.constants import (
+    DEFAULT_LANG,
+    TIMEZONE_PRIORITY_LANGUAGE,
+    WINDOW_TITLE_TEXT,
+)
+from pyanaconda.core.i18n import _
+from pyanaconda.core.util import ipmi_abort
+from pyanaconda.modules.common.constants.services import LOCALIZATION, TIMEZONE
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
-from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.spokes.lib.beta_warning_dialog import BetaWarningDialog
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda.ui.gui.spokes.lib.unsupported_hardware import UnsupportedHardwareDialog
-
-from pyanaconda import localization
-from pyanaconda.product import distributionText, isFinal, productName, productVersion
-from pyanaconda import flags
-from pyanaconda.core.i18n import _
-from pyanaconda.core.util import ipmi_abort
-from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT, TIMEZONE_PRIORITY_LANGUAGE
-from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.ui.gui.utils import escape_markup, setup_gtk_direction
 
 log = get_module_logger(__name__)
 

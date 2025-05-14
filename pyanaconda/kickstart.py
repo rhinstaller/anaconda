@@ -26,31 +26,47 @@ import sys
 import tempfile
 import time
 import warnings
-
 from contextlib import contextmanager
+
+from pykickstart.base import BaseHandler, KickstartCommand, RemovedCommand
+from pykickstart.constants import (
+    KS_SCRIPT_POST,
+    KS_SCRIPT_PRE,
+    KS_SCRIPT_PREINSTALL,
+    KS_SCRIPT_TRACEBACK,
+)
+from pykickstart.errors import (
+    KickstartDeprecationWarning,
+    KickstartError,
+    KickstartParseWarning,
+)
+from pykickstart.ko import KickstartObject
+from pykickstart.parser import KickstartParser
+from pykickstart.parser import Script as KSScript
+from pykickstart.sections import (
+    NullSection,
+    OnErrorScriptSection,
+    PostScriptSection,
+    PreInstallScriptSection,
+    PreScriptSection,
+    Section,
+    TracebackScriptSection,
+)
+from pykickstart.version import returnClassForVersion
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
-from pyanaconda.core.kickstart.specification import KickstartSpecification
 from pyanaconda.core.constants import IPMI_ABORTED
+from pyanaconda.core.i18n import _
+from pyanaconda.core.kickstart import VERSION
+from pyanaconda.core.kickstart import commands as COMMANDS
+from pyanaconda.core.kickstart.specification import KickstartSpecification
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.pwpolicy import F34_PwPolicy, F34_PwPolicyData
-
-from pykickstart.base import BaseHandler, KickstartCommand, RemovedCommand
-from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
-from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
-from pykickstart.ko import KickstartObject
-from pykickstart.parser import KickstartParser
-from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PostScriptSection, PreScriptSection, \
-    PreInstallScriptSection, OnErrorScriptSection, TracebackScriptSection, Section
-from pykickstart.version import returnClassForVersion
 
 log = get_module_logger(__name__)
 stdoutLog = get_stdout_logger()

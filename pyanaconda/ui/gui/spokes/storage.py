@@ -18,24 +18,37 @@
 #
 import sys
 
+import gi
 from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util, constants
+from pyanaconda.core import constants, util
 from pyanaconda.core.async_utils import async_action_nowait, async_action_wait
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
-    STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
-from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.constants import (
+    BOOTLOADER_ENABLED,
+    CLEAR_PARTITIONS_NONE,
+    PARTITIONING_METHOD_AUTOMATIC,
+    PARTITIONING_METHOD_BLIVET,
+    PARTITIONING_METHOD_INTERACTIVE,
+    STORAGE_METADATA_RATIO,
+    WARNING_NO_DISKS_DETECTED,
+    WARNING_NO_DISKS_SELECTED,
+)
+from pyanaconda.core.i18n import C_, CN_, _
+from pyanaconda.core.storage import suggest_swap_size
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER, DEVICE_TREE
+from pyanaconda.modules.common.constants.objects import (
+    BOOTLOADER,
+    DEVICE_TREE,
+    DISK_INITIALIZATION,
+    DISK_SELECTION,
+)
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.core.storage import suggest_swap_size
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import MainWindow
@@ -46,21 +59,38 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
+from pyanaconda.ui.gui.spokes.lib.storage_dialogs import (
+    DASD_FORMAT_NO_CHANGE,
+    DASD_FORMAT_REFRESH,
+    DASD_FORMAT_RETURN_TO_HUB,
+    RESPONSE_CANCEL,
+    RESPONSE_MODIFY_SW,
+    RESPONSE_OK,
+    RESPONSE_QUIT,
+    RESPONSE_RECLAIM,
+    NeedSpaceDialog,
+    NoSpaceDialog,
+)
 from pyanaconda.ui.gui.utils import ignoreEscape
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
-from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
-    select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
-    is_local_disk, filter_disks_by_names, is_passphrase_required, set_required_passphrase
-from pyanaconda.ui.gui.spokes.lib.storage_dialogs import NeedSpaceDialog, NoSpaceDialog, \
-    RESPONSE_CANCEL, RESPONSE_OK, RESPONSE_MODIFY_SW, RESPONSE_RECLAIM, RESPONSE_QUIT, \
-    DASD_FORMAT_NO_CHANGE, DASD_FORMAT_REFRESH, DASD_FORMAT_RETURN_TO_HUB
+from pyanaconda.ui.lib.storage import (
+    apply_disk_selection,
+    apply_partitioning,
+    create_partitioning,
+    filter_disks_by_names,
+    find_partitioning,
+    get_disks_summary,
+    is_local_disk,
+    is_passphrase_required,
+    select_default_disks,
+    set_required_passphrase,
+)
 
-import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("AnacondaWidgets", "3.3")
-from gi.repository import Gdk, AnacondaWidgets, Gtk
+from gi.repository import AnacondaWidgets, Gdk, Gtk
 
 log = get_module_logger(__name__)
 

@@ -36,6 +36,7 @@ except ImportError:
 
 # Gather tests from this directory
 import pkgutil
+
 _tests = []
 for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
     # Skip __main__

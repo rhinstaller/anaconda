@@ -15,8 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, sys, re
-import string   # pylint: disable=deprecated-module
+import os
+import re
+import string  # pylint: disable=deprecated-module
+import sys
+
 
 def list_occurrences(occurrences):
     # Return polib's occurrences list [('file1', line1), ('file2', line2), ...]

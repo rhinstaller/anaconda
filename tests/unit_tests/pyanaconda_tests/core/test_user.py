@@ -20,7 +20,8 @@
 #
 
 import unittest
-from pyanaconda.core.users import check_username, check_groupname, check_grouplist
+
+from pyanaconda.core.users import check_grouplist, check_groupname, check_username
 
 
 class UserNameTests(unittest.TestCase):

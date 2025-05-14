@@ -21,8 +21,8 @@ from blivet.nvme import nvme
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import NVME
 from pyanaconda.modules.storage.nvme.nvme_interface import NVMEInterface

@@ -19,13 +19,15 @@
 """Module providing thread-safe and mainloop-safe DBus operations."""
 
 import gi
+
 gi.require_version("Gio", "2.0")
+
+import os
 
 from gi.repository import Gio
 
-import os
-from pyanaconda.core.glib import GError
 from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
+from pyanaconda.core.glib import GError
 
 
 class SafeDBusError(Exception):

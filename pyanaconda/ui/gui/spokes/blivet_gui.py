@@ -21,34 +21,40 @@
 
 """Module with the BlivetGuiSpoke class."""
 from threading import Lock
+
 from pyanaconda.errors import RemovedModuleError
 
 try:
-    from blivetgui.osinstall import BlivetGUIAnaconda  # pylint: disable=import-error
-    from blivetgui.communication.client import BlivetGUIClient  # pylint: disable=import-error
+    from blivetgui.communication.client import (
+        BlivetGUIClient,  # pylint: disable=import-error
+    )
     from blivetgui.config import config  # pylint: disable=import-error
+    from blivetgui.osinstall import BlivetGUIAnaconda  # pylint: disable=import-error
 except ImportError:
     raise RemovedModuleError("This module is not supported!") from None
 
+import gi
 from dasbus.client.proxy import get_object_path
 from dasbus.typing import unwrap_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.helpers import StorageCheckHandler
-from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    PARTITIONING_METHOD_BLIVET
-from pyanaconda.core.i18n import _, CN_, C_
-from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
-from pyanaconda.threading import threadMgr
+from pyanaconda.core.constants import (
+    PARTITIONING_METHOD_BLIVET,
+    THREAD_EXECUTE_STORAGE,
+    THREAD_STORAGE,
+)
+from pyanaconda.core.i18n import C_, CN_, _
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.threading import threadMgr
+from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
+from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.ui.lib.storage import create_partitioning, reset_bootloader
 
-import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

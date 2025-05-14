@@ -16,14 +16,17 @@
 # Red Hat, Inc.
 #
 import os
-
 from tempfile import TemporaryDirectory
 from textwrap import dedent
 from unittest.case import TestCase
 from unittest.mock import patch
 
-from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist, \
-    get_dir_size, sort_kernel_version_list
+from pyanaconda.modules.payloads.base.utils import (
+    create_root_dir,
+    get_dir_size,
+    sort_kernel_version_list,
+    write_module_blacklist,
+)
 
 
 class PayloadBaseUtilsTest(TestCase):

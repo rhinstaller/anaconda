@@ -16,9 +16,12 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda import keyboard
 import unittest
+
 import pytest
+
+from pyanaconda import keyboard
+
 
 class ParsingAndJoiningTests(unittest.TestCase):
     def test_layout_variant_parsing(self):

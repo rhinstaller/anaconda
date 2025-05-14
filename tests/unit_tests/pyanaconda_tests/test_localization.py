@@ -17,10 +17,10 @@
 #
 import locale as locale_mod
 import unittest
-import pytest
-
-from unittest.mock import call, patch, MagicMock
 from io import StringIO
+from unittest.mock import MagicMock, call, patch
+
+import pytest
 
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_LANG

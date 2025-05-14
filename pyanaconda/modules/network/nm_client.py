@@ -19,24 +19,37 @@
 #
 
 import gi
+
 gi.require_version("NM", "1.0")
-from gi.repository import NM
+import socket
 from contextlib import contextmanager
 
-import socket
+from gi.repository import NM
 from pykickstart.constants import BIND_TO_MAC
-from pyanaconda.core.glib import create_new_context, GError, sync_call_glib
-from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
-    CONNECTION_ADDING_TIMEOUT, NM_CONNECTION_TYPE_WIFI, NM_CONNECTION_TYPE_ETHERNET, \
-    NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND,  NM_CONNECTION_TYPE_TEAM, \
-    NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND
-from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
-from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
-    prefix2netmask
-from pyanaconda.modules.network.config_file import is_config_file_for_system
-from pyanaconda.core.dbus import SystemBus
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.dbus import SystemBus
+from pyanaconda.core.glib import GError, create_new_context, sync_call_glib
+from pyanaconda.modules.network.config_file import is_config_file_for_system
+from pyanaconda.modules.network.constants import (
+    CONNECTION_ADDING_TIMEOUT,
+    NM_CONNECTION_TYPE_BOND,
+    NM_CONNECTION_TYPE_BRIDGE,
+    NM_CONNECTION_TYPE_ETHERNET,
+    NM_CONNECTION_TYPE_INFINIBAND,
+    NM_CONNECTION_TYPE_TEAM,
+    NM_CONNECTION_TYPE_VLAN,
+    NM_CONNECTION_TYPE_WIFI,
+    NM_CONNECTION_UUID_LENGTH,
+)
+from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
+from pyanaconda.modules.network.utils import (
+    get_s390_settings,
+    is_s390,
+    netmask2prefix,
+    prefix2netmask,
+)
+
 log = get_module_logger(__name__)
 
 

@@ -18,17 +18,17 @@
 # Red Hat, Inc.
 #
 
-import os
 import json
+import os
 
-from dasbus.typing import get_variant, Str, List
 from dasbus.error import DBusError
+from dasbus.typing import List, Str, get_variant
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
 from pyanaconda.core.subscription import check_system_purpose_set
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 VALID_FIELDS_FILE_PATH = "/etc/rhsm/syspurpose/valid_fields.json"

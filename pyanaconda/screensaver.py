@@ -18,8 +18,9 @@
 #
 
 from pyanaconda import safe_dbus
-from pyanaconda.core.glib import Variant
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.glib import Variant
+
 log = get_module_logger(__name__)
 
 SCREENSAVER_SERVICE = "org.freedesktop.ScreenSaver"

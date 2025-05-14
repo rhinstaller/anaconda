@@ -18,14 +18,16 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import call, patch
 
-from unittest.mock import patch, call
-
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL
+from pyanaconda.core.constants import MULTILIB_POLICY_ALL, RPM_LANGUAGES_NONE
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, UpdateDNFConfigurationTask
+from pyanaconda.modules.payloads.payload.dnf.installation import (
+    ImportRPMKeysTask,
+    SetRPMMacrosTask,
+    UpdateDNFConfigurationTask,
+)
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):

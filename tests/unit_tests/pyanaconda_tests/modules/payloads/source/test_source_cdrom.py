@@ -16,21 +16,25 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
+from unittest.mock import DEFAULT, Mock, call, patch
 
-from unittest.mock import call, DEFAULT, Mock, patch
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
-from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
+from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import (
+    CdromSourceInterface,
+)
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.payload.utils import PayloadSetupError
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    patch_dbus_get_proxy,
+)
 
 
 class CdromSourceInterfaceTestCase(unittest.TestCase):

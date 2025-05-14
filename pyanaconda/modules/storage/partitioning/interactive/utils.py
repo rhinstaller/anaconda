@@ -22,7 +22,7 @@ import re
 
 from blivet import devicefactory
 from blivet.devicelibs import crypto, raid
-from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
+from blivet.devices import LUKSDevice, LVMVolumeGroupDevice, MDRaidArrayDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.size import Size
@@ -30,17 +30,27 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
+from pyanaconda.core.storage import (
+    CONTAINER_DEVICE_TYPES,
+    DEVICE_TEXT_MAP,
+    NAMED_DEVICE_TYPES,
+    PARTITION_ONLY_FORMAT_TYPES,
+    SUPPORTED_DEVICE_TYPES,
+)
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
-from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, UnknownDeviceError
-from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
-    DeviceFactoryPermissions
-from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
-from pyanaconda.modules.storage.platform import platform, PLATFORM_MOUNT_POINTS
-from pyanaconda.product import productName, productVersion
+from pyanaconda.modules.common.errors.storage import (
+    UnknownDeviceError,
+    UnsupportedDeviceError,
+)
+from pyanaconda.modules.common.structures.device_factory import (
+    DeviceFactoryPermissions,
+    DeviceFactoryRequest,
+)
 from pyanaconda.modules.storage.devicetree.root import Root
 from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems
-from pyanaconda.core.storage import DEVICE_TEXT_MAP, PARTITION_ONLY_FORMAT_TYPES, \
-    NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, SUPPORTED_DEVICE_TYPES
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
+from pyanaconda.modules.storage.platform import PLATFORM_MOUNT_POINTS, platform
+from pyanaconda.product import productName, productVersion
 
 log = get_module_logger(__name__)
 

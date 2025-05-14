@@ -22,9 +22,11 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
 import gettext
-import tempfile
-import polib
 import subprocess
+import tempfile
+
+import polib
+
 
 def test_usability(pofile):
     # Use polib to write a mofile

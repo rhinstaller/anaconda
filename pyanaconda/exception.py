@@ -19,7 +19,6 @@
 #
 import errno
 import glob
-import gi
 import os
 import re
 import shutil
@@ -28,27 +27,25 @@ import time
 import traceback
 
 import blivet.errors
-
+import gi
 from meh import Config
 from meh.dump import ReverseExceptionDump
 from meh.handler import ExceptionHandler
+from simpleline import App
+from simpleline.event_loop.signals import ExceptionSignal
 
-from pyanaconda import kickstart
+from pyanaconda import kickstart, product
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
-from pyanaconda import product
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
-from pyanaconda.errors import NonInteractiveError
+from pyanaconda.core.constants import IPMI_FAILED, THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.core.i18n import _
+from pyanaconda.errors import NonInteractiveError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.communication import hubQ
 
-from simpleline import App
-from simpleline.event_loop.signals import ExceptionSignal
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

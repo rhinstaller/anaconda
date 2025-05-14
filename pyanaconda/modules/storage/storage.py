@@ -17,8 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.signal import Signal
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.core.storage import blivet_version
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -32,8 +33,11 @@ from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_stora
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
-from pyanaconda.modules.storage.installation import MountFilesystemsTask, CreateStorageLayoutTask, \
-    WriteConfigurationTask
+from pyanaconda.modules.storage.installation import (
+    CreateStorageLayoutTask,
+    MountFilesystemsTask,
+    WriteConfigurationTask,
+)
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
@@ -45,10 +49,12 @@ from pyanaconda.modules.storage.platform import platform
 from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
-from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
+from pyanaconda.modules.storage.teardown import (
+    TeardownDiskImagesTask,
+    UnmountFilesystemsTask,
+)
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

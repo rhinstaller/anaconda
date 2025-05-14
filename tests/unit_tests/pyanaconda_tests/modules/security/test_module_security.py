@@ -17,31 +17,46 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-import unittest
-import tempfile
 import os
-import pytest
-
+import tempfile
+import unittest
 from unittest.mock import patch
+
+import pytest
+from dasbus.typing import Bool, List, Str, get_variant
+from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
 
 from pyanaconda.core.configuration.target import TargetType
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE
-from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
-
-from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.constants.services import SECURITY
+from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.structures.realm import RealmData
-from dasbus.typing import get_variant, Str, List, Bool
+from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.security.constants import SELinuxMode
+from pyanaconda.modules.security.installation import (
+    AUTHCONFIG_TOOL_PATH,
+    AUTHSELECT_TOOL_PATH,
+    PAM_SO_64_PATH,
+    PAM_SO_PATH,
+    ConfigureAuthconfigTask,
+    ConfigureAuthselectTask,
+    ConfigureFingerprintAuthTask,
+    ConfigureFIPSTask,
+    ConfigureSELinuxTask,
+    PreconfigureFIPSTask,
+    RealmDiscoverTask,
+    RealmJoinTask,
+)
 from pyanaconda.modules.security.security import SecurityService
 from pyanaconda.modules.security.security_interface import SecurityInterface
-from pyanaconda.modules.security.constants import SELinuxMode
-from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
-    RealmDiscoverTask, RealmJoinTask, ConfigureFingerprintAuthTask, \
-    ConfigureAuthselectTask, ConfigureAuthconfigTask, AUTHSELECT_TOOL_PATH, \
-    AUTHCONFIG_TOOL_PATH, PAM_SO_64_PATH, PAM_SO_PATH, PreconfigureFIPSTask, ConfigureFIPSTask
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
-    check_task_creation, check_task_creation_list, PropertiesChangedCallback, check_dbus_property
-from pyanaconda.modules.common.structures.requirement import Requirement
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_dbus_property,
+    check_kickstart_interface,
+    check_task_creation,
+    check_task_creation_list,
+    patch_dbus_publish_object,
+)
 
 
 class SecurityInterfaceTestCase(unittest.TestCase):

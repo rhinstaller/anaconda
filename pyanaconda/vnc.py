@@ -17,25 +17,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os, sys
-import time
-from pyanaconda import network, product
-from pyanaconda.core import util, constants
+import os
 import socket
 import subprocess
+import sys
+import time
+
 import dbus
-
-from pyanaconda.core.i18n import _, P_
-from pyanaconda.ui.tui import tui_quit_callback
-from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
-
 from simpleline import App
 from simpleline.render.screen_handler import ScreenHandler
 
+from pyanaconda import network, product
 from pyanaconda.anaconda_loggers import get_stdout_logger
+from pyanaconda.core import constants, util
+from pyanaconda.core.i18n import P_, _
+from pyanaconda.ui.tui import tui_quit_callback
+from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
+
 stdoutLog = get_stdout_logger()
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 XVNC_BINARY_NAME = "Xvnc"

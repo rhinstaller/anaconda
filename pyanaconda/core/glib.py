@@ -23,21 +23,37 @@
 #
 
 import gi
+
 gi.require_version("GLib", "2.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository.GLib import markup_escape_text, format_size_full, \
-                               timeout_add_seconds, timeout_add, idle_add, \
-                               io_add_watch, child_watch_add, \
-                               source_remove, timeout_source_new, \
-                               spawn_close_pid, spawn_async_with_pipes, \
-                               MainLoop, MainContext, \
-                               GError, Variant, VariantType, Bytes, \
-                               IOCondition, IOChannel, SpawnFlags, \
-                               MAXUINT
 from gi.repository.Gio import Cancellable
+from gi.repository.GLib import (
+    MAXUINT,
+    Bytes,
+    GError,
+    IOChannel,
+    IOCondition,
+    MainContext,
+    MainLoop,
+    SpawnFlags,
+    Variant,
+    VariantType,
+    child_watch_add,
+    format_size_full,
+    idle_add,
+    io_add_watch,
+    markup_escape_text,
+    source_remove,
+    spawn_async_with_pipes,
+    spawn_close_pid,
+    timeout_add,
+    timeout_add_seconds,
+    timeout_source_new,
+)
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 

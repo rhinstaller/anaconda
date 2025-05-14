@@ -19,6 +19,7 @@
 import os
 import subprocess
 
+
 def testfilelist(filterfunc=None):
     """A generator function for the list of file names to check.
 

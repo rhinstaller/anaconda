@@ -16,11 +16,11 @@
 # with the express permission of Red Hat, Inc.
 
 import os
-import unittest
-import tempfile
+import re
 import shutil
 import subprocess
-import re
+import tempfile
+import unittest
 
 CERT_CONTENT = """-----BEGIN CERTIFICATE-----
 MIIBjTCCATOgAwIBAgIUWR5HO3v/0I80Ne0jQWVZFODuWLEwCgYIKoZIzj0EAwIw

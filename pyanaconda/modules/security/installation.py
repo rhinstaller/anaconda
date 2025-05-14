@@ -15,8 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import copy
+import os
 import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger

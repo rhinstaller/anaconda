@@ -19,18 +19,21 @@
 #
 import os.path
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import create_nfs_url, parse_nfs_url
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
-from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
+from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
+from pyanaconda.modules.payloads.source.source_base import (
+    PayloadSourceBase,
+    RPMSourceMixin,
+)
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["NFSSourceModule"]

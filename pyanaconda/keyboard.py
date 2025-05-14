@@ -21,15 +21,16 @@ This module provides functions for dealing with keyboard layouts/keymaps in Anac
 """
 
 import re
+
 import langtable
 
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import localization
-from pyanaconda.core.constants import DEFAULT_KEYBOARD
-from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.common.constants.services import LOCALIZATION
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.task import sync_run_task
+
 log = get_module_logger(__name__)
 
 

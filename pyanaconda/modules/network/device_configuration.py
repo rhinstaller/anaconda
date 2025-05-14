@@ -20,21 +20,32 @@
 
 import copy
 
+import gi
+
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
-    get_vlan_interface_name_from_connection, get_config_file_connection_of_device, \
-    is_bootif_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
-from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
-    NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
-    NM_CONNECTION_TYPE_TEAM, NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND
+from pyanaconda.modules.network.constants import (
+    NM_CONNECTION_TYPE_BOND,
+    NM_CONNECTION_TYPE_BRIDGE,
+    NM_CONNECTION_TYPE_ETHERNET,
+    NM_CONNECTION_TYPE_INFINIBAND,
+    NM_CONNECTION_TYPE_TEAM,
+    NM_CONNECTION_TYPE_VLAN,
+    NM_CONNECTION_TYPE_WIFI,
+)
+from pyanaconda.modules.network.nm_client import (
+    get_config_file_connection_of_device,
+    get_iface_from_connection,
+    get_vlan_interface_name_from_connection,
+    is_bootif_connection,
+)
 from pyanaconda.modules.network.utils import is_ibft_configured_device, is_nbft_device
 
-import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 

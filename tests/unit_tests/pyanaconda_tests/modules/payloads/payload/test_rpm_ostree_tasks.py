@@ -15,22 +15,30 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import tempfile
 import os
+import tempfile
+import unittest
+from unittest.mock import MagicMock, call, patch
+
 import pytest
 
-import unittest
-from unittest.mock import patch, call, MagicMock
-
-from pyanaconda.core.glib import Variant, GError
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData, \
-    RPMOSTreeContainerConfigurationData
+from pyanaconda.core.glib import GError, Variant
+from pyanaconda.modules.common.structures.rpm_ostree import (
+    RPMOSTreeConfigurationData,
+    RPMOSTreeContainerConfigurationData,
+)
+from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
+    ChangeOSTreeRemoteTask,
+    ConfigureBootloader,
+    CopyBootloaderDataTask,
+    DeployOSTreeTask,
+    InitOSTreeFsAndRepoTask,
+    PrepareOSTreeMountTargetsTask,
+    PullRemoteAndDeleteTask,
+    SetSystemRootTask,
+)
 from pyanaconda.payload.errors import PayloadInstallError
 
-from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
-    ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask, \
-    SetSystemRootTask
 
 def _make_config_data():
     """Create OSTree configuration data for testing

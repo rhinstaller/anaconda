@@ -18,17 +18,21 @@
 import glob
 import hashlib
 import os
+
 from requests.exceptions import RequestException
 
-from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, IMAGE_DIR
-from pyanaconda.core.util import lowerASCII, execWithRedirect
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import IMAGE_DIR, NETWORK_CONNECTION_TIMEOUT
+from pyanaconda.core.util import execWithRedirect, lowerASCII
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.payload.live_image.utils import get_local_image_path_from_url, \
-    get_proxies_from_option, url_target_is_tarfile
+from pyanaconda.modules.payloads.payload.live_image.utils import (
+    get_local_image_path_from_url,
+    get_proxies_from_option,
+    url_target_is_tarfile,
+)
 from pyanaconda.payload.utils import mount, unmount
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

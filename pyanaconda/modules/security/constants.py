@@ -19,7 +19,12 @@
 #
 from enum import Enum, unique
 
-from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
+from pykickstart.constants import (
+    SELINUX_DISABLED,
+    SELINUX_ENFORCING,
+    SELINUX_PERMISSIVE,
+)
+
 from pyanaconda.core.constants import SELINUX_DEFAULT
 
 

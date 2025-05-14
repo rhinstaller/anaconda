@@ -15,9 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import check_glade_files
 from unittest import TestCase
 
+from gladecheck import check_glade_files
 
 # I guess we could look at the introspected classes and see if they implement the Scrollable
 # interface but that sounds like kind of a pain

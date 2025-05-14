@@ -19,23 +19,26 @@
 
 import os
 import sys
+import threading
 from glob import glob
 from tempfile import mkstemp
-import threading
 
-from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS
+from pyanaconda.anaconda_loggers import get_stdout_logger
 from pyanaconda.core import constants
+from pyanaconda.core.constants import ADDON_PATHS, PAYLOAD_TYPE_RPM_OSTREE, DisplayModes
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.core.util import open_with_perm
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
+    FlatpakManager,
+)
+from pyanaconda.payload.source import PayloadSourceTypeUnrecognized, SourceFactory
 from pyanaconda.ui.lib.addons import collect_addon_ui_paths
 
-from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 
@@ -85,7 +88,9 @@ class Anaconda(object):
 
             if payload_type == PAYLOAD_TYPE_RPM_OSTREE:
                 if FlatpakManager.is_source_available():
-                    from pyanaconda.payload.rpmostreepayload import RPMOSTreePayloadWithFlatpaks
+                    from pyanaconda.payload.rpmostreepayload import (
+                        RPMOSTreePayloadWithFlatpaks,
+                    )
                     klass = RPMOSTreePayloadWithFlatpaks
                 else:
                     from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
@@ -235,10 +240,11 @@ class Anaconda(object):
                         repo.name)
 
     def dumpState(self):
-        from meh import ExceptionInfo
-        from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
         from traceback import format_stack
+
+        from meh import ExceptionInfo
+        from meh.dump import ReverseExceptionDump
 
         # Skip the frames for dumpState and the signal handler.
         stack = _stack()[2:]

@@ -18,14 +18,14 @@
 import os
 from configparser import ConfigParser
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import GRAPHICAL_TARGET, TEXT_ONLY_TARGET
 from pyanaconda.core.util import get_anaconda_version_string
-from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.services.constants import SetupOnBootAction
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["ConfigureInitialSetupTask", "ConfigureServicesTask",

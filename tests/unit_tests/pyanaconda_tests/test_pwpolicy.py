@@ -25,11 +25,13 @@ from pykickstart.errors import KickstartDeprecationWarning
 
 from pyanaconda import kickstart
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
-from pyanaconda.core.constants import PASSWORD_POLICY_ROOT, PASSWORD_POLICY_USER, \
-    PASSWORD_POLICY_LUKS
+from pyanaconda.core.constants import (
+    PASSWORD_POLICY_LUKS,
+    PASSWORD_POLICY_ROOT,
+    PASSWORD_POLICY_USER,
+)
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.pwpolicy import apply_password_policy_from_kickstart
-
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy
 
 

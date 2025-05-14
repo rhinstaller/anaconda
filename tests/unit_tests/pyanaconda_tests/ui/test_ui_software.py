@@ -17,7 +17,14 @@
 #
 import unittest
 from unittest.mock import patch
-from pyanaconda.ui.lib.software import get_kernel_from_properties, get_available_kernel_features, KernelFeatures
+
+from pyanaconda.ui.lib.software import (
+    KernelFeatures,
+    get_available_kernel_features,
+    get_kernel_from_properties,
+)
+
+
 class SoftwareUITestCase(unittest.TestCase):
     """Test the UI functions and classes of the software-selection object."""
     def test_get_kernel_from_properties(self):

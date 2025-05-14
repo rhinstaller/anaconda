@@ -16,12 +16,17 @@
 # Red Hat, Inc.
 #
 import os
+
 import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL, MULTILIB_POLICY_BEST
+from pyanaconda.core.constants import (
+    MULTILIB_POLICY_BEST,
+    RPM_LANGUAGES_ALL,
+    RPM_LANGUAGES_NONE,
+)
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
 

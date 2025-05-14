@@ -19,13 +19,20 @@ from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.static_data import luks_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
-    NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
-    schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
-    get_default_partitioning, get_disks_for_implicit_partitions
 from pyanaconda.core.storage import suggest_swap_size
+from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
+from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import (
+    NonInteractivePartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    get_candidate_disks,
+    get_default_partitioning,
+    get_disks_for_implicit_partitions,
+    get_pbkdf_args,
+    schedule_implicit_partitions,
+    schedule_partitions,
+    schedule_volumes,
+)
 
 log = get_module_logger(__name__)
 

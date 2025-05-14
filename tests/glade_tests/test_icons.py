@@ -16,8 +16,9 @@
 #
 
 import os
-from gladecheck import check_glade_files
 from unittest import TestCase
+
+from gladecheck import check_glade_files
 from iconcheck import icon_exists
 
 

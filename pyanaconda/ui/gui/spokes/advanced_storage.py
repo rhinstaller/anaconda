@@ -18,29 +18,36 @@
 #
 from collections import namedtuple
 
+import gi
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_, CP_
-from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree, \
-    filter_disks_by_names
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, FCOE, ISCSI, DASD, \
-    DEVICE_TREE
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import (
+    DASD,
+    DEVICE_TREE,
+    DISK_SELECTION,
+    FCOE,
+    ISCSI,
+)
 from pyanaconda.modules.common.constants.services import STORAGE
-
-from pyanaconda.ui.gui.utils import timed_action, really_show, really_hide
+from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.advstorage.dasd import DASDDialog
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
-from pyanaconda.ui.gui.spokes.advstorage.zfcp import ZFCPDialog
-from pyanaconda.ui.gui.spokes.advstorage.dasd import DASDDialog
 from pyanaconda.ui.gui.spokes.advstorage.nvdimm import NVDIMMDialog
+from pyanaconda.ui.gui.spokes.advstorage.zfcp import ZFCPDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
-from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action
+from pyanaconda.ui.lib.storage import (
+    apply_disk_selection,
+    filter_disks_by_names,
+    try_populate_devicetree,
+)
 
-import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

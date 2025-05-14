@@ -22,8 +22,10 @@ from pyanaconda.core.payload import parse_nfs_url
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
-    verify_valid_repository
+from pyanaconda.modules.payloads.source.utils import (
+    find_and_mount_iso_image,
+    verify_valid_repository,
+)
 from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.utils import mount, unmount
 

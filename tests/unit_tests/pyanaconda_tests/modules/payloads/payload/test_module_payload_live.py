@@ -19,13 +19,13 @@
 #
 import os
 import unittest
+from tempfile import TemporaryDirectory
+from unittest.mock import Mock, patch
+
 import pytest
 
-from unittest.mock import patch, Mock
-from tempfile import TemporaryDirectory
-
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import InstallError
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list

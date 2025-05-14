@@ -16,26 +16,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-import unittest
 import os
-import tempfile
-import signal
 import shutil
+import signal
 import sys
-import pytest
-
+import tempfile
+import unittest
 from io import StringIO
 from textwrap import dedent
 from threading import Lock
 from unittest.mock import Mock, patch
+
+import pytest
 from timer import timer
 
-from pyanaconda.errors import ExitError
-from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
-from pyanaconda.core.util import synchronized, LazyObject
 from pyanaconda.core.configuration.anaconda import conf
-
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.core.util import LazyObject, synchronized
+from pyanaconda.errors import ExitError
 
 ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
 

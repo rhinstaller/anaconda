@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+
 from pyanaconda.modules.common.constants.objects import INTERACTIVE_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 

@@ -21,8 +21,9 @@ have the visibility set to False.
 
 """
 
-from gladecheck import check_glade_files
 from unittest import TestCase
+
+from gladecheck import check_glade_files
 
 PW_ID_INDICATORS = ("pw", "password", "passwd", "passphrase")
 

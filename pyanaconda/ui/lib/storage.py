@@ -19,26 +19,36 @@ import locale
 import re
 
 from blivet.size import Size
-from dasbus.error import DBusError
-
-from dasbus.typing import unwrap_variant
 from dasbus.client.proxy import get_object_path
+from dasbus.error import DBusError
+from dasbus.typing import unwrap_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET, \
-    PARTITIONING_METHOD_CUSTOM
+from pyanaconda.core.constants import (
+    BOOTLOADER_DRIVE_UNSET,
+    PARTITIONING_METHOD_AUTOMATIC,
+    PARTITIONING_METHOD_CUSTOM,
+)
 from pyanaconda.core.i18n import P_, _
-from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
+from pyanaconda.core.storage import device_matches
+from pyanaconda.errors import ERROR_RAISE
+from pyanaconda.errors import errorHandler as error_handler
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE, \
-    DISK_INITIALIZATION, NVDIMM
+from pyanaconda.modules.common.constants.objects import (
+    BOOTLOADER,
+    DEVICE_TREE,
+    DISK_INITIALIZATION,
+    DISK_SELECTION,
+    NVDIMM,
+)
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
-    BootloaderConfigurationError
+from pyanaconda.modules.common.errors.configuration import (
+    BootloaderConfigurationError,
+    StorageConfigurationError,
+)
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.core.storage import device_matches
 
 log = get_module_logger(__name__)
 

@@ -18,12 +18,9 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import Mock, patch
+
 import pytest
-
-from unittest.mock import patch, Mock
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
-
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.errors import KickstartParseError
 
@@ -32,6 +29,10 @@ from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class SnapshotInterfaceTestCase(unittest.TestCase):

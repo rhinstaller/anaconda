@@ -16,11 +16,11 @@
 # Red Hat, Inc.
 #
 import math
-from time import sleep, perf_counter
+from time import perf_counter, sleep
 
-from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.common.task.task import Task, AbstractTask
 from pyanaconda.modules.common.task.meta import DBusMetaTask
+from pyanaconda.modules.common.task.task import AbstractTask, Task
+from pyanaconda.modules.common.task.task_interface import TaskInterface
 
 __all__ = ["sync_run_task", "async_run_task", "AbstractTask", "Task", "TaskInterface",
            "DBusMetaTask", "wait_for_task"]

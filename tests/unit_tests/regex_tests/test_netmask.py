@@ -17,10 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import unittest
 import re
+import unittest
 
 from pyanaconda.core.regexes import IPV4_NETMASK_WITHOUT_ANCHORS
+
 
 def _run_tests(testcase, expression, goodlist, badlist):
     errors = []

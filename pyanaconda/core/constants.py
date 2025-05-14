@@ -18,10 +18,10 @@
 #
 
 # Used for digits, ascii_letters, punctuation constants
-import string # pylint: disable=deprecated-module
-from pyanaconda.core.i18n import N_
-
+import string  # pylint: disable=deprecated-module
 from enum import Enum
+
+from pyanaconda.core.i18n import N_
 
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
@@ -31,6 +31,7 @@ ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
 # common string needs to be easy to change
 from pyanaconda import product
+
 productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch

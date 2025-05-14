@@ -20,7 +20,7 @@
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MIN_RAM
+from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_SWAP_IS_RECOMMENDED
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER

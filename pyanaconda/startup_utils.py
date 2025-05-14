@@ -17,32 +17,46 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 import sys
 import time
-import os
+
 import blivet
 
-from pyanaconda import product, ntp
-from pyanaconda import anaconda_logging
-from pyanaconda import network
-from pyanaconda import safe_dbus
-from pyanaconda import kickstart
-from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
-from pyanaconda.core import util, constants
+from pyanaconda import anaconda_logging, kickstart, network, ntp, product, safe_dbus
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
-    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, DisplayModes, TIMEZONE_PRIORITY_GEOLOCATION
+from pyanaconda.core.constants import (
+    DRACUT_ERRORS_PATH,
+    SETUP_ON_BOOT_DEFAULT,
+    SETUP_ON_BOOT_ENABLED,
+    TEXT_ONLY_TARGET,
+    TIMEZONE_PRIORITY_GEOLOCATION,
+    DisplayModes,
+)
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
-from pyanaconda.localization import get_territory_locales, setup_locale, locale_has_translation
-from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.modules.common.task import wait_for_task, sync_run_task
-from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
-from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
-    SECURITY
+from pyanaconda.localization import (
+    get_territory_locales,
+    locale_has_translation,
+    setup_locale,
+)
 from pyanaconda.modules.common.constants.objects import CERTIFICATES
+from pyanaconda.modules.common.constants.services import (
+    LOCALIZATION,
+    SECURITY,
+    SERVICES,
+    TIMEZONE,
+)
+from pyanaconda.modules.common.structures.timezone import (
+    GeolocationData,
+    TimeSourceData,
+)
+from pyanaconda.modules.common.task import sync_run_task, wait_for_task
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.threading import AnacondaThread, threadMgr
 
 stdout_log = get_stdout_logger()

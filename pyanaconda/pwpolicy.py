@@ -20,7 +20,7 @@
 import warnings
 
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
+from pykickstart.errors import KickstartDeprecationWarning, KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import F22
 

@@ -18,13 +18,16 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common import init
+
 init("/tmp/storage.log")
 
 # Initialize Blivet.
 from pyanaconda.modules.storage.initialization import enable_installer_mode
+
 enable_installer_mode()
 
 # Start the module.
 from pyanaconda.modules.storage.storage import StorageService
+
 service = StorageService()
 service.run()

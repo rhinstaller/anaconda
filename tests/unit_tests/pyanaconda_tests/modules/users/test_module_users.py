@@ -22,18 +22,29 @@ import tempfile
 import unittest
 from textwrap import dedent
 
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
-    PropertiesChangedCallback, check_dbus_property, check_task_creation_list, check_task_creation
+from dasbus.typing import Bool, List, Str, UInt32, get_variant
 
 from pyanaconda.core.constants import ID_MODE_USE_DEFAULT, ID_MODE_USE_VALUE
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.common.structures.group import GroupData
+from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.users.installation import (
+    ConfigureRootPasswordSSHLoginTask,
+    CreateGroupsTask,
+    CreateUsersTask,
+    SetRootPasswordTask,
+    SetSshKeysTask,
+)
 from pyanaconda.modules.users.users import UsersService
 from pyanaconda.modules.users.users_interface import UsersInterface
-from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask, \
-    CreateGroupsTask, CreateUsersTask, SetRootPasswordTask, SetSshKeysTask
-from dasbus.typing import get_variant, List, Str, UInt32, Bool
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_dbus_property,
+    check_kickstart_interface,
+    check_task_creation,
+    check_task_creation_list,
+    patch_dbus_publish_object,
+)
 
 
 class UsersInterfaceTestCase(unittest.TestCase):

@@ -16,9 +16,10 @@
 # Red Hat, Inc.
 #
 
-import unittest
-from pyanaconda.core.kernel import KernelArguments, kernel_arguments
 import collections
+import unittest
+
+from pyanaconda.core.kernel import KernelArguments, kernel_arguments
 
 
 class KernelArgumentsTests(unittest.TestCase):

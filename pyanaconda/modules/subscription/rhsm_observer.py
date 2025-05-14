@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
-from pyanaconda.anaconda_loggers import get_module_logger
-
 from dasbus.client.observer import DBusObserver, DBusObserverError
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
+from pyanaconda.modules.common.constants.services import RHSM
 
 log = get_module_logger(__name__)
 

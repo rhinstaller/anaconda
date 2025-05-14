@@ -17,14 +17,15 @@
 # Red Hat, Inc.
 #
 from pykickstart.constants import NVDIMM_MODE_SECTOR
-from pyanaconda.core.i18n import _, C_
-from pyanaconda.modules.common.task import async_run_task
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.constants.objects import NVDIMM
-from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
-from pyanaconda.ui.gui import GUIObject
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import C_, _
+from pyanaconda.modules.common.constants.objects import NVDIMM
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
+from pyanaconda.modules.common.task import async_run_task
+from pyanaconda.ui.gui import GUIObject
+
 log = get_module_logger(__name__)
 
 __all__ = ["NVDIMMDialog"]

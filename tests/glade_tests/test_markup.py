@@ -16,11 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import check_glade_files
 from unittest import TestCase
-from pocketlint.pangocheck import markup_nodes, markup_match, markup_necessary
 
+from gladecheck import check_glade_files
 from lxml import etree
+from pocketlint.pangocheck import markup_match, markup_necessary, markup_nodes
 
 
 class PangoElementException(Exception):

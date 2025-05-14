@@ -18,21 +18,27 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import Mock, patch
+
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.constants import SourceState
+from pyanaconda.modules.payloads.source.live_os.initialization import (
+    SetUpLiveOSSourceTask,
+)
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
-from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
+from pyanaconda.modules.payloads.source.live_os.live_os_interface import (
+    LiveOSSourceInterface,
+)
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    patch_dbus_get_proxy,
+)
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):

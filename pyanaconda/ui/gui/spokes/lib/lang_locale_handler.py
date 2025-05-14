@@ -23,16 +23,22 @@ screens handling languages or locales configuration.
 """
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("GdkPixbuf", "2.0")
 
 from abc import abstractproperty
-from gi.repository import Gtk, Pango, GdkPixbuf
+
+from gi.repository import GdkPixbuf, Gtk, Pango
 
 from pyanaconda import localization
 from pyanaconda.core.util import strip_accents
-from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
+from pyanaconda.ui.gui.utils import (
+    override_cell_property,
+    set_treeview_selection,
+    timed_action,
+)
 
 
 class LangLocaleHandler(object):

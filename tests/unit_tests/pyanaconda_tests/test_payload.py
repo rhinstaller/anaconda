@@ -18,17 +18,16 @@
 # Authors: Jiri Konecny <jkonecny@redhat.com>
 #
 
-import unittest
-import tempfile
-import os
 import hashlib
+import os
 import shutil
+import tempfile
+import unittest
+
 import pytest
-
-import pyanaconda.core.payload as util
-
 from blivet.size import Size
 
+import pyanaconda.core.payload as util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload.dnf import utils
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash

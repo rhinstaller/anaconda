@@ -21,8 +21,12 @@ from unittest.mock import Mock, patch
 from dasbus.structure import compare_data
 
 from pyanaconda.modules.common.structures.user import UserData
-from pyanaconda.ui.lib.users import get_user_list, set_user_list, can_modify_root_configuration, \
-    get_root_configuration_status
+from pyanaconda.ui.lib.users import (
+    can_modify_root_configuration,
+    get_root_configuration_status,
+    get_user_list,
+    set_user_list,
+)
 
 
 class UsersUITestCase(unittest.TestCase):

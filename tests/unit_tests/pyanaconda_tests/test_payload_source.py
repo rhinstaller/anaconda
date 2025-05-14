@@ -19,12 +19,13 @@
 #
 
 
-import unittest
-import pytest
 import enum
+import unittest
+
+import pytest
 
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
+from pyanaconda.payload.source import PayloadSourceTypeUnrecognized, SourceFactory
 from pyanaconda.payload.source.sources import *  # pylint: disable=wildcard-import
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 

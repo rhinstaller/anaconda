@@ -19,11 +19,15 @@
 
 import unittest
 from unittest.mock import patch
+
 from requests import RequestException
 
-from pyanaconda.modules.subscription.satellite import download_satellite_provisioning_script, \
-    run_satellite_provisioning_script, PROVISIONING_SCRIPT_SUB_PATH
-from pyanaconda.core.constants import USER_AGENT, NETWORK_CONNECTION_TIMEOUT
+from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, USER_AGENT
+from pyanaconda.modules.subscription.satellite import (
+    PROVISIONING_SCRIPT_SUB_PATH,
+    download_satellite_provisioning_script,
+    run_satellite_provisioning_script,
+)
 
 
 class SatelliteLibraryTestCase(unittest.TestCase):

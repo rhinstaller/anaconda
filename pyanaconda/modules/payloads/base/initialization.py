@@ -20,11 +20,17 @@ import shutil
 import traceback
 from glob import glob
 
-from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_blacklist
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.errors.payload import (
+    SourceSetupError,
+    SourceTearDownError,
+)
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.base.utils import (
+    create_root_dir,
+    write_module_blacklist,
+)
+
 log = get_module_logger(__name__)
 
 

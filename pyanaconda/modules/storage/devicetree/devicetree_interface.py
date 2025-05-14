@@ -18,8 +18,13 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_class
-from pyanaconda.modules.storage.devicetree.handler_interface import DeviceTreeHandlerInterface
-from pyanaconda.modules.storage.devicetree.viewer_interface import DeviceTreeViewerInterface
+
+from pyanaconda.modules.storage.devicetree.handler_interface import (
+    DeviceTreeHandlerInterface,
+)
+from pyanaconda.modules.storage.devicetree.viewer_interface import (
+    DeviceTreeViewerInterface,
+)
 
 __all__ = ["DeviceTreeInterface"]
 

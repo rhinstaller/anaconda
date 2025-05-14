@@ -4,7 +4,11 @@ line-length = 99
 
 [lint]
 select = [
+    "I", # isort
     "W", # pycodestyle warning (mostly whitespace related)
     "ICN", # flake8-import-conventions
     "G", # flake8-logging-format
 ]
+
+[lint.isort]
+known-first-party = ["pyanaconda"]

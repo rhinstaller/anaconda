@@ -17,19 +17,24 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE, CLEARPART_TYPE_LIST, \
-    CLEARPART_TYPE_LINUX
+from pykickstart.constants import (
+    CLEARPART_TYPE_ALL,
+    CLEARPART_TYPE_LINUX,
+    CLEARPART_TYPE_LIST,
+    CLEARPART_TYPE_NONE,
+)
 
-from pyanaconda.core.signal import Signal
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import InitializationMode
-from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
-    DiskInitializationInterface
+from pyanaconda.modules.storage.disk_initialization.initialization_interface import (
+    DiskInitializationInterface,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

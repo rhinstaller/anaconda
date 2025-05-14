@@ -21,19 +21,29 @@
 # this with an existing payload so use DNF just as dummy test payload.
 #
 import unittest
-import pytest
 from unittest.mock import patch
 
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.source.factory import SourceFactory
-from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType, SourceState
+import pytest
+
+from pyanaconda.modules.common.errors.payload import (
+    IncompatibleSourceError,
+    SourceSetupError,
+)
+from pyanaconda.modules.payloads.base.initialization import (
+    SetUpSourcesTask,
+    TearDownSourcesTask,
+)
+from pyanaconda.modules.payloads.constants import PayloadType, SourceState, SourceType
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest
+from pyanaconda.modules.payloads.source.factory import SourceFactory
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadSharedTest,
+)
 
 
 class PayloadBaseInterfaceTestCase(unittest.TestCase):

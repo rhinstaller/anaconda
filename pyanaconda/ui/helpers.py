@@ -53,7 +53,7 @@
 # Mixin.data, so UIObject.data satisfies the requirment that Mixin.data be
 # overriden.
 
-from abc import ABCMeta, abstractproperty, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 
 from pyanaconda.core import constants
 from pyanaconda.core.payload import create_nfs_url

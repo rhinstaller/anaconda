@@ -16,14 +16,25 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
-
 from unittest.mock import patch
 
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_DNF, SOURCE_TYPE_CDROM
+import pytest
+
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    PAYLOAD_TYPE_LIVE_OS,
+    SOURCE_TYPE_CDROM,
+)
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.ui.lib.payload import create_payload, get_payload, create_source, set_source, \
-    get_source, set_up_sources, tear_down_sources
+from pyanaconda.ui.lib.payload import (
+    create_payload,
+    create_source,
+    get_payload,
+    get_source,
+    set_source,
+    set_up_sources,
+    tear_down_sources,
+)
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 

@@ -16,16 +16,22 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
-
 from time import sleep
 from unittest.mock import Mock, call
 
+import pytest
 from dasbus.server.interface import dbus_class
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.modules.common.errors.task import NoResultError
-from pyanaconda.modules.common.task import Task, TaskInterface, sync_run_task, \
-    async_run_task, DBusMetaTask, wait_for_task
+from pyanaconda.modules.common.task import (
+    DBusMetaTask,
+    Task,
+    TaskInterface,
+    async_run_task,
+    sync_run_task,
+    wait_for_task,
+)
 from tests.unit_tests.pyanaconda_tests import run_in_glib
 
 

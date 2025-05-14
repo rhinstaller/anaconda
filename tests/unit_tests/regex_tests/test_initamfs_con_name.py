@@ -17,6 +17,7 @@
 import unittest
 
 from regexcheck import regex_match
+
 from pyanaconda.core.regexes import NM_MAC_INITRAMFS_CONNECTION
 
 

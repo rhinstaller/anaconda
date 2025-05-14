@@ -22,8 +22,11 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.modules.common.containers import PayloadSourceContainer, PayloadContainer
 from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.containers import (
+    PayloadContainer,
+    PayloadSourceContainer,
+)
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 
 

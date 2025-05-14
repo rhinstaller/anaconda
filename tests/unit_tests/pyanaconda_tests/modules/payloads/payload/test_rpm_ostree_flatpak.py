@@ -16,18 +16,19 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
-
-from unittest.mock import patch
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
+import pytest
 from blivet.size import Size
 
-from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
-    InstallFlatpaksTask
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import \
-    GetFlatpaksSizeTask
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import (
+    GetFlatpaksSizeTask,
+)
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
+    InstallFlatpaksTask,
+)
+from pyanaconda.payload.errors import FlatpakInstallError, PayloadInstallError
 
 
 class InstallFlatpakTaskTest(unittest.TestCase):

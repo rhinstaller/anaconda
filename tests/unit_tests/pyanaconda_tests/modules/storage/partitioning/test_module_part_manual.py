@@ -20,23 +20,28 @@
 import unittest
 from unittest.mock import Mock
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
-
-from tests.unit_tests.pyanaconda_tests import check_task_creation, check_dbus_property
-
-from blivet.devices import StorageDevice, DiskDevice
+from blivet.devices import DiskDevice, StorageDevice
 from blivet.formats import get_format
 from blivet.size import Size
+from dasbus.typing import Bool, Str, get_variant
 
-from dasbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
-from pyanaconda.modules.storage.partitioning.manual.manual_module import ManualPartitioningModule
-from pyanaconda.modules.storage.partitioning.manual.manual_interface import \
-    ManualPartitioningInterface
-from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
-    ManualPartitioningTask
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.partitioning.manual.manual_interface import (
+    ManualPartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.manual.manual_module import (
+    ManualPartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import (
+    ManualPartitioningTask,
+)
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class ManualPartitioningInterfaceTestCase(unittest.TestCase):

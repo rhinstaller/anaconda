@@ -17,20 +17,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.signal import Signal
-from pyanaconda.core.constants import INSTALL_TREE
-
-from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
-from pyanaconda.modules.payloads.constants import SourceType, PayloadType
-from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
-from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
-from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import INSTALL_TREE
+from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.errors.payload import (
+    IncompatibleSourceError,
+    SourceSetupError,
+)
+from pyanaconda.modules.payloads.base.initialization import (
+    CopyDriverDisksFilesTask,
+    PrepareSystemForInstallationTask,
+    SetUpSourcesTask,
+    TearDownSourcesTask,
+)
+from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.payload.live_os.live_os_interface import (
+    LiveOSInterface,
+)
+from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
+
 log = get_module_logger(__name__)
 
 

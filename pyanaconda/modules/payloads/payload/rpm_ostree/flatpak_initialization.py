@@ -18,7 +18,9 @@
 from blivet.size import Size
 
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
+    FlatpakManager,
+)
 
 
 class GetFlatpaksSizeTask(Task):

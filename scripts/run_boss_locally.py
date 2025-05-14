@@ -5,16 +5,17 @@
 # This script is mainly for debugging purpose.
 #
 
-import os
-import tempfile
-import glob
-import time
-import sys
-import shutil
 import argparse
-from gi.repository import Gio
+import glob
+import os
+import shutil
+import sys
+import tempfile
+import time
 
 from dasbus.connection import AddressedMessageBus
+from gi.repository import Gio
+
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import sync_run_task

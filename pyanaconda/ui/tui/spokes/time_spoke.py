@@ -16,29 +16,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from collections import namedtuple
+
+from simpleline.render.containers import ListColumnContainer
+from simpleline.render.prompt import Prompt
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget
+
+from pyanaconda import ntp, timezone
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
 from pyanaconda.core.constants import TIME_SOURCE_SERVER
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ntp import NTPServerStatusCache
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda import timezone
-from pyanaconda import ntp
-from pyanaconda.core import constants
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.flags import flags
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
-from collections import namedtuple
-
-from simpleline.render.containers import ListColumnContainer
-from simpleline.render.screen import InputState
-from simpleline.render.widgets import TextWidget
-from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.prompt import Prompt
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["TimeSpoke"]

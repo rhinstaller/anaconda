@@ -21,36 +21,48 @@ from enum import IntEnum
 
 from dasbus.typing import unwrap_variant
 
-from pyanaconda.flags import flags
-from pyanaconda.threading import threadMgr, AnacondaThread
-
-from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
-    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    THREAD_SUBSCRIPTION, THREAD_PAYLOAD, SOURCE_TYPES_OVERRIDEN_BY_CDN, \
-    THREAD_SUBSCRIPTION_SPOKE_INIT
-from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.ui.lib.subscription import register_and_subscribe, \
-    unregister, SubscriptionPhase
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.async_utils import async_action_wait
-
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION, NETWORK
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription, OrganizationData
+from pyanaconda.core.constants import (
+    SECRET_TYPE_HIDDEN,
+    SOURCE_TYPES_OVERRIDEN_BY_CDN,
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
+    THREAD_PAYLOAD,
+    THREAD_SUBSCRIPTION,
+    THREAD_SUBSCRIPTION_SPOKE_INIT,
+)
+from pyanaconda.core.i18n import CN_, _
+from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import NETWORK, SUBSCRIPTION
 from pyanaconda.modules.common.errors.subscription import MultipleOrganizationsError
+from pyanaconda.modules.common.structures.subscription import (
+    AttachedSubscription,
+    OrganizationData,
+    SubscriptionRequest,
+    SystemPurposeData,
+)
+from pyanaconda.modules.common.task import async_run_task, sync_run_task
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.modules.common.task import sync_run_task, async_run_task
-
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox, \
-    populate_attached_subscriptions_listbox
-from pyanaconda.ui.gui.utils import set_password_visibility
+from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient, \
-    check_cdn_is_installation_source
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.subscription import (
+    fill_combobox,
+    populate_attached_subscriptions_listbox,
+)
+from pyanaconda.ui.gui.utils import set_password_visibility
+from pyanaconda.ui.lib.subscription import (
+    SubscriptionPhase,
+    check_cdn_is_installation_source,
+    org_keys_sufficient,
+    register_and_subscribe,
+    unregister,
+    username_password_sufficient,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["SubscriptionSpoke"]

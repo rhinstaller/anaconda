@@ -17,30 +17,34 @@
 # Red Hat, Inc.
 #
 import gi
-gi.require_version("NM", "1.0")
-from gi.repository import NM
 
+gi.require_version("NM", "1.0")
 import socket
 
-from pyanaconda import network
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
-from pyanaconda.flags import flags
-from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
-from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.regexes import IPV4_PATTERN_WITH_ANCHORS, IPV4_NETMASK_WITH_ANCHORS, IPV4_OR_DHCP_PATTERN_WITH_ANCHORS
-from pyanaconda.core.constants import ANACONDA_ENVIRON
-from pyanaconda.anaconda_loggers import get_module_logger
-
+from gi.repository import NM
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, CheckboxWidget, EntryWidget
+from simpleline.render.widgets import CheckboxWidget, EntryWidget, TextWidget
+
+from pyanaconda import network
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import ANACONDA_ENVIRON
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.regexes import (
+    IPV4_NETMASK_WITH_ANCHORS,
+    IPV4_OR_DHCP_PATTERN_WITH_ANCHORS,
+    IPV4_PATTERN_WITH_ANCHORS,
+)
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
 
 log = get_module_logger(__name__)
 

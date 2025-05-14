@@ -19,20 +19,18 @@
 
 import sys
 
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.core import util
-from pyanaconda.core.constants import THREAD_INSTALL, IPMI_FINISHED
-from pyanaconda.core.configuration.anaconda import conf
-
-from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
-from pyanaconda.ui.tui.hubs.summary import SummaryHub
-
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 from simpleline import App
-from simpleline.render.prompt import Prompt
 from simpleline.event_loop import ExitMainLoop
+from simpleline.render.prompt import Prompt
 
-from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import IPMI_FINISHED, THREAD_INSTALL
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.flags import flags
+from pyanaconda.ui.tui.hubs.summary import SummaryHub
+from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 
 __all__ = ["ProgressSpoke"]
 
@@ -64,8 +62,9 @@ class ProgressSpoke(StandaloneTUISpoke):
     def _update_progress(self):
         """Handle progress updates from install thread."""
 
-        from pyanaconda.progress import progressQ
         import queue
+
+        from pyanaconda.progress import progressQ
 
         q = progressQ.q
 
@@ -120,7 +119,7 @@ class ProgressSpoke(StandaloneTUISpoke):
     def show_all(self):
         super().show_all()
         from pyanaconda.installation import run_installation
-        from pyanaconda.threading import threadMgr, AnacondaThread
+        from pyanaconda.threading import AnacondaThread, threadMgr
 
         threadMgr.add(AnacondaThread(
             name=THREAD_INSTALL,

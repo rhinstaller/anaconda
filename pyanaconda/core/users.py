@@ -18,19 +18,25 @@
 #
 
 # Used for ascii_letters and digits constants
+import crypt
 import os
 import os.path
+import re
 import subprocess
 from contextlib import contextmanager
-from pyanaconda.core import util
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import strip_accents
-from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
-import crypt
-from pyanaconda.core.i18n import _
-import re
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
+from pyanaconda.core.regexes import (
+    GROUPLIST_FANCY_PARSE,
+    GROUPLIST_SIMPLE_VALID,
+    NAME_VALID,
+    PORTABLE_FS_CHARS,
+)
+from pyanaconda.core.util import strip_accents
+
 log = get_module_logger(__name__)
 
 

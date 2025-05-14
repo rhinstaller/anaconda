@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from dasbus.client.proxy import get_object_path
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.modules.common.constants.services import PAYLOADS

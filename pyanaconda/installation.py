@@ -17,29 +17,46 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.dbus import DBus
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL, \
-    CERTIFICATES
-from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
-    SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
-from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
-from pyanaconda import flags
-from pyanaconda.core import util
-from pyanaconda import timezone
-from pyanaconda import network
-from pyanaconda.core.i18n import N_
-from pyanaconda.threading import threadMgr
-from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
-from pyanaconda.kexec import setup_kexec
-from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask
-from pyanaconda.progress import progressQ
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 
+from pyanaconda import flags, network, timezone
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
+from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import N_
+from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
+from pyanaconda.kexec import setup_kexec
+from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
+from pyanaconda.modules.common.constants.objects import (
+    BOOTLOADER,
+    CERTIFICATES,
+    FIREWALL,
+    SNAPSHOT,
+)
+from pyanaconda.modules.common.constants.services import (
+    BOSS,
+    LOCALIZATION,
+    NETWORK,
+    SECURITY,
+    SERVICES,
+    STORAGE,
+    SUBSCRIPTION,
+    TIMEZONE,
+    USERS,
+)
+from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.progress import (
+    progress_complete,
+    progress_init,
+    progress_message,
+    progress_step,
+    progressQ,
+)
+from pyanaconda.threading import threadMgr
+
 log = get_module_logger(__name__)
 
 __all__ = ["run_installation"]

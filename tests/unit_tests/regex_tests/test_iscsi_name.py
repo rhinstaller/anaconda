@@ -17,7 +17,9 @@
 import unittest
 
 from regexcheck import regex_match
-from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
+
+from pyanaconda.core.regexes import ISCSI_EUI_NAME_REGEX, ISCSI_IQN_NAME_REGEX
+
 
 class iSCSIiqnnameRegexTestCase(unittest.TestCase):
     def test_iqnname(self):

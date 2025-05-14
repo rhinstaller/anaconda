@@ -23,11 +23,12 @@
 # ...still messy (2013-07-12)
 # A lot less messy now. :) (2016-10-13)
 
-import os
 import atexit
+import os
+import signal
 import sys
 import time
-import signal
+
 import pid
 
 
@@ -178,22 +179,21 @@ if __name__ == "__main__":
     sys.path.extend(ADDON_PATHS)
 
     # init threading before Gtk can do anything and before we start using threads
-    from pyanaconda.threading import AnacondaThread, threadMgr
-    from pyanaconda.core.i18n import _
-    from pyanaconda.core import util, constants
     from pyanaconda import startup_utils
+    from pyanaconda.core import constants, util
+    from pyanaconda.core.i18n import _
+    from pyanaconda.core.kernel import kernel_arguments
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
-    from pyanaconda.core.kernel import kernel_arguments
+    from pyanaconda.threading import AnacondaThread, threadMgr
     (opts, removed_no_inst_args) = parse_arguments(boot_cmdline=kernel_arguments)
 
     from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
 
     # Set up logging as early as possible.
-    from pyanaconda import anaconda_logging
-    from pyanaconda import anaconda_loggers
+    from pyanaconda import anaconda_loggers, anaconda_logging
     anaconda_logging.init(write_to_journal=conf.target.is_hardware)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
@@ -262,13 +262,9 @@ if __name__ == "__main__":
         util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
-    from pyanaconda import vnc
-    from pyanaconda import kickstart
     # we are past the --version and --help shortcut so we can import display &
     # startup_utils, which import Blivet, without slowing down anything critical
-    from pyanaconda import display
-    from pyanaconda import startup_utils
-    from pyanaconda import rescue
+    from pyanaconda import display, kickstart, rescue, startup_utils, vnc
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.
@@ -392,8 +388,8 @@ if __name__ == "__main__":
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
-    from pyanaconda.modules.common.constants.services import STORAGE
     from pyanaconda.modules.common.constants.objects import BOOTLOADER
+    from pyanaconda.modules.common.constants.services import STORAGE
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
     if opts.leavebootorder:
@@ -441,7 +437,11 @@ if __name__ == "__main__":
     startup_utils.initialize_locale(opts, text_mode=anaconda.tui_mode)
 
     # Initialize the network now, in case the display needs it
-    from pyanaconda.network import initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
+    from pyanaconda.network import (
+        initialize_network,
+        wait_for_connected_NM,
+        wait_for_connecting_NM_thread,
+    )
 
     initialize_network()
     # If required by user, wait for connection before starting the installation.
@@ -483,8 +483,9 @@ if __name__ == "__main__":
     else:
         min_ram = isys.MIN_RAM
 
+    from dasbus.typing import Int, get_variant
+
     from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
-    from dasbus.typing import get_variant, Int
     storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
     storage_checker.SetConstraint(
         constants.STORAGE_MIN_RAM,
@@ -492,8 +493,8 @@ if __name__ == "__main__":
     )
 
     # Set the disk images.
-    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     from pyanaconda.argument_parsing import name_path_pairs
+    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     disk_images = {}
 
@@ -553,12 +554,15 @@ if __name__ == "__main__":
     #   else currently talks to the Subscription DBus module,
     #   we only check if organization id & at least one activation
     #   key are available
-    from pyanaconda.modules.common.util import is_module_available
     from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+    from pyanaconda.modules.common.util import is_module_available
 
     if is_module_available(SUBSCRIPTION):
-        from pyanaconda.ui.lib.subscription import org_keys_sufficient, \
-            register_and_subscribe, kickstart_error_handler
+        from pyanaconda.ui.lib.subscription import (
+            kickstart_error_handler,
+            org_keys_sufficient,
+            register_and_subscribe,
+        )
         if org_keys_sufficient():
             threadMgr.add(
                 AnacondaThread(
@@ -590,6 +594,7 @@ if __name__ == "__main__":
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
+
     from pyanaconda.kickstart import check_kickstart_error
     from pyanaconda.modules.common.constants.objects import SNAPSHOT
     from pyanaconda.modules.common.task import sync_run_task

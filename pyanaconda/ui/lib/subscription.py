@@ -19,25 +19,33 @@
 
 from enum import Enum
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPES_OVERRIDEN_BY_CDN,
+    THREAD_WAIT_FOR_CONNECTING_NM,
+)
+from pyanaconda.errors import ERROR_RAISE, errorHandler
+from pyanaconda.modules.common import task
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.errors.subscription import (
+    MultipleOrganizationsError,
+    RegistrationError,
+    SatelliteProvisioningError,
+    UnregistrationError,
+)
+from pyanaconda.modules.common.structures.secret import (
+    SECRET_TYPE_HIDDEN,
+    SECRET_TYPE_TEXT,
+)
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.threading import threadMgr
-
-from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
-    SOURCE_TYPE_HDD, SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
-from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.common import task
-from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
-from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
-    SECRET_TYPE_TEXT
-from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SatelliteProvisioningError, MultipleOrganizationsError
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 # The following secret types mean a secret has been set

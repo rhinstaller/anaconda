@@ -17,54 +17,86 @@
 # Red Hat, Inc.
 #
 
-import time
-import threading
 import os
-import signal
 import re
-
+import signal
+import threading
+import time
 from collections import namedtuple
 from urllib.parse import urlsplit
 
-from pyanaconda.core import glib, constants
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
-    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
-from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_, CN_, C_
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
-    get_hdiso_source_info, get_hdiso_source_description
-from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url, create_nfs_url
-from pyanaconda.core.util import cmp_obj_attrs, id_generator
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.context import context
-from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
-from pyanaconda.ui.lib.subscription import switch_source
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
-from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive, \
-    set_password_visibility
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.manager import payloadMgr, PayloadState
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants, glib
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_CLOSEST_MIRROR,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
+from pyanaconda.core.i18n import C_, CN_, N_, _
+from pyanaconda.core.payload import (
+    ProxyString,
+    ProxyStringError,
+    create_nfs_url,
+    parse_nfs_url,
+)
+from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.regexes import (
+    HOSTNAME_PATTERN_WITHOUT_ANCHORS,
+    REPO_NAME_VALID,
+    URL_PARSE,
+)
+from pyanaconda.core.storage import device_matches
+from pyanaconda.core.util import cmp_obj_attrs, id_generator
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.core.storage import device_matches
+from pyanaconda.payload import utils as payload_utils
+from pyanaconda.payload.image import (
+    find_optical_install_media,
+    find_potential_hdiso_sources,
+    get_hdiso_source_description,
+    get_hdiso_source_info,
+)
+from pyanaconda.payload.manager import PayloadState, payloadMgr
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.context import context
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.helpers import (
+    GUIDialogInputCheckHandler,
+    GUISpokeInputCheckHandler,
+)
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.utils import (
+    blockedHandler,
+    fancy_set_sensitive,
+    find_first_child,
+    fire_gtk_action,
+    gtk_call_once,
+    really_hide,
+    really_show,
+    set_password_visibility,
+)
+from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
+from pyanaconda.ui.lib.subscription import switch_source
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 

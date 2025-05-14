@@ -17,6 +17,9 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.payload.source.factory import SourceFactory, PayloadSourceTypeUnrecognized
+from pyanaconda.payload.source.factory import (
+    PayloadSourceTypeUnrecognized,
+    SourceFactory,
+)
 
 __all__ = ["SourceFactory", "PayloadSourceTypeUnrecognized"]

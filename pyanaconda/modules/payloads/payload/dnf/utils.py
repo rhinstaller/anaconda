@@ -15,18 +15,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import dnf.subject
-import dnf.const
 import fnmatch
+
+import dnf.const
+import dnf.subject
 import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import is_lpae_available, decode_bytes
+from pyanaconda.core.util import decode_bytes, is_lpae_available
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
-from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
+from pyanaconda.product import productName, productVersion
 
 log = get_module_logger(__name__)
 

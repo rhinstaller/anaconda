@@ -18,41 +18,46 @@
 #
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 gi.require_version("GObject", "2.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("NM", "1.0")
 
-from gi.repository import Gtk
-from gi.repository import GObject, Pango, Gio, NM
-
-from pyanaconda.core.i18n import _, N_, CN_
-from pyanaconda.flags import flags as anaconda_flags
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
-from pyanaconda.ui.gui.spokes.lib.network_secret_agent import register_secret_agent
-from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
-from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import startProgram
-from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.constants import ANACONDA_ENVIRON
-from pyanaconda.core import glib
-from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
-from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
-    NM_CONNECTION_TYPE_ETHERNET
-
-
-from pyanaconda import network
-
 from uuid import uuid4
 
+from gi.repository import NM, Gio, GObject, Gtk, Pango
+
+from pyanaconda import network
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import glib
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import ANACONDA_ENVIRON
+from pyanaconda.core.i18n import CN_, N_, _
+from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.util import startProgram
+from pyanaconda.flags import flags as anaconda_flags
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.modules.network.constants import (
+    NM_CONNECTION_TYPE_ETHERNET,
+    NM_CONNECTION_TYPE_WIFI,
+)
+from pyanaconda.ui.categories.system import SystemCategory
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.hubs.summary import SummaryHub
+from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
+from pyanaconda.ui.gui.spokes.lib.network_secret_agent import register_secret_agent
+from pyanaconda.ui.gui.utils import (
+    escape_markup,
+    gtk_call_once,
+    really_hide,
+    really_show,
+)
+
 log = get_module_logger(__name__)
 
 NM._80211ApFlags = getattr(NM, "80211ApFlags")

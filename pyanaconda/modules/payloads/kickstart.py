@@ -17,14 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.constants import GROUP_DEFAULT, KS_BROKEN_IGNORE
 from pykickstart.errors import KickstartParseError
-from pykickstart.parser import Packages, Group
+from pykickstart.parser import Group, Packages
 from pykickstart.sections import PackageSection
-from pykickstart.constants import KS_BROKEN_IGNORE, GROUP_DEFAULT
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import commands as COMMANDS
 
 
 class AnacondaPackageSection(PackageSection):

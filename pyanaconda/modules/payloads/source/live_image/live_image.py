@@ -21,13 +21,17 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.live_image.initialization import \
-    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
-from pyanaconda.modules.payloads.source.utils import has_network_protocol
-from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
-    LiveImageSourceInterface
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.live_image.initialization import (
+    SetupImageResult,
+    SetUpLocalImageSourceTask,
+    SetUpRemoteImageSourceTask,
+)
+from pyanaconda.modules.payloads.source.live_image.live_image_interface import (
+    LiveImageSourceInterface,
+)
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 log = get_module_logger(__name__)
 

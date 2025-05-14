@@ -16,41 +16,49 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import sys
 import copy
+import sys
+
 import gi
 
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_, CN_
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
-    THREAD_CHECK_SOFTWARE
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload.manager import payloadMgr, PayloadState
-from pyanaconda.payload.errors import NoSuchGroup, DependencyError, PayloadError
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core import util, constants
-
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    THREAD_CHECK_SOFTWARE,
+    THREAD_PAYLOAD,
+    THREAD_SOFTWARE_WATCHER,
+)
+from pyanaconda.core.i18n import C_, CN_, _
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.payload.errors import DependencyError, NoSuchGroup, PayloadError
+from pyanaconda.payload.manager import PayloadState, payloadMgr
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
-from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.lib.software import (
+    FEATURE_64K,
+    FEATURE_UPSTREAM,
+    KernelFeatures,
+    get_available_kernel_features,
+    get_kernel_from_properties,
+    get_kernel_titles_and_descriptions,
+)
 from pyanaconda.ui.lib.subscription import check_cdn_is_installation_source
-from pyanaconda.ui.lib.software import FEATURE_UPSTREAM, FEATURE_64K, KernelFeatures, \
-    get_kernel_from_properties, get_available_kernel_features, get_kernel_titles_and_descriptions
 
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.common.util import is_module_available
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
 gi.require_version("Gtk", "3.0")
 gi.require_version("Pango", "1.0")
 from gi.repository import Gtk, Pango
-
 
 __all__ = ["SoftwareSelectionSpoke"]
 

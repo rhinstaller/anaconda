@@ -21,8 +21,10 @@ __all__ = ["SplitKickstartParser", "VALID_SECTIONS_ANACONDA"]
 from pykickstart.parser import KickstartParser
 from pykickstart.sections import Section
 
-from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
-    TrackedKickstartElements
+from pyanaconda.modules.boss.kickstart_manager.element import (
+    KickstartElement,
+    TrackedKickstartElements,
+)
 
 VALID_SECTIONS_ANACONDA = ["%pre", "%pre-install", "%post", "%onerror", "%traceback",
                            "%packages", "%addon", "%anaconda", "%certificate"]

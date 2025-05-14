@@ -18,8 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
 
+import pytest
 from blivet.devices import DiskDevice
 from blivet.formats import get_format
 from blivet.size import Size
@@ -27,9 +27,11 @@ from blivet.size import Size
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
-from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
+from pyanaconda.modules.storage.disk_selection.selection_interface import (
+    DiskSelectionInterface,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

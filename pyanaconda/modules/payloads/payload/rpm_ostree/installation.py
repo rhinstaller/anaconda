@@ -18,27 +18,26 @@
 import glob
 import os
 
-from pyanaconda.payload.errors import PayloadInstallError
+import gi
+from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
+from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect, mkdirChain, set_system_root
-from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
+from pyanaconda.payload.errors import PayloadInstallError
 
-from blivet import arch
-
-import gi
 gi.require_version("OSTree", "1.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("RpmOstree", "1.0")
-from gi.repository import RpmOstree, OSTree, Gio
+from gi.repository import Gio, OSTree, RpmOstree
 
 log = get_module_logger(__name__)
 

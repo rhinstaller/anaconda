@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -22,10 +23,12 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
-from pyanaconda.payload.source.factory import SourceFactory, PayloadSourceTypeUnrecognized
-from pyanaconda.payload.utils import mount, unmount, PayloadSetupError
+from pyanaconda.payload.source.factory import (
+    PayloadSourceTypeUnrecognized,
+    SourceFactory,
+)
+from pyanaconda.payload.utils import PayloadSetupError, mount, unmount
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["SetUpCdromSourceTask"]

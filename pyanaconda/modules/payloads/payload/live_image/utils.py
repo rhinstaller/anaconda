@@ -18,8 +18,8 @@
 import tarfile
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.constants import TAR_SUFFIX
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 log = get_module_logger(__name__)

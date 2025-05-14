@@ -29,7 +29,7 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.progress import progressQ
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import AnacondaThread, threadMgr
 
 log = get_packaging_logger()
 

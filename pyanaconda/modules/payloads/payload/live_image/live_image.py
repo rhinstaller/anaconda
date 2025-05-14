@@ -17,13 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.payload.live_image.live_image_interface import (
+    LiveImageInterface,
+)
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
-    LiveImageInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["LiveImageModule"]

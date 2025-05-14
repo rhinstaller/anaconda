@@ -18,7 +18,6 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
 import unittest
-
 from unittest.mock import patch
 
 from pyanaconda.core.configuration.anaconda import conf

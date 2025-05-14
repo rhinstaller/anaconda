@@ -19,6 +19,7 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
 import sys
+
 from . import testPOT
 
 if len(sys.argv) < 2:

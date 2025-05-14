@@ -25,12 +25,14 @@ except ImportError:
     # up PYTHONPATH and just do this basic import.
     import _isys
 
-import blivet.arch
-import time
 import datetime
+import time
+
+import blivet.arch
 import pytz
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 if blivet.arch.get_arch() in ["ppc64", "ppc64le"]:
