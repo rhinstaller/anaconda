@@ -85,7 +85,7 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
         assert localization.get_locale_keyboards("en_US") == ["us"]
         assert localization.get_locale_keyboards("en_GB") == ["gb"]
 
-    def test_common_keyboard_layouts(self):
+    def test_keyboard_layouts(self):
         layouts = localization.get_common_keyboard_layouts()
         assert "us" in layouts
         assert "fr(oss)" in layouts

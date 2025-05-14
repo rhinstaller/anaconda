@@ -27,11 +27,11 @@ from pyanaconda.localization import (
     _build_layout_infos,
     _get_layout_variant_description,
     get_available_translations,
+    get_common_keyboard_layouts,
     get_common_languages,
     get_english_name,
     get_language_id,
     get_language_locales,
-    get_locale_keyboards,
     get_native_name,
 )
 from pyanaconda.modules.common.base import KickstartService
@@ -44,7 +44,10 @@ from pyanaconda.modules.localization.installation import (
     LanguageInstallationTask,
 )
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
-from pyanaconda.modules.localization.localed import CompositorLocaledWrapper, LocaledWrapper
+from pyanaconda.modules.localization.localed import (
+    CompositorLocaledWrapper,
+    LocaledWrapper,
+)
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
@@ -195,39 +198,27 @@ class LocalizationService(KickstartService):
 
         return _get_layout_variant_description(layout_variant, self._layout_infos, with_lang, xlated)
 
+    def get_keyboard_layouts(self):
+        """Get localized keyboard layouts
 
-    def get_locale_keyboard_layouts(self, lang):
-        """Get localized keyboard layouts for a given locale.
-
-        :param lang: locale string (e.g., "cs_CZ.UTF-8")
         :return: list of dictionaries with keyboard layout information
         """
-        language_id = get_language_id(lang)
-
-        english_name = get_english_name(language_id)
-
         # rxkb_context.layouts lists all XKB layouts, including variants and less common options,
-        # while langtable.list_keyboards filters for the most relevant layouts per language.
+        # while langtable.list_keyboards filters for the most relevant layouts.
         keyboards = self._layout_infos.items()
-        langtable_keyboards = get_locale_keyboards(language_id)
-
-        # Sort the available keyboards by name alphabetically and but put the most common ones
-        # (langtable) on top
-        keyboards = sorted(keyboards, key=lambda x: x[0])
-        keyboards = sorted(
-            keyboards,
-            key=lambda x: langtable_keyboards.index(x[0].replace(" ", "")) if x[0].replace(" ", "") in langtable_keyboards else 999
-        )
+        common_langtable_keyboards = get_common_keyboard_layouts()
+        common_languages = [self.get_language_data(lang).english_name for lang in get_common_languages()]
 
         layouts = []
         for name, info in keyboards:
-            if any(english_name in langs for langs in info.langs):
-                if name:
-                    layout = KeyboardLayout()
-                    layout.layout_id = name
-                    layout.description = self.get_layout_variant_description(name, with_lang=True, xlated=True)
-                    layout.langs = info.langs
-                    layouts.append(layout)
+            if name:
+                is_common_lang = any(entry.split('; ')[0] in common_languages for entry in info.langs)
+                layout = KeyboardLayout()
+                layout.layout_id = name
+                layout.description = self.get_layout_variant_description(name, with_lang=True, xlated=True)
+                layout.is_common = name.replace(" ", "") in common_langtable_keyboards and is_common_lang
+                layout.langs = info.langs
+                layouts.append(layout)
 
         return layouts
 
