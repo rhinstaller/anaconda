@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.task import AbstractTask
+from pyanaconda.modules.common.task.task import AbstractTask
 
 log = get_module_logger(__name__)
 
