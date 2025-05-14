@@ -114,8 +114,8 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         answer = self.interface.SendRequest(request)
         answer = pickle.loads(answer)
 
-        from blivetgui.communication.proxy_utils import (
-            ProxyID,  # pylint: disable=import-error
+        from blivetgui.communication.proxy_utils import (  # pylint: disable=import-error
+            ProxyID,
         )
         assert isinstance(answer, ProxyID)
         assert answer.id == 0
