@@ -1020,12 +1020,12 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
     def test_get_mount_point_constraints(self):
         """Test GetMountPointConstraints."""
-        result = self.interface.GetMountPointConstraints()
+        result = self.interface.GetMountPointConstraints([])
         assert isinstance(result, list)
         assert len(result) == 3
 
         result = MountPointConstraintsData.from_structure_list(
-            self.interface.GetMountPointConstraints()
+            self.interface.GetMountPointConstraints([])
         )
         for mp in result:
             assert mp.mount_point is not None
@@ -1041,6 +1041,45 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert root.required is True
         assert root.recommended is False
 
+    def _check_biosboot_required(self, disk_list):
+        result = MountPointConstraintsData.from_structure_list(
+            self.interface.GetMountPointConstraints(disk_list)
+        )
+        biosboot = next(r for r in result if r.required_filesystem_type == "biosboot")
+        return biosboot.required
+
+    def test_get_mount_point_constraints_disks(self):
+        """Test GetMountPointConstraints for specific disks."""
+
+        # Test MBR partitioned disks constraints
+
+        self._add_device(DiskDevice(
+            "dev1",
+            fmt=get_format("disklabel", label_type="msdos"),
+            size=Size("5 GiB"))
+        )
+        self._add_device(DiskDevice(
+            "dev2",
+            fmt=get_format("disklabel", label_type="gpt"),
+            size=Size("5 GiB"))
+        )
+        self._add_device(DiskDevice(
+            "dev3",
+            fmt=get_format("disklabel", label_type="dasd"),
+            size=Size("5 GiB")
+        ))
+
+        # Some MBR disk found
+        assert self._check_biosboot_required(["dev1", "dev2"]) is False
+
+        # Only MBR disks found
+        assert self._check_biosboot_required(["dev1"]) is False
+
+        # No MBR disk found, GPT disk present
+        assert self._check_biosboot_required(["dev2"]) is True
+
+        # No MBR disk found, GPT disk not present
+        assert self._check_biosboot_required(["dev3"]) is True
 
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
