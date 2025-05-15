@@ -341,6 +341,23 @@ class DNFManagerTestCase(unittest.TestCase):
     def test_ignore_broken_packages(self):
         """Test the ignore_broken_packages attribute."""
 
+    @patch("libdnf5.base.Transaction.get_resolve_logs_as_strings")
+    @patch("libdnf5.base.Transaction.get_problems")
+    def test_resolve_selection_error(self, get_problems, get_resolve_logs):
+        """Test the resolve selection method when there are resolvement errors."""
+        self.dnf_manager.setup_base()
+
+        get_problems.return_value = libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR
+        get_resolve_logs.return_value = ["Solver error!"]
+
+        report = self.dnf_manager.resolve_selection()
+        assert report.error_messages == [
+            "The following software marked for installation has errors.\n"
+            "This is likely caused by an error with your installation source.\n\n",
+            "Solver error!",
+        ]
+        assert report.warning_messages == []
+
     def test_clear_selection(self):
         """Test the clear_selection method."""
         self.dnf_manager.setup_base()
