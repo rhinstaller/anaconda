@@ -19,28 +19,39 @@
 #
 import os
 import tempfile
-
 import unittest
-from unittest.mock import patch, Mock, MagicMock, call
+from unittest.mock import MagicMock, Mock, call, patch
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core import util
-from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
-    THREAD_WAIT_FOR_CONNECTING_NM, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, \
-    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, SOURCE_TYPE_CLOSEST_MIRROR, \
-    SOURCE_TYPE_CDN, SOURCE_TYPE_CDROM, PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE, \
-    SOURCE_TYPE_URL
-
-from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
-    RegistrationError, SatelliteProvisioningError
-from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
-
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    PAYLOAD_TYPE_RPM_OSTREE,
+    RHSM_SYSPURPOSE_FILE_PATH,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_CLOSEST_MIRROR,
+    SOURCE_TYPE_URL,
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
+    THREAD_WAIT_FOR_CONNECTING_NM,
+)
 from pyanaconda.core.subscription import check_system_purpose_set
-
-from pyanaconda.ui.lib.subscription import SubscriptionPhase, \
-    register_and_subscribe, unregister, org_keys_sufficient, \
-    username_password_sufficient, check_cdn_is_installation_source
+from pyanaconda.modules.common.errors.subscription import (
+    RegistrationError,
+    SatelliteProvisioningError,
+    UnregistrationError,
+)
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
+from pyanaconda.ui.lib.subscription import (
+    SubscriptionPhase,
+    check_cdn_is_installation_source,
+    org_keys_sufficient,
+    register_and_subscribe,
+    unregister,
+    username_password_sufficient,
+)
 
 
 class CheckSystemPurposeSetTestCase(unittest.TestCase):

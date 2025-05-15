@@ -16,11 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.lib.help import show_graphical_help_for_screen
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["StandaloneSpoke", "NormalSpoke"]

@@ -17,8 +17,10 @@
 #
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task import Task
-from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
-from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
+    FlatpakManager,
+)
+from pyanaconda.payload.errors import FlatpakInstallError, PayloadInstallError
 
 
 class InstallFlatpaksTask(Task):

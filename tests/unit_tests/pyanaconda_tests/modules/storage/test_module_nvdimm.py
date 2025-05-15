@@ -18,17 +18,15 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
-import pytest
-
 from textwrap import dedent
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
+import gi
+import pytest
 from blivet.devices import NVDIMMNamespaceDevice
 from blivet.formats import get_format
 from blivet.size import Size
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    clear_version_from_kickstart_string
+from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_MODE_SECTOR
 
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.storage.devicetree.model import create_storage
@@ -36,9 +34,12 @@ from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
 from pyanaconda.modules.storage.storage import StorageService
-from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    clear_version_from_kickstart_string,
+    patch_dbus_publish_object,
+)
 
-import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 

@@ -28,24 +28,30 @@ and various modifications of keyboard layouts settings.
 """
 
 import gi
+
 gi.require_version("GdkX11", "3.0")
 gi.require_version("Xkl", "1.0")
 
-from gi.repository import GdkX11, Xkl
-
-import threading
 import gettext
+import threading
 from collections import namedtuple
 
+from gi.repository import GdkX11, Xkl
+
+from pyanaconda import localization
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
+from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
-from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
-    KeyboardConfigError, InvalidLayoutVariantSpec, normalize_layout_variant
-from pyanaconda.core.async_utils import async_action_wait
-from pyanaconda import localization
+from pyanaconda.keyboard import (
+    InvalidLayoutVariantSpec,
+    KeyboardConfigError,
+    join_layout_variant,
+    normalize_layout_variant,
+    parse_layout_variant,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)

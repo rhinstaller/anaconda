@@ -17,18 +17,33 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-import unittest
-import pytest
 import copy
-from unittest.mock import patch, Mock
+import unittest
+from unittest.mock import Mock, patch
 
-from blivet.devicefactory import DEVICE_TYPE_LVM, SIZE_POLICY_AUTO, DEVICE_TYPE_PARTITION, \
-    DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_DISK, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS
-from blivet.devices import StorageDevice, DiskDevice, PartitionDevice, LUKSDevice, \
-    BTRFSVolumeDevice, MDRaidArrayDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice
+import pytest
+from blivet.devicefactory import (
+    DEVICE_TYPE_BTRFS,
+    DEVICE_TYPE_DISK,
+    DEVICE_TYPE_LVM,
+    DEVICE_TYPE_LVM_THINP,
+    DEVICE_TYPE_MD,
+    DEVICE_TYPE_PARTITION,
+    SIZE_POLICY_AUTO,
+)
+from blivet.devices import (
+    BTRFSVolumeDevice,
+    DiskDevice,
+    LUKSDevice,
+    LVMLogicalVolumeDevice,
+    LVMVolumeGroupDevice,
+    MDRaidArrayDevice,
+    PartitionDevice,
+    StorageDevice,
+)
 from blivet.errors import StorageError
 from blivet.formats import get_format
-from blivet.formats.fs import FS, BTRFS
+from blivet.formats.fs import BTRFS, FS
 from blivet.size import Size
 from dasbus.structure import compare_data
 from dasbus.typing import get_native
@@ -37,17 +52,23 @@ from pykickstart.constants import AUTOPART_TYPE_PLAIN
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
-    InteractiveAutoPartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import \
-    DeviceTreeSchedulerInterface
-from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import \
-    DeviceTreeSchedulerModule
-from pyanaconda.modules.storage.platform import EFI
 from pyanaconda.modules.storage.devicetree import create_storage
 from pyanaconda.modules.storage.devicetree.root import Root
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    patch_dbus_get_proxy
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import (
+    InteractiveAutoPartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_interface import (
+    DeviceTreeSchedulerInterface,
+)
+from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import (
+    DeviceTreeSchedulerModule,
+)
+from pyanaconda.modules.storage.platform import EFI
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_get_proxy,
+    patch_dbus_publish_object,
+)
 
 
 class DeviceTreeSchedulerTestCase(unittest.TestCase):

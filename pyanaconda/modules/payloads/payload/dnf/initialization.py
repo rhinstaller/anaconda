@@ -15,8 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import dnf.logging
 import logging
+
+import dnf.logging
 import libdnf
 
 DNF_LIBREPO_LOG = "/tmp/dnf.librepo.log"

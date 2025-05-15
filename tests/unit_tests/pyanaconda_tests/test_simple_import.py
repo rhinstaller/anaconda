@@ -18,12 +18,12 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import sys
-import pyanaconda
 import unittest
-
 from importlib import import_module
 from pkgutil import walk_packages
 from unittest.mock import Mock
+
+import pyanaconda
 
 
 class SimpleImportTestCase(unittest.TestCase):

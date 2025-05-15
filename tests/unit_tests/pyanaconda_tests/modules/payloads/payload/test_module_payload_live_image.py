@@ -19,17 +19,19 @@
 #
 import unittest
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadKickstartSharedTest, PayloadSharedTest
-
-from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
-from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
-    LiveImageInterface
+from pyanaconda.modules.payloads.payload.live_image.live_image_interface import (
+    LiveImageInterface,
+)
+from pyanaconda.modules.payloads.payloads import PayloadsService
+from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
+from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+    PayloadSharedTest,
+)
 
 
 class LiveImageKSTestCase(unittest.TestCase):

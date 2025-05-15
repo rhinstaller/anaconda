@@ -23,18 +23,21 @@
 import traceback
 from abc import abstractmethod
 
-from pyanaconda.core.constants import THREAD_DBUS_TASK
 from dasbus.server.publishable import Publishable
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import THREAD_DBUS_TASK
 from pyanaconda.modules.common.errors.task import NoResultError
-from pyanaconda.modules.common.task.task_interface import TaskInterface, ValidationTaskInterface
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.result import ResultProvider
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.modules.common.task.task_interface import (
+    TaskInterface,
+    ValidationTaskInterface,
+)
+from pyanaconda.threading import AnacondaThread, threadMgr
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ['AbstractTask', 'Task', 'ValidationTask']

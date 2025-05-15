@@ -17,15 +17,14 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+from unittest.mock import Mock, patch
+
 import pytest
 
-from unittest.mock import patch, Mock
-
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
-
 from pyanaconda.modules.common.containers import PayloadSourceContainer
-from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.constants import SourceState
+from pyanaconda.modules.payloads.source.factory import SourceFactory
+from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
 
 
 class PayloadKickstartSharedTest(object):

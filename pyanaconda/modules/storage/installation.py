@@ -20,26 +20,27 @@
 import itertools
 import os
 import shutil
-import parted
-
 from datetime import timedelta
 from time import sleep
 
-from blivet import callbacks as blivet_callbacks, util as blivet_util, arch
-from blivet.errors import FSResizeError, FormatResizeError, StorageError
-from blivet.util import get_current_entropy
+import gi
+import parted
+from blivet import arch
+from blivet import callbacks as blivet_callbacks
+from blivet import util as blivet_util
 from blivet.devicelibs.lvm import HAVE_LVMDEVICES
+from blivet.errors import FormatResizeError, FSResizeError, StorageError
+from blivet.util import get_current_entropy
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import join_paths, mkdirChain
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, ZFCP, NVME
+from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, NVME, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import StorageInstallationError
 from pyanaconda.modules.common.task import Task
 
-import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 

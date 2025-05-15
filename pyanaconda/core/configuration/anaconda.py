@@ -21,22 +21,32 @@ import os
 import warnings
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.base import (
+    Configuration,
+    ConfigurationError,
+    Section,
+)
 from pyanaconda.core.configuration.bootloader import BootloaderSection, BootloaderType
 from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.payload import PayloadSection
+from pyanaconda.core.configuration.product import ProductLoader
 from pyanaconda.core.configuration.security import SecuritySection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.storage_constraints import StorageConstraints
-from pyanaconda.core.configuration.system import SystemType, SystemSection
-from pyanaconda.core.configuration.target import TargetType, TargetSection
-from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
-from pyanaconda.core.configuration.product import ProductLoader
-from pyanaconda.core.configuration.ui import UserInterfaceSection
+from pyanaconda.core.configuration.system import SystemSection, SystemType
+from pyanaconda.core.configuration.target import TargetSection, TargetType
 from pyanaconda.core.configuration.timezone import TimezoneSection
-from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR, \
-    GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, GEOLOC_DEFAULT_PROVIDER, \
-    GEOLOC_URL_FEDORA_GEOIP, GEOLOC_URL_HOSTIP
+from pyanaconda.core.configuration.ui import UserInterfaceSection
+from pyanaconda.core.constants import (
+    ANACONDA_CONFIG_DIR,
+    ANACONDA_CONFIG_TMP,
+    GEOLOC_DEFAULT_PROVIDER,
+    GEOLOC_PROVIDER_FEDORA_GEOIP,
+    GEOLOC_PROVIDER_HOSTIP,
+    GEOLOC_URL_FEDORA_GEOIP,
+    GEOLOC_URL_HOSTIP,
+)
 
 log = get_module_logger(__name__)
 

@@ -18,22 +18,27 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import os
-import sys
 import pickle
+import sys
 import unittest
-import pytest
-
 from unittest.mock import patch
 
+import pytest
+
 from pyanaconda.modules.storage.devicetree import create_storage
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
-
-from pyanaconda.modules.storage.partitioning.blivet.blivet_module import BlivetPartitioningModule
-from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import \
-    BlivetPartitioningInterface
-from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import \
-    InteractivePartitioningTask
-
+from pyanaconda.modules.storage.partitioning.blivet.blivet_interface import (
+    BlivetPartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.blivet.blivet_module import (
+    BlivetPartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.interactive.interactive_partitioning import (
+    InteractivePartitioningTask,
+)
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 # blivet-gui is supported on Fedora, but not ELN/CentOS/RHEL
 HAVE_BLIVET_GUI = os.path.exists("/usr/bin/blivet-gui")
@@ -71,7 +76,9 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         assert blivet_module.storage is not None
 
         # Import the exception again.
-        from pyanaconda.modules.common.errors.storage import UnsupportedPartitioningError
+        from pyanaconda.modules.common.errors.storage import (
+            UnsupportedPartitioningError,
+        )
 
         # Handle the missing support.
         with pytest.raises(UnsupportedPartitioningError):
@@ -107,7 +114,9 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         answer = self.interface.SendRequest(request)
         answer = pickle.loads(answer)
 
-        from blivetgui.communication.proxy_utils import ProxyID  # pylint: disable=import-error
+        from blivetgui.communication.proxy_utils import (  # pylint: disable=import-error
+            ProxyID,
+        )
         assert isinstance(answer, ProxyID)
         assert answer.id == 0
 

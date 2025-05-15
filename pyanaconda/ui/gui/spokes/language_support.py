@@ -18,25 +18,26 @@
 #
 
 import gi
+
 gi.require_version("Pango", "1.0")
 gi.require_version("Gdk", "3.0")
 
-from gi.repository import Pango, Gdk
-
-from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
-from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.core.i18n import CN_
-from pyanaconda.ui.context import context
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
-from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
-from pyanaconda import localization
-
 import re
 
+from gi.repository import Gdk, Pango
+
+from pyanaconda import localization
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
+from pyanaconda.core.i18n import CN_
+from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.ui.categories.localization import LocalizationCategory
+from pyanaconda.ui.context import context
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
+from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
+
 log = get_module_logger(__name__)
 
 __all__ = ["LangsupportSpoke"]

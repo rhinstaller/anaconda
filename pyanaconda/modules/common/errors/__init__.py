@@ -27,5 +27,5 @@ def register_errors():
         module,
         payload,
         storage,
-        task
+        task,
     )

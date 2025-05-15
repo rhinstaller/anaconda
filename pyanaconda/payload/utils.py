@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 import os
+
 import blivet.util
 
 from pyanaconda.anaconda_loggers import get_module_logger

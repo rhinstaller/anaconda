@@ -18,7 +18,10 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_class
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 __all__ = ["ClosestMirrorSourceInterface"]
 

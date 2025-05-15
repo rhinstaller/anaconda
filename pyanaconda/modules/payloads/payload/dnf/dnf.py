@@ -17,20 +17,31 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import GROUP_REQUIRED, GROUP_ALL, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
-    GROUP_DEFAULT
+from pykickstart.constants import (
+    GROUP_ALL,
+    GROUP_DEFAULT,
+    GROUP_REQUIRED,
+    KS_BROKEN_IGNORE,
+    KS_MISSING_IGNORE,
+)
 
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL, \
-    DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, GROUP_PACKAGE_TYPES_ALL, \
-    GROUP_PACKAGE_TYPES_REQUIRED, RPM_LANGUAGES_ALL
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import (
+    DNF_DEFAULT_RETRIES,
+    DNF_DEFAULT_TIMEOUT,
+    GROUP_PACKAGE_TYPES_ALL,
+    GROUP_PACKAGE_TYPES_REQUIRED,
+    MULTILIB_POLICY_ALL,
+    RPM_LANGUAGES_ALL,
+    RPM_LANGUAGES_NONE,
+)
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

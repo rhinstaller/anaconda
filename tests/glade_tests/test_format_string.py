@@ -15,8 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import check_glade_files
 from unittest import TestCase
+
+from gladecheck import check_glade_files
 
 
 class CheckFormatString(TestCase):
@@ -38,7 +39,7 @@ class CheckFormatString(TestCase):
         for translatable in glade_tree.xpath(".//*[@translatable='yes']"):
             # Look for % followed by an open parenthesis (indicating %(name)
             # style substitution), one of the python format conversion flags
-            # (#0- +hlL), or one of the python conversion types 
+            # (#0- +hlL), or one of the python conversion types
             # (diouxXeEfFgGcrs)
             self.assertNotRegex(translatable.text,
                     r'%[-(#0 +hlLdiouxXeEfFgGcrs]',

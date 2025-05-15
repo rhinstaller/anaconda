@@ -21,20 +21,19 @@
 import os
 import sys
 
-from dasbus.typing import get_variant, Str
-from pyanaconda.core.configuration.anaconda import conf
+from dasbus.typing import Str, get_variant
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.threading import threadMgr
-from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.task import NoResultError
-
+from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.subscription.constants import RHSM_SERVICE_NAME
+from pyanaconda.threading import threadMgr
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

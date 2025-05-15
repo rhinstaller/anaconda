@@ -48,6 +48,7 @@ RUN pip install \
   "pylint==2.8.3" \
   "astroid==2.5.6" \
   "pocketlint==0.24" \
+  "ruff==0.11.8" \
   coverage \
   pycodestyle \
   dogtail \

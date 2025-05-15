@@ -17,11 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.constants.services import SECURITY
+from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from dasbus.server.interface import dbus_interface
+from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.security.constants import SELinuxMode

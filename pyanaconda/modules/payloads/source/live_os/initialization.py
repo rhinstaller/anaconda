@@ -18,12 +18,12 @@
 import os
 import stat
 
-from pyanaconda.payload.utils import mount
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
+from pyanaconda.payload.utils import mount
 
 
 class SetUpLiveOSSourceTask(SetUpMountTask):

@@ -18,22 +18,27 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import call, patch
+
 import pytest
-
-from unittest.mock import patch, call
-
 from blivet.devices import DASDDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError, UnknownDeviceError
+from pyanaconda.modules.common.errors.storage import (
+    UnavailableStorageError,
+    UnknownDeviceError,
+)
 from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
 from pyanaconda.modules.storage.dasd.format import DASDFormatTask
 from pyanaconda.modules.storage.devicetree import create_storage
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class DASDInterfaceTestCase(unittest.TestCase):

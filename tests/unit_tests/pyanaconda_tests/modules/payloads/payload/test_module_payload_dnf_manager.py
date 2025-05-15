@@ -16,11 +16,10 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import Mock, patch
+
 import pytest
-
-from unittest.mock import patch, Mock
-
-from blivet.size import Size, ROUND_UP
+from blivet.size import ROUND_UP, Size
 from dnf.exceptions import MarkingErrors
 from dnf.package import Package
 

@@ -18,24 +18,37 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import Mock, patch
 
-from tests.unit_tests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
-    patch_dbus_publish_object, PropertiesChangedCallback
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest
+import pytest
 
 from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
-from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
+from pyanaconda.modules.common.errors.payload import (
+    IncompatibleSourceError,
+    SourceSetupError,
+)
 from pyanaconda.modules.common.task.task_interface import TaskInterface
-from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
-from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.base.initialization import (
+    CopyDriverDisksFilesTask,
+    PrepareSystemForInstallationTask,
+    SetUpSourcesTask,
+    TearDownSourcesTask,
+)
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
+from pyanaconda.modules.payloads.constants import PayloadType, SourceState, SourceType
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
-from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
+from pyanaconda.modules.payloads.payload.live_os.live_os_interface import (
+    LiveOSInterface,
+)
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_task_creation,
+    check_task_creation_list,
+    patch_dbus_publish_object,
+)
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadSharedTest,
+)
 
 
 class LiveOSInterfaceTestCase(unittest.TestCase):

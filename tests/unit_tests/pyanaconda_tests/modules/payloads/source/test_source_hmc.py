@@ -18,9 +18,9 @@
 #
 import tempfile
 import unittest
-import pytest
+from unittest.mock import call, patch
 
-from unittest.mock import patch, call
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_HMC
 from pyanaconda.modules.common.errors.payload import SourceSetupError

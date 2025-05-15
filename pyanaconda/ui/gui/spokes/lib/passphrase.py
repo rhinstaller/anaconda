@@ -18,17 +18,18 @@
 #
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
 from pyanaconda.core.constants import PASSWORD_POLICY_LUKS
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["PassphraseDialog"]

@@ -18,28 +18,44 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-from unittest.mock import patch, PropertyMock
+from unittest.mock import PropertyMock, patch
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
-    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
-    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
-    GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL
+from pyanaconda.core.constants import (
+    GROUP_PACKAGE_TYPES_ALL,
+    GROUP_PACKAGE_TYPES_REQUIRED,
+    MULTILIB_POLICY_ALL,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_CLOSEST_MIRROR,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_REPO_FILES,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+)
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    PackagesConfigurationData
+from pyanaconda.modules.common.structures.payload import (
+    PackagesConfigurationData,
+    RepoConfigurationData,
+)
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest, PayloadKickstartSharedTest
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_property,
+    patch_dbus_publish_object,
+)
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+    PayloadSharedTest,
+)
 
 
 class DNFKSTestCase(unittest.TestCase):

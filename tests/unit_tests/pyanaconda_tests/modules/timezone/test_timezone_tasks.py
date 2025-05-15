@@ -20,15 +20,18 @@
 import os
 import tempfile
 import unittest
-import pytest
-
-from shutil import copytree, copyfile
+from shutil import copyfile, copytree
 from unittest.mock import patch
 
-from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL
+import pytest
+
+from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
+from pyanaconda.modules.timezone.installation import (
+    ConfigureNTPTask,
+    ConfigureTimezoneTask,
+)
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
 
 

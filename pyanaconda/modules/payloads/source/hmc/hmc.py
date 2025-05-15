@@ -17,16 +17,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.source.hmc.hmc_interface import HMCSourceInterface
 from pyanaconda.modules.payloads.source.hmc.initialization import SetUpHMCSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
-    MountingSourceMixin, RPMSourceMixin
+from pyanaconda.modules.payloads.source.source_base import (
+    MountingSourceMixin,
+    PayloadSourceBase,
+    RPMSourceMixin,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["HMCSourceModule"]

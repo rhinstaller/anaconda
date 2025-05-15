@@ -16,16 +16,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
-from pyanaconda.ui.tui.tuiobject import TUIObject
-from pyanaconda.ui.lib.help import get_help_path_for_screen
-from pyanaconda.core.i18n import N_, _
-
 from simpleline.render.adv_widgets import HelpScreen
+from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.prompt import Prompt
-from simpleline.render.widgets import Widget, CheckboxWidget
+from simpleline.render.widgets import CheckboxWidget, Widget
+
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.ui.common import NormalSpoke, Spoke, StandaloneSpoke
+from pyanaconda.ui.lib.help import get_help_path_for_screen
+from pyanaconda.ui.tui.tuiobject import TUIObject
 
 __all__ = ["TUISpoke", "StandaloneSpoke", "NormalTUISpoke"]
 

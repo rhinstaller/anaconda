@@ -17,14 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.i18n import _
-from pyanaconda.modules.payloads.constants import SourceType, SourceState, DNF_REPO_DIRS
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import \
-    RepoFilesSourceInterface
-from pyanaconda.modules.payloads.source.repo_files.initialization import \
-    SetUpRepoFilesSourceTask
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
+from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS, SourceState, SourceType
+from pyanaconda.modules.payloads.source.repo_files.initialization import (
+    SetUpRepoFilesSourceTask,
+)
+from pyanaconda.modules.payloads.source.repo_files.repo_files_interface import (
+    RepoFilesSourceInterface,
+)
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 
 log = get_module_logger(__name__)
 

@@ -17,14 +17,20 @@
 #
 import os
 import tempfile
-
 import unittest
 from unittest.mock import patch
 
 from pyanaconda.core.constants import DisplayModes
-from pyanaconda.ui.lib.help import _get_help_mapping, show_graphical_help, _get_help_args, \
-    HelpArguments, get_help_path_for_screen, show_graphical_help_for_screen, localize_help_file, \
-    _get_help_args_for_screen
+from pyanaconda.ui.lib.help import (
+    HelpArguments,
+    _get_help_args,
+    _get_help_args_for_screen,
+    _get_help_mapping,
+    get_help_path_for_screen,
+    localize_help_file,
+    show_graphical_help,
+    show_graphical_help_for_screen,
+)
 
 INVALID_MAPPING = """
 This is an invalid mapping.

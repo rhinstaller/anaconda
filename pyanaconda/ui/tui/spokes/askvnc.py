@@ -18,21 +18,21 @@
 #
 import sys
 
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.constants import USEVNC, USETEXT, QUIT_MESSAGE
-from pyanaconda.core.i18n import N_, _
-from pyanaconda.ui.tui import exception_msg_handler
-from pyanaconda.core.util import execWithRedirect, ipmi_abort
-
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
+from simpleline.render.adv_widgets import YesNoDialog
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.adv_widgets import YesNoDialog
 from simpleline.render.widgets import TextWidget
+
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import QUIT_MESSAGE, USETEXT, USEVNC
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.util import execWithRedirect, ipmi_abort
+from pyanaconda.ui.tui import exception_msg_handler
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
 
 def exception_msg_handler_and_exit(signal, data):

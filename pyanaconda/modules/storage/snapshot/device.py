@@ -19,6 +19,7 @@
 #
 from blivet.devices import LVMLogicalVolumeDevice
 from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 

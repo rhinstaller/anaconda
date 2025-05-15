@@ -17,18 +17,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import BASE_REPO_NAME, URL_TYPE_BASEURL, URL_TYPE_METALINK, \
-    URL_TYPE_MIRRORLIST, URL_TYPES
-from pyanaconda.core.signal import Signal
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import (
+    BASE_REPO_NAME,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+    URL_TYPES,
+)
 from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.source_base import (
+    PayloadSourceBase,
+    RPMSourceMixin,
+)
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

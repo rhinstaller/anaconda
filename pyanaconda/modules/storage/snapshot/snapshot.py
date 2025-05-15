@@ -17,8 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL, \
-    SNAPSHOT_WHEN_POST_INSTALL
+from pykickstart.constants import (
+    CLEARPART_TYPE_ALL,
+    SNAPSHOT_WHEN_POST_INSTALL,
+    SNAPSHOT_WHEN_PRE_INSTALL,
+)
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -26,10 +29,10 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.storage.checker.utils import storage_checker
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
-from pyanaconda.modules.storage.checker.utils import storage_checker
 
 log = get_module_logger(__name__)
 

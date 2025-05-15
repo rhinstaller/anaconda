@@ -18,15 +18,16 @@
 #
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 gi.require_version("Pango", "1.0")
-from gi.repository import Gtk, Pango
-
 from collections import namedtuple
 
-from pyanaconda.core.i18n import _
+from gi.repository import Gtk, Pango
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
+
 log = get_module_logger(__name__)
 
 

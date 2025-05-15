@@ -23,14 +23,17 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
-    ResizableDeviceTreeModule
+from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import (
+    AutoPartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import (
+    AutomaticPartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.automatic.resizable_module import (
+    ResizableDeviceTreeModule,
+)
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import \
-    AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
-from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
-    AutomaticPartitioningTask
 
 log = get_module_logger(__name__)
 

@@ -19,13 +19,15 @@
 import unittest
 
 from regexcheck import regex_group
+
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
+
 
 class GroupParseTestCase(unittest.TestCase):
     def test_group_list(self):
         """Test a list of possible group-name (GID) values with the group
-           parsing regex. 
-           
+           parsing regex.
+
            Tests are in the form of: (string, match.groups() tuple)
         """
 

@@ -18,14 +18,14 @@
 import os
 import re
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
-from pyanaconda.core import util
-from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB"]

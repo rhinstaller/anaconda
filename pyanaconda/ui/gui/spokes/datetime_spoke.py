@@ -16,43 +16,45 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 import datetime
+import functools
+import locale as locale_mod
 import re
 import time
-import locale as locale_mod
-import functools
-import copy
-
-from pyanaconda import isys
-from pyanaconda import network
-from pyanaconda import ntp
-from pyanaconda import flags
-from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util, constants
-from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
-from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.timer import Timer
-from pyanaconda.localization import get_xlated_timezone, resolve_date_format
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.ntp import NTPServerStatusCache
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import override_cell_property
-from pyanaconda.ui.gui.utils import blockedHandler
-from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
-from pyanaconda.ui.helpers import InputCheck
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
-    is_valid_timezone, is_valid_ui_timezone
-from pyanaconda.threading import threadMgr, AnacondaThread
 
 import gi
+
+from pyanaconda import flags, isys, network, ntp
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants, util
+from pyanaconda.core.async_utils import async_action_nowait, async_action_wait
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
+from pyanaconda.core.i18n import CN_, _
+from pyanaconda.core.timer import Timer
+from pyanaconda.localization import get_xlated_timezone, resolve_date_format
+from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
+from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.ntp import NTPServerStatusCache
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.timezone import (
+    NTP_SERVICE,
+    get_all_regions_and_timezones,
+    get_timezone,
+    is_valid_timezone,
+    is_valid_ui_timezone,
+)
+from pyanaconda.ui.categories.localization import LocalizationCategory
+from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.utils import blockedHandler, override_cell_property
+from pyanaconda.ui.helpers import InputCheck
+
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("TimezoneMap", "1.0")

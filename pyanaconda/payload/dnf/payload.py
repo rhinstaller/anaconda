@@ -22,60 +22,102 @@ import os
 import shutil
 import sys
 import threading
+from glob import glob
+
 import dnf
-import dnf.logging
 import dnf.exceptions
+import dnf.logging
 import dnf.module
 import dnf.module.module_base
 import dnf.repo
 import dnf.subject
 import libdnf.conf
 
-from glob import glob
-
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    PackagesConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
-from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, UpdateDNFConfigurationTask
-from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
-    apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-
 from pyanaconda import errors as errors
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
+from pyanaconda.core.constants import (
+    INSTALL_TREE,
+    ISO_DIR,
+    MULTILIB_POLICY_ALL,
+    PAYLOAD_TYPE_DNF,
+    SOURCE_REPO_FILE_TYPES,
+    SOURCE_TYPE_CDN,
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
-from pyanaconda.modules.payloads.source.utils import has_network_protocol
-from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
+from pyanaconda.modules.common.errors.storage import (
+    DeviceSetupError,
+    MountFilesystemError,
+)
+from pyanaconda.modules.common.structures.payload import (
+    PackagesConfigurationData,
+    RepoConfigurationData,
+)
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
+from pyanaconda.modules.payloads.payload.dnf.installation import (
+    ImportRPMKeysTask,
+    SetRPMMacrosTask,
+    UpdateDNFConfigurationTask,
+)
+from pyanaconda.modules.payloads.payload.dnf.requirements import (
+    apply_requirements,
+    collect_driver_disk_requirements,
+    collect_language_requirements,
+    collect_platform_requirements,
+    collect_remote_requirements,
+)
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    get_default_environment,
+    get_installation_specs,
+    get_kernel_package,
+    get_kernel_version_list,
+    get_product_release_version,
+)
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
-    YUM_REPOS_DIR, do_transaction, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
-    PayloadInstallError, PayloadSetupError
+from pyanaconda.payload.dnf.utils import (
+    DNF_PACKAGE_CACHE_DIR_SUFFIX,
+    YUM_REPOS_DIR,
+    do_transaction,
+    get_df_map,
+    pick_mount_point,
+)
+from pyanaconda.payload.errors import (
+    DependencyError,
+    MetadataError,
+    NoSuchGroup,
+    PayloadError,
+    PayloadInstallError,
+    PayloadSetupError,
+)
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
-from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
-    set_up_sources, tear_down_sources
+from pyanaconda.payload.source import PayloadSourceTypeUnrecognized, SourceFactory
+from pyanaconda.progress import progress_message, progressQ
+from pyanaconda.ui.lib.payload import (
+    create_source,
+    get_payload,
+    get_source,
+    set_source,
+    set_up_sources,
+    tear_down_sources,
+)
 
 log = get_packaging_logger()
 

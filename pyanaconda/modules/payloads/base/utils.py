@@ -20,11 +20,11 @@
 import os
 import stat
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.payload import rpm_version_key
 from pyanaconda.core.util import mkdirChain
 
-from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.payload import rpm_version_key
 log = get_module_logger(__name__)
 
 

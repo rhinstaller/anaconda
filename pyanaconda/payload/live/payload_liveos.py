@@ -19,8 +19,13 @@ import os
 import stat
 
 from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
+from pyanaconda.core.constants import (
+    INSTALL_TREE,
+    PAYLOAD_TYPE_LIVE_OS,
+    SOURCE_TYPE_LIVE_OS_IMAGE,
+)
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload import utils as payload_utils

@@ -18,14 +18,14 @@
 # Red Hat, Inc.
 #
 import shutil
+
 import dnf
 import dnf.exceptions
-
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
+from pyanaconda.core.constants import DNF_DEFAULT_RETRIES, DNF_DEFAULT_TIMEOUT
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData

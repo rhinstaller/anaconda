@@ -18,15 +18,20 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 
 import os
+import tempfile
 import unittest
 from unittest.mock import Mock
-import tempfile
 
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.error import DBusError
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
-    _match_field, process_field, give_the_system_purpose
+from pyanaconda.modules.subscription.system_purpose import (
+    _match_field,
+    _normalize_field,
+    get_valid_fields,
+    give_the_system_purpose,
+    process_field,
+)
 
 # content of a valid populated valid values json file for system purpose testing
 SYSPURPOSE_VALID_VALUES_JSON = """

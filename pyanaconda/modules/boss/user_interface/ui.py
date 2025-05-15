@@ -18,8 +18,11 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import PASSWORD_POLICY_LUKS, PASSWORD_POLICY_ROOT, \
-    PASSWORD_POLICY_USER
+from pyanaconda.core.constants import (
+    PASSWORD_POLICY_LUKS,
+    PASSWORD_POLICY_ROOT,
+    PASSWORD_POLICY_USER,
+)
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.boss.user_interface.ui_interface import UIInterface

@@ -17,10 +17,10 @@
 #
 from simpleline.render.widgets import TextWidget
 
-from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
-from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.core.i18n import N_
 from pyanaconda.core.util import detect_unsupported_hardware
+from pyanaconda.ui.tui.hubs.summary import SummaryHub
+from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 
 __all__ = ["UnsupportedHardwareSpoke"]
 

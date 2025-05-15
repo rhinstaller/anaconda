@@ -21,10 +21,10 @@ import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
+from pyanaconda.core.constants import REQUIREMENT_TYPE_GROUP, REQUIREMENT_TYPE_PACKAGE
 from pyanaconda.core.util import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
-from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
+from pyanaconda.modules.common.constants.services import BOSS, LOCALIZATION
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.util import is_module_available
 

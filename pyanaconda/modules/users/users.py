@@ -17,21 +17,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
+from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.users.installation import (
+    ConfigureRootPasswordSSHLoginTask,
+    CreateGroupsTask,
+    CreateUsersTask,
+    SetRootPasswordTask,
+    SetSshKeysTask,
+)
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
-from pyanaconda.modules.users.installation import SetRootPasswordTask, CreateUsersTask, \
-    CreateGroupsTask, SetSshKeysTask, ConfigureRootPasswordSSHLoginTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

@@ -17,9 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import FIREWALL
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -27,7 +28,6 @@ from pyanaconda.modules.network.constants import FirewallMode
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

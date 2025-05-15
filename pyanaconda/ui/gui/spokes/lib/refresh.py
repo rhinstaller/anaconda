@@ -16,10 +16,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.timer import Timer
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core import constants
+from pyanaconda.core.timer import Timer
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.lib.storage import reset_storage
 
 __all__ = ["RefreshDialog"]

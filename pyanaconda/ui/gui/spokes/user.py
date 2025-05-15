@@ -18,27 +18,30 @@
 #
 import os
 
-from pyanaconda.core.constants import PASSWORD_POLICY_USER
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.users import crypt_password, guess_username, check_groupname
 from pyanaconda import input_checking
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PASSWORD_POLICY_USER
+from pyanaconda.core.i18n import CN_, _
+from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
+from pyanaconda.core.users import check_groupname, crypt_password, guess_username
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.helpers import InputCheck
-from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
-from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.helpers import (
+    GUIDialogInputCheckHandler,
+    GUISpokeInputCheckHandler,
+)
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
+from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.lib.users import get_user_list, set_user_list
-from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]

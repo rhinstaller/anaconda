@@ -17,45 +17,71 @@
 #
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
-import os
-import unittest
-import pytest
 import json
-
-from unittest.mock import patch, Mock, call
-
+import os
 import tempfile
-
-from dasbus.typing import get_variant, get_native, Str, Bool
-from dasbus.error import DBusError
-
-from pyanaconda.core import util
-from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    RHSM_SYSPURPOSE_FILE_PATH, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
-
-from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
-    InsightsClientMissingError, SubscriptionTokenTransferError
-from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    SatelliteProvisioningError, MultipleOrganizationsError
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription, OrganizationData
-from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_UNREGISTER, \
-    RHSM_CONFIG
-
-from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
-
-from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask, DownloadSatelliteProvisioningScriptTask, \
-    RunSatelliteProvisioningScriptTask, BackupRHSMConfBeforeSatelliteProvisioningTask, \
-    RollBackSatelliteProvisioningTask, RegisterAndSubscribeTask, RetrieveOrganizationsTask
-from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX, \
-    RHSM_SERVICE_NAME
+import unittest
+from unittest.mock import Mock, call, patch
 
 import gi
+import pytest
+from dasbus.error import DBusError
+from dasbus.typing import Bool, Str, get_native, get_variant
+
+from pyanaconda.core import util
+from pyanaconda.core.constants import (
+    RHSM_SYSPURPOSE_FILE_PATH,
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
+)
+from pyanaconda.modules.common.constants.objects import (
+    RHSM_CONFIG,
+    RHSM_REGISTER,
+    RHSM_UNREGISTER,
+)
+from pyanaconda.modules.common.constants.services import RHSM
+from pyanaconda.modules.common.errors.installation import (
+    InsightsClientMissingError,
+    InsightsConnectError,
+    SubscriptionTokenTransferError,
+)
+from pyanaconda.modules.common.errors.subscription import (
+    MultipleOrganizationsError,
+    RegistrationError,
+    SatelliteProvisioningError,
+)
+from pyanaconda.modules.common.structures.subscription import (
+    AttachedSubscription,
+    OrganizationData,
+    SubscriptionRequest,
+    SystemPurposeData,
+)
+from pyanaconda.modules.subscription.constants import (
+    RHSM_SERVICE_NAME,
+    SERVER_HOSTNAME_NOT_SATELLITE_PREFIX,
+)
+from pyanaconda.modules.subscription.installation import (
+    ConnectToInsightsTask,
+    ProvisionTargetSystemForSatelliteTask,
+    RestoreRHSMDefaultsTask,
+    TransferSubscriptionTokensTask,
+)
+from pyanaconda.modules.subscription.runtime import (
+    BackupRHSMConfBeforeSatelliteProvisioningTask,
+    DownloadSatelliteProvisioningScriptTask,
+    ParseAttachedSubscriptionsTask,
+    RegisterAndSubscribeTask,
+    RegisterWithOrganizationKeyTask,
+    RegisterWithUsernamePasswordTask,
+    RetrieveOrganizationsTask,
+    RHSMPrivateBus,
+    RollBackSatelliteProvisioningTask,
+    RunSatelliteProvisioningScriptTask,
+    SetRHSMConfigurationTask,
+    SystemPurposeConfigurationTask,
+    UnregisterTask,
+)
+
 gi.require_version("Gio", "2.0")
 from gi.repository import Gio
 

@@ -18,37 +18,43 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import Mock, patch
 
+import pytest
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
-
-from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.modules.storage.partitioning.automatic.resizable_module import \
-    ResizableDeviceTreeModule
-from pyanaconda.modules.storage.partitioning.automatic.utils import \
-    get_disks_for_implicit_partitions
-from pyanaconda.modules.storage.partitioning.specification import PartSpec
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation, check_dbus_object_creation
-
+from dasbus.typing import *  # pylint: disable=wildcard-import
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
-from pyanaconda.modules.storage.partitioning.automatic.automatic_module import \
-    AutoPartitioningModule
-from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import \
-    AutoPartitioningInterface
-from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import \
-    AutomaticPartitioningTask
-from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
-from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import (
+    AutoPartitioningInterface,
+)
+from pyanaconda.modules.storage.partitioning.automatic.automatic_module import (
+    AutoPartitioningModule,
+)
+from pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning import (
+    AutomaticPartitioningTask,
+)
+from pyanaconda.modules.storage.partitioning.automatic.resizable_module import (
+    ResizableDeviceTreeModule,
+)
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    get_default_partitioning,
+    get_disks_for_implicit_partitions,
+)
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
+from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from tests.unit_tests.pyanaconda_tests import (
+    check_dbus_object_creation,
+    check_dbus_property,
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class AutopartitioningInterfaceTestCase(unittest.TestCase):

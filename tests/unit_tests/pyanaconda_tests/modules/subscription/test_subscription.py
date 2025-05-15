@@ -18,30 +18,48 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_HIDDEN, SECRET_TYPE_TEXT, \
-    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    DEFAULT_SUBSCRIPTION_REQUEST_TYPE
-
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.core.constants import (
+    DEFAULT_SUBSCRIPTION_REQUEST_TYPE,
+    SECRET_TYPE_HIDDEN,
+    SECRET_TYPE_NONE,
+    SECRET_TYPE_TEXT,
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
+    SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
+)
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
-from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
-
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.structures.subscription import (
+    AttachedSubscription,
+    SubscriptionRequest,
+    SystemPurposeData,
+)
+from pyanaconda.modules.subscription.installation import (
+    ConnectToInsightsTask,
+    ProvisionTargetSystemForSatelliteTask,
+    RestoreRHSMDefaultsTask,
+    TransferSubscriptionTokensTask,
+)
+from pyanaconda.modules.subscription.runtime import (
+    RegisterAndSubscribeTask,
+    RetrieveOrganizationsTask,
+    SetRHSMConfigurationTask,
+    SystemPurposeConfigurationTask,
+    UnregisterTask,
+)
 from pyanaconda.modules.subscription.subscription import SubscriptionService
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
-from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
-from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask, \
-    RetrieveOrganizationsTask
-
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
-    PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
-    check_task_creation
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_dbus_property,
+    check_kickstart_interface,
+    check_task_creation,
+    check_task_creation_list,
+    patch_dbus_publish_object,
+)
 
 
 class SubscriptionInterfaceTestCase(unittest.TestCase):

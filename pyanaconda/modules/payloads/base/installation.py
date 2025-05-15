@@ -15,12 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.payload import InstallError
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithRedirect
+from pyanaconda.modules.common.errors.payload import InstallError
+from pyanaconda.modules.common.task import Task
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

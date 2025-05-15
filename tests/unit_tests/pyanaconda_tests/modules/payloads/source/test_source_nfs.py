@@ -16,22 +16,23 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
+from unittest.mock import Mock, patch
 
-from unittest.mock import patch, Mock
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_NFS
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_NFS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
-from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.payload.utils import PayloadSetupError
-
-from tests.unit_tests.pyanaconda_tests import check_dbus_property, PropertiesChangedCallback
-
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_dbus_property,
+)
 
 NFS_ADDRESS = "example.com:/some/path"
 NFS_URL = "nfs:" + NFS_ADDRESS

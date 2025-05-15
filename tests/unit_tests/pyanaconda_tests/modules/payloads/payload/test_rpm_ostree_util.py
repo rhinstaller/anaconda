@@ -18,7 +18,8 @@
 import tempfile
 import unittest
 
-from pyanaconda.core.util import join_paths, touch, mkdirChain as make_directories
+from pyanaconda.core.util import join_paths, touch
+from pyanaconda.core.util import mkdirChain as make_directories
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 

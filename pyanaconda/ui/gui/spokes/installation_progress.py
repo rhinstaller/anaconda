@@ -16,16 +16,16 @@
 # Red Hat, Inc.
 import sys
 
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.timer import Timer
-from pyanaconda.product import productName
-from pyanaconda.flags import flags
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_INSTALL, IPMI_FINISHED
-from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
-
+from pyanaconda.core.constants import IPMI_FINISHED, THREAD_INSTALL
+from pyanaconda.core.i18n import C_, _
+from pyanaconda.core.timer import Timer
+from pyanaconda.flags import flags
+from pyanaconda.product import productName
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once
@@ -73,8 +73,9 @@ class ProgressSpoke(StandaloneSpoke):
         pass
 
     def _update_progress(self, callback=None):
-        from pyanaconda.progress import progressQ
         import queue
+
+        from pyanaconda.progress import progressQ
 
         q = progressQ.q
 
@@ -172,7 +173,7 @@ class ProgressSpoke(StandaloneSpoke):
 
     def refresh(self):
         from pyanaconda.installation import run_installation
-        from pyanaconda.threading import threadMgr, AnacondaThread
+        from pyanaconda.threading import AnacondaThread, threadMgr
         super().refresh()
 
         self._update_progress_timer.timeout_msec(

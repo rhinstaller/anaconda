@@ -17,13 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import (
+    PayloadSourceBaseInterface,
+)
 
 
 @dbus_interface(PAYLOAD_SOURCE_URL.interface_name)

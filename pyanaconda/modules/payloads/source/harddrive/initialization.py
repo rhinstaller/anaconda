@@ -16,15 +16,17 @@
 # Red Hat, Inc.
 #
 import os.path
-
 from collections import namedtuple
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
-    find_and_mount_iso_image, verify_valid_repository
+from pyanaconda.modules.payloads.source.utils import (
+    find_and_mount_device,
+    find_and_mount_iso_image,
+    verify_valid_repository,
+)
 from pyanaconda.payload.utils import unmount
-from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 

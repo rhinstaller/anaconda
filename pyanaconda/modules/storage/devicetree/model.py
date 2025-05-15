@@ -18,26 +18,28 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 import copy
+import logging
 import os
 
 from blivet.blivet import Blivet
+from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 from blivet.devices import BTRFSSubVolumeDevice, PartitionDevice
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
-from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
 from pyanaconda.core import util
-from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName
-from pyanaconda.modules.storage.devicetree.fsset import FSSet
-from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
-    find_live_backing_device
-from pyanaconda.modules.storage.devicetree.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.storage.bootloader import BootLoaderFactory
+from pyanaconda.modules.storage.devicetree.fsset import FSSet
+from pyanaconda.modules.storage.devicetree.root import find_existing_installations
+from pyanaconda.modules.storage.devicetree.utils import (
+    download_escrow_certificate,
+    find_live_backing_device,
+)
 
-import logging
 log = logging.getLogger("anaconda.storage")
 
 __all__ = ["create_storage"]

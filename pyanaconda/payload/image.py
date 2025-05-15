@@ -22,12 +22,13 @@ import os.path
 import stat
 import tempfile
 
-import blivet.util
 import blivet.arch
-
+import blivet.util
 from blivet.size import Size
+from productmd.discinfo import DiscInfo
 
 from pyanaconda import isys
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
@@ -35,9 +36,6 @@ from pyanaconda.modules.common.structures.storage import DeviceData, DeviceForma
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 
-from productmd.discinfo import DiscInfo
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 _arch = blivet.arch.get_arch()
@@ -182,7 +180,9 @@ def find_optical_install_media():
             except MountFilesystemError:
                 continue
             try:
-                from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
+                from pyanaconda.modules.payloads.source.utils import (
+                    is_valid_install_disk,
+                )
                 if not is_valid_install_disk(mountpoint):
                     continue
             finally:

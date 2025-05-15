@@ -18,13 +18,15 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
+from pyanaconda.modules.storage.disk_selection.selection_interface import (
+    DiskSelectionInterface,
+)
 from pyanaconda.modules.storage.disk_selection.utils import check_disk_selection
 
 log = get_module_logger(__name__)

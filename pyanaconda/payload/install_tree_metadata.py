@@ -17,15 +17,16 @@
 # Red Hat, Inc.
 #
 
-import time
-import requests
 import os
+import time
 
+import requests
 from productmd.treeinfo import TreeInfo
-from pyanaconda.core import util, constants
-from pyanaconda.core.payload import split_protocol
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
+from pyanaconda.core import constants, util
+from pyanaconda.core.payload import split_protocol
+
 log = get_packaging_logger()
 
 MAX_TREEINFO_DOWNLOAD_RETRIES = 6

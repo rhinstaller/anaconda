@@ -17,41 +17,55 @@
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
-import unittest
-import tempfile
 import os
 import shutil
-import pytest
-
+import tempfile
+import unittest
 from textwrap import dedent
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
+import gi
+import pytest
 from dasbus.signal import Signal
+from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_kickstart_interface, check_task_creation, PropertiesChangedCallback
-
-from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
-        FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+from pyanaconda.core.constants import (
+    FIREWALL_DEFAULT,
+    FIREWALL_DISABLED,
+    FIREWALL_ENABLED,
+    FIREWALL_USE_SYSTEM_DEFAULTS,
+)
 from pyanaconda.core.kernel import KernelArguments
-from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
-from pyanaconda.modules.common.errors.installation import FirewallConfigurationError, \
-    NetworkInstallationError
-from pyanaconda.modules.network.network import NetworkService
-from pyanaconda.modules.network.network_interface import NetworkInterface
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.errors.installation import (
+    FirewallConfigurationError,
+    NetworkInstallationError,
+)
 from pyanaconda.modules.network.constants import FirewallMode
-from pyanaconda.modules.network.installation import NetworkInstallationTask, \
-    ConfigureActivationOnBootTask, HostnameConfigurationTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
+from pyanaconda.modules.network.initialization import (
+    ApplyKickstartTask,
+    DumpMissingConfigFilesTask,
+)
+from pyanaconda.modules.network.installation import (
+    ConfigureActivationOnBootTask,
+    HostnameConfigurationTask,
+    NetworkInstallationTask,
+)
 from pyanaconda.modules.network.kickstart import DEFAULT_DEVICE_SPECIFICATION
-from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
-    DumpMissingConfigFilesTask
+from pyanaconda.modules.network.network import NetworkService
+from pyanaconda.modules.network.network_interface import NetworkInterface
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_dbus_property,
+    check_kickstart_interface,
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
-import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
 
@@ -100,6 +114,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def test_set_locale(self, mocked_os, setlocale):
         """Test setting locale of the module."""
         from locale import LC_ALL
+
         import pyanaconda.core.util
         locale = "en_US.UTF-8"
         mocked_os.environ = {}

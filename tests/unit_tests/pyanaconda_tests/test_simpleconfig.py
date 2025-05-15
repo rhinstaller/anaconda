@@ -16,11 +16,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda import simpleconfig
 import os
-import unittest
 import tempfile
+import unittest
+
+from pyanaconda import simpleconfig
+from pyanaconda.simpleconfig import SimpleConfigFile
+
 
 class SimpleConfigTests(unittest.TestCase):
     TEST_CONFIG = """ESSID="Example Network #1"

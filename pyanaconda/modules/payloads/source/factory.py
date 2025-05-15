@@ -33,11 +33,14 @@ class SourceFactory(object):
         :return: a source module
         """
         if source_type == SourceType.LIVE_OS_IMAGE:
-            from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
+            from pyanaconda.modules.payloads.source.live_os.live_os import (
+                LiveOSSourceModule,
+            )
             return LiveOSSourceModule()
         elif source_type == SourceType.LIVE_IMAGE:
-            from pyanaconda.modules.payloads.source.live_image.live_image import \
-                LiveImageSourceModule
+            from pyanaconda.modules.payloads.source.live_image.live_image import (
+                LiveImageSourceModule,
+            )
             return LiveImageSourceModule()
         elif source_type == SourceType.CDROM:
             from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
@@ -46,8 +49,9 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.hmc.hmc import HMCSourceModule
             return HMCSourceModule()
         elif source_type == SourceType.REPO_FILES:
-            from pyanaconda.modules.payloads.source.repo_files.repo_files import \
-                RepoFilesSourceModule
+            from pyanaconda.modules.payloads.source.repo_files.repo_files import (
+                RepoFilesSourceModule,
+            )
             return RepoFilesSourceModule()
         elif source_type == SourceType.NFS:
             from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
@@ -56,23 +60,27 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.url.url import URLSourceModule
             return URLSourceModule()
         elif source_type == SourceType.HDD:
-            from pyanaconda.modules.payloads.source.harddrive.harddrive import \
-                HardDriveSourceModule
+            from pyanaconda.modules.payloads.source.harddrive.harddrive import (
+                HardDriveSourceModule,
+            )
             return HardDriveSourceModule()
         elif source_type == SourceType.CDN:
             from pyanaconda.modules.payloads.source.cdn.cdn import CDNSourceModule
             return CDNSourceModule()
         elif source_type == SourceType.CLOSEST_MIRROR:
-            from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
-                ClosestMirrorSourceModule
+            from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import (
+                ClosestMirrorSourceModule,
+            )
             return ClosestMirrorSourceModule()
         elif source_type == SourceType.RPM_OSTREE:
-            from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import \
-                RPMOSTreeSourceModule
+            from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import (
+                RPMOSTreeSourceModule,
+            )
             return RPMOSTreeSourceModule()
         elif source_type == SourceType.RPM_OSTREE_CONTAINER:
-            from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container import \
-                RPMOSTreeContainerSourceModule
+            from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container import (
+                RPMOSTreeContainerSourceModule,
+            )
             return RPMOSTreeContainerSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))

@@ -16,7 +16,9 @@
 # Red Hat, Inc.
 #
 from collections import namedtuple
+
 from blivet.arch import is_aarch64
+
 from pyanaconda.core.i18n import _
 
 FEATURE_UPSTREAM = "upstream"

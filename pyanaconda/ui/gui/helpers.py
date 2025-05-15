@@ -21,21 +21,23 @@
 # functionality. See also pyanaconda.ui.helpers.
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 from abc import ABCMeta, abstractmethod
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from pyanaconda.flags import flags
-from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
-from pyanaconda.ui.gui.utils import timed_action
+from pyanaconda.core import constants
 from pyanaconda.core.i18n import _
 from pyanaconda.errors import NonInteractiveError
-from pyanaconda.core import constants
+from pyanaconda.flags import flags
+from pyanaconda.ui.gui.utils import timed_action
+from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 
 
 def autoinstall_stopped(reason):

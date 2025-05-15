@@ -20,7 +20,9 @@
 from dasbus.server.interface import dbus_interface
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_RPM_OSTREE
-from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
+from pyanaconda.modules.payloads.payload.payload_base_interface import (
+    PayloadBaseInterface,
+)
 
 
 @dbus_interface(PAYLOAD_RPM_OSTREE.interface_name)

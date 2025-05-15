@@ -18,30 +18,40 @@
 #
 
 import gi
+
 gi.require_version("Gkbd", "3.0")
 gi.require_version("Gtk", "3.0")
 
-from gi.repository import Gkbd, Gtk
 import locale as locale_mod
 
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, gtk_batch_map, timed_action
-from pyanaconda.ui.gui.utils import override_cell_property
-from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
-from pyanaconda import keyboard
-from pyanaconda import flags
-from pyanaconda.core.i18n import _, N_, CN_
+from gi.repository import Gkbd, Gtk
+
+from pyanaconda import flags, keyboard
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.core.util import strip_accents, have_word_match
+from pyanaconda.core.constants import (
+    DEFAULT_KEYBOARD,
+    THREAD_ADD_LAYOUTS_INIT,
+    THREAD_KEYBOARD_INIT,
+)
+from pyanaconda.core.i18n import CN_, N_, _
+from pyanaconda.core.util import have_word_match, strip_accents
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.ui.categories.localization import LocalizationCategory
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.utils import (
+    escape_markup,
+    gtk_batch_map,
+    gtk_call_once,
+    override_cell_property,
+    timed_action,
+)
+from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["KeyboardSpoke"]

@@ -16,14 +16,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_call_once
-from pyanaconda.core.async_utils import async_action_wait
-from pyanaconda.core import constants
 import threading
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
+from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import gtk_call_once
+
 log = get_module_logger(__name__)
 
 __all__ = ["DasdFormatDialog"]

@@ -15,15 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import operator
+import os
 
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.payload.dnf.transaction_progress import TransactionProgress
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.payload.dnf.transaction_progress import TransactionProgress
 
 log = get_packaging_logger()
 

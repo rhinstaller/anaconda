@@ -18,13 +18,15 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import PropertyMock, patch
+
 import pytest
-
-from unittest.mock import patch, PropertyMock
-
 from blivet.formats.fs import BTRFS
-from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
-    KickstartSpecificationParser
+
+from pyanaconda.core.kickstart.specification import (
+    KickstartSpecificationHandler,
+    KickstartSpecificationParser,
+)
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface

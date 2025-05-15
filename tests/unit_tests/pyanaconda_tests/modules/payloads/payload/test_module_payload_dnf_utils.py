@@ -16,15 +16,21 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import Mock, PropertyMock, patch
 
-from unittest.mock import patch, Mock, PropertyMock
-
-from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
+from pyanaconda.core.constants import (
+    GROUP_PACKAGE_TYPES_ALL,
+    GROUP_PACKAGE_TYPES_REQUIRED,
+)
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list
+from pyanaconda.modules.payloads.payload.dnf.utils import (
+    get_default_environment,
+    get_installation_specs,
+    get_kernel_package,
+    get_kernel_version_list,
+    get_product_release_version,
+)
 
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):

@@ -17,16 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import time
 from threading import RLock
 
 from dasbus.error import DBusError
-from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import synchronized
-from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.modules.common.task import sync_run_task
-import time
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.signal import Signal
+from pyanaconda.core.util import synchronized
+from pyanaconda.errors import ERROR_RAISE, errorHandler
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.progress import progress_message
 
 log = get_module_logger(__name__)

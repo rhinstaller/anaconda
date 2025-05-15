@@ -21,9 +21,15 @@
 from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.core.constants import (
+    DNF_DEFAULT_REPO_COST,
+    DNF_DEFAULT_RETRIES,
+    DNF_DEFAULT_TIMEOUT,
+    MULTILIB_POLICY_BEST,
+    RPM_LANGUAGES_ALL,
+    URL_TYPE_BASEURL,
+)
 from pyanaconda.core.util import join_paths
-from pyanaconda.core.constants import URL_TYPE_BASEURL, DNF_DEFAULT_REPO_COST, \
-    MULTILIB_POLICY_BEST, RPM_LANGUAGES_ALL, DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
 
 __all__ = ["RepoConfigurationData", "SSLConfigurationData", "PackagesConfigurationData"]
 

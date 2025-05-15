@@ -1,10 +1,8 @@
 
+import glob
 import os
 import subprocess
-import glob
-
 from unittest import TestCase
-
 
 RPM_BUILD_DIR_ENV = "RPM_PATH"
 ROOT_DIR_ENV = "ROOT_ANACONDA_PATH"

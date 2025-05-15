@@ -18,20 +18,26 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-import pytest
 
+import pytest
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from tests.unit_tests.pyanaconda_tests import check_dbus_property
-
-from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST, \
-    DNF_DEFAULT_REPO_COST, SOURCE_TYPE_URL
+from pyanaconda.core.constants import (
+    DNF_DEFAULT_REPO_COST,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_URL
 from pyanaconda.modules.common.errors.general import InvalidValueError
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    SSLConfigurationData
+from pyanaconda.modules.common.structures.payload import (
+    RepoConfigurationData,
+    SSLConfigurationData,
+)
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
 from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
+from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 
 class URLSourceInterfaceTestCase(unittest.TestCase):

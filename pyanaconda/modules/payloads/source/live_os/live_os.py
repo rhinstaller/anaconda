@@ -20,16 +20,23 @@
 import os
 import stat
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithCapture
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.live_os.initialization import (
+    SetUpLiveOSSourceTask,
+)
+from pyanaconda.modules.payloads.source.live_os.live_os_interface import (
+    LiveOSSourceInterface,
+)
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, MountingSourceMixin
-from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
+from pyanaconda.modules.payloads.source.source_base import (
+    MountingSourceMixin,
+    PayloadSourceBase,
+)
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

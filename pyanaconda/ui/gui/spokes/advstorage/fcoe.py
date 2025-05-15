@@ -16,15 +16,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import gi
+
 from pyanaconda.modules.common.constants.objects import FCOE
-from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
-from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.lib.storage import try_populate_devicetree
 
-import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
 

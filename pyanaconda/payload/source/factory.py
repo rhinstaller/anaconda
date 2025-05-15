@@ -16,11 +16,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.payload import parse_nfs_url
-from pyanaconda.payload.source.sources import CDRomSource, HDDSource, NFSSource, HTTPSource, \
-    HTTPSSource, FTPSource, FileSource, HMCSource
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.payload import parse_nfs_url
+from pyanaconda.payload.source.sources import (
+    CDRomSource,
+    FileSource,
+    FTPSource,
+    HDDSource,
+    HMCSource,
+    HTTPSource,
+    HTTPSSource,
+    NFSSource,
+)
+
 log = get_module_logger(__name__)
 
 

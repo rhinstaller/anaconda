@@ -18,16 +18,19 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-import pytest
-
 from unittest.mock import patch
+
+import pytest
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class ZFCPInterfaceTestCase(unittest.TestCase):

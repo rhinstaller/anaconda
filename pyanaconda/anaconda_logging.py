@@ -20,11 +20,12 @@
 #
 
 import logging
-from logging.handlers import SysLogHandler, SocketHandler
-from systemd.journal import JournalHandler
 import os
 import sys
 import warnings
+from logging.handlers import SocketHandler, SysLogHandler
+
+from systemd.journal import JournalHandler
 
 from pyanaconda.core import constants
 
@@ -46,6 +47,7 @@ ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
 
 from threading import Lock
+
 program_log_lock = Lock()
 
 logLevelMap = {"debug": logging.DEBUG,

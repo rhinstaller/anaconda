@@ -15,14 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.dbus import SystemBus
-from pyanaconda.modules.common.constants.services import LOCALED
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
-    InvalidLayoutVariantSpec
-from pyanaconda.core.constants import DEFAULT_KEYBOARD
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.core.dbus import SystemBus
+from pyanaconda.keyboard import (
+    InvalidLayoutVariantSpec,
+    join_layout_variant,
+    parse_layout_variant,
+)
+from pyanaconda.modules.common.constants.services import LOCALED
+
 log = get_module_logger(__name__)
 
 

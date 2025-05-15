@@ -20,9 +20,9 @@ import hashlib
 from requests import RequestException
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core import util, constants
-from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.core import constants, util
 from pyanaconda.core.constants import USER_AGENT
+from pyanaconda.core.payload import ProxyString, ProxyStringError
 
 log = get_packaging_logger()
 

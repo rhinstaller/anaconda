@@ -26,9 +26,11 @@ from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.structures.requirement import Requirement
-
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    patch_dbus_get_proxy
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_get_proxy,
+    patch_dbus_publish_object,
+)
 
 
 class BossInterfaceTestCase(unittest.TestCase):

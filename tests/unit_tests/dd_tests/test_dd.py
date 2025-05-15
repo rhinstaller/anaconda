@@ -2,17 +2,16 @@
 
 import os
 import shutil
-import unittest
-import tempfile
 import subprocess
-
+import tempfile
+import unittest
 from abc import ABC
-
-from contextlib import contextmanager
 from collections import namedtuple
-from rpmfluff import SourceFile, GeneratedSourceFile, SimpleRpmBuild
-from rpmfluff.utils import expectedArch
+from contextlib import contextmanager
+
+from rpmfluff import GeneratedSourceFile, SimpleRpmBuild, SourceFile
 from rpmfluff.make import make_elf
+from rpmfluff.utils import expectedArch
 from shutup import shutup
 
 TOP_SRCDIR = os.environ.get("top_builddir", "../..")

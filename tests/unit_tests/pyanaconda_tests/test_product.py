@@ -20,18 +20,23 @@
 import os
 import tempfile
 import unittest
-import pytest
 from textwrap import dedent
 from unittest.mock import patch
 
+import pytest
 from blivet.size import Size
 
-from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
-from pyanaconda.modules.storage.partitioning.specification import PartSpec
-
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
-from pyanaconda.core.configuration.base import ConfigurationError, create_parser, read_config
+from pyanaconda.core.configuration.base import (
+    ConfigurationError,
+    create_parser,
+    read_config,
+)
 from pyanaconda.core.configuration.product import ProductLoader
+from pyanaconda.modules.storage.partitioning.automatic.utils import (
+    get_default_partitioning,
+)
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.product import trim_product_version_for_ui
 
 PRODUCT_DIR = os.path.join(os.environ.get("ANACONDA_DATA"), "product.d")

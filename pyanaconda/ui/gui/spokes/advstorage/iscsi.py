@@ -18,21 +18,25 @@
 #
 
 from collections import namedtuple
+
 from dasbus.typing import unwrap_variant
 
-from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
-from pyanaconda.modules.common.task import async_run_task
-from pyanaconda.modules.common.structures.iscsi import Credentials, Portal, Node
-from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.core.constants import (
+    ISCSI_INTERFACE_DEFAULT,
+    ISCSI_INTERFACE_IFACENAME,
+    ISCSI_INTERFACE_UNSET,
+)
+from pyanaconda.core.i18n import _
+from pyanaconda.core.regexes import ISCSI_EUI_NAME_REGEX, ISCSI_IQN_NAME_REGEX
 from pyanaconda.modules.common.constants.objects import ISCSI
-from pyanaconda.core.constants import ISCSI_INTERFACE_UNSET, ISCSI_INTERFACE_DEFAULT, \
-    ISCSI_INTERFACE_IFACENAME
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.structures.iscsi import Credentials, Node, Portal
+from pyanaconda.modules.common.task import async_run_task
+from pyanaconda.network import check_ip_address
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.ui.lib.storage import try_populate_devicetree
-from pyanaconda.core.i18n import _
-from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
-from pyanaconda.network import check_ip_address
 
 __all__ = ["ISCSIDialog"]
 

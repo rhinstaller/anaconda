@@ -19,6 +19,7 @@
 #
 import shlex
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.kernel import kernel_arguments
@@ -28,15 +29,21 @@ from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.certificates import CertificatesModule
+from pyanaconda.modules.security.constants import SELinuxMode
+from pyanaconda.modules.security.installation import (
+    ConfigureAuthconfigTask,
+    ConfigureAuthselectTask,
+    ConfigureFingerprintAuthTask,
+    ConfigureFIPSTask,
+    ConfigureSELinuxTask,
+    PreconfigureFIPSTask,
+    RealmDiscoverTask,
+    RealmJoinTask,
+)
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
-from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
-    RealmDiscoverTask, RealmJoinTask, ConfigureAuthselectTask, \
-    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask, PreconfigureFIPSTask, ConfigureFIPSTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

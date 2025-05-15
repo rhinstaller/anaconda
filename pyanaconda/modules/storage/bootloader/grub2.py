@@ -17,17 +17,17 @@
 #
 import os
 import re
-from _ped import PARTITION_BIOS_GRUB
 
+from _ped import PARTITION_BIOS_GRUB
 from blivet.devicelibs import raid
 
-from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
 from pyanaconda.product import productName
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["GRUB2", "IPSeriesGRUB2"]

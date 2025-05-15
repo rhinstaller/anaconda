@@ -21,8 +21,13 @@ import parted
 from blivet.devices import PartitionDevice
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import CLEAR_PARTITIONS_DEFAULT, CLEAR_PARTITIONS_NONE, \
-    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST
+from pyanaconda.core.constants import (
+    CLEAR_PARTITIONS_ALL,
+    CLEAR_PARTITIONS_DEFAULT,
+    CLEAR_PARTITIONS_LINUX,
+    CLEAR_PARTITIONS_LIST,
+    CLEAR_PARTITIONS_NONE,
+)
 
 log = get_module_logger(__name__)
 

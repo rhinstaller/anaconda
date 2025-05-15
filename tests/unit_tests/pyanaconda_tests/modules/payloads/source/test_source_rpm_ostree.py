@@ -17,15 +17,17 @@
 #
 import unittest
 
-from dasbus.typing import get_variant, Str, Bool
+from dasbus.typing import Bool, Str, get_variant
 
 from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_RPM_OSTREE
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import RPMOSTreeSourceModule
-from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
-    RPMOSTreeSourceInterface
-
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import (
+    RPMOSTreeSourceModule,
+)
+from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import (
+    RPMOSTreeSourceInterface,
+)
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 

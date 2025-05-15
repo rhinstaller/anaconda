@@ -19,11 +19,15 @@
 #
 import copy
 
-from dasbus.structure import DBusData, get_fields, generate_string_from_data
+from dasbus.structure import DBusData, generate_string_from_data, get_fields
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_TEXT, SECRET_TYPE_HIDDEN
+from pyanaconda.core.constants import (
+    SECRET_TYPE_HIDDEN,
+    SECRET_TYPE_NONE,
+    SECRET_TYPE_TEXT,
+)
 
 log = get_module_logger(__name__)
 

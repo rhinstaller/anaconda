@@ -23,13 +23,19 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
-from pyanaconda.modules.payloads.source.utils import MountPointGenerator
-from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
-    HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import (
+    HardDriveSourceInterface,
+)
+from pyanaconda.modules.payloads.source.harddrive.initialization import (
+    SetUpHardDriveSourceTask,
+)
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.source_base import (
+    PayloadSourceBase,
+    RPMSourceMixin,
+)
+from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
 log = get_module_logger(__name__)
 

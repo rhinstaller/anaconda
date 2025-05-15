@@ -23,20 +23,29 @@ from threading import Lock
 
 import requests
 from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
-    NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR, THREAD_LIVE_PROGRESS
+from pyanaconda.core.constants import (
+    IMAGE_DIR,
+    INSTALL_TREE,
+    NETWORK_CONNECTION_TIMEOUT,
+    PAYLOAD_TYPE_LIVE_IMAGE,
+    TAR_SUFFIX,
+    THREAD_LIVE_PROGRESS,
+)
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
+from pyanaconda.modules.payloads.payload.live_image.utils import (
+    get_kernel_version_list_from_tar,
+)
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
 from pyanaconda.payload.live.payload_base import BaseLivePayload
 from pyanaconda.progress import progressQ
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import AnacondaThread, threadMgr
 
 log = get_packaging_logger()
 

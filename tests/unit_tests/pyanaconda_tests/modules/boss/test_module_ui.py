@@ -18,7 +18,7 @@
 import unittest
 
 from dasbus.structure import compare_data
-from dasbus.typing import get_variant, Bool, UInt16
+from dasbus.typing import Bool, UInt16, get_variant
 
 from pyanaconda.modules.boss.user_interface import UIModule
 from pyanaconda.modules.boss.user_interface.ui_interface import UIInterface

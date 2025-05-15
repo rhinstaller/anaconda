@@ -22,20 +22,21 @@ configuration, valid timezones recognition etc.
 
 """
 
-import pytz
-import langtable
 from collections import OrderedDict
 
+import langtable
+import pytz
+from blivet import arch
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import TIMEZONE, STORAGE
+from pyanaconda.modules.common.constants.services import STORAGE, TIMEZONE
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import threadMgr
-from blivet import arch
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 # The following zones are not in pytz.common_timezones and

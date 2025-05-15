@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import queue
+
 from pyanaconda.core.util import lowerASCII, upperASCII
 
 

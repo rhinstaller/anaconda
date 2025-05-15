@@ -17,17 +17,19 @@
 # Red Hat, Inc.
 #
 
+import crypt
+import glob
+import os
+import platform
+import shutil
+import tempfile
 import unittest
 from unittest.mock import patch
-import tempfile
-import shutil
-import os
-import crypt
-import platform
-import glob
+
 import pytest
 
 from pyanaconda.core import users
+
 
 @unittest.skipIf(os.geteuid() != 0, "user creation must be run as root")
 class UserCreateTest(unittest.TestCase):

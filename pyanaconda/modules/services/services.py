@@ -17,23 +17,27 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import FIRSTBOOT_DEFAULT, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG
+from pykickstart.constants import FIRSTBOOT_DEFAULT, FIRSTBOOT_RECONFIG, FIRSTBOOT_SKIP
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
+from pyanaconda.core.constants import GRAPHICAL_TARGET, TEXT_ONLY_TARGET
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.services.constants import SetupOnBootAction
+from pyanaconda.modules.services.installation import (
+    ConfigureDefaultDesktopTask,
+    ConfigureInitialSetupTask,
+    ConfigurePostInstallationToolsTask,
+    ConfigureServicesTask,
+    ConfigureSystemdDefaultTargetTask,
+)
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
-from pyanaconda.modules.services.installation import ConfigureInitialSetupTask, \
-    ConfigurePostInstallationToolsTask, ConfigureServicesTask, ConfigureSystemdDefaultTargetTask, \
-    ConfigureDefaultDesktopTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 

@@ -21,9 +21,10 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import \
-    RPMOSTreeSourceInterface
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree_interface import (
+    RPMOSTreeSourceInterface,
+)
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 

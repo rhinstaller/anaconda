@@ -16,11 +16,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from enum import Enum
 
-from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HDD, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+from pyanaconda.core.constants import (
+    SOURCE_TYPE_CDROM,
+    SOURCE_TYPE_HDD,
+    SOURCE_TYPE_HMC,
+    SOURCE_TYPE_NFS,
+    SOURCE_TYPE_URL,
+    URL_TYPE_BASEURL,
+    URL_TYPE_METALINK,
+    URL_TYPE_MIRRORLIST,
+)
 from pyanaconda.core.payload import create_nfs_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.ui.lib.payload import create_source

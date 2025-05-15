@@ -20,33 +20,29 @@
 # Author(s):  Martin Kolman <mkolman@redhat.com>
 #
 import os
-import subprocess
-import time
-import textwrap
 import pkgutil
-
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.process_watchers import WatchProcesses
-from pyanaconda import isys
-from pyanaconda import startup_utils
-from pyanaconda.core import util, constants
-from pyanaconda import vnc
-from pyanaconda.core.i18n import _
-from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
-from pyanaconda.ui.tui import tui_quit_callback
-# needed for checking if the pyanaconda.ui.gui modules are available
-import pyanaconda.ui
+import subprocess
+import textwrap
+import time
 
 import blivet
-
 from pykickstart.constants import DISPLAY_MODE_TEXT
-
 from simpleline import App
 from simpleline.render.screen_handler import ScreenHandler
 
+# needed for checking if the pyanaconda.ui.gui modules are available
+import pyanaconda.ui
+from pyanaconda import isys, startup_utils, vnc
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.core import constants, util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.ui.tui import tui_quit_callback
+from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
+
 log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
 

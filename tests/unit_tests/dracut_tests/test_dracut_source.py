@@ -15,17 +15,14 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 
-import unittest
 import os
 import re
+import unittest
+from functools import reduce
+from os.path import dirname
 
 import pyanaconda
-
-from os.path import dirname
-from functools import reduce
-
 from pyanaconda.core.util import join_paths
-
 
 REPO_DIR = dirname(os.path.realpath(pyanaconda.__file__))
 

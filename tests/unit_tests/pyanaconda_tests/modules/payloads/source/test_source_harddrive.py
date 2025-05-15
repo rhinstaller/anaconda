@@ -16,23 +16,27 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import Mock, patch
+
 import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_HDD
-from unittest.mock import patch, Mock
-
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HARDDRIVE
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
-from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
-    HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
-    SetupHardDriveResult
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-
-from tests.unit_tests.pyanaconda_tests import check_dbus_property, PropertiesChangedCallback
-
+from pyanaconda.modules.payloads.constants import SourceState, SourceType
+from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
+from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import (
+    HardDriveSourceInterface,
+)
+from pyanaconda.modules.payloads.source.harddrive.initialization import (
+    SetupHardDriveResult,
+    SetUpHardDriveSourceTask,
+)
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from tests.unit_tests.pyanaconda_tests import (
+    PropertiesChangedCallback,
+    check_dbus_property,
+)
 
 device_mount_location = "/mnt/put-harddrive-here_device"
 iso_mount_location = "/mnt/put-harddrive-here_iso"

@@ -19,29 +19,48 @@
 #
 import tempfile
 import unittest
+from unittest.mock import Mock, PropertyMock, patch
+
 import pytest
-
-from unittest.mock import patch, Mock, PropertyMock
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
-
-from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
-    LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice, FcoeDiskDevice, OpticalDevice, \
-    NVMeFabricsNamespaceDevice
+from blivet.devices import (
+    DASDDevice,
+    DiskDevice,
+    FcoeDiskDevice,
+    LUKSDevice,
+    NVDIMMNamespaceDevice,
+    NVMeFabricsNamespaceDevice,
+    OpticalDevice,
+    PartitionDevice,
+    StorageDevice,
+    ZFCPDiskDevice,
+    iScsiDiskDevice,
+)
 from blivet.devices.disk import NVMeController
-from blivet.errors import StorageError, FSError
+from blivet.errors import FSError, StorageError
 from blivet.formats import get_format
 from blivet.formats.fs import FS, Iso9660FS
 from blivet.formats.luks import LUKS
 from blivet.size import Size
-
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
+
+from pyanaconda.modules.common.errors.storage import (
+    MountFilesystemError,
+    UnknownDeviceError,
+)
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage
-from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.modules.storage.devicetree.devicetree_interface import (
+    DeviceTreeInterface,
+)
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
-from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
-    MountExistingSystemTask
+from pyanaconda.modules.storage.devicetree.rescue import (
+    FindExistingSystemsTask,
+    MountExistingSystemTask,
+)
 from pyanaconda.modules.storage.devicetree.root import Root
+from tests.unit_tests.pyanaconda_tests import (
+    check_task_creation,
+    patch_dbus_publish_object,
+)
 
 
 class DeviceTreeInterfaceTestCase(unittest.TestCase):

@@ -22,9 +22,13 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    PackagesConfigurationData
-from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
+from pyanaconda.modules.common.structures.payload import (
+    PackagesConfigurationData,
+    RepoConfigurationData,
+)
+from pyanaconda.modules.payloads.payload.payload_base_interface import (
+    PayloadBaseInterface,
+)
 
 __all__ = ["DNFInterface"]
 

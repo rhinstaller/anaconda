@@ -28,12 +28,14 @@ Each test is called with the name of .po file to test as an argument. A test
 passes if it returns without raising an exception.
 """
 
-import os, warnings
+import os
+import warnings
 
 _tests = []
 
 # Gather tests from this directory
 import pkgutil
+
 for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
     # Skip __main__
     if mod_name == "__main__":

@@ -17,15 +17,21 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE_CONTAINER
+from pyanaconda.core.constants import (
+    SOURCE_TYPE_RPM_OSTREE,
+    SOURCE_TYPE_RPM_OSTREE_CONTAINER,
+)
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
-from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
+from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
+    RPMOSTreeInterface,
+)
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
-
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest, PayloadKickstartSharedTest
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import (
+    PayloadKickstartSharedTest,
+    PayloadSharedTest,
+)
 
 
 class RPMOSTreeInterfaceTestCase(unittest.TestCase):

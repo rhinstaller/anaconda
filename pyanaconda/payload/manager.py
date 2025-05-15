@@ -21,14 +21,22 @@ import threading
 from enum import IntEnum
 
 from dasbus.error import DBusError
-from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PAYLOAD_TYPE_DNF, \
-    THREAD_STORAGE_WATCHER, THREAD_EXECUTE_STORAGE
-from pyanaconda.core.i18n import _, N_
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.errors import PayloadError
-from pyanaconda.errors import errorHandler, ERROR_RAISE
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import (
+    PAYLOAD_TYPE_DNF,
+    THREAD_EXECUTE_STORAGE,
+    THREAD_PAYLOAD,
+    THREAD_PAYLOAD_RESTART,
+    THREAD_STORAGE,
+    THREAD_STORAGE_WATCHER,
+    THREAD_SUBSCRIPTION,
+    THREAD_WAIT_FOR_CONNECTING_NM,
+)
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.errors import ERROR_RAISE, errorHandler
+from pyanaconda.payload.errors import PayloadError
+from pyanaconda.threading import AnacondaThread, threadMgr
 
 log = get_module_logger(__name__)
 
