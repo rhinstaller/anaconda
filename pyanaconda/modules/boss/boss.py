@@ -22,7 +22,11 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
-from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
+from pyanaconda.modules.boss.installation import (
+    CopyLogsTask,
+    RunInstallationTask,
+    SetContextsTask,
+)
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.common.base import Service
@@ -107,15 +111,9 @@ class Boss(Service):
 
         :return: a list of DBus paths of the installation tasks
         """
-        from pyanaconda.installation import RunInstallationTask
-        from pyanaconda.kickstart import superclass
-        from pyanaconda.payload.migrated import ActiveDBusPayload
 
         return [
-            RunInstallationTask(
-                payload=ActiveDBusPayload(),
-                ksdata=superclass(),
-            )
+            RunInstallationTask()
         ]
 
     def collect_configure_runtime_tasks(self):
