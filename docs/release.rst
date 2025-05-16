@@ -6,7 +6,14 @@ While aimed primarily on core Anaconda developers and package maintainers doing 
 it could very well be useful for other use cases, such as for scratch builds or creation of custom Anaconda packages.
 In that case just ignore all section that require you to be an Anaconda maintainer or developer. :)
 
-0. prerequisites
+Prerequisites
+-------------
+
+For the automation path (preferred):
+
+- you need to have committer access to the anaconda package on Fedora distgit
+
+For the manual path:
 
 - you need an up to date anaconda source code checkout
 - it is recommended to make the release on a fresh clone (prevents you from pushing local work into the upstream repository)
@@ -16,46 +23,135 @@ In that case just ignore all section that require you to be an Anaconda maintain
 - you need to have the Fedora Kerberos based authentication setup
 - you need to have committer access to the anaconda package on Fedora distgit
 
-The (mostly) automated build path
----------------------------------
+Automation Path (Preferred)
+---------------------------
 This is the default way of building the Anaconda package & should be used as long as the automation works.
 If the automation is not working, fall back to the manual method until it has been fixed.
 
-The overall workflow can be summarized to 3 steps:
+The default release workflow is now automated through GitHub and Packit:
 
-- Anaconda release tarball build
-- Packit PR in Fedora distgit
-- start build in Fedora distgit
+- GitHub workflow generates the release & tarball
+- Packit creates PRs in Fedora distgit and handles Koji + Bodhi automatically
 
-0. have an up to date Anaconda repo clone and ``main`` branch checked out
+Step 1. Trigger the GitHub release workflow
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. tag an Anaconda release:
+Trigger the `release workflow <https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml>`_ in GitHub Actions:
+
+- Click “Run workflow" and select the desired branch
+
+The workflow will:
+
+- Create the release commit and tag
+- Build the release tarball
+- Create a GitHub release
+
+➡️  If this fails, continue with `Manual Step 1 <#manual-path-step-1-tag-and-push-release>`_.
+
+✅ Otherwise, continue with `Step 2 <#step-2-verify-the-github-release>`_
+
+Step 2: Verify the GitHub Release
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each time a tag is pushed, the `release-from-tag GitHub workflow <https://github.com/rhinstaller/anaconda/actions/workflows/release-from-tag.yml>`_
+is triggered. This workflow generates a new release and builds the corresponding tarball.
+
+Visit https://github.com/rhinstaller/anaconda/releases and verify the new release.
+
+✅ Continue with `Step 3 <#step-3-review-and-merge-the-fedora-distgit-pr>`_
+
+
+Step 3: Review and Merge the Fedora Distgit PR
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After a GitHub release is published, Packit will automatically open a pull request in `Fedora distgit
+<https://src.fedoraproject.org/rpms/anaconda/pull-requests>`_.
+
+If all is good enough, merge the PR.
+
+➡️  If this fails try to find the handled release in the `Packit dashboard <https://dashboard.packit.dev/projects/github.com/rhinstaller/anaconda>`_
+and then contact the Packit team for help.
+
+✅ Otherwise, continue with `Step 4 <#step-4-koji-build-and-bodhi-update-handled-by-packit>`_
+
+Step 4: Koji Build and Bodhi Update (Handled by Packit)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After merging the dist-git PR, **Packit will take over** and:
+
+- Trigger a **Koji build** for the package(s).
+- **Create a Bodhi update** once the build succeeds.
+
+➡️  If this fails, continue with `Manual Step 4 <#manual-path-step-4-manual-koji-build>`_.
+
+Skipping a release of one of the packages 
+"""""""""""""""""""""""""""""""""""""""""
+
+Triggering the `release workflow <https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml>`_
+in the anaconda repository only affects the anaconda package. It does not release anaconda-webui. To
+release anaconda-webui, you must follow its dedicated `release procedure
+<https://github.com/rhinstaller/anaconda-webui/blob/main/docs/release.rst>`_.
+
+If you are releasing both packages, Packit will automatically handle a combined Koji side tag build
+and Bodhi update.
+
+However, if you are releasing only one of the two packages, you need to make sure that Koji has a
+tag for the latest released version of the other package — so that a coordinated side tag
+build can proceed.
+
+To do this:
+
+In the last merged dist-git pull request of the package you are not releasing, add the following
+comment::
+
+    /packit koji-tag
+
+📝 Note: This comment can be added before or after merging the PR — the timing doesn’t matter.
+
+This tells Packit to tag the most recent build of that package with the side tag used for the
+release of the other one.
+
+This process applies in both directions:
+
+* Releasing anaconda, but not anaconda-webui → tag the latest anaconda-webui PR.
+
+* Releasing anaconda-webui, but not anaconda → tag the latest anaconda PR.
+
+
+For more information, see the official `Packit multiple package release guide
+<https://packit.dev/docs/fedora-releases-guide/releasing-multiple-packages#skipping-release-of-some-packages>`_.
+
+
+Manual Path - Fallback
+----------------------
+
+Manual Path – Step 1: Tag and Push Release
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+0. Have an up to date Anaconda repo clone and ``main`` branch checked out
+
+1. Tag an Anaconda release:
 
 ::
 
     ./scripts/makebumpver -c
 
-2. check the commit and tag are correct
+2. Check the commit and tag are correct
 
-3. push the main branch to the remote
+3. Push the main branch to the remote
 
 ::
 
       git push main --tags
 
-4. this should trigger a GitHub workflow that will create a new Anaconda release + release tarball, taking ~10 minutes
+✅ Continue with `Step 2 <#step-2-verify-the-github-release>`_
 
-5. visit https://github.com/rhinstaller/anaconda/releases and check the new draft release look correct
+Manual Path - Step 4: Manual Koji Build
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-6. if the release looks fine, click the edit icon and release the draft as a regular non-draft release
+This is the manual way of building the Anaconda package. It is not recommended to use this method unless the automation is broken.
 
-7. this will trigger Packit to open a PR in Fedora distgit https://src.fedoraproject.org/rpms/anaconda/pull-requests in the next ~10 minutes
-
-8. check the PR looks correct and ideally wait for all the CI jobs started on the PR to run to the end & investigate any failures
-
-9. if all is good enough, merge the PR
-
-10. use fedpkg to trigger the build (no, there is no button for this just yet...)
+Use fedpkg to trigger the build (no, there is no button for this just yet...)
 
 ::
 
@@ -64,7 +160,7 @@ The overall workflow can be summarized to 3 steps:
       fedpkg switch-branch rawhide
       fedpkg build
 
-if you already have a distgit checkout, you can do just:
+If you already have a distgit checkout, you can do just:
 
 ::
 
@@ -83,12 +179,13 @@ If this update contains non backwards compatible changes that might break anothe
       fedpkg build --target=${SIDE_TAG}
 
 This process is documented in more detail in the
-[Fedora Packaging Guidelines](https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages)
+`Fedora Packaging Guidelines <https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages>`_.
 
-11. this should start the package build in koji - wait for it to succeed or debug any failures
+This should start the package build in koji - wait for it to succeed or debug any failures.
 
 Using the manual ``rpmbuild`` path
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 This is more standard and stable way to make Anaconda release. The drawback of this method is you need to have
 everything installed locally so you are required to install a lot of dependencies to your system. For the mock
 environment way see mock path below. It is also fully manual.
@@ -187,11 +284,11 @@ with a few key differences:
 
 - the upstream project branch is named fedora-<version>
 - the distgit branch is named f<version>
-- you need to create a Bodhi update so that the build actually reaches the stable package repository
 
-So let's enumerate the steps that do something differently in more detail (we use Fedora 28 in the CLI examples):
+Bodhi updates are handled by packit, so you don't need to do this manually. In case you need to do this manually,
+you can use the following steps:
 
-9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the f<version> branch & make sure it's up to date
+1. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the f<version> branch & make sure it's up to date
 
 ::
 
@@ -201,9 +298,7 @@ So let's enumerate the steps that do something differently in more detail (we us
     git pull
 
 
-As this is a build for a upcoming Fedora release we need to also submit a Bodhi update:
-
-14. create a Bodhi update from the command line (from the distgit folder)
+2. create a Bodhi update from the command line (from the distgit folder)
 
 - you can only do this once the Koji build finishes successfully
 - it's also possible to create the update from the Bodhi web UI
