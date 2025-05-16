@@ -78,7 +78,7 @@ class SummaryHub(TUIHub):
                 sys.stdout.flush()
                 time.sleep(1)
 
-            print('')
+            print('\n')
 
         return True
 
