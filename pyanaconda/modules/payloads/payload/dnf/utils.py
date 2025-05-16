@@ -21,9 +21,11 @@ import os
 
 import rpm
 from blivet.size import Size
-from libdnf.transaction import TransactionItemState_ERROR
+from libdnf5 import comps
+from libdnf5.transaction import TransactionItemState_ERROR
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.hw import is_lpae_available
 from pyanaconda.core.path import join_paths
@@ -155,6 +157,22 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
         include_list.append(pkg_name)
 
     return include_list, exclude_list
+
+
+def get_group_package_types(spec):
+    package_types = 0
+    if spec.startswith("@") and '/' in spec:
+        spec, types = spec.split('/')
+        types = types.split(',')
+        if constants.GROUP_PACKAGE_TYPE_MANDATORY in types:
+            package_types += comps.PackageType_MANDATORY
+        if constants.GROUP_PACKAGE_TYPE_CONDITIONAL in types:
+            package_types += comps.PackageType_CONDITIONAL
+        if constants.GROUP_PACKAGE_TYPE_DEFAULT in types:
+            package_types += comps.PackageType_DEFAULT
+        if constants.GROUP_PACKAGE_TYPE_OPTIONAL in types:
+            package_types += comps.PackageType_OPTIONAL
+    return spec, package_types
 
 
 def get_kernel_version_list():
@@ -421,8 +439,16 @@ def transaction_has_errors(transaction):
     :return: True if the transaction has any error, otherwise False
     """
     has_errors = False
-    for tsi in transaction:
-        if tsi.state == TransactionItemState_ERROR:
-            log.error("The transaction contains item %s in error state.", tsi)
+    for environment in transaction.get_transaction_environments():
+        if environment.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains environment %s in error state.", environment)
+            has_errors = True
+    for group in transaction.get_transaction_groups():
+        if group.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains group %s in error state.", group)
+            has_errors = True
+    for package in transaction.get_transaction_packages():
+        if package.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains package %s in error state.", package)
             has_errors = True
     return has_errors
