@@ -141,7 +141,9 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             return False
         part_type = bootloader_parts[0].fstype
 
+        partition_table_types = {disk.format.parted_disk.type for disk in storage.disks}
         devices = []
+
         for device in storage.devices:
             if device.format.type == part_type:
                 devices.append(device)
@@ -149,12 +151,18 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             raise StorageError(_("Multiple devices found for boot loader partition '{}': {}")
                                .format(part_type,
                                        ", ".join([device.name for device in devices])))
+
+        if devices and "msdos" in partition_table_types:
+            raise StorageError(_("Both boot loader partition '{}' and MBR partitioned disk found")
+                               .format(part_type))
+
         if not devices:
-            if required:
+            log.debug("No devices found for boot loader partition %s", part_type)
+            if "msdos" in partition_table_types:
+                log.debug("Continuing because MBR partitioned disk was found")
+            elif required:
                 raise StorageError(_("No devices found for boot loader partition '{}'")
                                    .format(part_type))
-            else:
-                log.debug("No devices found for bootloader partition %s", part_type)
             return False
         device = devices[0]
         log.debug("remove device %s for bootloader partition %s", device, part_type)

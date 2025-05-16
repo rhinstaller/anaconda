@@ -431,8 +431,11 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.destroy_device')
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
-    def test_remove_bootloder_partitions(self, platform, destroy_device):
+    def test_remove_bootloader_partitions(self, platform, destroy_device):
         storage = Mock()
+        storage.disks = [
+            Mock(format=Mock(parted_disk=Mock(type="gpt")))
+        ]
 
         # Test platfrorm bootloader partitions
 
@@ -460,8 +463,9 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
                 grow=True,
             )
         ]
-        with pytest.raises(StorageError):
+        with pytest.raises(StorageError) as e:
             AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("Multiple boot loader partitions required")
 
         # biosboot
         platform.partitions = [
@@ -495,15 +499,17 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
             biosboot_device2,
             Mock(format=Mock(type="xfs")),
         ]
-        with pytest.raises(StorageError):
+        with pytest.raises(StorageError) as e:
             AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("Multiple devices found")
 
         # bootloader part not found
         storage.devices = [
             Mock(format=Mock(type="xfs")),
         ]
-        with pytest.raises(StorageError):
+        with pytest.raises(StorageError) as e:
             AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("No devices found for boot loader partition")
         assert AutomaticPartitioningTask._remove_bootloader_partitions(
             storage, required=False
         ) is False
@@ -538,7 +544,7 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is True
         destroy_device.assert_called_with(storage, biosboot_device)
 
-        # prepboot
+        # efi
         platform.partitions = [
             PartSpec(
                 mountpoint="/boot/efi",
@@ -555,6 +561,117 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         ]
         assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is True
         destroy_device.assert_called_with(storage, biosboot_device)
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.destroy_device')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
+    def test_remove_bootloader_partitions_mbr(self, platform, destroy_device):
+        storage = Mock()
+        storage.disks = [
+            Mock(format=Mock(parted_disk=Mock(type="msdos")))
+        ]
+
+        # Test platfrorm bootloader partitions
+
+        # biosboot
+        platform.partitions = [
+            # boot partition is ignored
+            PartSpec(
+                mountpoint="/boot",
+                size=Size("1GiB"),
+                lv=False
+            ),
+            PartSpec(
+                fstype="biosboot",
+                size=Size("1MiB")
+            ),
+        ]
+        biosboot_device = Mock(format=Mock(type="biosboot"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+
+        # mbr disk and boot partition found - suspicious state
+        with pytest.raises(StorageError) as e:
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("Both boot")
+
+        # biosboot, two found
+        biosboot_device1 = Mock(format=Mock(type="biosboot"))
+        biosboot_device2 = Mock(format=Mock(type="biosboot"))
+        biosboot_device1.name = "bd1"
+        biosboot_device2.name = "bd2"
+        storage.devices = [
+            biosboot_device1,
+            biosboot_device2,
+            Mock(format=Mock(type="xfs")),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+
+        # bootloader part not found
+        storage.devices = [
+            Mock(format=Mock(type="xfs")),
+        ]
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage) is False
+        # Even required is overriden for mbr disks
+        assert AutomaticPartitioningTask._remove_bootloader_partitions(storage,
+                                                                       required=False) is False
+
+        # prepboot
+        platform.partitions = [
+            PartSpec(
+                fstype="prepboot",
+                size=Size("4MiB")
+            ),
+        ]
+        biosboot_device = Mock(format=Mock(type="prepboot"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+        # mbr disk and boot partition found - suspicious state
+        with pytest.raises(StorageError) as e:
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("Both boot")
+
+        # appleboot
+        platform.partitions = [
+            PartSpec(
+                fstype="appleboot",
+                size=Size("1MiB")
+            ),
+        ]
+        biosboot_device = Mock(format=Mock(type="appleboot"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+        # mbr disk and boot partition found - suspicious state
+        with pytest.raises(StorageError) as e:
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("Both boot")
+
+        # efi
+        platform.partitions = [
+            PartSpec(
+                mountpoint="/boot/efi",
+                fstype="efi",
+                size=Size("500MiB"),
+                max_size=Size("600MiB"),
+                grow=True,
+            )
+        ]
+        biosboot_device = Mock(format=Mock(type="efi"))
+        storage.devices = [
+            biosboot_device,
+            Mock(format=Mock(type="xfs")),
+        ]
+        # mbr disk and boot partition found - suspicious state
+        with pytest.raises(StorageError) as e:
+            AutomaticPartitioningTask._remove_bootloader_partitions(storage)
+        assert e.match("Both boot")
+
 
     def test_get_mountpoint_device(self):
         storage = Mock()
@@ -697,6 +814,10 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         ]
         if separate_boot:
             storage.roots[0].mounts["/boot"] = boot_device
+
+        storage.disks = [
+            Mock(format=Mock(parted_disk=Mock(type="gpt")))
+        ]
 
         return storage, bootloader_device, boot_device, root_device, home_device
 
