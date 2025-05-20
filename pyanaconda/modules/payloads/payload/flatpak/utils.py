@@ -28,7 +28,8 @@ log = get_module_logger(__name__)
 
 __all__ = ["canonicalize_flatpak_ref", "get_container_arch"]
 
-
+# Cases where the Podman/Docker name is different from the Flatpak/RPM name
+# For other architectures the name is correct.
 _CONTAINER_ARCH_MAP = {
     "x86_64": "amd64",
     "aarch64": "arm64"
@@ -36,13 +37,20 @@ _CONTAINER_ARCH_MAP = {
 
 
 def get_container_arch():
-    """Architecture name as used by docker/podman"""
+    """Architecture name as used by OCI format (docker/podman)
+
+    This architecture conversion is needed because the OCI format (used by docker/podman).add()
+    The OCI format is needed when we downloading the Flatpak images or otherwise interacting with
+    the registry tooling.
+    """
     arch = get_arch()
     return _CONTAINER_ARCH_MAP.get(arch, arch)
 
 
 def canonicalize_flatpak_ref(ref) -> Tuple[Optional[str], str]:
     """Split off a collection ID, and add architecture if unspecified
+
+    This method will convert the abbreviated Flatpak ref to a full Flatpak ref.
 
     Turn "org.fedoraproject.Stable:app/org.example.Foo//stable" into
     ("org.fedoraproject.Stable", "app/org.example.Foo/amd64/stable")
