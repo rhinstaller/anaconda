@@ -45,6 +45,8 @@ log = get_module_logger(__name__)
 # in process, we need to do this by modifying the environment before
 # we start any threads. Setting these variables will be harmless if
 # we aren't actually using Flatpak.
+# These variables are available only for a running process so they are
+# not impacting user environment.
 
 # pylint: disable=environment-modify
 os.environ["FLATPAK_DOWNLOAD_TMPDIR"] = os.path.join(conf.target.system_root, "var/tmp")

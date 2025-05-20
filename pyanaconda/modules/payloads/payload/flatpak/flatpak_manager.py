@@ -70,6 +70,7 @@ class FlatpakManager:
 
         self._source = None
         self._skip_installation = True
+        # location of the local installation source ready for installation in flatpak format
         self._collection_location = None
         self._progress: Optional[ProgressReporter] = None
         self._transaction = None
@@ -101,14 +102,20 @@ class FlatpakManager:
         If unset, pre-installation will install directly from the configured
         Flatpak remote (see flatpak_remote in the anaconda configuration).
 
-        :param str url: URL pointing to the Flatpak content
+        :param sources: List of sources from the DNF payload (only supported now)
         """
+        # TODO: We need to add Flatpak own source type so we can expect
+        # something specific here not just any source
 
         if not sources:
             return
 
+        # Take the first source as that is the base source from the DNF repository list.
+        # We expect that the URL of the base DNF repository is source of the Flatpak repository.
         source = sources[0]
 
+        # Decide how we want to process the main payload source to use the URL of the source
+        # for that we need to know that this is Repository source so we know what we can do
         if isinstance(source, RepositorySourceMixin):
             if self._source and isinstance(self._source, FlatpakStaticSource) \
                     and self._source.repository_config == source.repository:
@@ -140,8 +147,7 @@ class FlatpakManager:
     def set_download_location(self, path: str):
         """Sets a location that can be used for temporary download of Flatpak content.
 
-        :param path: parent directory to store downloaded Flatpak content
-           (the download should be to a subdirectory of this path)
+        :param path: Path to directory we will use to download flatpaks into
         """
         log.debug("Flatpak download location set to: %s", path)
         self._download_location = path
@@ -168,8 +174,6 @@ class FlatpakManager:
 
     def calculate_size(self):
         """Calculate the download and install size of the Flatpak content.
-
-        :param progress: used to report progress of the operation
 
         The result is available from the download_size and install_size properties.
         """
@@ -204,7 +208,10 @@ class FlatpakManager:
 
         :param progress: used to report progress of the operation
 
-        This is only needed if Flatpak can't install the content directly.
+        This is only needed if Flatpak can't install the content directly. This happens when
+        the Flatpaks are available remotely on HTTP/FTP etc. repository.
+        This method is not necessary when installing from Flatpak repository or offline local
+        installation.
         """
         if self._skip_installation:
             log.debug("Flatpak download is going to be skipped.")
@@ -254,6 +261,9 @@ class FlatpakManager:
             if self._collection_location:
                 self._transaction.add_sideload_image_collection(self._collection_location, None)
 
+            # Add to the Flatpak transaction all Flatpaks and runtimes marked for
+            # installation by preinstall.d Flatpak feature
+            # See https://github.com/flatpak/flatpak/issues/5579
             self._transaction.add_sync_preinstalled()
 
             self._progress = progress
@@ -285,8 +295,10 @@ class FlatpakManager:
     # repositories working - it basically entirely disables all
     # remote handling. So we have to resort to an uglier
     # workaround for now.
+    # https://issues.redhat.com/browse/RHEL-85624
 
     def _disable_network_download(self, installation):
+        # Temporary workaround for https://issues.redhat.com/browse/RHEL-85624
         saved_urls = {}
         for remote in installation.list_remotes():
             old_url = remote.get_url()
@@ -298,6 +310,7 @@ class FlatpakManager:
         return saved_urls
 
     def _reenable_network_download(self, installation, saved_urls):
+        # Temporary workaround for https://issues.redhat.com/browse/RHEL-85624
         for remote in installation.list_remotes():
             old_url = saved_urls.get(remote.get_name())
             if old_url:
@@ -306,6 +319,8 @@ class FlatpakManager:
 
     def _operation_started_callback(self, transaction, operation, progress):
         """Start of the new operation.
+
+        This callback is called when a new operation is started in the Transaction set.
 
         :param transaction: the main transaction object
         :type transaction: Flatpak.Transaction instance
@@ -320,6 +335,8 @@ class FlatpakManager:
     def _operation_stopped_callback(self, transaction, operation, _commit, result):
         """Existing operation ended.
 
+        This callback is called when an operation in the Transaction set was stopped.
+
         :param transaction: the main transaction object
         :type transaction: Flatpak.Transaction instance
         :param operation: object describing the operation
@@ -332,6 +349,8 @@ class FlatpakManager:
 
     def _operation_error_callback(self, transaction, operation, error, details):
         """Process error raised by the flatpak operation.
+
+        This callback is called when an operation in the Transaction set has failed.
 
         :param transaction: the main transaction object
         :type transaction: Flatpak.Transaction instance

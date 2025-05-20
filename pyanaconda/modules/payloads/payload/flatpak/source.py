@@ -45,7 +45,13 @@ __all__ = ["FlatpakRegistrySource", "FlatpakSource", "FlatpakStaticSource"]
 
 
 class SourceImage(ABC):
-    """Representation of a single image of a FlatpakSource."""
+    """Base class for representation of a single image of a FlatpakSource.
+
+    The "image" terminology is only used in Flatpak when installing a Flatpak from an OCI image.
+    Where OCI image is artifact used by podman/docker which may contain multiple artifacts inside.
+
+    One image could be single ref or a different artifact.
+    """
 
     @property
     @abstractmethod
@@ -54,7 +60,11 @@ class SourceImage(ABC):
 
     @property
     def ref(self) -> Optional[str]:
-        """Flatpak reference for the image, or None if not a Flatpak"""
+        """Flatpak reference for the image, or None if not a Flatpak
+
+        The None value could be returned if ref is not a Flatpak image as OCI image can have
+        multiple different artifacts.
+        """
         return self.labels.get("org.flatpak.ref")
 
     @property
@@ -69,7 +79,10 @@ class SourceImage(ABC):
 
 
 class FlatpakSource(ABC):
-    """Base class for places where Flatpak images can be downloaded from."""
+    """Base class for places where Flatpak images can be downloaded from.
+
+    This class represents a source for OCI image layout where multiple images can be present.
+    """
 
     @abstractmethod
     def calculate_size(self, refs: List[str]) -> Tuple[int, int]:
@@ -137,7 +150,13 @@ class FlatpakSource(ABC):
 
 
 class StaticSourceImage(SourceImage):
-    """One image of a FlatpakStaticSource."""
+    """One image of a FlatpakStaticSource.
+
+    This class represents one Flatpak image from the OCI format. Could be local or
+    remote (not a Flatpak register).
+
+    One image could be single ref or a different artifact.
+    """
 
     def __init__(self, digest, manifest_json, config_json):
         self.digest = digest
@@ -153,6 +172,9 @@ class StaticSourceImage(SourceImage):
         # This is more accurate than using the org.flatpak.download-size label,
         # because further processing of the image might have recompressed
         # the layer using different settings.
+
+        # If these values are not in json it would mean a corrupted image which should be rare
+        # and should result in an exception anyway, from that reason it is not tested here.
         return sum(int(layer["size"]) for layer in self.manifest_json["layers"])
 
 
@@ -229,6 +251,7 @@ class FlatpakStaticSource(FlatpakSource):
         with self._downloader() as downloader:
             for image in self._images:
                 if image.ref in expanded_refs:
+                    # Expanded refs have all the refs we need for the installation (including runtimes)
                     log.debug("Downloading %s, %s bytes", image.ref, image.download_size)
                     if progress:
                         progress.report_progress(_("Downloading {}").format(image.ref))
@@ -325,6 +348,12 @@ class FlatpakStaticSource(FlatpakSource):
 
 
 class RegistrySourceImage(SourceImage):
+    """One image of a FlatpakRegistrySource.
+
+    This class represents one Flatpak image from the OCI registry.
+
+    The one Flatpak image could be single ref or a different artifact.
+    """
     def __init__(self, labels):
         self._labels = labels
 
@@ -334,7 +363,7 @@ class RegistrySourceImage(SourceImage):
 
 
 class FlatpakRegistrySource(FlatpakSource):
-    """Flatpak images indexed by a remote JSON file, and stored in a registry.
+    """Flatpak images indexed by a remote JSON file (OCI image layout), and stored in a registry.
 
     https://github.com/flatpak/flatpak-oci-specs/blob/main/registry-index.md
     """
@@ -359,6 +388,7 @@ class FlatpakRegistrySource(FlatpakSource):
 
         for image in self._images:
             if image.ref not in expanded:
+                # Exclude all the refs which are not marked for installation
                 log.debug("Image %s is not in expanded refs: %s", image.ref, expanded)
                 continue
 
