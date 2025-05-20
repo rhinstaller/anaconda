@@ -30,6 +30,7 @@ from urllib.parse import urljoin, urlparse
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import requests_session
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.payloads.base.utils import get_downloader_for_repo_configuration
@@ -40,11 +41,7 @@ from pyanaconda.modules.payloads.payload.flatpak.utils import (
 
 log = get_module_logger(__name__)
 
-__all__ = ["FlatpakRegistrySource", "FlatpakSource", "FlatpakStaticSource", "NoSourceError"]
-
-
-class NoSourceError(Exception):
-    """Source not found."""
+__all__ = ["FlatpakRegistrySource", "FlatpakSource", "FlatpakStaticSource"]
 
 
 class SourceImage(ABC):
@@ -269,7 +266,7 @@ class FlatpakStaticSource(FlatpakSource):
             url = self._url + "/index.json"
             response = downloader(url)
             if response.status_code == 404:
-                raise NoSourceError("No Flatpak source found at {}".format(url))
+                raise SourceSetupError("No Flatpak source found at {}".format(url))
             response.raise_for_status()
             index_json = response.json()
 
