@@ -142,7 +142,7 @@ class FlatpakManager:
         self._skip_installation = False
         self._flatpak_refs = refs if refs is not None else []
 
-        log.debug("Flatpak refs are set to: %s", self._flatpak_refs)
+        log.debug("Flatpak refs which will get installed: %s", self._flatpak_refs)
 
     def set_download_location(self, path: str):
         """Sets a location that can be used for temporary download of Flatpak content.
