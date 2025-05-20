@@ -756,6 +756,13 @@ class DNFManager:
         if not self._transaction:
             raise RuntimeError("There is no transaction to use!")
 
+        # The Transaction stores TransactionItems which, in case of packages, contain the
+        # information about the packages together with the actions (e.g. INSTALL, UPGRADE,
+        # REMOVE...) in this transaction. Actions can be cathegorized as "inbound" or "outbound"
+        # based on wheter the package was introduced to the system or was removed from the system
+        # during the transaction.
+        # We want to get all packages that have inbound actions (because those need to be
+        # downloaded).
         return [
             tspkg.get_package() for tspkg in self._transaction.get_transaction_packages()
             if libdnf5.base.transaction.transaction_item_action_is_inbound(tspkg.get_action())
