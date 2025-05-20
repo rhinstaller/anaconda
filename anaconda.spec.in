@@ -502,6 +502,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 20 2025 github-actions <github-actions@github.com> - 43.20-1
+- Support home reuse on MBR partitioned disks (rvykydal)
+- pyanaconda: localization: adjust existing keyboard API to fetch all available
+  keyboards (k.koukiou)
+- print newline after waiting (jbock-java)
+- storage: improve the guard for biosboot partition mount point constraint
+  (rvykydal)
+
 * Tue May 13 2025 github-actions <github-actions@github.com> - 43.19-1
 
 * Tue May 06 2025 github-actions <github-actions@github.com> - 43.18-1
