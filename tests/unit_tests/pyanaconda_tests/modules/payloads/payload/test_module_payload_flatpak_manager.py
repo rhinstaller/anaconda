@@ -26,10 +26,10 @@ import pytest
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import (
     FlatpakManager,
-    NoSourceError,
 )
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
@@ -195,7 +195,7 @@ class FlatpakManagerTestCase(unittest.TestCase):
         # set skip installation to True if no source is set
         fm._skip_installation = False
         refs = ["org.fedoraproject.Stable:app/org.example.App1/amd64/stable"]
-        source.calculate_size.side_effect = NoSourceError
+        source.calculate_size.side_effect = SourceSetupError
         fm.set_flatpak_refs(refs)
         fm.calculate_size()
         assert fm.skip_installation is True
@@ -234,7 +234,7 @@ class FlatpakManagerTestCase(unittest.TestCase):
         refs = ["org.fedoraproject.Stable:app/org.example.App1/amd64/stable"]
         fm.set_flatpak_refs(refs)
         fm.set_download_location("test-location")
-        source.download.side_effect = NoSourceError
+        source.download.side_effect = SourceSetupError
         fm.download(progress)
         assert fm.skip_installation is True
 

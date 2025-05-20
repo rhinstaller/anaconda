@@ -28,12 +28,12 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
     FlatpakStaticSource,
-    NoSourceError,
 )
 from pyanaconda.modules.payloads.source.source_base import (
     PayloadSourceBase,
@@ -184,7 +184,7 @@ class FlatpakManager:
         try:
             self._download_size, self._install_size = \
                 self.get_source().calculate_size(self._flatpak_refs)
-        except NoSourceError as e:
+        except SourceSetupError as e:
             log.error("Flatpak source not available, skipping size calculation %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
@@ -218,7 +218,7 @@ class FlatpakManager:
             self._collection_location = self.get_source().download(self._flatpak_refs,
                                                                    self._download_location,
                                                                    progress)
-        except NoSourceError as e:
+        except SourceSetupError as e:
             log.error("Flatpak source not available, skipping download %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
