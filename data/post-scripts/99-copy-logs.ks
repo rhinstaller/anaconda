@@ -45,10 +45,19 @@ fi
 %end
 
 %post
+RESCUE_MODE=/run/install/RESCUE_MODE
+
+# Do not automatically modify files on the system being rescued.
+if [ -e ${RESCUE_MODE} ]; then
+    exit 0
+fi
+
 # Relabel the anaconda logs we've just coppied, since they could be incorrectly labeled, like
 # hawkey.log: https://bugzilla.redhat.com/show_bug.cgi?id=1885772.
 # Execution of this %post script will not be logged in the log files on the installed system.
 
+restorecon -i /root/original-ks.cfg
+restorecon -i /var/log/
 restorecon -ir /var/log/anaconda/
 
 %end
