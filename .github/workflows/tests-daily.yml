@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['main', 'fedora-42', 'rhel-9', 'rhel-10']
+        release: ['main', 'rhel-9', 'rhel-10']
         include:
           - release: 'main'
             target_branch: 'main'
@@ -52,9 +52,6 @@ jobs:
           #  target_branch: 'main'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          - release: 'fedora-42'
-            target_branch: 'fedora-42'
-            ci_tag: 'fedora-42'
           - release: 'rhel-9'
             target_branch: 'rhel-9'
             ci_tag: 'rhel-9'
@@ -93,14 +90,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['main', 'fedora-42', 'rhel-9', 'rhel-10']
+        release: ['main', 'rhel-9', 'rhel-10']
         include:
           - release: 'main'
             target_branch: 'main'
             ci_tag: 'main'
-          - release: 'fedora-42'
-            target_branch: 'fedora-42'
-            ci_tag: 'fedora-42'
           - release: 'rhel-9'
             target_branch: 'rhel-9'
             ci_tag: 'rhel-9'
