@@ -131,7 +131,7 @@ class FlatpakSource(ABC):
 
             metadata = image.labels.get("org.flatpak.metadata")
             if metadata is None:
-                log.debug("Skipping source image %s: missing metadata", image.ref)
+                log.warning("Skipping source image %s: missing metadata", image.ref)
                 continue
 
             cp = ConfigParser(interpolation=None)
@@ -143,7 +143,7 @@ class FlatpakSource(ABC):
                     if runtime_ref not in result:
                         result.append(runtime_ref)
             except (NoSectionError, KeyError):
-                log.debug("Skipping source image %s: broken metadata", image.ref)
+                log.error("Skipping source image %s: broken metadata", image.ref)
 
         log.debug("Refs: %s are expanded to: %s", refs, result)
         return result
