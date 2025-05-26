@@ -34,6 +34,12 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.payloads.base.utils import get_downloader_for_repo_configuration
+from pyanaconda.modules.payloads.payload.flatpak.constants import (
+    FLATPAK_IMAGE_LAYOUT_VERSION,
+    FLATPAK_MEDIA_TYPE,
+    FLATPAK_REGISTRY_URL_PATTERN,
+    FLATPAK_SCHEMA_V2,
+)
 from pyanaconda.modules.payloads.payload.flatpak.utils import (
     canonicalize_flatpak_ref,
     get_container_arch,
@@ -244,7 +250,7 @@ class FlatpakStaticSource(FlatpakSource):
         expanded_refs = self._expand_refs(refs)
 
         index_json = {
-            "schemaVersion": 2,
+            "schemaVersion": FLATPAK_SCHEMA_V2,
             "manifests": []
         }
 
@@ -260,7 +266,7 @@ class FlatpakStaticSource(FlatpakSource):
                     self._download_blob(downloader,
                                         collection_location, image.manifest_json["config"]["digest"])
                     index_json["manifests"].append({
-                        "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                        "mediaType": FLATPAK_MEDIA_TYPE,
                         "digest": image.digest,
                         "size": manifest_len
                     })
@@ -276,7 +282,7 @@ class FlatpakStaticSource(FlatpakSource):
 
         with open(os.path.join(collection_location, "oci-layout"), "w") as f:
             json.dump({
-                "imageLayoutVersion": "1.0.0"
+                "imageLayoutVersion": FLATPAK_IMAGE_LAYOUT_VERSION
             }, f)
 
         return "oci:" + collection_location
@@ -294,7 +300,7 @@ class FlatpakStaticSource(FlatpakSource):
             index_json = response.json()
 
             for manifest in index_json.get("manifests", ()):
-                if manifest.get("mediaType") == "application/vnd.oci.image.manifest.v1+json":
+                if manifest.get("mediaType") == FLATPAK_MEDIA_TYPE:
                     digest = manifest["digest"]
                     manifest_json = self._get_json(downloader, manifest["digest"])
                     config_json = self._get_json(downloader, manifest_json["config"]["digest"])
@@ -413,8 +419,7 @@ class FlatpakRegistrySource(FlatpakSource):
         else:
             tag = "latest"
 
-        url_pattern = "{}/index/static?label:org.flatpak.ref:exists=1&architecture={}&tag={}"
-        full_url = url_pattern.format(base_url, arch, tag)
+        full_url = FLATPAK_REGISTRY_URL_PATTERN.format(base_url, arch, tag)
         with requests_session() as session:
             response = session.get(full_url)
             response.raise_for_status()
