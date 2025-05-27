@@ -502,6 +502,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 27 2025 github-actions <github-actions@github.com> - 43.21-1
+- Revert "s390x - enable raid1 as a stage2 device" (jkonecny)
+- docs: update release documentation (k.koukiou)
+
 * Tue May 20 2025 github-actions <github-actions@github.com> - 43.20-1
 - Support home reuse on MBR partitioned disks (rvykydal)
 - pyanaconda: localization: adjust existing keyboard API to fetch all available
