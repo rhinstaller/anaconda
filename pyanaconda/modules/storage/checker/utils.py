@@ -416,7 +416,6 @@ def verify_unlocked_devices_have_key(storage, constraints, report_error, report_
         and d.format.exists
         and not d.format.has_key
         and d.children
-        and any(c.name == d.format.map_name for c in d.children)
     ]
 
     for dev in devices:
