@@ -64,6 +64,19 @@ def has_network_protocol(url):
     return any(url.startswith(p) for p in network_protocols)
 
 
+def is_registry_link(url):
+    """Does the given URL is link to container registry?
+
+    :param url: a string with URL
+    :return: True or False
+    """
+    if not url:
+        return False
+
+    known_registry = ["quay.io", "hub.docker.com", "goharbor.io"]
+    return any(url.startswith(p) for p in known_registry)
+
+
 def is_valid_install_disk(tree_dir):
     """Is the disk a valid installation repository?
 

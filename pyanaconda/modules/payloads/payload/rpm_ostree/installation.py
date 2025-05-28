@@ -59,6 +59,10 @@ def safe_exec_with_redirect(cmd, argv, successful_return_codes=(0,), **kwargs):
             "The command '{}' exited with the code {}.".format(" ".join([cmd] + argv), rc)
         )
 
+def _is_bootc(data):
+    if isinstance(data, BootcConfigurationData):
+        return True
+    return False
 
 def _get_ref(data):
     """Get ref or name based on source.
@@ -85,6 +89,10 @@ def _get_stateroot(data):
     :param data: OSTree source structure
     :return str: stateroot or osname value based on source
     """
+    if _is_bootc(data):
+        # Bootc uses stateroot instead of osname
+        return data.stateroot
+
     if data.is_container():
         # osname was renamed to stateroot so let's use the new name
         if data.stateroot:
@@ -637,12 +645,30 @@ class DeployOSTreeTask(Task):
 
     @property
     def name(self):
+        if _is_bootc(self._data):
+            return "Deploy bootc"
         return "Deploy OSTree"
 
     def run(self):
-        ref = _get_ref(self._data)
         stateroot = _get_stateroot(self._data)
 
+        if _is_bootc(self._data):
+            self.report_progress(_("Bootc deployment starting: {}").format(ref))
+
+            safe_exec_with_redirect(
+                "bootc",
+                ["install",
+                "to-filesystem",
+                "--stateroot=" + stateroot,
+                "--source-imgref=" + self._data.sourceImgRef,
+                "--target-imgref=" + self._data.targetImgRef]
+            )
+
+            log.info("Bootc deploy complete")
+            self.report_progress(_("Bootc deployment complete: {}").format(ref))
+            return
+
+        ref = _get_ref(self._data)
         self.report_progress(_("Deployment starting: {}").format(ref))
 
         if arch.is_s390():
