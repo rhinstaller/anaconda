@@ -191,6 +191,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             AUTOPART_TYPE_PLAIN: "partition",
         }
         for mountpoint in request.reused_mount_points:
+            if mountpoint in ["bootloader", "/boot/efi"]:
+                continue
             device = cls._get_mountpoint_device(storage, mountpoint)
             if device.type != required_home_device_type[scheme]:
                 raise StorageError(_("Reused device type '{}' of mount point '{}' does not "
