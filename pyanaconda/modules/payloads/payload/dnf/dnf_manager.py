@@ -684,12 +684,12 @@ class DNFManager:
 
     def get_flatpak_refs(self):
         """Determine what Flatpaks need to be preinstalled based on resolved transaction"""
-        if self._base.transaction is None:
+        if self._transaction is None:
             return []
 
         refs = []
-        for tsi in self._base.transaction:
-            for provide in tsi.pkg.provides:
+        for tspkg in self._transaction.get_transaction_packages():
+            for provide in tspkg.get_package().get_provides():
                 m = re.match(r"^flatpak-preinstall\((.*)\)$", str(provide))
                 if m:
                     refs.append(m.group(1))
