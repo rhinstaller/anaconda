@@ -21,12 +21,12 @@ import os
 from tempfile import TemporaryDirectory
 from textwrap import dedent
 from unittest import TestCase
-from unittest.mock import DEFAULT, create_autospec, patch
+from unittest.mock import DEFAULT, Mock, create_autospec, patch
 
 import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
-from pyanaconda.modules.common.containers import PayloadContainer
+from pyanaconda.modules.common.containers import PayloadContainer, TaskContainer
 from pyanaconda.modules.common.errors.general import UnavailableValueError
 from pyanaconda.modules.common.errors.payload import (
     SourceSetupError,
@@ -38,7 +38,10 @@ from pyanaconda.modules.payloads.base.initialization import (
     TearDownSourcesTask,
 )
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
-from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask
+from pyanaconda.modules.payloads.installation import (
+    CopyDriverDisksFilesTask,
+    PrepareSystemForInstallationTask,
+)
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
@@ -120,7 +123,8 @@ class PayloadsInterfaceTestCase(TestCase):
         assert self.payload_interface.ActivePayload == payload_path
 
         assert isinstance(PayloadContainer.from_object_path(payload_path), DNFModule)
-        publisher.assert_called_once()
+        # DNF payload creates also Flatpak side payload so there are two publish calls
+        assert publisher.call_count == 2
 
     @patch_dbus_publish_object
     def test_create_live_os_payload(self, publisher):
@@ -155,7 +159,7 @@ class PayloadsInterfaceTestCase(TestCase):
     @patch_dbus_publish_object
     def test_create_multiple_payloads(self, publisher):
         """Test creating two payloads."""
-        path_1 = self.payload_interface.CreatePayload(PayloadType.DNF.value)
+        path_1 = self.payload_interface.CreatePayload(PayloadType.RPM_OSTREE.value)
         assert self.payload_interface.CreatedPayloads == [path_1]
         assert self.payload_interface.ActivePayload == ""
 
@@ -200,17 +204,28 @@ class PayloadsInterfaceTestCase(TestCase):
 
     def test_calculate_required_space(self):
         """Test the CalculateRequiredTest method."""
+        # default
         assert self.payload_interface.CalculateRequiredSpace() == 0
 
+        # test payload without source
         payload = self.payload_module.create_payload(PayloadType.LIVE_IMAGE)
         self.payload_module.activate_payload(payload)
 
         assert self.payload_interface.CalculateRequiredSpace() == 0
 
+        # test payload with source
         source = self.payload_module.create_source(SourceType.LIVE_IMAGE)
         payload.set_sources([source])
 
         assert self.payload_interface.CalculateRequiredSpace() == 1024 * 1024 * 1024
+
+        # test payload and side payload
+        side_payload = Mock()
+        side_payload.calculate_required_space.return_value = 1000
+        payload.side_payload = side_payload
+
+        assert self.payload_interface.CalculateRequiredSpace() == 1024 * 1024 * 1024 + 1000
+
 
     def test_get_kernel_version_list(self):
         """Test the GetKernelVersionList method."""
@@ -236,6 +251,33 @@ class PayloadsInterfaceTestCase(TestCase):
         assert self.payload_interface.InstallWithTasks()
 
     @patch_dbus_publish_object
+    def test_install_with_tasks_side_payload(self, publisher):
+        """Test the InstallWithTasks method with a side payload."""
+        task = create_autospec(Task)
+        task1 = create_autospec(Task)
+        task2 = create_autospec(Task)
+        task3 = create_autospec(Task)
+
+        payload = self.payload_module.create_payload(PayloadType.LIVE_IMAGE)
+        with patch.object(payload, "install_with_tasks") as mock_install_with_tasks:
+            mock_install_with_tasks.return_value = [task, task1]
+            self.payload_module.activate_payload(payload)
+
+            tasks_paths = self.payload_interface.InstallWithTasks()
+            tasks = TaskContainer.from_object_path_list(tasks_paths)
+            assert isinstance(tasks[0], PrepareSystemForInstallationTask)
+            assert tasks[1:] == [task, task1]
+
+            payload.side_payload = Mock()
+            payload.side_payload.install_with_tasks.return_value = [task2, task3]
+
+            tasks_paths = self.payload_interface.InstallWithTasks()
+            tasks = TaskContainer.from_object_path_list(tasks_paths)
+            assert isinstance(tasks[0], PrepareSystemForInstallationTask)
+            assert tasks[1:] == [task, task1, task2, task3]
+
+
+    @patch_dbus_publish_object
     def test_post_install_with_tasks(self, publisher):
         """Test the PostInstallWithTasks method."""
         assert self.payload_interface.PostInstallWithTasks() == []
@@ -244,6 +286,32 @@ class PayloadsInterfaceTestCase(TestCase):
         self.payload_module.activate_payload(payload)
 
         assert self.payload_interface.PostInstallWithTasks()
+
+    @patch_dbus_publish_object
+    def test_post_install_with_tasks_side_payload(self, publisher):
+        """Test the PostInstallWithTasks method with a side payload."""
+        task = create_autospec(Task)
+        task1 = create_autospec(Task)
+        task2 = create_autospec(Task)
+        task3 = create_autospec(Task)
+
+        payload = self.payload_module.create_payload(PayloadType.LIVE_IMAGE)
+        with patch.object(payload, "post_install_with_tasks") as mock_install_with_tasks:
+            mock_install_with_tasks.return_value = [task, task1]
+            self.payload_module.activate_payload(payload)
+
+            tasks_paths = self.payload_interface.PostInstallWithTasks()
+            tasks = TaskContainer.from_object_path_list(tasks_paths)
+            assert isinstance(tasks[0], CopyDriverDisksFilesTask)
+            assert tasks[1:] == [task, task1]
+
+            payload.side_payload = Mock()
+            payload.side_payload.post_install_with_tasks.return_value = [task2, task3]
+
+            tasks_paths = self.payload_interface.PostInstallWithTasks()
+            tasks = TaskContainer.from_object_path_list(tasks_paths)
+            assert isinstance(tasks[0], CopyDriverDisksFilesTask)
+            assert tasks[1:] == [task, task1, task2, task3]
 
     @patch_dbus_publish_object
     def test_tear_down_with_tasks(self, publisher):
@@ -258,6 +326,30 @@ class PayloadsInterfaceTestCase(TestCase):
 
         publisher.reset_mock()
         assert self.payload_interface.TeardownWithTasks()
+
+    @patch_dbus_publish_object
+    def test_tear_down_with_tasks_side_payload(self, publisher):
+        """Test the TeardownWithTasks method with a side payload."""
+        task = create_autospec(Task)
+        task1 = create_autospec(Task)
+        task2 = create_autospec(Task)
+        task3 = create_autospec(Task)
+
+        payload = self.payload_module.create_payload(PayloadType.LIVE_IMAGE)
+        with patch.object(payload, "tear_down_with_tasks") as mock_install_with_tasks:
+            mock_install_with_tasks.return_value = [task, task1]
+            self.payload_module.activate_payload(payload)
+
+            tasks_paths = self.payload_interface.TeardownWithTasks()
+            tasks = TaskContainer.from_object_path_list(tasks_paths)
+            assert tasks == [task, task1]
+
+            payload.side_payload = Mock()
+            payload.side_payload.tear_down_with_tasks.return_value = [task2, task3]
+
+            tasks_paths = self.payload_interface.TeardownWithTasks()
+            tasks = TaskContainer.from_object_path_list(tasks_paths)
+            assert tasks == [task, task1, task2, task3]
 
 
 class PrepareSystemForInstallationTaskTestCase(TestCase):

@@ -141,7 +141,13 @@ class DNFKickstartTestCase(unittest.TestCase):
             assert sources[0].type.value == expected_source_type
 
     def _test_kickstart(self, ks_in, ks_out, *args, **kwargs):
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out, *args, **kwargs)
+        # DNF module also spawns Flatpak module as side payload by default
+        if "expected_publish_calls" not in kwargs:
+            kwargs["expected_publish_calls"] = 2
+
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out, *args, **kwargs
+        )
 
     def test_cdrom_kickstart(self):
         ks_in = """

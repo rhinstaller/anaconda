@@ -50,6 +50,10 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         self.sources_changed = Signal()
         self._kernel_version_list = None
 
+        # side payload is attached to the payload so it stays even when active payload is changed
+        # side payload standard methods and tasks are included in Payloads base class
+        self._side_payload = None
+
     @property
     @abstractmethod
     def type(self):
@@ -58,6 +62,29 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         :return: value of the payload.base.constants.PayloadType enum
         """
         return None
+
+    @property
+    def side_payload(self):
+        """Get side payload attached to this payload.
+
+        The side payload is a payload attached to this payload. It can be configured by this
+        payload.
+
+        This side payload calls will be automatically queued for some DBus API in Payloads module.
+
+        :return: PayloadBase based class or None
+        :rtype: PayloadBase based class or None
+        """
+        return self._side_payload
+
+    @side_payload.setter
+    def side_payload(self, side_payload):
+        """Set side payload attached to this payload.
+
+        :param side_payload: side payload to be attached to this payload
+        :type side_payload: PayloadBase based class or None
+        """
+        self._side_payload = side_payload
 
     @property
     @abstractmethod
@@ -184,6 +211,20 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         self._kernel_version_list = kernels
         log.debug("The kernel version list is set to: %s", kernels)
+
+    def needs_flatpak_side_payload(self):
+        """Does this payload need an extra payload for Flatpak installation
+
+        :return: True or False
+        """
+        return False
+
+    def get_flatpak_refs(self):
+        """Get the list of Flatpak refs to install.
+
+        :return: list of Flatpak refs
+        """
+        return []
 
     @abstractmethod
     def install_with_tasks(self):
