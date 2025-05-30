@@ -299,6 +299,26 @@ def execWithCapture(command, argv, stdin=None, root='/',
                         replace_utf_decode_errors=replace_utf_decode_errors,
                         filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
 
+def execProgram(command, argv, stdin=None, root='/', env_prune=None, env_add=None,
+                log_output=True, filter_stderr=False, do_preexec=True):
+    """ Run an external program and capture standard out and err as well as the return code.
+
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :param env_prune: environment variable to remove before execution
+        :param env_add: environment variables added for the execution
+        :param log_output: Whether to log the output of command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
+        :param do_preexec: whether to use the preexec function
+        :return: Tuple of the return code and the output of the command
+    """
+    argv = [command] + argv
+
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output, env_prune=env_prune,
+                        env_add=env_add, filter_stderr=filter_stderr, do_preexec=do_preexec)
+
 
 def execWithCaptureAsLiveUser(command, argv, stdin=None, root='/', log_output=True,
                               filter_stderr=False, do_preexec=True):
