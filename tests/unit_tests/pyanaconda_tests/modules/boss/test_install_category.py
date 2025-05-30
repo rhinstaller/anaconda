@@ -20,13 +20,13 @@ import unittest
 from unittest.mock import Mock, call
 
 from pyanaconda.core.constants import CATEGORY_STORAGE, CATEGORY_SYSTEM
-from pyanaconda.installation import RunInstallationTask
 from pyanaconda.installation_tasks import Task, TaskQueue
+from pyanaconda.modules.boss.installation import RunInstallationTask
 
 
 class TestRunInstallation(RunInstallationTask):
 
-    def _prepare_configuration(self, payload, ksdata):
+    def _prepare_configuration(self):
         configuration_queue = TaskQueue("Configuration queue")
 
         # connect progress reporting
@@ -42,7 +42,7 @@ class TestRunInstallation(RunInstallationTask):
 
         return configuration_queue
 
-    def _prepare_installation(self, payload, ksdata):
+    def _prepare_installation(self):
         installation_queue = TaskQueue("Installation queue")
 
         # connect progress reporting
@@ -63,8 +63,8 @@ class InstallManagerTestCase(unittest.TestCase):
     """Test the install category API"""
 
     def test_task_category_reporting(self):
-        payload = Mock()
-        task = TestRunInstallation(ksdata=[], payload=payload)
+        install_manager = Mock()
+        task = TestRunInstallation(install_manager)
         interface = task.for_publication()
 
         callback = Mock()
