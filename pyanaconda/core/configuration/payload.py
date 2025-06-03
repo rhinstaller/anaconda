@@ -106,6 +106,28 @@ class PayloadSection(Section):
         return value
 
     @property
+    def flatpak_remote(self):
+        """Default remote source after deployment of local Flatpaks from the ISO.
+
+        Only one value can be set.
+        Supported format:
+            remote-name  remote-flatpak-repository
+
+        :return: a tuple with (name, URL)
+        """
+        return self._get_option("flatpak_remote", self._convert_flatpak_remote)
+
+    @classmethod
+    def _convert_flatpak_remote(cls, value):
+        """Convert flatpak remote from string to tuple."""
+        value = value.split()
+        if len(value) != 2:
+            raise ValueError("Flatpak remote needs to be in format 'name URL': {}".format(value))
+
+        return tuple(value)
+
+
+    @property
     def verify_ssl(self):
         """Global option if the ssl verification is enabled.
 

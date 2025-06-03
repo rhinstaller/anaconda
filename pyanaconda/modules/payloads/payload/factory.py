@@ -52,6 +52,10 @@ class PayloadFactory(object):
             )
             return RPMOSTreeModule()
 
+        if payload_type == PayloadType.FLATPAK:
+            from pyanaconda.modules.payloads.payload.flatpak.flatpak import FlatpakModule
+            return FlatpakModule()
+
         raise ValueError("Unknown payload type: {}".format(payload_type))
 
     @classmethod
