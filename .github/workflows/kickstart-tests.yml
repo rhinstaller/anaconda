@@ -332,6 +332,7 @@ jobs:
           sudo chown -R github:github .
 
       - name: Construct image description
+        if: always()
         id: kstest_run_description
         run: |
           set -eux
