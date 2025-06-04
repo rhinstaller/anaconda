@@ -132,6 +132,8 @@ def run_program_in_new_session(arguments, pam_environment, user, service,
             os.initgroups(user, gid)
             os.setgid(gid)
             os.setuid(uid)
+            subprocess.run(['systemctl', 'start', 'user@%s' % uid], check=False)
+
         except OSError as e:
             print(f"Could not become user {user} (uid={uid}): {e}", file=old_tty_output)
 
