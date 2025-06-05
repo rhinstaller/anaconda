@@ -38,7 +38,6 @@ ignore = [
     "SIM117", # Use a single `with` statement with multiple contexts instead of nested `with` statements
     "SIM112", # Use capitalized environment variable `<NAME>` instead of `<name>`
     "SIM114", # Combine `if` branches using logical `or` operator
-    "SIM118", # Use `<var> in <dict>` instead of `<var> in <dict>.keys()`
     "SIM103", # Return the condition `<expression>` directly
     "SIM201", # Use `<expression>` instead of `<expression>` # (negation operator position in expression)
     "SIM102", # Use a single `if` statement instead of nested `if` statements

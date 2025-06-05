@@ -443,7 +443,7 @@ def load_drivers(moddict):
     # save snapshot of currently installed modules
     all_modules_org = get_all_loaded_modules()
     unload_modules = set()
-    for modname in moddict.keys():
+    for modname in moddict:
         cmd = ["modprobe", "-R", modname]
         try:
             out = subprocess.check_output(cmd, stderr=DEVNULL, universal_newlines=True)
