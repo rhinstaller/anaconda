@@ -112,7 +112,7 @@ class InstallationProgress(Cancellable):
         for path, device_id in mount_points.items():
             dev_data = DeviceData.from_structure(device_tree.GetDeviceData(device_id))
 
-            if not dev_data.type == "btrfs subvolume":
+            if dev_data.type != "btrfs subvolume":
                 # not btrfs subvolume, so just take it as is
                 result.append(join_paths(self._sysroot, path))
             else:

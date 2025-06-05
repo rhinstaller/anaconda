@@ -150,8 +150,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         assert system_purpose_data == system_purpose_data_clone
 
         # different content should not be considered the same
-        assert not (system_purpose_data == different_system_purpose_data)
-        assert not (system_purpose_data_clone == different_system_purpose_data)
+        assert system_purpose_data != different_system_purpose_data
+        assert system_purpose_data_clone != different_system_purpose_data
 
         # comparing with something else than a SystemPurposeData instance should
         # not crash & always return False

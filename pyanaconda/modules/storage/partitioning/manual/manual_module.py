@@ -144,7 +144,7 @@ class ManualPartitioningModule(PartitioningModule):
         selected_disks = set(self._selected_disks)
 
         for device in self.storage.devicetree.devices:
-            if not device.isleaf and not device.raw_device.type == "btrfs subvolume":
+            if not device.isleaf and device.raw_device.type != "btrfs subvolume":
                 continue
 
             # We don't want to allow to use snapshots in mount point assignment.

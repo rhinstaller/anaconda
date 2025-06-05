@@ -206,7 +206,7 @@ class DD_List_TestCase(unittest.TestCase):
         """dd_list: 'Provides:installer-enhancement' implies bins/libs"""
         make_rpm(self.tmpdir, for_anaconda_ver=self.a_ver)
         drivers = self.dd_list()
-        assert not (drivers == [])
+        assert drivers != []
         d = drivers[0]
         assert "binaries" in d.flags
         assert "libraries" in d.flags
