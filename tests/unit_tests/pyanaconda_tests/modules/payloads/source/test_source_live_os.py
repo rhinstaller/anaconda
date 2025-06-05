@@ -108,12 +108,12 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def test_get_state(self, ismount_mock):
         """Test the source state."""
         ismount_mock.return_value = False
-        assert SourceState.UNREADY == self.module.get_state()
+        assert self.module.get_state() == SourceState.UNREADY
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        assert SourceState.READY == self.module.get_state()
+        assert self.module.get_state() == SourceState.READY
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def test_set_up_with_tasks(self):

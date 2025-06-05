@@ -32,7 +32,6 @@ ignore = [
     "RUF005", # Consider `<expression>` instead of concatenation
     "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
     "SIM108", # Use ternary operator `tag = None if log_formatter else logr.name` instead of `if`-`else`-block
-    "SIM300", # Yoda conditions are discouraged, use `<expression>` instead
     "SIM115", # Use context handler for opening files
     "SIM105", # Use `contextlib.suppress(<exception-type>)` instead of `try`-`except`-`pass`
     "SIM117", # Use a single `with` statement with multiple contexts instead of nested `with` statements

@@ -140,10 +140,10 @@ class DebuggingTestCase(FileTestCaseBase):
         # DEBUG logs go to journal only
         assert "call(<SysLogHandler (DEBUG)>)" in calls
         # and INFO logs to the console
-        assert [] == re.findall(
+        assert re.findall(
             r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(DEBUG\)>\)""",
             calls
-        )
+        ) == []
         assert len(re.findall(
             r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(INFO\)>\)""",
             calls
@@ -170,10 +170,10 @@ class DebuggingTestCase(FileTestCaseBase):
         )) > 0
         # there can't be INFO messages otherwise the logs would have duplicates (DEBUG includes all lower levels)
         assert "call(<SysLogHandler (INFO)>)" not in calls
-        assert [] == re.findall(
+        assert re.findall(
             r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(INFO\)>\)""",
             calls
-        )
+        ) == []
 
 
 class SelfTestCase(FileTestCaseBase):
