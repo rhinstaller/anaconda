@@ -39,7 +39,6 @@ ignore = [
     "SIM112", # Use capitalized environment variable `<NAME>` instead of `<name>`
     "SIM114", # Combine `if` branches using logical `or` operator
     "SIM103", # Return the condition `<expression>` directly
-    "SIM201", # Use `<expression>` instead of `<expression>` # (negation operator position in expression)
     "SIM102", # Use a single `if` statement instead of nested `if` statements
     "SIM110", # Use `return any(<condition>)` instead of `for` loop
     "SIM222", # Use `<expression>` instead of `<expression>` # (truthiness)

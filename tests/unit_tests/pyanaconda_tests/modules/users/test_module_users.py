@@ -612,17 +612,17 @@ class UsersDataTestCase(unittest.TestCase):
         user_data_3.name = "foo"
 
         assert user_data_1 == user_data_3
-        assert not (user_data_1 == user_data_2)
-        assert not (user_data_2 == user_data_1)
-        assert not (user_data_2 == user_data_3)
+        assert user_data_1 != user_data_2
+        assert user_data_2 != user_data_1
+        assert user_data_2 != user_data_3
 
         # now try changing the name on existing instance
         user_data_1.name = "bar"
         user_data_2.name = "foo"
         user_data_3.name = "foo"
 
-        assert not (user_data_1 == user_data_2)
-        assert not (user_data_1 == user_data_3)
+        assert user_data_1 != user_data_2
+        assert user_data_1 != user_data_3
         assert user_data_2 == user_data_3
         assert user_data_3 == user_data_2
 
