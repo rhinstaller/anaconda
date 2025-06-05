@@ -262,7 +262,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         platform.partitions = [PartSpec("/boot")]
         requests = get_default_partitioning()
 
-        assert ["/boot", "/", "/home"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/boot", "/", "/home"]
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
@@ -289,7 +289,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request
         )
 
-        assert ["/"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/"]
 
         partitioning_request = PartitioningRequest()
         partitioning_request._excluded_mount_points = []
@@ -299,10 +299,10 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request
         )
 
-        assert ["/boot", "/", "/home"] == \
-            [spec.mountpoint for spec in requests]
-        assert ["xfs", "ext4", "ext4"] == \
-            [spec.fstype for spec in requests]
+        assert [spec.mountpoint for spec in requests] == \
+            ["/boot", "/", "/home"]
+        assert [spec.fstype for spec in requests] == \
+            ["xfs", "ext4", "ext4"]
         assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
             [spec.size for spec in requests]
 
@@ -413,7 +413,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request,
         )
 
-        assert ["/", "/var"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/", "/var"]
 
         # Collect the requests for the LVM scheme.
         partitioning_request = PartitioningRequest()
@@ -423,7 +423,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request,
         )
 
-        assert ["/"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/"]
 
 
 class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):

@@ -211,7 +211,7 @@ class UserCreateTest(unittest.TestCase):
         users.create_user("test_user3", password="", root=self.tmpdir)
         shadow_fields = self._readFields("/etc/shadow", "test_user3")
         assert shadow_fields is not None
-        assert "" == shadow_fields[1]
+        assert shadow_fields[1] == ""
 
     def test_create_user_lock(self):
         """Create a locked user account."""
@@ -220,7 +220,7 @@ class UserCreateTest(unittest.TestCase):
         users.create_user("test_user1", lock=True, password="", root=self.tmpdir)
         shadow_fields = self._readFields("/etc/shadow", "test_user1")
         assert shadow_fields is not None
-        assert "!" == shadow_fields[1]
+        assert shadow_fields[1] == "!"
 
         # Create a locked password and ensure it can be unlocked (by removing the ! at the front)
         users.create_user("test_user2", lock=True, password="password", root=self.tmpdir)
