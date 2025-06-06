@@ -18,11 +18,12 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
-from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
+from pyanaconda.modules.boss.installation import (
+    RunInstallationTask,
+)
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.common.base import Service
@@ -107,44 +108,12 @@ class Boss(Service):
 
         :return: a list of DBus paths of the installation tasks
         """
-        from pyanaconda.installation import RunInstallationTask
-        from pyanaconda.kickstart import superclass
-        from pyanaconda.payload.migrated import ActiveDBusPayload
 
         return [
             RunInstallationTask(
-                payload=ActiveDBusPayload(),
-                ksdata=superclass(),
+                install_manager=self._install_manager,
             )
         ]
-
-    def collect_configure_runtime_tasks(self):
-        """Collect tasks for configuration of the runtime environment.
-
-        FIXME: This is a temporary workaround for add-ons.
-
-        :return: a list of task proxies
-        """
-        return self._install_manager.collect_configure_runtime_tasks()
-
-    def collect_configure_bootloader_tasks(self, kernel_versions):
-        """Collect tasks for configuration of the bootloader.
-
-        FIXME: This is a temporary workaround for add-ons.
-
-        :param kernel_versions: a list of kernel versions
-        :return: a list of task proxies
-        """
-        return self._install_manager.collect_configure_bootloader_tasks(kernel_versions)
-
-    def collect_install_system_tasks(self):
-        """Collect tasks for installation of the system.
-
-        FIXME: This is a temporary workaround for add-ons.
-
-        :return: a list of task proxies
-        """
-        return self._install_manager.collect_install_system_tasks()
 
     def set_locale(self, locale):
         """Set locale of boss and all modules.
@@ -154,15 +123,3 @@ class Boss(Service):
         log.info("Setting locale of all modules to %s.", locale)
         super().set_locale(locale)
         self._module_manager.set_modules_locale(locale)
-
-    def finish_installation_with_tasks(self):
-        """Finish installation with tasks.
-
-        FIXME: This is a temporary workaround for the Boss module.
-
-        :return: a list of installation tasks
-        """
-        return [
-            CopyLogsTask(conf.target.system_root),
-            SetContextsTask(conf.target.system_root)
-        ]
