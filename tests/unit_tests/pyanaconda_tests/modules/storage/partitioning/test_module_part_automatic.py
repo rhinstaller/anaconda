@@ -768,6 +768,32 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         ]
         AutomaticPartitioningTask._check_reused_scheme(storage, request)
 
+        # /boot/efi partitions are ignored in the check
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home", "/boot/efi"]
+        )
+        storage = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="btrfs subvolume"),
+                "/boot/efi": Mock(type="vfat"),
+            }),
+        ]
+
+        # "bootloader" partitions (eg biosboot) are ignored in the check
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home", "bootloader"]
+        )
+        storage = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="btrfs subvolume"),
+            }),
+        ]
+
+        AutomaticPartitioningTask._check_reused_scheme(storage, request)
         # all reused mountpoints must have the type based on the scheme
         request.reused_mount_points = ["/home", "/data"]
         storage.roots = [
