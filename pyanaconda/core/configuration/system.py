@@ -70,11 +70,6 @@ class SystemSection(Section):
         return self._is_boot_iso or self._is_booted_os
 
     @property
-    def can_start_user_systemd(self):
-        """Can we start the user instance of systemd?"""
-        return self._is_boot_iso
-
-    @property
     def can_start_compositor(self):
         """Can we start our own Wayland session?"""
         return self._is_boot_iso
