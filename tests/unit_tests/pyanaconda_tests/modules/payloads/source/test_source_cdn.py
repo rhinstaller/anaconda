@@ -38,11 +38,11 @@ class CDNSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type of CDN."""
-        assert SOURCE_TYPE_CDN == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_CDN
 
     def test_description(self):
         """Test the description of CDN."""
-        assert "Red Hat CDN" == self.interface.Description
+        assert self.interface.Description == "Red Hat CDN"
 
     def test_required_space(self):
         """Test the required_space property."""

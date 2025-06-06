@@ -52,7 +52,7 @@ class RepoPathSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the source type."""
-        assert SOURCE_TYPE_REPO_PATH == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_REPO_PATH
 
     def test_description(self):
         """Test the source description."""
@@ -75,7 +75,7 @@ class RepoPathSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type property."""
-        assert SourceType.REPO_PATH == self.module.type
+        assert self.module.type == SourceType.REPO_PATH
 
     def test_network_required(self):
         """Test the network_required property."""
@@ -87,7 +87,7 @@ class RepoPathSourceTestCase(unittest.TestCase):
 
     def test_state(self):
         """Test repo path source state."""
-        assert SourceState.NOT_APPLICABLE == self.module.get_state()
+        assert self.module.get_state() == SourceState.NOT_APPLICABLE
 
     def test_set_up_with_tasks(self):
         """Test repo path source set up call."""

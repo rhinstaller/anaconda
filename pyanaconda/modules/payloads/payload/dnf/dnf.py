@@ -139,11 +139,7 @@ class DNFModule(PayloadBase):
             return True
 
         # Check repositories.
-        for data in self.repositories:
-            if data.enabled and has_network_protocol(data.url):
-                return True
-
-        return False
+        return any(data.enabled and has_network_protocol(data.url) for data in self.repositories)
 
     @property
     def dnf_manager(self):

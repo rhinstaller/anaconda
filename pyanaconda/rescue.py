@@ -281,7 +281,7 @@ class Rescue:
                 self._device_tree_proxy.GetFormatData(device_id)
             )
 
-            if not format_data.type == "luks":
+            if format_data.type != "luks":
                 continue
 
             device_ids.append(device_id)

@@ -74,7 +74,7 @@ class NFSSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test NFS source module has a correct type."""
-        assert SourceType.NFS == self.module.type
+        assert self.module.type == SourceType.NFS
 
     def test_network_required(self):
         """Test the property network_required."""
@@ -88,7 +88,7 @@ class NFSSourceTestCase(unittest.TestCase):
     def test_get_state(self, ismount_mock):
         """Test NFS source state."""
         ismount_mock.return_value = False
-        assert SourceState.UNREADY == self.module.get_state()
+        assert self.module.get_state() == SourceState.UNREADY
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
@@ -100,7 +100,7 @@ class NFSSourceTestCase(unittest.TestCase):
             task._set_result(SetUpNFSSourceResult(configuration))
             task.succeeded_signal.emit()
 
-        assert SourceState.READY == self.module.get_state()
+        assert self.module.get_state() == SourceState.READY
         ismount_mock.assert_called_once_with(self.module._device_mount)
 
     def test_set_up_with_tasks(self):
