@@ -35,7 +35,6 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import constants, hw, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.flags import flags
 from pyanaconda.gnome_remote_desktop import GRDServer
@@ -60,34 +59,6 @@ WAYLAND_TIMEOUT_ADVICE = \
     "time.\n" \
     "Enforce text mode when installing from remote media with the inst.text boot option."
 #  on RHEL also: "Use the customer portal download URL in ilo/drac devices for greater speed."
-
-def start_user_systemd():
-    """Start the user instance of systemd.
-
-    The service org.a11y.Bus runs the dbus-broker-launch in
-    the user scope that requires the user instance of systemd.
-    """
-    if not conf.system.can_start_user_systemd:
-        log.debug("Don't start the user instance of systemd.")
-        return
-
-    # Start the user instance of systemd. This call will also cause the launch of
-    # dbus-broker and start a session bus at XDG_RUNTIME_DIR/bus.
-    # Without SYSTEMD_LOG_TARGET variable the systemd is logging directly to terminal
-    # bypassing stdout and stderr
-    childproc = util.startProgram(["/usr/lib/systemd/systemd", "--user"],
-                                  env_add={"SYSTEMD_LOG_TARGET": "journal-or-kmsg"})
-    WatchProcesses.watch_process(childproc, "systemd")
-
-    # Set up the session bus address. Some services started by Anaconda might call
-    # dbus-launch with the --autolaunch option to find the existing session bus (or
-    # start a new one), but dbus-launch doesn't check the XDG_RUNTIME_DIR/bus path.
-    xdg_runtime_dir = os.environ.get("XDG_RUNTIME_DIR", "/tmp")
-    session_bus_address = "unix:path=" + join_paths(xdg_runtime_dir, "/bus")
-    # pylint: disable=environment-modify
-    os.environ["DBUS_SESSION_BUS_ADDRESS"] = session_bus_address
-    log.info("The session bus address is set to %s.", session_bus_address)
-
 
 # RDP
 
