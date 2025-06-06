@@ -15,18 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from contextlib import contextmanager
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import ValidationTask
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
-    BrokenSpecsError,
-    InvalidSelectionError,
-    MissingSpecsError,
-)
 from pyanaconda.modules.payloads.payload.dnf.utils import (
     get_installation_specs,
     get_kernel_package,
@@ -133,28 +126,11 @@ class CheckPackagesSelectionTask(ValidationTask):
     def _resolve_selection(self):
         """Resolve the new selection."""
         log.debug("Resolving the software selection.")
-        report = ValidationReport()
 
-        with self._reported_errors(report):
-            self._dnf_manager.apply_specs(self._include_list, self._exclude_list)
+        # Set up the selection.
+        self._dnf_manager.apply_specs(self._include_list, self._exclude_list)
 
-        with self._reported_errors(report):
-            self._dnf_manager.resolve_selection()
-
+        # Resolve the selection.
+        report = self._dnf_manager.resolve_selection()
         log.debug("Resolving has been completed: %s", report)
         return report
-
-    @contextmanager
-    def _reported_errors(self, report):
-        """Add exceptions into the validation report.
-
-        :param report: a validation report
-        """
-        try:
-            yield
-        except MissingSpecsError as e:
-            report.warning_messages.append(str(e))
-        except BrokenSpecsError as e:
-            report.error_messages.append(str(e))
-        except InvalidSelectionError as e:
-            report.error_messages.append(str(e))

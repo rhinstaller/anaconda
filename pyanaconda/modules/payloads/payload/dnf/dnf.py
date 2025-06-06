@@ -40,7 +40,6 @@ from pyanaconda.modules.payloads.payload.dnf.initialization import (
     SetUpDNFSourcesResult,
     SetUpDNFSourcesTask,
     TearDownDNFSourcesTask,
-    configure_dnf_logging,
 )
 from pyanaconda.modules.payloads.payload.dnf.installation import (
     CleanUpDownloadLocationTask,
@@ -68,9 +67,6 @@ from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 # Set up the modules logger.
 log = get_module_logger(__name__)
-
-# Configure the DNF logging.
-configure_dnf_logging()
 
 __all__ = ["DNFModule"]
 
