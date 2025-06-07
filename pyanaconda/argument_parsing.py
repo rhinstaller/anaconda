@@ -65,8 +65,8 @@ def get_help_width():
         return DEFAULT_HELP_WIDTH
 
     try:
-        data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '1234')
-        columns = int(struct.unpack('hh', data)[1])
+        data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '12345678')
+        columns = int(struct.unpack('hhhh', data)[1])
     except (OSError, ValueError) as e:
         log.info("Unable to determine terminal width: %s", e)
         print("terminal size detection failed, using default width")
