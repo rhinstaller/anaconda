@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import (
@@ -52,8 +53,9 @@ class InstallFlatpaksTask(Task):
         flatpak_manager.install_all()
 
         self.report_progress(_("Performing post-installation Flatpak tasks"))
-        flatpak_manager.add_remote("fedora", "oci+https://registry.fedoraproject.org")
-        flatpak_manager.replace_installed_refs_remote("fedora")
+        remote_name, remote_url = conf.payload.flatpak_remote
+        flatpak_manager.add_remote(remote_name, remote_url)
+        flatpak_manager.replace_installed_refs_remote(remote_name)
         flatpak_manager.remove_remote(FlatpakManager.LOCAL_REMOTE_NAME)
 
         self.report_progress(_("Flatpak installation has finished"))
