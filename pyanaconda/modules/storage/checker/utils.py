@@ -33,6 +33,7 @@ from pyanaconda.core.constants import (
     STORAGE_REFORMAT_ALLOWLIST,
     STORAGE_REFORMAT_BLOCKLIST,
     STORAGE_REQ_PARTITION_SIZES,
+    STORAGE_REQ_SYSTEM_SIZE,
     STORAGE_ROOT_DEVICE_TYPES,
     STORAGE_SWAP_IS_RECOMMENDED,
 )
@@ -137,6 +138,28 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
             report_error(_("Your %(mount)s partition size is lower "
                            "than required %(size)s.")
                          % {'mount': mount, 'size': size})
+
+
+def verify_system_size(storage, constraints, report_error, report_warning):
+    """Verify the minimal required size on partitions for the system.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    # TODORV: make configurable (req_system_size_partitions)
+    mount_points = ["/", "/usr"]
+    available_size = storage.get_file_system_free_space(mount_points)
+    required_size = constraints[STORAGE_REQ_SYSTEM_SIZE]
+    log.debug("Checking space available for system. Required: %s Available: %s",
+              required_size, available_size)
+    if required_size > Size("0B") and required_size > available_size:
+        # TODORV: improve the message, mention checked mount points?
+        report_warning(_("Not enough space for the system. "
+                         "Required: %(required_size)s Available: %(available_size)s")
+                       % {"required_size": required_size,
+                          "available_size": available_size})
 
 
 def verify_partition_format_sizes(storage, constraints, report_error, report_warning):
@@ -697,6 +720,7 @@ class StorageChecker:
             STORAGE_ROOT_DEVICE_TYPES,
             STORAGE_MIN_PARTITION_SIZES,
             STORAGE_REQ_PARTITION_SIZES,
+            STORAGE_REQ_SYSTEM_SIZE,
             STORAGE_MUST_BE_ON_LINUXFS,
             STORAGE_MUST_BE_ON_ROOT,
             STORAGE_MUST_NOT_BE_ON_ROOT,
@@ -721,6 +745,7 @@ class StorageChecker:
         self.add_check(verify_partition_formatting)
         self.add_check(verify_partition_sizes)
         self.add_check(verify_partition_format_sizes)
+        self.add_check(verify_system_size)
         self.add_check(verify_bootloader)
         self.add_check(verify_gpt_biosboot)
         self.add_check(verify_opal_compatibility)
