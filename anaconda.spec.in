@@ -503,6 +503,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 10 2025 github-actions <github-actions@github.com> - 43.23-1
+- storage: home reuse - do not check /boot/efi for autopart scheme (rvykydal)
+- Don't pass --no-x11 to gnome-kiosk (awilliam)
+
 * Mon Jun 02 2025 github-actions <github-actions@github.com> - 43.22-1
 - flatpak: Add constants for Flatpak (jkonecny)
 - flatpak: Change log level for source processing (jkonecny)
