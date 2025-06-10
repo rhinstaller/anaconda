@@ -232,6 +232,7 @@ class StorageCheckerTests(unittest.TestCase):
                 '/boot': Size("512 MiB")
             },
             checks.STORAGE_REQ_PARTITION_SIZES: {},
+            checks.STORAGE_REQ_SYSTEM_SIZE:  Size("0 GiB"),
             checks.STORAGE_MUST_BE_ON_LINUXFS: {
                 '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
             },
@@ -255,6 +256,7 @@ class StorageCheckerTests(unittest.TestCase):
             checks.verify_partition_formatting,
             checks.verify_partition_sizes,
             checks.verify_partition_format_sizes,
+            checks.verify_system_size,
             checks.verify_bootloader,
             checks.verify_gpt_biosboot,
             checks.verify_opal_compatibility,
