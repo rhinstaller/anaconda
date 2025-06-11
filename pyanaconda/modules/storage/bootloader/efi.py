@@ -191,27 +191,12 @@ class EFIGRUB(EFIBase, GRUB2):
         return "%s/%s" % (self.efi_config_dir, self._config_file)
 
     def write_config(self):
-        config_path = "%s%s" % (conf.target.system_root, self.efi_config_file)
-
-        with open(config_path, "w") as fd:
-            grub_dir = self.config_dir
-            if self.stage2_device.format.type != "btrfs":
-                fs_uuid = self.stage2_device.format.uuid
-            else:
-                fs_uuid = self.stage2_device.format.vol_uuid
-
-            if fs_uuid is None:
-                raise BootLoaderError("Could not get stage2 filesystem UUID")
-
-            grub_dir = util.execWithCapture("grub2-mkrelpath", [grub_dir],
-                                            root=conf.target.system_root)
-            if not grub_dir:
-                raise BootLoaderError("Could not get GRUB directory path")
-
-            fd.write("search --no-floppy --fs-uuid --set=dev %s\n" % fs_uuid)
-            fd.write("set prefix=($dev)%s\n" % grub_dir)
-            fd.write("export $prefix\n")
-            fd.write("configfile $prefix/grub.cfg\n")
+        rc = util.execWithRedirect(
+                "gen_grub_cfgstub", [self.config_dir, self.efi_config_dir],
+                root=conf.target.system_root
+        )
+        if rc:
+            raise BootLoaderError("gen_grub_cfgstub script failed")
 
         super().write_config()
 
