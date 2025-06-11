@@ -14,6 +14,7 @@ Contents:
    developer/iscsi
    developer/mount-points
    developer/multipath
+   developer/unified-repositories
    developer/sysconfig-file
    developer/keyboard-control.rst
    developer/drop-in-scripts
