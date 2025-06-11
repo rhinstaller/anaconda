@@ -42,10 +42,13 @@ createrepo_c $REPO_DIR
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       --volid Fedora-S-dvd-x86_64-rawh \
+      --dracut-arg="--xz" --dracut-arg="--install /.buildstamp" --dracut-arg="--no-early-microcode" --dracut-arg="--add fips" --dracut-arg="--add virtfs" --dracut-arg="-vvv" --dracut-arg="--debug" \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
       -s file://$REPO_DIR/ \
       "$@" \
       output || cp *.log "$OUT_DIR"
+
+cp *.log "$OUT_DIR"
 
 cp output/images/boot.iso "$OUT_DIR"
 
