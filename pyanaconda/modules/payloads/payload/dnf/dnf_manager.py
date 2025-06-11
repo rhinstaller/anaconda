@@ -652,9 +652,12 @@ class DNFManager:
         :param timeout: a time out of a failed process in seconds
         :raise PayloadInstallationError: if the installation fails
         """
-        queue = multiprocessing.Queue()
+        # SwigPyObjects are not picklable, so force the fork method
+        # On Python 3.14+, forkserver is the default (and it pickles)
+        context = multiprocessing.get_context(method="fork")
+        queue = context.Queue()
         display = TransactionProgress(queue)
-        process = multiprocessing.Process(
+        process = context.Process(
             target=self._run_transaction,
             args=(self._base, display)
         )
