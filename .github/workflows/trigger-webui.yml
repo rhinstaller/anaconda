@@ -32,18 +32,10 @@ jobs:
     runs-on: ubuntu-24.04
     # the default workflow token cannot read our org membership, for deciding who is allowed to trigger tests
     environment: gh-cockpituous
-    container: registry.fedoraproject.org/fedora:40
     # this polls for a COPR build, which can take long
     timeout-minutes: 120
 
     steps:
-      - name: Install dependencies
-        run: |
-          dnf install -y git-core 'dnf-plugins-core' || {
-            sleep 60
-            dnf install -y git-core 'dnf-plugins-core'
-          }
-
       # Naively this should wait for github.event.pull_request.head.sha, but
       # that breaks on non-current branches, which packit merges to main with
       # an unpredictable SHA; so instead, wait until COPR has a build which is
@@ -66,10 +58,33 @@ jobs:
           exit 1
 
       - name: Trigger anaconda run
+        id: trigger-anaconda-webui-automatic
+        continue-on-error: true
         run: |
           git clone --depth=1 https://github.com/cockpit-project/bots
           mkdir -p ~/.config/cockpit-dev
           echo '${{ secrets.GITHUB_TOKEN }}' > ~/.config/cockpit-dev/github-token
+
+          PR_NUMBER="$PR_NUMBER"
+          REPO="${{ github.repository }}"
           TEST_OS="fedora-rawhide-boot"
-          bots/tests-trigger --force --repo ${{ github.repository }} ${{ github.event.number }} $TEST_OS/anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
-          bots/tests-trigger --force --repo ${{ github.repository }} ${{ github.event.number }} $TEST_OS/efi-anaconda-pr-${{ github.event.number }}@rhinstaller/anaconda-webui
+
+          bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
+          bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/efi-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
+
+      - name: Send a PR comment that the bots/tests-trigger needs to be manually triggered
+        env:
+          GH_TOKEN: ${{ github.token }}
+        if: "steps.trigger-anaconda-webui-automatic.outcome == 'failure'"
+        run: |
+          PR_NUMBER="${{ github.event.number }}"
+          REPO="${{ github.repository }}"
+          TEST_OS="fedora-rawhide-boot"
+
+          echo "Only members of the Anaconda team can trigger the Web UI tests for this PR. Since you do not have permission, please ask an Anaconda team member to run the following commands:" > comment.txt
+          echo '```bash' >> comment.txt
+          echo "bots/tests-trigger --force --repo ${REPO} ${PR_NUMBER} ${TEST_OS}/anaconda-pr-${PR_NUMBER}@rhinstaller/anaconda-webui" >> comment.txt
+          echo "bots/tests-trigger --force --repo ${REPO} ${PR_NUMBER} ${TEST_OS}/efi-anaconda-pr-${PR_NUMBER}@rhinstaller/anaconda-webui" >> comment.txt
+          echo '```' >> comment.txt
+
+          gh pr comment "$PR_NUMBER" --repo "$REPO" -F comment.txt
