@@ -99,20 +99,8 @@ class SystemdBoot(BootLoader):
         object_proxy = PAYLOADS.get_proxy(object_path)
         return object_proxy.Type
 
-    # copy console update from grub2.py
-    def write_config_console(self, config):
-        log.info("systemd.py: write_config_console")
-        if not self.console:
-            return
-
-        console_arg = "console=%s" % self.console
-        if self.console_options:
-            console_arg += ",%s" % self.console_options
-        self.boot_args.add(console_arg)
-
     def write_config(self):
         log.info("systemd.py: write_config systemd start")
-        self.write_config_console(None)
 
         # Rewrite the loader.conf
         # For now we are just updating the timeout to actually
