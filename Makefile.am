@@ -106,7 +106,7 @@ SKIP_BRANCHING_CHECK ?= "false"
 # If translations are present, run tests on the .po files before tarring them
 # up. Use a weird looking loop because shell doesn't have a good way to test
 # for a wildcard
-dist-hook:
+check-po:
 	for p in $(distdir)/po/*.po ; do \
 	    if [ -e "$$p" ]; then \
 		PYTHONPATH=$(srcdir)/translation-canary $(PYTHON) -m translation_canary.translated \
@@ -293,6 +293,8 @@ ci:
 		rm $(srcdir)/tests/error_occured; \
 		exit $$status; \
 	fi
+
+	$(MAKE) check-po
 
 # container-ci target will have disabled cockpit Makefiles by default
 # The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
