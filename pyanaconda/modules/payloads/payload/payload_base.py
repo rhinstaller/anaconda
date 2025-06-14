@@ -169,11 +169,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
 
         :return: True or False
         """
-        for source in self.sources:
-            if source.network_required:
-                return True
-
-        return False
+        return any(source.network_required for source in self.sources)
 
     def calculate_required_space(self):
         """Calculate space required for the installation.

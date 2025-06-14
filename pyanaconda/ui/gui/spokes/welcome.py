@@ -137,7 +137,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # Start with the already set locale. Whether kickstart, geolocation, or default - it does
         # not matter, it's resolved and loaded by now.
-        locales = [self._l12_module.Language] or [DEFAULT_LANG]
+        locales = [self._l12_module.Language or DEFAULT_LANG]
 
         # get the data models
         filter_store = self._languageStoreFilter

@@ -64,11 +64,11 @@ class LiveImageSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the Type property."""
-        assert SOURCE_TYPE_LIVE_IMAGE == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_LIVE_IMAGE
 
     def test_description(self):
         """Test the Description property."""
-        assert "Live image" == self.interface.Description
+        assert self.interface.Description == "Live image"
 
     def test_configuration(self):
         """Test the configuration property."""
@@ -93,7 +93,7 @@ class LiveImageSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type property."""
-        assert SourceType.LIVE_IMAGE == self.module.type
+        assert self.module.type == SourceType.LIVE_IMAGE
 
     def test_network_required(self):
         """Test the network_required property."""
@@ -118,7 +118,7 @@ class LiveImageSourceTestCase(unittest.TestCase):
 
     def test_get_state(self):
         """Test the source state."""
-        assert SourceState.NOT_APPLICABLE == self.module.get_state()
+        assert self.module.get_state() == SourceState.NOT_APPLICABLE
 
     def test_required_space(self):
         """Test the required_space property."""

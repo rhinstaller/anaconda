@@ -382,10 +382,7 @@ class AdditionalSoftwareSpoke(NormalTUISpoke):
         """
         if not conf.ui.show_kernel_options:
             return False
-        for val in kernels.values():
-            if val:
-                return True
-        return False
+        return any(val for val in kernels.values())
 
     def input(self, args, key):
         if self._container.process_user_input(key):

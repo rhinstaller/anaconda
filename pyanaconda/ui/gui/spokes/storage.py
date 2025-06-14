@@ -669,10 +669,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     @staticmethod
     def _is_swap_configured():
-        for attrs in conf.storage.default_partitioning:
-            if attrs.get("name") == "swap":
-                return True
-        return False
+        return any(attrs.get("name") == "swap" for attrs in conf.storage.default_partitioning)
 
     def _check_space_and_run_dialog(self, partitioning, disks):
         # User wants to reclaim the space.
