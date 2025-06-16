@@ -23,7 +23,7 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
-COPY ["anaconda.spec.in", "/root/"]
+COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Replace standalone systemd package with systemd as these are conflicting
 RUN set -ex; \
@@ -41,9 +41,8 @@ RUN set -ex; \
   'dnf5-command(copr)' \
   git \
   curl \
+  python3-pip \
   python3-polib \
-  # Requirement for translation-canary which is started during RPM build
-  python3-pocketlint \
   /usr/bin/xargs \
   rsync \
   rpm-build \
@@ -64,5 +63,8 @@ RUN set -ex; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf clean all; \
   mkdir /anaconda
+
+RUN pip install --no-cache-dir --upgrade pip; \
+  pip install --no-cache-dir -r /root/requirements.txt
 
 WORKDIR /anaconda
