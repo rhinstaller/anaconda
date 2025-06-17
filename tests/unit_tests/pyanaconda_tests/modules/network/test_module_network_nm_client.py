@@ -1104,8 +1104,8 @@ class NMClientTestCase(unittest.TestCase):
         mainctx.pop_thread_default()
 
     # Promote all warnings to errors (rhbz#1931389)
-    @pytest.mark.filterwarnings("error")  # Promote all warnings to errors
-    @pytest.mark.filterwarnings("ignore::DeprecationWarning")  # But ignore DeprecationWarning
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")  # Ignore DeprecationWarning
+    @pytest.mark.filterwarnings("error")  # but fail on other warnings
     def test_sync_call_glib_in_thread(self):
         thread = threading.Thread(target = self.test_sync_call_glib)
         thread.start()
