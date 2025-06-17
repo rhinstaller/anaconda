@@ -503,6 +503,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 17 2025 github-actions <github-actions@github.com> - 43.24-1
+- makeupdates: Bump Python version in site packages path to 3.14 (k.koukiou)
+- Add documentation for the unified feature (jkonecny)
+- Use os.get_terminal_size rather than ioctl magic (miro)
+- Avoid the multiprocessing forkserver method with dnf (miro)
+- anaconda: Remove manual start of `systemd --user` (k.koukiou)
+
 * Tue Jun 10 2025 github-actions <github-actions@github.com> - 43.23-1
 - storage: home reuse - do not check /boot/efi for autopart scheme (rvykydal)
 - Don't pass --no-x11 to gnome-kiosk (awilliam)
