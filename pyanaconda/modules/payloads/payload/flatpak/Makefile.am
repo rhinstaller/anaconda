@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = dnf flatpak live_os live_image rpm_ostree
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-dnf_moduledir = $(pkgpyexecdir)/modules/payloads/payload
-dist_dnf_module_DATA = $(wildcard $(srcdir)/*.py)
+flatpak_moduledir = $(pkgpyexecdir)/modules/payloads/payload/flatpak
+dist_flatpak_module_DATA = $(wildcard $(srcdir)/*.py)
 
 MAINTAINERCLEANFILES = Makefile.in
