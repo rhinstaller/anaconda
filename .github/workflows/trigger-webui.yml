@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-24.04
     # the default workflow token cannot read our org membership, for deciding who is allowed to trigger tests
     environment: gh-cockpituous
+    container: registry.fedoraproject.org/fedora:rawhide
     # this polls for a COPR build, which can take long
     timeout-minutes: 120
 
@@ -41,6 +42,11 @@ jobs:
       # an unpredictable SHA; so instead, wait until COPR has a build which is
       # newer than the PR push time. This assumes that this workflow always runs earlier
       # than the COPR srpm build finishes.
+
+      - name: Install dependencies
+        run: |
+          dnf install -y git-core dnf-plugins-core gh
+
       - name: Wait for packit COPR build
         run: |
           set -ex
