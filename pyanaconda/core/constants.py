@@ -309,6 +309,7 @@ STORAGE_REFORMAT_BLOCKLIST = "reformat_blocklist"
 STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
 STORAGE_LUKS2_MIN_RAM = "luks2_min_ram"
 STORAGE_REQ_SYSTEM_SIZE = "req_system_size"
+STORAGE_REQ_SYSTEM_SIZE_PARTITIONS = "req_system_size_partitions"
 
 
 # Display modes

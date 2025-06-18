@@ -233,6 +233,9 @@ class StorageCheckerTests(unittest.TestCase):
             },
             checks.STORAGE_REQ_PARTITION_SIZES: {},
             checks.STORAGE_REQ_SYSTEM_SIZE:  Size("0 GiB"),
+            checks.STORAGE_REQ_SYSTEM_SIZE_PARTITIONS: {
+                '/', '/usr'
+            },
             checks.STORAGE_MUST_BE_ON_LINUXFS: {
                 '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
             },

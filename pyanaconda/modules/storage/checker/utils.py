@@ -34,6 +34,7 @@ from pyanaconda.core.constants import (
     STORAGE_REFORMAT_BLOCKLIST,
     STORAGE_REQ_PARTITION_SIZES,
     STORAGE_REQ_SYSTEM_SIZE,
+    STORAGE_REQ_SYSTEM_SIZE_PARTITIONS,
     STORAGE_ROOT_DEVICE_TYPES,
     STORAGE_SWAP_IS_RECOMMENDED,
 )
@@ -148,8 +149,7 @@ def verify_system_size(storage, constraints, report_error, report_warning):
     :param report_error: a function for error reporting
     :param report_warning: a function for warning reporting
     """
-    # TODORV: make configurable (req_system_size_partitions)
-    mount_points = ["/", "/usr"]
+    mount_points = constraints[STORAGE_REQ_SYSTEM_SIZE_PARTITIONS]
     available_size = storage.get_file_system_free_space(mount_points)
     required_size = constraints[STORAGE_REQ_SYSTEM_SIZE]
     log.debug("Checking space available for system. Required: %s Available: %s",
@@ -721,6 +721,7 @@ class StorageChecker:
             STORAGE_MIN_PARTITION_SIZES,
             STORAGE_REQ_PARTITION_SIZES,
             STORAGE_REQ_SYSTEM_SIZE,
+            STORAGE_REQ_SYSTEM_SIZE_PARTITIONS,
             STORAGE_MUST_BE_ON_LINUXFS,
             STORAGE_MUST_BE_ON_ROOT,
             STORAGE_MUST_NOT_BE_ON_ROOT,
