@@ -430,7 +430,7 @@ class PayloadSharedTasksTest(TestCase):
         set_up_task1.run_with_signals.assert_called_once()
         set_up_task2.run_with_signals.assert_called_once()
         set_up_task3.run_with_signals.assert_called_once()
-        assert ["source1", "task1", "task2", "source2", "task3"] == called_position
+        assert called_position == ["source1", "task1", "task2", "source2", "task3"]
 
     def test_set_up_sources_task_without_sources(self):
         """Test task to set up installation sources without sources set."""
@@ -495,7 +495,7 @@ class PayloadSharedTasksTest(TestCase):
         tear_down_task1.run.assert_called_once()
         tear_down_task2.run.assert_called_once()
         tear_down_task3.run.assert_called_once()
-        assert ["source1", "task1", "task2", "source2", "task3"] == called_position
+        assert called_position == ["source1", "task1", "task2", "source2", "task3"]
 
     def test_tear_down_sources_task_without_sources(self):
         """Test task to tear down installation sources without sources set."""

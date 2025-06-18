@@ -37,30 +37,30 @@ class InstallationSourceUtilsTestCase(unittest.TestCase):
 
     def test_get_unique_repo_name(self):
         """Test the get_unique_repo_name function."""
-        assert "New_Repository" == get_unique_repo_name()
-        assert "New_Repository" == get_unique_repo_name([
+        assert get_unique_repo_name() == "New_Repository"
+        assert get_unique_repo_name([
             "New_Repository_1",
-        ])
-        assert "New_Repository" == get_unique_repo_name([
+        ]) == "New_Repository"
+        assert get_unique_repo_name([
             "New_Repository_1",
             "New_Repository_2",
-        ])
-        assert "New_Repository_1" == get_unique_repo_name([
+        ]) == "New_Repository"
+        assert get_unique_repo_name([
             "New_Repository"
-        ])
-        assert "New_Repository_2" == get_unique_repo_name([
+        ]) == "New_Repository_1"
+        assert get_unique_repo_name([
             "New_Repository",
             "New_Repository_1",
-        ])
-        assert "New_Repository_3" == get_unique_repo_name([
+        ]) == "New_Repository_2"
+        assert get_unique_repo_name([
             "New_Repository",
             "New_Repository_1",
             "New_Repository_2",
-        ])
-        assert "New_Repository_4" == get_unique_repo_name([
+        ]) == "New_Repository_3"
+        assert get_unique_repo_name([
             "New_Repository",
             "New_Repository_3",
-        ])
+        ]) == "New_Repository_4"
 
     def test_generate_repository_description(self):
         """Test the generate_repository_description function."""

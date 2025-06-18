@@ -97,9 +97,9 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
     @patch.dict("pyanaconda.localization.os.environ", {})
     def test_xlated_tz(self):
         localization.os.environ["LANG"] = "en_US"
-        assert "Europe/Barcelona" == localization.get_xlated_timezone("Europe/Barcelona")
+        assert localization.get_xlated_timezone("Europe/Barcelona") == "Europe/Barcelona"
         localization.os.environ["LANG"] = "cs_CZ"
-        assert "Evropa/Praha" == localization.get_xlated_timezone("Europe/Prague")
+        assert localization.get_xlated_timezone("Europe/Prague") == "Evropa/Praha"
         localization.os.environ["LANG"] = "blah"
         with pytest.raises(localization.InvalidLocaleSpec):
             localization.get_xlated_timezone("America/New_York")
@@ -181,7 +181,7 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
         localization.setup_locale_environment("fr")
 
-        assert "fr_FR.UTF-8" == localization.os.environ["LANG"]
+        assert localization.os.environ["LANG"] == "fr_FR.UTF-8"
         assert "LANGUAGE" not in localization.os.environ
         assert "LC_MESSAGES" not in localization.os.environ
         assert "LC_ALL" not in localization.os.environ
@@ -204,7 +204,7 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
             localization.setup_locale_environment(None)
 
-            assert "ko_KR.UTF-8" == localization.os.environ["LANG"]
+            assert localization.os.environ["LANG"] == "ko_KR.UTF-8"
             if varname != "LANG":
                 assert varname not in localization.os.environ
 
@@ -213,7 +213,7 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
         """Test setup_locale_environment() with invalid environment variable input"""
         localization.setup_locale_environment(None)
 
-        assert DEFAULT_LANG == localization.os.environ["LANG"]
+        assert localization.os.environ["LANG"] == DEFAULT_LANG
 
     @patch("pyanaconda.localization.open")
     @patch.dict("pyanaconda.localization.os.environ", {})
@@ -238,7 +238,7 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
         localization.setup_locale_environment(None)
 
-        assert DEFAULT_LANG == localization.os.environ["LANG"]
+        assert localization.os.environ["LANG"] == DEFAULT_LANG
 
 
 class LangcodeLocaleMatchingTests(unittest.TestCase):

@@ -96,7 +96,7 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
             assert not payload.sources
         else:
             sources = payload.sources
-            assert 1 == len(sources)
+            assert len(sources) == 1
             assert sources[0].type.value == expected_source_type
 
     def test_ostree_kickstart(self):

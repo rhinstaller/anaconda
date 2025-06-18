@@ -43,11 +43,11 @@ class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test Repo files source has a correct type specified."""
-        assert SOURCE_TYPE_REPO_FILES == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_REPO_FILES
 
     def test_description(self):
         """Test NFS source description."""
-        assert "Local repositories" == self.interface.Description
+        assert self.interface.Description == "Local repositories"
 
 
 class RepoFilesSourceTestCase(unittest.TestCase):
@@ -58,7 +58,7 @@ class RepoFilesSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test Repo files source module has a correct type."""
-        assert SourceType.REPO_FILES == self.module.type
+        assert self.module.type == SourceType.REPO_FILES
 
     def test_network_required(self):
         """Test the property network_required."""
@@ -80,7 +80,7 @@ class RepoFilesSourceTestCase(unittest.TestCase):
     def test_tear_down_with_tasks(self):
         """Test Repo files Source ready state for tear down."""
         tasks = self.module.tear_down_with_tasks()
-        assert [] == tasks
+        assert tasks == []
 
     def test_ready_state(self):
         """Test Repo files Source ready state for set up."""

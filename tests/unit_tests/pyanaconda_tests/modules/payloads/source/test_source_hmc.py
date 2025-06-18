@@ -40,11 +40,11 @@ class HMCSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type of SE/HMC."""
-        assert SOURCE_TYPE_HMC == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_HMC
 
     def test_description(self):
         """Test the description of SE/HMC."""
-        assert "Local media via SE/HMC" == self.interface.Description
+        assert self.interface.Description == "Local media via SE/HMC"
 
 
 class HMCSourceModuleTestCase(unittest.TestCase):
@@ -65,12 +65,12 @@ class HMCSourceModuleTestCase(unittest.TestCase):
     def test_get_state(self, ismount_mock):
         """Test SE/HMC source state."""
         ismount_mock.return_value = False
-        assert SourceState.UNREADY == self.module.get_state()
+        assert self.module.get_state() == SourceState.UNREADY
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        assert SourceState.READY == self.module.get_state()
+        assert self.module.get_state() == SourceState.READY
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 

@@ -50,11 +50,11 @@ class OSTreeContainerSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the Type property."""
-        assert SOURCE_TYPE_RPM_OSTREE_CONTAINER == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_RPM_OSTREE_CONTAINER
 
     def test_description(self):
         """Test the Description property."""
-        assert "RPM OSTree Container" == self.interface.Description
+        assert self.interface.Description == "RPM OSTree Container"
 
     def test_configuration(self):
         """Test the configuration property."""
@@ -79,7 +79,7 @@ class OSTreeContainerSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type property."""
-        assert SourceType.RPM_OSTREE_CONTAINER == self.module.type
+        assert self.module.type == SourceType.RPM_OSTREE_CONTAINER
 
     def test_network_required(self):
         """Test the network_required property."""
@@ -105,7 +105,7 @@ class OSTreeContainerSourceTestCase(unittest.TestCase):
 
     def test_get_state(self):
         """Test the source state."""
-        assert SourceState.NOT_APPLICABLE == self.module.get_state()
+        assert self.module.get_state() == SourceState.NOT_APPLICABLE
 
     def test_set_up_with_tasks(self):
         """Test the set-up tasks."""

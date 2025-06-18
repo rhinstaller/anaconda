@@ -366,7 +366,7 @@ def set_treeview_selection(treeview, item, col=0):
 
     model = treeview.get_model()
     itr = model.get_iter_first()
-    while itr and not model[itr][col] == item:
+    while itr and model[itr][col] != item:
         itr = model.iter_next(itr)
 
     if not itr:
