@@ -539,9 +539,9 @@ def verify_lvm_destruction(storage, constraints, report_error, report_warning):
         if vg_name not in destroyed_vg_names:
             report_error(_(
                 "Selected disks {} contain volume group '{}' that also uses further unselected "
-                "disks. You must select or de-select all these disks as a set."
+                "disks. You must select or de-select all these disks as a set.")
                 .format(", ".join(disks), vg_name)
-            ))
+            )
 
 
 class StorageCheckerReport:
