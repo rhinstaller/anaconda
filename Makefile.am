@@ -374,8 +374,6 @@ container-iso-build:
 	sudo $(CONTAINER_ENGINE) run \
 	--rm \
 	--privileged \
-	$(shell test $(shell grep MemTotal /proc/meminfo | awk '{print $$2}') -gt 11000000 && \
-	  echo --tmpfs /var/tmp:rw,mode=1777) \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
