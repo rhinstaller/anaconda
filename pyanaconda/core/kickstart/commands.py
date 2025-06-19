@@ -56,6 +56,7 @@ from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeCo
 from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
 from pykickstart.commands.partition import RHEL10_Partition as Partition
 from pykickstart.commands.raid import RHEL10_Raid as Raid
+from pykickstart.commands.rdp import RHEL10_RDP as RDP
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
 from pykickstart.commands.repo import F40_Repo as Repo
