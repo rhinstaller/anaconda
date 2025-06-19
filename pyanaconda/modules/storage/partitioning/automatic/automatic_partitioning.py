@@ -135,7 +135,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         bootloader_parts = [part for part in platform.partitions
                             if part.fstype in bootloader_types]
         if len(bootloader_parts) > 1:
-            raise StorageError(_("Multiple boot loader partitions required: %s"), bootloader_parts)
+            raise StorageError(_("Multiple boot loader partitions required: %s") %
+                               bootloader_parts)
         if not bootloader_parts:
             log.debug("No bootloader partition required")
             return False
