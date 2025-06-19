@@ -58,17 +58,7 @@ class EXTLINUX(BootLoader):
 
         return prefix
 
-    def write_config_console(self, config):
-        if not self.console:
-            return
-
-        console_arg = "console=%s" % self.console
-        if self.console_options:
-            console_arg += ",%s" % self.console_options
-        self.boot_args.add(console_arg)
-
     def write_config_images(self, config):
-        self.write_config_console(config)
         for image in self.images:
             args = BootLoaderArguments()
             args.update(["root=%s" % image.device.fstab_spec, "ro"])
