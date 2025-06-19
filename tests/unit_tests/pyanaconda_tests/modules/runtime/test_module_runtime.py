@@ -44,6 +44,7 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
                     "graphical",
                     "text",
                     "cmdline",
+                    "rdp",
                     "vnc"]
         assert self.interface.KickstartCommands == commands
         sections = ['pre-install',
