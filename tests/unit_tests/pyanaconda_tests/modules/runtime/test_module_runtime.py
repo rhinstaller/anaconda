@@ -34,7 +34,7 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        assert self.interface.KickstartCommands == ["driverdisk", "mediacheck", "sshpw", "updates"]
+        assert self.interface.KickstartCommands == ["driverdisk", "mediacheck", "sshpw", "updates", "rdp"]
         assert self.interface.KickstartSections == []
         assert self.interface.KickstartAddons == []
 
