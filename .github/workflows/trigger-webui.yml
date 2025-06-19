@@ -71,7 +71,7 @@ jobs:
           mkdir -p ~/.config/cockpit-dev
           echo '${{ secrets.GITHUB_TOKEN }}' > ~/.config/cockpit-dev/github-token
 
-          PR_NUMBER="$PR_NUMBER"
+          PR_NUMBER="${{ github.event.number }}"
           REPO="${{ github.repository }}"
           TEST_OS="fedora-rawhide-boot"
 
