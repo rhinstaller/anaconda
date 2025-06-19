@@ -56,6 +56,7 @@ from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeCo
 from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
 from pykickstart.commands.partition import RHEL10_Partition as Partition
 from pykickstart.commands.raid import RHEL10_Raid as Raid
+from pykickstart.commands.rdp import RHEL10_RDP as RDP
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
 from pykickstart.commands.repo import F40_Repo as Repo
@@ -75,7 +76,7 @@ from pykickstart.commands.timesource import F33_Timesource as Timesource
 from pykickstart.commands.updates import F34_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
 from pykickstart.commands.user import F24_User as User
-from pykickstart.commands.vnc import RHEL10_Vnc as Vnc
+from pykickstart.commands.vnc import F9_Vnc as Vnc
 from pykickstart.commands.volgroup import RHEL10_VolGroup as VolGroup
 from pykickstart.commands.xconfig import F14_XConfig as XConfig
 from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
@@ -93,7 +94,7 @@ from pykickstart.commands.logvol import F29_LogVolData as LogVolData
 from pykickstart.commands.mount import F27_MountData as MountData
 from pykickstart.commands.network import F39_NetworkData as NetworkData
 from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
-from pykickstart.commands.partition import F29_PartData as PartData
+from pykickstart.commands.partition import F41_PartData as PartData
 from pykickstart.commands.raid import F29_RaidData as RaidData
 from pykickstart.commands.repo import F30_RepoData as RepoData
 from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
