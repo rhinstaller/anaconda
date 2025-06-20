@@ -58,8 +58,8 @@ def verify_root(storage, constraints, report_error, report_warning):
 
     if not root:
         report_error(_("You have not defined a root partition (/), "
-                       "which is required for installation of %s"
-                       " to continue.") % (get_product_name(),))
+                       "which is required for installation of %(prod_name)s "
+                       "to continue.") % {"prod_name": get_product_name()})
 
     if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/" \
        and not root.format.is_empty:
@@ -349,7 +349,7 @@ def verify_swap_uuid(storage, constraints, report_error, report_warning):
                          "will be referred to by device path in "
                          "/etc/fstab, which is not ideal since device "
                          "paths can change under a variety of "
-                         "circumstances. "))
+                         "circumstances."))
 
 
 def verify_mountpoints_on_root(storage, constraints, report_error, report_warning):
@@ -538,9 +538,9 @@ def verify_lvm_destruction(storage, constraints, report_error, report_warning):
     for vg_name, disks in all_touched_disks_by_vg.items():
         if vg_name not in destroyed_vg_names:
             report_error(_(
-                "Selected disks {} contain volume group '{}' that also uses further unselected "
-                "disks. You must select or de-select all these disks as a set.")
-                .format(", ".join(disks), vg_name)
+                "Selected disks {disks} contain volume group '{vg}' that also uses further "
+                "unselected disks. You must select or de-select all these disks as a set.")
+                .format(disks=", ".join(disks), vg=vg_name)
             )
 
 
