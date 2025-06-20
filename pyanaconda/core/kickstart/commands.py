@@ -57,6 +57,7 @@ from pykickstart.commands.ostreecontainer import F43_OSTreeContainer as OSTreeCo
 from pykickstart.commands.ostreesetup import F43_OSTreeSetup as OSTreeSetup
 from pykickstart.commands.partition import F41_Partition as Partition
 from pykickstart.commands.raid import F43_Raid as Raid
+from pykickstart.commands.rdp import F43_RDP as RDP
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
 from pykickstart.commands.repo import F40_Repo as Repo
@@ -76,7 +77,7 @@ from pykickstart.commands.timesource import F33_Timesource as Timesource
 from pykickstart.commands.updates import F34_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
 from pykickstart.commands.user import F24_User as User
-from pykickstart.commands.vnc import F9_Vnc as Vnc
+from pykickstart.commands.vnc import F43_Vnc as Vnc
 from pykickstart.commands.volgroup import F21_VolGroup as VolGroup
 from pykickstart.commands.xconfig import F14_XConfig as XConfig
 from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
