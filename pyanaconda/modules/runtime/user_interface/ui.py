@@ -33,7 +33,6 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.common.structures.product import ProductData
-from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 
 log = get_module_logger(__name__)
@@ -58,9 +57,6 @@ class UIModule(KickstartBaseModule):
         self.display_mode_text_kickstarted_changed = Signal()
         self._display_mode_text_kickstarted = False
 
-        self.vnc_changed = Signal()
-        self._vnc = VncData()
-
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USER_INTERFACE.object_path, UIInterface(self))
@@ -75,21 +71,10 @@ class UIModule(KickstartBaseModule):
             self._display_mode_text_kickstarted = True
             self.display_mode_text_kickstarted_changed.emit()
 
-        vnc = VncData()
-        vnc.enabled = data.vnc.enabled
-        vnc.host = data.vnc.host
-        vnc.port = data.vnc.port
-        vnc.password.set_secret(data.vnc.password)
-        self.set_vnc(vnc)
-
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         data.displaymode.displayMode = self._displayMode
         data.displaymode.nonInteractive = self._displayMode_nonInteractive
-        data.vnc.enabled = self.vnc.enabled
-        data.vnc.host = self.vnc.host
-        data.vnc.port = self.vnc.port
-        data.vnc.password = self.vnc.password.value
 
     @property
     def display_mode(self):
@@ -141,24 +126,6 @@ class UIModule(KickstartBaseModule):
         """
 
         return self._display_mode_text_kickstarted
-
-    @property
-    def vnc(self):
-        """The VncData.
-
-        :return: an instance of VncData
-        """
-        return self._vnc
-
-    def set_vnc(self, vnc):
-        """Set the VncData structure.
-
-        :param vnc: VncData structure.
-        :type vnc: object
-        """
-        self._vnc = vnc
-        self.vnc_changed.emit()
-        log.debug("VNC enabled set to: %s", vnc)
 
     @property
     def password_policies(self):
