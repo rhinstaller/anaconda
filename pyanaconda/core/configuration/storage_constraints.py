@@ -163,3 +163,19 @@ class StorageConstraints(Section):
         :return: a set of mount point prefixes
         """
         return set(self._get_option("reformat_blocklist").split())
+
+    @property
+    def req_system_size(self):
+        """Required size for the system.
+
+        Size 0 means no requirement.
+        """
+        return self._get_option("req_system_size", Size)
+
+    @property
+    def req_system_size_partitions(self):
+        """Mount points checked for required size for system.
+
+        :return: a set of paths
+        """
+        return set(self._get_option("req_system_size_partitions").split())
