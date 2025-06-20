@@ -26,7 +26,6 @@ from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.common.structures.product import ProductData
-from pyanaconda.modules.common.structures.vnc import VncData
 
 __all__ = ["UIInterface"]
 
@@ -42,7 +41,6 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("DisplayMode", self.implementation.display_mode_changed)
         self.watch_property("DisplayModeNonInteractive",
                             self.implementation.display_mode_nonInteractive_changed)
-        self.watch_property("Vnc", self.implementation.vnc_changed)
 
     @property
     def PasswordPolicies(self) -> Dict[Str, Structure]:
@@ -105,24 +103,6 @@ class UIInterface(KickstartModuleInterfaceTemplate):
     def DisplayModeTextKickstarted(self) -> Bool:
         """Report if text mode was explicitly requested via kickstart."""
         return self.implementation.display_mode_text_kickstarted
-
-    @property
-    def Vnc(self) -> Structure:
-        """Specification of the vnc configuration."""
-        return VncData.to_structure(self.implementation.vnc)
-
-    @Vnc.setter
-    @emits_properties_changed
-    def Vnc(self, vnc: Structure):
-        """Specify of the vnc configuration.
-
-        The DBus structure is defined by VncData.
-
-        :param vnc: a dictionary with specification.
-        """
-        self.implementation.set_vnc(
-            VncData.from_structure(vnc)
-        )
 
     @property
     def ProductData(self) -> Structure:

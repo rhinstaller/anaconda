@@ -44,8 +44,8 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
                     "graphical",
                     "text",
                     "cmdline",
-                    "rdp",
-                    "vnc"]
+                    "vnc",
+                    "rdp"]
         assert self.interface.KickstartCommands == commands
         sections = ['pre-install',
                     'post',
@@ -131,10 +131,4 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         """Test graphical mode via kickstart."""
         ks_in = "cmdline\n"
         ks_out = "cmdline\n"
-        self._test_kickstart(ks_in, ks_out)
-
-    def test_kickstart_vnc(self):
-        """Test vnc via kickstart."""
-        ks_in = "vnc --host=192.168.1.100 --port=5901 --password=testpassword\n"
-        ks_out = "vnc --host=192.168.1.100 --port=5901 --password=testpassword\n"
         self._test_kickstart(ks_in, ks_out)
