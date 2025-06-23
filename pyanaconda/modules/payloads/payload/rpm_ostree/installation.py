@@ -28,7 +28,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import make_directories, set_system_root
-from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.util import execProgram, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import (
@@ -47,16 +47,17 @@ from gi.repository import Gio, OSTree, RpmOstree
 log = get_module_logger(__name__)
 
 
-def safe_exec_with_redirect(cmd, argv, successful_return_codes=(0,), **kwargs):
-    """Like util.execWithRedirect, but treat errors as fatal.
+def safe_exec_program(cmd, argv, successful_return_codes=(0,), **kwargs):
+    """Like util.execProgram, but treat errors as fatal.
 
     :raise: PayloadInstallationError if the call fails for any reason
     """
-    rc = execWithRedirect(cmd, argv, **kwargs)
+    rc, output = execProgram(cmd, argv, **kwargs)
 
     if rc not in successful_return_codes:
         raise PayloadInstallationError(
-            "The command '{}' exited with the code {}.".format(" ".join([cmd] + argv), rc)
+            "The command '{}' exited with the code {}:\n{}".format(" ".join([cmd] + argv), rc,
+            output)
         )
 
 
@@ -170,8 +171,8 @@ class PrepareOSTreeMountTargetsTask(Task):
         dest = os.path.realpath(dest)
 
         if bind_ro:
-            safe_exec_with_redirect("mount", ["--bind", src, src])
-            safe_exec_with_redirect("mount", ["--bind", "-o", "remount,ro", src, src])
+            safe_exec_program("mount", ["--bind", src, src])
+            safe_exec_program("mount", ["--bind", "-o", "remount,ro", src, src])
         else:
             # Create missing directories for user defined mount points
             if not os.path.exists(dest):
@@ -183,7 +184,7 @@ class PrepareOSTreeMountTargetsTask(Task):
                 bindopt = '--rbind'
             else:
                 bindopt = '--bind'
-            safe_exec_with_redirect("mount", [bindopt, src, dest])
+            safe_exec_program("mount", [bindopt, src, dest])
 
         self._internal_mounts.append(src if bind_ro else dest)
 
@@ -240,7 +241,7 @@ class PrepareOSTreeMountTargetsTask(Task):
         # Therefore we ignore error 65, since this is coming from
         # the payload itself and the actual execution of it was fine
 
-        safe_exec_with_redirect(
+        safe_exec_program(
             "systemd-tmpfiles", [
                 "--create",
                 "--boot",
@@ -377,7 +378,7 @@ class CopyBootloaderDataTask(Task):
             # doesn't, we're not on a UEFI system, so we don't want to copy the data.
             if not fname == 'efi' or is_efi and os.path.isdir(os.path.join(physboot, fname)):
                 log.info("Copying bootloader data: %s", fname)
-                safe_exec_with_redirect('cp', ['-r', '-p', srcpath, physboot])
+                safe_exec_program('cp', ['-r', '-p', srcpath, physboot])
 
             # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
             efi_grubenv_link = physboot + '/grub2/grubenv'
@@ -405,7 +406,7 @@ class InitOSTreeFsAndRepoTask(Task):
 
         This will create the repository as well.
         """
-        safe_exec_with_redirect(
+        safe_exec_program(
             "ostree",
             ["admin",
              "--sysroot=" + self._physroot,
@@ -582,12 +583,12 @@ class ConfigureBootloader(Task):
 
         set_kargs_args.append("rw")
 
-        safe_exec_with_redirect("ostree", set_kargs_args, root=self._sysroot)
+        safe_exec_program("ostree", set_kargs_args, root=self._sysroot)
 
         if arch.is_s390():
             # Deployment was done. Enable ostree's zipl support; this is how things are currently done in e.g.
             # https://github.com/coreos/coreos-assembler/blob/7d6fa376fc9f73625487adbb9386785bb09f1bb2/src/osbuild-manifests/coreos.osbuild.s390x.mpp.yaml#L261
-            safe_exec_with_redirect(
+            safe_exec_program(
                 "ostree",
                 ["config",
                  "--repo=" + self._sysroot + "/ostree/repo",
@@ -607,7 +608,7 @@ class ConfigureBootloader(Task):
                 break
 
             # pylint: disable=possibly-used-before-assignment
-            safe_exec_with_redirect(
+            safe_exec_program(
                 "zipl",
                 ["-V",
                  "-i",
@@ -646,14 +647,14 @@ class DeployOSTreeTask(Task):
         if arch.is_s390():
             # Disable ostree's builtin zipl support; this is how things are currently done in e.g.
             # https://github.com/coreos/coreos-assembler/blob/7d6fa376fc9f73625487adbb9386785bb09f1bb2/src/osbuild-manifests/coreos.osbuild.s390x.mpp.yaml#L168
-            safe_exec_with_redirect(
+            safe_exec_program(
                 "ostree",
                 ["config",
                  "--repo=" + self._physroot + "/ostree/repo",
                  "set", "sysroot.bootloader", "none"]
             )
 
-        safe_exec_with_redirect(
+        safe_exec_program(
             "ostree",
             ["admin",
              "--sysroot=" + self._physroot,
@@ -675,13 +676,13 @@ class DeployOSTreeTask(Task):
             if not self._data.signature_verification_enabled:
                 args.append("--no-signature-verification")
 
-            safe_exec_with_redirect(
+            safe_exec_program(
                 "ostree",
                 args
             )
         else:
             log.info("ostree admin deploy starting")
-            safe_exec_with_redirect(
+            safe_exec_program(
                 "ostree",
                 ["admin",
                  "--sysroot=" + self._physroot,
@@ -692,7 +693,7 @@ class DeployOSTreeTask(Task):
 
         log.info("ostree config set sysroot.readonly true")
 
-        safe_exec_with_redirect(
+        safe_exec_program(
             "ostree",
             ["config",
              "--repo=" + self._physroot + "/ostree/repo",
