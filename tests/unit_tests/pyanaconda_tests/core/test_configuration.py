@@ -42,6 +42,7 @@ from pyanaconda.core.configuration.base import (
     set_option,
     write_config,
 )
+from pyanaconda.core.configuration.payload import PayloadSection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.constants import (
@@ -476,6 +477,29 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_default_installation_source(self):
         conf = AnacondaConfiguration.from_defaults()
         assert conf.payload.default_source == SOURCE_TYPE_CLOSEST_MIRROR
+
+    def test_default_flatpak_remote(self):
+        conf = AnacondaConfiguration.from_defaults()
+        assert conf.payload.flatpak_remote == ('fedora', 'oci+https://registry.fedoraproject.org')
+
+    def test_covert_flatpak_remote(self):
+        convert = PayloadSection._convert_flatpak_remote
+
+        assert convert("test_remote URL") == ("test_remote", "URL")
+
+        # only a pair of two values is supported
+        # test three values raising an error
+        with pytest.raises(ValueError):
+            convert("test remote URL")
+
+        # test one value is raising an error
+        with pytest.raises(ValueError):
+            convert("URL")
+
+        # test that multiple lines are not supported
+        with pytest.raises(ValueError):
+            convert("""test remote
+            test URL""")
 
     def test_default_password_policies(self):
         conf = AnacondaConfiguration.from_defaults()
