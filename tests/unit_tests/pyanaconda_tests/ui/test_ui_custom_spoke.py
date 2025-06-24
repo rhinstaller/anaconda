@@ -37,7 +37,7 @@ class CustomStorageHelpersTestCase(unittest.TestCase):
         request.device_spec = "dev3"
         request.disks = ["dev1", "dev2"]
         request.device_name = "dev3"
-        request.device_type = devicefactory.DEVICE_TYPE_LVM_THINP
+        request.device_type = devicefactory.DEVICE_TYPES.LVM_THINP
         request.device_size = Size("10 GiB").get_bytes()
         request.mount_point = "/"
         request.format_type = "xfs"
