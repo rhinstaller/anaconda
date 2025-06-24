@@ -503,6 +503,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 24 2025 github-actions <github-actions@github.com> - 43.25-1
+- Change formatting on some error messages (a.badger)
+- Enable all steps of the installation queue (adamkankovsky)
+- Fix a pair of error messages (a.badger)
+- Remove tmpfs on /var/tmp for ISO builds (jkonecny)
+- ruff: enable and autofix SIM300 (k.koukiou)
+- ruff: enable and fix SIM222 rule (k.koukiou)
+- ruff: enable and autofix SIM201 (k.koukiou)
+- pylint: suppress false positives related to GI and GTK introspection
+  (k.koukiou)
+- ruff: enable and autofix SIM118 rule (k.koukiou)
+- tests/network: reorder filterwarnings to fix warning handling in
+  test_sync_call_glib_in_thread (k.koukiou)
+- bootloader: drop write_config_console, just preserve console= (awilliam)
+
 * Tue Jun 17 2025 github-actions <github-actions@github.com> - 43.24-1
 - makeupdates: Bump Python version in site packages path to 3.14 (k.koukiou)
 - Add documentation for the unified feature (jkonecny)
