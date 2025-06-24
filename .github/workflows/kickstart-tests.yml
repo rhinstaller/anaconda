@@ -300,9 +300,10 @@ jobs:
       - name: Run kickstart tests in container
         working-directory: ./permian
         run: |
+          PERMIAN_LOG=permian.log
           sudo --preserve-env=TEST_JOBS \
           PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
-          ./run_subset --debug-log permian.log \
+          ./run_subset --debug-log ${PERMIAN_LOG} \
             --settings settings.ini \
             --override workflows.dry_run=False \
             --testcase-query '${{ steps.generate_query.outputs.query }}' \
@@ -317,10 +318,13 @@ jobs:
             }'
 
           # Permian hides the exit code of launcher, so error out this step manually based on logs
-          rc=$( awk '/Runner return code: /{ print $4 }' permian.log)
+          rc=$( awk '/Runner return code: /{ print $4 }' ${PERMIAN_LOG})
           if [ -n "$rc" ]; then
             exit $rc
           else
+            if grep -q "All execution and reporting is done" ${PERMIAN_LOG}; then
+              echo "0 tests were run. It can be caused by using a wrong parameter or by the test(s) being disabled for the os variant."
+            fi
             exit 111
           fi
 
