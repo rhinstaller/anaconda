@@ -152,7 +152,7 @@ def verify_partition_format_sizes(storage, constraints, report_error, report_war
     filesystems = storage.mountpoints
 
     for (mount, device) in filesystems.items():
-        problem = filesystems[mount].check_size()
+        problem = device.check_size()
         if problem < 0:
             report_error(_("Your %(mount)s partition is too small for "
                            "%(format)s formatting (allowable size is "
