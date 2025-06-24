@@ -415,19 +415,19 @@ def validate_device_factory_request(storage, request: DeviceFactoryRequest):
         if error:
             return error
 
-    supported_types = (devicefactory.DEVICE_TYPE_PARTITION, devicefactory.DEVICE_TYPE_MD)
+    supported_types = (devicefactory.DEVICE_TYPES.PARTITION, devicefactory.DEVICE_TYPES.MD)
 
     if mount_point == "/boot/efi" and device_type not in supported_types:
         return _("/boot/efi must be on a device of type {type} or {another}").format(
-            type=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION]),
-            another=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_MD])
+            type=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPES.PARTITION]),
+            another=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPES.MD])
         )
 
-    if device_type != devicefactory.DEVICE_TYPE_PARTITION and \
+    if device_type != devicefactory.DEVICE_TYPES.PARTITION and \
             fs_type in PARTITION_ONLY_FORMAT_TYPES:
         return _("{fs} must be on a device of type {type}").format(
             fs=fs_type,
-            type=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPE_PARTITION])
+            type=_(DEVICE_TEXT_MAP[devicefactory.DEVICE_TYPES.PARTITION])
         )
 
     if mount_point and encrypted and mount_point.startswith("/boot"):
@@ -439,7 +439,7 @@ def validate_device_factory_request(storage, request: DeviceFactoryRequest):
     if mount_point == "/" and device.format.exists and not reformat:
         return _("You must create a new file system on the root device.")
 
-    if (raid_level is not None or device_type == devicefactory.DEVICE_TYPE_MD) and \
+    if (raid_level is not None or device_type == devicefactory.DEVICE_TYPES.MD) and \
             raid_level not in get_supported_raid_levels(device_type):
         return _("Device does not support RAID level selection {}.").format(raid_level)
 
@@ -760,7 +760,7 @@ def collect_device_types(device):
     """
     # Collect the supported device types.
     supported_types = set(SUPPORTED_DEVICE_TYPES)
-    supported_types.add(devicefactory.DEVICE_TYPE_MD)
+    supported_types.add(devicefactory.DEVICE_TYPES.MD)
 
     # Include the type of the given device.
     supported_types.add(devicefactory.get_device_type(device))
@@ -771,7 +771,7 @@ def collect_device_types(device):
     if fmt.supported \
             and fmt.formattable \
             and device.raw_device.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",):
-        supported_types.add(devicefactory.DEVICE_TYPE_BTRFS)
+        supported_types.add(devicefactory.DEVICE_TYPES.BTRFS)
 
     return sorted(filter(devicefactory.is_supported_device_type, supported_types))
 
@@ -973,7 +973,7 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
         device.resizable or (
                 not device.exists
                 and request.device_type not in {
-                    devicefactory.DEVICE_TYPE_BTRFS
+                    devicefactory.DEVICE_TYPES.BTRFS
                 }
         )
 
@@ -985,14 +985,14 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     permissions.format_type = \
         request.reformat \
         and request.device_type not in {
-            devicefactory.DEVICE_TYPE_BTRFS
+            devicefactory.DEVICE_TYPES.BTRFS
         }
 
     permissions.device_encrypted = \
         request.reformat \
         and not request.container_encrypted \
         and request.device_type not in {
-            devicefactory.DEVICE_TYPE_BTRFS
+            devicefactory.DEVICE_TYPES.BTRFS
         } \
         and not any(
             a.format.type == "luks" and a.format.exists
@@ -1100,7 +1100,7 @@ def _destroy_device(storage, device):
         device_type = devicefactory.get_device_type(device)
     elif hasattr(device, "volume"):
         container = device.volume
-        device_type = devicefactory.DEVICE_TYPE_BTRFS
+        device_type = devicefactory.DEVICE_TYPES.BTRFS
     else:
         container = None
         device_type = None
@@ -1199,7 +1199,7 @@ def get_default_container_raid_level_name(device_type):
     :param int device_type: a device_type
     :return str: a name of the default RAID level or an empty string
     """
-    if device_type == devicefactory.DEVICE_TYPE_BTRFS:
+    if device_type == devicefactory.DEVICE_TYPES.BTRFS:
         return "single"
 
     return ""
@@ -1212,7 +1212,7 @@ def collect_containers(storage, device_type):
     :param device_type: a device type
     :return: a list of container devices
     """
-    if device_type == devicefactory.DEVICE_TYPE_BTRFS:
+    if device_type == devicefactory.DEVICE_TYPES.BTRFS:
         return storage.btrfs_volumes
     else:
         return storage.vgs

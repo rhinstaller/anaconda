@@ -174,7 +174,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "format-type": get_variant(Str, ""),
             "label": get_variant(Str, ""),
             "luks-version": get_variant(Str, ""),
-            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_DISK),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPES.DISK),
             "device-name": get_variant(Str, "dev2"),
             "device-size": get_variant(UInt64, 0),
             "device-encrypted": get_variant(Bool, False),
@@ -202,7 +202,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "format-type": get_variant(Str, "ext4"),
             "label": get_variant(Str, "root"),
             "luks-version": get_variant(Str, ""),
-            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_PARTITION),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPES.PARTITION),
             "device-name": get_variant(Str, "dev3"),
             "device-size": get_variant(UInt64, Size("5 GiB").get_bytes()),
             "device-encrypted": get_variant(Bool, False),
@@ -249,7 +249,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "format-type": get_variant(Str, "xfs"),
             "label": get_variant(Str, ""),
             "luks-version": get_variant(Str, ""),
-            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_LVM),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPES.LVM),
             "device-name": get_variant(Str, "testlv"),
             "device-size": get_variant(UInt64, Size("508 MiB").get_bytes()),
             "device-encrypted": get_variant(Bool, False),
@@ -286,7 +286,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "format-type": get_variant(Str, ""),
             "label": get_variant(Str, ""),
             "luks-version": get_variant(Str, ""),
-            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_MD),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPES.MD),
             "device-name": get_variant(Str, "dev3"),
             "device-size": get_variant(UInt64, 0),
             "device-encrypted": get_variant(Bool, False),
@@ -326,7 +326,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "format-type": get_variant(Str, "btrfs"),
             "label": get_variant(Str, ""),
             "luks-version": get_variant(Str, ""),
-            "device-type": get_variant(Int, devicefactory.DEVICE_TYPE_BTRFS),
+            "device-type": get_variant(Int, devicefactory.DEVICE_TYPES.BTRFS),
             "device-name": get_variant(Str, dev3.name),
             "device-size": get_variant(UInt64, Size("10 GiB").get_bytes()),
             "device-encrypted": get_variant(Bool, False),
@@ -353,7 +353,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         request.device_spec = "dev3"
         request.disks = ["dev1", "dev2"]
         request.device_name = "dev3"
-        request.device_type = devicefactory.DEVICE_TYPE_LVM_THINP
+        request.device_type = devicefactory.DEVICE_TYPES.LVM_THINP
         request.device_size = Size("10 GiB").get_bytes()
         request.mount_point = "/"
         request.format_type = "xfs"
@@ -365,7 +365,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         assert utils.get_device_factory_arguments(self.storage, request) == {
             "device": dev3,
             "disks": [dev1, dev2],
-            "device_type": devicefactory.DEVICE_TYPE_LVM_THINP,
+            "device_type": devicefactory.DEVICE_TYPES.LVM_THINP,
             "device_name": "dev3",
             "size": Size("10 GiB"),
             "mountpoint": "/",
@@ -392,7 +392,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         assert utils.get_device_factory_arguments(self.storage, request) == {
             "device": dev3,
             "disks": [dev1, dev2],
-            "device_type": devicefactory.DEVICE_TYPE_LVM,
+            "device_type": devicefactory.DEVICE_TYPES.LVM,
             "device_name": "dev3",
             "size": None,
             "mountpoint": None,

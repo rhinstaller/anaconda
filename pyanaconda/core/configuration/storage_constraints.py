@@ -19,25 +19,17 @@
 from enum import Enum
 
 from pyanaconda.core.configuration.base import Section
-from pyanaconda.core.storage import (
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_DISK,
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_LVM_THINP,
-    DEVICE_TYPE_MD,
-    DEVICE_TYPE_PARTITION,
-    Size,
-)
+from pyanaconda.core.storage import DEVICE_TYPES, Size
 
 
 class DeviceType(Enum):
     """Type of a device."""
-    LVM = DEVICE_TYPE_LVM
-    MD = DEVICE_TYPE_MD
-    PARTITION = DEVICE_TYPE_PARTITION
-    BTRFS = DEVICE_TYPE_BTRFS
-    DISK = DEVICE_TYPE_DISK
-    LVM_THINP = DEVICE_TYPE_LVM_THINP
+    LVM = DEVICE_TYPES.LVM
+    MD = DEVICE_TYPES.MD
+    PARTITION = DEVICE_TYPES.PARTITION
+    BTRFS = DEVICE_TYPES.BTRFS
+    DISK = DEVICE_TYPES.DISK
+    LVM_THINP = DEVICE_TYPES.LVM_THINP
 
     @classmethod
     def from_name(cls, value):
