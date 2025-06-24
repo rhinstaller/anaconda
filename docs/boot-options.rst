@@ -544,44 +544,6 @@ inst.rdp.password
 Set password for the RDP session. To enable RDP access, also use the
 ``inst.rdp`` and ``inst.rdp.username`` boot options.
 
-.. inst.vnc:
-
-inst.vnc
-^^^^^^^^
-
-Run the installer GUI in a VNC session. You will need a VNC client application
-to interact with the installer. VNC sharing is enabled, so multiple clients
-may connect.
-
-A system installed with VNC will start in text mode (runlevel 3).
-
-This option is deprecated and will be removed in future releases.
-Use ``inst.rdp`` instead.
-
-
-.. inst.vncpassword:
-
-inst.vncpassword
-^^^^^^^^^^^^^^^^
-
-Set a password on the VNC server used by the installer.
-
-This option is deprecated and will be removed in future releases.
-Use ``inst.rdp.password`` and related boot options instead.
-
-.. inst.vncconnect:
-
-inst.vncconnect
-^^^^^^^^^^^^^^^
-
-``inst.vncconnect=<host>[:<port>]``
-    Once the install starts, connect to a listening VNC client at the given host.
-    Default port is 5900.
-
-    Use with ``vncviewer -listen``.
-
-This option is deprecated and will be removed in future releases.
-
 .. inst.xdriver:
 
 inst.xdriver
@@ -1008,7 +970,7 @@ We no longer support floppy drives. Try ``inst.ks=hd:<device>`` instead.
 display
 ^^^^^^^
 
-For remote display of the UI, use `inst.vnc`_.
+For remote display of the UI, use `inst.rdp`_.
 
 .. utf8:
 
@@ -1093,3 +1055,25 @@ inst.variant
 ^^^^^^^^^^^^
 
 Use the ``inst.profile`` option instead.
+.. inst.vnc:
+
+inst.vnc
+^^^^^^^^
+
+Anaconda no longer supports VNC for remote display of the UI.
+Instead, use ``inst.rdp`` for Remote Desktop Protocol (RDP) support.
+
+.. inst.vncpassword:
+
+inst.vncpassword
+^^^^^^^^^^^^^^^^
+
+Anaconda no longer supports VNC for remote display of the UI.
+Use ``inst.rdp.password`` and related boot options instead.
+
+.. inst.vncconnect:
+
+inst.vncconnect
+^^^^^^^^^^^^^^^
+
+Anaconda no longer supports VNC for remote display of the UI.
