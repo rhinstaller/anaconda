@@ -16,31 +16,12 @@
 # Red Hat, Inc.
 #
 #
-from enum import Enum
+
+# Use blive DEVICE_TYPES because we don't want to allow UNSUPPORTED here.
+from blivet.devicefactory import DEVICE_TYPES
 
 from pyanaconda.core.configuration.base import Section
-from pyanaconda.core.storage import DEVICE_TYPES, Size
-
-
-class DeviceType(Enum):
-    """Type of a device."""
-    LVM = DEVICE_TYPES.LVM
-    MD = DEVICE_TYPES.MD
-    PARTITION = DEVICE_TYPES.PARTITION
-    BTRFS = DEVICE_TYPES.BTRFS
-    DISK = DEVICE_TYPES.DISK
-    LVM_THINP = DEVICE_TYPES.LVM_THINP
-
-    @classmethod
-    def from_name(cls, value):
-        """Convert the given value into a device type."""
-        try:
-            member = cls.__members__[value]  # pylint: disable=unsubscriptable-object
-            return member.value
-        except KeyError:
-            pass
-
-        raise ValueError("'{}' is not a valid device typ".format(value))
+from pyanaconda.core.storage import Size
 
 
 class StorageConstraints(Section):
@@ -108,7 +89,21 @@ class StorageConstraints(Section):
 
     def _convert_device_types(self, value):
         """Convert the given value into a set of device types."""
-        return set(map(DeviceType.from_name, value.split()))
+        device_names = value.split()
+
+        device_codes = set()
+        bad_names = []
+        for name in device_names:
+            try:
+                device_codes.add(getattr(DEVICE_TYPES, name).value)
+            except AttributeError:
+                bad_names.append(name)
+
+        if bad_names:
+            raise ValueError("Invalid device type(s) specified: {bad_types}".format(
+                bad_types=bad_names))
+
+        return device_codes
 
     @property
     def must_be_on_linuxfs(self):
