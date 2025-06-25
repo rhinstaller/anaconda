@@ -232,6 +232,7 @@ class FlatpakManager:
             return
 
         try:
+            # pylint: disable=assignment-from-none
             self._collection_location = self.get_source().download(self._flatpak_refs,
                                                                    self._download_location,
                                                                    progress)
