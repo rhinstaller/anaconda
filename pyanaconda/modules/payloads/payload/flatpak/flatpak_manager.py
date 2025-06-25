@@ -114,21 +114,31 @@ class FlatpakManager:
         # We expect that the URL of the base DNF repository is source of the Flatpak repository.
         source = sources[0]
 
+        log.debug("FlatpakManager: set_sources: %s", source)
         # Decide how we want to process the main payload source to use the URL of the source
         # for that we need to know that this is Repository source so we know what we can do
-        if isinstance(source, RepositorySourceMixin):
-            if self._source and isinstance(self._source, FlatpakStaticSource) \
-                    and self._source.repository_config == source.repository:
-                log.debug("Skipping static source: %s as it is already set.", source)
-                return
-            self._source = FlatpakStaticSource(source.repository, relative_path="Flatpaks")
-        elif source.type in (SourceType.CDN, SourceType.CLOSEST_MIRROR):
+        if source.type in (SourceType.CDN, SourceType.CLOSEST_MIRROR):
             if self._source and isinstance(self._source, FlatpakRegistrySource):
                 log.debug("Skipping registry source: %s as it is already set.", source)
                 return
             _, remote_url = conf.payload.flatpak_remote
             log.debug("Using Flatpak registry source: %s", remote_url)
             self._source = FlatpakRegistrySource(remote_url)
+        elif isinstance(source, RepositorySourceMixin) or source.type == SourceType.REPO_PATH:
+            # synchronize input for FlatpakStaticSource from different DNF input sources
+            repository = (
+                source.generate_repo_configuration()
+                if source.type == SourceType.REPO_PATH
+                else source.repository
+            )
+
+            # verify this Flatpak source is already created and used
+            if self._source and isinstance(self._source, FlatpakStaticSource) \
+                    and self._source.repository_config == source.repository:
+                log.debug("Skipping static source from repo: %s as it is already set.", source)
+                return
+            log.debug("Using FlatpakStaticSource from repository: %s", repository)
+            self._source = FlatpakStaticSource(repository, relative_path="Flatpaks")
         else:
             self._source = None
 
@@ -222,6 +232,7 @@ class FlatpakManager:
             return
 
         try:
+            # pylint: disable=assignment-from-none
             self._collection_location = self.get_source().download(self._flatpak_refs,
                                                                    self._download_location,
                                                                    progress)
