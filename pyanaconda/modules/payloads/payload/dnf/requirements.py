@@ -95,7 +95,7 @@ def collect_dnf_requirements(dnf_manager, packages_configuration):
 
     # Detect if dnf plugin is required
     if dnf_manager.is_package_available("dnf5"):
-        plugins_name = "dnf5-modules"
+        plugins_name = "dnf5-plugins"
     else:
         plugins_name = "dnf-plugins-core"
 
