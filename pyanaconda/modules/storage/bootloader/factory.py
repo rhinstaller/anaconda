@@ -122,7 +122,7 @@ class BootLoaderFactory:
             from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
             return GRUB2
 
-        if platform_class is platform.EFI:
+        if platform_class is platform.EFI or platform_class is platform.X86EFI:
             from pyanaconda.modules.storage.bootloader.efi import EFIGRUB
             return EFIGRUB
 
