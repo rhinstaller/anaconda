@@ -75,6 +75,7 @@ class RPMOSTreeModule(PayloadBase):
             SourceType.RPM_OSTREE,
             SourceType.RPM_OSTREE_CONTAINER,
             SourceType.FLATPAK,
+            SourceType.BOOTC
         ]
 
     def process_kickstart(self, data):
