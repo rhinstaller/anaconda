@@ -80,6 +80,7 @@ class PlatformTestCase(unittest.TestCase):
         """Check the platform-specific constraints."""
         all_constraints = {
             "device_types": [],
+            "disklabel_types": [],
             "format_types": [],
             "mountpoints": [],
             "max_end": None,
@@ -233,6 +234,7 @@ class PlatformTestCase(unittest.TestCase):
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -270,6 +272,7 @@ class PlatformTestCase(unittest.TestCase):
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -307,6 +310,7 @@ class PlatformTestCase(unittest.TestCase):
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -344,6 +348,7 @@ class PlatformTestCase(unittest.TestCase):
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]

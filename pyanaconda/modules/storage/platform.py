@@ -31,6 +31,7 @@ log = get_module_logger(__name__)
 
 # Names of stage1 constrains.
 PLATFORM_DEVICE_TYPES = "device_types"
+PLATFORM_DISK_LABEL_TYPES = "disklabel_types"
 PLATFORM_FORMAT_TYPES = "format_types"
 PLATFORM_MOUNT_POINTS = "mountpoints"
 PLATFORM_MAX_END = "max_end"
@@ -94,6 +95,7 @@ class Platform:
         """
         return {
             PLATFORM_DEVICE_TYPES: [],
+            PLATFORM_DISK_LABEL_TYPES: [],
             PLATFORM_FORMAT_TYPES: [],
             PLATFORM_MOUNT_POINTS: [],
             PLATFORM_MAX_END: None,
@@ -213,6 +215,7 @@ class EFI(Platform):
         constraints = {
             PLATFORM_FORMAT_TYPES: ["efi"],
             PLATFORM_DEVICE_TYPES: ["partition", "mdarray"],
+            PLATFORM_DISK_LABEL_TYPES: ["gpt"],
             PLATFORM_MOUNT_POINTS: ["/boot/efi"],
             PLATFORM_RAID_LEVELS: [raid.RAID1],
             PLATFORM_RAID_METADATA: ["1.0"],
