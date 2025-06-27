@@ -67,8 +67,6 @@ ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 ANACONDA_CONFIG_DIR = "/etc/anaconda/"
 ANACONDA_CONFIG_TMP = "/run/anaconda/anaconda.conf"
 
-# file to store pid of the web viewer app to show Anaconda locally
-WEBUI_VIEWER_PID_FILE = "/run/anaconda/webui_script.pid"
 # flag file for Web UI to signalize that Anaconda backend is ready to be used
 # FIXME: Web UI should monitor the initialization itself
 BACKEND_READY_FLAG_FILE = "/run/anaconda/backend_ready"
