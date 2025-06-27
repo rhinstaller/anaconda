@@ -148,7 +148,8 @@ class CockpitUserInterface(ui.UserInterface):
         try:
             proc = startProgram(
                 ["/usr/libexec/anaconda/webui-desktop",
-                 "-t", profile_name, "-r", str(int(self.remote))],
+                 "-t", profile_name, "-r", str(int(self.remote)),
+                 "-b", conf.user_interface.default_browser_webui],
                 reset_lang=False
             )
 
