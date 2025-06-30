@@ -16,22 +16,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-from contextlib import contextmanager
-
 import meh
 
 from pyanaconda import ui
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
-    BACKEND_READY_FLAG_FILE,
     PAYLOAD_TYPE_DNF,
     QUIT_MESSAGE,
     WEBUI_VIEWER_PID_FILE,
 )
 from pyanaconda.core.glib import create_main_loop
-from pyanaconda.core.path import touch
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import startProgram
@@ -79,7 +74,6 @@ class CockpitUserInterface(ui.UserInterface):
         self._meh_interface = meh.ui.text.TextIntf()
         self._main_loop = None
         self._viewer_pid_file = WEBUI_VIEWER_PID_FILE
-        self._backend_ready_flag_file = BACKEND_READY_FLAG_FILE
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
@@ -122,23 +116,10 @@ class CockpitUserInterface(ui.UserInterface):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
 
-        with self._mark_initialized_backend_flag():
-            if conf.system.provides_liveuser:
-                self._watch_webui_on_live()
-            else:
-                self._run_webui()
-
-    @contextmanager
-    def _mark_initialized_backend_flag(self):
-        """Create a flag file for Web UI to signalize that backend is ready to be used."""
-        # just create the file - no content is required
-        touch(self._backend_ready_flag_file)
-
-        try:
-            yield
-        finally:
-            # remove the flag
-            os.remove(self._backend_ready_flag_file)
+        if conf.system.provides_liveuser:
+            self._watch_webui_on_live()
+        else:
+            self._run_webui()
 
     def _run_webui(self):
         # FIXME: This part should be start event loop (could use the WatchProcesses class)

@@ -69,9 +69,6 @@ ANACONDA_CONFIG_TMP = "/run/anaconda/anaconda.conf"
 
 # file to store pid of the web viewer app to show Anaconda locally
 WEBUI_VIEWER_PID_FILE = "/run/anaconda/webui_script.pid"
-# flag file for Web UI to signalize that Anaconda backend is ready to be used
-# FIXME: Web UI should monitor the initialization itself
-BACKEND_READY_FLAG_FILE = "/run/anaconda/backend_ready"
 
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
