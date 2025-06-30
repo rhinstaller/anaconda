@@ -419,6 +419,24 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr)[1]
 
+def execProgram(command, argv, stdin=None, root='/', env_prune=None,
+                log_output=True, filter_stderr=False):
+    """ Run an external program and capture standard out and err as well as the return code.
+
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :param env_prune: environment variable to remove before execution
+        :param log_output: Whether to log the output of command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
+        :return: Tuple of the return code and the output of the command
+    """
+    argv = [command] + argv
+
+    return _run_program(argv, stdin=stdin, root=root, env_prune=env_prune, log_output=log_output,
+                        filter_stderr=filter_stderr)
+
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
     """ Execute an external command and return the line output of the command
