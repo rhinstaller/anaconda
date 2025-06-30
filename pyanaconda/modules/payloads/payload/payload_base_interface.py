@@ -25,7 +25,11 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD
-from pyanaconda.modules.common.containers import PayloadSourceContainer, TaskContainer
+from pyanaconda.modules.common.containers import (
+    PayloadContainer,
+    PayloadSourceContainer,
+    TaskContainer,
+)
 
 
 @dbus_interface(PAYLOAD.interface_name)
@@ -51,6 +55,22 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
         return self.implementation.type.value
 
     @property
+    def SidePayload(self) -> ObjPath:
+        """Side payload attached to this payload.
+
+        The side payload is a payload attached to this payload. It can be configured by this
+        payload.
+
+        This side payload calls will be automatically queued for some DBus API in Payloads module.
+        """
+        side_payload = self.implementation.side_payload
+
+        if not side_payload:
+            return ""
+
+        return PayloadContainer.to_object_path(side_payload)
+
+    @property
     def DefaultSourceType(self) -> Str:
         """Type of the default source.
 
@@ -58,6 +78,9 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
 
         :return: a string representation of a source type
         """
+        if self.implementation.default_source_type is None:
+            return ""
+
         return self.implementation.default_source_type.value
 
     @property

@@ -107,6 +107,8 @@ class PayloadsInterface(KickstartModuleInterface):
     def CalculateRequiredSpace(self) -> UInt64:
         """Calculate space required for the installation.
 
+        Calculate required space for the main payload and the side payload if exists.
+
         :return: required size in bytes
         :rtype: int
         """
@@ -123,11 +125,33 @@ class PayloadsInterface(KickstartModuleInterface):
         """
         return self.implementation.get_kernel_version_list()
 
+    # Update documentation of this method from parent.
+    def InstallWithTasks(self) -> List[ObjPath]:  # pylint: disable=useless-parent-delegation
+        """Returns installation tasks of this module.
+
+        Concatenate tasks of the main payload together with side payload of that payload.
+
+        :returns: list of object paths of installation tasks
+        """
+        return super().InstallWithTasks()
+
     def PostInstallWithTasks(self) -> List[ObjPath]:
         """Return a list of post-installation tasks.
+
+        Concatenate tasks of the main payload together with side payload of that payload.
 
         :return: a list of object paths of installation tasks
         """
         return TaskContainer.to_object_path_list(
             self.implementation.post_install_with_tasks()
         )
+
+    # Update documentation of this method from parent.
+    def TeardownWithTasks(self) -> List[ObjPath]:  # pylint: disable=useless-parent-delegation
+        """Returns teardown tasks for this module.
+
+        Concatenate tasks of the main payload together with side payload of that payload.
+
+        :returns: list of object paths of installation tasks
+        """
+        return super().TeardownWithTasks()
