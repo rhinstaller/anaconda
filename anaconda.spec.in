@@ -422,6 +422,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 30 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.7.5-1
+- bootloader: drop write_config_console, just preserve console= (awilliam)
+  Resolves: RHEL-98670
+- payload/rpm-ostree: Include program output in exception (walters)
+  Resolves: RHEL-45184
+
 * Thu May 22 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.7.4-1
 - Revert "s390x - enable raid1 as a stage2 device" (jkonecny)
   Reverts: RHEL-21691
