@@ -37,14 +37,10 @@ class SimpleWebUITestCase(unittest.TestCase):
 
     def _prepare_for_live_testing(self,
                                   pid_file,
-                                  backend_file,
                                   pid_content="",
                                   remote=0):
         # prepare UI interface class
         self.intf = CockpitUserInterface(None, None, remote)
-        self.intf._backend_ready_flag_file = backend_file
-
-        open(backend_file, "wt").close()
 
         # Value could be None
         if pid_file:
@@ -164,21 +160,6 @@ class SimpleWebUITestCase(unittest.TestCase):
             data=None
         )
 
-    def test_backend_ready_file(self):
-        """Test webui correctly create and remove beackend ready flag file."""
-
-        with tempfile.TemporaryDirectory() as fd:
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(None, backend_file, remote=1)
-
-            def test_flag_file():
-                assert os.path.exists(backend_file) is True
-
-            self.intf._run_webui = test_flag_file
-            self.intf.run()
-
-            assert os.path.exists(backend_file) is False
-
     @patch("pyanaconda.ui.webui.startProgram")
     @patch("pyanaconda.ui.webui.conf")
     @patch("pyanaconda.ui.webui.log")
@@ -193,8 +174,7 @@ class SimpleWebUITestCase(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file, remote=1)
+            self._prepare_for_live_testing(pid_file, remote=1)
             self.intf.run()
 
             mocked_startProgram.assert_called_once_with(
@@ -203,8 +183,6 @@ class SimpleWebUITestCase(unittest.TestCase):
                  "/cockpit/@localhost/anaconda-webui/index.html"],
                 reset_lang=False
             )
-            # Check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             with open(pid_file, "rt") as f:
                 assert f.readlines() == ["12345"]
@@ -223,16 +201,13 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_startProgram.return_value = mocked_process
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file)
+            self._prepare_for_live_testing(pid_file)
             self.intf.run()
 
             mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
                                                          "-t", FIREFOX_THEME_DEFAULT, "-r", "0",
                                                          "/cockpit/@localhost/anaconda-webui/index.html"],
                                                         reset_lang=False)
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             with open(pid_file, "rt") as f:
                 assert f.readlines() == ["12345"]
@@ -257,12 +232,8 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_main_loop.reset_mock()
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file, pid_content="11111")
+            self._prepare_for_live_testing(pid_file, pid_content="11111")
             self.intf.run()
-
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             # check that callback is correctly set
             mocked_watch_process.assert_called_once_with(11111, self.intf._webui_desktop_closed)
@@ -294,13 +265,9 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_main_loop.reset_mock()
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file)
+            self._prepare_for_live_testing(pid_file)
             with pytest.raises(FileNotFoundError):
                 self.intf.run()
-
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             mocked_watch_process.assert_not_called()
             mocked_create_main_loop.assert_not_called()
@@ -312,14 +279,10 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_main_loop.reset_mock()
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
             open(pid_file, "wt").close()
-            self._prepare_for_live_testing(pid_file, backend_file)
+            self._prepare_for_live_testing(pid_file)
             with pytest.raises(ValueError):
                 self.intf.run()
-
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             mocked_watch_process.assert_not_called()
             mocked_create_main_loop.assert_not_called()
@@ -331,14 +294,10 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_main_loop.reset_mock()
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file, pid_content="-20")
+            self._prepare_for_live_testing(pid_file, pid_content="-20")
 
             with pytest.raises(ValueError):
                 self.intf.run()
-
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             mocked_watch_process.assert_not_called()
             mocked_create_main_loop.assert_not_called()
@@ -350,14 +309,10 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_main_loop.reset_mock()
         with tempfile.TemporaryDirectory() as fd:
             pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file, pid_content="not-a-number")
+            self._prepare_for_live_testing(pid_file, pid_content="not-a-number")
 
             with pytest.raises(ValueError):
                 self.intf.run()
-
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
 
             mocked_watch_process.assert_not_called()
             mocked_create_main_loop.assert_not_called()

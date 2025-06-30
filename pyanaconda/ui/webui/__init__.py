@@ -79,7 +79,6 @@ class CockpitUserInterface(ui.UserInterface):
         self._meh_interface = meh.ui.text.TextIntf()
         self._main_loop = None
         self._viewer_pid_file = WEBUI_VIEWER_PID_FILE
-        self._backend_ready_flag_file = BACKEND_READY_FLAG_FILE
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
@@ -127,18 +126,6 @@ class CockpitUserInterface(ui.UserInterface):
                 self._watch_webui_on_live()
             else:
                 self._run_webui()
-
-    @contextmanager
-    def _mark_initialized_backend_flag(self):
-        """Create a flag file for Web UI to signalize that backend is ready to be used."""
-        # just create the file - no content is required
-        touch(self._backend_ready_flag_file)
-
-        try:
-            yield
-        finally:
-            # remove the flag
-            os.remove(self._backend_ready_flag_file)
 
     def _run_webui(self):
         # FIXME: This part should be start event loop (could use the WatchProcesses class)
