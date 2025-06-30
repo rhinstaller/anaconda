@@ -214,15 +214,6 @@ class GRUB2(BootLoader):
             name += ")"
         return name
 
-    def write_config_console(self, config):
-        if not self.console:
-            return
-
-        console_arg = "console=%s" % self.console
-        if self.console_options:
-            console_arg += ",%s" % self.console_options
-        self.boot_args.add(console_arg)
-
     def write_device_map(self):
         """Write out a device map containing all supported devices."""
         map_path = os.path.normpath(conf.target.system_root + self.device_map_file)
@@ -318,7 +309,6 @@ class GRUB2(BootLoader):
         header.close()
 
     def write_config(self):
-        self.write_config_console(None)
         # See if we have a password and if so update the boot args before we
         # write out the defaults file.
         if self.password or self.encrypted_password:

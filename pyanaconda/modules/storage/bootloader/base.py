@@ -975,17 +975,12 @@ class BootLoader(object):
 
         log.debug("Console is set to %s with options '%s'", self.console, self.console_options)
 
-    def write_config_console(self, config):
-        """Write console-related configuration lines."""
-        pass
-
     def write_config_password(self, config):
         """Write password-related configuration lines."""
         pass
 
     def write_config_header(self, config):
         """Write global configuration lines."""
-        self.write_config_console(config)
         self.write_config_password(config)
 
     def write_config_images(self, config):
