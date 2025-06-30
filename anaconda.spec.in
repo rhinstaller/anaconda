@@ -488,6 +488,67 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 30 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.31-1
+- bootloader: drop write_config_console, just preserve console= (awilliam)
+  Resolves: RHEL-79961
+- flatpak: Fix Flatpak source generation from DNF (jkonecny)
+  Related: RHEL-75804
+- flatpak: Add constants for Flatpak (jkonecny)
+  Related: RHEL-75804
+- flatpak: Change log level for source processing (jkonecny)
+  Related: RHEL-75804
+- flatpak: Improve log for setting refs for install (jkonecny)
+  Related: RHEL-75804
+- flatpak: Improve documentation (jkonecny)
+  Related: RHEL-75804
+- flatpak: `NoSourceError` to `SourceSetupError` (jkonecny)
+  Related: RHEL-75804
+- Fix imports in flatpak payload (jkonecny)
+  Related: RHEL-75804
+- When installing Flatpaks from a local repository, disable download (otaylor)
+  Related: RHEL-75804
+- Add additional logging to Flatpak code (jkonecny)
+  Related: RHEL-75804
+- Fix directory where flatpak blobs are stored (jkonecny)
+  Related: RHEL-75804
+- Add FlatpakManager tests (jkonecny)
+  Related: RHEL-75804
+- Improve FlatpakManager testing (jkonecny)
+  Related: RHEL-75804
+- Add tests for Flatpak source.py (jkonecny)
+  Related: RHEL-75804
+- Add tests for Flatpak payload utils (jkonecny)
+  Related: RHEL-75804
+- Extract flatpak.source utils to a separate module (jkonecny)
+  Related: RHEL-75804
+- Add Flatpak tests for the Flatpak module (jkonecny)
+  Related: RHEL-75804
+- Do not allow any sources for Flatpak payload (jkonecny)
+  Related: RHEL-75804
+- Support payload with no default source (jkonecny)
+  Related: RHEL-75804
+- Add new API for Flatpak to CalculateSizeWithTask (jkonecny)
+  Related: RHEL-75804
+- Add side_payload to PayloadBase object (jkonecny)
+  Related: RHEL-75804
+- Add more logs for easier Flatpak module debugging (jkonecny)
+  Related: RHEL-75804
+- Call calculate_size of the Flatpak manager (jkonecny)
+  Related: RHEL-75804
+- Improve logging of the Flatpak module (jkonecny)
+  Related: RHEL-75804
+- Support Flatpak preinstallation as part of a DNF install (otaylor)
+  Resolves: RHEL-75804
+- anaconda.spec: Add Flatpak client to Requires (otaylor)
+  Resolves: RHEL-75804
+- Extract pick_download_location(), calculate_required_space() utilities
+  (otaylor)
+  Resolves: RHEL-75804
+- Move hardcoded flatpak remote to configuration (jkonecny)
+  Related: RHEL-75804
+- payload/rpm-ostree: Include program output in exception (walters)
+  Resolves: RHEL-83926
+
 * Thu May 22 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.30-1
 - Revert "s390x - enable raid1 as a stage2 device" (jkonecny)
   Reverts: RHEL-83924
