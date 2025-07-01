@@ -17,8 +17,10 @@
 #
 import os
 from decimal import Decimal
+from enum import IntEnum
 
 from blivet import udev
+from blivet.devicefactory import DEVICE_TYPES as blivet_dts
 from blivet.size import Size
 from blivet.util import total_memory
 from pykickstart.constants import (
@@ -39,30 +41,32 @@ MAX_SWAP_DISK_RATIO = Decimal('0.1')
 SIZE_POLICY_MAX = -1
 SIZE_POLICY_AUTO = 0
 
-DEVICE_TYPE_LVM = 0
-DEVICE_TYPE_MD = 1
-DEVICE_TYPE_PARTITION = 2
-DEVICE_TYPE_BTRFS = 3
-DEVICE_TYPE_DISK = 4
-DEVICE_TYPE_LVM_THINP = 5
+# Use blivet values plus Unsupported which contains info about devices without
+# a supported type.
+DEVICE_TYPES = IntEnum([(dt.name, dt.value) for dt in blivet_dts] + [('UNSUPPORTED', -1)])
+
+# Backwards compat, make DEVICE_TYPE_* constants that mirror the contents of
+# the Enum.
+for dt_pair in DEVICE_TYPES:
+    globals()['DEVICE_TYPE_%s' % dt_pair.name] = dt_pair.value
 
 NAMED_DEVICE_TYPES = (
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_MD,
-    DEVICE_TYPE_LVM_THINP
+    DEVICE_TYPES.BTRFS,
+    DEVICE_TYPES.LVM,
+    DEVICE_TYPES.MD,
+    DEVICE_TYPES.LVM_THINP
 )
 
 CONTAINER_DEVICE_TYPES = (
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_LVM_THINP
+    DEVICE_TYPES.LVM,
+    DEVICE_TYPES.BTRFS,
+    DEVICE_TYPES.LVM_THINP
 )
 
 SUPPORTED_DEVICE_TYPES = (
-    DEVICE_TYPE_PARTITION,
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_LVM_THINP
+    DEVICE_TYPES.PARTITION,
+    DEVICE_TYPES.LVM,
+    DEVICE_TYPES.LVM_THINP
 )
 
 PARTITION_ONLY_FORMAT_TYPES = (
@@ -79,19 +83,16 @@ PROTECTED_FORMAT_TYPES = (
     "appleboot"
 )
 
-# Used for info about device with
-# no more supported type (ie btrfs).
-DEVICE_TYPE_UNSUPPORTED = -1
 
-DEVICE_TEXT_MAP = {
-    DEVICE_TYPE_UNSUPPORTED: N_("Unsupported"),
-    DEVICE_TYPE_LVM: N_("LVM"),
-    DEVICE_TYPE_MD: N_("RAID"),
-    DEVICE_TYPE_PARTITION: N_("Standard Partition"),
-    DEVICE_TYPE_BTRFS: N_("Btrfs"),
-    DEVICE_TYPE_LVM_THINP: N_("LVM Thin Provisioning"),
-    DEVICE_TYPE_DISK: N_("Disk")
-}
+DEVICE_TEXT_MAP = {dt.value: N_("Unsupported") for dt in DEVICE_TYPES}
+DEVICE_TEXT_MAP.update({
+    DEVICE_TYPES.LVM: N_("LVM"),
+    DEVICE_TYPES.MD: N_("RAID"),
+    DEVICE_TYPES.PARTITION: N_("Standard Partition"),
+    DEVICE_TYPES.BTRFS: N_("Btrfs"),
+    DEVICE_TYPES.LVM_THINP: N_("LVM Thin Provisioning"),
+    DEVICE_TYPES.DISK: N_("Disk")
+})
 
 AUTOPART_CHOICES = (
     (N_("Standard Partition"), AUTOPART_TYPE_PLAIN),
@@ -101,10 +102,10 @@ AUTOPART_CHOICES = (
 )
 
 AUTOPART_DEVICE_TYPES = {
-    AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
-    AUTOPART_TYPE_LVM_THINP: DEVICE_TYPE_LVM_THINP,
-    AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
-    AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS
+    AUTOPART_TYPE_LVM: DEVICE_TYPES.LVM,
+    AUTOPART_TYPE_LVM_THINP: DEVICE_TYPES.LVM_THINP,
+    AUTOPART_TYPE_PLAIN: DEVICE_TYPES.PARTITION,
+    AUTOPART_TYPE_BTRFS: DEVICE_TYPES.BTRFS
 }
 
 MOUNTPOINT_DESCRIPTIONS = {
@@ -128,7 +129,7 @@ _udev_device_dict_cache = None
 
 def device_type_from_autopart(autopart_type):
     """Get device type matching the given autopart type."""
-    return AUTOPART_DEVICE_TYPES.get(autopart_type, DEVICE_TYPE_LVM)
+    return AUTOPART_DEVICE_TYPES.get(autopart_type, DEVICE_TYPES.LVM)
 
 
 def get_supported_autopart_choices():
