@@ -503,6 +503,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 01 2025 github-actions <github-actions@github.com> - 43.26-1
+- ruff: Disable object is missing __hash__ (jkonecny)
+- ruff: Fix `Unnecessary lookup of dictionary value by key` (jkonecny)
+- ruff: Remove unused noqa directive (jkonecny)
+- ruff: Disable check for import on top level (jkonecny)
+- Adjust to pykickstart removing support for VNC (k.koukiou)
+- Adjust to pykickstart adding support for RDP (k.koukiou)
+
 * Tue Jun 24 2025 github-actions <github-actions@github.com> - 43.25-1
 - Change formatting on some error messages (a.badger)
 - Enable all steps of the installation queue (adamkankovsky)
