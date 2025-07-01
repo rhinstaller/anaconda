@@ -15,17 +15,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import configparser
 import os
-from collections import namedtuple
 from functools import cache
 
-ProductData = namedtuple("ProductData", [
-    "is_final_release",
-    "name",
-    "version",
-    "short_name",
-])
+from pyanaconda.modules.common.structures.product import ProductData
 
 
 def trim_product_version_for_ui(version):
@@ -69,34 +62,31 @@ def get_product_values():
     Order of precedence for the values is:
       1) Buildstamp file specified by the PRODBUILDPATH environment variable
       2) Buildstamp file /.buildstamp
-      3) Environment variable ANACONDA_ISFINAL
+      3) ANACONDA_ISFINAL based on /etc/os-release RELEASE_TYPE field
       4) In absence of any data, fall back to "false"
 
     :return: Data about product
     :rtype: ProductData
     """
 
-    # First, load in the defaults.  In order of precedence:  contents of
-    # .buildstamp, environment, stupid last ditch hardcoded defaults.
-    config = configparser.ConfigParser()
-    config.add_section("Main")
-    config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
-    config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
-    config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
+    product_data = ProductData()
 
-    # Now read in the .buildstamp file, wherever it may be.
-    config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
+    # Get IsFinal property from /etc/os-release file
+    with open('/etc/os-release') as file:
+        for line in file:
+            key, value = line.split('=')
+            value = value.strip()
+            if key == 'RELEASE_TYPE':
+                if value in {'release', 'stable'}:
+                    product_data.is_final_release = True
+                else:
+                    product_data.is_final_release = False
 
-    # Set up some variables we import throughout, applying a couple transforms as necessary.
-    is_final_release = config.getboolean("Main", "IsFinal")
-    product_name = config.get("Main", "Product")
-    product_version = trim_product_version_for_ui(config.get("Main", "Version"))
+    product_data.name = os.environ.get("ANACONDA_PRODUCTNAME", "anaconda")
+    product_data.version = os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky")
+    product_data.short_name = shorten_product_name(product_data.name)
 
-    # for use in device names, eg: "fedora", "rhel"
-    product_short_name = shorten_product_name(product_name)
-
-    result = ProductData(is_final_release, product_name, product_version, product_short_name)
-    return result
+    return product_data
 
 
 def get_product_is_final_release():
