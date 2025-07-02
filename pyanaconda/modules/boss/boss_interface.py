@@ -44,6 +44,12 @@ def get_proxy_identification(proxy):
 @dbus_interface(BOSS.interface_name)
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
+    def GetRunningThreads(self) -> List[Str]:
+        """Get a list of running threads.
+
+        :return: a list of names of running threads
+        """
+        return self.implementation.get_running_threads()
 
     def GetModules(self) -> List[BusName]:
         """Get service names of running modules.

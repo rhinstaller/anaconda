@@ -19,6 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import (
@@ -57,6 +58,13 @@ class Boss(Service):
         TaskContainer.set_namespace(BOSS.namespace)
         DBus.publish_object(BOSS.object_path, BossInterface(self))
         DBus.register_service(BOSS.service_name)
+
+    def get_running_threads(self):
+        """Get a list of running threads.
+
+        :return: a list of names of running threads
+        """
+        return thread_manager.names
 
     def get_modules(self):
         """Get service names of running modules.
