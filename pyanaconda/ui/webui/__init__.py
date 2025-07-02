@@ -25,15 +25,11 @@ from pyanaconda import ui
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
-    BACKEND_READY_FLAG_FILE,
     PAYLOAD_TYPE_DNF,
     QUIT_MESSAGE,
     WEBUI_VIEWER_PID_FILE,
 )
-from pyanaconda.core.glib import create_main_loop
 from pyanaconda.core.path import touch
-from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import startProgram
 from pyanaconda.flags import flags
 
@@ -79,7 +75,6 @@ class CockpitUserInterface(ui.UserInterface):
         self._meh_interface = meh.ui.text.TextIntf()
         self._main_loop = None
         self._viewer_pid_file = WEBUI_VIEWER_PID_FILE
-        self._backend_ready_flag_file = BACKEND_READY_FLAG_FILE
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
@@ -106,13 +101,6 @@ class CockpitUserInterface(ui.UserInterface):
         if self.payload.type == PAYLOAD_TYPE_DNF:
             raise NotImplementedError("Package installations are not supported by Web UI.")
 
-        # Finish all initialization jobs. Don't remove this unless you fully understand all
-        # consequences of such removal. Web UI is not able to check the initialization threads,
-        # so this waiting is necessary until there is another way of monitoring the initialization.
-        # FIXME: Control the initialization via DBus.
-        self._print_message("Waiting for all threads to finish...")
-        thread_manager.wait_all()
-
     def _print_message(self, msg):
         """Print a message to stdout."""
         print(msg)
@@ -122,23 +110,7 @@ class CockpitUserInterface(ui.UserInterface):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
 
-        with self._mark_initialized_backend_flag():
-            if conf.system.provides_liveuser:
-                self._watch_webui_on_live()
-            else:
-                self._run_webui()
-
-    @contextmanager
-    def _mark_initialized_backend_flag(self):
-        """Create a flag file for Web UI to signalize that backend is ready to be used."""
-        # just create the file - no content is required
-        touch(self._backend_ready_flag_file)
-
-        try:
-            yield
-        finally:
-            # remove the flag
-            os.remove(self._backend_ready_flag_file)
+        self._run_webui()
 
     def _run_webui(self):
         # FIXME: This part should be start event loop (could use the WatchProcesses class)
@@ -177,41 +149,6 @@ class CockpitUserInterface(ui.UserInterface):
         except OSError as e:
             log.error(".... %s", e)
             raise
-
-    def _watch_webui_on_live(self):
-        """Watch webui-desktop script process on Live.
-
-        It takes long time to start Firefox after the user interaction (on live even 20+ seconds).
-        To avoid that, we are starting the webui-desktop script early in the liveinst script.
-        Here we are just watching if the process is still running. If the browser is closed
-        Anaconda main process will stop.
-        """
-        log.debug("web-ui: watching webui-desktop pid on live environment")
-        pid = -1
-
-        try:
-            with open(self._viewer_pid_file, "tr") as f:
-                pid = int(f.readline().strip())
-        except ValueError as e:
-            raise ValueError("Anaconda can't obtain pid of the web UI viewer application") from e
-
-        if pid < 0:
-            raise ValueError("Anaconda web UI viewer pid file seems to be broken")
-
-        PidWatcher().watch_process(pid, self._webui_desktop_closed)
-
-        self._main_loop = create_main_loop()
-        self._main_loop.run()
-
-        log.debug("web-ui: cockpit web view has finished running")
-
-    def _webui_desktop_closed(self, pid, status):
-        if status != 0:
-            log.warning("web-ui: the webui-desktop script ended abruptly!")
-
-        log.debug("web-ui: closing main loop")
-
-        self._main_loop.quit()
 
     @property
     def meh_interface(self):

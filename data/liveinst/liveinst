@@ -18,8 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-BACKEND_READY_FLAG=/run/anaconda/backend_ready
-
 WAYLAND_DISPLAY_SOCKET=/tmp/anaconda-wldisplay
 ATSPI_BUSADDR=/tmp/anaconda-atspibusaddr
 
@@ -222,24 +220,7 @@ if [ -n "$UPDATES" ]; then
 
 fi
 
-start_anaconda_web_ui() {
-    # remove flag file about initialized backend it shouldn't exists
-    # if the file existed before it might be a broken cleanup
-    if [ -e "$BACKEND_READY_FLAG" ]; then
-        echo "Anaconda backend flag file still exists! Probably a problem with cleanup. Removing now!" >&2
-        rm -f "$BACKEND_READY_FLAG" 2>/dev/null
-    fi
-    # early execution of Firefox to reduce starting time
-    mkdir -p /run/anaconda
-    /usr/libexec/anaconda/webui-desktop -t live /cockpit/@localhost/anaconda-webui/index.html &
-    echo -n "$!" > /run/anaconda/webui_script.pid
-}
-
 start_anaconda() {
-    # start Firefox to use Anaconda Web UI if it is installed
-    if [ -e "/usr/share/cockpit/anaconda-webui" ]; then
-        start_anaconda_web_ui
-    fi
     # start Anaconda main process
     $ANACONDA "$@"
 }
