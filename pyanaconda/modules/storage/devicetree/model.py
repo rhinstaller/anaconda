@@ -288,7 +288,7 @@ class InstallerStorage(Blivet):
         identify protected devices.
         """
         protected = []
-        protected_with_ancestors = []
+        protected_with_subtree = []
 
         # Resolve the protected device specs to devices.
         for spec in self.protected_devices:
@@ -310,7 +310,7 @@ class InstallerStorage(Blivet):
 
         if live_device:
             log.debug("Resolved live device to %s.", live_device.name)
-            protected_with_ancestors.append(live_device)
+            protected_with_subtree.append(live_device)
 
         # Find the backing device of a stage2 source and its parents.
         source_device = find_backing_device(self.devicetree, DRACUT_REPO_DIR)
@@ -323,20 +323,20 @@ class InstallerStorage(Blivet):
         # storage disks as ignored so they are protected from teardown.
         # Here we protect also cdrom devices from tearing down that, in case of
         # cdroms, involves unmounting which is undesirable (see bug #1671713).
-        protected_with_ancestors.extend(dev for dev in self.devicetree.devices
+        protected_with_subtree.extend(dev for dev in self.devicetree.devices
                                         if dev.type == "cdrom")
 
         # Protect also all devices with an iso9660 file system. It will protect
         # NVDIMM devices that can be used only as an installation source anyway
         # (see the bug #1856264).
-        protected_with_ancestors.extend(dev for dev in self.devicetree.devices
+        protected_with_subtree.extend(dev for dev in self.devicetree.devices
                                         if dev.format.type == "iso9660")
 
         # Mark the collected devices as protected.
         for dev in protected:
             self._mark_protected_device(dev)
-        for dev in protected_with_ancestors:
-            self._mark_protected_device(dev, include_ancestors=True)
+        for dev in protected_with_subtree:
+            self._mark_protected_device(dev, include_subtree=True)
 
     def protect_devices(self, protected_names):
         """Protect given devices.
@@ -361,18 +361,27 @@ class InstallerStorage(Blivet):
         # Update the list.
         self.protected_devices = protected_names
 
-    def _mark_protected_device(self, device, include_ancestors=False):
-        """Mark a device and its ancestors as protected."""
+    def _mark_protected_device(self, device, include_subtree=False):
+        """Mark a device as protected.
+
+        :param include_subtree: if set also mark the whole subtree of devices as protected
+        """
         if not device:
             return
 
         device.protected = True
         log.debug("Marking device %s as protected.", device.name)
-        if include_ancestors:
+        if include_subtree:
             for d in device.ancestors:
                 log.debug("Marking ancestor %s of device %s as protected.",
                           d.name, device.name)
                 d.protected = True
+
+                for child in d.children:
+                    if child.device_id != device.device_id:
+                        log.debug("Marking sibling device %s of %s as protected.",
+                                  child.name, device.name)
+                        child.protected = True
 
     def _mark_unprotected_device(self, device, include_ancestors=False):
         """Mark a device and its ancestors as unprotected."""
