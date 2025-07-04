@@ -506,9 +506,6 @@ if __name__ == "__main__":
     from pyanaconda.ui.lib.storage import ignore_oemdrv_disks
     ignore_oemdrv_disks()
 
-    # Specify protected devices.
-    from pyanaconda.modules.common.constants.services import STORAGE
-
     if not conf.target.is_directory:
         from pyanaconda.ui.lib.storage import reset_storage
 
