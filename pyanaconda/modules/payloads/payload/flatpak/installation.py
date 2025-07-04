@@ -35,14 +35,14 @@ class PrepareDownloadLocationTask(Task):
     def __init__(self, flatpak_manager: FlatpakManager):
         """Create a new task.
 
-        :param dnf_manager: a DNF manager
+        :param flatpak_manager: a Flatpak manager
         """
         super().__init__()
         self._flatpak_manager = flatpak_manager
 
     @property
     def name(self):
-        return "Prepare the package download"
+        return "Prepare the Flatpaks download"
 
     def run(self):
         """Run the task.
@@ -57,7 +57,7 @@ class PrepareDownloadLocationTask(Task):
                                       FLATPAK_MIRROR_DIR_SUFFIX)
 
         if os.path.exists(path):
-            log.info("Removing existing package download location: %s", path)
+            log.info("Removing existing Flatpak download location: %s", path)
             shutil.rmtree(path)
 
         self._flatpak_manager.set_download_location(path)
@@ -87,7 +87,7 @@ class CleanUpDownloadLocationTask(Task):
             # If nothing was downloaded, there is nothing to clean up.
             return
 
-        log.info("Removing downloaded packages from %s.", path)
+        log.info("Removing downloaded Flatpaks from %s.", path)
         shutil.rmtree(path)
 
 
