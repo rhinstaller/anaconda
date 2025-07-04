@@ -42,6 +42,8 @@ createrepo_c $REPO_DIR
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       --volid Fedora-S-dvd-x86_64-rawh \
+      -i dnf5-5.2.14.0-1.git.613.76c199b.fc43 \
+      -s https://download.copr.fedorainfracloud.org/results/pkratoch/dnf5/fedora-rawhide-x86_64/ \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
       -s file://$REPO_DIR/ \
       "$@" \
