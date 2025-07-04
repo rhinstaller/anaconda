@@ -68,6 +68,7 @@ class WiredTUIConfigurationData():
         self.nameserver = ""
         self.ipv6addrgenmode = NM.SettingIP6ConfigAddrGenMode.EUI64
         self.onboot = False
+        self.apply_configuration = False
 
     def set_from_connection(self, connection):
         """Set the object from NM RemoteConnection.
@@ -123,6 +124,9 @@ class WiredTUIConfigurationData():
         self.nameserver = ",".join(nameservers)
 
         self.onboot = connection.get_setting_connection().get_autoconnect()
+        s_con = connection.get_setting_connection()
+        zone = s_con.get_zone()
+        self.apply_configuration = zone == "anaconda-apply" if zone else False
 
     def update_connection(self, connection):
         """Update NM RemoteConnection from the object.
@@ -187,6 +191,10 @@ class WiredTUIConfigurationData():
 
         s_con = connection.get_setting_connection()
         s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, self.onboot)
+        if self.apply_configuration:  
+            s_con.set_property(NM.SETTING_CONNECTION_ZONE, "anaconda-apply")  
+        else:  
+            s_con.set_property(NM.SETTING_CONNECTION_ZONE, None)
 
     def __str__(self):
         return "WiredTUIConfigurationData ip:{} netmask:{} gateway:{} ipv6:{} ipv6gateway:{} " \
@@ -463,6 +471,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
         self._data = WiredTUIConfigurationData()
         self._data.set_from_connection(self._connection)
+        self.apply_configuration = self._data.apply_configuration
 
         log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
                   self._data)
@@ -589,6 +598,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def apply(self):
         """Apply changes to NM connection."""
+        self._data.apply_configuration = self.apply_configuration
         log.debug("updating connection %s:\n%s", self._connection_uuid,
                   self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
