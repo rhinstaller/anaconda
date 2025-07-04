@@ -503,6 +503,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 04 2025 github-actions <github-actions@github.com> - 43.27-1
+- conf: Add configuration option for default browser in Web UI (k.koukiou)
+- webui-desktop: no need to specify the URL - this is now hardcoded in the
+  script (k.koukiou)
+- Disable pylint complain about returning None (jkonecny)
+- flatpak: Fix Flatpak source generation from DNF (jkonecny)
+
 * Tue Jul 01 2025 github-actions <github-actions@github.com> - 43.26-1
 - ruff: Disable object is missing __hash__ (jkonecny)
 - ruff: Fix `Unnecessary lookup of dictionary value by key` (jkonecny)
