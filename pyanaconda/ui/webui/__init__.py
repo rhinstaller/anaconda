@@ -148,8 +148,7 @@ class CockpitUserInterface(ui.UserInterface):
         try:
             proc = startProgram(
                 ["/usr/libexec/anaconda/webui-desktop",
-                 "-t", profile_name, "-r", str(int(self.remote)),
-                 "/cockpit/@localhost/anaconda-webui/index.html"],
+                 "-t", profile_name, "-r", str(int(self.remote))],
                 reset_lang=False
             )
 
