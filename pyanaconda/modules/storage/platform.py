@@ -31,6 +31,7 @@ log = get_module_logger(__name__)
 
 # Names of stage1 constrains.
 PLATFORM_DEVICE_TYPES = "device_types"
+PLATFORM_DISK_LABEL_TYPES = "disklabel_types"
 PLATFORM_FORMAT_TYPES = "format_types"
 PLATFORM_MOUNT_POINTS = "mountpoints"
 PLATFORM_MAX_END = "max_end"
@@ -94,6 +95,7 @@ class Platform:
         """
         return {
             PLATFORM_DEVICE_TYPES: [],
+            PLATFORM_DISK_LABEL_TYPES: [],
             PLATFORM_FORMAT_TYPES: [],
             PLATFORM_MOUNT_POINTS: [],
             PLATFORM_MAX_END: None,
@@ -213,6 +215,7 @@ class EFI(Platform):
         constraints = {
             PLATFORM_FORMAT_TYPES: ["efi"],
             PLATFORM_DEVICE_TYPES: ["partition", "mdarray"],
+            PLATFORM_DISK_LABEL_TYPES: ["gpt", "msdos"],
             PLATFORM_MOUNT_POINTS: ["/boot/efi"],
             PLATFORM_RAID_LEVELS: [raid.RAID1],
             PLATFORM_RAID_METADATA: ["1.0"],
@@ -229,6 +232,15 @@ class EFI(Platform):
             max_size=Size("600MiB"),
             grow=True
         )
+
+class X86EFI(EFI):
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_DISK_LABEL_TYPES: ["gpt"],
+        }
+        return dict(super().stage1_constraints, **constraints)
 
 
 class Aarch64EFI(EFI):
@@ -467,7 +479,9 @@ def get_platform():
     elif arch.is_s390():
         return S390()
     elif arch.is_efi():
-        if arch.is_aarch64():
+        if arch.is_x86():
+            return X86EFI()
+        elif arch.is_aarch64():
             return Aarch64EFI()
         elif arch.is_arm():
             return ArmEFI()
