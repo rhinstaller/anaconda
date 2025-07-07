@@ -509,6 +509,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 07 2025 github-actions <github-actions@github.com> - 43.28-1
+- Fix an issue with automake versions when building the rpm (a.badger)
+- anaconda.py: remove duplicate import (k.koukiou)
+- anaconda.py: remove obsolete comment (k.koukiou)
+
 * Fri Jul 04 2025 github-actions <github-actions@github.com> - 43.27-1
 - conf: Add configuration option for default browser in Web UI (k.koukiou)
 - webui-desktop: no need to specify the URL - this is now hardcoded in the
