@@ -831,7 +831,6 @@ class DNFManager:
                 str(e), traceback.format_exc()))
         finally:
             log.debug("The transaction has ended.")
-            # base.close()  # Always close this base.
             progress.quit("DNF quit")
 
     @property
