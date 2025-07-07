@@ -152,6 +152,17 @@ class TimezoneInterface(KickstartModuleInterface):
             TimeSourceData.from_structure_list(sources)
         )
 
+    @property
+    def TimeServersFromConfig(self) -> List[Structure]:
+        """A list of ntp servers found in the chronyd's configuration file.
+
+        :return: a list of ntp server data
+        :rtype: a list of structures of the type TimeSourceData
+        """
+        return TimeSourceData.to_structure_list(
+            self.implementation.servers_from_config
+        )
+
     def StartGeolocationWithTask(self) -> ObjPath:
         """Start geolocation with task.
 

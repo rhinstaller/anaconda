@@ -22,6 +22,7 @@ import datetime
 
 from pykickstart.errors import KickstartParseError
 
+from pyanaconda import ntp
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
@@ -223,6 +224,11 @@ class TimezoneService(KickstartService):
         self._time_sources = list(servers)
         self.time_sources_changed.emit()
         log.debug("Time sources are set to: %s", servers)
+
+    @property
+    def servers_from_config(self):
+        """Return up-to-date list of ntp servers found in the chronyd's configuration file."""
+        return ntp.get_servers_from_config()
 
     def collect_requirements(self):
         """Return installation requirements for this module.
