@@ -367,6 +367,12 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %autosetup -p 1
 
 %build
+
+# Work around an issue where a version mismatch between the automake version on
+# the build system and what was used when the tarball was created will cause
+# a failure.
+autoreconf -vfi
+
 # use actual build-time release number, not tarball creation time release number
 %configure ANACONDA_RELEASE=%{release} %{!?with_glade:--disable-glade}
 %{__make} %{?_smp_mflags}
