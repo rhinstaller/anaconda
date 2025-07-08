@@ -405,8 +405,6 @@ container-live-iso-build:
 	--rm \
 	--tty \
 	--privileged \
-	$(shell test $(shell grep MemTotal /proc/meminfo | awk '{print $$2}') -gt 15000000 && \
-	  echo --tmpfs /var/tmp:rw,mode=1777) \
 	--device /dev/kvm \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
