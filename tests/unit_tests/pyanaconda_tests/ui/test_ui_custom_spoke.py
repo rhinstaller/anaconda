@@ -19,9 +19,9 @@ import copy
 import unittest
 from textwrap import dedent
 
-from blivet import devicefactory
 from blivet.size import Size
 
+from pyanaconda.core.storage import DEVICE_TYPES
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import (
     generate_request_description,
@@ -37,7 +37,7 @@ class CustomStorageHelpersTestCase(unittest.TestCase):
         request.device_spec = "dev3"
         request.disks = ["dev1", "dev2"]
         request.device_name = "dev3"
-        request.device_type = devicefactory.DEVICE_TYPES.LVM_THINP
+        request.device_type = DEVICE_TYPES.LVM_THINP
         request.device_size = Size("10 GiB").get_bytes()
         request.mount_point = "/"
         request.format_type = "xfs"
@@ -58,7 +58,7 @@ class CustomStorageHelpersTestCase(unittest.TestCase):
         device-raid-level = 'raid1'
         device-size = 10737418240
         device-spec = 'dev3'
-        device-type = 5
+        device-type = <DEVICE_TYPES.LVM_THINP: 5>
         disks = ['dev1', 'dev2']
         format-type = 'xfs'
         label = 'root'
@@ -89,7 +89,7 @@ class CustomStorageHelpersTestCase(unittest.TestCase):
         device-raid-level = 'raid1'
         device-size = 10737418240
         device-spec = 'dev3'
-        device-type = 5
+        device-type = <DEVICE_TYPES.LVM_THINP: 5>
         disks = ['dev1', 'dev2'] -> ['dev1']
         format-type = 'xfs'
         label = 'root'
