@@ -21,7 +21,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.core.storage import PARTITION_ONLY_FORMAT_TYPES
+from pyanaconda.core.storage import DEVICE_TYPES, PARTITION_ONLY_FORMAT_TYPES
 from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
@@ -114,16 +114,16 @@ class AddDeviceTask(Task):
         # These devices should never be encrypted.
         if (request.mount_point.startswith("/boot") or
                 request.format_type in PARTITION_ONLY_FORMAT_TYPES):
-            request.device_type = devicefactory.DEVICE_TYPES.PARTITION
+            request.device_type = DEVICE_TYPES.PARTITION
             request.device_encrypted = False
 
         # We shouldn't create swap on a thinly provisioned volume.
         if (request.format_type == "swap" and
-                request.device_type == devicefactory.DEVICE_TYPES.LVM_THINP):
-            request.device_type = devicefactory.DEVICE_TYPES.LVM
+                request.device_type == DEVICE_TYPES.LVM_THINP):
+            request.device_type = DEVICE_TYPES.LVM
 
         # Encryption of thinly provisioned volumes isn't supported.
-        if request.device_type == devicefactory.DEVICE_TYPES.LVM_THINP:
+        if request.device_type == DEVICE_TYPES.LVM_THINP:
             request.device_encrypted = False
 
     def _add_device(self, storage, request: DeviceFactoryRequest, use_existing_container=False):

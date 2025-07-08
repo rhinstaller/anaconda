@@ -20,7 +20,24 @@ from decimal import Decimal
 from enum import IntEnum
 
 from blivet import udev
-from blivet.devicefactory import DEVICE_TYPES as blivet_dts
+
+try:
+    from blivet.devicefactory import DeviceTypes
+except ImportError:
+    # Compatibility with older versions of blivet which do not have
+    # DeviceTypes.  Get rid of this code once we have a new enough blivet
+    # everywhere.
+    DeviceTypes = IntEnum('DeviceTypes', [
+        ('LVM', 0),
+        ('MD', 1),
+        ('PARTITION', 2),
+        ('BTRFS', 3),
+        ('DISK', 4),
+        ('LVM_THINP', 5),
+        ('LVM_VDO', 6),
+        ('STRATIS', 7),
+    ])
+
 from blivet.size import Size
 from blivet.util import total_memory
 from pykickstart.constants import (
@@ -43,7 +60,8 @@ SIZE_POLICY_AUTO = 0
 
 # Use blivet values plus Unsupported which contains info about devices without
 # a supported type.
-DEVICE_TYPES = IntEnum([(dt.name, dt.value) for dt in blivet_dts] + [('UNSUPPORTED', -1)])
+DEVICE_TYPES = IntEnum('DEVICE_TYPES',
+                       [(dt.name, dt.value) for dt in DeviceTypes] + [('UNSUPPORTED', -1)])
 
 # Backwards compat, make DEVICE_TYPE_* constants that mirror the contents of
 # the Enum.
