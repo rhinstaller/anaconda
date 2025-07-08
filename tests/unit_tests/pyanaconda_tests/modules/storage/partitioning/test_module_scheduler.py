@@ -23,7 +23,6 @@ from unittest.mock import Mock, patch
 
 import pytest
 from blivet.devicefactory import (
-    DEVICE_TYPES,
     SIZE_POLICY_AUTO,
 )
 from blivet.devices import (
@@ -44,6 +43,7 @@ from dasbus.structure import compare_data
 from dasbus.typing import get_native
 from pykickstart.constants import AUTOPART_TYPE_PLAIN
 
+from pyanaconda.core.storage import DEVICE_TYPES
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
