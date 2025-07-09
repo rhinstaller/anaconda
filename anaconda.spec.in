@@ -509,6 +509,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 09 2025 github-actions <github-actions@github.com> - 43.29-1
+- data: profile.d: use slitherer as default web engine everywhere but for
+  workstation (k.koukiou)
+
 * Mon Jul 07 2025 github-actions <github-actions@github.com> - 43.28-1
 - Fix an issue with automake versions when building the rpm (a.badger)
 - anaconda.py: remove duplicate import (k.koukiou)
