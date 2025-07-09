@@ -118,6 +118,29 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
             [server, pool]
         )
 
+    @patch("pyanaconda.modules.timezone.timezone.ntp.get_servers_from_config")
+    def test_time_servers_from_config_property(self, mock_get_servers):
+        """Test the TimeServersFromConfig DBus property."""
+        server = TimeSourceData()
+        server.type = TIME_SOURCE_SERVER
+        server.hostname = "ntp.example.com"
+        server.options = ["iburst"]
+
+        mock_get_servers.return_value = [server]
+
+        result = self.timezone_interface.TimeServersFromConfig
+
+        assert isinstance(result, list)
+        assert len(result) == 1
+
+        result_obj = TimeSourceData.from_structure(result[0])
+
+        assert result_obj.type == TIME_SOURCE_SERVER
+        assert result_obj.hostname == "ntp.example.com"
+        assert result_obj.options == ["iburst"]
+
+        mock_get_servers.assert_called_once()
+
     def test_timezone_priority_constants(self):
         """Test the timezone priority constants are in correct order."""
         # assert order of priorities is correct AND nothing equals
