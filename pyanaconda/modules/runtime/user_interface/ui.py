@@ -33,6 +33,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.common.structures.product import ProductData
+from pyanaconda.modules.common.structures.rdp import RdpData
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 
 log = get_module_logger(__name__)
@@ -57,6 +58,9 @@ class UIModule(KickstartBaseModule):
         self.display_mode_text_kickstarted_changed = Signal()
         self._display_mode_text_kickstarted = False
 
+        self.rdp_changed = Signal()
+        self._rdp = RdpData()
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USER_INTERFACE.object_path, UIInterface(self))
@@ -71,10 +75,19 @@ class UIModule(KickstartBaseModule):
             self._display_mode_text_kickstarted = True
             self.display_mode_text_kickstarted_changed.emit()
 
+        rdp = RdpData()
+        rdp.enabled = data.rdp.enabled
+        rdp.username = data.rdp.username
+        rdp.password.set_secret(data.rdp.password)
+        self.set_rdp(rdp)
+
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         data.displaymode.displayMode = self._displayMode
         data.displaymode.nonInteractive = self._displayMode_nonInteractive
+        data.rdp.enabled = self._rdp.enabled
+        data.rdp.username = self._rdp.username
+        data.rdp.password = self._rdp.password.value
 
     @property
     def display_mode(self):
@@ -126,6 +139,22 @@ class UIModule(KickstartBaseModule):
         """
 
         return self._display_mode_text_kickstarted
+
+    @property
+    def rdp(self):
+        """The RdpData.
+        :return: an instance of RdpData
+        """
+        return self._rdp
+
+    def set_rdp(self, rdp):
+        """Set the RdpData structure.
+        :param rdp: RdpData structure.
+        :type rdp: object
+        """
+        self._rdp = rdp
+        self.rdp_changed.emit()
+        log.debug("RDP enabled set to: %s", rdp)
 
     @property
     def password_policies(self):
