@@ -33,6 +33,10 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import QUIT_MESSAGE, USERDP, USETEXT
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.util import execWithRedirect, ipmi_abort
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.structures.rdp import RdpData
+from pyanaconda.modules.common.structures.secret import SecretData
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
@@ -52,7 +56,7 @@ class AskRDSpoke(NormalTUISpoke):
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
-    def __init__(self, data, storage=None, payload=None, message=""):
+    def __init__(self, data, rdp_data, storage=None, payload=None, message=""):
         super().__init__(data, storage, payload)
         self.input_required = True
         self.initialize_start()
@@ -64,9 +68,10 @@ class AskRDSpoke(NormalTUISpoke):
         loop = App.get_event_loop()
         loop.register_signal_handler(ExceptionSignal, exception_msg_handler_and_exit)
         self._message = message
-        self._rdp_username = ""
-        self._rdp_password = ""
-        self._use_rd = False
+        self.rdp_data = rdp_data
+        self._rdp_username = rdp_data.username or ""
+        self._rdp_password = rdp_data.password.value if rdp_data.password else ""
+        self._use_rd = rdp_data.enabled
         self.initialize_done()
 
     @property
@@ -105,7 +110,7 @@ class AskRDSpoke(NormalTUISpoke):
 
     def _use_rdp_callback(self, data):
         self._use_rd = True
-        new_rdp_spoke = RDPAuthSpoke(self.data)
+        new_rdp_spoke = RDPAuthSpoke(self.data, self.rdp_data)
         ScreenHandler.push_screen_modal(new_rdp_spoke)
         self._rdp_username = new_rdp_spoke._username
         self._rdp_password = new_rdp_spoke._password
@@ -132,8 +137,12 @@ class AskRDSpoke(NormalTUISpoke):
                 return super().input(args, key)
 
     def apply(self):
-        pass
+        self.rdp_data.enabled = self._use_rd
+        self.rdp_data.username = self._rdp_username
+        self.rdp_data.password = SecretData()
+        self.rdp_data.password.set_secret(self._rdp_password)
 
+        RUNTIME.get_proxy(USER_INTERFACE).Rdp = RdpData.to_structure(self.rdp_data)
 
 class RDPAuthSpoke(NormalTUISpoke):
     """
@@ -141,19 +150,15 @@ class RDPAuthSpoke(NormalTUISpoke):
           :parts: 3
     """
 
-    def __init__(self, data, username=None, password=None):
+    def __init__(self, data, rdp_data, username=None, password=None):
         super().__init__(data, storage=None, payload=None)
         self.title = N_("RDP User name & Password")
 
-        if username is not None:
-            self._username = username
-        else:
-            self._username = ""
-
-        if password is not None:
-            self._password = password
-        else:
-            self._password = ""
+        self.rdp_data = rdp_data
+        self._username = username if username is not None else rdp_data.username or ""
+        self._password = password if password is not None else (
+            rdp_data.password.value if rdp_data.password else ""
+        )
 
     @property
     def indirect(self):
@@ -224,4 +229,11 @@ class RDPAuthSpoke(NormalTUISpoke):
         self.redraw()
 
     def apply(self):
-        pass
+        self.rdp_data.enabled = True
+        self.rdp_data.username = self._username
+        self.rdp_data.password = SecretData()
+        self.rdp_data.password.set_secret(self._password)
+
+        ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+        struct_rdp = RdpData.to_structure(self.rdp_data)
+        ui_proxy.Rdp = struct_rdp
