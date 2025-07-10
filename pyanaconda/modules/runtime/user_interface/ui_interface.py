@@ -29,6 +29,8 @@ from pyanaconda.modules.common.structures.product import ProductData
 
 __all__ = ["UIInterface"]
 
+from pyanaconda.modules.common.structures.rdp import RdpData
+
 
 @dbus_interface(USER_INTERFACE.interface_name)
 class UIInterface(KickstartModuleInterfaceTemplate):
@@ -41,6 +43,7 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("DisplayMode", self.implementation.display_mode_changed)
         self.watch_property("DisplayModeNonInteractive",
                             self.implementation.display_mode_nonInteractive_changed)
+        self.watch_property("Rdp", self.implementation.rdp_changed)
 
     @property
     def PasswordPolicies(self) -> Dict[Str, Structure]:
@@ -103,6 +106,22 @@ class UIInterface(KickstartModuleInterfaceTemplate):
     def DisplayModeTextKickstarted(self) -> Bool:
         """Report if text mode was explicitly requested via kickstart."""
         return self.implementation.display_mode_text_kickstarted
+
+    @property
+    def Rdp(self) -> Structure:
+        """Specification of the rdp configuration."""
+        return RdpData.to_structure(self.implementation.rdp)
+
+    @Rdp.setter
+    @emits_properties_changed
+    def Rdp(self, rdp: Structure):
+        """Specify of the rdp configuration.
+        The DBus structure is defined by RdpData.
+        :param rdp: a dictionary with specification.
+        """
+        self.implementation.set_rdp(
+            RdpData.from_structure(rdp)
+        )
 
     @property
     def ProductData(self) -> Structure:
