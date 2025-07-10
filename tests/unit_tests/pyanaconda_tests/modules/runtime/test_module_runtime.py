@@ -80,3 +80,9 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         ks_in = "driverdisk --source=nfs:host:/path/to/img\n"
         ks_out = "driverdisk --source=nfs:host:/path/to/img\n"
         self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_rdp(self):
+        """Test rdp via kickstart."""
+        ks_in = "rdp --username=anacondauser --password=testpassword\n"
+        ks_out = "rdp --username=anacondauser --password=testpassword\n"
+        self._test_kickstart(ks_in, ks_out)
