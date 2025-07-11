@@ -46,6 +46,7 @@ RUN set -ex; \
   iproute \
   kiwi \
   kiwi-systemdeps \
+  kiwi-boxed-plugin \
   distribution-gpg-keys; \
   dnf clean all
 
