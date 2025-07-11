@@ -103,7 +103,7 @@ class EFIBase:
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
             root=conf.target.system_root
         )
-        if rc:
+        if rc != 0:
             raise BootLoaderError("Failed to set new efi boot target. This is most "
                                   "likely a kernel or firmware bug.")
 
@@ -191,27 +191,49 @@ class EFIGRUB(EFIBase, GRUB2):
         return "%s/%s" % (self.efi_config_dir, self._config_file)
 
     def write_config(self):
-        config_path = "%s%s" % (conf.target.system_root, self.efi_config_file)
+        # Wiite "gen_grub_cfgstub" script to generate the grub.cfg stub
+        gen_grub_cfgstub = """\
+#!/bin/sh
+set -eu
 
-        with open(config_path, "w") as fd:
-            grub_dir = self.config_dir
-            if self.stage2_device.format.type != "btrfs":
-                fs_uuid = self.stage2_device.format.uuid
-            else:
-                fs_uuid = self.stage2_device.format.vol_uuid
+if [ $# -ne 2 ]
+  then
+    echo "Missing argument"
+    echo "Usage: script.sh GRUB_HOME EFI_HOME"
+    exit 1
+fi
 
-            if fs_uuid is None:
-                raise BootLoaderError("Could not get stage2 filesystem UUID")
+GRUB_HOME=$1
+EFI_HOME=$2
 
-            grub_dir = util.execWithCapture("grub2-mkrelpath", [grub_dir],
-                                            root=conf.target.system_root)
-            if not grub_dir:
-                raise BootLoaderError("Could not get GRUB directory path")
+# create a stub grub2 config in EFI
+BOOT_UUID=$(grub2-probe --target=fs_uuid "${GRUB_HOME}")
+GRUB_DIR=$(grub2-mkrelpath "${GRUB_HOME}")
 
-            fd.write("search --no-floppy --fs-uuid --set=dev %s\n" % fs_uuid)
-            fd.write("set prefix=($dev)%s\n" % grub_dir)
-            fd.write("export $prefix\n")
-            fd.write("configfile $prefix/grub.cfg\n")
+echo "Generating grub stub config for drive " "${BOOT_UUID}"
+echo "GRUB_DIR=" "${GRUB_DIR}"
+echo "EFI_HOME=" "${EFI_HOME}"
+
+cat << EOF > "${EFI_HOME}"/grub.cfg.stb
+search --no-floppy --root-dev-only --fs-uuid --set=dev ${BOOT_UUID}
+set prefix=(\$dev)${GRUB_DIR}
+export \$prefix
+configfile \$prefix/grub.cfg
+EOF
+
+mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
+"""
+        # Write the script to the config directory
+        script_path = join_paths(conf.target.system_root, "/usr/bin/", "gen_grub_cfgstub")
+        with open(script_path, "w") as script_file:
+            script_file.write(gen_grub_cfgstub)
+
+        if rc := util.execWithRedirect(
+            "gen_grub_cfgstub",
+            [self.config_dir, self.efi_config_dir],
+            root=conf.target.system_root,
+        ):
+            raise BootLoaderError("gen_grub_cfgstub script failed")
 
         super().write_config()
 
