@@ -42,12 +42,6 @@ from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 class DNFRequirementsTestCase(unittest.TestCase):
 
-    def _create_group(self, name):
-        """Create a mocked group object."""
-        group = Mock()
-        group.id = name
-        return group
-
     def _create_requirement(self, name, reason, req_type=REQUIREMENT_TYPE_PACKAGE):
         """Create a new requirement."""
         requirement = Requirement()
@@ -149,7 +143,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         dnf_manager.is_package_available.return_value = True
         requirements = collect_dnf_requirements(dnf_manager, data)
         r = self._create_requirement(
-            name="dnf5-modules",
+            name="dnf5-plugins",
             reason="Needed to enable multilib support."
         )
         self._compare_requirements(requirements, [r])

@@ -18,17 +18,14 @@
 # Red Hat, Inc.
 #
 import multiprocessing
+import os
 import re
 import shutil
+import tempfile
 import threading
 import traceback
 
-import dnf
-import dnf.exceptions
-import dnf.module.module_base
-import dnf.repo
-import dnf.subject
-import libdnf.conf
+import libdnf5
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -42,6 +39,7 @@ from pyanaconda.core.constants import (
     URL_TYPE_MIRRORLIST,
 )
 from pyanaconda.core.i18n import _
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import (
@@ -55,6 +53,7 @@ from pyanaconda.modules.common.structures.comps import (
 )
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.dnf.transaction_progress import (
@@ -63,6 +62,7 @@ from pyanaconda.modules.payloads.payload.dnf.transaction_progress import (
 )
 from pyanaconda.modules.payloads.payload.dnf.utils import (
     calculate_hash,
+    get_group_package_types,
     get_product_release_version,
     transaction_has_errors,
 )
@@ -92,33 +92,29 @@ class MetadataError(DNFManagerError):
     """Metadata couldn't be loaded."""
 
 
-class MissingSpecsError(DNFManagerError):
-    """Some packages, groups or modules are missing."""
-
-
-class BrokenSpecsError(DNFManagerError):
-    """Some packages, groups or modules are broken."""
-
-
-class InvalidSelectionError(DNFManagerError):
-    """The software selection couldn't be resolved."""
-
-
 class DNFManager:
     """The abstraction of the DNF base."""
 
     def __init__(self):
         self.__base = None
+        self.__goal = None
+        self.__goal_skip_unavailable = None
+
         # Protect access to _base.repos to ensure that the dictionary is not
         # modified while another thread is attempting to iterate over it. The
         # lock only needs to be held during operations that change the number
         # of repos or that iterate over the repos.
         self._lock = threading.RLock()
+
+        self._transaction = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+        self._repositories_loaded = False
+        self._query_environments = None
+        self._query_groups = None
 
     @property
     def _base(self):
@@ -128,38 +124,71 @@ class DNFManager:
 
         return self.__base
 
+    @property
+    def _goal(self):
+        """The DNF goal."""
+        if self.__goal is None:
+            self.__goal = libdnf5.base.Goal(self._base)
+
+        return self.__goal
+
+    @property
+    def _goal_skip_unavailable(self):
+        """The DNF goal that will be used if there are unavailable packages."""
+        if self.__goal_skip_unavailable is None:
+            self.__goal_skip_unavailable = libdnf5.base.Goal(self._base)
+
+        return self.__goal_skip_unavailable
+
     @classmethod
     def _create_base(cls):
         """Create a new DNF base."""
-        base = dnf.Base()
-        base.conf.read()
-        base.conf.cachedir = DNF_CACHE_DIR
-        base.conf.pluginconfpath = DNF_PLUGINCONF_DIR
-        base.conf.logdir = '/tmp/'
+        base = libdnf5.base.Base()
+        base.load_config()
+
+        config = base.get_config()
+        config.reposdir = DNF_REPO_DIRS
+        config.cachedir = DNF_CACHE_DIR
+        config.pluginconfpath = DNF_PLUGINCONF_DIR
+        config.logdir = '/tmp/'
+        base.get_logger().add_logger(libdnf5.logger.create_file_logger(base, "dnf.log"))
 
         # Set installer defaults
-        base.conf.gpgcheck = False
-        base.conf.skip_if_unavailable = False
+        config.pkg_gpgcheck = False
+        config.skip_if_unavailable = False
 
         # Set the default release version.
-        base.conf.releasever = get_product_release_version()
+        base.get_vars().set("releasever", get_product_release_version())
 
         # Load variables from the host (rhbz#1920735).
-        base.conf.substitutions.update_from_etc("/")
+        # Vars are now loaded during base.setup()
 
         # Set the installation root.
-        base.conf.installroot = conf.target.system_root
-        base.conf.prepend_installroot('persistdir')
-
-        # Start with an empty comps so we can go ahead and use
-        # the environment and group properties. Unset reposdir
-        # to ensure dnf has nothing it can check automatically.
-        base.conf.reposdir = []
-        base.read_comps(arch_filter=True)
-        base.conf.reposdir = DNF_REPO_DIRS
+        config.installroot = conf.target.system_root
+        config.persistdir = join_paths(
+            conf.target.system_root,
+            config.persistdir
+        )
 
         log.debug("The DNF base has been created.")
         return base
+
+    def setup_base(self):
+        """Set up the DNF base system.
+
+        This method performs necessary initialization based on the current configuration.
+        It must be called after:
+          - Configuration and variables have been updated
+          - Application plugins have been applied
+          - Plugins have made any pre-configuration changes
+
+        It must be called before:
+          - Any repositories are loaded
+          - Any package or advisory queries are created
+
+        :raise: RuntimeError: If called more than once
+        """
+        self._base.setup()
 
     def reset_base(self):
         """Reset the DNF base.
@@ -168,18 +197,16 @@ class DNFManager:
         * Reset all attributes of the DNF manager.
         * The new DNF base will be created on demand.
         """
-        base = self.__base
         self.__base = None
-
-        if base is not None:
-            base.close()
-
+        self.__goal = None
+        self.__goal_skip_unavailable = None
+        self._transaction = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
-
+        self._repositories_loaded = False
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -187,17 +214,20 @@ class DNFManager:
 
         :param data: a packages configuration data
         """
-        base = self._base
-        base.conf.multilib_policy = data.multilib_policy
+        config = self._base.get_config()
+        config.multilib_policy = data.multilib_policy
 
         if data.timeout != DNF_DEFAULT_TIMEOUT:
-            base.conf.timeout = data.timeout
+            config.timeout = data.timeout
 
         if data.retries != DNF_DEFAULT_RETRIES:
-            base.conf.retries = data.retries
+            config.retries = data.retries
 
         self._ignore_missing_packages = data.missing_ignored
         self._ignore_broken_packages = data.broken_ignored
+
+        config.skip_unavailable = data.missing_ignored
+        config.skip_broken = data.broken_ignored
 
         if self._ignore_broken_packages:
             log.warning(
@@ -210,7 +240,7 @@ class DNFManager:
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
         # 2. Installs aren't reproducible due to weak deps. failing silently.
-        base.conf.install_weak_deps = not data.weakdeps_excluded
+        config.install_weak_deps = not data.weakdeps_excluded
 
     @property
     def default_environment(self):
@@ -229,23 +259,36 @@ class DNFManager:
         return None
 
     @property
+    def _environments(self):
+        if not self._repositories_loaded:
+            log.warning("There is no metadata about environments and groups!")
+            return []
+        if self._query_environments is None:
+            self._query_environments = libdnf5.comps.EnvironmentQuery(self._base)
+        return self._query_environments
+
+    @property
     def environments(self):
         """Environments defined in comps.xml file.
 
         :return: a list of ids
         """
-        return [env.id for env in self._base.comps.environments]
+        return [
+            env.get_environmentid()
+            for env in sorted(self._environments, key=lambda x: int(x.get_order_int()))
+        ]
 
     def _get_environment(self, environment_name):
         """Translate the given environment name to a DNF object.
 
         :param environment_name: an identifier of an environment
-        :return: a DNF object or None
+        :return libdnf5.comps.Environment: a DNF object or None
         """
-        if not environment_name:
-            return None
-
-        return self._base.comps.environment_by_pattern(environment_name)
+        return next(
+            (env for env in self._environments
+             if environment_name in (env.get_name(), env.get_environmentid())),
+            None
+        )
 
     def resolve_environment(self, environment_name):
         """Translate the given environment name to a group ID.
@@ -258,7 +301,7 @@ class DNFManager:
         if not env:
             return None
 
-        return env.id
+        return env.get_environmentid()
 
     def get_environment_data(self, environment_name) -> CompsEnvironmentData:
         """Get the data of the specified environment.
@@ -281,25 +324,38 @@ class DNFManager:
         :return: an instance of CompsEnvironmentData
         """
         data = CompsEnvironmentData()
-        data.id = env.id or ""
-        data.name = env.ui_name or ""
-        data.description = env.ui_description or ""
+        data.id = env.get_environmentid() or ""
+        data.name = env.get_translated_name() or ""
+        data.description = env.get_translated_description() or ""
 
-        optional = {i.name for i in env.option_ids}
-        default = {i.name for i in env.option_ids if i.default}
+        available_groups = self._groups
+        optional_groups = set(env.get_optional_groups())
 
-        for grp in self._base.comps.groups:
+        for group in available_groups:
+            group_id = group.get_groupid()
+            visible = group.get_uservisible()
+            default = group.get_default()
+            optional = group_id in optional_groups
 
-            if grp.id in optional:
-                data.optional_groups.append(grp.id)
+            if visible:
+                data.visible_groups.append(group_id)
 
-            if grp.visible:
-                data.visible_groups.append(grp.id)
+            if optional:
+                data.optional_groups.append(group_id)
 
-            if grp.id in default:
-                data.default_groups.append(grp.id)
+            if optional and default:
+                data.default_groups.append(group_id)
 
         return data
+
+    @property
+    def _groups(self):
+        if not self._repositories_loaded:
+            log.warning("There is no metadata about environments and groups!")
+            return []
+        if self._query_groups is None:
+            self._query_groups = libdnf5.comps.GroupQuery(self._base)
+        return self._query_groups
 
     @property
     def groups(self):
@@ -307,15 +363,19 @@ class DNFManager:
 
         :return: a list of IDs
         """
-        return [g.id for g in self._base.comps.groups]
+        return [g.get_groupid() for g in sorted(self._groups, key=lambda x: x.get_order_int())]
 
     def _get_group(self, group_name):
         """Translate the given group name into a DNF object.
 
         :param group_name: an identifier of a group
-        :return: a DNF object or None
+        :return libdnf5.comps.Group: a DNF object or None
         """
-        return self._base.comps.group_by_pattern(group_name)
+        return next(
+            (group for group in self._groups
+             if group_name in (group.get_name(), group.get_groupid())),
+            None
+        )
 
     def resolve_group(self, group_name):
         """Translate the given group name into a group ID.
@@ -328,7 +388,7 @@ class DNFManager:
         if not grp:
             return None
 
-        return grp.id
+        return grp.get_groupid()
 
     def get_group_data(self, group_name) -> CompsGroupData:
         """Get the data of the specified group.
@@ -352,9 +412,9 @@ class DNFManager:
         :return: an instance of CompsGroupData
         """
         data = CompsGroupData()
-        data.id = grp.id or ""
-        data.name = grp.ui_name or ""
-        data.description = grp.ui_description or ""
+        data.id = grp.get_groupid() or ""
+        data.name = grp.get_translated_name() or ""
+        data.description = grp.get_translated_description() or ""
         return data
 
     def configure_proxy(self, url):
@@ -362,12 +422,12 @@ class DNFManager:
 
         :param url: a proxy URL or None
         """
-        base = self._base
+        config = self._base.get_config()
 
         # Reset the proxy configuration.
-        base.conf.proxy = ""
-        base.conf.proxy_username = ""
-        base.conf.proxy_password = ""
+        config.proxy = ""
+        config.proxy_username = ""
+        config.proxy_password = ""
 
         # Parse the given URL.
         proxy = self._parse_proxy(url)
@@ -377,9 +437,9 @@ class DNFManager:
 
         # Set the proxy configuration.
         log.info("Using '%s' as a proxy.", url)
-        base.conf.proxy = proxy.noauth_url
-        base.conf.proxy_username = proxy.username or ""
-        base.conf.proxy_password = proxy.password or ""
+        config.proxy = proxy.noauth_url
+        config.proxy_username = proxy.username or ""
+        config.proxy_password = proxy.password or ""
 
     def _parse_proxy(self, url):
         """Parse the given proxy URL.
@@ -402,9 +462,9 @@ class DNFManager:
         log.debug(
             "DNF configuration:"
             "\n%s"
-            "\nsubstitutions = %s",
-            self._base.conf.dump().strip(),
-            self._base.conf.substitutions
+            "\nvariables = %s",
+            str(self._base.get_config()),
+            str(self._base.get_vars()),
         )
 
     def substitute(self, text):
@@ -418,9 +478,8 @@ class DNFManager:
         if not text:
             return ""
 
-        return libdnf.conf.ConfigParser.substitute(
-            text, self._base.conf.substitutions
-        )
+        variables = self._base.get_vars()
+        return variables.substitute(text)
 
     def configure_substitution(self, release_version):
         """Set up the substitution variables.
@@ -430,7 +489,8 @@ class DNFManager:
         if not release_version:
             return
 
-        self._base.conf.releasever = release_version
+        variables = self._base.get_vars()
+        variables.set("releasever", release_version)
         log.debug("The $releasever variable is set to '%s'.", release_version)
 
     def get_installation_size(self):
@@ -442,14 +502,16 @@ class DNFManager:
         packages_size = Size(0)
         files_number = 0
 
-        if self._base.transaction is None:
+        if self._transaction is None:
             return Size("3000 MiB")
 
-        for tsi in self._base.transaction:
+        for tspkg in self._transaction.get_transaction_packages():
+            # Get a package.
+            package = tspkg.get_package()
             # Space taken by all files installed by the packages.
-            packages_size += tsi.pkg.installsize
+            packages_size += package.get_install_size()
             # Number of files installed on the system.
-            files_number += len(tsi.pkg.files)
+            files_number += len(package.get_files())
 
         # Calculate the files size depending on number of files.
         files_size = Size(files_number * DNF_EXTRA_SIZE_PER_FILE)
@@ -466,14 +528,15 @@ class DNFManager:
         :return: a space required for packages
         :rtype: an instance of Size
         """
-        if self._base.transaction is None:
+        if self._transaction is None:
             return Size(0)
 
         download_size = Size(0)
 
         # Calculate the download size.
-        for tsi in self._base.transaction:
-            download_size += tsi.pkg.downloadsize
+        for tspkg in self._transaction.get_transaction_packages():
+            package = tspkg.get_package()
+            download_size += package.get_download_size()
 
         # Get the total size. Reserve extra space.
         total_space = download_size + Size("150 MiB")
@@ -483,10 +546,13 @@ class DNFManager:
 
     def clear_cache(self):
         """Clear the DNF cache."""
+        self.clear_selection()
         self._enabled_system_repositories = []
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
-        self._base.reset(sack=True, repos=True, goal=True)
+
+        self.reset_base()
+
         log.debug("The DNF cache has been cleared.")
 
     def is_package_available(self, package_spec):
@@ -495,12 +561,15 @@ class DNFManager:
         :param package_spec: a package spec
         :return: True if the package can be installed, otherwise False
         """
-        if not self._base.sack:
+        if not self._repositories_loaded:
             log.warning("There is no metadata about packages!")
             return False
 
-        subject = dnf.subject.Subject(package_spec)
-        return bool(subject.get_best_query(self._base.sack))
+        query = libdnf5.rpm.PackageQuery(self._base)
+        query.filter_name([package_spec])
+        query.filter_available()
+
+        return not query.empty()
 
     def match_available_packages(self, pattern):
         """Find available packages that match the specified pattern.
@@ -508,97 +577,119 @@ class DNFManager:
         :param pattern: a pattern for package names
         :return: a list of matched package names
         """
-        if not self._base.sack:
+        if not self._repositories_loaded:
             log.warning("There is no metadata about packages!")
             return []
 
-        packages = self._base.sack.query().available().filter(name__glob=pattern)
-        return [p.name for p in packages]
+        query = libdnf5.rpm.PackageQuery(self._base)
+        query.filter_name([pattern], libdnf5.common.QueryCmp_GLOB)
+        query.filter_available()
+
+        return [p.get_name() for p in query]
 
     def apply_specs(self, include_list, exclude_list):
         """Mark packages, groups and modules for installation.
 
         :param include_list: a list of specs for inclusion
         :param exclude_list: a list of specs for exclusion
-        :raise MissingSpecsError: if there are missing specs
-        :raise BrokenSpecsError: if there are broken specs
         """
+        environment_excludes = []
+        group_excludes = []
+        package_excludes = []
+        for spec in exclude_list:
+            if spec.startswith("@^"):
+                environment_excludes.append(spec[2:])
+            elif spec.startswith("@"):
+                group_excludes.append(spec[1:])
+            else:
+                package_excludes.append(spec)
+
+        log.info("Excluding package specs: %s", package_excludes)
+        excludes = libdnf5.rpm.PackageQuery(self._base)
+        excludes.filter_name(package_excludes, libdnf5.common.QueryCmp_GLOB)
+        self._base.get_rpm_package_sack().add_user_excludes(excludes)
+
+        comps_sack = self._base.get_comps_sack()
+
+        log.info("Excluding environment specs: %s", environment_excludes)
+        excludes = libdnf5.comps.EnvironmentQuery(self._base)
+        excludes.filter_environmentid(environment_excludes, libdnf5.common.QueryCmp_GLOB)
+        comps_sack.add_user_environment_excludes(excludes)
+
+        log.info("Excluding group specs: %s", group_excludes)
+        excludes = libdnf5.comps.GroupQuery(self._base)
+        excludes.filter_groupid(group_excludes, libdnf5.common.QueryCmp_GLOB)
+        comps_sack.add_user_group_excludes(excludes)
+
         log.info("Including specs: %s", include_list)
-        log.info("Excluding specs: %s", exclude_list)
-
-        try:
-            self._base.install_specs(
-                install=include_list,
-                exclude=exclude_list,
-                strict=not self._ignore_broken_packages
-            )
-        except dnf.exceptions.MarkingErrors as e:
-            log.error("Failed to apply specs!\n%s", str(e))
-            self._handle_marking_errors(e, self._ignore_missing_packages)
-
-    def _handle_marking_errors(self, exception, ignore_missing_packages=False):
-        """Handle the dnf.exceptions.MarkingErrors exception.
-
-        :param exception: a exception
-        :param ignore_missing_packages: can missing specs be ignored?
-        :raise MissingSpecsError: if there are missing specs
-        :raise BrokenSpecsError: if there are broken specs
-        """
-        # There are only some missing specs. They can be ignored.
-        if self._is_missing_specs_error(exception):
-
-            if ignore_missing_packages:
-                log.info("Ignoring missing packages, groups or modules.")
-                return
-
-            message = _("Some packages, groups or modules are missing.")
-            raise MissingSpecsError(message + "\n\n" + str(exception).strip()) from None
-
-        # There are some broken specs. Raise an exception.
-        message = _("Some packages, groups or modules are broken.")
-        raise BrokenSpecsError(message + "\n\n" + str(exception).strip()) from None
-
-    def _is_missing_specs_error(self, exception):
-        """Is it a missing specs error?
-
-        :param exception: an exception
-        :return: True or False
-        """
-        return isinstance(exception, dnf.exceptions.MarkingErrors) \
-            and not exception.error_group_specs \
-            and not exception.error_pkg_specs \
-            and not exception.module_depsolv_errors
+        for spec in include_list:
+            spec, package_types = get_group_package_types(spec)
+            settings = libdnf5.base.GoalJobSettings()
+            if package_types:
+                settings.set_group_package_types(package_types)
+            self._goal.add_install(spec, settings)
+            self._goal_skip_unavailable.add_install(spec, settings)
 
     def resolve_selection(self):
-        """Resolve the software selection.
+        """Resolve the software selection."""
+        report = ValidationReport()
+        messages = []
 
-        :raise InvalidSelectionError: if the selection cannot be resolved
-        """
-        log.debug("Resolving the software selection.",)
+        log.debug("Resolving the software selection.")
+        self._transaction = self._goal.resolve()
 
-        try:
-            self._base.resolve()
-        except dnf.exceptions.DepsolveError as e:
-            log.error("The software couldn't be resolved!\n%s", str(e))
+        problems = self._transaction.get_problems()
+        if problems != libdnf5.base.GoalProblem_NO_PROBLEM:
+            # Store the resolve logs from this transaction. If we can resolve the transaction with
+            # skip_if_unavailable=True, these will be just warnings, otherwise, errors.
+            for message in self._transaction.get_resolve_logs_as_strings():
+                messages.append(message)
 
-            message = _(
-                "The following software marked for installation has errors.\n"
-                "This is likely caused by an error with your installation source."
-            )
+            # The list might not be exhaustive, but these errors definitely shouldn't be skipped.
+            critical_errors = libdnf5.base.GoalProblem_SOLVER_ERROR | \
+                libdnf5.base.GoalProblem_SOLVER_PROBLEM_STRICT_RESOLVEMENT | \
+                libdnf5.base.GoalProblem_UNSUPPORTED_ACTION | \
+                libdnf5.base.GoalProblem_MULTIPLE_STREAMS | \
+                libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR_DEFAULTS | \
+                libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR_LATEST | \
+                libdnf5.base.GoalProblem_MODULE_SOLVER_ERROR | \
+                libdnf5.base.GoalProblem_MODULE_CANNOT_SWITH_STREAMS
 
-            raise InvalidSelectionError(message + "\n\n" + str(e).strip()) from None
+            # If we didn't already run with skip_unavailable=True and the problems are not from the
+            # list of critical ones, try the transaction again with skip_if_unavailable=True.
+            if not self._base.get_config().skip_unavailable and not (problems & critical_errors):
+                # Temporarily set skip_unavailable to True, resolve, and set it back afterwards.
+                self._base.get_config().skip_unavailable = True
+                self._transaction = self._goal_skip_unavailable.resolve()
+                self._base.get_config().skip_unavailable = False
 
-        log.info("The software selection has been resolved (%d packages selected).",
-                 len(self._base.transaction))
+            if self._transaction.get_problems() == libdnf5.base.GoalProblem_NO_PROBLEM:
+                # There are only problems with unavailable packages/groups -> put the logs into
+                # the warning_messages, so that user can decide to continue with the transaction.
+                report.warning_messages = messages
+            else:
+                # There are critical errors -> put the logs into the error_messages.
+                report.error_messages.append(_(
+                    "The following software marked for installation has errors.\n"
+                    "This is likely caused by an error with your installation source.\n\n"
+                ))
+                report.error_messages += messages
+
+        if report.is_valid():
+            log.info("The software selection has been resolved (%d packages selected).",
+                     len(self._transaction.get_transaction_packages()))
+
+        log.debug("Resolving has been completed: %s", report)
+        return report
 
     def get_flatpak_refs(self):
         """Determine what Flatpaks need to be preinstalled based on resolved transaction"""
-        if self._base.transaction is None:
+        if self._transaction is None:
             return []
 
         refs = []
-        for tsi in self._base.transaction:
-            for provide in tsi.pkg.provides:
+        for tspkg in self._transaction.get_transaction_packages():
+            for provide in tspkg.get_package().get_provides():
                 m = re.match(r"^flatpak-preinstall\((.*)\)$", str(provide))
                 if m:
                     refs.append(m.group(1))
@@ -607,7 +698,8 @@ class DNFManager:
 
     def clear_selection(self):
         """Clear the software selection."""
-        self._base.reset(goal=True)
+        self.__goal = None
+        self._transaction = None
         log.debug("The software selection has been cleared.")
 
     @property
@@ -620,9 +712,7 @@ class DNFManager:
 
         :param path: a path to the package directory
         """
-        for repo in self._base.repos.iter_enabled():
-            repo.pkgdir = path
-
+        self._base.get_config().destdir = path
         self._download_location = path
 
     def download_packages(self, callback):
@@ -631,16 +721,52 @@ class DNFManager:
         :param callback: a callback for progress reporting
         :raise PayloadInstallationError: if the download fails
         """
-        packages = self._base.transaction.install_set  # pylint: disable=no-member
-        progress = DownloadProgress(callback=callback)
+        # Set up the download callbacks.
+        progress = DownloadProgress(callback)
+        self._set_download_callbacks(progress)
 
-        log.info("Downloading packages to %s.", self.download_location)
+        # Prepare packages for download.
+        downloader = libdnf5.repo.PackageDownloader(self._base)
+        packages = self._get_download_packages()
+        destination = self.download_location
+
+        # If a destination package already exists, do not resume the download.
+        downloader.set_resume(False)
+
+        for package in packages:
+            downloader.add(package, destination)
+
+        # Download the packages.
+        log.info("Downloading packages to %s.", destination)
 
         try:
-            self._base.download_packages(packages, progress)
-        except dnf.exceptions.DownloadError as e:
+            downloader.download()
+        except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception) as e:
             msg = "Failed to download the following packages: " + str(e)
             raise PayloadInstallationError(msg) from None
+
+    def _set_download_callbacks(self, callbacks):
+        """Set up the download callbacks."""
+        self._base.set_download_callbacks(
+            libdnf5.repo.DownloadCallbacksUniquePtr(callbacks)
+        )
+
+    def _get_download_packages(self):
+        """Get a list of resolved packages to download."""
+        if not self._transaction:
+            raise RuntimeError("There is no transaction to use!")
+
+        # The Transaction stores TransactionItems which, in case of packages, contain the
+        # information about the packages together with the actions (e.g. INSTALL, UPGRADE,
+        # REMOVE...) in this transaction. Actions can be cathegorized as "inbound" or "outbound"
+        # based on wheter the package was introduced to the system or was removed from the system
+        # during the transaction.
+        # We want to get all packages that have inbound actions (because those need to be
+        # downloaded).
+        return [
+            tspkg.get_package() for tspkg in self._transaction.get_transaction_packages()
+            if libdnf5.base.transaction.transaction_item_action_is_inbound(tspkg.get_action())
+        ]
 
     def install_packages(self, callback, timeout=20):
         """Install the packages.
@@ -656,10 +782,10 @@ class DNFManager:
         # On Python 3.14+, forkserver is the default (and it pickles)
         context = multiprocessing.get_context(method="fork")
         queue = context.Queue()
-        display = TransactionProgress(queue)
+        progress = TransactionProgress(queue)
         process = context.Process(
             target=self._run_transaction,
-            args=(self._base, display)
+            args=(self._base, self._transaction, progress)
         )
 
         # Start the transaction.
@@ -679,27 +805,33 @@ class DNFManager:
             log.debug("The transaction process exited with %s.", process.exitcode)
 
     @staticmethod
-    def _run_transaction(base, display):
+    def _run_transaction(base, transaction, progress):
         """Run the DNF transaction.
 
         Execute the DNF transaction and catch any errors.
 
         :param base: the DNF base
-        :param display: the DNF progress-reporting object
+        :param transaction: the DNF transaction object
+        :param progress: the DNF progress-reporting object
         """
         log.debug("Running the transaction...")
 
         try:
-            base.do_transaction(display)
-            if transaction_has_errors(base.transaction):
-                display.error("The transaction process has ended with errors.")
+            callbacks = libdnf5.rpm.TransactionCallbacksUniquePtr(progress)
+            transaction.set_callbacks(callbacks)
+            result = transaction.run()
+            log.debug(
+                "The transaction finished with %s (%s)",
+                result, transaction.transaction_result_to_string(result)
+            )
+            if result != 0 or transaction_has_errors(transaction):
+                progress.error("The transaction process has ended with errors.")
         except BaseException as e:  # pylint: disable=broad-except
-            display.error("The transaction process has ended abruptly: {}\n{}".format(
+            progress.error("The transaction process has ended abruptly: {}\n{}".format(
                 str(e), traceback.format_exc()))
         finally:
             log.debug("The transaction has ended.")
-            base.close()  # Always close this base.
-            display.quit("DNF quit")
+            progress.quit("DNF quit")
 
     @property
     def repositories(self):
@@ -708,7 +840,8 @@ class DNFManager:
         :return: a list of IDs
         """
         with self._lock:
-            return [r.id for r in self._base.repos.values()]
+            repositories = libdnf5.repo.RepoQuery(self._base)
+            return sorted(r.get_id() for r in repositories)
 
     @property
     def enabled_repositories(self):
@@ -717,7 +850,9 @@ class DNFManager:
         :return: a list of IDs
         """
         with self._lock:
-            return [r.id for r in self._base.repos.iter_enabled()]
+            repositories = libdnf5.repo.RepoQuery(self._base)
+            repositories.filter_enabled(True)
+            return sorted(r.get_id() for r in repositories)
 
     def get_matching_repositories(self, pattern):
         """Get a list of repositories that match the specified pattern.
@@ -729,49 +864,57 @@ class DNFManager:
         :return: a list of matching IDs
         """
         with self._lock:
-            return [r.id for r in self._base.repos.get_matching(pattern)]
+            repositories = libdnf5.repo.RepoQuery(self._base)
+            repositories.filter_id(pattern, libdnf5.common.QueryCmp_GLOB)
+            return sorted(r.get_id() for r in repositories)
 
     def _get_repository(self, repo_id):
         """Translate the given repository name to a DNF object.
 
         :param repo_id: an identifier of a repository
-        :return: a DNF object
+        :return libdnf5.repo.Repo: a DNF object
         :raise: UnknownRepositoryError if no repo is found
         """
-        repo = self._base.repos.get(repo_id)
+        repositories = libdnf5.repo.RepoQuery(self._base)
+        repositories.filter_id(repo_id)
 
-        if not repo:
-            raise UnknownRepositoryError(repo_id)
-
-        return repo
+        try:
+            weak_repo_ref = repositories.get()
+            return weak_repo_ref.get()
+        except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception):
+            raise UnknownRepositoryError(repo_id) from None
 
     def add_repository(self, data: RepoConfigurationData):
         """Add a repository.
 
-        If the repository already exists, replace it with a new one.
+        If the repository already exists, reconfigure it with new data.
 
         :param RepoConfigurationData data: a repo configuration
         """
-        # Create a new repository.
-        repo = self._create_repository(data)
+        repositories = libdnf5.repo.RepoQuery(self._base)
+        repositories.filter_id(data.name)
 
         with self._lock:
-            # Remove an existing repository.
-            if repo.id in self._base.repos:
-                self._base.repos.pop(repo.id)
+            if repositories.empty():
+                # Create a new repository.
+                repo = self._create_repository(data)
+            else:
+                # Reconfigure the existing repository.
+                repo = self._configure_repository(repositories.get(), data)
 
-            # Add the new repository.
-            self._base.repos.add(repo)
+        log.info("Added the '%s' repository: %s", repo.get_id(), repo)
 
-        log.info("Added the '%s' repository: %s", repo.id, repo)
+    def _configure_repository(self, repo: libdnf5.repo.Repo, data: RepoConfigurationData):
+        """Configure a DNF repository.
 
-    def _create_repository(self, data: RepoConfigurationData):
-        """Create a DNF repository.
-
+        :param libdnf5.repo.Repo repo:existing repository
         :param RepoConfigurationData data: a repo configuration
-        return dnf.repo.Repo: a DNF repository
+        return libdnf5.repo.Repo: a DNF repository
         """
-        repo = dnf.repo.Repo(data.name, self._base.conf)
+        if self._repositories_loaded:
+            raise RuntimeError("Cannot create a new repository. Repositories were already loaded.")
+
+        config = repo.get_config()
 
         # Disable the repo if requested.
         if not data.enabled:
@@ -781,45 +924,58 @@ class DNFManager:
         url = self.substitute(data.url)
 
         if data.type == URL_TYPE_BASEURL:
-            repo.baseurl = [url]
+            config.baseurl = [url]
 
         if data.type == URL_TYPE_MIRRORLIST:
-            repo.mirrorlist = url
+            config.mirrorlist = url
 
         if data.type == URL_TYPE_METALINK:
-            repo.metalink = url
+            config.metalink = url
 
         # Set the proxy configuration.
         proxy = self._parse_proxy(data.proxy)
 
         if proxy:
-            repo.proxy = proxy.noauth_url
-            repo.proxy_username = proxy.username or ""
-            repo.proxy_password = proxy.password or ""
+            config.proxy = proxy.noauth_url
+            config.proxy_username = proxy.username or ""
+            config.proxy_password = proxy.password or ""
 
         # Set the repo configuration.
         if data.cost != DNF_DEFAULT_REPO_COST:
-            repo.cost = data.cost
+            config.cost = data.cost
 
         if data.included_packages:
-            repo.includepkgs = data.included_packages
+            config.includepkgs = data.included_packages
 
         if data.excluded_packages:
-            repo.excludepkgs = data.excluded_packages
+            config.excludepkgs = data.excluded_packages
 
         # Set up the SSL configuration.
-        repo.sslverify = conf.payload.verify_ssl and data.ssl_verification_enabled
+        config.sslverify = conf.payload.verify_ssl and data.ssl_verification_enabled
 
         if data.ssl_configuration.ca_cert_path:
-            repo.sslcacert = data.ssl_configuration.ca_cert_path
+            config.sslcacert = data.ssl_configuration.ca_cert_path
 
         if data.ssl_configuration.client_cert_path:
-            repo.sslclientcert = data.ssl_configuration.client_cert_path
+            config.sslclientcert = data.ssl_configuration.client_cert_path
 
         if data.ssl_configuration.client_key_path:
-            repo.sslclientkey = data.ssl_configuration.client_key_path
+            config.sslclientkey = data.ssl_configuration.client_key_path
 
         return repo
+
+    def _create_repository(self, data: RepoConfigurationData):
+        """Create a DNF repository.
+
+        :param RepoConfigurationData data: a repo configuration
+        return libdnf5.repo.Repo: a DNF repository
+        """
+        if self._repositories_loaded:
+            raise RuntimeError("Cannot create a new repository. Repositories were already loaded.")
+
+        repo = self._base.get_repo_sack().create_repo(data.name)
+
+        return self._configure_repository(repo, data)
 
     def generate_repo_file(self, data: RepoConfigurationData):
         """Generate a content of the .repo file.
@@ -887,7 +1043,7 @@ class DNFManager:
         repo = self._get_repository(repo_id)
 
         # Skip if the repository is already set to the right value.
-        if repo.enabled == enabled:
+        if repo.is_enabled() == enabled:
             return
 
         if enabled:
@@ -913,13 +1069,21 @@ class DNFManager:
                 raise RuntimeError("The DNF repo cache is not cleared.")
 
             log.debug("Read system repositories.")
-            self._base.read_all_repos()
-
-            # Remember enabled system repositories.
-            self._enabled_system_repositories = list(self.enabled_repositories)
+            repo_sack = self._base.get_repo_sack()
+            repo_sack.create_repos_from_system_configuration()
 
             log.debug("Disable system repositories.")
-            self._base.repos.all().disable()
+            repositories = libdnf5.repo.RepoQuery(self._base)
+            repositories.filter_enabled(True)
+
+            # Remember enabled system repositories.
+            self._enabled_system_repositories = sorted(
+                r.get_id() for r in repositories
+            )
+
+            # Disable all system repositories.
+            for repo in repositories:
+                repo.disable()
 
     def restore_system_repositories(self):
         """Restore the system repositories.
@@ -935,55 +1099,23 @@ class DNFManager:
             except UnknownRepositoryError:
                 log.debug("There is no '%s' repository to enable.", repo_id)
 
-    def load_repository(self, repo_id):
-        """Download repo metadata.
+    def load_repositories(self):
+        """Load all enabled repositories.
 
-        If the repo is enabled, load its metadata to verify that
-        the repo is valid. An invalid repo will be disabled.
+        Load all enabled repositories, including system repositories, and
+        process their metadata. It will update the cache that provides
+        information about available packages, modules, groups and environments.
 
-        This method will by default not try to refresh already
-        loaded data if called repeatedly.
-
-        :param str repo_id: an identifier of a repository
-        :raise: MetadataError if the metadata cannot be loaded
+        Can be called only once per each RepoSack.
         """
-        log.debug("Load metadata for the '%s' repository.", repo_id)
-
-        repo = self._get_repository(repo_id)
-        url = repo.baseurl or repo.mirrorlist or repo.metalink
-
-        if not repo.enabled:
-            log.debug("Don't load metadata from a disabled repository.")
-            return
-
+        repo_sack = self._base.get_repo_sack()
         try:
-            repo.load()
-        except dnf.exceptions.RepoError as e:
-            log.debug("Failed to load metadata from '%s': %s", url, str(e))
-            repo.disable()
+            repo_sack.load_repos(False)
+        except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception) as e:
+            log.warning(str(e))
             raise MetadataError(str(e)) from None
-
-        log.info("Loaded metadata from '%s'.", url)
-
-    def load_packages_metadata(self):
-        """Load metadata about packages in available repositories.
-
-        Load all enabled repositories and process their metadata.
-        It will update the cache that provides information about
-        available packages, modules, groups and environments.
-        """
-        # Load all enabled repositories.
-        # Set up the package sack.
-        self._base.fill_sack(
-            load_system_repo=False,
-            load_available_repos=True,
-        )
-        # Load the comps metadata.
-        self._base.read_comps(
-            arch_filter=True
-        )
-
-        log.info("Loaded packages and group metadata.")
+        self._repositories_loaded = True
+        log.info("Loaded repositories.")
 
     def load_repomd_hashes(self):
         """Load a hash of the repomd.xml file for each enabled repository."""
@@ -1005,12 +1137,14 @@ class DNFManager:
 
         :return: a dictionary of repo ids and repomd.xml hashes
         """
+        repositories = libdnf5.repo.RepoQuery(self._base)
+        repositories.filter_enabled(True)
         md_hashes = {}
 
-        for repo in self._base.repos.iter_enabled():
+        for repo in repositories:
             content = self._get_repomd_content(repo)
             md_hash = calculate_hash(content) if content else None
-            md_hashes[repo.id] = md_hash
+            md_hashes[repo.get_id()] = md_hash
 
         log.debug("Loaded repomd.xml hashes: %s", md_hashes)
         return md_hashes
@@ -1021,15 +1155,16 @@ class DNFManager:
         :param repo: a DNF repo
         :return: a content of the repomd.xml file
         """
-        for url in repo.baseurl:
+        for baseurl in repo.get_config().baseurl:
+            repomd_file = tempfile.NamedTemporaryFile(prefix="repomd-", delete=True, delete_on_close=False)
+            downloader = libdnf5.repo.FileDownloader(self._base)
+            downloader.add(repo, os.path.join(baseurl, "repodata/repomd.xml"), repomd_file.name)
             try:
-                repomd_url = "{}/repodata/repomd.xml".format(url)
-
-                with self._base.urlopen(repomd_url, repo=repo, mode="w+t") as f:
-                    return f.read()
-
-            except OSError as e:
-                log.debug("Can't download repomd.xml from: %s", str(e))
+                downloader.download()
+            except (libdnf5.exception.Error, libdnf5.exception.NonLibdnf5Exception) as e:
+                log.debug("Can't download repomd.xml: %s", str(e))
                 continue
+            with open(repomd_file.name, encoding="utf-8") as f:
+                return f.read()
 
         return ""

@@ -15,11 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import collections
 import time
 
-import dnf
-import dnf.callback
+import libdnf5
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -41,7 +39,7 @@ def paced(fn):
     return paced_fn
 
 
-class DownloadProgress(dnf.callback.DownloadProgress):
+class DownloadProgress(libdnf5.repo.DownloadCallbacks):
     """The class for receiving information about an ongoing download."""
 
     def __init__(self, callback):
@@ -51,11 +49,62 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         """
         super().__init__()
         self.callback = callback
-        self.downloads = collections.defaultdict(int)
-        self.last_time = time.time()
+        self.user_cb_data_container = []  # Hold references to user_cb_data
+        self.last_time = time.time()  # Used to pace _report_progress
         self.total_files = 0
         self.total_size = Size(0)
-        self.downloaded_size = Size(0)
+        self.downloads = {}  # Hold number of bytes downloaded for each nevra
+        self.downloaded_size = 0
+
+    def add_new_download(self, user_data, description, total_to_download):
+        """Notify the client that a new download has been created.
+
+        :param user_data: user data entered together with a package to download
+        :param str description: a message describing the package
+        :param float total_to_download: a total number of bytes to download
+        :return: associated user data for the new package download
+        """
+        self.user_cb_data_container.append(description)
+        self.total_files += 1
+        self.total_size += total_to_download
+        log.debug("Started downloading '%s' - %s bytes", description, total_to_download)
+        self._report_progress()
+        return len(self.user_cb_data_container) - 1
+
+    def progress(self, user_cb_data, total_to_download, downloaded):
+        """Download progress callback.
+
+        :param user_cb_data: associated user data obtained from add_new_download
+        :param float total_to_download: a total number of bytes to download
+        :param float downloaded: a number of bytes downloaded
+        """
+        nevra = self.user_cb_data_container[user_cb_data]
+        self.downloads[nevra] = downloaded
+
+        if total_to_download > 0:
+            self._report_progress()
+
+        return 0  # Not used, but int is expected to be returned.
+
+    def end(self, user_cb_data, status, msg):
+        """End of download callback.
+
+        :param user_cb_data: associated user data obtained from add_new_download
+        :param status: the transfer status
+        :param msg: the error message in case of error
+        """
+        nevra = self.user_cb_data_container[user_cb_data]
+
+        if status is libdnf5.repo.DownloadCallbacks.TransferStatus_SUCCESSFUL:
+            log.debug("Downloaded '%s'", nevra)
+            self._report_progress()
+        elif status is libdnf5.repo.DownloadCallbacks.TransferStatus_ALREADYEXISTS:
+            log.debug("Skipping to download '%s': %s", nevra, msg)
+            self._report_progress()
+        else:
+            log.warning("Failed to download '%s': %s", nevra, msg)
+
+        return 0  # Not used, but int is expected to be returned.
 
     @paced
     def _report_progress(self):
@@ -69,29 +118,9 @@ class DownloadProgress(dnf.callback.DownloadProgress):
             '({total_percent}%) done.'
         ).format(
             downloaded_size=self.downloaded_size,
-            total_percent=int(100 * self.downloaded_size / self.total_size),
+            total_percent=int(100 * int(self.downloaded_size) / int(self.total_size)),
             total_files=self.total_files,
             total_size=self.total_size
         )
 
         self.callback(msg)
-
-    def end(self, payload, status, msg):
-        nevra = str(payload)
-
-        if status is dnf.callback.STATUS_OK:
-            self.downloads[nevra] = payload.download_size
-            self._report_progress()
-            return
-
-        log.warning("Failed to download '%s': %d - %s", nevra, status, msg)
-
-    def progress(self, payload, done):
-        nevra = str(payload)
-        self.downloads[nevra] = done
-        self._report_progress()
-
-    def start(self, total_files, total_size, total_drpms=0):
-        del total_drpms
-        self.total_files = total_files
-        self.total_size = Size(total_size)

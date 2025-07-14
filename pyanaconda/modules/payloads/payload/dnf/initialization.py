@@ -15,11 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import logging
 from collections import namedtuple
-
-import dnf.logging
-import libdnf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import BASE_REPO_NAME, REPO_ORIGIN_SYSTEM
@@ -44,24 +40,7 @@ from pyanaconda.modules.payloads.payload.dnf.repositories import (
 )
 from pyanaconda.modules.payloads.payload.dnf.tree_info import LoadTreeInfoMetadataTask
 
-DNF_LIBREPO_LOG = "/tmp/dnf.librepo.log"
-DNF_LOGGER = "dnf"
-
 log = get_module_logger(__name__)
-
-
-def configure_dnf_logging():
-    """Configure the DNF logging."""
-    # Set up librepo.
-    # This is still required even when the librepo has a separate logger because
-    # DNF needs to have callbacks that the librepo log is written to be able to
-    # process that log.
-    libdnf.repo.LibrepoLog.removeAllHandlers()
-    libdnf.repo.LibrepoLog.addHandler(DNF_LIBREPO_LOG)
-
-    # Set up DNF. Increase the log level to the custom DDEBUG level.
-    dnf_logger = logging.getLogger(DNF_LOGGER)
-    dnf_logger.setLevel(dnf.logging.DDEBUG)
 
 
 # The result of the SetUpDNFSourcesTask task.
@@ -131,12 +110,15 @@ class SetUpDNFSourcesTask(SetUpSourcesTask):
         # Load additional sources.
         self._load_additional_sources(dnf_manager, sources, repositories)
 
-        # Validate enabled repositories.
-        self._validate_repositories(dnf_manager)
+        # Check there are enabled repositories.
+        self._check_enabled_repositories(dnf_manager)
 
-        # Load package and group metadata.
-        self.report_progress(_("Downloading group metadata..."))
-        self._load_metadata(dnf_manager)
+        # Load repositories.
+        self.report_progress(_("Loading repositories..."))
+        try:
+            self._load_repositories(dnf_manager)
+        except MetadataError as e:
+            raise SourceSetupError(str(e)) from None
 
         return SetUpDNFSourcesResult(
             dnf_manager=dnf_manager,
@@ -210,6 +192,7 @@ class SetUpDNFSourcesTask(SetUpSourcesTask):
         dnf_manager.configure_base(self._configuration)
         dnf_manager.configure_proxy(self._proxy)
         dnf_manager.configure_substitution(self._release_version)
+        dnf_manager.setup_base()
         dnf_manager.dump_configuration()
         dnf_manager.read_system_repositories()
         return dnf_manager
@@ -252,35 +235,23 @@ class SetUpDNFSourcesTask(SetUpSourcesTask):
                 enable_existing_repository(dnf_manager, repository)
 
     @staticmethod
-    def _validate_repositories(dnf_manager):
-        """Validate all enabled repositories.
-
-        Collect error messages about invalid repositories.
-        All invalid repositories are disabled.
-
-        The user repositories are validated when we add them
-        to DNF, so this covers invalid system repositories.
+    def _check_enabled_repositories(dnf_manager):
+        """Check there is at least one enabled repository.
 
         :param DNFManager dnf_manager: a configured DNF manager
         """
-        # Check if there is at least one enabled repository.
         if not dnf_manager.enabled_repositories:
             raise SourceSetupError(_("No repository is configured."))
 
-        # Load all enabled repositories and report warnings if any.
-        for repo_id in dnf_manager.enabled_repositories:
-            try:
-                dnf_manager.load_repository(repo_id)
-            except MetadataError as e:
-                log.warning(str(e))
-
     @staticmethod
-    def _load_metadata(dnf_manager):
+    def _load_repositories(dnf_manager):
         """Load metadata of configured repositories.
+
+        Can be called only once per each RepoSack.
 
         :param DNFManager dnf_manager: a configured DNF manager
         """
-        dnf_manager.load_packages_metadata()
+        dnf_manager.load_repositories()
         dnf_manager.load_repomd_hashes()
 
 
