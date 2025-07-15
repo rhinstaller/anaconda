@@ -19,6 +19,7 @@ import unittest
 
 from pyanaconda.core.constants import (
     PAYLOAD_TYPE_RPM_OSTREE,
+    SOURCE_TYPE_BOOTC,
     SOURCE_TYPE_FLATPAK,
     SOURCE_TYPE_RPM_OSTREE,
     SOURCE_TYPE_RPM_OSTREE_CONTAINER,
@@ -73,6 +74,7 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
             SOURCE_TYPE_RPM_OSTREE,
             SOURCE_TYPE_RPM_OSTREE_CONTAINER,
             SOURCE_TYPE_FLATPAK,
+            SOURCE_TYPE_BOOTC,
         ]
 
 
