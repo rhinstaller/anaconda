@@ -56,7 +56,7 @@ class PrepareDownloadLocationTaskTestCase(unittest.TestCase):
         """Test PrepareDownloadLocationTask name."""
         flatpak_manager = Mock()
         task = PrepareDownloadLocationTask(flatpak_manager)
-        assert task.name == "Prepare the package download"
+        assert task.name == "Prepare the Flatpaks download"
 
     @patch("pyanaconda.modules.payloads.payload.flatpak.installation.shutil")
     @patch("pyanaconda.modules.payloads.payload.flatpak.installation.os")
