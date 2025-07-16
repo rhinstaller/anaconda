@@ -367,6 +367,11 @@ class UsersInterfaceTestCase(unittest.TestCase):
         username = self.users_interface.GuessUsernameFromFullName("José García")
         assert username == "jgarcia"
 
+        # Test with Arabic name (non-Latin script)
+        username = self.users_interface.GuessUsernameFromFullName("أحمد محمد")
+        # Arabic characters are not valid for usernames, so should return empty string
+        assert username == ""
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self.users_interface, ks_in, ks_out)
 
