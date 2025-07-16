@@ -201,7 +201,7 @@ def guess_username(fullname):
     """Guess username from full user name.
 
     :param str fullname: full user name
-    :returns: guessed, hopefully suitable, username
+    :returns: guessed, hopefully suitable, username or empty string if no valid username can be generated
     :rtype: str
     """
     fullname = fullname.split()
@@ -217,6 +217,13 @@ def guess_username(fullname):
         username = fullname[0][0].lower() + username
 
     username = strip_accents(username)
+
+    # Validate the generated username - return empty string if invalid
+    if username:
+        is_valid, _ = is_valid_name(username)
+        if not is_valid:
+            return ""
+
     return username
 
 
