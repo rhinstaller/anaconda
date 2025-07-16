@@ -345,6 +345,28 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.IsRootAccountLocked = False
         assert self.users_interface.CheckAdminUserExists()
 
+    def test_guess_username_from_full_name(self):
+        """Test the GuessUsernameFromFullName method."""
+        # Test with typical full name
+        username = self.users_interface.GuessUsernameFromFullName("John Smith")
+        assert username == "jsmith"
+
+        # Test with single name
+        username = self.users_interface.GuessUsernameFromFullName("John")
+        assert username == "john"
+
+        # Test with empty string
+        username = self.users_interface.GuessUsernameFromFullName("")
+        assert username == ""
+
+        # Test with multiple middle names
+        username = self.users_interface.GuessUsernameFromFullName("John Michael Smith")
+        assert username == "jsmith"
+
+        # Test with special characters and accents
+        username = self.users_interface.GuessUsernameFromFullName("José García")
+        assert username == "jgarcia"
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self.users_interface, ks_in, ks_out)
 
