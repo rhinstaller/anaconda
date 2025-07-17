@@ -392,29 +392,38 @@ class LiveImageInstallationTestCase(unittest.TestCase):
         with patch('pyanaconda.core.dbus.DBus.get_proxy'):
             return task.run()
 
-    def _check_content(self, files):
-        """Check the sysroot content."""
-        for path in files:
-            file_path = join_paths(self.sysroot, path)
-            assert os.path.exists(file_path)
-
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
     @patch("pyanaconda.modules.payloads.source.live_image.installation.TearDownMountTask")
     @patch("pyanaconda.modules.payloads.source.live_image.installation.MountImageTask")
-    def test_install_file(self, mount_task_cls, umount_task_cls):
-        """Install a fake image with files."""
+    def test_install_file(self, mount_task_cls, umount_task_cls,
+                          exec_readlines, exec_with_redirect, os_sync):
+        """Install a fake image with files.
+
+        NOTE: rsync is mocked (INSTALLER-4224), we don't check its call here as it is done in
+        a separate InstallFromImageTaskTestCase
+        """
         files = ["f1", "f2", "f3"]
 
         with self._create_directory():
             self._create_image(files, mount_task_cls)
             result = self._run_task()
-            self._check_content(files)
 
         assert result == []
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
     @patch("pyanaconda.modules.payloads.source.live_image.installation.TearDownMountTask")
     @patch("pyanaconda.modules.payloads.source.live_image.installation.MountImageTask")
-    def test_install_kernels(self, mount_task_cls, umount_task_cls):
-        """Install a fake image with kernels."""
+    def test_install_kernels(self, mount_task_cls, umount_task_cls,
+                             exec_readlines, exec_with_redirect, os_sync):
+        """Install a fake image with kernels.
+
+        NOTE: rsync is mocked (INSTALLER-4224), we don't check its call here as it is done in
+        a separate InstallFromImageTaskTestCase
+        """
         files = [
             "/boot/vmlinuz-5.8.15-201.fc32.x86_64",
             "/boot/efi/EFI/default/vmlinuz-6.8.15-201.fc32.x86_64",
@@ -425,7 +434,6 @@ class LiveImageInstallationTestCase(unittest.TestCase):
         with self._create_directory():
             self._create_image(files, mount_task_cls)
             result = self._run_task()
-            self._check_content(files)
 
         assert result == [
             '5.8.15-201.fc32.x86_64',
