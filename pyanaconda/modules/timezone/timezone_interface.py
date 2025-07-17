@@ -172,6 +172,15 @@ class TimezoneInterface(KickstartModuleInterface):
             self.implementation.start_geolocation_with_task()
         )
 
+    def CheckNTPServer(self, server_hostname: Str, nts_enabled: Bool) -> Bool:
+        """Check if an NTP server is working.
+
+        :param server_hostname: hostname or IP address of the NTP server
+        :param nts_enabled: whether NTS (Network Time Security) is enabled
+        :return: True if the server is working, False otherwise
+        """
+        return self.implementation.check_ntp_server(server_hostname, nts_enabled)
+
     @property
     def GeolocationResult(self) -> Structure:
         """Get geolocation result, if any.

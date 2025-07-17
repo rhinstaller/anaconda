@@ -282,6 +282,16 @@ class TimezoneService(KickstartService):
         task.succeeded_signal.connect(lambda: self._set_geolocation_result(task.get_result()))
         return task
 
+    def check_ntp_server(self, server_hostname, nts_enabled):
+        """Check if an NTP server is working.
+
+        :param server_hostname: hostname or IP address of the NTP server
+        :param nts_enabled: whether NTS (Network Time Security) is enabled
+        :return: True if the server is working, False otherwise
+        :rtype: bool
+        """
+        return ntp.ntp_server_working(server_hostname, nts_enabled)
+
     @property
     def geolocation_result(self):
         """Get geolocation result.

@@ -416,3 +416,33 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
                                               hour=18,
                                               minute=49,
                                               tz="America/New_York")
+
+    @patch("pyanaconda.modules.timezone.timezone.ntp.ntp_server_working")
+    def test_check_ntp_server_working(self, mock_ntp_working):
+        """Test checking if an NTP server is working - success case."""
+        mock_ntp_working.return_value = True
+
+        result = self.timezone_interface.CheckNTPServer("pool.ntp.org", False)
+
+        assert result is True
+        mock_ntp_working.assert_called_once_with("pool.ntp.org", False)
+
+    @patch("pyanaconda.modules.timezone.timezone.ntp.ntp_server_working")
+    def test_check_ntp_server_not_working(self, mock_ntp_working):
+        """Test checking if an NTP server is working - failure case."""
+        mock_ntp_working.return_value = False
+
+        result = self.timezone_interface.CheckNTPServer("bad.ntp.server", False)
+
+        assert result is False
+        mock_ntp_working.assert_called_once_with("bad.ntp.server", False)
+
+    @patch("pyanaconda.modules.timezone.timezone.ntp.ntp_server_working")
+    def test_check_ntp_server_with_nts(self, mock_ntp_working):
+        """Test checking if an NTP server is working with NTS enabled."""
+        mock_ntp_working.return_value = True
+
+        result = self.timezone_interface.CheckNTPServer("secure.ntp.org", True)
+
+        assert result is True
+        mock_ntp_working.assert_called_once_with("secure.ntp.org", True)
