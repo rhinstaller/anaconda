@@ -22,6 +22,11 @@ import glob
 import os
 from functools import wraps
 
+import gi
+
+gi.require_version("NM", "1.0")
+from gi.repository import NM
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf

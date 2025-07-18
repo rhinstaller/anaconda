@@ -589,6 +589,20 @@ class NetworkControlBox(GObject.GObject):
                     log.info("creating new connection for %s device", iface)
                     self.client.add_connection_async(default_con, persistent, None,
                             self._default_connection_added_cb, activate)
+                elif device_type in self.virtual_device_types:
+                    # For virtual devices without connections, run nm-c-e to create one
+                    log.info("no connection found for virtual device %s, launching nm-c-e to create one", iface)
+                    # Get the connection type string for nm-connection-editor
+                    type_map = {
+                        NM.DeviceType.TEAM: "team",
+                        NM.DeviceType.BOND: "bond",
+                        NM.DeviceType.VLAN: "vlan",
+                        NM.DeviceType.BRIDGE: "bridge"
+                    }
+                    connection_type = type_map.get(device_type)
+                    if connection_type:
+                        self._run_nmce_create(connection_type, activate)
+                    return
                 return
 
             if device and device.get_state() == NM.DeviceState.ACTIVATED:
@@ -610,6 +624,13 @@ class NetworkControlBox(GObject.GObject):
     def _run_nmce(self, uuid, activate):
         self.kill_nmce(msg="Configure button clicked")
         proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
+        self._running_nmce = proc
+
+        PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
+
+    def _run_nmce_create(self, connection_type, activate):
+        self.kill_nmce(msg="Configure button clicked")
+        proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % connection_type], reset_lang=False)
         self._running_nmce = proc
 
         PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
@@ -719,11 +740,7 @@ class NetworkControlBox(GObject.GObject):
 
     def add_device(self, ty):
         log.info("adding device of type %s", ty)
-        self.kill_nmce(msg="Add device button clicked")
-        proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty], reset_lang=False)
-        self._running_nmce = proc
-
-        PidWatcher().watch_process(proc.pid, self.on_nmce_exited)
+        self._run_nmce_create(ty, activate=None)
 
     def selected_dev_cfg(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
