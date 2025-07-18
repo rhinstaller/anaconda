@@ -120,3 +120,34 @@ def is_ibft_configured_device(iface):
 
 def is_nbft_device(iface):
     return iface.startswith("nbft")
+
+
+def get_default_connection(iface, device_type, autoconnect=True):
+    """Get default connection to be edited by the UI.
+
+    :param iface: interface name
+    :type iface: str
+    :param device_type: NetworkManager device type
+    :type device_type: NM.DeviceType
+    :param autoconnect: whether connection should autoconnect on boot
+    :type autoconnect: bool
+    :returns: a default connection for the device
+    :rtype: NM.SimpleConnection
+    """
+    connection = NM.SimpleConnection.new()
+    s_con = NM.SettingConnection.new()
+    s_con.props.uuid = NM.utils_uuid_generate()
+    s_con.props.autoconnect = autoconnect
+    s_con.props.id = iface
+    s_con.props.interface_name = iface
+    if device_type == NM.DeviceType.ETHERNET:
+        s_con.props.type = "802-3-ethernet"
+        s_wired = NM.SettingWired.new()
+        connection.add_setting(s_wired)
+    elif device_type == NM.DeviceType.INFINIBAND:
+        s_con.props.type = "infiniband"
+        s_ib = NM.SettingInfiniband.new()
+        s_ib.props.transport_mode = "datagram"
+        connection.add_setting(s_ib)
+    connection.add_setting(s_con)
+    return connection

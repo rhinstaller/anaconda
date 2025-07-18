@@ -41,9 +41,9 @@ from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 from pyanaconda.modules.network.constants import (
-    NM_CONNECTION_TYPE_ETHERNET,
     NM_CONNECTION_TYPE_WIFI,
 )
+from pyanaconda.modules.network.utils import get_default_connection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
@@ -584,7 +584,7 @@ class NetworkControlBox(GObject.GObject):
                 log.debug("on_edit_connection: connection for device %s not found", iface)
                 if device_type == NM.DeviceType.ETHERNET:
                     # Create default connection for the device and run nm-c-e on it
-                    default_con = self._default_eth_con(iface, autoconnect=False)
+                    default_con = get_default_connection(iface, device_type, autoconnect=False)
                     persistent = False
                     log.info("creating new connection for %s device", iface)
                     self.client.add_connection_async(default_con, persistent, None,
@@ -635,18 +635,7 @@ class NetworkControlBox(GObject.GObject):
 
         PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
 
-    def _default_eth_con(self, iface, autoconnect):
-        con = NM.SimpleConnection.new()
-        s_con = NM.SettingConnection.new()
-        s_con.set_property('uuid', str(uuid4()))
-        s_con.set_property('id', iface)
-        s_con.set_property('interface-name', iface)
-        s_con.set_property('autoconnect', autoconnect)
-        s_con.set_property('type', NM_CONNECTION_TYPE_ETHERNET)
-        s_wired = NM.SettingWired.new()
-        con.add_setting(s_con)
-        con.add_setting(s_wired)
-        return con
+
 
     def kill_nmce(self, msg=""):
         if not self._running_nmce:
