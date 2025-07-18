@@ -22,6 +22,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.core.users import guess_username
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.containers import TaskContainer
@@ -217,3 +218,11 @@ class UsersInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.set_root_password_with_task()
         )
+
+    def GuessUsernameFromFullName(self, fullname: Str) -> Str:
+        """Guess a username from a full name.
+
+        :param fullname: full user name to base the username on
+        :returns: guessed username
+        """
+        return guess_username(fullname)
