@@ -500,6 +500,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 18 2025 github-actions <github-actions@github.com> - 42.27.13-1
+- anaconda: Remove manual start of `systemd --user` (#2381864) (k.koukiou)
+
 * Tue Apr 08 2025 github-actions <github-actions@github.com> - 42.27.12-1
 - storage: Fix EFI partition detection for other OSes (Windows, MacOS)
   (rvykydal)
