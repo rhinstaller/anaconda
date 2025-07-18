@@ -17,7 +17,16 @@
 #
 import unittest
 
-from pyanaconda.modules.network.utils import is_ibft_configured_device, is_nbft_device
+import gi
+
+gi.require_version("NM", "1.0")
+from gi.repository import NM
+
+from pyanaconda.modules.network.utils import (
+    get_default_connection,
+    is_ibft_configured_device,
+    is_nbft_device,
+)
 
 
 class NetworkUtilsTestCase(unittest.TestCase):
@@ -40,3 +49,20 @@ class NetworkUtilsTestCase(unittest.TestCase):
         assert not is_ibft_configured_device("ibft")
         assert not is_ibft_configured_device("ibftfirst")
         assert not is_ibft_configured_device("ibgt0")
+
+    def test_get_default_ethernet_connection(self):
+        """Test creating default Ethernet connection."""
+        connection = get_default_connection("eth0", NM.DeviceType.ETHERNET)
+
+        # Check connection settings
+        s_con = connection.get_setting_connection()
+        self.assertIsNotNone(s_con)
+        self.assertEqual(s_con.props.id, "eth0")
+        self.assertEqual(s_con.props.interface_name, "eth0")
+        self.assertEqual(s_con.props.type, "802-3-ethernet")
+        self.assertTrue(s_con.props.autoconnect)
+        self.assertIsNotNone(s_con.props.uuid)
+
+        # Check wired settings
+        s_wired = connection.get_setting_wired()
+        self.assertIsNotNone(s_wired)
