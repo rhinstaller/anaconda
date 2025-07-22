@@ -513,6 +513,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 22 2025 github-actions <github-actions@github.com> - 43.31-1
+- Fix unit tests for code running rsync by mocking it. (rvykydal)
+
 * Tue Jul 15 2025 github-actions <github-actions@github.com> - 43.30-1
 - Bump the required version of dnf (pkratoch)
 - storage: Prevent accidental erasure of Live installation media (k.koukiou)
