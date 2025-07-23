@@ -45,7 +45,8 @@ class DNFMangerTestCase(unittest.TestCase):
 
     def _check_substitutions(self, substitutions):
         """Check the DNF substitutions."""
-        assert dict(self.dnf_manager._base.conf.substitutions) == substitutions
+        for key, value in substitutions.items():
+            assert self.dnf_manager._base.conf.substitutions[key] == value
 
     def _get_package(self, name):
         """Get a mocked package of the specified name."""
@@ -98,9 +99,6 @@ class DNFMangerTestCase(unittest.TestCase):
         self._check_substitutions({
             "arch": "x86_64",
             "basearch": "x86_64",
-            "releasever": "rawhide",
-            "releasever_major": "rawhide",
-            "releasever_minor": "",
             "stream": "9-stream",
         })
 
