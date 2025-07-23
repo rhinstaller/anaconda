@@ -16,10 +16,14 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import mock_open, patch
 
 from dasbus.structure import compare_data
 from dasbus.typing import Bool, Str, UInt16, get_variant
 
+from pyanaconda.core.product import (
+    get_product_values
+)
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.common.structures.product import ProductData
@@ -72,8 +76,19 @@ class UIInterfaceTestCase(unittest.TestCase):
 
     def test_product_data_property(self):
         """Test the ProductData property."""
-        # Fetch the ProductData from the DBus interface
-        product_data = ProductData.from_structure(self.interface.ProductData)
+        get_product_values.cache_clear()
+
+        FAKE_OS_RELEASE = ""
+        FAKE_OS_RELEASE += 'NAME="Fedora Linux"\n'
+        FAKE_OS_RELEASE += 'VERSION="41 (Workstation Edition)"\n'
+        FAKE_OS_RELEASE += 'VERSION_ID="41"\n'
+        FAKE_OS_RELEASE += 'RELEASE_TYPE=stable\n'
+        FAKE_OS_RELEASE += 'ID=fedora\n'
+
+        m = mock_open(read_data=FAKE_OS_RELEASE)
+        with patch("builtins.open", m):
+            # Fetch the ProductData from the DBus interface
+            product_data = ProductData.from_structure(self.interface.ProductData)
 
         # Check if the product data has the correct structure
         assert isinstance(product_data, ProductData)
@@ -82,7 +97,7 @@ class UIInterfaceTestCase(unittest.TestCase):
         assert isinstance(product_data.version, Str)
         assert isinstance(product_data.short_name, Str)
 
-        assert product_data.is_final_release is False
-        assert product_data.name == "anaconda"
-        assert product_data.version == "bluesky"
-        assert product_data.short_name == "anaconda"
+        assert product_data.is_final_release is True
+        assert product_data.name == "Fedora Linux"
+        assert product_data.version == "41"
+        assert product_data.short_name == "fedora"

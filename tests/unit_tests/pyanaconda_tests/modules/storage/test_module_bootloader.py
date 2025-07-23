@@ -397,7 +397,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
         assert isinstance(image, LinuxBootLoaderImage)
         assert image == bootloader.default
         assert image.version == version
-        assert image.label == "anaconda"
+        assert image.label == "Fedora Linux"
         assert image.device == storage.root_device
 
     def test_collect_kernel_arguments(self):

@@ -21,6 +21,7 @@ import shutil
 import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import product
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
@@ -394,7 +395,7 @@ class ImportRPMKeysTask(Task):
         # Get substitutions for variables.
         # TODO: replace the interpolation with DNF once possible
         basearch = os.uname().machine
-        releasever = util.get_os_release_value("VERSION_ID", sysroot=self._sysroot) or ""
+        releasever = product.get_os_release_value("VERSION_ID", sysroot=self._sysroot) or ""
 
         # Import GPG keys to RPM database.
         for key in self._gpg_keys:

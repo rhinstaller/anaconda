@@ -115,20 +115,6 @@ ANACONDA="${LIVECMD:=anaconda --liveinst --graphical}"
 # load modules that would get loaded by the initramfs (#230945)
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
 
-if [ -f /etc/system-release ]; then
-    export ANACONDA_PRODUCTNAME
-    ANACONDA_PRODUCTNAME=$(sed -r -e 's/ *release.*//' /etc/system-release)
-    export ANACONDA_PRODUCTVERSION
-    ANACONDA_PRODUCTVERSION=$(sed -r -e 's/^.* ([0-9\.]+).*$/\1/' /etc/system-release)
-fi
-
-RELEASE=$(rpm -q --qf '%{Release}' --whatprovides system-release)
-if [ "${RELEASE:0:2}" = "0." ]; then
-    export ANACONDA_ISFINAL="false"
-else
-    export ANACONDA_ISFINAL="true"
-fi
-
 export PATH=/sbin:/usr/sbin:$PATH
 
 if [ -x /usr/sbin/getenforce ]; then
