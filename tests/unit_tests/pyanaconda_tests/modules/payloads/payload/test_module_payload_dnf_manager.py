@@ -550,9 +550,12 @@ class DNFManagerTestCase(unittest.TestCase):
         package.to_string.return_value = name + "-1.2-3.x86_64"
         package.get_action.return_value = action
 
-        nevra = Mock(spec=libdnf5.rpm.Nevra)
-        nevra.get_name.return_value = name
-        nevra.get_arch.return_value = "x86_64"
+        nevra = libdnf5.rpm.Nevra()
+        nevra.set_name(name)
+        nevra.set_epoch("0")
+        nevra.set_release("3")
+        nevra.set_arch("x86_64")
+        nevra.set_version("1.2")
 
         item = Mock(spec=libdnf5.base.TransactionPackage)
         item.get_package.return_value = package
