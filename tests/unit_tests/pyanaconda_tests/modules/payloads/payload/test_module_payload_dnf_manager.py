@@ -99,6 +99,8 @@ class DNFMangerTestCase(unittest.TestCase):
             "arch": "x86_64",
             "basearch": "x86_64",
             "releasever": "rawhide",
+            "releasever_major": "rawhide",
+            "releasever_minor": "",
             "stream": "9-stream",
         })
 
