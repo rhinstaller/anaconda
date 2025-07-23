@@ -98,16 +98,7 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
             # There reason is some scriptlets (namely file triggers) can be run for a package
             # that is not part of the transaction.
             item.get_package().to_string() if item else "unknown",
-            # FIXME: Get nevra instead of composing it from all the fields.
-            #        See issue: https://github.com/rpm-software-management/dnf5/issues/1644
-            #libdnf5.rpm.to_full_nevra_string(nevra),
-            "{name}-{epoch}:{version}-{release}.{arch}".format(
-                name=nevra.get_name(),
-                epoch=nevra.get_epoch(),
-                version=nevra.get_version(),
-                release=nevra.get_release(),
-                arch=nevra.get_arch()
-            ),
+            libdnf5.rpm.to_full_nevra_string(nevra),
             libdnf5.rpm.TransactionCallbacks.script_type_to_string(type)
         )
         self._queue.put(('configure', "%s.%s" % (nevra.get_name(), nevra.get_arch())))
@@ -127,16 +118,7 @@ class TransactionProgress(libdnf5.rpm.TransactionCallbacks):
             # There reason is some scriptlets (namely file triggers) can be run for a package
             # that is not part of the transaction.
             item.get_package().to_string() if item else "unknown",
-            # FIXME: Get nevra instead of composing it from all the fields.
-            #        See issue: https://github.com/rpm-software-management/dnf5/issues/1644
-            #libdnf5.rpm.to_full_nevra_string(nevra),
-            "{name}-{epoch}:{version}-{release}.{arch}".format(
-                name=nevra.get_name(),
-                epoch=nevra.get_epoch(),
-                version=nevra.get_version(),
-                release=nevra.get_release(),
-                arch=nevra.get_arch()
-            ),
+            libdnf5.rpm.to_full_nevra_string(nevra),
             libdnf5.rpm.TransactionCallbacks.script_type_to_string(type),
             return_code
         )
