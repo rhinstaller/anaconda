@@ -21,6 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.users import guess_username
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.containers import TaskContainer
@@ -400,3 +401,11 @@ class UsersService(KickstartService):
 
         # no admin user found
         return False
+
+    def guess_username(self, fullname):
+        """Guess a username from a full name.
+
+        :param fullname: full user name to base the username on
+        :returns: guessed username
+        """
+        return guess_username(fullname)
