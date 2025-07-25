@@ -152,6 +152,17 @@ class TimezoneInterface(KickstartModuleInterface):
             TimeSourceData.from_structure_list(sources)
         )
 
+    @property
+    def TimeServersFromConfig(self) -> List[Structure]:
+        """A list of ntp servers found in the chronyd's configuration file.
+
+        :return: a list of ntp server data
+        :rtype: a list of structures of the type TimeSourceData
+        """
+        return TimeSourceData.to_structure_list(
+            self.implementation.servers_from_config
+        )
+
     def StartGeolocationWithTask(self) -> ObjPath:
         """Start geolocation with task.
 
@@ -160,6 +171,15 @@ class TimezoneInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.start_geolocation_with_task()
         )
+
+    def CheckNTPServer(self, server_hostname: Str, nts_enabled: Bool) -> Bool:
+        """Check if an NTP server is working.
+
+        :param server_hostname: hostname or IP address of the NTP server
+        :param nts_enabled: whether NTS (Network Time Security) is enabled
+        :return: True if the server is working, False otherwise
+        """
+        return self.implementation.check_ntp_server(server_hostname, nts_enabled)
 
     @property
     def GeolocationResult(self) -> Structure:
