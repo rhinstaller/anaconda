@@ -154,10 +154,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
     """The kickstart specification of the main process."""
 
     commands = {
-        "halt": COMMANDS.Reboot,
-        "poweroff": COMMANDS.Reboot,
-        "reboot": COMMANDS.Reboot,
-        "shutdown": COMMANDS.Reboot,
     }
 
     @classmethod
