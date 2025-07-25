@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 import os
-import pkgutil
 import sys
 import time
 
@@ -213,15 +212,11 @@ def fallback_to_tui_if_gtk_ui_is_not_available(anaconda):
 
     Also take into account Web UI.
     """
-    if anaconda.gui_mode and not anaconda.is_webui_supported:
-        import pyanaconda.ui
-
-        mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
-        if "pyanaconda.ui.gui" not in mods:
-            stdout_log.warning("Graphical user interface not available, falling back to text mode")
-            anaconda.display_mode = DisplayModes.TUI
-            flags.use_rd = False
-            flags.rd_question = False
+    if anaconda.gui_mode and not anaconda.is_webui_supported and not anaconda.is_gtk_ui_supported:
+        stdout_log.warning("Graphical user interface not available, falling back to text mode")
+        anaconda.display_mode = DisplayModes.TUI
+        flags.use_rd = False
+        flags.rd_question = False
 
 
 def setup_logging_from_options(options):
