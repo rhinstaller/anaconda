@@ -180,8 +180,8 @@ system.
 Summary: Live installation specific files and dependencies
 BuildArch: noarch
 BuildRequires: desktop-file-utils
-# live installation currently implies a graphical installation
-Requires: anaconda-gui = %{version}-%{release}
+# live installation currently implies a graphical installation with Web UI
+Requires: anaconda-webui
 Requires: zenity
 Recommends: xhost
 # FIXME: This is currently needed by the locale1-x11-sync script.
