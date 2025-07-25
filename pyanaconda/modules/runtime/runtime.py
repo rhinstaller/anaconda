@@ -17,26 +17,24 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 import time
 
-from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
+from blivet import udev
 
 from pyanaconda import gnome_remote_desktop
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import path, util
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartService
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import PAYLOADS, RUNTIME, STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.logging import LoggingData
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
@@ -80,6 +78,7 @@ class RuntimeService(KickstartService):
         self.eula_agreed_changed = Signal()
         self._eula_agreed = False
 
+        self._optical_media = []
         self.reboot_changed = Signal()
         self._reboot = RebootData()
 
@@ -216,15 +215,18 @@ class RuntimeService(KickstartService):
         log.debug("Reboot configuration set to: %s", str(reboot))
 
     def exit(self):
-        """Perform cleanup and system action based on RebootData."""
-        log.info("RuntimeService: Exit called with %s", self._reboot)
+        """Pre-exit cleanup and eject scheduling; final action is executed by the caller."""
+        log.info("Exit called with %s", self._reboot)
 
+        # Stop watching any background processes
         from pyanaconda.core.process_watchers import WatchProcesses
         WatchProcesses.unwatch_all_processes()
 
+        # Stop GNOME Remote Desktop if used
         if flags.use_rd:
             gnome_remote_desktop.shutdown_server()
 
+        # Special case: inst.nokill stay alive and wait for manual Ctrl-Alt-Del
         if "inst.nokill" in kernel_arguments:
             util.vtActivate(1)
             print("Anaconda halting due to inst.nokill flag.")
@@ -232,44 +234,40 @@ class RuntimeService(KickstartService):
             while True:
                 time.sleep(10000)
 
+        # Uninhibit screensaver
         from pyanaconda.screensaver import uninhibit_screensaver
         uninhibit_screensaver()
 
-        # Unsetup the payload, which most usefully unmounts live images
+        # Unsetup the payload (most importantly unmount live images)
         payloads_proxy = PAYLOADS.get_proxy()
         for task_path in payloads_proxy.TeardownWithTasks():
             task_proxy = PAYLOADS.get_proxy(task_path)
             sync_run_task(task_proxy)
 
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        optical_media = []
+        # Collect optical media for possible eject scheduling
+        for dev in udev.get_devices():
+            if udev.device_is_cdrom(dev) or dev.get("ID_FS_TYPE") == "iso9660":
+                devnode = dev.get("DEVNAME") or udev.device_get_name(dev)
+                if devnode and not str(devnode).startswith("/"):
+                    devnode = f"/dev/{devnode}"
+                if devnode:
+                    self._optical_media.append(devnode)
 
-        for device_id in device_tree.FindOpticalMedia():
-            device_data = DeviceData.from_structure(
-                device_tree.GetDeviceData(device_id)
-            )
-            optical_media.append(device_data.path)
-
-        # Tear down the storage module.
+        # Tear down the storage module
         storage_proxy = STORAGE.get_proxy()
         for task_path in storage_proxy.TeardownWithTasks():
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
 
-        if conf.system.can_reboot:
-            if flags.eject or self.reboot.eject:
-                for device_path in optical_media:
-                    if path.get_mount_paths(device_path):
-                        util.dracut_eject(device_path)
-
-            if self._reboot.kexec:
-                util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
-            elif self._reboot.action == KS_SHUTDOWN:
-                util.execWithRedirect("systemctl", ["--no-wall", "poweroff"], do_preexec=False)
-            elif self._reboot.action == KS_WAIT:
-                util.execWithRedirect("systemctl", ["--no-wall", "halt"], do_preexec=False)
-            else:
-                util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
-
-            while True:
-                time.sleep(10000)
+        # Schedule optical media eject via dracut if requested
+        if self._reboot.eject:
+            for dev in self._optical_media:
+                node = dev if str(dev).startswith("/") else f"/dev/{dev}"
+                if not os.path.exists(node):
+                    continue
+                try:
+                    if path.get_mount_paths(node):
+                        util.dracut_eject(node)
+                        log.info("Scheduled eject via dracut for %s", node)
+                except FileNotFoundError:
+                    pass
