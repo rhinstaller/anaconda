@@ -45,7 +45,11 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
                     "text",
                     "cmdline",
                     "vnc",
-                    "rdp"]
+                    "rdp",
+                    "reboot",
+                    "poweroff",
+                    "shutdown",
+                    "halt"]
         assert self.interface.KickstartCommands == commands
         sections = ['pre-install',
                     'post',
@@ -137,4 +141,28 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         """Test rdp via kickstart."""
         ks_in = "rdp --username=anacondauser --password=testpassword\n"
         ks_out = "rdp --username=anacondauser --password=testpassword\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_reboot(self):
+        """Test reboot via kickstart."""
+        ks_in = "reboot --eject --kexec\n"
+        ks_out = "# Reboot after installation\nreboot --eject --kexec\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_poweroff(self):
+        """Test poweroff via kickstart."""
+        ks_in = "poweroff --eject\n"
+        ks_out = "# Shutdown after installation\nshutdown --eject\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_shutdown(self):
+        """Test shutdown via kickstart."""
+        ks_in = "shutdown\n"
+        ks_out = "# Shutdown after installation\nshutdown\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_halt(self):
+        """Test halt via kickstart."""
+        ks_in = "halt --eject\n"
+        ks_out = "# Halt after installation\nhalt --eject\n"
         self._test_kickstart(ks_in, ks_out)
