@@ -44,7 +44,11 @@ class RuntimeKickstartSpecification(KickstartSpecification):
         "text": COMMANDS.DisplayMode,
         "cmdline": COMMANDS.DisplayMode,
         "vnc": COMMANDS.Vnc,
-        "rdp": COMMANDS.RDP
+        "rdp": COMMANDS.RDP,
+        "reboot": COMMANDS.Reboot,
+        "poweroff": COMMANDS.Reboot,
+        "shutdown": COMMANDS.Reboot,
+        "halt": COMMANDS.Reboot
     }
 
     commands_data = {

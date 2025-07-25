@@ -48,6 +48,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE, SCRIPTS
 from pyanaconda.modules.common.constants.services import RUNTIME, STORAGE
 from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.common.structures.storage import (
     DeviceData,
@@ -584,6 +585,7 @@ def start_rescue_mode_ui(anaconda):
     """Start the rescue mode UI."""
     runtime_proxy = RUNTIME.get_proxy()
     rescue_data = RescueData.from_structure(runtime_proxy.Rescue)
+    reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
 
     ksdata_rescue = None
     if rescue_data.rescue:
@@ -593,7 +595,7 @@ def start_rescue_mode_ui(anaconda):
     reboot = True
     if conf.target.is_image:
         reboot = False
-    if flags.automatedInstall and anaconda.ksdata.reboot.action not in [KS_REBOOT, KS_SHUTDOWN]:
+    if flags.automatedInstall and reboot_data.action not in [KS_REBOOT, KS_SHUTDOWN]:
         reboot = False
 
     rescue = Rescue(ksdata_rescue, reboot, scripts, rescue_nomount)
