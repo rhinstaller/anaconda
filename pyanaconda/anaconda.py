@@ -158,6 +158,11 @@ class Anaconda:
         "Report if webui package is installed"
         return os.path.exists("/usr/share/cockpit/anaconda-webui")
 
+    @property
+    def is_gtk_ui_supported(self):
+        """Report if anaconda-gui package is installed."""
+        return os.path.exists("/usr/share/anaconda/ui/spokes")
+
     def log_display_mode(self):
         if not self.display_mode:
             log.error("Display mode is not set!")
@@ -212,7 +217,17 @@ class Anaconda:
         if self._intf:
             raise RuntimeError("Second attempt to initialize the InstallInterface")
 
-        if self.gui_mode and self.is_webui_supported:
+        if self.gui_mode and self.is_gtk_ui_supported:
+            from pyanaconda.ui.gui import GraphicalUserInterface
+            # Run the GUI in non-fullscreen mode, so live installs can still
+            # use the window manager
+            self._intf = GraphicalUserInterface(None, self.payload,
+                                                gui_lock=self.gui_initialized,
+                                                fullscreen=False)
+
+            # needs to be refreshed now we know if gui or tui will take place
+            addon_paths = collect_addon_ui_paths(ADDON_PATHS, "gui")
+        elif self.gui_mode and self.is_webui_supported:
             from pyanaconda.ui.webui import CockpitUserInterface
             self._intf = CockpitUserInterface(
                 None,
@@ -223,16 +238,6 @@ class Anaconda:
             # needs to be refreshed now we know if gui or tui will take place
             # FIXME - what about Cockpit based addons ?
             addon_paths = []
-        elif self.gui_mode:
-            from pyanaconda.ui.gui import GraphicalUserInterface
-            # Run the GUI in non-fullscreen mode, so live installs can still
-            # use the window manager
-            self._intf = GraphicalUserInterface(None, self.payload,
-                                                gui_lock=self.gui_initialized,
-                                                fullscreen=False)
-
-            # needs to be refreshed now we know if gui or tui will take place
-            addon_paths = collect_addon_ui_paths(ADDON_PATHS, "gui")
         elif self.tui_mode:
             # TUI and noninteractive TUI are the same in this regard
             from pyanaconda.ui.tui import TextUserInterface
