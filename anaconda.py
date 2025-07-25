@@ -35,88 +35,30 @@ from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 
 
-def exitHandler(rebootData):
-    # Clear the list of watched PIDs.
-    from pyanaconda.core.process_watchers import WatchProcesses
-    WatchProcesses.unwatch_all_processes()
-
+def exitHandler():
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
-    if flags.use_rd:
-        gnome_remote_desktop.shutdown_server()
+    runtime_proxy.Exit()
 
-    # pylint: disable=possibly-used-before-assignment
-    # pylint: disable=used-before-assignment
-    if "inst.nokill" in kernel_arguments:
-        util.vtActivate(1)
-        print("Anaconda halting due to inst.nokill flag.")
-        print("The system will be rebooted when you press Ctrl-Alt-Delete.")
-        while True:
-            time.sleep(10000)
+    data_reboot = RebootData.from_structure(runtime_proxy.Reboot)
 
-    from pyanaconda.screensaver import uninhibit_screensaver
-    uninhibit_screensaver()
-
-    # Unsetup the payload, which most usefully unmounts live images
-    # pylint: disable=possibly-used-before-assignment
-    if anaconda.payload:
-        anaconda.payload.unsetup()
-
-    # Collect all optical media.
-    from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-    from pyanaconda.modules.common.structures.storage import DeviceData
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)  # pylint: disable=possibly-used-before-assignment
-    optical_media = []
-
-    for device_id in device_tree.FindOpticalMedia():
-        device_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(device_id)
-        )
-        optical_media.append(device_data.path)
-
-    # Tear down the storage module.
-    storage_proxy = STORAGE.get_proxy()
-    from pyanaconda.modules.common.task import sync_run_task  # pylint: disable=redefined-outer-name
-
-    for task_path in storage_proxy.TeardownWithTasks():
-        task_proxy = STORAGE.get_proxy(task_path)
-        sync_run_task(task_proxy)
-
-    # reenable LVM auto-activation disabled in enable_installer_mode
-    from blivet.devicelibs import lvm
-    try:
-        lvm.reenable_lvm_autoactivation()
-    except RuntimeError as e:
-        log.error("Failed to reenable LVM auto-activation: %s", str(e))
-
-    # Stop the DBus session.
     anaconda.dbus_launcher.stop()
 
-    # Clean up the PID file
-    if pidfile:  # pylint: disable=possibly-used-before-assignment
+    if pidfile:
         pidfile.close()
 
-    # Reboot the system.
-    if conf.system.can_reboot:  # pylint: disable=possibly-used-before-assignment
-        from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
+    from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
-        if flags.eject or rebootData.eject:
-            for device_path in optical_media:
-                # pylint: disable=possibly-used-before-assignment
-                if path.get_mount_paths(device_path):
-                    util.dracut_eject(device_path)
-
-        if flags.kexec:
-            util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
-            while True:
-                time.sleep(10000)
-        elif rebootData.action == KS_SHUTDOWN:
-            util.execWithRedirect("systemctl", ["--no-wall", "poweroff"], do_preexec=False)
-        elif rebootData.action == KS_WAIT:
-            util.execWithRedirect("systemctl", ["--no-wall", "halt"], do_preexec=False)
-        else:  # reboot action is KS_REBOOT or None
-            util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
-
+    if data_reboot.kexec:
+        util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
+        while True:
+            time.sleep(10000)
+    elif data_reboot.action == KS_SHUTDOWN:
+        util.execWithRedirect("systemctl", ["--no-wall", "poweroff"], do_preexec=False)
+    elif data_reboot.action == KS_WAIT:
+        util.execWithRedirect("systemctl", ["--no-wall", "halt"], do_preexec=False)
+    else:  # KS_REBOOT / default
+        util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
 
 def parse_arguments(argv=None, boot_cmdline=None):
     """Parse command line/boot options and arguments.
@@ -161,7 +103,7 @@ def setup_environment():
 
     # Go ahead and set $WAYLAND_DISPLAY whether we're going to use Wayland or not
     if "WAYLAND_DISPLAY" in os.environ:
-        flags.preexisting_wayland = True
+        flags.preexisting_wayland = True # pylint: disable=possibly-used-before-assignment
     else:
         os.environ["WAYLAND_DISPLAY"] = constants.WAYLAND_SOCKET_NAME  # pylint: disable=possibly-used-before-assignment
 
@@ -285,7 +227,6 @@ if __name__ == "__main__":
     # startup_utils, which import Blivet, without slowing down anything critical
     from pyanaconda import (
         display,
-        gnome_remote_desktop,
         kickstart,
         rescue,
         startup_utils,
@@ -528,7 +469,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGUSR1, lambda signum, frame:
                   exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-    atexit.register(exitHandler, ksdata.reboot)
+    atexit.register(exitHandler)
 
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
