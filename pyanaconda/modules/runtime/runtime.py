@@ -24,6 +24,7 @@ from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.logging import LoggingData
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
@@ -67,6 +68,9 @@ class RuntimeService(KickstartService):
         self.eula_agreed_changed = Signal()
         self._eula_agreed = False
 
+        self.reboot_changed = Signal()
+        self._reboot = RebootData()
+
 
     def publish(self):
         """Publish the module."""
@@ -99,6 +103,12 @@ class RuntimeService(KickstartService):
 
         self.set_eula_agreed(data.eula.agreed)
 
+        reboot = RebootData()
+        reboot.action = data.reboot.action
+        reboot.eject = data.reboot.eject
+        reboot.kexec = data.reboot.kexec
+        self.set_reboot(reboot)
+
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         self._modules.setup_kickstart(data)
@@ -108,6 +118,9 @@ class RuntimeService(KickstartService):
         data.rescue.nomount = self.rescue.nomount
         data.rescue.romount = self.rescue.romount
         data.eula.agreed = self._eula_agreed
+        data.reboot.action = self.reboot.action
+        data.reboot.eject = self.reboot.eject
+        data.reboot.kexec = self.reboot.kexec
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -172,3 +185,20 @@ class RuntimeService(KickstartService):
         self._eula_agreed = agreed
         self.eula_agreed_changed.emit()
         log.debug("EULA agreement set to: %s", str(agreed))
+
+    @property
+    def reboot(self):
+        """The reboot configuration.
+
+        :return: an instance of RebootData
+        """
+        return self._reboot
+
+    def set_reboot(self, reboot):
+        """Set the RebootData structure.
+
+        :param reboot: RebootData structure.
+        """
+        self._reboot = reboot
+        self.reboot_changed.emit()
+        log.debug("Reboot configuration set to: %s", str(reboot))
