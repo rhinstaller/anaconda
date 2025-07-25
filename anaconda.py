@@ -31,6 +31,7 @@ import time
 
 import pid
 
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 
 
@@ -423,8 +424,9 @@ if __name__ == "__main__":
     if rescue_data.rescue:
         flags.rescue_mode = True
 
+    reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
     # reboot with kexec
-    if ksdata.reboot.kexec:
+    if reboot_data.kexec:
         flags.kexec = True
 
     # Change the logging configuration based on the kickstart.
