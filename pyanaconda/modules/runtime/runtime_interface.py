@@ -101,3 +101,11 @@ class RuntimeInterface(KickstartModuleInterface):
         The DBus structure is defined by RebootData.
         """
         self.implementation.set_reboot(RebootData.from_structure(reboot))
+
+    def PreExit(self):
+        """Perform pre-exit cleanup (payload, storage, etc.)."""
+        self.implementation.pre_exit()
+
+    def Exit(self):
+        """Perform cleanup and reboot/poweroff/halt."""
+        self.implementation.exit()
