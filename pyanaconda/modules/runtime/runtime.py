@@ -17,15 +17,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import time
+
+from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
+
+from pyanaconda import gnome_remote_desktop
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import path, util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.signal import Signal
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartService
-from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import PAYLOADS, RUNTIME, STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.logging import LoggingData
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.submodule_manager import SubmoduleManager
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
 from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
@@ -67,6 +80,9 @@ class RuntimeService(KickstartService):
         self.eula_agreed_changed = Signal()
         self._eula_agreed = False
 
+        self.reboot_changed = Signal()
+        self._reboot = RebootData()
+
 
     def publish(self):
         """Publish the module."""
@@ -99,6 +115,12 @@ class RuntimeService(KickstartService):
 
         self.set_eula_agreed(data.eula.agreed)
 
+        reboot = RebootData()
+        reboot.action = data.reboot.action
+        reboot.eject = data.reboot.eject
+        reboot.kexec = data.reboot.kexec
+        self.set_reboot(reboot)
+
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
         self._modules.setup_kickstart(data)
@@ -108,6 +130,9 @@ class RuntimeService(KickstartService):
         data.rescue.nomount = self.rescue.nomount
         data.rescue.romount = self.rescue.romount
         data.eula.agreed = self._eula_agreed
+        data.reboot.action = self.reboot.action
+        data.reboot.eject = self.reboot.eject
+        data.reboot.kexec = self.reboot.kexec
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -172,3 +197,79 @@ class RuntimeService(KickstartService):
         self._eula_agreed = agreed
         self.eula_agreed_changed.emit()
         log.debug("EULA agreement set to: %s", str(agreed))
+
+    @property
+    def reboot(self):
+        """The reboot configuration.
+
+        :return: an instance of RebootData
+        """
+        return self._reboot
+
+    def set_reboot(self, reboot):
+        """Set the RebootData structure.
+
+        :param reboot: RebootData structure.
+        """
+        self._reboot = reboot
+        self.reboot_changed.emit()
+        log.debug("Reboot configuration set to: %s", str(reboot))
+
+    def exit(self):
+        """Perform cleanup and system action based on RebootData."""
+        log.info("RuntimeService: Exit called with %s", self._reboot)
+
+        from pyanaconda.core.process_watchers import WatchProcesses
+        WatchProcesses.unwatch_all_processes()
+
+        if flags.use_rd:
+            gnome_remote_desktop.shutdown_server()
+
+        if "inst.nokill" in kernel_arguments:
+            util.vtActivate(1)
+            print("Anaconda halting due to inst.nokill flag.")
+            print("The system will be rebooted when you press Ctrl-Alt-Delete.")
+            while True:
+                time.sleep(10000)
+
+        from pyanaconda.screensaver import uninhibit_screensaver
+        uninhibit_screensaver()
+
+        # Unsetup the payload, which most usefully unmounts live images
+        payloads_proxy = PAYLOADS.get_proxy()
+        for task_path in payloads_proxy.TeardownWithTasks():
+            task_proxy = PAYLOADS.get_proxy(task_path)
+            sync_run_task(task_proxy)
+
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        optical_media = []
+
+        for device_id in device_tree.FindOpticalMedia():
+            device_data = DeviceData.from_structure(
+                device_tree.GetDeviceData(device_id)
+            )
+            optical_media.append(device_data.path)
+
+        # Tear down the storage module.
+        storage_proxy = STORAGE.get_proxy()
+        for task_path in storage_proxy.TeardownWithTasks():
+            task_proxy = STORAGE.get_proxy(task_path)
+            sync_run_task(task_proxy)
+
+        if conf.system.can_reboot:
+            if flags.eject or self.reboot.eject:
+                for device_path in optical_media:
+                    if path.get_mount_paths(device_path):
+                        util.dracut_eject(device_path)
+
+            if self._reboot.kexec:
+                util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
+            elif self._reboot.action == KS_SHUTDOWN:
+                util.execWithRedirect("systemctl", ["--no-wall", "poweroff"], do_preexec=False)
+            elif self._reboot.action == KS_WAIT:
+                util.execWithRedirect("systemctl", ["--no-wall", "halt"], do_preexec=False)
+            else:
+                util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
+
+            while True:
+                time.sleep(10000)

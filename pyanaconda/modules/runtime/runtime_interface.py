@@ -27,6 +27,7 @@ from pyanaconda.modules.common.constants.services import RUNTIME
 __all__ = ["RuntimeInterface"]
 
 from pyanaconda.modules.common.structures.logging import LoggingData
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 
 
@@ -86,3 +87,17 @@ class RuntimeInterface(KickstartModuleInterface):
         :param agreed: A boolean value.
         """
         self.implementation.set_eula_agreed(agreed)
+
+    @property
+    def Reboot(self) -> Structure:
+        """Specification of the reboot/poweroff/halt/shutdown configuration."""
+        return RebootData.to_structure(self.implementation.reboot)
+
+    @Reboot.setter
+    @emits_properties_changed
+    def Reboot(self, reboot: Structure):
+        """Specify the reboot configuration.
+
+        The DBus structure is defined by RebootData.
+        """
+        self.implementation.set_reboot(RebootData.from_structure(reboot))

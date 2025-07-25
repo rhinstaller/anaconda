@@ -27,6 +27,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 
@@ -113,8 +115,10 @@ class ProgressSpoke(StandaloneTUISpoke):
         loop = App.get_event_loop()
         loop.process_signals(return_after=ScreenReadySignal)
 
+        runtime_proxy = RUNTIME.get_proxy()
+        reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
         # kickstart install, continue automatically if reboot or shutdown selected
-        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+        if flags.automatedInstall and reboot_data.action in [KS_REBOOT, KS_SHUTDOWN]:
             # Just pretend like we got input, and our input doesn't care
             # what it gets, it just quits.
             raise ExitMainLoop()

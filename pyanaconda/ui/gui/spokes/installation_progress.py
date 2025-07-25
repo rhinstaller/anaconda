@@ -23,6 +23,8 @@ from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once
@@ -92,8 +94,10 @@ class ProgressSpoke(StandaloneSpoke):
         quit_button = self.window.get_quit_button()
         quit_button.hide()
 
+        runtime_proxy = RUNTIME.get_proxy()
+        reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
         # kickstart install, continue automatically if reboot or shutdown selected
-        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+        if flags.automatedInstall and reboot_data.action in [KS_REBOOT, KS_SHUTDOWN]:
             self.window.emit("continue-clicked")
 
     def initialize(self):
