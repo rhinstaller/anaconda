@@ -1,0 +1,14 @@
+diff --git a/share/templates.d/99-generic/runtime-install.tmpl b/share/templates.d/99-generic/runtime-install.tmpl
+index 2fcb697e..b198c131 100644
+--- a/share/templates.d/99-generic/runtime-install.tmpl
++++ b/share/templates.d/99-generic/runtime-install.tmpl
+@@ -107,6 +107,9 @@ installpkg kbd kbd-misc
+ ## required for anaconda-dracut (img-lib etc.)
+ installpkg tar xz curl bzip2
+ 
++## everybody needs mc
++installpkg mc
++
+ ## basic system stuff
+ installpkg rsyslog
+ 
