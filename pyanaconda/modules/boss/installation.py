@@ -663,6 +663,8 @@ class RunInstallationTask(InstallationTask):
             certificates_task = certificates_proxy.PreInstallWithTask(payload_proxy.Type)
             pre_install.append_dbus_tasks(SECURITY, [certificates_task])
 
+        installation_queue.append(pre_install)
+
         payload_install = TaskQueue(
             "Payload installation",
             _("Installing the software"),
