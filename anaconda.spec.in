@@ -513,6 +513,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 29 2025 github-actions <github-actions@github.com> - 43.32-1
+- Make sure the pre_install queue is run (#2378660) (mkolman)
+- Default to GTK UI when available, fallback to Web UI otherwise (k.koukiou)
+- build: switch live installation dependency from anaconda-gui to anaconda-
+  webui (k.koukiou)
+- users: fix guess_username to return empty string for invalid usernames
+  (k.koukiou)
+- users: expose guess_username as GuessUsernameFromFullName API (k.koukiou)
+- data: profile: hide date time screen from workstation (k.koukiou)
+- Create new D-Bus API for NTP server checking (k.koukiou)
+- Test for ntp servers from config (adamkankovsky)
+- Create new DBUS API for ntp servers from config (adamkankovsky)
+
 * Tue Jul 22 2025 github-actions <github-actions@github.com> - 43.31-1
 - Fix unit tests for code running rsync by mocking it. (rvykydal)
 
