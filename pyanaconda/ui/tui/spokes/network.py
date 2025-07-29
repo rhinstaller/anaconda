@@ -41,6 +41,7 @@ from pyanaconda.core.regexes import (
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.modules.network.utils import get_default_connection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -615,24 +616,3 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
             log.debug("activating connection %s with device %s",
                       connection_uuid, self._iface)
             nm_client.activate_connection_async(connection, device, None, None)
-
-
-def get_default_connection(iface, device_type):
-    """Get default connection to be edited by the UI."""
-    connection = NM.SimpleConnection.new()
-    s_con = NM.SettingConnection.new()
-    s_con.props.uuid = NM.utils_uuid_generate()
-    s_con.props.autoconnect = True
-    s_con.props.id = iface
-    s_con.props.interface_name = iface
-    if device_type == NM.DeviceType.ETHERNET:
-        s_con.props.type = "802-3-ethernet"
-        s_wired = NM.SettingWired.new()
-        connection.add_setting(s_wired)
-    elif device_type == NM.DeviceType.INFINIBAND:
-        s_con.props.type = "infiniband"
-        s_ib = NM.SettingInfiniband.new()
-        s_ib.props.transport_mode = "datagram"
-        connection.add_setting(s_ib)
-    connection.add_setting(s_con)
-    return connection

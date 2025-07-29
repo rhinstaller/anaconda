@@ -41,9 +41,9 @@ from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 from pyanaconda.modules.network.constants import (
-    NM_CONNECTION_TYPE_ETHERNET,
     NM_CONNECTION_TYPE_WIFI,
 )
+from pyanaconda.modules.network.utils import get_default_connection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
@@ -584,11 +584,25 @@ class NetworkControlBox(GObject.GObject):
                 log.debug("on_edit_connection: connection for device %s not found", iface)
                 if device_type == NM.DeviceType.ETHERNET:
                     # Create default connection for the device and run nm-c-e on it
-                    default_con = self._default_eth_con(iface, autoconnect=False)
+                    default_con = get_default_connection(iface, device_type, autoconnect=False)
                     persistent = False
                     log.info("creating new connection for %s device", iface)
                     self.client.add_connection_async(default_con, persistent, None,
                             self._default_connection_added_cb, activate)
+                elif device_type in self.virtual_device_types:
+                    # For virtual devices without connections, run nm-c-e to create one
+                    log.info("no connection found for virtual device %s, launching nm-c-e to create one", iface)
+                    # Get the connection type string for nm-connection-editor
+                    type_map = {
+                        NM.DeviceType.TEAM: "team",
+                        NM.DeviceType.BOND: "bond",
+                        NM.DeviceType.VLAN: "vlan",
+                        NM.DeviceType.BRIDGE: "bridge"
+                    }
+                    connection_type = type_map.get(device_type)
+                    if connection_type:
+                        self._run_nmce_create(connection_type, activate)
+                    return
                 return
 
             if device and device.get_state() == NM.DeviceState.ACTIVATED:
@@ -614,18 +628,14 @@ class NetworkControlBox(GObject.GObject):
 
         PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
 
-    def _default_eth_con(self, iface, autoconnect):
-        con = NM.SimpleConnection.new()
-        s_con = NM.SettingConnection.new()
-        s_con.set_property('uuid', str(uuid4()))
-        s_con.set_property('id', iface)
-        s_con.set_property('interface-name', iface)
-        s_con.set_property('autoconnect', autoconnect)
-        s_con.set_property('type', NM_CONNECTION_TYPE_ETHERNET)
-        s_wired = NM.SettingWired.new()
-        con.add_setting(s_con)
-        con.add_setting(s_wired)
-        return con
+    def _run_nmce_create(self, connection_type, activate):
+        self.kill_nmce(msg="Configure button clicked")
+        proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % connection_type], reset_lang=False)
+        self._running_nmce = proc
+
+        PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
+
+
 
     def kill_nmce(self, msg=""):
         if not self._running_nmce:
@@ -719,11 +729,7 @@ class NetworkControlBox(GObject.GObject):
 
     def add_device(self, ty):
         log.info("adding device of type %s", ty)
-        self.kill_nmce(msg="Add device button clicked")
-        proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty], reset_lang=False)
-        self._running_nmce = proc
-
-        PidWatcher().watch_process(proc.pid, self.on_nmce_exited)
+        self._run_nmce_create(ty, activate=None)
 
     def selected_dev_cfg(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
