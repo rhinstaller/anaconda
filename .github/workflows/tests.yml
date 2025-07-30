@@ -23,11 +23,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
           - release: ''
             target_branch: 'main'
             ci_tag: 'main'
+          - release: 'branched_fedora'
+            target_branch: 'main'
+            ci_tag: 'fedora-43'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
           #  target_branch: 'main'
@@ -93,11 +96,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
           - release: ''
             target_branch: 'main'
             ci_tag: 'main'
+          - release: 'branched_fedora'
+            target_branch: 'main'
+            ci_tag: 'fedora-43'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
           #  target_branch: 'main'
