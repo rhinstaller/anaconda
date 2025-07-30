@@ -190,17 +190,17 @@ if __name__ == "__main__":
 
     if (opts.images or opts.dirinstall) and opts.liveinst:
         stdout_log.error("--liveinst cannot be used with --images or --dirinstall")
-        util.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
     if opts.images and opts.dirinstall:
         stdout_log.error("--images and --dirinstall cannot be used at the same time")
-        util.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
     if (opts.images or opts.dirinstall) and not opts.ksfile:
         stdout_log.error("--images and --dirinstall cannot be used without --kickstart")
-        util.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
     if opts.images or opts.dirinstall:
@@ -266,7 +266,7 @@ if __name__ == "__main__":
         else:
             print("%s already exists, exiting" % pidfile.filename)
 
-        util.ipmi_report(constants.IPMI_FAILED)
+        util.ipmi_failed()
         sys.exit(1)
 
     # assign the other anaconda variables from options
@@ -319,7 +319,7 @@ if __name__ == "__main__":
     except Exception as e:    # pylint: disable=broad-except
         stdout_log.error(str(e))
         anaconda.dbus_launcher.stop()
-        util.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_abort()
         time.sleep(10)
         sys.exit(1)
 
@@ -425,7 +425,7 @@ if __name__ == "__main__":
             disk_images[name] = path
     except ValueError as e:
         stdout_log.error("error specifying image file: %s", e)
-        util.ipmi_abort(scripts=ksdata.scripts)
+        util.ipmi_abort()
         sys.exit(1)
 
     disk_select_proxy.DiskImages = disk_images

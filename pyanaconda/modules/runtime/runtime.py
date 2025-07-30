@@ -19,6 +19,7 @@
 #
 import time
 
+from blivet import udev
 from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
 from pyanaconda import gnome_remote_desktop
@@ -30,13 +31,11 @@ from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.signal import Signal
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartService
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import PAYLOADS, RUNTIME, STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.logging import LoggingData
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
@@ -241,14 +240,11 @@ class RuntimeService(KickstartService):
             task_proxy = PAYLOADS.get_proxy(task_path)
             sync_run_task(task_proxy)
 
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
         optical_media = []
 
-        for device_id in device_tree.FindOpticalMedia():
-            device_data = DeviceData.from_structure(
-                device_tree.GetDeviceData(device_id)
-            )
-            optical_media.append(device_data.path)
+        for dev, info in udev.udev_get_block_devices().items():
+            if udev.device_is_cdrom(info) or info.get("ID_FS_TYPE") == "iso9660":
+                optical_media.append(dev)
 
         # Tear down the storage module.
         storage_proxy = STORAGE.get_proxy()
@@ -257,7 +253,7 @@ class RuntimeService(KickstartService):
             sync_run_task(task_proxy)
 
         if conf.system.can_reboot:
-            if flags.eject or self.reboot.eject:
+            if self.reboot.eject:
                 for device_path in optical_media:
                     if path.get_mount_paths(device_path):
                         util.dracut_eject(device_path)
