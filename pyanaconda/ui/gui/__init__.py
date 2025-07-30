@@ -897,7 +897,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exited.emit(self._currentAction)
-            util.ipmi_abort(scripts=self.data.scripts)
+            util.ipmi_abort()
             Gtk.main_quit()
 
 

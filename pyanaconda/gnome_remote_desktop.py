@@ -101,7 +101,7 @@ class GRDServer:
         Send ipmi error message.
         """
         stdoutLog.critical(*args)
-        util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+        util.ipmi_abort()
         sys.exit(1)
 
     def _handle_rdp_certificates(self):
