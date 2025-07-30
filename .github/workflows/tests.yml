@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
           - release: ''
             target_branch: 'rhel-10'
