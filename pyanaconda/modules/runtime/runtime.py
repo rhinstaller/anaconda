@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 import time
 
 from blivet import udev
@@ -243,7 +244,11 @@ class RuntimeService(KickstartService):
 
         for dev in udev.get_devices():
             if udev.device_is_cdrom(dev) or dev.get("ID_FS_TYPE") == "iso9660":
-                self._optical_media.append(udev.device_get_name(dev))
+                devnode = dev.get("DEVNAME") or udev.device_get_name(dev)
+                if devnode and not str(devnode).startswith("/"):
+                    devnode = f"/dev/{devnode}"
+                if devnode:
+                    self._optical_media.append(devnode)
 
         # Tear down the storage module.
         storage_proxy = STORAGE.get_proxy()
@@ -253,11 +258,21 @@ class RuntimeService(KickstartService):
 
     def exit(self):
         """Perform system reboot/poweroff/halt based on RebootData."""
+        log.debug("RuntimeService: exit performed")
         if conf.system.can_reboot:
-            if self.reboot.eject:
-                for device_path in self._optical_media:
-                    if path.get_mount_paths(device_path):
-                        util.dracut_eject(device_path)
+            if self._reboot.eject:
+                for dev in self._optical_media:
+                    node = dev if str(dev).startswith("/") else f"/dev/{dev}"
+
+                    if not os.path.exists(node):
+                        continue
+
+                    try:
+                        if path.get_mount_paths(node):
+                            util.dracut_eject(node)
+                            log.info("Scheduled eject via dracut for %s", node)
+                    except FileNotFoundError:
+                        pass
 
             if self._reboot.kexec:
                 util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
