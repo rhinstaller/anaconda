@@ -23,11 +23,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
           - release: ''
             target_branch: 'main'
             ci_tag: 'main'
+          - release: 'branched_fedora'
+            target_branch: 'main'
+            ci_tag: 'branched_fedora'
+            build-args: '--build-arg=image=quay.io/fedora/fedora:42-x86_64'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
           #  target_branch: 'main'
@@ -93,11 +97,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
           - release: ''
             target_branch: 'main'
             ci_tag: 'main'
+          - release: 'branched_fedora'
+            target_branch: 'main'
+            ci_tag: 'branched_fedora'
+            build-args: '--build-arg=image=quay.io/fedora/fedora:42-x86_64'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
           #  target_branch: 'main'

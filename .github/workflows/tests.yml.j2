@@ -24,12 +24,16 @@ jobs:
         # * This is still a matrix because we might re-enable ELN one day and then we will need
         #   a matrix here.
         #}
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
         {% if distro_name == "fedora" and distro_release == "rawhide" %}
           - release: ''
             target_branch: 'main'
             ci_tag: 'main'
+          - release: 'branched_fedora'
+            target_branch: 'main'
+            ci_tag: 'branched_fedora'
+            build-args: '--build-arg=image=quay.io/fedora/fedora:42-x86_64'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
           #  target_branch: 'main'
@@ -106,11 +110,15 @@ jobs:
       matrix:
         {# For matrix details, see comments for the unit tests above. #}
         {% if distro_name == "fedora" and distro_release == "rawhide" %}
-        release: ['']
+        release: ['', 'branched_fedora']
         include:
           - release: ''
             target_branch: 'main'
             ci_tag: 'main'
+          - release: 'branched_fedora'
+            target_branch: 'main'
+            ci_tag: 'branched_fedora'
+            build-args: '--build-arg=image=quay.io/fedora/fedora:42-x86_64'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: eln
           #  target_branch: 'main'
