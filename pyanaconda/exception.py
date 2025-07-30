@@ -112,15 +112,15 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
-            self._run_kickstart_scripts(dump_info)
+            self._run_kickstart_scripts()
             util.ipmi_report(IPMI_FAILED)
             sys.exit(1)
         elif isinstance(value, UnusableStorageError):
-            self._run_kickstart_scripts(dump_info)
+            self._run_kickstart_scripts()
             util.ipmi_report(IPMI_FAILED)
             sys.exit(1)
         elif isinstance(value, NonInteractiveError):
-            self._run_kickstart_scripts(dump_info)
+            self._run_kickstart_scripts()
             util.ipmi_report(IPMI_FAILED)
             sys.exit(1)
         else:
@@ -197,7 +197,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     # to acknowledge the error; instead, print the error out and sleep
                     # for a few seconds before exiting the installer
                     print(cmdline_error_msg, flush=True)
-                    self._run_kickstart_scripts(dump_info)
+                    self._run_kickstart_scripts()
                     util.ipmi_report(IPMI_FAILED)
                     time.sleep(180)
                     sys.exit(1)
@@ -233,11 +233,11 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 log.error("Failed to copy %s to %s/root", self.exnFile, conf.target.system_root)
 
         # run kickstart traceback scripts (if necessary)
-        self._run_kickstart_scripts(dump_info)
+        self._run_kickstart_scripts()
 
         util.ipmi_report(IPMI_FAILED)
 
-    def _run_kickstart_scripts(self, _dump_info):
+    def _run_kickstart_scripts(self):
         """Run the %traceback and %onerror kickstart scripts."""
         scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
 

@@ -34,6 +34,7 @@ import tempfile
 import types
 
 import requests
+from pykickstart.constants import KS_SCRIPT_ONERROR
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
@@ -44,16 +45,17 @@ from pyanaconda.core.constants import (
     DRACUT_REPO_DIR,
     DRACUT_SHUTDOWN_EJECT,
     IPMI_ABORTED,
+    IPMI_FAILED,
     PACKAGES_LIST_FILE,
 )
 from pyanaconda.core.live_user import get_live_user
 from pyanaconda.core.path import join_paths, make_directories, open_with_perm
 from pyanaconda.errors import RemovedModuleError
+from pyanaconda.modules.common.constants.objects import SCRIPTS
+from pyanaconda.modules.common.constants.services import RUNTIME
 
 log = get_module_logger(__name__)
 program_log = get_program_logger()
-
-from pykickstart.constants import KS_SCRIPT_ONERROR
 
 _child_env = {}
 
@@ -601,18 +603,24 @@ def ipmi_report(event):
     os.remove(path)
 
 
-def ipmi_abort(scripts=None):
+def ipmi_abort():
     ipmi_report(IPMI_ABORTED)
-    runOnErrorScripts(scripts)
+    runOnErrorScripts()
 
 
-def runOnErrorScripts(scripts):
-    if not scripts:
-        return
+def ipmi_failed():
+    ipmi_report(IPMI_FAILED)
+    runOnErrorScripts()
 
-    log.info("Running kickstart %%onerror script(s)")
-    for script in filter(lambda s: s.type == KS_SCRIPT_ONERROR, scripts):
-        script.run("/")
+
+def runOnErrorScripts():
+    from pyanaconda.modules.common.task import sync_run_task
+    scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+
+    # OnError script call
+    onerror_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_ONERROR)
+    onerror_task_proxy = RUNTIME.get_proxy(onerror_task_path)
+    sync_run_task(onerror_task_proxy)
     log.info("All kickstart %%onerror script(s) have been run")
 
 

@@ -147,6 +147,7 @@ if __name__ == "__main__":
 
     # Append Python paths to Anaconda addons at the end.
     from pyanaconda.core.constants import ADDON_PATHS
+
     sys.path.extend(ADDON_PATHS)
 
     from pyanaconda import startup_utils
@@ -440,7 +441,7 @@ if __name__ == "__main__":
             disk_images[name] = path
     except ValueError as e:
         stdout_log.error("error specifying image file: %s", e)
-        util.ipmi_abort(scripts=ksdata.scripts)
+        util.ipmi_abort()
         sys.exit(1)
 
     disk_select_proxy.DiskImages = disk_images

@@ -288,7 +288,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
                 rc = dialog.run()
 
             if rc != 1:
-                ipmi_abort(scripts=self.data.scripts)
+                ipmi_abort()
                 sys.exit(0)
 
         StandaloneSpoke._on_continue_clicked(self, window, user_data)
