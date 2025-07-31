@@ -46,4 +46,4 @@ class RPMTestCase(TestCase):
         This expects files in a place where `make rpms` or `make mock-rpms` will place them.
         """
         rpm_path = os.environ[RPM_BUILD_DIR_ENV]
-        return glob.glob(rpm_path + os.path.sep + "*[0-9].rpm")
+        return glob.glob(rpm_path + os.path.sep + "*.rpm")
