@@ -73,8 +73,10 @@ BuildRequires: s390utils-devel
 BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libxml2
 
-Requires: anaconda-gui = %{version}-%{release}
+# TUI is always required as fallback
 Requires: anaconda-tui = %{version}-%{release}
+# Note: anaconda-gui will be auto-installed for non-live installations via Supplements
+# Note: anaconda-live already requires anaconda-webui for live installations
 
 %description
 The anaconda package is a metapackage for the Anaconda installer.
@@ -251,6 +253,9 @@ Summary: Installation image specific dependencies
 # This package must have no weak dependencies.
 # Pull in most stuff with the -env- metapackage
 Requires: anaconda-install-env-deps = %{version}-%{release}
+# Lorax does not pull in weak dependencies, so the 'Supplements: (anaconda unless anaconda-live)`
+# for `anaconda-gui` won't have any effect for Lorax built images. Pull it directly here.
+Requires: anaconda-gui = %{version}-%{release}
 # Require storage things that are only recommended in -env-
 %ifarch x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
@@ -313,6 +318,8 @@ Requires: NetworkManager-wifi
 Requires: blivet-gui-runtime >= %{blivetguiver}
 %endif
 Requires: system-logos
+# Auto-install for non-live installations (live installations use WebUI instead)
+Supplements: (anaconda unless anaconda-live)
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
