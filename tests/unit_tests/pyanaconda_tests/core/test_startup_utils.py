@@ -317,8 +317,9 @@ class StartupUtilsGeolocApplyTestCase(unittest.TestCase):
 
 class TestUIHelpers(unittest.TestCase):
 
+    @patch("pyanaconda.startup_utils.pkgutil")
     @patch("pyanaconda.startup_utils.flags")
-    def test_fallback_tui_when_gtk_ui_not_available(self, mocked_flags):
+    def test_fallback_tui_when_gtk_ui_not_available(self, mocked_flags, mocked_pkgutil):
         mocked_anaconda = Mock()
 
         def check_method(gui_mode,
@@ -328,12 +329,16 @@ class TestUIHelpers(unittest.TestCase):
                          expected_rd_output):
             mocked_anaconda.gui_mode = gui_mode
             mocked_anaconda.is_webui_supported = webui_supported
-            mocked_anaconda.is_gtk_ui_supported = gtk_available
 
             # prefilled values
             mocked_anaconda.display_mode = ""
             mocked_flags.use_rd = None
             mocked_flags.rd_question = None
+
+            if gtk_available:
+                mocked_pkgutil.iter_modules.return_value = [(None, "pyanaconda.ui.gui")]
+            else:
+                mocked_pkgutil.iter_modules.return_value = [(None, "pyanaconda.ui.webui")]
 
             fallback_to_tui_if_gtk_ui_is_not_available(mocked_anaconda)
 

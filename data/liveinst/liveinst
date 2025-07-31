@@ -236,10 +236,8 @@ start_anaconda_web_ui() {
 }
 
 start_anaconda() {
-    # Start the Anaconda Web UI early to display the loading screen.
-    # This is done only if 'anaconda-webui' is installed and 'anaconda-gui' is not.
-    # Note: 'anaconda-gui' takes precedence over 'anaconda-webui'.
-    if [ -e "/usr/share/cockpit/anaconda-webui" ] && [ ! -d "/usr/share/anaconda/ui/spokes" ]; then
+    # start Firefox to use Anaconda Web UI if it is installed
+    if [ -e "/usr/share/cockpit/anaconda-webui" ]; then
         start_anaconda_web_ui
     fi
     # start Anaconda main process
