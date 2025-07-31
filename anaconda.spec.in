@@ -292,6 +292,8 @@ Requires: podman
 # needed for encrypted DNS
 Requires: dnsconfd
 Requires: dnsconfd-dracut
+Requires: coreutils
+Requires: /usr/bin/chcon
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation

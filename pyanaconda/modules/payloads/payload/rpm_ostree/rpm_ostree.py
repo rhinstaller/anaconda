@@ -35,6 +35,10 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     SetSystemRootTask,
     TearDownOSTreeMountTargetsTask,
 )
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
+from pyanaconda.modules.payloads.source.bootc.bootc_interface import (
+    BootcSourceInterface,
+)
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
     RPMOSTreeInterface,
 )
@@ -75,6 +79,7 @@ class RPMOSTreeModule(PayloadBase):
             SourceType.RPM_OSTREE,
             SourceType.RPM_OSTREE_CONTAINER,
             SourceType.FLATPAK,
+            SourceType.BOOTC
         ]
 
     def process_kickstart(self, data):
@@ -82,11 +87,23 @@ class RPMOSTreeModule(PayloadBase):
         source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
 
         if source_type is None:
-            return
+            log.debug("XXX No RPM OSTree source")
+            log.debug("XXX Looking for bootc source")
+            """ Try bootc source """
+            source_type = SourceFactory.get_bootc_type_for_kickstart(data)
+            if source_type is None:
+                return
+
+        if source_type == SourceType.BOOTC:
+            log.debug("XXX Source found: BOOTC!")
 
         source = SourceFactory.create_source(source_type)
         source.process_kickstart(data)
+        log.debug("XXX Before add")
+        self._get_ostree_source()
         self.add_source(source)
+        log.debug("XXX After add")
+        self._get_ostree_source()
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -96,9 +113,17 @@ class RPMOSTreeModule(PayloadBase):
     def _get_ostree_source(self):
         """Get source for RPM OSTree.
 
-        Find out if we need OSTree repo or container source type.
+        Find out if we need OSTree repo, container or bootc source type.
         """
-        return self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
+        if self._get_source(SourceType.BOOTC):
+            log.debug("XXX BOOTC on source list")
+        if self._get_source(SourceType.RPM_OSTREE_CONTAINER):
+            log.debug("XXX RPM_OSTREE_CONTAINER on source list")
+        if self._get_source(SourceType.RPM_OSTREE):
+            log.debug("XXX RPM_OSTREE on source list")
+
+        return self._get_source(SourceType.BOOTC) or \
+            self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
             self._get_source(SourceType.RPM_OSTREE)
 
     def install_with_tasks(self):
@@ -106,7 +131,13 @@ class RPMOSTreeModule(PayloadBase):
 
         :return: list of tasks
         """
+        log.debug("XXX just befora call for _get_ostree_sources()")
         ostree_source = self._get_ostree_source()
+
+        if ostree_source == SourceType.BOOTC:
+            log.debug("XXX OSTree source selected: BOOTC")
+        else:
+            log.debug("XXX OSTree source selected: NOT BOOTC!")
 
         if not ostree_source:
             log.debug("No OSTree RPM source is available.")
@@ -114,50 +145,66 @@ class RPMOSTreeModule(PayloadBase):
 
         data = ostree_source.configuration
 
-        tasks = [
-            InitOSTreeFsAndRepoTask(
-                physroot=conf.target.physical_root
-            ),
-            ChangeOSTreeRemoteTask(
-                data=data,
-                physroot=conf.target.physical_root
-            )
-        ]
+        tasks = []
 
         # separate pulling of the container will be handled by deployment on the container
         # otherwise handled by Deploy task
-        if not data.is_container():
-            tasks.append(
-                PullRemoteAndDeleteTask(
+        if not isinstance(data, BootcConfigurationData):
+            log.debug("XXX Ostree set of tasks")
+            if not data.is_container():
+                tasks.append(
+                    PullRemoteAndDeleteTask(
+                        data=data,
+                    ))
+
+            tasks += [
+                InitOSTreeFsAndRepoTask(
+                    physroot=conf.target.physical_root
+                ),
+                ChangeOSTreeRemoteTask(
                     data=data,
-                ))
+                    physroot=conf.target.physical_root
+                ),
+                DeployOSTreeTask(
+                    data=data,
+                    physroot=conf.target.physical_root
+                ),
+                SetSystemRootTask(
+                    physroot=conf.target.physical_root
+                ),
+                CopyBootloaderDataTask(
+                    physroot=conf.target.physical_root,
+                    sysroot=conf.target.system_root
+                ),
+                PrepareOSTreeMountTargetsTask(
+                    data=data,
+                    physroot=conf.target.physical_root,
+                    sysroot=conf.target.system_root
+                )
+            ]
 
-        tasks += [
-            DeployOSTreeTask(
-                data=data,
-                physroot=conf.target.physical_root
-            ),
-            SetSystemRootTask(
-                physroot=conf.target.physical_root
-            ),
-            CopyBootloaderDataTask(
-                physroot=conf.target.physical_root,
-                sysroot=conf.target.system_root
-            ),
-            PrepareOSTreeMountTargetsTask(
-                data=data,
-                physroot=conf.target.physical_root,
-                sysroot=conf.target.system_root
-            )
-        ]
+            flatpak_source = self._get_source(SourceType.FLATPAK)
 
-        flatpak_source = self._get_source(SourceType.FLATPAK)
-
-        if flatpak_source:
-            task = InstallFlatpaksTask(
-                sysroot=conf.target.system_root
-            )
-            tasks.append(task)
+            if flatpak_source:
+                task = InstallFlatpaksTask(
+                    sysroot=conf.target.system_root
+                )
+                tasks.append(task)
+        else:
+            log.debug("XXX Bootc set of tasks")
+            tasks += [
+                DeployOSTreeTask(
+                    data=data,
+                    physroot=conf.target.physical_root
+                ),
+                SetSystemRootTask(
+                    physroot=conf.target.physical_root
+                ),
+                CopyBootloaderDataTask(
+                    physroot=conf.target.physical_root,
+                    sysroot=conf.target.system_root
+                )
+            ]
 
         self._collect_mount_points_on_success(tasks)
         return tasks
