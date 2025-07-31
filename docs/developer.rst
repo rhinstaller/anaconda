@@ -9,6 +9,7 @@ Contents:
    :maxdepth: 1
 
    developer/commit-log
+   developer/lorax-template-patching.rst
    developer/configuration-files
    developer/driverdisc
    developer/iscsi
