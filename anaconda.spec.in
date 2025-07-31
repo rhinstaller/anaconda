@@ -513,6 +513,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 31 2025 github-actions <github-actions@github.com> - 43.33-1
+- Revert "Default to GTK UI when available, fallback to Web UI otherwise"
+  (k.koukiou)
+- Rename DNF strings to Flatpak in installation.py (jkonecny)
+- Remove unused Flatpak manager code (jkonecny)
+
 * Tue Jul 29 2025 github-actions <github-actions@github.com> - 43.32-1
 - Make sure the pre_install queue is run (#2378660) (mkolman)
 - Default to GTK UI when available, fallback to Web UI otherwise (k.koukiou)
