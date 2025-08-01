@@ -814,7 +814,7 @@ class MiscTests(unittest.TestCase):
         script1 = Mock(type=KS_SCRIPT_ONERROR)
         script2 = Mock(type=KS_SCRIPT_POST)
 
-        util.ipmi_abort([script1, script2])
+        util.ipmi_abort()
 
         ipmi_mock.assert_called_with(util.IPMI_ABORTED)
         script1.run.assert_called_once_with("/")
