@@ -47,7 +47,7 @@ from pyanaconda.core.constants import (
     PACKAGES_LIST_FILE,
 )
 from pyanaconda.core.live_user import get_live_user
-from pyanaconda.core.path import join_paths, make_directories, open_with_perm
+from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.errors import RemovedModuleError
 
 log = get_module_logger(__name__)
@@ -872,42 +872,6 @@ class LazyObject:
             return super().__setattr__(name, value)
 
         return setattr(self._object, name, value)
-
-
-def get_os_release_value(name, sysroot="/"):
-    """Read os-release files and return a value of the specified parameter.
-
-    :param name: a name of the parameter (for example, "VERSION_ID")
-    :param sysroot: a path to the system root
-    :return: a string with the value of None if nothing found
-    """
-    # Match the variable assignment (for example, "VERSION_ID=").
-    name += "="
-
-    # Search all os-release files in the system root.
-    paths = ("/etc/os-release", "/usr/lib/os-release")
-
-    for path in paths:
-        try:
-            with open(join_paths(sysroot, path), "r") as f:
-                for line in f:
-                    # Match the current line.
-                    if not line.startswith(name):
-                        continue
-
-                    # Get the value.
-                    value = line[len(name):]
-
-                    # Strip spaces and then quotes.
-                    value = value.strip().strip("\"'")
-                    return value
-        except FileNotFoundError:
-            pass
-
-    # No value found.
-    log.debug("%s not found in os-release files", name[:-1])
-    return None
-
 
 def restorecon(paths, root, skip_nonexistent=False):
     """Try to restore contexts for a list of paths.
