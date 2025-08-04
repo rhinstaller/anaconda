@@ -65,8 +65,6 @@ class FlatpakManager:
         :param function callback: a progress reporting callback
         """
         self._flatpak_refs = []
-        # FIXME: Not set by anything right now
-        self._source_repository = None
 
         self._source = None
         self._skip_installation = True
@@ -170,15 +168,9 @@ class FlatpakManager:
     def get_source(self):
         """Retrieve flatpak source."""
         if self._source is None:
-            if self._source_repository:
-                log.debug("Using Flatpak source repository at: %s/Flatpaks",
-                          self._source_repository.url)
-                self._source = FlatpakStaticSource(self._source_repository,
-                                                   relative_path="Flatpaks")
-            else:
-                _, remote_url = conf.payload.flatpak_remote
-                log.debug("Using Flatpak registry source: %s", remote_url)
-                self._source = FlatpakRegistrySource(remote_url)
+            _, remote_url = conf.payload.flatpak_remote
+            log.debug("Using Flatpak registry source: %s", remote_url)
+            self._source = FlatpakRegistrySource(remote_url)
 
         return self._source
 
