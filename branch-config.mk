@@ -26,16 +26,8 @@
 # conflicts on multiple places.
 
 
-# Name of the expected current git branch.
-# This could be main, fedora-XX, rhel-X ...
-GIT_BRANCH ?= main
-
-# Directory for this anaconda branch in anaconda-l10n repository. This could be main, fXX, rhel-8 etc.
+GIT_BRANCH ?= fedora-43
 L10N_DIR ?= main
-
-# Base container for our containers.
-BASE_CONTAINER ?= registry.fedoraproject.org/fedora:rawhide
-
-# COPR repo for use in container builds.
+BASE_CONTAINER ?= registry.fedoraproject.org/fedora:43
 COPR_REPO ?= \@rhinstaller/Anaconda
 
