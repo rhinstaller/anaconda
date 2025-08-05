@@ -513,6 +513,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 05 2025 github-actions <github-actions@github.com> - 43.34-1
+- Document Lorax template patching (mkolman)
+
 * Thu Jul 31 2025 github-actions <github-actions@github.com> - 43.33-1
 - Revert "Default to GTK UI when available, fallback to Web UI otherwise"
   (k.koukiou)
