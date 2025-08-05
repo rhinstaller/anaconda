@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['main', 'rhel-9', 'rhel-10']
+        release: ['main', 'rhel-9', 'rhel-10', 'fedora-43']
         include:
           - release: 'main'
             target_branch: 'main'
@@ -58,6 +58,9 @@ jobs:
           - release: 'rhel-10'
             target_branch: 'rhel-10'
             ci_tag: 'rhel-10'
+          - release: 'fedora-43'
+            target_branch: 'fedora-43'
+            ci_tag: 'fedora-43'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -90,7 +93,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['main', 'rhel-9', 'rhel-10']
+        release: ['main', 'rhel-9', 'rhel-10', 'fedora-43']
         include:
           - release: 'main'
             target_branch: 'main'
@@ -101,6 +104,9 @@ jobs:
           - release: 'rhel-10'
             target_branch: 'rhel-10'
             ci_tag: 'rhel-10'
+          - release: 'fedora-43'
+            target_branch: 'fedora-43'
+            ci_tag: 'fedora-43'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'

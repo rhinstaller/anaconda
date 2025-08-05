@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['main', 'rhel-9', 'rhel-10']
+        branch: ['main', 'rhel-9', 'rhel-10', 'fedora-43']
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     uses: ./.github/workflows/container-rebuild-action.yml
