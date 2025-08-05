@@ -142,7 +142,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             return False
         part_type = bootloader_parts[0].fstype
 
-        partition_table_types = {disk.format.parted_disk.type for disk in storage.disks}
+        partition_table_types = {disk.format.parted_disk.type for disk in storage.disks if disk.partitioned and not disk.protected}
         devices = []
 
         for device in storage.devices:

@@ -432,10 +432,20 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.destroy_device')
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
     def test_remove_bootloader_partitions(self, platform, destroy_device):
+        # Mock a regular partitioned, unprotected disk
+        regular_disk = Mock()
+        regular_disk.partitioned = True
+        regular_disk.protected = False
+        regular_disk.format.parted_disk.type = "gpt"
+
+        # Mock an ISO device and add it to selected disks to ensure it does not cause AttributeError
+        iso_device = Mock()
+        iso_device.partitioned = False
+        iso_device.protected = True  # ISO devices are protected
+        del iso_device.format.parted_disk  # No parted_disk attribute
+
         storage = Mock()
-        storage.disks = [
-            Mock(format=Mock(parted_disk=Mock(type="gpt")))
-        ]
+        storage.disks = [regular_disk, iso_device]  # Mixed device types
 
         # Test platfrorm bootloader partitions
 
@@ -567,7 +577,7 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
     def test_remove_bootloader_partitions_mbr(self, platform, destroy_device):
         storage = Mock()
         storage.disks = [
-            Mock(format=Mock(parted_disk=Mock(type="msdos")))
+            Mock(partitioned=True, protected=False, format=Mock(parted_disk=Mock(type="msdos")))
         ]
 
         # Test platfrorm bootloader partitions
@@ -671,7 +681,6 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         with pytest.raises(StorageError) as e:
             AutomaticPartitioningTask._remove_bootloader_partitions(storage)
         assert e.match("Both boot")
-
 
     def test_get_mountpoint_device(self):
         storage = Mock()
@@ -842,7 +851,7 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
             storage.roots[0].mounts["/boot"] = boot_device
 
         storage.disks = [
-            Mock(format=Mock(parted_disk=Mock(type="gpt")))
+            Mock(partitioned=True, protected=False, format=Mock(parted_disk=Mock(type="gpt")))
         ]
 
         return storage, bootloader_device, boot_device, root_device, home_device
