@@ -29,10 +29,11 @@ from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget
 
+from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import QUIT_MESSAGE, USERDP, USETEXT
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.util import execWithRedirect, ipmi_abort
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
@@ -123,7 +124,7 @@ class AskRDSpoke(NormalTUISpoke):
                 d = YesNoDialog(_(QUIT_MESSAGE))
                 ScreenHandler.push_screen_modal(d)
                 if d.answer:
-                    ipmi_abort(scripts=self.data.scripts)
+                    util.ipmi_abort()
                     if conf.system.can_reboot:
                         execWithRedirect("systemctl", ["--no-wall", "reboot"])
                     else:
