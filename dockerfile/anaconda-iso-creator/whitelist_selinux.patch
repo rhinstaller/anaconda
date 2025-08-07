@@ -1,0 +1,17 @@
+diff --git a/share/templates.d/99-generic/runtime-cleanup.tmpl b/share/templates.d/99-generic/runtime-cleanup.tmpl
+index f05509e0..4505adf0 100644
+--- a/share/templates.d/99-generic/runtime-cleanup.tmpl
++++ b/share/templates.d/99-generic/runtime-cleanup.tmpl
+@@ -18,12 +18,6 @@ removefrom dracut --allbut /usr/lib/dracut/modules.d/30convertfs/convertfs.sh \
+                   /usr/lib/dracut/modules.d/99base/dracut-lib.sh \
+                   /usr/lib/systemd/* /usr/lib/dracut/modules.d/98dracut-systemd/*.service \
+                   /usr/lib/dracut/dracut-initramfs-restore
+-## we don't run SELinux (not in enforcing, anyway)
+-removepkg selinux-policy libselinux-utils
+-
+-## selinux checks for the /etc/selinux/config file's existance
+-## The removepkg above removes it, create an empty one. See rhbz#1243168
+-append etc/selinux/config ""
+ 
+ ## keep enough of shadow-utils to create accounts
+ removefrom shadow-utils --allbut /usr/bin/chage /usr/*bin/chpasswd \
