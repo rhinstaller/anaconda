@@ -1,0 +1,60 @@
+From e7b6b1c8ea2d435e187205e7b505b564974e2c7a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Pawe=C5=82=20Po=C5=82awski?= <ppolawsk@redhat.com>
+Date: Fri, 10 Oct 2025 00:02:02 +0200
+Subject: [PATCH] Do not remove SELinux from the runtime
+
+* Do not remove SELinux packages when ISO is created
+* Update the /etc/selinux file to:
+    * SELINUX=disabled
+    * SELINUXTYPE=targeted
+---
+ share/templates.d/99-generic/runtime-cleanup.tmpl     | 6 ------
+ share/templates.d/99-generic/runtime-install.tmpl     | 2 +-
+ share/templates.d/99-generic/runtime-postinstall.tmpl | 1 +
+ 3 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/share/templates.d/99-generic/runtime-cleanup.tmpl b/share/templates.d/99-generic/runtime-cleanup.tmpl
+index d33c02b8..8c686834 100644
+--- a/share/templates.d/99-generic/runtime-cleanup.tmpl
++++ b/share/templates.d/99-generic/runtime-cleanup.tmpl
+@@ -18,12 +18,6 @@ removefrom dracut --allbut /usr/lib/dracut/modules.d/30convertfs/convertfs.sh \
+                   /usr/lib/dracut/modules.d/99base/dracut-lib.sh \
+                   /usr/lib/systemd/* /usr/lib/dracut/modules.d/98dracut-systemd/*.service \
+                   /usr/lib/dracut/dracut-initramfs-restore
+-## we don't run SELinux (not in enforcing, anyway)
+-removepkg selinux-policy libselinux-utils
+-
+-## selinux checks for the /etc/selinux/config file's existance
+-## The removepkg above removes it, create an empty one. See rhbz#1243168
+-append etc/selinux/config ""
+ 
+ ## keep enough of shadow-utils to create accounts
+ removefrom shadow-utils --allbut /usr/bin/chage /usr/*bin/chpasswd \
+diff --git a/share/templates.d/99-generic/runtime-install.tmpl b/share/templates.d/99-generic/runtime-install.tmpl
+index a2ffd036..28212530 100644
+--- a/share/templates.d/99-generic/runtime-install.tmpl
++++ b/share/templates.d/99-generic/runtime-install.tmpl
+@@ -120,7 +120,7 @@ installpkg volume_key
+ installpkg nss-tools
+ 
+ ## SELinux support
+-installpkg selinux-policy-targeted audit
++installpkg selinux-policy libselinux-utils selinux-policy-targeted audit
+ 
+ ## network tools/servers
+ installpkg ethtool openssh-server nfs-utils openssh-clients
+diff --git a/share/templates.d/99-generic/runtime-postinstall.tmpl b/share/templates.d/99-generic/runtime-postinstall.tmpl
+index 31cb0ff8..142b05a6 100644
+--- a/share/templates.d/99-generic/runtime-postinstall.tmpl
++++ b/share/templates.d/99-generic/runtime-postinstall.tmpl
+@@ -76,6 +76,7 @@ install ${configdir}/sysctl.conf etc/sysctl.d/anaconda.conf
+ install ${configdir}/spice-vdagentd etc/sysconfig
+ mkdir etc/NetworkManager/conf.d
+ install ${configdir}/91-anaconda-autoconnect-slaves.conf etc/NetworkManager/conf.d
++install ${configdir}/selinux.config etc/selinux/config
+ install ${configdir}/vconsole.conf etc
+ install ${configdir}/92-anaconda-loglevel-debug.conf etc/NetworkManager/conf.d
+ 
+-- 
+2.51.0
+
