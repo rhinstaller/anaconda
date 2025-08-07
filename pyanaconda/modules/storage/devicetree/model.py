@@ -499,10 +499,12 @@ class InstallerStorage(Blivet):
 
         if os.path.islink(path):
             # return early if the mtab symlink is already how we like it
-            current_target = os.path.normpath(os.path.dirname(path) +
-                                              "/" + os.readlink(path))
-            if current_target == target:
-                return
+            target_full = os.path.normpath("%s%s" % (chroot, target))
+            try:
+                if os.path.samefile(path, target_full):
+                    return
+            except OSError:
+                pass
 
         if os.path.exists(path):
             os.unlink(path)
