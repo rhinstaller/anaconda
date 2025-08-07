@@ -68,6 +68,9 @@ class PayloadFactory:
         if data.ostreesetup.seen or data.ostreecontainer.seen:
             return PayloadType.RPM_OSTREE
 
+        if data.bootc.seen:
+            return PayloadType.RPM_OSTREE
+
         if data.liveimg.seen:
             return PayloadType.LIVE_IMAGE
 
