@@ -3,7 +3,10 @@
 set -eu -o pipefail
 
 check() {
-    [[ $hostonly ]] && return 1
+    if [[ $hostonly ]]; then
+        derror "The anaconda module doesn't support the host-only mode."
+        return 1
+    fi
     return 255 # this module is optional
 }
 
