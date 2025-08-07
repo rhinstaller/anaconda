@@ -22,86 +22,99 @@
 # pylint:disable=unused-import
 # ruff: noqa: F401, I001
 
-# Supported kickstart commands.
-from pykickstart.commands.authselect import F28_Authselect as Authselect
-from pykickstart.commands.autopart import F41_AutoPart as AutoPart
-from pykickstart.commands.bootc import F43_Bootc as Bootc
-from pykickstart.commands.bootloader import F39_Bootloader as Bootloader
-from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
-from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
-from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
-from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
-from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
-from pykickstart.commands.module import F41_Module as Module
-from pykickstart.commands.eula import F20_Eula as Eula
-from pykickstart.commands.fcoe import F28_Fcoe as Fcoe
-from pykickstart.commands.firewall import F28_Firewall as Firewall
-from pykickstart.commands.firstboot import FC3_Firstboot as Firstboot
-from pykickstart.commands.group import F12_Group as Group
-from pykickstart.commands.harddrive import F33_HardDrive as HardDrive
-from pykickstart.commands.hmc import F28_Hmc as Hmc
-from pykickstart.commands.ignoredisk import F34_IgnoreDisk as IgnoreDisk
-from pykickstart.commands.iscsi import F17_Iscsi as Iscsi
-from pykickstart.commands.iscsiname import FC6_IscsiName as IscsiName
-from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
-from pykickstart.commands.lang import F19_Lang as Lang
-from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
-from pykickstart.commands.logging import F40_Logging as Logging
-from pykickstart.commands.logvol import F29_LogVol as LogVol
-from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
-from pykickstart.commands.mount import F27_Mount as Mount
-from pykickstart.commands.network import F39_Network as Network
-from pykickstart.commands.nfs import FC6_NFS as NFS
-from pykickstart.commands.nvdimm import F40_Nvdimm as Nvdimm
-from pykickstart.commands.ostreecontainer import F43_OSTreeContainer as OSTreeContainer
-from pykickstart.commands.ostreesetup import F43_OSTreeSetup as OSTreeSetup
-from pykickstart.commands.partition import F41_Partition as Partition
-from pykickstart.commands.raid import F43_Raid as Raid
-from pykickstart.commands.rdp import F43_RDP as RDP
-from pykickstart.commands.realm import F19_Realm as Realm
-from pykickstart.commands.reboot import F23_Reboot as Reboot
-from pykickstart.commands.repo import F40_Repo as Repo
-from pykickstart.commands.reqpart import F23_ReqPart as ReqPart
-from pykickstart.commands.rescue import F10_Rescue as Rescue
-from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
-from pykickstart.commands.rootpw import F37_RootPw as RootPw
-from pykickstart.commands.selinux import FC3_SELinux as SELinux
-from pykickstart.commands.services import FC6_Services as Services
-from pykickstart.commands.skipx import FC3_SkipX as SkipX
-from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
-from pykickstart.commands.sshpw import F24_SshPw as SshPw
-from pykickstart.commands.sshkey import F22_SshKey as SshKey
-from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
-from pykickstart.commands.timezone import F40_Timezone as Timezone
-from pykickstart.commands.timesource import F33_Timesource as Timesource
-from pykickstart.commands.updates import F34_Updates as Updates
-from pykickstart.commands.url import F30_Url as Url
-from pykickstart.commands.user import F24_User as User
-from pykickstart.commands.vnc import F43_Vnc as Vnc
-from pykickstart.commands.volgroup import F21_VolGroup as VolGroup
-from pykickstart.commands.xconfig import F14_XConfig as XConfig
-from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
-from pykickstart.commands.zfcp import F37_ZFCP as ZFCP
-from pykickstart.commands.zipl import F32_Zipl as Zipl
+# Get command classes dynamically from our OS-release based version detection
+from pyanaconda.core.kickstart.version import VERSION
+from pykickstart.handlers.control import commandMap, dataMap
 
-# Supported kickstart data.
-from pykickstart.commands.btrfs import F23_BTRFSData as BTRFSData
-from pykickstart.commands.driverdisk import F14_DriverDiskData as DriverDiskData
-from pykickstart.commands.module import F31_ModuleData as ModuleData
-from pykickstart.commands.fcoe import F28_FcoeData as FcoeData
-from pykickstart.commands.group import F12_GroupData as GroupData
-from pykickstart.commands.iscsi import F17_IscsiData as IscsiData
-from pykickstart.commands.logvol import F29_LogVolData as LogVolData
-from pykickstart.commands.mount import F27_MountData as MountData
-from pykickstart.commands.network import F39_NetworkData as NetworkData
-from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
-from pykickstart.commands.partition import F41_PartData as PartData
-from pykickstart.commands.raid import F29_RaidData as RaidData
-from pykickstart.commands.repo import F30_RepoData as RepoData
-from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
-from pykickstart.commands.sshpw import F24_SshPwData as SshPwData
-from pykickstart.commands.sshkey import F38_SshKeyData as SshKeyData
-from pykickstart.commands.timesource import F33_TimesourceData as TimesourceData
-from pykickstart.commands.user import F19_UserData as UserData
-from pykickstart.commands.volgroup import F21_VolGroupData as VolGroupData
-from pykickstart.commands.zfcp import F37_ZFCPData as ZFCPData
+# Hardcoded imports for commands that need special handling
+from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
+
+# Get the command and data maps for the default version
+_commands = commandMap[VERSION]
+_data = dataMap[VERSION]
+
+# Supported kickstart commands - dynamically imported
+Authselect = _commands['authselect']
+AutoPart = _commands['autopart']
+Bootc = _commands['bootc']
+Bootloader = _commands['bootloader']
+BTRFS = _commands['btrfs']
+Cdrom = _commands['cdrom']
+ClearPart = _commands['clearpart']
+DriverDisk = _commands['driverdisk']
+Module = _commands['module']
+Eula = _commands['eula']
+Fcoe = _commands['fcoe']
+Firewall = _commands['firewall']
+Firstboot = _commands['firstboot']
+Group = _commands['group']
+HardDrive = _commands['harddrive']
+Hmc = _commands['hmc']
+IgnoreDisk = _commands['ignoredisk']
+Iscsi = _commands['iscsi']
+IscsiName = _commands['iscsiname']
+Keyboard = _commands['keyboard']
+Lang = _commands['lang']
+Liveimg = _commands['liveimg']
+Logging = _commands['logging']
+LogVol = _commands['logvol']
+MediaCheck = _commands['mediacheck']
+Mount = _commands['mount']
+Network = _commands['network']
+NFS = _commands['nfs']
+Nvdimm = _commands['nvdimm']
+OSTreeContainer = _commands['ostreecontainer']
+OSTreeSetup = _commands['ostreesetup']
+Partition = _commands['part']  # 'part' and 'partition' both map to the same class
+RDP = _commands['rdp']
+Raid = _commands['raid']
+Realm = _commands['realm']
+Reboot = _commands['reboot']
+Repo = _commands['repo']
+ReqPart = _commands['reqpart']
+Rescue = _commands['rescue']
+RootPw = _commands['rootpw']
+SELinux = _commands['selinux']
+Services = _commands['services']
+SkipX = _commands['skipx']
+Snapshot = _commands['snapshot']
+SshPw = _commands['sshpw']
+SshKey = _commands['sshkey']
+Timezone = _commands['timezone']
+Timesource = _commands['timesource']
+Updates = _commands['updates']
+Url = _commands['url']
+User = _commands['user']
+Vnc = _commands['vnc']
+VolGroup = _commands['volgroup']
+XConfig = _commands['xconfig']
+ZeroMbr = _commands['zerombr']
+ZFCP = _commands['zfcp']
+Zipl = _commands['zipl']
+
+# RHEL-specific commands - import latest available classes regardless of current version
+# This ensures they're always available for modules and testing
+from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
+from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
+
+# Supported kickstart data - dynamically imported
+BTRFSData = _data['BTRFSData']
+DriverDiskData = _data['DriverDiskData']
+ModuleData = _data['ModuleData']
+FcoeData = _data['FcoeData']
+GroupData = _data['GroupData']
+IscsiData = _data['IscsiData']
+LogVolData = _data['LogVolData']
+MountData = _data['MountData']
+NetworkData = _data['NetworkData']
+NvdimmData = _data['NvdimmData']
+PartData = _data['PartData']
+RaidData = _data['RaidData']
+RepoData = _data['RepoData']
+SnapshotData = _data['SnapshotData']
+SshPwData = _data['SshPwData']
+SshKeyData = _data['SshKeyData']
+TimesourceData = _data['TimesourceData']
+UserData = _data['UserData']
+VolGroupData = _data['VolGroupData']
+ZFCPData = _data['ZFCPData']
