@@ -147,8 +147,8 @@ class ConfigureTimezoneTask(Task):
                 else:
                     fobj.write("LOCAL\n")
         except OSError as e:
-            msg = "Error while writing /etc/adjtime file: {}".format(e.strerror)
-            raise TimezoneConfigurationError(msg) from e
+            # In some cases /etc may be in read only mode (bootc installation)
+            log.debug("Failed to write timezone config to /etc")
 
 
 class ConfigureNTPTask(Task):
