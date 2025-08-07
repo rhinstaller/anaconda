@@ -30,9 +30,34 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError, rpm_version_k
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.storage import DeviceData
 
 log = get_module_logger(__name__)
+
+
+def get_device_path_for_mount_point(mount_point):
+    """
+    Return the device path which should be mounted on `mount_point`
+
+    :arg mount_point: The full path of the mount point
+    :returns: The device name
+    """
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    mount_points = device_tree.GetMountPoints()
+
+    for path, device_id in mount_points.items():
+        if path == mount_point:
+            device_path = DeviceData.from_structure(
+                device_tree.GetDeviceData(device_id)
+            ).path
+
+            return device_path
+
+    raise UnknownDeviceError("Unable to find a device for the mountpoint {0}".format(
+        mount_point
+    ))
 
 
 def sort_kernel_version_list(kernel_version_list):

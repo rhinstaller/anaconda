@@ -86,6 +86,11 @@ class PayloadFactoryTestCase(TestCase):
         )
 
         self._check_payload_type(
+            PayloadType.BOOTC,
+            "bootc --source-imgref=quay.io/centos-bootc/centos-bootc:stream9 --stateroot=default"
+        )
+
+        self._check_payload_type(
             PayloadType.DNF,
             "%packages\n%end"
         )

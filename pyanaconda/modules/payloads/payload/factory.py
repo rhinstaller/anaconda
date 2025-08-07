@@ -52,6 +52,10 @@ class PayloadFactory:
             )
             return RPMOSTreeModule()
 
+        if payload_type == PayloadType.BOOTC:
+            from pyanaconda.modules.payloads.payload.bootc.bootc import BootcModule
+            return BootcModule()
+
         if payload_type == PayloadType.FLATPAK:
             from pyanaconda.modules.payloads.payload.flatpak.flatpak import FlatpakModule
             return FlatpakModule()
@@ -65,6 +69,9 @@ class PayloadFactory:
         :param data: a kickstart data
         :return: a payload type
         """
+        if data.bootc.seen:
+            return PayloadType.BOOTC
+
         if data.ostreesetup.seen or data.ostreecontainer.seen:
             return PayloadType.RPM_OSTREE
 

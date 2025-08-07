@@ -26,6 +26,7 @@ from pyanaconda.anaconda_loggers import get_stdout_logger
 from pyanaconda.core import constants
 from pyanaconda.core.constants import (
     ADDON_PATHS,
+    PAYLOAD_TYPE_BOOTC,
     PAYLOAD_TYPE_LIVE_IMAGE,
     PAYLOAD_TYPE_RPM_OSTREE,
     DisplayModes,
@@ -88,6 +89,9 @@ class Anaconda:
             if payload_type == PAYLOAD_TYPE_RPM_OSTREE:
                 from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
                 payload = RPMOSTreePayload()
+            elif payload_type == PAYLOAD_TYPE_BOOTC:
+                from pyanaconda.payload.migrated import ActiveDBusPayload
+                payload = ActiveDBusPayload()
             elif self.opts.liveinst:
                 from pyanaconda.payload.live import LiveOSPayload
                 payload = LiveOSPayload()

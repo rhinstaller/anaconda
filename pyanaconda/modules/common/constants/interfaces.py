@@ -94,6 +94,11 @@ PAYLOAD_RPM_OSTREE = DBusInterfaceIdentifier(
     basename="RPMOSTree"
 )
 
+PAYLOAD_BOOTC = DBusInterfaceIdentifier(
+    namespace=PAYLOAD_NAMESPACE,
+    basename="Bootc"
+)
+
 PAYLOAD_SOURCE = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE
 )
@@ -146,6 +151,11 @@ PAYLOAD_SOURCE_HARDDRIVE = DBusInterfaceIdentifier(
 PAYLOAD_SOURCE_CDN = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="CDN"
+)
+
+PAYLOAD_SOURCE_BOOTC = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="Bootc"
 )
 
 PAYLOAD_SOURCE_RPM_OSTREE = DBusInterfaceIdentifier(

@@ -286,9 +286,17 @@ Requires: skopeo
 Requires: nvme-cli
 # Needed for bootc
 Requires: podman
+Requires: bootc
+Requires: bootupd
 # needed for encrypted DNS
 Requires: dnsconfd
 Requires: dnsconfd-dracut
+Requires: coreutils
+Requires: selinux-policy
+Requires: libselinux-utils
+Requires: selinux-policy-targeted
+Requires: policycoreutils
+Requires: policycoreutils-python-utils
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
