@@ -961,14 +961,18 @@ class BootLoader:
         except ImportError:
             pass
         else:
-            ts = rpm.TransactionSet(conf.target.system_root)
+            try:
+                ts = rpm.TransactionSet(conf.target.system_root)
 
-            # Only add "rhgb quiet" on non-s390, non-serial installs.
-            if util.isConsoleOnVirtualTerminal() \
-                    and (ts.dbMatch('provides', 'rhgb').count()
-                         or ts.dbMatch('provides', 'plymouth').count()):
+                # Only add "rhgb quiet" on non-s390, non-serial installs.
+                if util.isConsoleOnVirtualTerminal() \
+                        and (ts.dbMatch('provides', 'rhgb').count()
+                            or ts.dbMatch('provides', 'plymouth').count()):
 
-                args = ["rhgb", "quiet"]
+                    args = ["rhgb", "quiet"]
+            except:
+                log.debug("Cant access the database")
+                args = []
 
         self.boot_args.update(args)
 
