@@ -44,6 +44,13 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.get_root_device()
 
+    def GetBootDevice(self) -> Str:
+        """Get the boot device.
+
+        :return: a device ID of the boot device if any
+        """
+        return self.implementation.get_boot_device()
+
     def GetDevices(self) -> List[Str]:
         """Get all devices in the device tree.
 
