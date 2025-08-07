@@ -1,0 +1,84 @@
+commit 6c5024c12d9660dafa08f8e240e4b12b9ed32a5a
+Author: Paweł Poławski <ppolawsk@redhat.com>
+Date:   Thu Aug 21 10:23:09 2025 +0200
+
+    Enable SELinux in created images
+    
+    * Do not remove SELinux packages when ISO is created
+    * Update kernel parameters for x86 with `selinux=0 enforcing=0`
+
+diff --git a/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg b/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
+index cfca1bf6..e164068d 100644
+--- a/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
++++ b/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
+@@ -18,20 +18,20 @@ search --no-floppy --set=root -l '@ISOLABEL@'
+ 
+ ### BEGIN /etc/grub.d/10_linux ###
+ menuentry 'Install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ quiet
++	linux @KERNELPATH@ @ROOT@ quiet selinux=0 enforcing=0
+ 	initrd @INITRDPATH@
+ }
+ menuentry 'Test this media & install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ rd.live.check quiet
++	linux @KERNELPATH@ @ROOT@ rd.live.check quiet selinux=0 enforcing=0
+ 	initrd @INITRDPATH@
+ }
+ submenu 'Troubleshooting -->' {
+ 	menuentry 'Install @PRODUCT@ @VERSION@ in basic graphics mode' --class fedora --class gnu-linux --class gnu --class os {
+-		linux @KERNELPATH@ @ROOT@ nomodeset quiet
++		linux @KERNELPATH@ @ROOT@ nomodeset quiet selinux=0 enforcing=0
+ 		initrd @INITRDPATH@
+ 	}
+ 	menuentry 'Rescue a @PRODUCT@ system' --class fedora --class gnu-linux --class gnu --class os {
+-		linux @KERNELPATH@ @ROOT@ inst.rescue quiet
++		linux @KERNELPATH@ @ROOT@ inst.rescue quiet selinux=0 enforcing=0
+ 		initrd @INITRDPATH@
+ 	}
+ 	menuentry 'Boot first drive' --class fedora --class gnu-linux --class gnu --class os {
+diff --git a/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg b/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
+index c2fa2d5a..4bea4935 100644
+--- a/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
++++ b/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
+@@ -21,20 +21,20 @@ search --no-floppy --set=root -l '@ISOLABEL@'
+ 
+ ### BEGIN /etc/grub.d/10_linux ###
+ menuentry 'Install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ quiet
++	linux @KERNELPATH@ @ROOT@ quiet selinux=0 enforcing=0
+ 	initrd @INITRDPATH@
+ }
+ menuentry 'Test this media & install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ rd.live.check quiet
++	linux @KERNELPATH@ @ROOT@ rd.live.check quiet selinux=0 enforcing=0
+ 	initrd @INITRDPATH@
+ }
+ submenu 'Troubleshooting -->' {
+ 	menuentry 'Install @PRODUCT@ @VERSION@ in basic graphics mode' --class fedora --class gnu-linux --class gnu --class os {
+-		linux @KERNELPATH@ @ROOT@ nomodeset quiet
++		linux @KERNELPATH@ @ROOT@ nomodeset quiet selinux=0 enforcing=0
+ 		initrd @INITRDPATH@
+ 	}
+ 	menuentry 'Rescue a @PRODUCT@ system' --class fedora --class gnu-linux --class gnu --class os {
+-		linux @KERNELPATH@ @ROOT@ inst.rescue quiet
++		linux @KERNELPATH@ @ROOT@ inst.rescue quiet selinux=0 enforcing=0
+ 		initrd @INITRDPATH@
+ 	}
+ }
+diff --git a/share/templates.d/99-generic/runtime-cleanup.tmpl b/share/templates.d/99-generic/runtime-cleanup.tmpl
+index f05509e0..4505adf0 100644
+--- a/share/templates.d/99-generic/runtime-cleanup.tmpl
++++ b/share/templates.d/99-generic/runtime-cleanup.tmpl
+@@ -18,12 +18,6 @@ removefrom dracut --allbut /usr/lib/dracut/modules.d/30convertfs/convertfs.sh \
+                   /usr/lib/dracut/modules.d/99base/dracut-lib.sh \
+                   /usr/lib/systemd/* /usr/lib/dracut/modules.d/98dracut-systemd/*.service \
+                   /usr/lib/dracut/dracut-initramfs-restore
+-## we don't run SELinux (not in enforcing, anyway)
+-removepkg selinux-policy libselinux-utils
+-
+-## selinux checks for the /etc/selinux/config file's existance
+-## The removepkg above removes it, create an empty one. See rhbz#1243168
+-append etc/selinux/config ""
+ 
+ ## keep enough of shadow-utils to create accounts
+ removefrom shadow-utils --allbut /usr/bin/chage /usr/*bin/chpasswd \
