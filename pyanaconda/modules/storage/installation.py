@@ -276,7 +276,15 @@ class WriteConfigurationTask(Task):
             sysroot = conf.target.system_root
 
         if not os.path.isdir("%s/etc" % sysroot):
-            os.mkdir("%s/etc" % sysroot)
+            try:
+                os.mkdir("%s/etc" % sysroot)
+            except (FileExistsError, OSError) as e:
+                log.debug("Unable to create /etc dir: %s", e)
+                log.debug("Storage configuration will not be stored")
+                # Directory exists or read only filesystem detected
+                # Most likely /etc has been already created by a different
+                # entity like ostree or bootc
+                return
 
         self._write_escrow_packets(storage, sysroot)
 
