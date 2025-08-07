@@ -120,6 +120,17 @@ class BTRFS(COMMANDS.BTRFS):
 class ClearPart(COMMANDS.ClearPart):
     """The clearpart kickstart command."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ensure attributes are properly initialized for pylint
+        # These may be overridden in parse() but need to exist for static analysis
+        if not hasattr(self, 'type'):
+            self.type = None
+        if not hasattr(self, 'drives'):
+            self.drives = []
+        if not hasattr(self, 'devices'):
+            self.devices = []
+
     def parse(self, args):
         """Parse the command.
 
@@ -153,6 +164,14 @@ class ClearPart(COMMANDS.ClearPart):
 
 class IgnoreDisk(COMMANDS.IgnoreDisk):
     """The ignoredisk kickstart command."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ensure attributes are properly initialized for pylint
+        if not hasattr(self, 'ignoredisk'):
+            self.ignoredisk = []
+        if not hasattr(self, 'onlyuse'):
+            self.onlyuse = []
 
     def parse(self, args):
         """Parse the command.
