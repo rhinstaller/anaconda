@@ -85,6 +85,12 @@ class PayloadFactoryTestCase(TestCase):
             "ostreesetup --osname=atomic --url=file:///repo --ref=fedora/atomic-host"
         )
 
+        # Bootc is being handled by RPM OSTree payload for now
+        self._check_payload_type(
+            PayloadType.RPM_OSTREE,
+            "bootc --source-imgref=quay.io/centos-bootc/centos-bootc:stream9 --stateroot=default"
+        )
+
         self._check_payload_type(
             PayloadType.DNF,
             "%packages\n%end"

@@ -76,6 +76,14 @@ class DeviceTreeViewer(ABC):
         device = self.storage.root_device
         return device.device_id if device else ""
 
+    def get_boot_device(self):
+        """Get the boot device.
+
+        :return: device ID of the boot device
+        """
+        device = self.storage.boot_device
+        return device.device_id if device else ""
+
     def get_devices(self):
         """Get all devices in the device tree.
 

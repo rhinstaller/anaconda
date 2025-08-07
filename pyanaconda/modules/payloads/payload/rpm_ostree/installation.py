@@ -28,13 +28,14 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import make_directories, set_system_root
-from pyanaconda.core.util import execProgram, execWithRedirect
+from pyanaconda.core.util import execProgram, execReadlines, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.modules.common.errors.installation import (
     BootloaderInstallationError,
     PayloadInstallationError,
 )
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
@@ -70,6 +71,10 @@ def _get_ref(data):
     :param data: OSTree source structure
     :return str: ref or name based on source
     """
+    if isinstance(data, BootcConfigurationData):
+        # Bootc uses sourceImgRef instead of url
+        return data.sourceImgRef
+
     # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
     if data.is_container():
         # we don't have ref with container; there are not multiple references in one container
@@ -86,6 +91,10 @@ def _get_stateroot(data):
     :param data: OSTree source structure
     :return str: stateroot or osname value based on source
     """
+    if isinstance(data, BootcConfigurationData):
+        # Bootc uses stateroot instead of osname
+        return data.stateroot
+
     if data.is_container():
         # osname was renamed to stateroot so let's use the new name
         if data.stateroot:
@@ -115,25 +124,24 @@ def _get_verification_enabled(data):
         return data.gpg_verification_enabled
 
 
-class PrepareOSTreeMountTargetsTask(Task):
-    """Task to prepare OSTree mount targets."""
+class PrepareMountTargetsTaskBase(Task):
+    """Base class for preparing mount targets.
+
+    Provides common functionality for setting up bind mounts between physical root and sysroot.
+    """
 
     def __init__(self, sysroot, physroot, data):
         """Create a new task.
 
         :param str sysroot: a path to the system root
         :param str physroot: a path to the physical root
-        :param data: an RPM OSTree configuration
+        :param data: a configuration (OSTree or Bootc)
         """
         super().__init__()
         self._data = data
         self._sysroot = sysroot
         self._physroot = physroot
         self._internal_mounts = []
-
-    @property
-    def name(self):
-        return "Prepare OSTree mount targets"
 
     def _setup_internal_bindmount(self, src, dest=None,
                                   src_physical=True,
@@ -205,6 +213,14 @@ class PrepareOSTreeMountTargetsTask(Task):
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
             self._setup_internal_bindmount('/var', recurse=False)
+
+
+class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
+    """Task to prepare OSTree mount targets."""
+
+    @property
+    def name(self):
+        return "Prepare OSTree mount targets"
 
     def _fill_var_subdirectories(self):
         """Add subdirectories to /var
@@ -307,6 +323,62 @@ class PrepareOSTreeMountTargetsTask(Task):
 
         # And finally, do a nonrecursive bind for the sysroot
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
+
+        return self._internal_mounts
+
+
+class PrepareBootcMountTargetsTask(PrepareMountTargetsTaskBase):
+    """Task to prepare Bootc mount targets.
+    """
+
+    @property
+    def name(self):
+        return "Prepare Bootc mount targets"
+
+    def _handle_api_mount_points(self):
+        """Handle API mount points
+
+        Explicitly do API (sysfs, tmpfs,...) bind mounts from host to sysroot for bootc.
+        """
+        for path in ("/proc", "/sys"):
+            sysroot_path = self._sysroot + path
+            safe_exec_program("mount", ["--bind", path, sysroot_path])
+            self._internal_mounts.append(sysroot_path)
+
+    def _fill_var_subdirectories(self):
+        """Add subdirectories to /var for bootc.
+
+        Creates /var/roothome and /var/home after /var is bind mounted.
+        """
+        # Create /var/roothome and /var/home after bind mount so they exist in the mounted /var
+        var_sysroot = self._sysroot + "/var"
+        var_roothome = var_sysroot + "/roothome"
+        var_home = var_sysroot + "/home"
+        os.makedirs(var_roothome, mode=0o755, exist_ok=True)
+        os.makedirs(var_home, mode=0o755, exist_ok=True)
+
+    def run(self):
+        """Run the task.
+
+        :return: list of bindmounts created for internal use
+        :rtype: list of str
+        """
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        mount_points = device_tree.GetMountPoints()
+
+        # Remount sysroot and sysimage as read-write so we can set up API mount points
+        safe_exec_program("mount", ["-o", "remount,rw", self._sysroot])
+        safe_exec_program("mount", ["-o", "remount,rw", self._physroot])
+
+        # Handle API mount points - bind mount from host to sysroot
+        # These bind mount the host's API directories to the deployment
+        self._handle_api_mount_points()
+
+        # Handle /var mount point - bind mounts from physroot to sysroot
+        self._handle_var_mount_point(mount_points)
+
+        # Create /var subdirectories (roothome and home) after bind mount
+        self._fill_var_subdirectories()
 
         return self._internal_mounts
 
@@ -631,6 +703,153 @@ class ConfigureBootloader(Task):
                  f"\"{cmdline}\"",
                  "-t",
                  self._sysroot + "/boot"])
+
+
+class DeployBootcTask(Task):
+    """Task to deploy Bootc based image."""
+
+    def __init__(self, data, physroot, sysroot):
+        """Create a new task.
+
+        :param data: a bootc configuration
+        :param str physroot: a path to the physical root
+        :param str sysroot: a path to the system root
+        """
+        super().__init__()
+        self._data = data
+        self._physroot = physroot
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Deploy bootc"
+
+    def _clean_physroot(self):
+        """Clean the physical root directory for bootc installation.
+
+        Unmounts all mount points under physroot (except /boot) and removes all entries,
+        ensuring it's empty for bootc installation.
+
+        Raises PayloadInstallationError if user-specified mount points are
+        detected, as these are not yet supported.
+        """
+        log.debug("Bootc workaround: prepare clean root partition for bootc install")
+
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        # Get mount points from device tree (includes user-specified mount points from kickstart)
+        user_mount_points = device_tree.GetMountPoints()
+
+        # Standard mount points: / (root), /boot, /home, /var
+        allowed_mount_points = {'/', '/boot', '/home', '/var'}
+
+        # Check for user-specified mount points
+        unsupported_mount_points = []
+        for mount_point_path in user_mount_points:
+            if mount_point_path in allowed_mount_points:
+                continue
+            unsupported_mount_points.append(mount_point_path)
+
+        if unsupported_mount_points:
+            mount_points_list = ", ".join(sorted(unsupported_mount_points))
+            raise PayloadInstallationError(
+                _("Bootc installation does not yet support user-specified mount points. "
+                  "Unsupported mount points: {}").format(mount_points_list)
+            )
+
+        entries = list(os.listdir(self._physroot))
+        for entry in entries:
+            path = os.path.join(self._physroot, entry)
+            # Try to unmount if it's a mount point, use lazy unmount for busy mounts
+            if os.path.ismount(path):
+                # Skip if /boot
+                if path == self._physroot + "/boot":
+                    log.debug("Bootc workaround: skip unmounting /boot")
+                    continue
+                safe_exec_program("umount", ["-l", path])
+
+            safe_exec_program("rm", ["-rf", path])
+
+    def _parse_bootc_output(self, line):
+        """Parse bootc install output and report progress.
+
+        :param str line: line of output from bootc
+        """
+        # Remove carriage returns and strip whitespace
+        line = line.strip()
+        if not line:
+            return
+
+        log.debug("bootc output: %s", line)
+        self.report_progress(_("Deploying image: {}").format(line))
+
+    def run(self):
+        stateroot = _get_stateroot(self._data)
+        ref = _get_ref(self._data)
+
+        log.debug("Run the bootc based installation")
+
+        self.report_progress(_("Bootc deployment in progress: {}").format(ref))
+
+        # Some workarounds are needed due to current bootc development status
+
+        # The main one is SELinux to be presented in the system.
+        # https://github.com/bootc-dev/bootc/issues/1438
+        # It may be disabled but need to be presented.
+        # Both pairs of kernel parameters will work:
+        # * selinux=0 enforcing=0
+        # * selinux=1 enforcing=0
+        # Right now we use the /etc/selinux/config file to do the equivalent of
+        # selinux=1 enforcing=0.
+        # We set this in lorax-build using the whitelist_selinux.patch
+
+        # Bootc expects `prepare-root.conf` file to be presented in the system
+        # https://github.com/bootc-dev/bootc/discussions/1400
+        # https://github.com/bootc-dev/bootc/issues/1410
+        # echo -e "[ostree] \nsysroot=/sysroot" > /etc/ostree/prepare-root.conf
+        log.debug("Bootc workaround: add missing configuration file")
+        if not os.path.exists("/etc/ostree/prepare-root.conf"):
+            with open("/etc/ostree/prepare-root.conf", "w") as f:
+                f.write("[ostree]\n")
+                f.write("sysroot=/sysroot\n")
+        else:
+            log.debug("/etc/ostree/prepare-root.conf is already present and will not be modified")
+
+        # After automatic partitioning sysroot and sysimage are mounted,
+        # but we need a clear directory structure expected by the bootc
+        # bootc requires the target to be a mount point and needs an empty directory with only /boot
+        self._clean_physroot()
+
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        root_device_id = device_tree.GetRootDevice()
+        root_device_uuid = device_tree.GetFstabSpec(root_device_id)
+
+        boot_device_id = device_tree.GetBootDevice()
+        boot_device_uuid = device_tree.GetFstabSpec(boot_device_id)
+
+        log.debug("Executing bootc install command")
+        # Install bootc directly to physroot
+        bootc_args = [
+            "install",
+            "to-filesystem",
+            "--karg=root=" + root_device_uuid,
+            "--boot-mount-spec=" + boot_device_uuid,
+            "--stateroot=" + stateroot,
+            "--source-imgref=" + self._data.sourceImgRef,
+            "--target-imgref=" + self._data.targetImgRef,
+            self._physroot
+        ]
+
+        try:
+            self.report_progress(_("Deploying image..."))
+            for line in execReadlines("bootc", bootc_args):
+                self._parse_bootc_output(line)
+        except OSError as e:
+            raise PayloadInstallationError(
+                "bootc installation failed: {}".format(str(e))
+            ) from e
+
+        log.info("Bootc deploy complete")
+        self.report_progress(_("Bootc deployment complete: {}").format(ref))
 
 
 class DeployOSTreeTask(Task):
