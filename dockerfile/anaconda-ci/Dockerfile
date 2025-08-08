@@ -47,6 +47,10 @@ RUN set -ex; \
     if [ $BRANCH == "main" ]; then \
       BRANCH="rawhide"; \
     fi; \
+    # FIXME: temporary override needed until Fedora 43 target becomes available in Fedora COPR
+    if [ $BRANCH == "43" ]; then \
+      BRANCH="rawhide"; \
+    fi; \
     BRANCH=${BRANCH#fedora-}; \
     dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
     dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
