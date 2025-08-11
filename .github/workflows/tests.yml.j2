@@ -29,7 +29,7 @@ jobs:
         {% if distro_name == "fedora" and distro_release == "rawhide" %}
           - release: ''
             target_branch: 'main'
-            ci_tag: 'main'
+            ci_tag: 'fedora-rawhide'
           - release: 'branched_fedora'
             target_branch: 'main'
             ci_tag: 'fedora-43'
@@ -113,7 +113,7 @@ jobs:
         include:
           - release: ''
             target_branch: 'main'
-            ci_tag: 'main'
+            ci_tag: 'fedora-{$ distro_release $}'
           - release: 'branched_fedora'
             target_branch: 'main'
             ci_tag: 'fedora-43'

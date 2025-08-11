@@ -47,7 +47,7 @@ jobs:
         include:
           - release: 'main'
             target_branch: 'main'
-            ci_tag: 'main'
+            ci_tag: 'fedora-rawhide'
           ## add to  release: [...]  also eln if re-enabled by uncommenting the below
           #- release: 'eln'
           #  target_branch: 'main'
@@ -95,7 +95,7 @@ jobs:
         include:
           - release: 'main'
             target_branch: 'main'
-            ci_tag: 'main'
+            ci_tag: 'fedora-rawhide'
         {% for branch in supported_branches %}
           - release: '{$ branch|first $}'
             target_branch: '{$ branch|first $}'
