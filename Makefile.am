@@ -180,7 +180,7 @@ anaconda-ci-build:
 	$(CONTAINER_BUILD_ARGS) \
 	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
-	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
 	--tag $(CI_NAME):$(CI_TAG) \
@@ -195,7 +195,7 @@ anaconda-rpm-build:
 	$(CONTAINER_BUILD_ARGS) \
 	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
-	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
 	--tag $(RPM_NAME):$(CI_TAG) \
