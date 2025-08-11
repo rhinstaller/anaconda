@@ -15,9 +15,9 @@ FROM ${image}
 # The `git_branch` arg will set git branch of Anaconda from which we are downloding spec file to get
 # dependencies.
 # possible values:
-#   main
+#   fedora-rawhide
 #   fedora-38
-ARG git_branch
+ARG ci_tag
 ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
@@ -48,14 +48,10 @@ RUN set -ex; \
   rpm-build \
   rpmlint; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
-    BRANCH="${git_branch}"; \
-    if [ $BRANCH == "main" ]; then \
-      BRANCH="rawhide"; \
-    fi; \
-    BRANCH=${BRANCH#fedora-}; \
-    dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
-    dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
-    dnf copr enable -y @storage/udisks-daily fedora-${BRANCH}-x86_64; \
+    CI_TAG=${ci_tag}; \
+    dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
+    dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
+    dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
