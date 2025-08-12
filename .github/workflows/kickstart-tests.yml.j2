@@ -107,7 +107,6 @@ jobs:
     env:
        STATUS_NAME: kickstart-test
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
-       CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
@@ -235,14 +234,12 @@ jobs:
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo make -f ./Makefile.am anaconda-iso-creator-build
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         working-directory: ./anaconda
