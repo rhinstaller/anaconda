@@ -71,6 +71,10 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 # Program for rendering infra Jinja2 templates
 TEMPLATE_RENDERER = scripts/jinja-render
 
+# Helper target to print CI_TAG for workflows
+print-CI_TAG:
+	@echo $(CI_TAG)
+
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
 # Network needs to use host configuration so it is sharing VPN connection

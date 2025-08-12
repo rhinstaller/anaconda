@@ -128,7 +128,6 @@ jobs:
     timeout-minutes: 300
     env:
        STATUS_NAME: boot-iso
-       CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
     steps:
       # we post statuses manually as this does not run from a pull_request event
@@ -151,18 +150,16 @@ jobs:
 
       - name: Build anaconda-iso-creator container image
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo make -f ./Makefile.am anaconda-iso-creator-build
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am container-rpms-scratch
           mkdir -p ./anaconda_rpms/
           cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
@@ -173,12 +170,13 @@ jobs:
             WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
           fi
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
           sudo podman run -i --rm --privileged \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
             $WEBUI_OPTIONAL_ARG \
-            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+            $ISO_BUILD_CONTAINER_NAME:$CI_TAG
           mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
 
       - name: Collect logs
@@ -214,7 +212,6 @@ jobs:
     timeout-minutes: 300
     env:
        STATUS_NAME: live-iso
-       CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-live-iso-creator'
     steps:
       # we post statuses manually as this does not run from a pull_request event
@@ -237,23 +234,21 @@ jobs:
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am container-rpms-scratch
 
       - name: Build anaconda-live-iso-creator container image
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-live-iso-creator-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-live-iso-creator-build
 
       - name: Build the ISO image
         run: |
           mkdir -p images
-          make -f Makefile.am container-live-iso-build CI_TAG=$CONTAINER_TAG
+          make -f Makefile.am container-live-iso-build
           mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
 
       - name: Make artefacts created by sudo cleanable
