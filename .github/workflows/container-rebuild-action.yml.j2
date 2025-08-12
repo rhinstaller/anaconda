@@ -89,8 +89,8 @@ jobs:
         run: podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
 
         # we can hardcode the path to the image here because this will be executed only for main image
-      - name: Add latest tag for main container
-        if: ${{ inputs.container-tag == 'main' }}
+      - name: Add latest tag for fedora-rawhide container
+        if: ${{ inputs.container-tag == 'fedora-rawhide' }}
         run: |
           podman tag quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:main quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:latest
           CI_TAG=latest make -f Makefile.am anaconda-${{ matrix.container-type }}-push
