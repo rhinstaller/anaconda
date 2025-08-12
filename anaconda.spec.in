@@ -513,6 +513,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 12 2025 github-actions <github-actions@github.com> - 43.35-1
+- storage: Fix AttributeError and protect installation media in bootloader
+  partition removal (k.koukiou)
+
 * Tue Aug 05 2025 github-actions <github-actions@github.com> - 43.34-1
 - Document Lorax template patching (mkolman)
 
