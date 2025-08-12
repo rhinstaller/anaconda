@@ -18,6 +18,10 @@
 # Store a branch specific configuration here to avoid dealing with
 # conflicts on multiple places.
 
+FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
+CENTOS_CONTAINER_REGISTRY = quay.io
+ELN_CONTAINER_REGISTRY = quay.io
+
 {% if distro_name == "fedora" and distro_release == "rawhide" %}
 
 # Name of the expected current git branch.
@@ -28,9 +32,6 @@ CI_TAG ?= fedora-rawhide
 # Directory for this anaconda branch in anaconda-l10n repository. This could be main, fXX, rhel-8 etc.
 L10N_DIR ?= main
 
-# Base container for our containers.
-BASE_CONTAINER ?= registry.fedoraproject.org/fedora:rawhide
-
 # COPR repo for use in container builds.
 COPR_REPO ?= \@rhinstaller/Anaconda
 
@@ -38,21 +39,21 @@ COPR_REPO ?= \@rhinstaller/Anaconda
 
 GIT_BRANCH ?= fedora-{$ distro_release $}
 L10N_DIR ?= f{$ distro_release $}
-BASE_CONTAINER ?= registry.fedoraproject.org/fedora:{$ distro_release $}
+
 COPR_REPO ?= \@rhinstaller/Anaconda
 
 {% elif distro_name == "rhel" and distro_release != 10 %}
 
 GIT_BRANCH ?= rhel-{$ distro_release $}
 L10N_DIR ?= rhel-{$ distro_release $}
-BASE_CONTAINER ?= quay.io/centos/centos:stream9
+
 COPR_REPO ?= rhinstaller-group/Anaconda
 
 {% elif distro_name == "rhel" and distro_release == 10 %}
 
 GIT_BRANCH ?= rhel-{$ distro_release $}
 L10N_DIR ?= rhel-{$ distro_release $}
-BASE_CONTAINER ?= quay.io/centos/centos:stream10-development
+
 COPR_REPO ?= rhinstaller-group/Anaconda
 
 {% endif %}
