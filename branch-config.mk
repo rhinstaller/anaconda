@@ -25,9 +25,13 @@
 # Store a branch specific configuration here to avoid dealing with
 # conflicts on multiple places.
 
+FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
+CENTOS_CONTAINER_REGISTRY = quay.io
+ELN_CONTAINER_REGISTRY = quay.io
+
 
 GIT_BRANCH ?= rhel-10
 L10N_DIR ?= rhel-10
-BASE_CONTAINER ?= quay.io/centos/centos:stream10-development
+
 COPR_REPO ?= rhinstaller-group/Anaconda
 
