@@ -25,6 +25,10 @@
 # Store a branch specific configuration here to avoid dealing with
 # conflicts on multiple places.
 
+FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
+CENTOS_CONTAINER_REGISTRY = quay.io
+ELN_CONTAINER_REGISTRY = quay.io
+
 
 # Name of the expected current git branch.
 # This could be main, fedora-XX, rhel-X ...
@@ -33,9 +37,6 @@ CI_TAG ?= fedora-rawhide
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be main, fXX, rhel-8 etc.
 L10N_DIR ?= main
-
-# Base container for our containers.
-BASE_CONTAINER ?= registry.fedoraproject.org/fedora:rawhide
 
 # COPR repo for use in container builds.
 COPR_REPO ?= \@rhinstaller/Anaconda
