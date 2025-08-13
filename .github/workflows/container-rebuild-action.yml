@@ -36,9 +36,6 @@ on:
       branch:
         required: true
         type: string
-      base-container:
-        required: false
-        type: string
     # secrets consumed: QUAY_USERNAME, QUAY_PASSWORD
     # these are provided by using the quay.io environment below
 
@@ -65,8 +62,7 @@ jobs:
 
       - name: Build anaconda-${{ matrix.container-type }} container
         run: |
-          BASE_CONTAINER=${{ inputs.base-container }}
-          make -f Makefile.am anaconda-${{ matrix.container-type }}-build ${BASE_CONTAINER:+BASE_CONTAINER=}${BASE_CONTAINER:-}
+          make -f Makefile.am anaconda-${{ matrix.container-type }}-build
 
       - name: Run tests in anaconda-ci container
         if: matrix.container-type == 'ci'
