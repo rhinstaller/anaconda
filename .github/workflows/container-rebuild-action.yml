@@ -98,7 +98,7 @@ jobs:
       - name: Add latest tag for fedora-rawhide container
         if: ${{ inputs.container-tag == 'fedora-rawhide' }}
         run: |
-          podman tag quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:main quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:latest
+          podman tag quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:${{ inputs.container-tag }} quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:latest
           CI_TAG=latest make -f Makefile.am anaconda-${{ matrix.container-type }}-push
 
       - name: Push container to registry
