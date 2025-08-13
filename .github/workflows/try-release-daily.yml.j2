@@ -1,6 +1,6 @@
 {% if distro_release == "rawhide" %}
 name: Try building a release daily
-# Build a release tarball for all supported branches to verify the code is releasable.
+# Build a release tarball for all supported releases to verify the code is releasable.
 
 on:
   schedule:
@@ -19,7 +19,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['main'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
+        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
+        include:
+        {% for rel in supported_releases %}
+          - release: '{$ rel.release $}'
+            branch: '{$ rel.target_branch $}'
+        {% endfor %}
+    env:
+      CI_TAG: '${{ matrix.release }}'
 
     steps:
       - name: Check out repo
