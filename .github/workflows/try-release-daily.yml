@@ -6,7 +6,7 @@
 # The template is located in: try-release-daily.yml.j2
 
 name: Try building a release daily
-# Build a release tarball for all supported branches to verify the code is releasable.
+# Build a release tarball for all supported releases to verify the code is releasable.
 
 on:
   schedule:
@@ -25,7 +25,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['main', 'rhel-9', 'rhel-10', 'fedora-43']
+        release: ['fedora-rawhide', 'rhel-9', 'rhel-10', 'fedora-43']
+        include:
+          - release: 'fedora-rawhide'
+            branch: 'main'
+          - release: 'rhel-9'
+            branch: 'rhel-9'
+          - release: 'rhel-10'
+            branch: 'rhel-10'
+          - release: 'fedora-43'
+            branch: 'main'
+    env:
+      CI_TAG: '${{ matrix.release }}'
 
     steps:
       - name: Check out repo

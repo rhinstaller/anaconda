@@ -43,24 +43,15 @@ jobs:
         # * This is still a matrix because we might re-enable ELN one day and then we will need
         #   a matrix here.
         #}
-        release: ['main'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
+        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
         include:
-          - release: 'main'
-            target_branch: 'main'
-            ci_tag: 'fedora-rawhide'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: 'eln'
-          #  target_branch: 'main'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% for branch in supported_branches %}
-          - release: '{$ branch|first $}'
-            target_branch: '{$ branch|first $}'
-            ci_tag: '{$ branch|first $}'
+        {% for rel in supported_releases %}
+          - release: '{$ rel.release $}'
+            target_branch: '{$ rel.target_branch $}'
         {% endfor %}
 
     env:
-      CI_TAG: '${{ matrix.ci_tag }}'
+      CI_TAG: '${{ matrix.release }}'
       # Always avoid using cache because cache is not correctly invalidated.
       CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
 
@@ -79,7 +70,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: 'logs (${{ matrix.ci_tag }})'
+          name: 'logs (${{ matrix.release }})'
           path: test-logs/*
 
   rpm-tests:
@@ -91,19 +82,15 @@ jobs:
       fail-fast: false
       matrix:
         {# For matrix details, see comments for the unit tests above. #}
-        release: ['main'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
+        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
         include:
-          - release: 'main'
-            target_branch: 'main'
-            ci_tag: 'fedora-rawhide'
-        {% for branch in supported_branches %}
-          - release: '{$ branch|first $}'
-            target_branch: '{$ branch|first $}'
-            ci_tag: '{$ branch|first $}'
+        {% for rel in supported_releases %}
+          - release: '{$ rel.release $}'
+            target_branch: '{$ rel.target_branch|default(rel.release) $}'
         {% endfor %}
 
     env:
-      CI_TAG: '${{ matrix.ci_tag }}'
+      CI_TAG: '${{ matrix.release }}'
       # Always avoid using cache because cache is not correctly invalidated.
       CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
 
@@ -120,5 +107,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: 'logs-rpm-test (${{ matrix.ci_tag }})'
+          name: 'logs-rpm-test (${{ matrix.release }})'
           path: test-logs/*

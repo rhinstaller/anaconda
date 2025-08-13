@@ -12,13 +12,22 @@ distro_release: "rawhide" # "rawhide" or a number without quotation marks
 # The following only applies for rawhide.
 rawhide_fedora_version: 43 # number without quotation marks, or nothing if CI should not run for branched Fedora
 
-# List of all the branches which are currently supported and CI should be executed on these.
-supported_branches:
-  - rhel-9:
+# List of supported releases. Each release can track its own branch or derive from main.
+# - release: string identifier (e.g., "rhel-9", "fedora-43")
+# - target_branch: git branch to check out for this release
+# - variant: optional, "rhel" or "fedora"
+supported_releases:
+  - release: "fedora-rawhide"
+    target_branch: "main"
+    variant: "fedora"
+  - release: "rhel-9"
+    target_branch: "rhel-9"
     variant: "rhel"
-  - rhel-10:
+  - release: "rhel-10"
+    target_branch: "rhel-10"
     variant: "rhel"
-  - fedora-43:
+  - release: "fedora-43"
+    target_branch: "main"
     variant: "fedora"
 
 # List of all the branches which should get translation updates
