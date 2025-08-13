@@ -20,18 +20,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['main', 'rhel-10']
+        release: ['fedora-rawhide', 'rhel-9', 'rhel-10', 'fedora-43']
         include:
-          - release: 'main'
+          - release: 'fedora-rawhide'
             target_branch: 'main'
-            ci_tag: 'fedora-rawhide'
+          - release: 'rhel-9'
+            target_branch: 'rhel-9'
           - release: 'rhel-10'
             target_branch: 'rhel-10'
-            ci_tag: 'rhel-10'
+          - release: 'fedora-43'
+            target_branch: 'main'
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: ${{ matrix.ci_tag }}
+      container-tag: ${{ matrix.release }}
       branch: ${{ matrix.target_branch }}
