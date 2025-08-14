@@ -116,6 +116,7 @@ jobs:
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
+       CONTAINER_TAG: fedora-rawhide
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -240,12 +241,12 @@ jobs:
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
         run: |
-          sudo make -f ./Makefile.am anaconda-iso-creator-build
+          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
         run: |
-          make -f ./Makefile.am anaconda-rpm-build
+          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
 
       - name: Build Anaconda RPM files
         working-directory: ./anaconda
