@@ -8,9 +8,25 @@
 # File to automatically label pull requests
 # See https://github.com/actions/labeler
 
-# Always apply target fedora version to any changes
+# Auto-apply release labels based on base branch
+f44:
+- all:
+  - base-branch: 'main'
+  - changed-files:
+    - any-glob-to-any-file: ['**']
+rhel-9:
+- all:
+  - base-branch: 'rhel-9'
+  - changed-files:
+    - any-glob-to-any-file: ['**']
 rhel-10:
-- any:
+- all:
+  - base-branch: 'rhel-10'
+  - changed-files:
+    - any-glob-to-any-file: ['**']
+f43:
+- all:
+  - base-branch: 'main'
   - changed-files:
     - any-glob-to-any-file: ['**']
 
