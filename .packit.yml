@@ -45,11 +45,15 @@ actions:
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
 jobs:
-
+  # Propose downstream (RHEL)
   - job: propose_downstream
     trigger: release
     # Tarballs are not uploaded to GitLab PR on CentOS (https://github.com/packit/packit-service/issues/2436)
     manual_trigger: True
     packages: [anaconda-centos]
-    dist_git_branches: c10s
+    dist_git_branches:
+      - c10s
+
+
+
 
