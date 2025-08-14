@@ -10,7 +10,7 @@ distro_name: "rhel" # "fedora" or "rhel"
 distro_release: 10 # "rawhide" or a number without quotation marks
 
 # The following only applies for rawhide.
-rawhide_fedora_version:  # number without quotation marks, or nothing if CI should not run for branched Fedora
+rawhide_fedora_version: 44 # number without quotation marks, or nothing if CI should not run for branched Fedora
 
 # List of supported releases. Each release can track its own branch or derive from main.
 # - release: string identifier (e.g., "rhel-9", "fedora-43")
