@@ -49,10 +49,6 @@ RUN set -ex; \
   rpmlint; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     CI_TAG=${ci_tag}; \
-    # FIXME: remove after Fedora COPR can build Fedora 43 packages
-    if [ $CI_TAG == "fedora-43" ]; then \
-      CI_TAG="fedora-rawhide"; \
-    fi; \
     dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
