@@ -23,6 +23,7 @@ import glob
 import locale as locale_mod
 import os
 import re
+import threading
 from collections import namedtuple
 
 import iso639
@@ -36,6 +37,26 @@ from pyanaconda.core.util import execWithRedirect, setenv
 from pyanaconda.modules.common.constants.services import BOSS
 
 log = get_module_logger(__name__)
+
+# Thread safety lock for langtable operations
+_langtable_lock = threading.Lock()
+
+
+def _with_langtable_lock(func):
+    """Decorator to ensure thread-safe access to langtable operations.
+    
+    This decorator wraps functions that call langtable functions to ensure
+    they are executed under the global langtable lock, preventing race
+    conditions during concurrent module initialization.
+    
+    :param func: The function to wrap
+    :return: The wrapped function
+    """
+    def wrapper(*args, **kwargs):
+        with _langtable_lock:
+            return func(*args, **kwargs)
+    return wrapper
+
 
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}
 LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
@@ -55,6 +76,7 @@ class InvalidLocaleSpec(LocalizationConfigError):
     pass
 
 
+@_with_langtable_lock
 def is_valid_langcode(langcode):
     """Check if the given locale has a language specified.
 
@@ -74,15 +96,34 @@ def raise_on_invalid_locale(arg):
         raise InvalidLocaleSpec("'{}' is not a valid locale".format(arg))
 
 
+@_with_langtable_lock
 def get_language_id(locale):
     """Return language id without territory or anything else."""
     return langtable.parse_locale(locale).language
 
 
-@functools.cache
+# Thread-safe cache for common languages
+_common_languages_cache = None
+_common_languages_lock = threading.Lock()
+
 def get_common_languages():
     """Return common languages to prioritize them"""
-    return langtable.list_common_languages()
+    global _common_languages_cache
+    
+    # Check if already cached
+    if _common_languages_cache is not None:
+        return _common_languages_cache
+    
+    # Thread-safe initialization
+    with _common_languages_lock:
+        # Double-check pattern to avoid race conditions
+        if _common_languages_cache is not None:
+            return _common_languages_cache
+        
+        with _langtable_lock:
+            _common_languages_cache = langtable.list_common_languages()
+        
+        return _common_languages_cache
 
 
 def is_supported_locale(locale):
@@ -119,22 +160,9 @@ def locale_supported_in_console(locale):
     return locale_scripts[0] in SCRIPTS_SUPPORTED_BY_CONSOLE
 
 
-def find_best_locale_match(locale, langcodes):
-    """Find the best match for the locale in a list of langcodes. This is useful
-    when e.g. pt_BR is a locale and there are possibilities to choose an item
-    (e.g. rnote) for a list containing both pt and pt_BR or even also pt_PT.
-
-    :param locale: a valid locale (e.g. en_US.UTF-8 or sr_RS.UTF-8@latin, etc.)
-    :type locale: str
-    :param langcodes: a list or generator of langcodes (e.g. en, en_US, en_US@latin, etc.)
-    :type langcodes: list(str) or generator(str)
-    :return: the best matching langcode from the list of None if none matches
-    :rtype: str or None
-    """
-    # Parse the locale.
-    if not is_valid_langcode(locale):
-        return None
-
+@_with_langtable_lock
+def _find_best_locale_match_impl(locale, langcodes):
+    """Internal implementation of find_best_locale_match with thread safety."""
     locale_parsed = langtable.parse_locale(locale)
 
     # Get a score for each langcode.
@@ -161,6 +189,25 @@ def find_best_locale_match(locale, langcodes):
 
     # Find the best one.
     return max(scores.keys(), key=scores.get, default=None)
+
+
+def find_best_locale_match(locale, langcodes):
+    """Find the best match for the locale in a list of langcodes. This is useful
+    when e.g. pt_BR is a locale and there are possibilities to choose an item
+    (e.g. rnote) for a list containing both pt and pt_BR or even also pt_PT.
+
+    :param locale: a valid locale (e.g. en_US.UTF-8 or sr_RS.UTF-8@latin, etc.)
+    :type locale: str
+    :param langcodes: a list or generator of langcodes (e.g. en, en_US, en_US@latin, etc.)
+    :type langcodes: list(str) or generator(str)
+    :return: the best matching langcode from the list of None if none matches
+    :rtype: str or None
+    """
+    # Parse the locale.
+    if not is_valid_langcode(locale):
+        return None
+
+    return _find_best_locale_match_impl(locale, langcodes)
 
 
 def _evaluate_locales(locale, langcode):
@@ -289,6 +336,7 @@ def set_modules_locale(locale):
     boss_proxy.SetLocale(locale)
 
 
+@_with_langtable_lock
 def get_english_name(locale):
     """Function returning english name for the given locale.
 
@@ -304,6 +352,7 @@ def get_english_name(locale):
     return upcase_first_letter(name)
 
 
+@_with_langtable_lock
 def get_native_name(locale):
     """Function returning native name for the given locale.
 
@@ -347,7 +396,10 @@ def get_available_translations(localedir=None):
             yield lang
 
 
-@functools.lru_cache(2048)
+# Thread-safe cache for translation availability
+_translation_cache = {}
+_translation_cache_lock = threading.Lock()
+
 def locale_has_translation(locale):
     """Does the locale have a translation available?
 
@@ -361,13 +413,26 @@ def locale_has_translation(locale):
     :param str locale: locale to check
     :return bool: is there a translation
     """
+    # Check cache first
+    with _translation_cache_lock:
+        if locale in _translation_cache:
+            return _translation_cache[locale]
+    
+    # Compute result
     if get_language_id(locale) == "en":
-        return True
+        result = True
+    else:
+        files = gettext.find("anaconda", None, [locale], True)
+        result = bool(files)
+    
+    # Store in cache
+    with _translation_cache_lock:
+        _translation_cache[locale] = result
+    
+    return result
 
-    files = gettext.find("anaconda", None, [locale], True)
-    return bool(files)
 
-
+@_with_langtable_lock
 def get_language_locales(lang):
     """Function returning all locales available for the given language.
 
@@ -382,6 +447,7 @@ def get_language_locales(lang):
     return langtable.list_locales(languageId=lang)
 
 
+@_with_langtable_lock
 def get_territory_locales(territory):
     """Function returning list of locales for the given territory. The list is
     sorted from the most probable locale to the least probable one (based on
@@ -466,6 +532,7 @@ def _get_layout_variant_description(layout_variant, layout_infos,  with_lang, xl
     return description
 
 
+@_with_langtable_lock
 def get_locale_keyboards(locale):
     """Function returning preferred keyboard layouts for the given locale.
 
@@ -480,6 +547,7 @@ def get_locale_keyboards(locale):
     return langtable.list_keyboards(languageId=locale)
 
 
+@_with_langtable_lock
 def get_common_keyboard_layouts():
     """Function returning common keyboard layouts carrying high ranks.
 
@@ -489,6 +557,7 @@ def get_common_keyboard_layouts():
     return langtable.list_common_keyboards()
 
 
+@_with_langtable_lock
 def get_locale_timezones(locale):
     """Function returning preferred timezones for the given locale.
 
@@ -503,6 +572,7 @@ def get_locale_timezones(locale):
     return langtable.list_timezones(languageId=locale)
 
 
+@_with_langtable_lock
 def get_locale_console_fonts(locale):
     """Function returning preferred console fonts for the given locale.
 
@@ -516,6 +586,7 @@ def get_locale_console_fonts(locale):
     return langtable.list_consolefonts(languageId=locale)
 
 
+@_with_langtable_lock
 def get_locale_scripts(locale):
     """Function returning preferred scripts (writing systems) for the given locale.
 
@@ -530,6 +601,7 @@ def get_locale_scripts(locale):
     return langtable.list_scripts(languageId=locale)
 
 
+@_with_langtable_lock
 def get_xlated_timezone(tz_spec_part):
     """Function returning translated name of a region, city or complete timezone
     name according to the current value of the $LANG variable.
