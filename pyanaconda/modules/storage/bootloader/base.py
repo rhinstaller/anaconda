@@ -533,7 +533,7 @@ class BootLoader:
         if is_on_non_ibft_sw_iscsi(device):
             if conf.bootloader.nonibft_iscsi_boot:
                 log.debug("stage1 device on non-iBFT iSCSI disk allowed "
-                          "by boot option inst.iscsi.nonibftboot")
+                          "by boot option inst.nonibftiscsiboot")
             else:
                 log.debug("stage1 device cannot be on an non-iBFT iSCSI disk")
                 self.errors.append(_("Boot loader stage1 device cannot be on "
