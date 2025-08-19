@@ -513,6 +513,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 19 2025 github-actions <github-actions@github.com> - 43.36-1
+- packit: drive jobs from supported_releases per branch; dedupe and group
+  targets (k.koukiou)
+- Fix pylint warnings caused by dynamic kickstart command imports (k.koukiou)
+- core: kickstart: implement OS-release based version detection (k.koukiou)
+- build: decouple BASE_CONTAINER from branch configuration (k.koukiou)
+- workflows: remove hardcoded CONTAINER_TAG="lorax" usage (k.koukiou)
+- dracut module requires generic initramfs (jstodola)
+
 * Tue Aug 12 2025 github-actions <github-actions@github.com> - 43.35-1
 - storage: Fix AttributeError and protect installation media in bootloader
   partition removal (k.koukiou)
