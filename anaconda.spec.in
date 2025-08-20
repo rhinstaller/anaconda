@@ -488,6 +488,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 20 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.32-1
+- Fix vconsole layout doesn't work for ostree (jkonecny)
+  Resolves: RHEL-101058
+- Remove unused Flatpak manager code (jkonecny)
+  Resolves: RHEL-106503
+- Rename DNF strings to Flatpak in installation.py (jkonecny)
+  Resolves: RHEL-106503
+- Update to the approved version of the blivet change (a.badger)
+  Resolves: RHEL-69878
+- Do not duplicate the DEVICE_TYPES enum in storage_constraints (a.badger)
+  Resolves: RHEL-69878
+- Retrieve DEVICE_TYPES from blivet. (a.badger)
+  Resolves: RHEL-69878
+
 * Mon Jun 30 2025 Jiri Konecny <jkonecny@redhat.com> - 40.22.3.31-1
 - bootloader: drop write_config_console, just preserve console= (awilliam)
   Resolves: RHEL-79961
