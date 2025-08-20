@@ -422,6 +422,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 20 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.6-1
+- Fix vconsole layout doesn't work for ostree (jkonecny)
+  Resolves: RHEL-101057
+- test: make dnf substitutions test check only relevant values (rvykydal)
+- test: add new substitution members in dnf tests (rvykydal)
+
 * Mon Jun 30 2025 Jiri Konecny <jkonecny@redhat.com> - 34.25.7.5-1
 - bootloader: drop write_config_console, just preserve console= (awilliam)
   Resolves: RHEL-98670
