@@ -28,6 +28,7 @@ from dasbus.typing import Int, get_variant
 
 from pyanaconda import anaconda_logging, kickstart, network, ntp
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     DRACUT_ERRORS_PATH,
@@ -166,7 +167,7 @@ def check_memory(anaconda, options, display_mode=None):
             print(_("Press ENTER to continue"))
             input()
 
-        ipmi_report(IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
@@ -183,7 +184,7 @@ def check_memory(anaconda, options, display_mode=None):
                 stdout_log.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
-                ipmi_report(IPMI_ABORTED)
+                util.ipmi_abort()
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
@@ -315,7 +316,7 @@ def prompt_for_ssh(options):
 
     if not ip:
         stdout_log.error("No IP addresses found, cannot continue installation.")
-        ipmi_report(IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
     ipstr = ip
@@ -665,7 +666,7 @@ def initialize_security():
                 "\n%s\n") % str(e).strip())
 
         print(_("The installation cannot continue"))
-        ipmi_report(IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
 

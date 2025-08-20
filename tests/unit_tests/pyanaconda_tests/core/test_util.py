@@ -36,6 +36,7 @@ from pyanaconda.core.path import make_directories
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.util import LazyObject, is_stage2_on_nfs, synchronized
 from pyanaconda.errors import ExitError
+from pyanaconda.modules.common.constants.objects import SCRIPTS
 
 
 class RunProgramTests(unittest.TestCase):
@@ -806,19 +807,29 @@ class MiscTests(unittest.TestCase):
         assert util._supports_ipmi is False
         exec_mock.assert_not_called()
 
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.core.util.RUNTIME.get_proxy")
     @patch("pyanaconda.core.util.ipmi_report")
-    def test_ipmi_abort(self, ipmi_mock):
-        """Test termination with IPMI messaging and running onerror scripts."""
-        from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_POST
+    def test_ipmi_abort(self, ipmi_mock, get_proxy_mock, sync_run_mock):
+        """Test termination with IPMI messaging and running onerror scripts via DBus."""
 
-        script1 = Mock(type=KS_SCRIPT_ONERROR)
-        script2 = Mock(type=KS_SCRIPT_POST)
+        fake_task_path = "/org/fedora/Task/42"
 
-        util.ipmi_abort([script1, script2])
+        scripts_proxy_mock = Mock()
+        scripts_proxy_mock.RunScriptsWithTask.return_value = fake_task_path
 
-        ipmi_mock.assert_called_with(util.IPMI_ABORTED)
-        script1.run.assert_called_once_with("/")
-        script2.run.assert_not_called()
+        task_proxy_mock = Mock()
+
+        get_proxy_mock.side_effect = lambda path: {
+            SCRIPTS: scripts_proxy_mock,
+            fake_task_path: task_proxy_mock,
+        }[path]
+
+        util.ipmi_abort()
+
+        ipmi_mock.assert_called_once_with(util.IPMI_ABORTED)
+        scripts_proxy_mock.RunScriptsWithTask.assert_called_once_with(4)
+        sync_run_mock.assert_called_once_with(task_proxy_mock)
 
     def test_dracut_eject(self):
         """Test writing the device eject dracut shutdown hook."""
