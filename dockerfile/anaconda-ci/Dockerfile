@@ -15,9 +15,9 @@ FROM ${image}
 # The `git_branch` arg will set git branch of Anaconda from which we are downloding spec file to get
 # dependencies.
 # possible values:
-#   main
+#   fedora-rawhide
 #   fedora-38
-ARG git_branch
+ARG ci_tag
 
 # The `copr_repo` arg will set Anaconda daily builds copr repository.
 # possible values:
