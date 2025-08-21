@@ -28,12 +28,12 @@
 FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
 CENTOS_CONTAINER_REGISTRY = quay.io
 ELN_CONTAINER_REGISTRY = quay.io
+CI_TAG=fedora-rawhide
 
 
 # Name of the expected current git branch.
 # This could be main, fedora-XX, rhel-X ...
 GIT_BRANCH ?= main
-CI_TAG ?= fedora-rawhide
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be main, fXX, rhel-8 etc.
 L10N_DIR ?= main
