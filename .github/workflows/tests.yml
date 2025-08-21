@@ -16,6 +16,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -23,12 +24,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['', 'branched_fedora']
+        release: [""]
         include:
           - release: ''
             target_branch: 'rhel-10'
             ci_tag: 'rhel-10'
-
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -88,12 +88,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: [""]
         include:
           - release: ''
             target_branch: 'rhel-10'
             ci_tag: 'rhel-10'
-
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.

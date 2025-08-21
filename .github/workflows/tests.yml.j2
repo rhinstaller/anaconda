@@ -9,45 +9,44 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+{% set branch = branch_name %}
+{% set current_release = distro_name + '-' + (distro_release|string) %}
+{# Filter supported releases for current branch and create matrix data #}
+{% set matrix_data = [] %}
+{% for rel in supported_releases %}
+  {# Only include releases that match the current branch #}
+  {% if rel.target_branch == branch %}
+    {# Replace current branch in "release" with empty string. This makes name of the check for
+       the current branch always have the same name, so that it can be added to required
+       checks on GitHub. #}
+    {% set release_name = '' if rel.release == current_release else rel.release %}
+    {# Create matrix entry with all required variables:
+         - release: Either empty string (current) or release name (others)
+         - target_branch: The branch this release targets
+         - ci_tag: The actual release name (used for container tags, etc.) #}
+    {% set _ = matrix_data.append({
+      'release': release_name,
+      'target_branch': rel.target_branch,
+      'ci_tag': rel.release
+    }) %}
+  {% endif %}
+{% endfor %}
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
+      {# Matrix includes all releases for current branch #}
       matrix:
-        {#
-        # * The same matrix is below in rpm tests, always change both places!
-        # * Replace current branch in "release" with empty string. This makes name of the check for
-        #   the current branch always have the same name, so that it can be added to required
-        #   checks on GitHub.
-        # * This is still a matrix because we might re-enable ELN one day and then we will need
-        #   a matrix here.
-        #}
-        release: ['', 'branched_fedora']
+        release: [{$ matrix_data | map(attribute='release') | map('tojson') | join(', ') $}]
         include:
-        {% if distro_name == "fedora" and distro_release == "rawhide" %}
-          - release: ''
-            target_branch: 'main'
-            ci_tag: 'fedora-rawhide'
-          - release: 'branched_fedora'
-            target_branch: 'main'
-            ci_tag: 'fedora-43'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: eln
-          #  target_branch: 'main'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% elif distro_name == "fedora" and distro_release is number %}
-          - release: ''
-            target_branch: 'fedora-{$ distro_release $}'
-            ci_tag: 'fedora-{$ distro_release $}'
-        {% elif distro_name == "rhel" %}
-          - release: ''
-            target_branch: 'rhel-{$ distro_release $}'
-            ci_tag: 'rhel-{$ distro_release $}'
-        {% endif %}
-
+      {% for item in matrix_data %}
+          - release: '{$ item.release $}'
+            target_branch: '{$ item.target_branch $}'
+            ci_tag: '{$ item.ci_tag $}'
+      {% endfor %}
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -106,36 +105,15 @@ jobs:
     timeout-minutes: 30
     strategy:
       fail-fast: false
+      {# Matrix includes all releases for current branch #}
       matrix:
-        {# For matrix details, see comments for the unit tests above. #}
-        {% if distro_name == "fedora" and distro_release == "rawhide" %}
-        release: ['', 'branched_fedora']
+        release: [{$ matrix_data | map(attribute='release') | map('tojson') | join(', ') $}]
         include:
-          - release: ''
-            target_branch: 'main'
-            ci_tag: 'fedora-{$ distro_release $}'
-          - release: 'branched_fedora'
-            target_branch: 'main'
-            ci_tag: 'fedora-43'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: eln
-          #  target_branch: 'main'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% elif distro_name == "fedora" and distro_release is number %}
-        release: ['']
-        include:
-          - release: ''
-            target_branch: 'fedora-{$ distro_release $}'
-            ci_tag: 'fedora-{$ distro_release $}'
-        {% elif distro_name == "rhel" %}
-        release: ['']
-        include:
-          - release: ''
-            target_branch: 'rhel-{$ distro_release $}'
-            ci_tag: 'rhel-{$ distro_release $}'
-        {% endif %}
-
+        {% for item in matrix_data %}
+          - release: '{$ item.release $}'
+            target_branch: '{$ item.target_branch $}'
+            ci_tag: '{$ item.ci_tag $}'
+        {% endfor %}
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
