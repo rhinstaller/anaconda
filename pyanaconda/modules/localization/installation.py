@@ -107,8 +107,8 @@ class LanguageInstallationTask(Task):
                 fobj.write('LANG="{}"\n'.format(lang))
 
         except OSError as e:
-            msg = "Cannot write language configuration file: {}".format(e.strerror)
-            raise LanguageInstallationError(msg) from e
+            # /etc may be in read only mode due to bootc based install
+            log.debug("Cant write language configuration file - read only /etc")
 
 
 class KeyboardInstallationTask(Task):
@@ -205,7 +205,8 @@ def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir
             if not os.path.isdir(rooted_xconf_dir):
                 os.makedirs(rooted_xconf_dir)
         except OSError:
-            errors.append("Cannot create directory {}".format(rooted_xconf_dir))
+            # bootc install may cause in read only filesystem
+            log.debug("Cannot create directory, readonly filesystem detected")
 
         # Copy the file to the chroot.
         xconf_file_path = os.path.normpath(x_conf_dir_path + "/" + X_CONF_FILE_NAME)
@@ -249,5 +250,5 @@ def write_vc_configuration(vc_keymap, root):
             fobj.write('FONT="%s"\n' % vc_font)
 
     except OSError as e:
-        msg = "Cannot write vconsole configuration file: {}".format(e.strerror)
-        raise KeyboardInstallationError(msg) from e
+        # /etc may be in read only mode due to bootc based install
+        log.debug("Cant write vconsole configuration file - read only /etc")
