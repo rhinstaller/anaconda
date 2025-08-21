@@ -28,6 +28,7 @@
 FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
 CENTOS_CONTAINER_REGISTRY = quay.io
 ELN_CONTAINER_REGISTRY = quay.io
+CI_TAG=rhel-10
 
 
 GIT_BRANCH ?= rhel-10
