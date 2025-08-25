@@ -9,6 +9,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+{% set branch = branch_name %}
+{% set releases_for_branch = supported_releases | selectattr('target_branch', 'equalto', branch) | list %}
+{% set current_release = distro_name + '-' + (distro_release|string) %}
+{% set current_release_entry = releases_for_branch | selectattr('release', 'equalto', current_release) | first %}
+{% set other_releases = releases_for_branch | rejectattr('release', 'equalto', current_release) | list %}
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -24,29 +30,18 @@ jobs:
         # * This is still a matrix because we might re-enable ELN one day and then we will need
         #   a matrix here.
         #}
-        release: ['', 'branched_fedora']
+        release: [{% for rel in releases_for_branch %}{% if not loop.first %}, {% endif %}{% if rel == current_release_entry %}''{% else %}'{$ rel.release $}'{% endif %}{% endfor %}]
         include:
-        {% if distro_name == "fedora" and distro_release == "rawhide" %}
+        {% if current_release_entry %}
           - release: ''
-            target_branch: 'main'
-            ci_tag: 'fedora-rawhide'
-          - release: 'branched_fedora'
-            target_branch: 'main'
-            ci_tag: 'fedora-43'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: eln
-          #  target_branch: 'main'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% elif distro_name == "fedora" and distro_release is number %}
-          - release: ''
-            target_branch: 'fedora-{$ distro_release $}'
-            ci_tag: 'fedora-{$ distro_release $}'
-        {% elif distro_name == "rhel" %}
-          - release: ''
-            target_branch: 'rhel-{$ distro_release $}'
-            ci_tag: 'rhel-{$ distro_release $}'
+            target_branch: '{$ current_release_entry.target_branch $}'
+            ci_tag: '{$ current_release_entry.release $}'
         {% endif %}
+        {% for rel in other_releases %}
+          - release: '{$ rel.release $}'
+            target_branch: '{$ rel.target_branch $}'
+            ci_tag: '{$ rel.release $}'
+        {% endfor %}
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -108,33 +103,18 @@ jobs:
       fail-fast: false
       matrix:
         {# For matrix details, see comments for the unit tests above. #}
-        {% if distro_name == "fedora" and distro_release == "rawhide" %}
-        release: ['', 'branched_fedora']
+        release: [{% for rel in releases_for_branch %}{% if not loop.first %}, {% endif %}{% if rel == current_release_entry %}''{% else %}'{$ rel.release $}'{% endif %}{% endfor %}]
         include:
+        {% if current_release_entry %}
           - release: ''
-            target_branch: 'main'
-            ci_tag: 'fedora-{$ distro_release $}'
-          - release: 'branched_fedora'
-            target_branch: 'main'
-            ci_tag: 'fedora-43'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: eln
-          #  target_branch: 'main'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-        {% elif distro_name == "fedora" and distro_release is number %}
-        release: ['']
-        include:
-          - release: ''
-            target_branch: 'fedora-{$ distro_release $}'
-            ci_tag: 'fedora-{$ distro_release $}'
-        {% elif distro_name == "rhel" %}
-        release: ['']
-        include:
-          - release: ''
-            target_branch: 'rhel-{$ distro_release $}'
-            ci_tag: 'rhel-{$ distro_release $}'
+            target_branch: '{$ current_release_entry.target_branch $}'
+            ci_tag: '{$ current_release_entry.release $}'
         {% endif %}
+        {% for rel in other_releases %}
+          - release: '{$ rel.release $}'
+            target_branch: '{$ rel.target_branch $}'
+            ci_tag: '{$ rel.release $}'
+        {% endfor %}
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
