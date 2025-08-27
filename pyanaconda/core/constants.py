@@ -156,13 +156,15 @@ WARNING_NO_DISKS_SELECTED = N_(
     "No disks selected; please select at least one disk to install to."
 )
 
+RHEL_SMT_URL = "https://red.ht/rhel-smt"
+
 # Kernel messages.
 WARNING_SMT_ENABLED_GUI = N_(
     "Simultaneous Multithreading (SMT) technology can provide performance "
     "improvements for certain workloads, but introduces several publicly "
     "disclosed security issues. You have the option of disabling SMT, which "
     "may impact performance. If you choose to leave SMT enabled, please read "
-    "https://red.ht/rhel-smt to understand your potential risks and learn "
+    "%s to understand your potential risks and learn "
     "about other ways to mitigate these risks."
 )
 
@@ -171,10 +173,9 @@ WARNING_SMT_ENABLED_TUI = N_(
     "Simultaneous Multithreading (SMT) may improve performance for certain "
     "workloads, but introduces several publicly disclosed security issues. "
     "You can disable SMT, which may impact performance. Please read "
-    "https://red.ht/rhel-smt to understand potential risks and learn about "
+    "%s to understand potential risks and learn about "
     "ways to mitigate these risks."
 )
-
 
 # Password type
 class SecretType(Enum):
