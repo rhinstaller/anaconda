@@ -207,6 +207,8 @@ class DNFManager:
         self._md_hashes = {}
         self._enabled_system_repositories = []
         self._repositories_loaded = False
+        self._query_environments = None
+        self._query_groups = None
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
