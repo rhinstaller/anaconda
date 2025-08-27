@@ -21,7 +21,7 @@
 FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
 CENTOS_CONTAINER_REGISTRY = quay.io
 ELN_CONTAINER_REGISTRY = quay.io
-CI_TAG={$ distro_name $}-{$ distro_release $}
+CI_TAG ?= {$ distro_name $}-{$ distro_release $}
 
 {% if distro_name == "fedora" and distro_release == "rawhide" %}
 
