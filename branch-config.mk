@@ -28,7 +28,7 @@
 FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
 CENTOS_CONTAINER_REGISTRY = quay.io
 ELN_CONTAINER_REGISTRY = quay.io
-CI_TAG=fedora-rawhide
+CI_TAG ?= fedora-rawhide
 
 
 # Name of the expected current git branch.
