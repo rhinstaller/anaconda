@@ -113,11 +113,11 @@ __________________________________________________________
 
 1. Pull the container::
 
-      podman pull quay.io/rhinstaller/anaconda-ci:main
+      podman pull quay.io/rhinstaller/anaconda-ci:latest
 
 2. Run the container temporary with your required resources (pykickstart in this example)::
 
-      podman run --name=cnt-add --rm -it -v ./pykickstart:/pykickstart:z quay.io/rhinstaller/anaconda-ci:main sh
+      podman run --name=cnt-add --rm -it -v ./pykickstart:/pykickstart:z quay.io/rhinstaller/anaconda-ci:latest sh
 
 3. Do your required changes in the container (install pykickstart in this example)::
 
@@ -125,9 +125,9 @@ __________________________________________________________
 
 4. Commit the changed container as updated one. **DO NOT exit the running container, run this command in new terminal!**
 
-      podman commit cnt-add quay.io/rhinstaller/anaconda-ci:main
+      podman commit cnt-add quay.io/rhinstaller/anaconda-ci:latest
 
-   You can change the ``main`` tag to something else if you don't want to replace the existing one.
+   You can change the ``latest`` tag to something else if you don't want to replace the existing one.
    Feel free to exit the running container now.
 
 5. Run other commands for container ci as usual. Don't forget to append ``CI_TAG=<your-tag>`` to
@@ -139,7 +139,7 @@ ____________________________
 Please update your container from time to time to have newest dependencies.
 To do that, run::
 
-    podman pull quay.io/rhinstaller/anaconda-ci:main
+    podman pull quay.io/rhinstaller/anaconda-ci:latest
 
 or build it locally again by::
 
