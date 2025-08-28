@@ -17,6 +17,10 @@
 #
 # To use webui on boot.iso, add also:
 # --webui
+#
+# To build for a specific release, add:
+# --image [image-id] (e.g., --image fedora-43, --image fedora-rawhide)
+# If --image is not specified, the current branch's default CI_TAG will be used.
 
 name: Build images
 on:
@@ -76,22 +80,41 @@ jobs:
             ARGS="$ARGS --boot.iso"
             echo "adding implicit --boot.iso, arguments now are: $ARGS"
           fi
+
+          # Extract --image parameter if present
+          IMAGE_TAG=""
+          if [[ "$ARGS" == *"--image"* ]]; then
+            # Extract the value after --image
+            IMAGE_TAG=$(echo "$ARGS" | sed -n 's/.*--image \([^[:space:]]*\).*/\1/p')
+            echo "extracted image tag: $IMAGE_TAG"
+          fi
+
+          # Set CI_TAG based on image_tag parameter or current branch default
+          if [[ -n "$IMAGE_TAG" ]]; then
+            CI_TAG="$IMAGE_TAG"
+          else
+            CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
+          fi
+
           echo "args=${ARGS}" >> $GITHUB_OUTPUT
+          echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+          echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
 
       - name: Construct image description
         id: image_description
         run: |
           set -eux
+          CI_TAG="${{ steps.parse_args.outputs.ci_tag }}"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] ; then
             # manual run from actions page
             branch_name="$GITHUB_REF_NAME"
             sha="$GITHUB_SHA"
-            echo "image_description=$branch_name-$sha" >> $GITHUB_OUTPUT
+            echo "image_description=$branch_name-$CI_TAG-$sha" >> $GITHUB_OUTPUT
           else
             # comment on PR
             pr_num="${{ github.event.issue.number }}"
             sha="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
-            echo "image_description=pr$pr_num-$sha" >> $GITHUB_OUTPUT
+            echo "image_description=pr$pr_num-$CI_TAG-$sha" >> $GITHUB_OUTPUT
           fi
 
       - name: Mark comment as seen
@@ -124,6 +147,7 @@ jobs:
       allowed_user: ${{ steps.set_outputs.outputs.allowed_user }}
       sha: ${{ steps.set_outputs.outputs.sha }}
       args: ${{ steps.parse_args.outputs.args }}
+      ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
       image_description: ${{ steps.image_description.outputs.image_description }}
 
   boot-iso:
@@ -135,6 +159,7 @@ jobs:
     env:
        STATUS_NAME: boot-iso
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -176,7 +201,6 @@ jobs:
             WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
           fi
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
           sudo podman run -i --rm --privileged \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
@@ -219,6 +243,7 @@ jobs:
     env:
        STATUS_NAME: live-iso
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-live-iso-creator'
+       CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
