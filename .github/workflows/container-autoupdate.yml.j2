@@ -13,11 +13,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['main'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
+        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
+        include:
+        {% for rel in supported_releases %}
+          - release: '{$ rel.release $}'
+            target_branch: '{$ rel.target_branch $}'
+        {% endfor %}
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: ${{ matrix.branch }}
-      branch: ${{ matrix.branch }}
+      container-tag: ${{ matrix.release }}
+      branch: ${{ matrix.target_branch }}

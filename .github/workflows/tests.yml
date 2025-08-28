@@ -16,6 +16,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -23,12 +24,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: [""]
         include:
           - release: ''
             target_branch: 'rhel-10'
             ci_tag: 'rhel-10'
-
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
           # without ref is doing the rebase for us.
@@ -88,12 +88,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: ['']
+        release: [""]
         include:
           - release: ''
             target_branch: 'rhel-10'
             ci_tag: 'rhel-10'
-
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -102,7 +101,7 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
           # without ref is doing the rebase for us.
