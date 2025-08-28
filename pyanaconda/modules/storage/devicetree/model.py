@@ -150,14 +150,7 @@ class InstallerStorage(Blivet):
     def root_device(self):
         return self.fsset.root_device
 
-    def get_file_system_free_space(self, mount_points=("/", "/usr")):
-        """Get total file system free space on the given mount points.
-
-        Calculates total free space in / and /usr, by default.
-
-        :param mount_points: a list of mount points
-        :return: a total size
-        """
+    def _get_mount_points_free_space(self, mount_points, calculate):
         free = Size(0)
         btrfs_volumes = []
 
@@ -174,12 +167,44 @@ class InstallerStorage(Blivet):
                 else:
                     btrfs_volumes.append(device.volume)
 
-            if device.format.exists:
-                free += device.format.free
-            else:
-                free += device.format.free_space_estimate(device.size)
+            mp_size = calculate(device)
+            log.debug("Free size of mount point %s: %s", mount_point, mp_size.get_bytes())
+            free += mp_size
 
         return free
+
+    def get_file_system_free_space(self, mount_points):
+        """Get total file system free space on the given mount points.
+
+        WARNING: For existing mount points the size available for resizing is
+        obtained. It means that for non resizeable format types it returns the
+        value 0.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
+        def calculate(device):
+            if device.format.exists:
+                return device.format.free
+            else:
+                return device.format.free_space_estimate(device.size)
+
+        return self._get_mount_points_free_space(mount_points, calculate)
+
+    def get_free_space_for_system(self, mount_points):
+        """Get total space available for system on the given mount points.
+
+        Counts the free space available on empty formatted devices.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
+        def calculate(device):
+            if device.format.exists:
+                log.debug("Free size calculation: %s considered as formatted", device)
+            return device.format.free_space_estimate(device.size)
+
+        return self._get_mount_points_free_space(mount_points, calculate)
 
     def get_disk_free_space(self, disks=None):
         """Get total free space on the given disks.
