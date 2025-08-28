@@ -621,6 +621,39 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert total_size < Size("10 GiB").get_bytes()
         assert total_size > Size("8 GiB").get_bytes()
 
+    def test_get_free_space_for_system(self):
+        """Test GetFreeSpaceForSystem."""
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4", mountpoint="/"),
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(StorageDevice(
+            "dev2",
+            fmt=get_format("ext4", mountpoint="/usr"),
+            size=Size("5 GiB"))
+        )
+
+        # /home should not be counted in
+        self._add_device(StorageDevice(
+            "dev3",
+            fmt=get_format("ext4", mountpoint="/home"),
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetFreeSpaceForSystem([])
+        assert total_size == 0
+
+        total_size = self.interface.GetFreeSpaceForSystem(["/", "/usr"])
+        assert total_size < Size("10 GiB").get_bytes()
+        assert total_size > Size("8 GiB").get_bytes()
+
+        # /var does not exist
+        total_size = self.interface.GetFreeSpaceForSystem(["/", "/var"])
+        assert total_size < Size("6 GiB").get_bytes()
+        assert total_size > Size("4 GiB").get_bytes()
+
     @patch("blivet.formats.disklabel.DiskLabel.free", new_callable=PropertyMock)
     @patch("blivet.formats.disklabel.DiskLabel.get_platform_label_types")
     def test_get_disk_free_space(self, label_types, free):

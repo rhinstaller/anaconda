@@ -155,6 +155,16 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.get_file_system_free_space(mount_points)
 
+    def GetFreeSpaceForSystem(self, mount_points: List[Str]) -> UInt64:
+        """Get total space available for system on the given mount points.
+
+        Counts the free space available on empty formatted devices.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
+        return self.implementation.get_free_space_for_system(mount_points)
+
     def GetDiskFreeSpace(self, disk_ids: List[Str]) -> UInt64:
         """Get total free space on the given disks.
 
