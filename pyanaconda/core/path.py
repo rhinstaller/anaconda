@@ -80,6 +80,15 @@ def get_mount_paths(devnode):
     return [info[4] for info in mountinfo if info[2] == majmin]
 
 
+def get_mount_device(mount_point):
+    with open("/proc/mounts", "r") as f:
+        for line in f:
+            parts = line.split()
+            if len(parts) >= 3 and parts[1] == mount_point:
+                return parts[0]
+    return None
+
+
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.
 
