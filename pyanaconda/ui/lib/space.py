@@ -52,7 +52,7 @@ class FileSystemSpaceChecker:
 
     def _calculate_free_space(self):
         """Calculate the available space."""
-        return Size(self.device_tree.GetFileSystemFreeSpace(("/", "/usr")))
+        return Size(self.device_tree.GetFreeSpaceForSystem(("/", "/usr")))
 
     def _calculate_needed_space(self):
         """Calculate the needed space."""
