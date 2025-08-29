@@ -181,7 +181,7 @@ jobs:
 
       - name: Build anaconda-iso-creator container image
         run: |
-          sudo make -f ./Makefile.am anaconda-iso-creator-build
+          sudo -E make -f ./Makefile.am anaconda-iso-creator-build
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
@@ -274,12 +274,12 @@ jobs:
 
       - name: Build anaconda-live-iso-creator container image
         run: |
-          make -f ./Makefile.am anaconda-live-iso-creator-build
+          sudo -E make -f ./Makefile.am anaconda-live-iso-creator-build
 
       - name: Build the ISO image
         run: |
           mkdir -p images
-          make -f Makefile.am container-live-iso-build
+          sudo -E make -f Makefile.am container-live-iso-build
           mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
 
       - name: Make artefacts created by sudo cleanable
