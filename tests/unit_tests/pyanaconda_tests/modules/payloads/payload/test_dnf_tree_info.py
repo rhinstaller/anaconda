@@ -161,6 +161,13 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self.metadata = TreeInfoMetadata()
         self.metadata.MAX_TREEINFO_DOWNLOAD_RETRIES = 2
 
+        # Patch the USER_AGENT to avoid patching /etc/os-release in each test
+        self.patcher = patch(
+            "pyanaconda.modules.payloads.base.utils.USER_AGENT",
+            "anaconda (anaconda)/bluesky"
+        )
+        self.patcher.start()
+
     def _create_file(self, root_path, file_name, content):
         """Create a new file."""
         file_path = os.path.join(root_path, file_name)
