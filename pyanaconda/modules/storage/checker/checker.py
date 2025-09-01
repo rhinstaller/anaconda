@@ -20,7 +20,8 @@
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_SWAP_IS_RECOMMENDED
+from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_REQ_SYSTEM_SIZE, \
+    STORAGE_SWAP_IS_RECOMMENDED
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
@@ -56,6 +57,8 @@ class StorageCheckerModule(KickstartBaseModule):
             storage_checker.set_constraint(name, Size(value))
         elif name == STORAGE_SWAP_IS_RECOMMENDED:
             storage_checker.set_constraint(name, value)
+        elif name == STORAGE_REQ_SYSTEM_SIZE:
+            storage_checker.set_constraint(name, Size(value))
         else:
             raise UnsupportedValueError(
                 "Constraint '{}' is not supported.".format(name)
