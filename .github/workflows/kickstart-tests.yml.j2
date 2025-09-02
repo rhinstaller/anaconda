@@ -110,7 +110,6 @@ jobs:
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
-       CI_TAG: {$ distro_name $}-{$ distro_release $}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -139,6 +138,14 @@ jobs:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
           path: anaconda
+
+      - name: Determine CI_TAG for current branch
+        id: determine_ci_tag
+        working-directory: ./anaconda
+        run: |
+          CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
+          echo "CI_TAG: $CI_TAG"
+          echo "CI_TAG=$CI_TAG" >> $GITHUB_ENV
 
       - name: Rebase to current ${{ env.TARGET_BRANCH }}
         working-directory: ./anaconda
