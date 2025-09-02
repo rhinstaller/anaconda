@@ -276,6 +276,15 @@ class PrepareOSTreeMountTargetsTask(Task):
                 continue
             self._setup_internal_bindmount(mount, recurse=False)
 
+    def _handle_boot_if_not_mount_point(self, mount_points):
+        """Make sure that /boot is bind mounted into the sysroot
+
+        """
+        if "/boot" not in self._internal_mounts:
+            # Should ths be ro?  I feel like the bind mount should be rw but
+            # /usr is being mounted ro for ostree installs (in run()).
+            self._setup_internal_bindmount('/boot', recurse=False)
+
     def run(self):
         """Run the task.
 
@@ -294,6 +303,7 @@ class PrepareOSTreeMountTargetsTask(Task):
         self._fill_var_subdirectories()
 
         self._handle_other_mount_points(mount_points)
+        self._handle_boot_if_not_mount_point(mount_points)
 
         # And finally, do a nonrecursive bind for the sysroot
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
