@@ -27,31 +27,23 @@ permissions:
   contents: read
 
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ''  # Empty = all releases
+
   unit-tests:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    needs: define-matrix
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
       fail-fast: false
-      matrix:
-        {#
-        # * The same matrix is below in rpm tests, always change both places!
-        # * Replace current branch in "release" with empty string. This makes name of the check for
-        #   the current branch always have the same name, so that it can be added to required
-        #   checks on GitHub.
-        # * This is still a matrix because we might re-enable ELN one day and then we will need
-        #   a matrix here.
-        #}
-        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
-        include:
-        {% for rel in supported_releases %}
-          - release: '{$ rel.release $}'
-            target_branch: '{$ rel.target_branch $}'
-        {% endfor %}
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
 
     env:
-      CI_TAG: '${{ matrix.release }}'
+      CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
       CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
 
@@ -76,21 +68,15 @@ jobs:
   rpm-tests:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    needs: define-matrix
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
       fail-fast: false
-      matrix:
-        {# For matrix details, see comments for the unit tests above. #}
-        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
-        include:
-        {% for rel in supported_releases %}
-          - release: '{$ rel.release $}'
-            target_branch: '{$ rel.target_branch|default(rel.release) $}'
-        {% endfor %}
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
 
     env:
-      CI_TAG: '${{ matrix.release }}'
+      CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
       CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
 
