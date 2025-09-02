@@ -20,9 +20,10 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, SOURCE_TYPE_LIVE_OS_IMAGE
-from pyanaconda.core.path import join_paths, make_directories, touch
+from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceState, SourceType
 from pyanaconda.modules.payloads.payload.live_image.installation import (
@@ -91,21 +92,19 @@ class LiveOSModuleTestCase(unittest.TestCase):
         """Create a new source with a mocked state."""
         return PayloadSharedTest.prepare_source(SourceType.LIVE_OS_IMAGE, state)
 
-    def test_get_kernel_version_list(self):
+    @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
+    def test_get_kernel_version_list(self, get_kernel_mock):
         """Test the get_kernel_version_list method."""
-        with tempfile.TemporaryDirectory() as tmp:
-            # Create the image source.
-            image_source = self._create_source()
-            image_source._mount_point = tmp
+        get_kernel_mock.return_value = ["1.2-3.x86_64"]
 
-            # Create a fake kernel file.
-            os.makedirs(join_paths(tmp, "boot"))
-            kernel_file = join_paths(tmp, "boot", "vmlinuz-1.2-3.x86_64")
-            touch(kernel_file)
+        # Create the image source.
+        image_source = self._create_source()
 
-            self.module._update_kernel_version_list(image_source)
+        self.module._update_kernel_version_list(image_source)
 
         assert self.module.get_kernel_version_list() == ["1.2-3.x86_64"]
+        # Verify it was called with the mount_point from the source
+        get_kernel_mock.assert_called_once_with(image_source.mount_point)
 
     def test_install_with_task(self):
         """Test the install_with_tasks method."""
