@@ -9,44 +9,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-{% set branch = branch_name %}
-{% set current_release = distro_name + '-' + (distro_release|string) %}
-{# Filter supported releases for current branch and create matrix data #}
-{% set matrix_data = [] %}
-{% for rel in supported_releases %}
-  {# Only include releases that match the current branch #}
-  {% if rel.target_branch == branch %}
-    {# Replace current branch in "release" with empty string. This makes name of the check for
-       the current branch always have the same name, so that it can be added to required
-       checks on GitHub. #}
-    {% set release_name = '' if rel.release == current_release else rel.release %}
-    {# Create matrix entry with all required variables:
-         - release: Either empty string (current) or release name (others)
-         - target_branch: The branch this release targets
-         - ci_tag: The actual release name (used for container tags, etc.) #}
-    {% set _ = matrix_data.append({
-      'release': release_name,
-      'target_branch': rel.target_branch,
-      'ci_tag': rel.release
-    }) %}
-  {% endif %}
-{% endfor %}
-
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ${{ github.event.pull_request.base.ref }}  # Set target_branch to PR's base branch in order to filter only supported releases for this branch
+      use_full_releases: false  # Set .release to '' for default release per branch so that default statuses are set in GitHub with non-release specific names 
+
   unit-tests:
+    needs: define-matrix
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      {# Matrix includes all releases for current branch #}
-      matrix:
-        release: [{$ matrix_data | map(attribute='release') | map('tojson') | join(', ') $}]
-        include:
-      {% for item in matrix_data %}
-          - release: '{$ item.release $}'
-            target_branch: '{$ item.target_branch $}'
-            ci_tag: '{$ item.ci_tag $}'
-      {% endfor %}
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -101,19 +77,12 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rpm-tests:
+    needs: define-matrix
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      {# Matrix includes all releases for current branch #}
-      matrix:
-        release: [{$ matrix_data | map(attribute='release') | map('tojson') | join(', ') $}]
-        include:
-        {% for item in matrix_data %}
-          - release: '{$ item.release $}'
-            target_branch: '{$ item.target_branch $}'
-            ci_tag: '{$ item.ci_tag $}'
-        {% endfor %}
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.

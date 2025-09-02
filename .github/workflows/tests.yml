@@ -16,19 +16,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ${{ github.event.pull_request.base.ref }}  # Set target_branch to PR's base branch in order to filter only supported releases for this branch
+      use_full_releases: false  # Set .release to '' for default release per branch so that default statuses are set in GitHub with non-release specific names 
+
   unit-tests:
+    needs: define-matrix
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      matrix:
-        release: [""]
-        include:
-          - release: ''
-            target_branch: 'rhel-10'
-            ci_tag: 'rhel-10'
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -83,16 +84,12 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rpm-tests:
+    needs: define-matrix
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      matrix:
-        release: [""]
-        include:
-          - release: ''
-            target_branch: 'rhel-10'
-            ci_tag: 'rhel-10'
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
