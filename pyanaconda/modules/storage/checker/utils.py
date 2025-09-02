@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import re
 from collections import defaultdict
 
 from blivet import arch, blockdev, util
@@ -39,7 +40,6 @@ from pyanaconda.core.constants import (
 from pyanaconda.core.hw import NO_SWAP_EXTRA_RAM
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import rpm_version_key
-from pyanaconda.core.product import get_product_name
 from pyanaconda.core.storage import DEVICE_TEXT_MAP
 from pyanaconda.modules.storage.platform import platform
 
@@ -57,20 +57,18 @@ def verify_root(storage, constraints, report_error, report_warning):
     root = storage.fsset.root_device
 
     if not root:
-        report_error(_("You have not defined a root partition (/), "
-                       "which is required for installation of %(prod_name)s "
-                       "to continue.") % {"prod_name": get_product_name()})
+        report_error(_("A root partition (/) is required for installation. Create one to continue."))
 
     if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/" \
        and not root.format.is_empty:
-        report_error(_("You must create a new file system on the root device."))
+        report_error(_("The root partition (/) must be reformatted to continue."))
 
     if storage.root_device and constraints[STORAGE_ROOT_DEVICE_TYPES]:
         device_type = get_device_type(storage.root_device)
         device_types = constraints[STORAGE_ROOT_DEVICE_TYPES]
         if device_type not in device_types:
-            report_error(_("Your root partition must be on a device of type: %s.")
-                         % ", ".join(DEVICE_TEXT_MAP[t] for t in device_types))
+            report_error(_("The root partition must be on one of the following device types: %(types)s.")
+                         % {"types": ", ".join(DEVICE_TEXT_MAP[t] for t in device_types)})
 
 
 def verify_s390_constraints(storage, constraints, report_error, report_warning):
@@ -88,9 +86,8 @@ def verify_s390_constraints(storage, constraints, report_error, report_warning):
 
     for disk in storage.disks:
         if disk.type == "dasd" and blockdev.s390.dasd_is_ldl(disk.name):
-            report_error(_("The LDL DASD disk {name} ({busid}) cannot be used "
-                           "for the installation. Please format it.")
-                         .format(name="/dev/" + disk.name, busid=disk.busid))
+            report_error(_("The LDL DASD disk %(disk)s is unusable. Format it to the CDL layout to continue.")
+                         % {"disk": "/dev/" + disk.name})
 
 
 def verify_partition_formatting(storage, constraints, report_error, report_warning):
@@ -110,8 +107,8 @@ def verify_partition_formatting(storage, constraints, report_error, report_warni
     ]
 
     for mount in mountpoints:
-        report_warning(_("It is recommended to create a new file system on your "
-                         "%(mount)s partition.") % {'mount': mount})
+        report_warning(_("To avoid conflicts with existing data, reformat %(mount)s.")
+                       % {"mount": mount})
 
 
 def verify_partition_sizes(storage, constraints, report_error, report_warning):
@@ -126,17 +123,13 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
 
     for (mount, size) in constraints[STORAGE_MIN_PARTITION_SIZES].items():
         if mount in filesystems and filesystems[mount].size < size:
-            report_warning(_("Your %(mount)s partition is less than "
-                             "%(size)s which is lower than recommended "
-                             "for a normal %(productName)s install.")
-                           % {'mount': mount, 'size': size,
-                              'productName': get_product_name()})
+            report_warning(_("The %(mount)s partition should be at least %(size)s for a standard installation.")
+                           % {"mount": mount, "size": size})
 
     for (mount, size) in constraints[STORAGE_REQ_PARTITION_SIZES].items():
         if mount in filesystems and filesystems[mount].size < size:
-            report_error(_("Your %(mount)s partition size is lower "
-                           "than required %(size)s.")
-                         % {'mount': mount, 'size': size})
+            report_error(_("The %(mount)s partition must be at least %(size)s.")
+                         % {"mount": mount, "size": size})
 
 
 def verify_partition_format_sizes(storage, constraints, report_error, report_warning):
@@ -154,21 +147,19 @@ def verify_partition_format_sizes(storage, constraints, report_error, report_war
     for (mount, device) in filesystems.items():
         problem = device.check_size()
         if problem < 0:
-            report_error(_("Your %(mount)s partition is too small for "
-                           "%(format)s formatting (allowable size is "
-                           "%(minSize)s to %(maxSize)s)")
+            report_error(_("The %(mount)s partition is too small for %(format)s. "
+                           "It must be between %(minSize)s and %(maxSize)s.")
                          % {"mount": mount, "format": device.format.name,
                             "minSize": device.min_size, "maxSize": device.max_size})
         elif problem > 0:
-            report_error(_("Your %(mount)s partition is too large for "
-                           "%(format)s formatting (allowable size is "
-                           "%(minSize)s to %(maxSize)s)")
+            report_error(_("The %(mount)s partition is too large for %(format)s. "
+                           "It must be between %(minSize)s and %(maxSize)s.")
                          % {"mount": mount, "format": device.format.name,
                             "minSize": device.min_size, "maxSize": device.max_size})
 
 
 def verify_bootloader(storage, constraints, report_error, report_warning):
-    """ Verify that the size of the device is allowed by the format used.
+    """ Verify bootloader prerequisites and surface dynamic messages.
 
     :param storage: a storage to check
     :param constraints: a dictionary of constraints
@@ -178,31 +169,37 @@ def verify_bootloader(storage, constraints, report_error, report_warning):
     if storage.bootloader and not storage.bootloader.skip_bootloader:
         stage1 = storage.bootloader.stage1_device
         if not stage1:
-            report_error(_("No valid boot loader target device found. "
-                           "See below for details."))
-            report_error(platform.stage1_suggestion)
+            report_error(_("A valid target for the boot loader was not found. Create a /boot partition to continue."))
+            # Normalize the platform suggestion as a bootloader error for consistent display.
+            report_error(_("Boot loader error: %(msg)s") % {"msg": platform.stage1_suggestion})
         else:
             storage.bootloader.is_valid_stage1_device(stage1)
             for msg in storage.bootloader.errors:
-                report_error(msg)
+                report_error(_("Boot loader error: %(msg)s") % {"msg": msg})
 
             for msg in storage.bootloader.warnings:
-                report_warning(msg)
+                report_warning(_("Boot loader warning: %(msg)s") % {"msg": msg})
 
         stage2 = storage.bootloader.stage2_device
         if stage1 and not stage2:
-            report_error(_("You have not created a bootable partition."))
+            if arch.is_efi():
+                report_error(_("An EFI System Partition (ESP) is required. "
+                               "Create a FAT32 partition of at least 100 MiB, set its type to 'EFI System', "
+                               "and mount it at /boot/efi."))
+            else:
+                report_error(_("No partition is marked as \"bootable\". "
+                               "Set the boot flag on the appropriate partition (either on / or a /boot partition)."))
         else:
             storage.bootloader.is_valid_stage2_device(stage2)
             for msg in storage.bootloader.errors:
-                report_error(msg)
+                report_error(_("Boot loader error: %(msg)s") % {"msg": msg})
 
             for msg in storage.bootloader.warnings:
-                report_warning(msg)
+                report_warning(_("Boot loader warning: %(msg)s") % {"msg": msg})
 
             if not storage.bootloader.check():
                 for msg in storage.bootloader.errors:
-                    report_error(msg)
+                    report_error(_("Boot loader error: %(msg)s") % {"msg": msg})
 
 
 def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
@@ -227,12 +224,9 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
                     break
 
             if missing:
-                report_error(_(
-                    "Your BIOS-based system needs a special "
-                    "partition to boot from a GPT disk label. "
-                    "To continue, please create a 1MiB "
-                    "'biosboot' type partition on the {} disk."
-                ).format(stage1.name))
+                report_error(_("Booting from a GPT disk on a BIOS system requires a 1 MiB "
+                               "'biosboot' type partition on %(disk)s. Create one to continue.")
+                             % {"disk": stage1.name})
 
 
 def verify_opal_compatibility(storage, constraints, report_error, report_warning):
@@ -252,11 +246,9 @@ def verify_opal_compatibility(storage, constraints, report_error, report_warning
         # Is /boot on XFS?
         dev = storage.mountpoints.get("/boot") or storage.mountpoints.get("/")
         if dev and dev.format and dev.format.type == "xfs":
-            report_error(_(
-                "The system will not be bootable. The firmware does not "
-                "support XFS file system features on the boot file system. "
-                "Upgrade the firmware or change the file system type."
-            ))
+            report_error(_("System firmware does not support booting from an XFS partition. "
+                           "Select a different file system type for the boot partition "
+                           "or upgrade the firmware to continue."))
 
 
 def _check_opal_firmware_kernel_version(detected_version, required_version):
@@ -307,28 +299,36 @@ def verify_swap(storage, constraints, report_error, report_warning):
 
     if not swaps:
         installed = util.total_memory()
-        required = constraints[STORAGE_MIN_RAM] + Size("{} MiB".format(NO_SWAP_EXTRA_RAM))
+        required = constraints[STORAGE_MIN_RAM] + Size("%s MiB" % NO_SWAP_EXTRA_RAM)
+
+        # Recommended swap per Red Hat guidelines (no hibernation):
+        # <= 2 GiB -> 2x RAM; > 2-8 GiB -> 1x RAM; > 8-64 GiB -> 4 GiB; > 64 GiB -> 4 GiB
+        two_gib = Size("2 GiB")
+        eight_gib = Size("8 GiB")
+
+        if installed <= two_gib:
+            rec_swap = installed * 2
+        elif installed <= eight_gib:
+            rec_swap = installed
+        else:
+            rec_swap = Size("4 GiB")
 
         if not constraints[STORAGE_SWAP_IS_RECOMMENDED]:
             if installed < required:
-                report_warning(_("You have not specified a swap partition. "
-                                 "%(requiredMem)s of memory is recommended to continue "
-                                 "installation without a swap partition, but you only "
-                                 "have %(installedMem)s.")
-                               % {"requiredMem": required, "installedMem": installed})
+                report_warning(_("The system has %(installedMem)s of memory, but "
+                                 "%(requiredMem)s is recommended. For better performance, "
+                                 "create a swap partition of at least %(swapSize)s.")
+                               % {"installedMem": installed, "requiredMem": required, "swapSize": rec_swap})
         else:
             if installed < required:
-                report_error(_("You have not specified a swap partition. "
-                               "%(requiredMem)s of memory is required to continue "
-                               "installation without a swap partition, but you only "
-                               "have %(installedMem)s.")
-                             % {"requiredMem": required, "installedMem": installed})
+                report_error(_("Insufficient memory to install. %(installedMem)s is available, "
+                               "but %(requiredMem)s is required. Create a swap partition of at least %(swapSize)s.")
+                             % {"installedMem": installed, "requiredMem": required, "swapSize": rec_swap})
             else:
-                report_warning(_(
-                    "A swap partition has not been specified. To significantly "
-                    "improve performance for most installations, it is recommended "
-                    "to specify a swap partition."
-                ))
+                report_warning(_("This system only has %(size)s of available memory. "
+                                 "Creating a swap partition would dramatically improve system reliability "
+                                 "in most scenarios.")
+                               % {"size": installed})
 
 
 def verify_swap_uuid(storage, constraints, report_error, report_warning):
@@ -343,13 +343,9 @@ def verify_swap_uuid(storage, constraints, report_error, report_warning):
     no_uuid = [s for s in swaps if s.format.exists and not s.format.uuid]
 
     if no_uuid:
-        report_warning(_("At least one of your swap devices does not have "
-                         "a UUID, which is common in swap space created "
-                         "using older versions of mkswap. These devices "
-                         "will be referred to by device path in "
-                         "/etc/fstab, which is not ideal since device "
-                         "paths can change under a variety of "
-                         "circumstances."))
+        report_warning(_("A swap partition is using a device path that can change at boot, "
+                         "which might prevent the system from finding it. Recreate the partition "
+                         "to assign a stable UUID."))
 
 
 def verify_mountpoints_on_root(storage, constraints, report_error, report_warning):
@@ -362,8 +358,8 @@ def verify_mountpoints_on_root(storage, constraints, report_error, report_warnin
     """
     for mountpoint in storage.mountpoints:
         if mountpoint in constraints[STORAGE_MUST_BE_ON_ROOT]:
-            report_error(_("This mount point is invalid. The %s directory must "
-                           "be on the / file system.") % mountpoint)
+            report_error(_("The %(dir)s directory must be on the root (/) file system, not a separate partition.")
+                         % {"dir": mountpoint})
 
 
 def verify_mountpoints_not_on_root(storage, constraints, report_error, report_warning):
@@ -378,8 +374,8 @@ def verify_mountpoints_not_on_root(storage, constraints, report_error, report_wa
 
     for mountpoint in constraints[STORAGE_MUST_NOT_BE_ON_ROOT]:
         if mountpoint not in filesystems:
-            report_error(_("Your %s must be on a separate partition or LV.")
-                         % mountpoint)
+            report_error(_("The %(dir)s directory must be on its own separate partition or logical volume.")
+                         % {"dir": mountpoint})
 
 
 def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_warning):
@@ -395,7 +391,8 @@ def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_war
     for (mountpoint, dev) in filesystems.items():
         if mountpoint in constraints[STORAGE_MUST_BE_ON_LINUXFS] \
                 and (not dev.format.mountable or not dev.format.linux_native):
-            report_error(_("The mount point %s must be on a linux file system.") % mountpoint)
+            report_error(_("The mount point %s must be on a Linux file system.")
+                         % mountpoint)
 
 
 def verify_unlocked_devices_have_key(storage, constraints, report_error, report_warning):
@@ -419,9 +416,8 @@ def verify_unlocked_devices_have_key(storage, constraints, report_error, report_
     ]
 
     for dev in devices:
-        report_error(_("The existing unlocked LUKS device {} cannot be used for "
-                       "the installation without an encryption key specified for "
-                       "this device. Please, rescan the storage.").format(dev.name))
+        report_error(_("The unlocked LUKS device %(dev)s requires an encryption key. "
+                       "Rescan storage and provide its key to continue.") % {"dev": dev.name})
 
 
 def verify_luks_devices_have_key(storage, constraints, report_error, report_warning):
@@ -440,8 +436,8 @@ def verify_luks_devices_have_key(storage, constraints, report_error, report_warn
                and not d.format.has_key]
 
     for dev in devices:
-        report_error(_("Encryption requested for LUKS device %s but no "
-                       "encryption key specified for this device.") % (dev.name,))
+        report_error(_("Encryption for %(dev)s requires a passphrase or encryption key. "
+                       "Enter one to proceed.") % {"dev": dev.name})
 
 
 def verify_luks2_memory_requirements(storage, constraints, report_error, report_warning):
@@ -462,8 +458,8 @@ def verify_luks2_memory_requirements(storage, constraints, report_error, report_
     log.debug("Available memory: %s", available_memory)
 
     if devices and available_memory < constraints[STORAGE_LUKS2_MIN_RAM]:
-        report_warning(_("The available memory is less than %(size)s which can "
-                         "be too small for LUKS2 format. It may fail.")
+        report_warning(_("LUKS2 disk encryption might fail with less than %(size)s of memory. "
+                         "Creating a swap partition may help.")
                        % {"size": constraints[STORAGE_LUKS2_MIN_RAM]})
 
 
@@ -503,8 +499,9 @@ def verify_mounted_partitions(storage, constraints, report_error, report_warning
             return
 
         if part.busy:
-            report_error(_("%s is currently mounted and cannot be used for the "
-                           "installation. Please unmount it and retry.") % path)
+            report_error(_("The partition %(path)s is currently in use. "
+                           "Unmount the partition to use it for installation.")
+                         % {"path": path})
 
 
 def verify_lvm_destruction(storage, constraints, report_error, report_warning):
@@ -537,11 +534,9 @@ def verify_lvm_destruction(storage, constraints, report_error, report_warning):
 
     for vg_name, disks in all_touched_disks_by_vg.items():
         if vg_name not in destroyed_vg_names:
-            report_error(_(
-                "Selected disks {disks} contain volume group '{vg}' that also uses further "
-                "unselected disks. You must select or de-select all these disks as a set.")
-                .format(disks=", ".join(disks), vg=vg_name)
-            )
+            report_error(_("The volume group %(vg)s spans multiple disks, but the current selection "
+                           "only includes %(disks)s. Select or deselect all disks in this group to continue.")
+                         % {"vg": vg_name, "disks": ", ".join(disks)})
 
 
 class StorageCheckerReport:
@@ -584,6 +579,145 @@ class StorageCheckerReport:
         """
         self.add_info("Found sanity warning: %s" % msg)
         self.warnings.append(msg)
+
+    def _join_list(self, items):
+        if not items:
+            return ""
+        if len(items) == 1:
+            return items[0]
+        conj = _("and")
+        if len(items) == 2:
+            return _("%(a)s %(and)s %(b)s") % {"a": items[0], "and": conj, "b": items[1]}
+        head = ", ".join(items[:-1])
+        return _("%(head)s, %(and)s %(tail)s") % {"head": head, "and": conj, "tail": items[-1]}
+
+    def _dedupe_preserve_order(self, seq):
+        seen = set()
+        out = []
+        for s in seq:
+            if s not in seen:
+                seen.add(s)
+                out.append(s)
+        return out
+
+    def _consolidate(self):
+        # Warnings: reformat mount(s)
+        tpl_reformat = _("To avoid conflicts with existing data, reformat %(mount)s.")
+        pat_reformat = re.compile(re.escape(tpl_reformat).replace(re.escape("%(mount)s"), r"(?P<m>.+?)"))
+
+        # Warnings: min recommended size
+        tpl_min_size = _("The %(mount)s partition should be at least %(size)s for a standard installation.")
+        pat_min_size = re.compile(
+            re.escape(tpl_min_size)
+            .replace(re.escape("%(mount)s"), r"(.+?)")
+            .replace(re.escape("%(size)s"), r"(.+?)")
+        )
+
+        # Errors: must be on Linux fs
+        tpl_linuxfs = _("The mount point %s must be on a Linux file system.") % "%s"
+        pat_linuxfs = re.compile(re.escape(tpl_linuxfs).replace(re.escape("%s"), r"(?P<m>.+?)"))
+
+        # Errors: dir must be on root
+        tpl_on_root = _("The %(dir)s directory must be on the root (/) file system, not a separate partition.")
+        pat_on_root = re.compile(re.escape(tpl_on_root).replace(re.escape("%(dir)s"), r"(?P<d>.+?)"))
+
+        # Errors: dir must not be on root (own partition/LV)
+        tpl_not_on_root = _("The %(dir)s directory must be on its own separate partition or logical volume.")
+        pat_not_on_root = re.compile(re.escape(tpl_not_on_root).replace(re.escape("%(dir)s"), r"(?P<d>.+?)"))
+
+        # Errors: partitions currently in use
+        tpl_in_use = _("The partition %(path)s is currently in use. "
+                       "Unmount the partition to use it for installation.")
+        pat_in_use = re.compile(re.escape(tpl_in_use).replace(re.escape("%(path)s"), r"(?P<p>.+?)"))
+
+        # Group warnings
+        warn_reformats = []
+        warn_min_size_by_size = defaultdict(list)
+        remaining_warnings = []
+
+        for w in self.warnings:
+            m = pat_reformat.fullmatch(w)
+            if m:
+                warn_reformats.append(m.group("m"))
+                continue
+            m = pat_min_size.fullmatch(w)
+            if m:
+                warn_min_size_by_size[m.group("s")].append(m.group("m"))
+                continue
+            remaining_warnings.append(w)
+
+        merged_warnings = []
+
+        if warn_reformats:
+            merged_warnings.append(
+                _("To avoid conflicts with existing data, reformat %(mounts)s.")
+                % {"mounts": self._join_list(warn_reformats)}
+            )
+
+        for size, mounts in warn_min_size_by_size.items():
+            merged_warnings.append(
+                _("The following partitions should be at least %(size)s: %(mounts)s.")
+                % {"size": size, "mounts": self._join_list(mounts)}
+            )
+
+        merged_warnings.extend(remaining_warnings)
+        # Final sanitize to guarantee no Pango markup remnants.
+        self.warnings = self._dedupe_preserve_order(merged_warnings)
+
+        # Group errors
+        err_linuxfs = []
+        err_on_root = []
+        err_not_on_root = []
+        err_in_use = []
+        remaining_errors = []
+
+        for e in self.errors:
+            m = pat_linuxfs.fullmatch(e)
+            if m:
+                err_linuxfs.append(m.group("m"))
+                continue
+            m = pat_on_root.fullmatch(e)
+            if m:
+                err_on_root.append(m.group("d"))
+                continue
+            m = pat_not_on_root.fullmatch(e)
+            if m:
+                err_not_on_root.append(m.group("d"))
+                continue
+            m = pat_in_use.fullmatch(e)
+            if m:
+                err_in_use.append(m.group("p"))
+                continue
+            remaining_errors.append(e)
+
+        merged_errors = []
+
+        if err_linuxfs:
+            merged_errors.append(
+                _("The following mount points must be on a Linux file system: %(mounts)s.")
+                % {"mounts": self._join_list(err_linuxfs)}
+            )
+
+        if err_on_root:
+            merged_errors.append(
+                _("These directories must be on the root (/) file system: %(dirs)s.")
+                % {"dirs": self._join_list(err_on_root)}
+            )
+
+        if err_not_on_root:
+            merged_errors.append(
+                _("These directories must be on their own separate partition or logical volume: %(dirs)s.")
+                % {"dirs": self._join_list(err_not_on_root)}
+            )
+
+        if err_in_use:
+            merged_errors.append(
+                _("The following partitions are currently in use: %(paths)s. Unmount them to use them for installation.")
+                % {"paths": self._join_list(err_in_use)}
+            )
+
+        merged_errors.extend(remaining_errors)
+        self.errors = self._dedupe_preserve_order(merged_errors)
 
     def log(self, logger, error=True, warning=True, info=True):
         """ Log the messages.
@@ -682,7 +816,8 @@ class StorageChecker:
             result.add_info("Run sanity check %s." % check.__name__)
             check(storage, constraints, result.add_error, result.add_warning)
 
-        # Report the result.
+        result._consolidate()
+
         if result.success:
             result.add_info("Storage check finished with success.")
         else:
