@@ -116,7 +116,7 @@ jobs:
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
-       CONTAINER_TAG: fedora-rawhide
+       CI_TAG: fedora-rawhide
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -241,18 +241,18 @@ jobs:
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
         run: |
-          sudo -E make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo -E make -f ./Makefile.am anaconda-iso-creator-build
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
         run: |
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         working-directory: ./anaconda
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am container-rpms-scratch
           mkdir -p ${{ github.workspace }}/kickstart-tests/data/additional_repo/
           cp -av ./result/build/01-rpm-build/*.rpm ${{ github.workspace }}/kickstart-tests/data/additional_repo/
 
@@ -264,14 +264,14 @@ jobs:
             --tmpfs /var/tmp:rw,mode=1777 \
             -v ${{ github.workspace }}/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
             -v ${{ github.workspace }}/images:/images:z \
-            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+            $ISO_BUILD_CONTAINER_NAME:$CI_TAG
 
       - name: Clean up after lorax
         if: always()
         run: |
           # remove container images together with the container
-          sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
-          sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
+          sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CI_TAG || true
+          sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CI_TAG || true
 
       - name: Create Permian settings file
         working-directory: ./permian
