@@ -235,7 +235,7 @@ jobs:
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
         run: |
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo -E make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
