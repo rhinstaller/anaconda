@@ -117,9 +117,9 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
 
         warning_handler.assert_not_called()
         error_handler.assert_called_once_with(
-            "Selected disks {} contain volume group '{}' that also uses further unselected disks. "
-            "You must select or de-select all these disks as a set."
-            .format("PHYSDISK-2", "VOLGROUP-B")
+            "The volume group {} spans multiple disks, but the current selection only includes {}. "
+            "Select or deselect all disks in this group to continue."
+            .format("VOLGROUP-B", "PHYSDISK-2")
         )
 
     def test_get_opal_kernel_version(self):
@@ -185,9 +185,9 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
     def test_opal_verification_old_firmware(self, mocked_arch, version_getter, xfs_mountable):
         """Check verify_opal_compatibility with an older firmware."""
         message = \
-            "The system will not be bootable. The firmware does not support " \
-            "XFS file system features on the boot file system. Upgrade the " \
-            "firmware or change the file system type."
+            "System firmware does not support booting from an XFS partition. " \
+            "Select a different file system type for the boot partition or " \
+            "upgrade the firmware to continue."
 
         storage = create_storage()
 
