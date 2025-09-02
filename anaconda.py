@@ -329,7 +329,7 @@ if __name__ == "__main__":
         except OSError:
             pass
 
-    log.info("anaconda called with cmdline = %s", sys.argv)
+    log.info("DDDDD anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
     # start dbus session (if not already running) and run boss in it
