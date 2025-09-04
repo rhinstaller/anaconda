@@ -98,18 +98,29 @@ jobs:
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       kstest_pr: ${{ steps.parse_comment_args.outputs.kstest_pr }}
 
-  run:
+  define-matrix:
     needs: pr-info
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ${{ needs.pr-info.outputs.base_ref }}  #Set target_branch to PR's base branch in order to filter only supported releases for this branch
+      use_full_releases: false # Set .release to '' for default release per branch so that default statuses are set in GitHub with non-release specific names
+
+  run:
+    needs: [pr-info, define-matrix]
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != '' && ! contains(github.event.comment.body, '--waive')
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
-       STATUS_NAME: kickstart-test
+       STATUS_NAME: "kickstart-test${{ matrix.release != '' && format(' --os {0}', matrix.release) || '' }}"
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
+       CI_TAG: ${{ matrix.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -138,14 +149,6 @@ jobs:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
           path: anaconda
-
-      - name: Determine CI_TAG for current branch
-        id: determine_ci_tag
-        working-directory: ./anaconda
-        run: |
-          CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
-          echo "CI_TAG: $CI_TAG"
-          echo "CI_TAG=$CI_TAG" >> $GITHUB_ENV
 
       - name: Rebase to current ${{ env.TARGET_BRANCH }}
         working-directory: ./anaconda
@@ -347,7 +350,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}
+          name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}_${{ matrix.ci_tag }}
           path: |
             kickstart-tests/data/logs/kstest*.log
             kickstart-tests/data/logs/kstest-*/anaconda/*
