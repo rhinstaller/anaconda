@@ -162,8 +162,9 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
         assert created_mount_points == \
             ["/sysroot/usr", "/sysroot/dev", "/sysroot/proc", "/sysroot/run", "/sysroot/sys",
-             "/sysroot/var", "/sysroot/etc", "/sysroot/home", "/sysroot/sysroot"]
-        exec_mock.assert_has_calls([
+             "/sysroot/var", "/sysroot/etc", "/sysroot/home", "/sysroot/boot", "/sysroot/sysroot"]
+
+        calls = [
             call("mount", ["--bind", "/sysroot/usr", "/sysroot/usr"]),
             call("mount", ["--bind", "-o", "remount,ro", "/sysroot/usr", "/sysroot/usr"]),
             call("mount", ["--rbind", "/physroot/dev", "/sysroot/dev"]),
@@ -193,9 +194,12 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/spool/mail"]),
             call("mount", ["--bind", "/physroot/etc", "/sysroot/etc"]),
             call("mount", ["--bind", "/physroot/home", "/sysroot/home"]),
+            call("mount", ["--bind", "/physroot/boot", "/sysroot/boot"]),
             call("mount", ["--bind", "/physroot/", "/sysroot/sysroot"])
-        ])
-        assert len(exec_mock.mock_calls) == 20
+        ]
+        exec_mock.assert_has_calls(calls)
+
+        assert len(exec_mock.mock_calls) == len(calls)
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execProgram")
@@ -203,7 +207,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     def test_run_without_var(self, storage_mock, mkdir_mock, exec_mock):
         """Test OSTree mount target prepare task run() without /var"""
-        exec_mock.side_effect = [(0, "")] * 7 + [(0, ""), (65, "")] * 5 + [(0, "")] * 3
+        exec_mock.side_effect = [(0, "")] * 7 + [(0, ""), (65, "")] * 5 + [(0, "")] * 4
 
         data = _make_config_data()
         self._check_run_without_var(data, storage_mock, mkdir_mock, exec_mock)
@@ -212,8 +216,8 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     def test_container_run_without_var(self, storage_mock, mkdir_mock, exec_mock):
-        """Test OSTree mount target prepare task run() without /var"""
-        exec_mock.side_effect = [(0, "")] * 7 + [(0, ""), (65, "")] * 5 + [(0, "")] * 3
+        """Test OSTree mount target prepare task run() without /var with ostreecontainer"""
+        exec_mock.side_effect = [(0, "")] * 7 + [(0, ""), (65, "")] * 5 + [(0, "")] * 4
 
         data = _make_container_config_data()
         self._check_run_without_var(data, storage_mock, mkdir_mock, exec_mock)
@@ -229,8 +233,8 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
         assert created_mount_points == \
             ["/sysroot/usr", "/sysroot/dev", "/sysroot/proc", "/sysroot/run", "/sysroot/sys",
-             "/sysroot/var", "/sysroot/etc", "/sysroot/home", "/sysroot/sysroot"]
-        exec_mock.assert_has_calls([
+             "/sysroot/var", "/sysroot/etc", "/sysroot/home", "/sysroot/boot", "/sysroot/sysroot"]
+        calls = [
             call("mount", ["--bind", "/sysroot/usr", "/sysroot/usr"]),
             call("mount", ["--bind", "-o", "remount,ro", "/sysroot/usr", "/sysroot/usr"]),
             call("mount", ["--rbind", "/physroot/dev", "/sysroot/dev"]),
@@ -260,9 +264,12 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/spool/mail"]),
             call("mount", ["--bind", "/physroot/etc", "/sysroot/etc"]),
             call("mount", ["--bind", "/physroot/home", "/sysroot/home"]),
+            call("mount", ["--bind", "/physroot/boot", "/sysroot/boot"]),
             call("mount", ["--bind", "/physroot/", "/sysroot/sysroot"])
-        ])
-        assert len(exec_mock.mock_calls) == 20
+        ]
+        exec_mock.assert_has_calls(calls)
+
+        assert len(exec_mock.mock_calls) == len(calls)
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execProgram")
