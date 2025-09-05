@@ -719,50 +719,6 @@ class MiscTests(unittest.TestCase):
         assert get_anaconda_version_string() == "1.0"
         assert get_anaconda_version_string(build_time_version=True) == "1.0-1"
 
-    def test_get_os_relase_value(self):
-        """Test the get_release_value function."""
-        with tempfile.TemporaryDirectory() as root:
-            # prepare paths
-            make_directories(root + "/usr/lib")
-            make_directories(root + "/etc")
-
-            # no file
-            with self.assertLogs(level="DEBUG") as cm:
-                version = util.get_os_release_value("VERSION_ID", root)
-
-            msg = "VERSION_ID not found in os-release files"
-            assert any(map(lambda x: msg in x, cm.output))
-            assert version is None
-
-            # backup file only
-            with open(root + "/usr/lib/os-release", "w") as f:
-                f.write("# blah\nVERSION_ID=foo256bar  \n VERSION_ID = wrong\n\n")
-            version = util.get_os_release_value("VERSION_ID", root)
-            assert version == "foo256bar"
-
-            # main file and backup too
-            with open(root + "/etc/os-release", "w") as f:
-                f.write("# blah\nVERSION_ID=more-important\n")
-            version = util.get_os_release_value("VERSION_ID", root)
-            assert version == "more-important"
-
-            # both, main file twice
-            with open(root + "/etc/os-release", "w") as f:
-                f.write("# blah\nVERSION_ID=more-important\nVERSION_ID=not-reached\n \n")
-            version = util.get_os_release_value("VERSION_ID", root)
-            assert version == "more-important"
-
-            # quoted values
-            with open(root + "/etc/os-release", "w") as f:
-                f.write("PRETTY_NAME=\"Fedora 32\"\n")
-            assert util.get_os_release_value("PRETTY_NAME", root) == "Fedora 32"
-
-            # no files
-            os.remove(root + "/usr/lib/os-release")
-            os.remove(root + "/etc/os-release")
-            version = util.get_os_release_value("VERSION_ID", root)
-            assert version is None
-
     @patch("pyanaconda.core.util.execWithRedirect")
     def test_restorecon(self, exec_mock):
         """Test restorecon helper normal function"""

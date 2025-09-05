@@ -18,67 +18,72 @@
 # Test the Python-based signal and slot implementation.
 #
 
+import os
 import unittest
+import tempfile
 from textwrap import dedent
 from unittest.mock import mock_open, patch
 
+from pyanaconda.core.util import make_directories
 import pyanaconda.core.product  # needed for patching, see below
 from pyanaconda.core.product import (
     ProductData,
+    get_os_release_value,
     get_product_is_final_release,
     get_product_name,
     get_product_short_name,
     get_product_values,
     get_product_version,
-    shorten_product_name,
     trim_product_version_for_ui,
 )
 
 
-def make_buildstamp(product="Fedora", version="Rawhide", is_final=False):
-    BUILDSTAMP_TEMPLATE = dedent("""\
-        [Main]
-        Product={}
-        Version={}
-        BugURL=your distribution provided bug reporting tool
-        IsFinal={}
-        UUID=197001010000.x86_64
-        Variant=Everything
-        [Compose]
-        Lorax=39.2-1
-    """)
-    return BUILDSTAMP_TEMPLATE.format(
-        product,
-        version,
-        is_final,
-    )
-
-
-def mock_multi_open(mock_file_data):
-    """An extension of mock_open which supports repeated calls.
-
-    This is needed, because when mocking builtins.open():
-    - for multiple calls, it is possible to use the usual Mock with side_effect=[StringIO(), ...]
-    - for use as a context manager, patch with new_callable=unittest.mock.mock_open
-    However, neither of these works for the other case, so for... with open()... needs this.
-
-    It is possible to cobble this together inline, too, but it's incredibly ugly and cryptic.
-    """
-    mo = mock_open()
-    mo.side_effect = [
-        mock_open(read_data=data).return_value for data in mock_file_data
-    ]
-    return mo
-
-
 class ProductHelperTestCase(unittest.TestCase):
+
+    def test_get_os_relase_value(self):
+        """Test the get_release_value function."""
+        with tempfile.TemporaryDirectory() as root:
+            # prepare paths
+            make_directories(root + "/usr/lib")
+            make_directories(root + "/etc")
+
+            # no file
+            version = get_os_release_value("VERSION_ID", root)
+            assert version is None
+
+            # backup file only
+            with open(root + "/usr/lib/os-release", "w") as f:
+                f.write("# blah\nVERSION_ID=foo256bar  \n VERSION_ID = wrong\n\n")
+            version = get_os_release_value("VERSION_ID", root)
+            assert version == "foo256bar"
+
+            # main file and backup too
+            with open(root + "/etc/os-release", "w") as f:
+                f.write("# blah\nVERSION_ID=more-important\n")
+            version = get_os_release_value("VERSION_ID", root)
+            assert version == "more-important"
+
+            # both, main file twice
+            with open(root + "/etc/os-release", "w") as f:
+                f.write("# blah\nVERSION_ID=more-important\nVERSION_ID=not-reached\n \n")
+            version = get_os_release_value("VERSION_ID", root)
+            assert version == "more-important"
+
+            # quoted values
+            with open(root + "/etc/os-release", "w") as f:
+                f.write("PRETTY_NAME=\"Fedora 32\"\n")
+            assert get_os_release_value("PRETTY_NAME", root) == "Fedora 32"
+
+            # no files
+            os.remove(root + "/usr/lib/os-release")
+            os.remove(root + "/etc/os-release")
+            version = get_os_release_value("VERSION_ID", root)
+            assert version is None
 
     def test_trim_product_version_for_ui(self):
         """Test version shortening."""
         trimmed_versions = [
             ("8.0.0", "8.0"),
-            ("rawhide", "rawhide"),
-            ("development", "rawhide"),
             ("7.6", "7.6"),
             ("7", "7"),
             ("8.0.0.1", "8.0"),
@@ -86,17 +91,6 @@ class ProductHelperTestCase(unittest.TestCase):
 
         for original, trimmed in trimmed_versions:
             assert trimmed == trim_product_version_for_ui(original)
-
-    def test_short_product_name(self):
-        """Test shortening product names."""
-        assert shorten_product_name("UPPERCASE") == "uppercase"
-        assert shorten_product_name("lowercase") == "lowercase"
-        assert shorten_product_name("CamelCase") == "camelcase"
-        assert shorten_product_name("Name With Spaces") == "nws"
-        assert shorten_product_name("lowercase spaces") == "ls"
-        assert shorten_product_name("something-WITH-dashes") == "something-with-dashes"
-        assert shorten_product_name("Fedora") == "fedora"
-        assert shorten_product_name("Red Hat Enterprise Linux") == "rhel"
 
 
 class ProductTestCase(unittest.TestCase):
@@ -111,58 +105,23 @@ class ProductTestCase(unittest.TestCase):
         # invalidate cache also for all tests run after this
         get_product_values.cache_clear()
 
-    @patch.dict("os.environ", clear=True)
-    @patch.object(pyanaconda.core.product.configparser.ConfigParser, "read")
-    def test_defaults(self, mock_cfp_read):
-        """Test product value defaults."""
-        values = get_product_values()
-        expected = ProductData(False, "anaconda", "bluesky", "anaconda")
-
-        assert values == expected
-        mock_cfp_read.assert_called_once_with(["/.buildstamp", ""])
-
-    @patch.dict("os.environ", clear=True)
-    @patch("pyanaconda.core.product.configparser.open", new_callable=mock_multi_open,
-           mock_file_data=[make_buildstamp("Fedora", "Rawhide", False), ""])
-    def test_buildstamp(self, mock_cfp_open):
-        """Test product values read from a buildstamp file."""
-        values = get_product_values()
-        expected = ProductData(False, "Fedora", "Rawhide", "fedora")
-
-        assert values == expected
-        mock_cfp_open.assert_called()
-
-    @patch.dict("os.environ", clear=True, values={"PRODBUILDPATH": "/testing/file"})
-    @patch("pyanaconda.core.product.configparser.open", new_callable=mock_multi_open,
-           mock_file_data=[
-               make_buildstamp("Fedora", "Rawhide", False),
-               make_buildstamp("The Unfakeable Linux", "12.5.38.65536", False)
-           ])
-    def test_buildstamp_multiple(self, mock_cfp_open):
-        """Test product values read from multiple buildstamp files."""
-        values = get_product_values()
-        expected = ProductData(False, "The Unfakeable Linux", "12.5", "tul")
-
-        assert values == expected
-        assert mock_cfp_open.call_count == 2
-
-    @patch.dict("os.environ", clear=True, values={
-        "ANACONDA_ISFINAL": "True",
-        "ANACONDA_PRODUCTNAME": "TestProduct",
-        "ANACONDA_PRODUCTVERSION": "development"
-    })
-    @patch("pyanaconda.core.product.configparser.open", side_effect=FileNotFoundError)
-    def test_env(self, mock_cfp_open):
+    def test_env(self):
         """Test product values loaded from environment variables."""
-        values = get_product_values()
-        expected = ProductData(True, "TestProduct", "rawhide", "testproduct")
+        FAKE_OS_RELEASE = ""
+        FAKE_OS_RELEASE += 'NAME="Fedora Linux"\n'
+        FAKE_OS_RELEASE += 'VERSION="41 (Workstation Edition)"\n'
+        FAKE_OS_RELEASE += 'VERSION_ID="41"\n'
+        FAKE_OS_RELEASE += 'RELEASE_TYPE=stable\n'
+        FAKE_OS_RELEASE += 'ID=fedora\n'
+
+        m = mock_open(read_data=FAKE_OS_RELEASE)
+        with patch("builtins.open", m):
+            values = get_product_values()
+        expected = ProductData(True, "Fedora Linux", "41", "fedora")
         assert values == expected
 
         # cached values are kept within single test fixture
         assert get_product_is_final_release() is True
-        assert get_product_name() == "TestProduct"
-        assert get_product_version() == "rawhide"
-        assert get_product_short_name() == "testproduct"
-
-        # caching means ConfigParser.read() calls open() twice, and subsequent calls are cached
-        assert mock_cfp_open.call_count == 2
+        assert get_product_name() == "Fedora Linux"
+        assert get_product_version() == "41"
+        assert get_product_short_name() == "fedora"
