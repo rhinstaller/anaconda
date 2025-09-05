@@ -34,13 +34,18 @@ createrepo_c $REPO_DIR
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 {% if distro_name == "fedora" %}
+# Extract version from CI_TAG (e.g., "fedora-rawhide" -> "rawh", "fedora-43" -> "43")
+if [ "$CI_TAG" = "fedora-rawhide" ]; then
+    VOLID_VERSION="rawh"
+    FEDORA_VERSION="rawhide"
+else
+    VOLID_VERSION=${CI_TAG#fedora-}
+    FEDORA_VERSION=$VOLID_VERSION
+fi
+
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
-{% if distro_release == "rawhide" %}
-      --volid Fedora-S-dvd-x86_64-rawh \
-{% else %}
-      --volid Fedora-S-dvd-x86_64-{$ distro_release $} \
-{% endif %}
-      -s http://dl.fedoraproject.org/pub/fedora/linux/development/{$ distro_release $}/Everything/x86_64/os/ \
+      --volid Fedora-S-dvd-x86_64-$VOLID_VERSION \
+      -s http://dl.fedoraproject.org/pub/fedora/linux/development/$FEDORA_VERSION/Everything/x86_64/os/ \
 {% elif distro_name == "rhel" and distro_release == 10 %}
 MAJOR_VERSION=${VERSION_ID%%.*}
 MINOR_VERSION=${VERSION_ID#*.}

@@ -12,19 +12,19 @@ permissions:
   contents: read
 
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ''  # Empty = all releases
+
   daily-release-test:
+    needs: define-matrix
     runs-on: [self-hosted, kstest]
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
       fail-fast: false
-      matrix:
-        release: [{% for rel in supported_releases %}{% if not loop.first %}, {% endif %}'{$ rel.release $}'{% endfor %}]
-        include:
-        {% for rel in supported_releases %}
-          - release: '{$ rel.release $}'
-            branch: '{$ rel.target_branch $}'
-        {% endfor %}
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
       CI_TAG: '${{ matrix.release }}'
 

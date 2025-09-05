@@ -1,0 +1,42 @@
+name: Define Matrix
+
+on:
+  workflow_call:
+    inputs:
+      target_branch:
+        description: 'Target branch to filter matrix for (empty for all branches)'
+        required: false
+        type: string
+        default: ''
+      use_full_releases:
+        description: 'Set to "false" to replace current branch in "release" with empty string. This makes name of the check for the default release per branch always have the same name, so that it can be added to required checks on GitHub'
+        required: false
+        type: string
+        default: 'true'
+    outputs:
+      releases:
+        description: 'Matrix data for the target branch or all branches if no target specified'
+        value: ${{ jobs.define-matrix.outputs.releases }}
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      releases: ${{ steps.get_matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyYAML
+        run: pip install PyYAML
+
+      - name: Generate matrix data
+        id: get_matrix
+        run: |
+          MATRIX=$(python3 scripts/define-matrix.py "${{ inputs.target_branch }}" "${{ inputs.use_full_releases }}")
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
