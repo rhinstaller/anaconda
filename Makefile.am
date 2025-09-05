@@ -231,7 +231,7 @@ anaconda-release-build: anaconda-rpm-build
 anaconda-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
-	sudo $(CONTAINER_ENGINE) build \
+	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
 	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
@@ -244,7 +244,7 @@ anaconda-live-iso-creator-build:
 
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
-	sudo $(CONTAINER_ENGINE) build \
+	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
 	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
@@ -389,7 +389,7 @@ container-iso-build:
 	@echo 'If you need VPN access, please use `CONTAINER_ADD_ARGS=--network=host`'
 
 	mkdir -p result/iso
-	sudo $(CONTAINER_ENGINE) run \
+	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
 	--rm \
 	--privileged \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
@@ -419,7 +419,7 @@ container-live-iso-build:
 	fi
 
 	mkdir -p result/iso/logs
-	sudo $(CONTAINER_ENGINE) run \
+	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
 	--rm \
 	--tty \
 	--privileged \

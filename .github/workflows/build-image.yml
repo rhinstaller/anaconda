@@ -201,7 +201,7 @@ jobs:
             WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
           fi
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged \
+          sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
