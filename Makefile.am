@@ -71,22 +71,6 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 # Program for rendering infra Jinja2 templates
 TEMPLATE_RENDERER = scripts/jinja-render
 
-# Parse CI_TAG into distro and version (e.g., "fedora-41" or "rhel-9")
-CI_TAG_DISTRO := $(word 1,$(subst -, ,$(CI_TAG)))
-CI_TAG_VERSION := $(word 2,$(subst -, ,$(CI_TAG)))
-
-# Compute BASE_CONTAINER based on CI_TAG
-BASE_CONTAINER = $(strip \
-  $(if $(filter eln,$(CI_TAG)), \
-      $(ELN_CONTAINER_REGISTRY)/fedoraci/fedora:eln-x86_64, \
-      $(if $(filter fedora,$(CI_TAG_DISTRO)), \
-          $(FEDORA_CONTAINER_REGISTRY)/$(CI_TAG_DISTRO):$(CI_TAG_VERSION), \
-          $(if $(filter rhel,$(CI_TAG_DISTRO)), \
-              $(CENTOS_CONTAINER_REGISTRY)/centos/centos:stream$(CI_TAG_VERSION), \
-          ) \
-      ) \
-  ))
-
 # Helper target to print CI_TAG for workflows
 print-CI_TAG:
 	@echo $(CI_TAG)
