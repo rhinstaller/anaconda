@@ -85,7 +85,7 @@ BASE_CONTAINER = $(strip \
       $(if $(filter fedora,$(CI_TAG_DISTRO)), \
           $(FEDORA_CONTAINER_REGISTRY)/$(CI_TAG_DISTRO):$(CI_TAG_VERSION), \
           $(if $(filter rhel,$(CI_TAG_DISTRO)), \
-              $(CENTOS_CONTAINER_REGISTRY)/centos/centos:stream$(CI_TAG_VERSION)-development, \
+              $(CENTOS_CONTAINER_REGISTRY)/centos/centos:stream$(CI_TAG_VERSION), \
           ) \
       ) \
   ))
