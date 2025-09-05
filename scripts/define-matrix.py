@@ -36,7 +36,8 @@ def create_matrix_by_branch(supported_releases: List[Dict[str, str]]) -> Dict[st
         matrix_entry = {
             'release': rel['release'],
             'target_branch': rel['target_branch'],
-            'ci_tag': rel['release']
+            'ci_tag': rel['release'],
+            'distro_version': rel['release'].split('-')[-1]
         }
 
         matrix_by_branch[branch_key].append(matrix_entry)
