@@ -1,5 +1,3 @@
-{% if branch_name == "main" %}
-{% set main_releases = supported_releases | selectattr('target_branch', 'equalto', 'main') | list %}
 # This workflow checks if the PR affects Anaconda (changes to pyanaconda folder),
 # polls the packit COPR until it has the current PR version
 # available, and then test-triggers an "anaconda PR" scenario.
@@ -23,14 +21,23 @@ on:
     branches: [ main, fedora-* ]
 
 jobs:
-{% for rel in main_releases %}
-  trigger-{$ rel.release $}:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: main  # Only run for releases that target main branch
+      use_full_releases: true  # Keep full release names for container tags
+
+  trigger-webui:
+    needs: define-matrix
     runs-on: ubuntu-24.04
     # the default workflow token cannot read our org membership, for deciding who is allowed to trigger tests
     environment: gh-cockpituous
-    container: registry.fedoraproject.org/fedora:{$ rel.release|replace('fedora-', '') $}
     # this polls for a COPR build, which can take long
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
+    container: registry.fedoraproject.org/fedora:${{ matrix.release | replace('fedora-', '') }}
 
     steps:
       # Naively this should wait for github.event.pull_request.head.sha, but
@@ -48,10 +55,13 @@ jobs:
           set -ex
           PUSH_TIME=$(date --utc +%Y%m%d%H%M%S -d '${{ github.event.pull_request.head.repo.pushed_at }}')
           COPR_NAME="${{ github.event.pull_request.base.user.login }}-${{ github.event.pull_request.base.repo.name }}-${{ github.event.number }}"
+          # Extract version number from release name (e.g., "fedora-43" -> "43", "fedora-rawhide" -> "rawhide")
+          FEDORA_VERSION="${{ matrix.release }}"
+          VERSION_ID=${FEDORA_VERSION#fedora-}
           for _ in $(seq 60); do
               sleep 60;
-              if dnf copr enable -y packit/$COPR_NAME fedora-{$ rel.release|replace('fedora-', '') $}-x86_64 &&
-                 out=$(dnf info --refresh --repo='copr:*anaconda*' --releasever={$ rel.release|replace('fedora-', '') $} anaconda) &&
+              if dnf copr enable -y packit/$COPR_NAME $FEDORA_VERSION-x86_64 &&
+                 out=$(dnf info --refresh --repo='copr:*anaconda*' --releasever=$VERSION_ID anaconda) &&
                  stamp=$(echo "$out" | awk '/^Release/ { split($3, v, "."); print substr(v[2], 0, 14)}' | head -1) &&
                  [ "$stamp" -gt "$PUSH_TIME" ]; then
                   exit 0
@@ -69,7 +79,7 @@ jobs:
 
           PR_NUMBER="${{ github.event.number }}"
           REPO="${{ github.repository }}"
-          TEST_OS="{$ rel.release $}-boot"
+          TEST_OS="${{ matrix.release }}-boot"
 
           bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
           bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/efi-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
@@ -81,7 +91,7 @@ jobs:
         run: |
           PR_NUMBER="${{ github.event.number }}"
           REPO="${{ github.repository }}"
-          TEST_OS="{$ rel.release $}-boot"
+          TEST_OS="${{ matrix.release }}-boot"
 
           echo "Only members of the Anaconda team can trigger the Web UI tests for this PR. Since you do not have permission, please ask an Anaconda team member to run the following commands:" > comment.txt
           echo '```bash' >> comment.txt
@@ -90,6 +100,3 @@ jobs:
           echo '```' >> comment.txt
 
           gh pr comment "$PR_NUMBER" --repo "$REPO" -F comment.txt
-
-{% endfor %}
-{% endif %}
