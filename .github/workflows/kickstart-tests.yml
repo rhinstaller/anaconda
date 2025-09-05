@@ -270,7 +270,7 @@ jobs:
         run: |
           mkdir -p images
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged \
+          sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v ${{ github.workspace }}/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
             -v ${{ github.workspace }}/images:/images:z \
