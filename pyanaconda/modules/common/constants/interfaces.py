@@ -148,6 +148,11 @@ PAYLOAD_SOURCE_CDN = DBusInterfaceIdentifier(
     basename="CDN"
 )
 
+PAYLOAD_SOURCE_BOOTC = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="Bootc"
+)
+
 PAYLOAD_SOURCE_RPM_OSTREE = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="RPMOSTree"
