@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
-    container: registry.fedoraproject.org/fedora:${{ matrix.release | replace('fedora-', '') }}
+    container: registry.fedoraproject.org/fedora:${{ matrix.distro_version }}
 
     steps:
       # Naively this should wait for github.event.pull_request.head.sha, but
