@@ -37,7 +37,7 @@ import os.path
 from gi.repository import AnacondaWidgets, Gdk, GdkPixbuf, GLib, GObject, Gtk
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import constants, util
+from pyanaconda.core import util
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import WINDOW_TITLE_TEXT
@@ -782,7 +782,7 @@ class GraphicalUserInterface(UserInterface):
             dlg.window.destroy()
 
         # the dialog has the only button -- "Exit installer", so just do so
-        util.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
     @async_action_wait
@@ -894,7 +894,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exited.emit(self._currentAction)
-            util.ipmi_abort(scripts=self.data.scripts)
+            util.ipmi_abort()
             Gtk.main_quit()
 
 
