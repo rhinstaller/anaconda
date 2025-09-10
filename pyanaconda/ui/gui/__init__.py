@@ -400,9 +400,12 @@ class MainWindow(Gtk.Window):
         # Remove the F12 accelerator from the old window
         old_screen = self._stack.get_visible_child()
         if old_screen:
-            old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F12, 0)
-            old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F1, 0)
-            old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK)
+            if self._accel_group.query(Gdk.KEY_F12, 0):
+                old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F12, 0)
+            if self._accel_group.query(Gdk.KEY_F1, 0):
+                old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F1, 0)
+            if self._accel_group.query(Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK):
+                old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK)
 
         # Check if the widget is already on the stack
         if child not in self._stack_contents:
