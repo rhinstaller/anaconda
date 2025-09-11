@@ -46,7 +46,6 @@ from pyanaconda.core import util
 from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import VERSION
-from pyanaconda.core.kickstart import commands as COMMANDS
 from pyanaconda.core.kickstart.scripts import run_script
 from pyanaconda.core.kickstart.specification import KickstartSpecification
 from pyanaconda.errors import ScriptError, errorHandler
@@ -154,10 +153,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
     """The kickstart specification of the main process."""
 
     commands = {
-        "halt": COMMANDS.Reboot,
-        "poweroff": COMMANDS.Reboot,
-        "reboot": COMMANDS.Reboot,
-        "shutdown": COMMANDS.Reboot,
     }
 
     @classmethod
