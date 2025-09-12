@@ -29,16 +29,15 @@ from pyanaconda.modules.payloads.source.live_os.initialization import (
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import (
     LiveOSSourceInterface,
 )
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import (
-    MountingSourceMixin,
     PayloadSourceBase,
 )
 
 log = get_module_logger(__name__)
 
 
-class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
+class LiveOSSourceModule(PayloadSourceBase):
     """The Live OS source payload module."""
 
     def __init__(self):
@@ -113,7 +112,9 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
 
     def get_state(self):
         """Get state of this source."""
-        return SourceState.from_bool(self.get_mount_state())
+        # Since we're using an existing mount and don't have a traditional mount state,
+        # return NOT_APPLICABLE for consistency with other sources like live_image
+        return SourceState.NOT_APPLICABLE
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
@@ -123,7 +124,7 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         """
         task = SetUpLiveOSSourceTask(
             image_path=self.image_path,
-            target_mount=self.mount_point
+            target_mount="/run/rootfsbase"
         )
 
         handler = self._handle_live_os_task_result
@@ -136,14 +137,13 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
     def tear_down_with_tasks(self):
         """Tear down the installation source.
 
-        :return: list of tasks required for the source clean-up
-        :rtype: [TearDownMountTask]
+        Note: We don't tear down /run/rootfsbase since it's mounted by the live system
+        and unmounting it would crash the system.
+
+        :return: empty list (no tear-down tasks needed)
+        :rtype: []
         """
-        return [
-            TearDownMountTask(
-                target_mount=self.mount_point
-            )
-        ]
+        return []  # No tear-down tasks needed
 
     def __repr__(self):
         """Return a string representation of the source."""
