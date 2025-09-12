@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from blivet.iscsi import TargetInfo, iscsi
-from blivet.safe_dbus import SafeDBusError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.services import NETWORK
@@ -106,7 +105,7 @@ class ISCSIDiscoverTask(Task):
                 r_username=credentials.reverse_username,
                 r_password=credentials.reverse_password
             )
-        except SafeDBusError as e:
+        except Exception as e:  # pylint: disable=broad-except
             raise StorageDiscoveryError(str(e).split(':')[-1]) from e
 
         if not nodes:
