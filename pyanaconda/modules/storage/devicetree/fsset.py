@@ -636,7 +636,7 @@ class FSSet(object):
     def swap_devices(self):
         swaps = []
         for device in self.devices:
-            if device.format.type == "swap":
+            if device.format.type == "swap" and device in self._fstab_swaps:
                 swaps.append(device)
         return swaps
 
@@ -748,8 +748,7 @@ class FSSet(object):
         devices = sorted(self.mountpoints.values(),
                          key=lambda d: d.format.mountpoint)
 
-        # filter swaps only in installer mode
-        devices += [dev for dev in self.swap_devices if dev in self._fstab_swaps]
+        devices += self.swap_devices
 
         netdevs = [d for d in self.devices if isinstance(d, NetworkStorageDevice)]
 
