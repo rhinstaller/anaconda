@@ -33,6 +33,7 @@ from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 from pyanaconda.modules.security.certificates import CertificatesModule
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import (
+    AUTHSELECT_ARGS,
     ConfigureAuthselectTask,
     ConfigureFingerprintAuthTask,
     ConfigureFIPSTask,
@@ -112,6 +113,9 @@ class SecurityService(KickstartService):
 
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
+        elif self.fingerprint_auth_enabled:
+            auth_args = AUTHSELECT_ARGS
+            data.authselect.authselect = " ".join(auth_args)
 
         if self.realm.name:
             data.realm.join_realm = self.realm.name
