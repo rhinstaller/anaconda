@@ -232,6 +232,17 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def test_kickstart_authselect_merges_with_fingerprint(self):
+        self.security_interface.FingerprintAuthEnabled = True
+
+        ks_in = ""
+        ks_out = """
+        # System authorization information
+        authselect enable-feature with-fingerprint
+        """
+
+        self._test_kickstart(ks_in, ks_out)
+
     @patch_dbus_publish_object
     def test_realm_discover_default(self, publisher):
         """Test module in default state with realm discover task."""
