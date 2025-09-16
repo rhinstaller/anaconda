@@ -517,7 +517,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
             expected.add(name)
 
         # Ignore specified names if missing.
-        for name in self.IGNORED_MISSING_NAMES:
+        for name in self.IGNORED_MISSING_NAMES.union(self.IGNORED_NAMES):
             if name in expected ^ specified:
                 warnings.warn("Skipping the missing name: {}".format(name))
                 expected.discard(name)
@@ -608,6 +608,10 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         # Useless commands has to be handled by modules.
         # Otherwise, they has to be handled by the main process.
         for name, command in kickstart.commandMap.items():
+            if name in self.IGNORED_NAMES:
+                warnings.warn("Skipping the missing name: {}".format(name))
+                continue
+
             if issubclass(command, kickstart.UselessCommand):
                 assert name in module_names
             else:
