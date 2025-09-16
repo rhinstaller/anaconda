@@ -65,8 +65,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         calls = [call(*macro) for macro in expected_macros]
         mock_rpm.addMacro.assert_has_calls(calls)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_default(self, mock_rpm):
+    def test_set_rpm_macros_default(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
 
         macros = [
@@ -76,8 +78,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         task = self._run_task(data)
         self._check_macros(task, mock_rpm, macros)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_exclude_docs(self, mock_rpm):
+    def test_set_rpm_macros_exclude_docs(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
         data.docs_excluded = True
 
@@ -89,8 +93,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         task = self._run_task(data)
         self._check_macros(task, mock_rpm, macros)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_install_langs(self, mock_rpm):
+    def test_set_rpm_macros_install_langs(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
         data.languages = "en:es"
 
@@ -102,8 +108,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         task = self._run_task(data)
         self._check_macros(task, mock_rpm, macros)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_no_install_langs(self, mock_rpm):
+    def test_set_rpm_macros_no_install_langs(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
         data.languages = RPM_LANGUAGES_NONE
 
