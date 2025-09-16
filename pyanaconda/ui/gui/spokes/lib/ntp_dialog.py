@@ -200,7 +200,7 @@ class NTPConfigDialog(GUIObject):
     def on_edit_button_clicked(self, *args):
         """Handler for Edit button"""
         selection = self._serversView.get_selection()
-        store, items = selection.get_selected_rows() # pylint: disable=unused-variable
+        _store, items = selection.get_selected_rows()
         path = items[-1]  # take only the last item
         column = self._serversView.get_column(0)  # first column is server/hostname
         self._serversView.set_cursor(path, column, True)

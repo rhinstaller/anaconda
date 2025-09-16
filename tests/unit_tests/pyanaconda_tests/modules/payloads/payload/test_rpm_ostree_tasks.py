@@ -1060,7 +1060,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         # 1 above, 1 direct in run(), 2 on the result: load(), get_repo()
 
         repo_mock.pull_with_options.assert_called_once()
-        name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
+        _name, args, _kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
         assert type(opts) is Variant
         assert opts.unpack() == {"refs": ["ref"], "flags": OSTree.RepoPullFlags.UNTRUSTED}
@@ -1089,7 +1089,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         # 1 above, 1 direct in run(), 2 on the result: load(), get_repo()
 
         repo_mock.pull_with_options.assert_called_once()
-        name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
+        _name, args, _kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
         assert type(opts) is Variant
         assert opts.unpack() == {"refs": ["ref"], "flags": OSTree.RepoPullFlags.UNTRUSTED}
