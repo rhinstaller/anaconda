@@ -40,7 +40,9 @@ from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.flags import flags
 from pyanaconda.gnome_remote_desktop import GRDServer
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
+from pyanaconda.modules.common.structures.rdp import RdpData
 from pyanaconda.mutter_display import MutterConfigError, MutterDisplay
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
@@ -109,7 +111,10 @@ def ask_rd_question(anaconda, message):
     App.initialize()
     loop = App.get_event_loop()
     loop.set_quit_callback(tui_quit_callback)
-    spoke = AskRDSpoke(anaconda.ksdata, message=message)
+    # Get current RDP data from DBUS
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    rdp_data = RdpData.from_structure(ui_proxy.Rdp)
+    spoke = AskRDSpoke(anaconda.ksdata, rdp_data, message=message)
     ScreenHandler.schedule_screen(spoke)
     App.run()
 
@@ -129,7 +134,9 @@ def ask_for_rd_credentials(anaconda, username=None, password=None):
     App.initialize()
     loop = App.get_event_loop()
     loop.set_quit_callback(tui_quit_callback)
-    spoke = RDPAuthSpoke(anaconda.ksdata, username=username, password=password)
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    rdp_data = RdpData.from_structure(ui_proxy.Rdp)
+    spoke = RDPAuthSpoke(anaconda.ksdata, rdp_data, username=username, password=password)
     ScreenHandler.schedule_screen(spoke)
     App.run()
 
@@ -162,7 +169,8 @@ def check_rd_can_be_started(anaconda):
         rd_startup_possible = False
 
     # disable remote desktop question if we were explicitly asked for text in kickstart
-    if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+    proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    if proxy.DisplayModeTextKickstarted:
         error_messages.append("Not asking for remote desktop session because text mode "
                               "was explicitly asked for in kickstart")
         rd_startup_possible = False
@@ -310,10 +318,19 @@ def setup_display(anaconda, options):
             anaconda.display_mode = constants.DisplayModes.GUI
         rdp_creds = rdp_credentials(options.rdp_username, options.rdp_password)
         # note if we have both set
-        if options.rdp_username and options.rdp_password:
-            rdp_credentials_sufficient = True
-        else:
-            rdp_credentials_sufficient = False
+        rdp_credentials_sufficient = bool(rdp_creds.username and rdp_creds.password)
+
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    rdp_data = RdpData.from_structure(ui_proxy.Rdp)
+
+    if rdp_data.enabled:
+        flags.use_rd = True
+        if not anaconda.gui_mode:
+            log.info("RDP requested via kickstart, switching Anaconda to GUI mode.")
+            anaconda.display_mode = constants.DisplayModes.GUI
+
+        rdp_creds = rdp_credentials(rdp_data.username, rdp_data.password.value)
+        rdp_credentials_sufficient = bool(rdp_creds.username and rdp_creds.password)
 
     # check if GUI without WebUI
     startup_utils.fallback_to_tui_if_gtk_ui_is_not_available(anaconda)
