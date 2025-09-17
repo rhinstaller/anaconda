@@ -125,7 +125,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
                 storage.add_fstab_swap(device)
 
         # add "mounted" swaps to fstab
-        if device.format.type == "swap" and mount_point == "swap":
+        if device.format.type == "swap" and mount_point == "none":
             storage.add_fstab_swap(device)
 
         # only set mount points for mountable formats
