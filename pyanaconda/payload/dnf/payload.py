@@ -273,7 +273,7 @@ class DNFPayload(MigratedDBusPayload):
         if payload_manager.is_running:
             return False
 
-        return self.proxy.GetEnabledRepositories()
+        return bool(self.proxy.GetEnabledRepositories())
 
     # pylint: disable=arguments-differ
     def setup(self, report_progress, only_on_change=False):
