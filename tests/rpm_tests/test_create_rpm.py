@@ -397,6 +397,28 @@ class RPMFilters:
         # includes debug package
         return "anaconda-core" in rpm
 
+    @staticmethod
+    def anaconda_main_only(rpm):
+        """Filter for main anaconda package (not subpackages)."""
+        basename = os.path.basename(rpm)
+        # Remove .rpm extension and split by dashes
+        name_parts = basename.replace('.rpm', '').split('-')
+
+        # Main package: anaconda-VERSION-RELEASE.ARCH
+        # Subpackages: anaconda-SUBPACKAGE-VERSION-RELEASE.ARCH
+        # We want only the main package
+        return len(name_parts) == 3 and name_parts[0] == "anaconda"
+
+    @staticmethod
+    def anaconda_gui_only(rpm):
+        """Filter for anaconda-gui package."""
+        return "anaconda-gui" in rpm
+
+    @staticmethod
+    def anaconda_live_only(rpm):
+        """Filter for anaconda-live package."""
+        return "anaconda-live" in rpm
+
 
 class ModifyingFilters:
 
@@ -453,3 +475,47 @@ class ModifyingFilters:
     @staticmethod
     def apply_dbus_prefix(path):
         return ModifyingFilters.apply_rpm_prefix("dbus/", path)
+
+
+class SpecFileDependencyTestCase(RPMTestCase):
+    """Test UI selection dependency logic using built RPM files."""
+
+    def test_ui_selection_dependencies(self):
+        """Test that UI selection dependencies work correctly in built RPMs."""
+        rpm_paths = self.rpm_paths
+
+        # Test main anaconda package requirements
+        anaconda_rpm = [p for p in rpm_paths if RPMFilters.anaconda_main_only(p)][0]
+        requires = self._get_rpm_requires(anaconda_rpm)
+        rpm_name = os.path.basename(anaconda_rpm)
+
+        self.assertNotIn("anaconda-gui", requires,
+                        f"Main anaconda package should not require anaconda-gui. Found in {rpm_name}: {requires}")
+        self.assertIn("anaconda-tui", requires,
+                     f"Main anaconda package should require anaconda-tui. Found in {rpm_name}: {requires}")
+
+        # Test anaconda-gui supplements
+        gui_rpm = [p for p in rpm_paths if RPMFilters.anaconda_gui_only(p)][0]
+        supplements = self._get_rpm_supplements(gui_rpm)
+        rpm_name = os.path.basename(gui_rpm)
+
+        self.assertIn("(anaconda unless anaconda-live)", supplements,
+                    f"anaconda-gui should have correct Supplements. Found in {rpm_name}: {supplements}")
+
+        # Test anaconda-live requirements
+        live_rpm = [p for p in rpm_paths if RPMFilters.anaconda_live_only(p)][0]
+        requires = self._get_rpm_requires(live_rpm)
+        rpm_name = os.path.basename(live_rpm)
+
+        self.assertIn("anaconda-webui", requires,
+                    f"anaconda-live should require anaconda-webui. Found in {rpm_name}: {requires}")
+
+    def _get_rpm_requires(self, rpm_file):
+        """Get requirements for an RPM file."""
+        result = self.check_subprocess(["rpm", "-qp", "--requires", rpm_file])
+        return result.stdout.decode('utf-8')
+
+    def _get_rpm_supplements(self, rpm_file):
+        """Get supplements for an RPM file."""
+        result = self.check_subprocess(["rpm", "-qp", "--supplements", rpm_file])
+        return result.stdout.decode('utf-8')
