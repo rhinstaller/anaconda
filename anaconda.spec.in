@@ -16,13 +16,10 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
+%bcond glade %{undefined rhel}
+%bcond live %[%{defined fedora} || %{defined eln}]
 %if ! 0%{?rhel}
-%bcond_without glade
-%bcond_without live
 %define blivetguiver 2.4.2-3
-%else
-%bcond_with glade
-%bcond_with live
 %endif
 %define dasbusver 1.3
 %define dbusver 1.2.3
