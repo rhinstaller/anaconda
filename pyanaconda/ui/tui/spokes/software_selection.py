@@ -33,6 +33,7 @@ from pyanaconda.core.constants import (
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.flags import flags
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
 from pyanaconda.ui.lib.software import (
@@ -145,12 +146,17 @@ class SoftwareSpoke(NormalTUISpoke):
     def ready(self):
         """Is the spoke ready?
 
-        By default, the software selection spoke is not ready. We have to
-        wait until the installation source spoke is completed. This could be
-        because the user filled something out, or because we're done fetching
-        repo metadata from the mirror list, or we detected a DVD/CD.
+        The spoke becomes ready when it is not processing data and the
+        installation source reached a terminal state: either it is set up
+        (payload is ready) or its setup finished with an error. This lets the
+        summary hub appear and surface the error if any.
         """
-        return not self._processing_data and self._source_is_set
+        return not self._processing_data and (self._source_is_set or self._source_has_error)
+
+    @property
+    def _source_has_error(self):
+        """Did installation source setup finish with an error?"""
+        return (not payloadMgr.is_running) and (not payloadMgr.report.is_valid())
 
     @property
     def _source_is_set(self):
