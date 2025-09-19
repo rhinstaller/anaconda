@@ -154,6 +154,9 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         NormalTUISpoke.refresh(self, args)
         thread_manager.wait(THREAD_PAYLOAD)
 
+        # Show any error/warning messages
+        self._add_messages_widget_if_any()
+
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
         if args == self.SET_NETWORK_INSTALL_MODE:
@@ -245,6 +248,12 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         # Restart the payload setup.
         payloadMgr.start(self.payload)
+
+    def _add_messages_widget_if_any(self):
+        if self._error:
+            msgs = payloadMgr.report.get_messages()
+            if msgs:
+                self.window.add_with_separator(TextWidget("\n".join(msgs)))
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
