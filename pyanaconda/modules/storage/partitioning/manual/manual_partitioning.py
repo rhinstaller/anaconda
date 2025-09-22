@@ -59,6 +59,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         device_spec = mount_data.device_spec
         reformat = mount_data.reformat
         format_type = mount_data.format_type
+        mount_point = mount_data.mount_point
 
         device = storage.devicetree.resolve_device(device_spec)
         if device is None:
@@ -84,6 +85,10 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
             # make sure swaps end up in /etc/fstab
             if fmt.type == "swap":
                 storage.add_fstab_swap(device)
+
+        # add "mounted" swaps to fstab
+        if device.format.type == "swap" and mount_point == "none":
+            storage.add_fstab_swap(device)
 
         # only set mount points for mountable formats
         mount_point = mount_data.mount_point
