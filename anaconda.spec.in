@@ -488,6 +488,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 23 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.34-1
+- ui: tui: installation_source: show error message in the TUI screen
+  (k.koukiou)
+- pyanaconda: dnf: clarify is_ready boolean return (k.koukiou)
+- tui: make SoftwareSpoke ready once installation source succeeds or fails
+  (k.koukiou)
+  Resolves: RHEL-60724
+- gui: Fix GTK warnings when removing non-existent accelerators (k.koukiou)
+  Resolves: RHEL-45999
+- storage: fix mount point assignment of non-formatted swap partitions
+  (rvykydal)
+  Related: RHEL-61460
+- storage: include only fstab devices in fsset swap devices property (rvykydal)
+  Resolves: RHEL-61460
+- Disable checking for the rdp verb in Anaconda (a.badger)
+
 * Fri Sep 12 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.33-1
 - Fix setting of kernel console logging level for anaconda (rvykydal)
   Resolves: RHEL-110525
