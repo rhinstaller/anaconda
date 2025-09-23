@@ -240,7 +240,7 @@ class PayloadManager(object):
             payload.add_driver_repos()
         except (OSError, DBusError, PayloadError) as e:
             log.error("PayloadError: %s", e)
-            self._error = self.ERROR_SETUP
+            self._error = "%s: %s" % (self.ERROR_SETUP, e)
             self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
@@ -252,7 +252,7 @@ class PayloadManager(object):
         # Check if that failed
         if not payload.base_repo:
             log.error("No base repo configured")
-            self._error = self.ERROR_MD
+            self._error = "%s: %s" % (self.ERROR_MD, e)
             self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
