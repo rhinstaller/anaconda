@@ -29,6 +29,10 @@ class RuntimeKickstartSpecification(KickstartSpecification):
         "mediacheck": COMMANDS.MediaCheck,
         "sshpw": COMMANDS.SshPw,
         "updates": COMMANDS.Updates,
+        "graphical": COMMANDS.DisplayMode,
+        "text": COMMANDS.DisplayMode,
+        "cmdline": COMMANDS.DisplayMode,
+        "rdp": COMMANDS.RDP
     }
 
     commands_data = {

@@ -34,7 +34,7 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        assert self.interface.KickstartCommands == ["driverdisk", "mediacheck", "sshpw", "updates"]
+        assert self.interface.KickstartCommands == ["driverdisk", "mediacheck", "sshpw", "updates", "rdp"]
         assert self.interface.KickstartSections == []
         assert self.interface.KickstartAddons == []
 
@@ -79,4 +79,10 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         """Test saving the driver disk via kickstart."""
         ks_in = "driverdisk --source=nfs:host:/path/to/img\n"
         ks_out = "driverdisk --source=nfs:host:/path/to/img\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_rdp(self):
+        """Test rdp via kickstart."""
+        ks_in = "rdp --username=anacondauser --password=testpassword\n"
+        ks_out = "rdp --username=anacondauser --password=testpassword\n"
         self._test_kickstart(ks_in, ks_out)
