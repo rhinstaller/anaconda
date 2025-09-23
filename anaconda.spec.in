@@ -422,6 +422,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 23 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.7-1
+- pyanaconda: payload: return exception details for payload failures
+  (k.koukiou)
+- ui: tui: installation_source: show error message in the TUI screen
+  (k.koukiou)
+  Resolves: RHEL-4705
+- storage: fix mount point assignment of non-formatted swap partitions
+  (rvykydal)
+  Related: RHEL-16355
+- storage: include only fstab devices in fsset swap devices property (rvykydal)
+  Resolves: RHEL-16355
+
 * Wed Aug 20 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.6-1
 - Fix vconsole layout doesn't work for ostree (jkonecny)
   Resolves: RHEL-101057
