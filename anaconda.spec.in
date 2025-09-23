@@ -510,6 +510,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 23 2025 github-actions <github-actions@github.com> - 43.41-1
+- data: profiles: enable geolocation on Fedora Workstation live image
+  (matiwari)
+- storage: fix mount point assignment of non-formatted swap partitions
+  (rvykydal)
+- storage: include only fstab devices in fsset swap devices property (rvykydal)
+- ui: tui: installation_source: show error message in the TUI screen
+  (k.koukiou)
+- pyanaconda: dnf: clarify is_ready boolean return (k.koukiou)
+- tui: make SoftwareSpoke ready once installation source succeeds or fails
+  (k.koukiou)
+- spec: enable live in ELN (yselkowi)
+- Mark unused variables with a leading underscore (a.badger)
+
 * Tue Sep 16 2025 github-actions <github-actions@github.com> - 43.40-1
 - Do not catch blivet.safe_dbus exceptions in iSCSI module (vtrefny)
 - Fixing unittests (a.badger)
