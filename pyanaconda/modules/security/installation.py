@@ -33,6 +33,7 @@ __all__ = ["ConfigureSELinuxTask", "RealmDiscoverTask", "RealmJoinTask"]
 
 REALM_TOOL_NAME = "realm"
 AUTHSELECT_TOOL_PATH = "/usr/bin/authselect"
+AUTHSELECT_ARGS = ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"]
 AUTHCONFIG_TOOL_PATH = "/usr/sbin/authconfig"
 PAM_SO_PATH = "/lib/security/pam_fprintd.so"
 PAM_SO_64_PATH = "/lib64/security/pam_fprintd.so"
@@ -278,7 +279,7 @@ class ConfigureFingerprintAuthTask(Task):
             log.debug("Enabling fingerprint authentication.")
             run_auth_tool(
                 AUTHSELECT_TOOL_PATH,
-                ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
+                AUTHSELECT_ARGS,
                 self._sysroot,
                 required=False
             )
