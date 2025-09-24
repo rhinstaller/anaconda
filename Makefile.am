@@ -180,7 +180,8 @@ anaconda-ci-build:
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -195,7 +196,8 @@ anaconda-rpm-build:
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -217,7 +219,8 @@ anaconda-iso-creator-build:
 
 	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(ISO_CREATOR_NAME):$(CI_TAG) \
@@ -230,7 +233,8 @@ anaconda-live-iso-creator-build:
 
 	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
