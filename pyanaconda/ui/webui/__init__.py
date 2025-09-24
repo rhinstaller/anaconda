@@ -102,10 +102,6 @@ class CockpitUserInterface(ui.UserInterface):
         if not conf.system.supports_web_ui:
             raise RuntimeError("This installation environment is not supported by Web UI.")
 
-        # FIXME: Support package installations in Web UI.
-        if self.payload.type == PAYLOAD_TYPE_DNF:
-            raise NotImplementedError("Package installations are not supported by Web UI.")
-
         # Finish all initialization jobs. Don't remove this unless you fully understand all
         # consequences of such removal. Web UI is not able to check the initialization threads,
         # so this waiting is necessary until there is another way of monitoring the initialization.
