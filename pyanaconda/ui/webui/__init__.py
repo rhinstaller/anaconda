@@ -26,7 +26,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     BACKEND_READY_FLAG_FILE,
-    PAYLOAD_TYPE_DNF,
     QUIT_MESSAGE,
     WEBUI_VIEWER_PID_FILE,
 )
@@ -101,10 +100,6 @@ class CockpitUserInterface(ui.UserInterface):
         # Make sure that Web UI can be used only on boot.iso or Live media.
         if not conf.system.supports_web_ui:
             raise RuntimeError("This installation environment is not supported by Web UI.")
-
-        # FIXME: Support package installations in Web UI.
-        if self.payload.type == PAYLOAD_TYPE_DNF:
-            raise NotImplementedError("Package installations are not supported by Web UI.")
 
         # Finish all initialization jobs. Don't remove this unless you fully understand all
         # consequences of such removal. Web UI is not able to check the initialization threads,

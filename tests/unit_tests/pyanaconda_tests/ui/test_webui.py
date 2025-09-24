@@ -23,7 +23,7 @@ from unittest.mock import Mock, patch
 import pytest
 from meh.ui.text import TextIntf
 
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_LIVE_IMAGE
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.ui.webui import FIREFOX_THEME_DEFAULT, CockpitUserInterface
 
 
@@ -131,18 +131,6 @@ class SimpleWebUITestCase(unittest.TestCase):
             self._setup_interface()
 
         assert str(cm.value) == "This installation environment is not supported by Web UI."
-
-    @patch("pyanaconda.ui.webui.conf")
-    def test_setup_unsupported_payload(self, mocked_conf):
-        """Test webui setup call with unsupported payload."""
-        mocked_conf.target.is_directory = False
-        mocked_conf.target.is_image = False
-        mocked_conf.system.supports_web_ui = True
-
-        with pytest.raises(NotImplementedError) as cm:
-            self._setup_interface(payload_type=PAYLOAD_TYPE_DNF)
-
-        assert str(cm.value) == "Package installations are not supported by Web UI."
 
     @patch("pyanaconda.ui.webui.conf")
     def test_setup(self, mocked_conf):
