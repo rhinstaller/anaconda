@@ -178,9 +178,9 @@ anaconda-ci-build:
 	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved. \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=ci_tag=$(CI_TAG) \
@@ -194,9 +194,9 @@ anaconda-rpm-build:
 	TEMP=$$(mktemp -t -d anaconda-rpm-build.XXXX) && \
 	cp $(srcdir)/anaconda.spec.in $(RPM_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved. \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=ci_tag=$(CI_TAG) \
@@ -216,10 +216,9 @@ anaconda-release-build: anaconda-rpm-build
 
 anaconda-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
-
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved. \
 	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
-	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -230,10 +229,9 @@ anaconda-live-iso-creator-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
 
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
-
+	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved. \
 	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
-	# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
