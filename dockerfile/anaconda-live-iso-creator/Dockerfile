@@ -35,6 +35,10 @@ FROM ${image}
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
+# CI tag to derive distro release (e.g. fedora-43 → 43, fedora-rawhide → rawhide)
+ARG CI_TAG=fedora-rawhide
+ENV CI_TAG=${CI_TAG}
+
 # Prepare environment and install build dependencies
 RUN set -ex; \
   dnf update -y; \
@@ -56,7 +60,12 @@ RUN set -ex; \
 # required for ksflatten
   pykickstart; \
   mkdir /fedora-kickstarts; \
-  git clone -b main https://pagure.io/fedora-kickstarts.git /fedora-kickstarts; \
+  DISTRO_RELEASE="${CI_TAG#fedora-}"; \
+  if [ "$DISTRO_RELEASE" = "rawhide" ]; then \
+    git clone -b main https://pagure.io/fedora-kickstarts.git /fedora-kickstarts; \
+  else \
+    git clone -b "f${DISTRO_RELEASE}" https://pagure.io/fedora-kickstarts.git /fedora-kickstarts; \
+  fi; \
   cd /fedora-kickstarts; \
   ksflatten -o /lorax/workstation.ks -c fedora-live-workstation.ks; \
 # cleanups of parts which don't need to be part of the container
