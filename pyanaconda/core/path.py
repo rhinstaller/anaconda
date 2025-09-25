@@ -80,6 +80,29 @@ def get_mount_paths(devnode):
     return [info[4] for info in mountinfo if info[2] == majmin]
 
 
+def get_mount_device(mount_point):
+    with open("/proc/mounts", "r") as f:
+        for line in f:
+            parts = line.split()
+            if len(parts) >= 3 and parts[1] == mount_point:
+                return parts[0]
+    return None
+
+def get_boot_partition():
+    # Boot partition is usually 2nd after autopart (sda2, vda2 etc)
+    with open("/proc/partitions") as f:
+        # Skip two lines of header
+        next(f)
+        next(f)
+        for line in f:
+            columns = line.split()
+            if len(columns) == 4:
+                major, minor, blocks, name = columns
+                # Just find the first partition with minor number == 2
+                if minor == '2':
+                    return name
+    return None
+
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.
 
