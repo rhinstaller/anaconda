@@ -234,6 +234,7 @@ anaconda-live-iso-creator-build:
 	$(CONTAINER_BUILD_ARGS) \
 	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
+	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
 	$(LIVE_ISO_CREATOR_DOCKERFILE)
