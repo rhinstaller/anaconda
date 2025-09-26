@@ -252,7 +252,7 @@ class PayloadManager(object):
         # Check if that failed
         if not payload.base_repo:
             log.error("No base repo configured")
-            self._error = "%s: %s" % (self.ERROR_MD, e)
+            self._error = self.ERROR_MD
             self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
