@@ -32,6 +32,7 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.certificates import CertificatesModule
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import (
+    AUTHSELECT_ARGS,
     ConfigureAuthconfigTask,
     ConfigureAuthselectTask,
     ConfigureFingerprintAuthTask,
@@ -126,6 +127,9 @@ class SecurityService(KickstartService):
 
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
+        elif self.fingerprint_auth_enabled:
+            auth_args = AUTHSELECT_ARGS
+            data.authselect.authselect = " ".join(auth_args)
 
         if self.authconfig:
             data.authconfig.authconfig = " ".join(self.authconfig)
