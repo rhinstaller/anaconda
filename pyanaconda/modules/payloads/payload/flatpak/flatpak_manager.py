@@ -122,13 +122,14 @@ class FlatpakManager:
             _, remote_url = conf.payload.flatpak_remote
             log.debug("Using Flatpak registry source: %s", remote_url)
             self._source = FlatpakRegistrySource(remote_url)
-        elif isinstance(source, RepositorySourceMixin) or source.type == SourceType.REPO_PATH:
+        elif isinstance(source, RepositorySourceMixin) or source.type in (SourceType.REPO_PATH, SourceType.CDROM):
             # synchronize input for FlatpakStaticSource from different DNF input sources
-            repository = (
-                source.generate_repo_configuration()
-                if source.type == SourceType.REPO_PATH
-                else source.repository
-            )
+            # TODO: when CDN installations are supported, prefer installing from online sources as the packages
+            # would be more up to date
+            if source.type in (SourceType.REPO_PATH, SourceType.CDROM):
+                repository = source.generate_repo_configuration()
+            else:
+                repository = source.repository
 
             # verify this Flatpak source is already created and used
             if self._source and isinstance(self._source, FlatpakStaticSource) \
