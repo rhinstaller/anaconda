@@ -510,6 +510,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 30 2025 github-actions <github-actions@github.com> - 43.42-1
+- fix: use inst from dracut instead of inst_library module-setup.sh (pvalena)
+- update impi_abort logic and use it before exit + blivet cd device
+  (adamkankovsky)
+- Migrate exit function to Runtime module (adamkankovsky)
+- Add exit commands to Runtime module (adamkankovsky)
+- Emit authselect in KS when fingerprint is enabled (adamkankovsky)
+
 * Tue Sep 23 2025 github-actions <github-actions@github.com> - 43.41-1
 - data: profiles: enable geolocation on Fedora Workstation live image
   (matiwari)
