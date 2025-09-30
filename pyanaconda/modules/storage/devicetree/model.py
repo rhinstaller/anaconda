@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
+import errno
 import logging
 import os
 
@@ -541,7 +542,13 @@ class InstallerStorage(Blivet):
         if os.path.exists(path):
             os.unlink(path)
 
-        os.symlink(target, path)
+        try:
+            os.symlink(target, path)
+        except OSError as e:
+            if e.errno in (errno.EROFS, errno.EEXIST):
+                log.debug("Failed to create symlink from %s to %s: %s", path, target, e)
+            else:
+                raise
 
     def add_fstab_swap(self, device):
         """
