@@ -36,6 +36,7 @@ from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakStaticSource,
 )
 from pyanaconda.modules.payloads.source.cdn.cdn import CDNSourceModule
+from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
 from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import (
     ClosestMirrorSourceModule,
 )
@@ -109,6 +110,16 @@ class FlatpakManagerTestCase(unittest.TestCase):
 
         assert isinstance(fp_source, FlatpakStaticSource)
         assert fp_source.repository_config == source.repository
+
+    def test_set_source_with_cdrom(self):
+        """Test FlatpakManager the set_sources method with CDROM source."""
+        source = CdromSourceModule()
+
+        fm = FlatpakManager()
+        fm.set_sources([source])
+        fp_source = fm.get_source()
+
+        assert isinstance(fp_source, FlatpakStaticSource)
 
     def test_set_source_with_cdn(self):
         """Test FlatpakManager the set_sources method with CDN source."""
