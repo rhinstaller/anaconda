@@ -541,7 +541,8 @@ class InstallerStorage(Blivet):
         if os.path.exists(path):
             os.unlink(path)
 
-        os.symlink(target, path)
+        if not os.path.exists(path):
+            os.symlink(target, path)
 
     def add_fstab_swap(self, device):
         """
