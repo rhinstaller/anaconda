@@ -31,6 +31,7 @@ import time
 
 import pid
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 
@@ -46,6 +47,10 @@ def exitHandler():
 
     if pidfile:
         pidfile.close()
+
+    # Do not reboot or power off in directory installation mode or if reboot is not allowed.
+    if not conf.system.can_reboot:
+        return
 
     from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
@@ -161,7 +166,6 @@ if __name__ == "__main__":
     from pyanaconda.flags import flags
     opts = parse_arguments(boot_cmdline=kernel_arguments)
 
-    from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
 
     # Set up logging as early as possible.
