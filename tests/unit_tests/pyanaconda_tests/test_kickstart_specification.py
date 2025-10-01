@@ -451,8 +451,6 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
     # Names of the kickstart commands and data that should be temporarily ignored.
     IGNORED_NAMES = {
-        "rdp",  # Ignored in RHEL-10 until the rdp functionality is backported:
-                # https://github.com/rhinstaller/anaconda/pull/6592
     }
 
     # Names of shared kickstart commands and data that should be temporarily ignored.
