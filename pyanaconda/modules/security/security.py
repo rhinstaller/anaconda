@@ -114,8 +114,7 @@ class SecurityService(KickstartService):
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
         elif self.fingerprint_auth_enabled:
-            auth_args = AUTHSELECT_ARGS
-            data.authselect.authselect = " ".join(auth_args)
+            data.authselect.authselect = " ".join(AUTHSELECT_ARGS)
 
         if self.realm.name:
             data.realm.join_realm = self.realm.name
