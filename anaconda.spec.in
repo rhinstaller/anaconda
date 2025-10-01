@@ -422,6 +422,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 01 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.8-1
+- Fix: UnboundLocalError: local variable 'e' referenced before assignment
+  (k.koukiou)
+  Related to: RHEL-4705
+- Emit authselect in KS when fingerprint is enabled (adamkankovsky)
+  Resolves: RHEL-85175
+
 * Tue Sep 23 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.7-1
 - pyanaconda: payload: return exception details for payload failures
   (k.koukiou)

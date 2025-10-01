@@ -18,7 +18,7 @@
 m4_define(python_required_version, 3.4)
 
 AC_PREREQ([2.63])
-AC_INIT([anaconda], [34.25.7.7], [anaconda-devel-list@redhat.com])
+AC_INIT([anaconda], [34.25.7.8], [anaconda-devel-list@redhat.com])
 
 # make it possible to set build info at build time
 # (patch only builds, modular builds, mass-rebuilds, etc.)
