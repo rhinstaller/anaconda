@@ -28,12 +28,17 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     ChangeOSTreeRemoteTask,
     ConfigureBootloader,
     CopyBootloaderDataTask,
+    DeployBootcTask,
     DeployOSTreeTask,
     InitOSTreeFsAndRepoTask,
     PrepareOSTreeMountTargetsTask,
     PullRemoteAndDeleteTask,
     SetSystemRootTask,
     TearDownOSTreeMountTargetsTask,
+)
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
+from pyanaconda.modules.payloads.source.bootc.bootc_interface import (
+    BootcSourceInterface,
 )
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
     RPMOSTreeInterface,
@@ -75,6 +80,7 @@ class RPMOSTreeModule(PayloadBase):
             SourceType.RPM_OSTREE,
             SourceType.RPM_OSTREE_CONTAINER,
             SourceType.FLATPAK,
+            SourceType.BOOTC
         ]
 
     def process_kickstart(self, data):
@@ -82,11 +88,16 @@ class RPMOSTreeModule(PayloadBase):
         source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
 
         if source_type is None:
-            return
+            """ Try bootc source """
+            source_type = SourceFactory.get_bootc_type_for_kickstart(data)
+            if source_type is None:
+                return
 
         source = SourceFactory.create_source(source_type)
         source.process_kickstart(data)
+        self._get_ostree_source()
         self.add_source(source)
+        self._get_ostree_source()
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -96,9 +107,10 @@ class RPMOSTreeModule(PayloadBase):
     def _get_ostree_source(self):
         """Get source for RPM OSTree.
 
-        Find out if we need OSTree repo or container source type.
+        Find out if we need OSTree repo, container or bootc source type.
         """
-        return self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
+        return self._get_source(SourceType.BOOTC) or \
+            self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
             self._get_source(SourceType.RPM_OSTREE)
 
     def install_with_tasks(self):
@@ -114,15 +126,18 @@ class RPMOSTreeModule(PayloadBase):
 
         data = ostree_source.configuration
 
-        tasks = [
-            InitOSTreeFsAndRepoTask(
-                physroot=conf.target.physical_root
-            ),
-            ChangeOSTreeRemoteTask(
-                data=data,
-                physroot=conf.target.physical_root
-            )
-        ]
+        tasks = []
+
+        # Bootc requires very limited set of tasks
+        if isinstance(data, BootcConfigurationData):
+            tasks += [
+                DeployBootcTask(
+                    data=data,
+                    physroot=conf.target.physical_root,
+                    sysroot=conf.target.system_root
+                )
+            ]
+            return tasks
 
         # separate pulling of the container will be handled by deployment on the container
         # otherwise handled by Deploy task
@@ -133,6 +148,13 @@ class RPMOSTreeModule(PayloadBase):
                 ))
 
         tasks += [
+            InitOSTreeFsAndRepoTask(
+                physroot=conf.target.physical_root
+            ),
+            ChangeOSTreeRemoteTask(
+                data=data,
+                physroot=conf.target.physical_root
+            ),
             DeployOSTreeTask(
                 data=data,
                 physroot=conf.target.physical_root
@@ -188,8 +210,11 @@ class RPMOSTreeModule(PayloadBase):
 
         :return: list of tasks
         """
-        ostree_source = self._get_ostree_source()
+        # No extra steeps in case of the bootc install
+        if self._get_source(SourceType.BOOTC):
+            return []
 
+        ostree_source = self._get_ostree_source()
         if not ostree_source:
             log.debug("No OSTree RPM source is available.")
             return []
@@ -212,6 +237,10 @@ class RPMOSTreeModule(PayloadBase):
         :return: a list of tasks
         """
         tasks = super().tear_down_with_tasks()
+
+        # No extra steeps in case of the bootc install
+        if self._get_source(SourceType.BOOTC):
+            return tasks
 
         tasks.append(
             TearDownOSTreeMountTargetsTask(
