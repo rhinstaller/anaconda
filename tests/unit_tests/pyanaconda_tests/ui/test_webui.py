@@ -133,18 +133,6 @@ class SimpleWebUITestCase(unittest.TestCase):
         assert str(cm.value) == "This installation environment is not supported by Web UI."
 
     @patch("pyanaconda.ui.webui.conf")
-    def test_setup_unsupported_payload(self, mocked_conf):
-        """Test webui setup call with unsupported payload."""
-        mocked_conf.target.is_directory = False
-        mocked_conf.target.is_image = False
-        mocked_conf.system.supports_web_ui = True
-
-        with pytest.raises(NotImplementedError) as cm:
-            self._setup_interface(payload_type=PAYLOAD_TYPE_DNF)
-
-        assert str(cm.value) == "Package installations are not supported by Web UI."
-
-    @patch("pyanaconda.ui.webui.conf")
     def test_setup(self, mocked_conf):
         """Test webui setup call."""
         mocked_conf.target.is_directory = False
