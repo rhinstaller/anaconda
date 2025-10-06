@@ -525,23 +525,6 @@ class InstallerStorage(Blivet):
     def parse_fstab(self, chroot=None):
         self.fsset.parse_fstab(chroot=chroot)
 
-    def make_mtab(self, chroot=None):
-        path = "/etc/mtab"
-        target = "/proc/self/mounts"
-        chroot = chroot or conf.target.system_root
-        path = os.path.normpath("%s/%s" % (chroot, path))
-
-        if os.path.islink(path):
-            # return early if the mtab symlink is already how we like it
-            current_target = os.path.normpath(os.path.dirname(path) +
-                                              "/" + os.readlink(path))
-            if current_target == target:
-                return
-
-        if os.path.exists(path):
-            os.unlink(path)
-
-        os.symlink(target, path)
 
     def add_fstab_swap(self, device):
         """

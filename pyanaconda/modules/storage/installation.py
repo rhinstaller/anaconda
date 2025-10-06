@@ -280,7 +280,6 @@ class WriteConfigurationTask(Task):
 
         self._write_escrow_packets(storage, sysroot)
 
-        storage.make_mtab()
         storage.fsset.write()
 
         self._write_lvm_devices_file(self._storage, sysroot)
