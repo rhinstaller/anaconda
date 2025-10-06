@@ -136,7 +136,7 @@ class Platform:
         """
         return PartSpec(
             mountpoint="/boot",
-            size=Size("1GiB")
+            size=Size("2GiB")
         )
 
 
@@ -392,7 +392,7 @@ class S390(Platform):
         """The default /boot partition for this platform."""
         return PartSpec(
             mountpoint="/boot",
-            size=Size("1GiB"),
+            size=Size("2GiB"),
             lv=False
         )
 
