@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.errors import ISCSIError
 from blivet.iscsi import TargetInfo, iscsi
-from blivet.safe_dbus import SafeDBusError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.services import NETWORK
@@ -106,7 +106,7 @@ class ISCSIDiscoverTask(Task):
                 r_username=credentials.reverse_username,
                 r_password=credentials.reverse_password
             )
-        except SafeDBusError as e:
+        except ISCSIError as e:
             raise StorageDiscoveryError(str(e).split(':')[-1]) from e
 
         if not nodes:
