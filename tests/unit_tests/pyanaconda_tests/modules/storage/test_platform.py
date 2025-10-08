@@ -103,7 +103,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="biosboot", size=Size("1MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB")),
+            PartSpec(mountpoint="/boot", size=Size("2GiB")),
         )
 
         self._check_constraints(
@@ -132,7 +132,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"), lv=False),
+            PartSpec(mountpoint="/boot", size=Size("2GiB"), lv=False),
         )
 
         self._check_constraints(
@@ -162,7 +162,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -193,7 +193,7 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -230,7 +230,7 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -267,7 +267,7 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -304,7 +304,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="appleboot", size=Size("1MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -336,7 +336,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="prepboot", size=Size("4MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -368,7 +368,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="prepboot", size=Size("4MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -399,7 +399,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -426,7 +426,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
