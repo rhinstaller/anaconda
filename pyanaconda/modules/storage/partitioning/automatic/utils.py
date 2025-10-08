@@ -397,8 +397,15 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
 
         if request.size > all_free[0]:
             # no big enough free space for the requested partition
-            raise NotEnoughFreeSpaceError(_("No big enough free space on disks for "
-                                            "automatic partitioning"))
+            mountpoint_info = f" {request.mountpoint}" if request.mountpoint else ""
+            fstype_info = f" ({request.fstype})" if request.fstype else ""
+            raise NotEnoughFreeSpaceError(_("No suitable free space found for automatic "
+                                            "partitioning for{mountpoint}{fstype}: "
+                                            "requested {size}, largest free space {free}").format(
+                                                mountpoint=mountpoint_info,
+                                                fstype=fstype_info,
+                                                size=request.size,
+                                                free=all_free[0]))
 
         if request.encrypted and encrypted:
             fmt_type = "luks"
