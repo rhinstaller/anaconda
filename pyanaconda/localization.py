@@ -489,6 +489,17 @@ def get_common_keyboard_layouts():
     return langtable.list_common_keyboards()
 
 
+def layout_supports_ascii(layout):
+    """Return a boolean indicating whether the xkb layout (given as
+    e.g. 'en(us)' or 'fr(oss)' or 'ru') can input ASCII characters.
+
+    :return: True for ASCII capable, False for not
+    :rtype: bool
+    :param str layout: layout descriptor string
+    """
+    return langtable.supports_ascii(layout)
+
+
 def get_locale_timezones(locale):
     """Function returning preferred timezones for the given locale.
 

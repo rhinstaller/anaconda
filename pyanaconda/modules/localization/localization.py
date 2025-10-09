@@ -33,6 +33,7 @@ from pyanaconda.localization import (
     get_language_id,
     get_language_locales,
     get_native_name,
+    layout_supports_ascii,
 )
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
@@ -218,6 +219,7 @@ class LocalizationService(KickstartService):
                 layout.description = self.get_layout_variant_description(name, with_lang=True, xlated=True)
                 layout.is_common = name.replace(" ", "") in common_langtable_keyboards and is_common_lang
                 layout.langs = info.langs
+                layout.supports_ascii = layout_supports_ascii(name.replace(" ", ""))
                 layouts.append(layout)
 
         return layouts

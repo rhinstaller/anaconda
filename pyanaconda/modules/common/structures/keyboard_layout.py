@@ -29,6 +29,7 @@ class KeyboardLayout(DBusData):
     def __init__(self):
         self._layout_id = ""
         self._description = ""
+        self._supports_ascii = False
         self._is_common = False
         self._langs = []
 
@@ -58,6 +59,15 @@ class KeyboardLayout(DBusData):
     @is_common.setter
     def is_common(self, value: bool):
         self._is_common = value
+
+    @property
+    def supports_ascii(self) -> bool:
+        """Return whether the layout is capable of typing ASCII characters."""
+        return self._supports_ascii
+
+    @supports_ascii.setter
+    def supports_ascii(self, value: bool):
+        self._supports_ascii = value
 
     @property
     def langs(self) -> List[Str]:
