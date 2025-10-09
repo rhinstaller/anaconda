@@ -18,6 +18,7 @@
 import unittest
 from textwrap import dedent
 
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.runtime.runtime import RuntimeService
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
@@ -166,3 +167,12 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         ks_in = "halt --eject\n"
         ks_out = "# Halt after installation\nhalt --eject\n"
         self._test_kickstart(ks_in, ks_out)
+
+    def test_process_kickstart_with_no_payload(self):
+        """Test all values are ints when reading empty kickstart."""
+        self.interface.ReadKickstart("")
+        assert isinstance(self.module.reboot.action, int)
+        assert isinstance(self.module.reboot.eject, int)
+        assert isinstance(self.module.reboot.kexec, int)
+        # and check we can to_structure it
+        RebootData.to_structure(self.module.reboot)

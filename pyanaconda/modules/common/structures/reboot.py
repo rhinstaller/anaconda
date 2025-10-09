@@ -46,7 +46,10 @@ class RebootData(DBusData):
         return self._action
 
     @action.setter
-    def action(self, value: Int):
+    def action(self, value: Int | None):
+        if value is None:
+            # dbus cannot handle None
+            value = -1
         self._action = value
 
     @property
