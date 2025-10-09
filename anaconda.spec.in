@@ -510,6 +510,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 09 2025 github-actions <github-actions@github.com> - 43.44-1
+- flatpak: enable installation with CDROM source type (bciconel)
+- storage: Improve NotEnoughFreeSpaceError message with specific request
+  details (k.koukiou)
+- pyanaconda: storage: platform: Raise /boot to 2 GiB (neal)
+
 * Tue Oct 07 2025 github-actions <github-actions@github.com> - 43.43-1
 - anaconda: Do not execute reboot in exitHandler if the system cannot reboot
   (k.koukiou)
