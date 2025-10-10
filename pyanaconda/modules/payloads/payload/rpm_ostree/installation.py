@@ -27,8 +27,14 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import make_directories, set_system_root, touch, get_mount_device, get_boot_partition
-from pyanaconda.core.util import execProgram, execWithRedirect, execWithCapture
+from pyanaconda.core.path import (
+    get_boot_partition,
+    get_mount_device,
+    make_directories,
+    set_system_root,
+    touch,
+)
+from pyanaconda.core.util import execProgram, execWithCapture, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.modules.common.errors.installation import (

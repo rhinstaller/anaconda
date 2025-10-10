@@ -19,6 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
@@ -36,7 +37,6 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     SetSystemRootTask,
     TearDownOSTreeMountTargetsTask,
 )
-from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
     RPMOSTreeInterface,
 )
