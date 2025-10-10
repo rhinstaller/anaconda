@@ -19,7 +19,7 @@
 #
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
-from dasbus.typing import typing as dt
+from dasbus import typing as dt
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_BOOTC
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
