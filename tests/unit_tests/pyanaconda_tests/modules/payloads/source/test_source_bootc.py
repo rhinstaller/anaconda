@@ -100,7 +100,7 @@ class BootcSourceTestCase(unittest.TestCase):
             "type='BOOTC', "
             "stateroot='', "
             "sourceImgRef='', "
-            "tartegImgRef=''"
+            "targetImgRef=''"
             ")"
         )
 
