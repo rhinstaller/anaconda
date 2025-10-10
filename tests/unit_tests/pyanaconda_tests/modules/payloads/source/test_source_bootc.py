@@ -105,13 +105,14 @@ class BootcSourceTestCase(unittest.TestCase):
         )
 
         self.module.configuration.stateroot = "default"
-        self.module.configuration.targetImgRef = "registry:quay.io/fedora-testing/fedora-bootc:rawhide-standard"
+        self.module.configuration.sourceImgRef = "registry:quay.io/fedora-testing/fedora-bootc:rawhide-standard"
+        self.module.configuration.targetImgRef = "registry:quay.io/fedora-testing/fedora-bootc:rawhide-newest"
 
         assert repr(self.module) == str(
             "Source("
-            "type='RPM_OSTREE', "
-            "osname='default', "
+            "type='BOOTC', "
+            "stateroot='default', "
             "sourceImgRef='registry:quay.io/fedora-testing/fedora-bootc:rawhide-standard', "
-            "targetImgRef='registry:quay.io/fedora-testing/fedora-bootc:rawhide-standard'"
+            "targetImgRef='registry:quay.io/fedora-testing/fedora-bootc:rawhide-newest'"
             ")"
         )
