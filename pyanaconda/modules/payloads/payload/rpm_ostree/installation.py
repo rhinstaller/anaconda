@@ -655,7 +655,7 @@ class DeployBootcTask(Task):
         super().__init__()
         self._data = data
         self._physroot = physroot
-        self._sysroot = sysroot 
+        self._sysroot = sysroot
 
     @property
     def name(self):

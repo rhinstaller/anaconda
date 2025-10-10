@@ -28,7 +28,6 @@ from pyanaconda.modules.payloads.source.bootc.bootc_interface import (
     BootcSourceInterface,
 )
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 log = get_module_logger(__name__)
 

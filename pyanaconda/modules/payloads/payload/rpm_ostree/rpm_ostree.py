@@ -37,9 +37,6 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     TearDownOSTreeMountTargetsTask,
 )
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
-from pyanaconda.modules.payloads.source.bootc.bootc_interface import (
-    BootcSourceInterface,
-)
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import (
     RPMOSTreeInterface,
 )

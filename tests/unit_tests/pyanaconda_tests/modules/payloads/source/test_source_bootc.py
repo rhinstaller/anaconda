@@ -17,7 +17,7 @@
 #
 import unittest
 
-from dasbus.typing import Bool, Str, get_variant
+from dasbus.typing import Str, get_variant
 
 from pyanaconda.core.constants import SOURCE_TYPE_BOOTC
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_BOOTC
