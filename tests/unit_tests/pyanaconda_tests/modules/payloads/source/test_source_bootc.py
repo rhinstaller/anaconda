@@ -97,7 +97,7 @@ class BootcSourceTestCase(unittest.TestCase):
         """Test the string representation."""
         assert repr(self.module) == str(
             "Source("
-            "type='RPM_BOOTC', "
+            "type='BOOTC', "
             "stateroot='', "
             "sourceImgRef='', "
             "tartegImgRef=''"
