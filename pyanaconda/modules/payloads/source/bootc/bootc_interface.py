@@ -19,7 +19,7 @@
 #
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
-from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.typing import typing as dt
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_BOOTC
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
@@ -40,7 +40,7 @@ class BootcSourceInterface(PayloadSourceBaseInterface):
         self.watch_property("Configuration", self.implementation.configuration_changed)
 
     @property
-    def Configuration(self) -> Structure:
+    def Configuration(self) -> dt.Structure:
         """The source configuration.
 
         :return: a structure of the type BootcConfigurationData
@@ -51,7 +51,7 @@ class BootcSourceInterface(PayloadSourceBaseInterface):
 
     @Configuration.setter
     @emits_properties_changed
-    def Configuration(self, data: Structure):
+    def Configuration(self, data: dt.Structure):
         """Set the source configuration.
 
         :param data: a structure of the type BootcConfigurationData

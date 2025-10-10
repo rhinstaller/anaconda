@@ -648,7 +648,7 @@ class DeployBootcTask(Task):
     def __init__(self, data, physroot, sysroot):
         """Create a new task.
 
-        :param data: an bootc configuration
+        :param data: a bootc configuration
         :param str physroot: a path to the physical root
         :param str sysroot: a path to the system root
         """
@@ -662,8 +662,8 @@ class DeployBootcTask(Task):
         return "Deploy bootc"
 
     def run(self):
-        # Bootc will handle bootloader config so disable it
         bootloader = STORAGE.get_proxy(BOOTLOADER)
+        # Bootc will handle bootloader config so disable it
         bootloader.BootloaderMode = 0
         log.debug("Disabled bootloader configuration due to bootc mode")
 
@@ -684,7 +684,6 @@ class DeployBootcTask(Task):
         # * selinux=1 enforcing=0
         # Right now using `enforcing=1` in Anaconda environment may be
         # problematic and lead to some unexpected errors due to missing policies
-
         # Bootc expects `prepare-root.conf` file to be presented in the system
         # https://github.com/bootc-dev/bootc/discussions/1400
         # https://github.com/bootc-dev/bootc/issues/1410
@@ -758,7 +757,6 @@ class DeployBootcTask(Task):
 
         log.info("Bootc deploy complete")
         self.report_progress(_("Bootc deployment complete: {}").format(ref))
-        return
 
 
 class DeployOSTreeTask(Task):

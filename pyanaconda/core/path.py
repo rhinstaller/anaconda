@@ -80,17 +80,41 @@ def get_mount_paths(devnode):
     return [info[4] for info in mountinfo if info[2] == majmin]
 
 
-def get_mount_device(mount_point):
-    with open("/proc/mounts", "r") as f:
+def get_mount_device(mount_point, mounts_file="/proc/mounts"):
+    """
+    Return the device which should be mounted on `mount_point`
+    
+    :arg mount_point: The full path of the mount point
+    :kwarg mounts_file: A mounts file to use.  Defaults to `/proc/mounts`
+    
+    We expect all lines in the mounts_file to have the following format::
+    
+        /dev/mapper/luks-90a6412f-c588-46ca-9118-5aca35943d25 / ext4 rw,seclabel,relatime 0 0
+    """
+    with open(mounts_file, "r") as f:
         for line in f:
             parts = line.split()
             if len(parts) >= 3 and parts[1] == mount_point:
                 return parts[0]
-    return None
+    raise ValueError("Mount point {0} was not found in {mounts_file}".format(mount_point, mounts_file))
 
-def get_boot_partition():
+
+def get_boot_partition(partitions_file="/proc/paritions"):
+    """
+    Return the system's boot partition.
+
+    :kwarg partitions_file: A filename to search for the boot partition within.  Defaults to "/proc/partitions".
+
+    The partition file is expected to be of the format::
+
+        major minor  #blocks  name
+         259        0  500107608 nvme0n1
+         259        1     204800 nvme0n1p1
+         259        2    2097152 nvme0n1p2
+         259        3    5244928 nvme0n1p3
+    """
     # Boot partition is usually 2nd after autopart (sda2, vda2 etc)
-    with open("/proc/partitions") as f:
+    with open(partitions_file) as f:
         # Skip two lines of header
         next(f)
         next(f)
@@ -101,7 +125,7 @@ def get_boot_partition():
                 # Just find the first partition with minor number == 2
                 if minor == '2':
                     return name
-    return None
+    raise ValueError("Unable to find a boot partition in {0}".format(partitions_file))
 
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.

@@ -88,7 +88,7 @@ class RPMOSTreeModule(PayloadBase):
         source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
 
         if source_type is None:
-            """ Try bootc source """
+            # Try bootc source
             source_type = SourceFactory.get_bootc_type_for_kickstart(data)
             if source_type is None:
                 return
