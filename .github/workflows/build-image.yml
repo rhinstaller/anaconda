@@ -67,7 +67,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get commit sha
+        id: commit_sha
+        run: |
+          set -eux
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] ; then
+            SHA="$GITHUB_SHA"
+          else
+            # comment on PR
+            SHA="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
+          fi
+          echo "sha=${SHA}" >> $GITHUB_OUTPUT
+
+      - name: Clone repository
+        # Required to use Makefile in the job
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.commit_sha.outputs.sha }}
+          fetch-depth: 0
+          path: anaconda
+
       - name: Parse arguments
+        working-directory: ./anaconda
         id: parse_args
         # Do not use comment body directly in the shell command to avoid possible code injection.
         env:
@@ -105,16 +126,15 @@ jobs:
         run: |
           set -eux
           CI_TAG="${{ steps.parse_args.outputs.ci_tag }}"
+          SHA="${{ steps.commit_sha.outputs.sha }}"
           if [ "${{ github.event_name }}" == "workflow_dispatch" ] ; then
             # manual run from actions page
             branch_name="$GITHUB_REF_NAME"
-            sha="$GITHUB_SHA"
-            echo "image_description=$branch_name-$CI_TAG-$sha" >> $GITHUB_OUTPUT
+            echo "image_description=$branch_name-$CI_TAG-$SHA" >> $GITHUB_OUTPUT
           else
             # comment on PR
             pr_num="${{ github.event.issue.number }}"
-            sha="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
-            echo "image_description=pr$pr_num-$CI_TAG-$sha" >> $GITHUB_OUTPUT
+            echo "image_description=pr$pr_num-$CI_TAG-$SHA" >> $GITHUB_OUTPUT
           fi
 
       - name: Mark comment as seen
@@ -137,11 +157,10 @@ jobs:
 
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
             echo "allowed_user=true" >> $GITHUB_OUTPUT
-            echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
           else
             echo "allowed_user=${{ steps.check_user_perm.outcome == 'success' && steps.check_user_perm.outputs.allowed_user }}" >> $GITHUB_OUTPUT
-            echo "sha=${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}" >> $GITHUB_OUTPUT
           fi
+          echo "sha=${{ steps.commit_sha.outputs.sha }}" >> $GITHUB_OUTPUT
 
     outputs:
       allowed_user: ${{ steps.set_outputs.outputs.allowed_user }}
