@@ -25,6 +25,7 @@ from blivet.devicelibs import crypto, raid
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice, MDRaidArrayDevice
 from blivet.errors import StorageError
 from blivet.formats import get_format
+from blivet.partitioning import do_partitioning
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -1094,6 +1095,11 @@ def _destroy_device(storage, device):
 
         if config.can_initialize(storage, device.disk):
             storage.initialize_disk(device.disk)
+
+    # we've just removed partition from a disk with other partitions scheduled to
+    # be created, we need to reallocate these partitions to avoid empty space on disk
+    if device.type == "partition" and device.disk and not all(p.exists for p in device.disk.children):
+        do_partitioning(storage, boot_disk=storage.bootloader.stage1_disk)
 
     # Get the device container.
     if hasattr(device, "vg"):
