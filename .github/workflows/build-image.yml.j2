@@ -99,7 +99,7 @@ jobs:
         run: |
           set -eux
           CI_TAG="${{ steps.parse_args.outputs.ci_tag }}"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] ; then
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] ; then
             # manual run from actions page
             branch_name="$GITHUB_REF_NAME"
             sha="$GITHUB_SHA"
