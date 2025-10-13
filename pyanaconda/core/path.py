@@ -103,7 +103,7 @@ def get_mount_device(mount_point, mounts_file="/proc/mounts"):
     ))
 
 
-def get_boot_partition(partitions_file="/proc/paritions"):
+def get_boot_partition(partitions_file="/proc/partitions"):
     """
     Return the system's boot partition.
 
