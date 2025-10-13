@@ -27,8 +27,10 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payload.flatpak.source import (
@@ -94,6 +96,15 @@ class FlatpakManager:
         """
         return self._skip_installation
 
+    def _get_registry_url(self):
+        subscription_interface = SUBSCRIPTION.get_proxy()
+        if subscription_interface.IsRegisteredToSatellite:
+            sub_req = SubscriptionRequest.from_structure(subscription_interface.SubscriptionRequest)
+            return "oci+%s" % sub_req.server_hostname
+        # fallback to default registry
+        _, remote_url = conf.payload.flatpak_remote
+        return remote_url
+
     def set_sources(self, sources: List[PayloadSourceBase]):
         """Set the source object we use to download Flatpak content.
 
@@ -119,7 +130,7 @@ class FlatpakManager:
             if self._source and isinstance(self._source, FlatpakRegistrySource):
                 log.debug("Skipping registry source: %s as it is already set.", source)
                 return
-            _, remote_url = conf.payload.flatpak_remote
+            remote_url = self._get_registry_url()
             log.debug("Using Flatpak registry source: %s", remote_url)
             self._source = FlatpakRegistrySource(remote_url)
         elif isinstance(source, RepositorySourceMixin) or source.type == SourceType.REPO_PATH:

@@ -641,15 +641,16 @@ class DNFManager(object):
         """Determine what Flatpaks need to be preinstalled based on resolved transaction"""
         if self._base.transaction is None:
             return []
+        # FIXME: dirty workaround for installing flatpaks without preconfigured rpms
+        return ["app/org.mozilla.firefox//stable"]
+        # refs = []
+        # for tspkg in self._transaction.get_transaction_packages():
+        #     for provide in tspkg.get_package().get_provides():
+        #         m = re.match(r"^flatpak-preinstall\((.*)\)$", str(provide))
+        #         if m:
+        #             refs.append(m.group(1))
 
-        refs = []
-        for tsi in self._base.transaction:
-            for provide in tsi.pkg.provides:
-                m = re.match(r"^flatpak-preinstall\((.*)\)$", str(provide))
-                if m:
-                    refs.append(m.group(1))
-
-        return refs
+        # return refs
 
     def clear_selection(self):
         """Clear the software selection."""

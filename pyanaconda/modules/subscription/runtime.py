@@ -18,6 +18,7 @@
 import json
 import os
 from collections import namedtuple
+from pathlib import Path
 
 import gi
 from dasbus.connection import MessageBus
@@ -39,7 +40,7 @@ from pyanaconda.modules.common.constants.objects import (
     RHSM_SYSPURPOSE,
     RHSM_UNREGISTER,
 )
-from pyanaconda.modules.common.constants.services import RHSM
+from pyanaconda.modules.common.constants.services import RHSM, SUBSCRIPTION
 from pyanaconda.modules.common.errors.subscription import (
     MultipleOrganizationsError,
     RegistrationError,
@@ -48,6 +49,7 @@ from pyanaconda.modules.common.errors.subscription import (
 )
 from pyanaconda.modules.common.structures.subscription import (
     OrganizationData,
+    SubscriptionRequest,
     SystemPurposeData,
 )
 from pyanaconda.modules.common.task import Task
@@ -901,6 +903,29 @@ class RegisterAndSubscribeTask(Task):
 
         # if we got this far without an exception then subscriptions have been attached
         self._subscription_attached_callback(True)
+
+        if provisioned_for_satellite:
+            log.debug("create certificates for podman/flatpak")
+            subscription_module = SUBSCRIPTION.get_proxy()
+            struct = subscription_module.SubscriptionRequest
+            subscription_request = SubscriptionRequest.from_structure(struct)
+
+            hostname = subscription_request.server_hostname.removeprefix("https://").removeprefix("http://")
+
+            flatpak_cert_dir = Path('/etc/containers/certs.d/') / hostname
+            flatpak_cert_dir.mkdir(parents=True)
+
+            ca_cert = Path("/etc/pki/tls/certs/ca-bundle.crt")
+            Path(flatpak_cert_dir / "ca-bundle.crt").symlink_to(ca_cert)
+
+            entitlements_dir = Path("/etc/pki/entitlement/")
+            pemfiles = list(entitlements_dir.glob("*.pem"))
+            assert len(pemfiles) == 2
+            for pem in pemfiles:
+                if pem.name.endswith("-key.pem"):
+                    Path(flatpak_cert_dir / "client.key").symlink_to(pem)
+                else:
+                    Path(flatpak_cert_dir / "client.cert").symlink_to(pem)
 
         # parse attached subscription data
         log.debug("registration attempt: parsing attached subscription data")
