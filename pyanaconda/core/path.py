@@ -103,37 +103,6 @@ def get_mount_device(mount_point, mounts_file="/proc/mounts"):
     ))
 
 
-def get_boot_partition(partitions_file="/proc/partitions"):
-    """
-    Return the system's boot partition.
-
-    :kwarg partitions_file: A filename to search for the boot partition within.  Defaults to "/proc/partitions".
-
-    The partition file is expected to be of the format::
-
-        major minor  #blocks  name
-         259        0  500107608 nvme0n1
-         259        1     204800 nvme0n1p1
-         259        2    2097152 nvme0n1p2
-         259        3    5244928 nvme0n1p3
-    """
-    # Boot partition is usually 2nd after autopart (sda2, vda2 etc)
-    with open(partitions_file) as f:
-        # Skip two lines of header
-        next(f)
-        next(f)
-
-        for line in f:
-            columns = line.split()
-            if len(columns) == 4:
-                _major, minor, _blocks, name = columns
-                # Just find the first partition with minor number == 2
-                if minor == '2':
-                    return name
-
-    raise ValueError("Unable to find a boot partition in {0}".format(partitions_file))
-
-
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.
 

@@ -28,7 +28,6 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import (
-    get_boot_partition,
     get_mount_device,
     make_directories,
     set_system_root,
@@ -44,6 +43,7 @@ from pyanaconda.modules.common.errors.installation import (
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.base.utils import get_boot_partition
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 gi.require_version("OSTree", "1.0")
@@ -691,7 +691,7 @@ class DeployBootcTask(Task):
         # Right now we use the /etc/selinux/config file to do the equivalent of
         # selinux=1 enforcing=0.
         # We set this in lorax-build using the whitelist_selinux.patch
-        
+
         # Bootc expects `prepare-root.conf` file to be presented in the system
         # https://github.com/bootc-dev/bootc/discussions/1400
         # https://github.com/bootc-dev/bootc/issues/1410

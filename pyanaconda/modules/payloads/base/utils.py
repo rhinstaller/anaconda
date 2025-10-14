@@ -35,6 +35,24 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 log = get_module_logger(__name__)
 
 
+def get_boot_partition(mount_point="/boot"):
+    """
+    Return the system's boot partition.
+
+    :kwarg mount_point: The mount point of the boot partition. Defaults to "/boot".
+    :returns: The boot partitions device name.
+    """
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    mount_points = device_tree.GetMountPoints()
+
+    for path, device_id in mount_points.items():
+        if path == mount_point:
+            return device_id
+
+    raise ValueError("Unable to find a boot partition"
+                     " (partition mounted on {0})".format(mount_point))
+
+
 def sort_kernel_version_list(kernel_version_list):
     """Sort the given kernel version list."""
     kernel_version_list.sort(key=rpm_version_key)
