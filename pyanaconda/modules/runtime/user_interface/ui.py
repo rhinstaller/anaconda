@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.commands.displaymode import DISPLAY_MODE_TEXT
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import (
     PASSWORD_POLICY_LUKS,
@@ -27,13 +29,11 @@ from pyanaconda.core.constants import (
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
+from pyanaconda.modules.common.structures.vnc import VncData
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
-
-from pykickstart.commands.displaymode import DISPLAY_MODE_TEXT
 
 log = get_module_logger(__name__)
 
