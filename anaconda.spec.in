@@ -510,6 +510,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 14 2025 github-actions <github-actions@github.com> - 43.45-1
+- RebootData: don't allow action to be None (awilliam)
+- pyanaconda: localization: Indicate ASCII support in get_keyboard_layouts
+  (awilliam)
+- Add error handling for symlink creation (ppolawsk)
+
 * Thu Oct 09 2025 github-actions <github-actions@github.com> - 43.44-1
 - flatpak: enable installation with CDROM source type (bciconel)
 - storage: Improve NotEnoughFreeSpaceError message with specific request
