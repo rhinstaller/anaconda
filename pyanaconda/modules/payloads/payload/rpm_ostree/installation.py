@@ -690,6 +690,8 @@ class DeployBootcTask(Task):
         # * selinux=1 enforcing=0
         # Right now using `enforcing=1` in Anaconda environment may be
         # problematic and lead to some unexpected errors due to missing policies
+        # We set this in lorax-build using the whitelist_selinux.patch
+        
         # Bootc expects `prepare-root.conf` file to be presented in the system
         # https://github.com/bootc-dev/bootc/discussions/1400
         # https://github.com/bootc-dev/bootc/issues/1410
@@ -780,7 +782,7 @@ class DeployOSTreeTask(Task):
 
     @property
     def name(self):
-        return"Deploy OSTree"
+        return "Deploy OSTree"
 
     def run(self):
         stateroot = _get_stateroot(self._data)
