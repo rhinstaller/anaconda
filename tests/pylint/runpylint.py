@@ -62,7 +62,7 @@ class AnacondaLintConfig(CensorshipConfig):
 
             # TODO: NM introspection needs to be added to pylint to handle these
             # https://github.com/pylint-dev/pylint/issues/10433
-            FalsePositive(r"E1120.*(?:network\.py|nm_client\.py|test_module_network_nm_client\.py|glib\.py|device_configuration\.py):.* No value for argument 'self' in .* call"),
+            FalsePositive(r"E1120.*(?:network\.py|nm_client\.py|test_module_network_nm_client\.py|glib\.py|device_configuration\.py|utils\.py):.* No value for argument 'self' in .* call"),
             FalsePositive(r"E1101.*(?:network\.py|nm_client\.py):.* Class .* has no .* member"),
 
             # TODO: OStree introspection needs to be added to pylint to handle these
