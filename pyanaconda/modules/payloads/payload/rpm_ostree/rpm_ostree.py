@@ -110,34 +110,21 @@ class RPMOSTreeModule(PayloadBase):
             self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
             self._get_source(SourceType.RPM_OSTREE)
 
-    def install_with_tasks(self):
-        """Install the payload.
-
-        :return: list of tasks
-        """
-        ostree_source = self._get_ostree_source()
-
-        if not ostree_source:
-            log.debug("No OSTree RPM source is available.")
-            return []
-
-        data = ostree_source.configuration
-
-        tasks = []
-
+    def _install_with_tasks_bootc(self, data):
+        """Create the set of tasks to install the payload with bootc"""
         # Bootc requires very limited set of tasks
-        if isinstance(data, BootcConfigurationData):
-            tasks += [
-                DeployBootcTask(
-                    data=data,
-                    physroot=conf.target.physical_root,
-                    sysroot=conf.target.system_root
-                )
-            ]
-            return tasks
+        tasks = [
+            DeployBootcTask(
+                data=data,
+                physroot=conf.target.physical_root,
+                sysroot=conf.target.system_root
+            )
+        ]
+        return tasks
 
-        # Create the set of tasks for OSTree
-        tasks += [
+    def _install_with_tasks_ostree(self, data):
+        """Create the set of tasks to install the payload with ostree"""
+        tasks = [
             InitOSTreeFsAndRepoTask(
                 physroot=conf.target.physical_root
             ),
@@ -184,6 +171,25 @@ class RPMOSTreeModule(PayloadBase):
 
         self._collect_mount_points_on_success(tasks)
         return tasks
+
+    def install_with_tasks(self):
+        """Install the payload.
+
+        :return: list of tasks
+        """
+        ostree_source = self._get_ostree_source()
+
+        if not ostree_source:
+            log.debug("No OSTree RPM source is available.")
+            return []
+
+        data = ostree_source.configuration
+
+        if isinstance(data, BootcConfigurationData):
+            return self._install_with_tasks_bootc(data)
+
+        # If we're not configured for bootc, then we're configured for ostree
+        return self._install_with_tasks_ostree(data)
 
     def _collect_mount_points_on_success(self, tasks):
         """Collect mount points from successful tasks.
