@@ -34,7 +34,6 @@ from pyanaconda.modules.runtime.scripts import ScriptsModule
 from pyanaconda.modules.runtime.scripts.runtime import RunScriptsTask
 from pyanaconda.modules.runtime.scripts.scripts_interface import ScriptsInterface
 
-
 KICKSTART1 = """
 text
 
