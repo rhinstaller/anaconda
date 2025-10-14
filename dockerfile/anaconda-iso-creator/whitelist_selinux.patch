@@ -4,9 +4,7 @@ Date: Fri, 10 Oct 2025 00:02:02 +0200
 Subject: [PATCH] Do not remove SELinux from the runtime
 
 * Do not remove SELinux packages when ISO is created
-* Update the /etc/selinux file to:
-    * SELINUX=disabled
-    * SELINUXTYPE=targeted
+* Install the /etc/selinux/config file into the image
 ---
  share/templates.d/99-generic/runtime-cleanup.tmpl     | 6 ------
  share/templates.d/99-generic/runtime-install.tmpl     | 2 +-

@@ -688,8 +688,8 @@ class DeployBootcTask(Task):
         # Both pairs of kernel parameters will work:
         # * selinux=0 enforcing=0
         # * selinux=1 enforcing=0
-        # Right now using `enforcing=1` in Anaconda environment may be
-        # problematic and lead to some unexpected errors due to missing policies
+        # Right now we use the /etc/selinux/config file to do the equivalent of
+        # selinux=1 enforcing=0.
         # We set this in lorax-build using the whitelist_selinux.patch
         
         # Bootc expects `prepare-root.conf` file to be presented in the system
