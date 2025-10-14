@@ -17,8 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import (SNAPSHOT_WHEN_POST_INSTALL, KS_SCRIPT_PREINSTALL,
-                                   KS_SCRIPT_POST)
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PREINSTALL, SNAPSHOT_WHEN_POST_INSTALL
 
 from pyanaconda import flags, network
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -47,20 +46,20 @@ from pyanaconda.modules.common.constants.objects import (
     BOOTLOADER,
     CERTIFICATES,
     FIREWALL,
-    SNAPSHOT,
     SCRIPTS,
+    SNAPSHOT,
 )
 from pyanaconda.modules.common.constants.services import (
     BOSS,
     LOCALIZATION,
     NETWORK,
+    RUNTIME,
     SECURITY,
     SERVICES,
     STORAGE,
     SUBSCRIPTION,
     TIMEZONE,
     USERS,
-    RUNTIME,
 )
 from pyanaconda.modules.common.task import Task as InstallationTask
 from pyanaconda.modules.common.task import sync_run_task
