@@ -19,14 +19,21 @@
 import os
 import unittest
 from contextlib import contextmanager
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
+
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PREINSTALL
 
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager.module_observer import ModuleObserver
+from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.structures.kickstart import (
     KickstartMessage,
     KickstartReport,
 )
+from pyanaconda.modules.runtime.scripts import ScriptsModule
+from pyanaconda.modules.runtime.scripts.runtime import RunScriptsTask
+from pyanaconda.modules.runtime.scripts.scripts_interface import ScriptsInterface
+
 
 KICKSTART1 = """
 text
@@ -336,6 +343,136 @@ network --device=ens3
         assert error.message == \
             "Unable to open input kickstart file: Error opening file: " \
             "[Errno 2] No such file or directory: 'missing_include.cfg'"
+
+
+class TestScriptsInterface(unittest.TestCase):
+
+    @patch('pyanaconda.modules.common.containers.TaskContainer.to_object_path')
+    def test_run_scripts_with_task(self, mock_to_object_path):
+        """Test running scripts through DBus interface."""
+        scripts_mock = Mock()
+        scripts_interface = ScriptsInterface(scripts_mock)
+
+        # Test running post scripts
+        script_type = KS_SCRIPT_POST
+        scripts_interface.RunScriptsWithTask(script_type)
+
+        # Ensure that the task for running the scripts is executed
+        scripts_mock.run_scripts_with_task.assert_called_once_with(script_type)
+        mock_to_object_path.assert_called_once()
+
+
+class TestScriptsModule(unittest.TestCase):
+
+    def setUp(self):
+        self.module = ScriptsModule()
+
+    def test_process_kickstart(self):
+        """Test that process_kickstart stores scripts data."""
+        ksdata = Mock()
+        ksdata.scripts = ["script1", "script2"]
+        self.module.process_kickstart(ksdata)
+
+        self.assertEqual(self.module._scripts, ["script1", "script2"])
+
+    def test_setup_kickstart(self):
+        """Test that setup_kickstart assigns scripts data."""
+        ksdata = Mock()
+        self.module._scripts = ["script1", "script2"]
+        self.module.setup_kickstart(ksdata)
+
+        self.assertEqual(ksdata.scripts, ["script1", "script2"])
+
+
+class TestRunScriptsTask(unittest.TestCase):
+
+    def setUp(self):
+        self.scripts = [
+            Mock(type=KS_SCRIPT_POST, run=Mock(return_value=None)),
+            Mock(type=KS_SCRIPT_POST, run=Mock(return_value=(42, "Error in script")))
+        ]
+        self.task = RunScriptsTask(KS_SCRIPT_POST, self.scripts)
+
+    def test_task_name(self):
+        """Test the name of the task."""
+        self.assertEqual(self.task.name, "Run scripts")
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def test_run_successful_script(self, mock_execWithRedirect):
+        """Test running scripts successfully."""
+        # Adjust test to only have successful scripts
+        successful_script = [Mock(type=KS_SCRIPT_POST, run=Mock(return_value=None))]
+        task = RunScriptsTask(KS_SCRIPT_POST, successful_script)
+
+        try:
+            task.run()
+        except ScriptError:
+            self.fail("RunScriptsTask.run() raised ScriptError unexpectedly!")
+        mock_execWithRedirect.assert_not_called()
+
+    def test_run_failing_script(self):
+        """Test that a failing script raises ScriptError."""
+        with self.assertRaises(ScriptError) as cm:
+            self.task.run()
+
+        self.assertEqual(str(cm.exception), '42\n\nError in script')
+        self.scripts[1].run.assert_called_once_with('/mnt/sysroot')
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def test_run_post_script_success(self, mock_execWithRedirect):
+        """Test running %post scripts successfully."""
+        script = Mock()
+        script.type = KS_SCRIPT_POST
+        script.run.return_value = None
+
+        task = RunScriptsTask(KS_SCRIPT_POST, [script])
+        task.run()
+
+        script.run.assert_called_once_with('/mnt/sysroot')
+        mock_execWithRedirect.assert_not_called()
+
+    @patch('pyanaconda.core.util.execWithRedirect')
+    def test_run_preinstall_script_success(self, mock_execWithRedirect):
+        """Test running %pre-install scripts successfully."""
+        script = Mock()
+        script.type = KS_SCRIPT_PREINSTALL
+        script.run.return_value = None
+
+        task = RunScriptsTask(KS_SCRIPT_PREINSTALL, [script])
+        task.run()
+
+        script.run.assert_called_once_with('/')
+        mock_execWithRedirect.assert_not_called()
+
+    def test_run_post_script_with_error(self):
+        """Test running %post scripts with an error."""
+        script = Mock()
+        script.type = KS_SCRIPT_POST
+        script.run.return_value = (10, "Test Error Message")
+
+        task = RunScriptsTask(KS_SCRIPT_POST, [script])
+
+        with self.assertRaises(ScriptError) as cm:
+            task.run()
+
+        self.assertEqual(cm.exception.lineno, '10')
+        self.assertEqual(cm.exception.details, "Test Error Message")
+        script.run.assert_called_once_with('/mnt/sysroot')
+
+    def test_run_preinstall_script_with_error(self):
+        """Test running %pre-install scripts with an error."""
+        script = Mock()
+        script.type = KS_SCRIPT_PREINSTALL
+        script.run.return_value = (20, "Pre-Install Error")
+
+        task = RunScriptsTask(KS_SCRIPT_PREINSTALL, [script])
+
+        with self.assertRaises(ScriptError) as cm:
+            task.run()
+
+        self.assertEqual(cm.exception.lineno, '20')
+        self.assertEqual(cm.exception.details, "Pre-Install Error")
+        script.run.assert_called_once_with('/')
 
 
 class TestModule(object):
