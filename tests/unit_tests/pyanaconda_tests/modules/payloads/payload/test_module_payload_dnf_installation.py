@@ -34,11 +34,8 @@ from pyanaconda.modules.common.structures.packages import (
 )
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
-    DNFManager,
-    InvalidSelectionError,
-    MissingSpecsError,
-)
+from pyanaconda.modules.common.structures.validation import ValidationReport
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.installation import (
     CleanUpDownloadLocationTask,
     DownloadPackagesTask,
@@ -68,8 +65,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         calls = [call(*macro) for macro in expected_macros]
         mock_rpm.addMacro.assert_has_calls(calls)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_default(self, mock_rpm):
+    def test_set_rpm_macros_default(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
 
         macros = [
@@ -79,8 +78,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         task = self._run_task(data)
         self._check_macros(task, mock_rpm, macros)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_exclude_docs(self, mock_rpm):
+    def test_set_rpm_macros_exclude_docs(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
         data.docs_excluded = True
 
@@ -92,8 +93,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         task = self._run_task(data)
         self._check_macros(task, mock_rpm, macros)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_install_langs(self, mock_rpm):
+    def test_set_rpm_macros_install_langs(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
         data.languages = "en:es"
 
@@ -105,8 +108,10 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         task = self._run_task(data)
         self._check_macros(task, mock_rpm, macros)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def test_set_rpm_macros_no_install_langs(self, mock_rpm):
+    def test_set_rpm_macros_no_install_langs(self, mock_rpm, mock_os):
+        mock_os.access.return_value = False  # No selinux policy-context files are present
         data = PackagesConfigurationData()
         data.languages = RPM_LANGUAGES_NONE
 
@@ -389,6 +394,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager = Mock()
         dnf_manager.default_environment = None
         data = PackagesConfigurationData()
+        dnf_manager.resolve_selection.return_value = ValidationReport()
 
         task = ResolvePackagesTask(dnf_manager, selection, data)
         task.run()
@@ -397,7 +403,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager.apply_specs.assert_called_once_with(
             ["@core", "@r1", "@r2", "r4", "r5"], ["@r3", "r6"]
         )
-        dnf_manager.resolve_selection.assert_called_once_with()
+        dnf_manager.resolve_selection.assert_called_once()
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_driver_disk_requirements")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_platform_requirements")
@@ -417,7 +423,9 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager = Mock()
         dnf_manager.default_environment = None
 
-        dnf_manager.apply_specs.side_effect = MissingSpecsError("e2")
+        report = ValidationReport()
+        report.warning_messages = ["e2"]
+        dnf_manager.resolve_selection.return_value = report
 
         with pytest.raises(NonCriticalInstallationError) as cm:
             data = PackagesConfigurationData()
@@ -427,7 +435,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         expected = "e2"
         assert str(cm.value) == expected
 
-        dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
+        report.error_messages = ["e4"]
 
         with pytest.raises(PayloadInstallationError) as cm:
             data = PackagesConfigurationData()

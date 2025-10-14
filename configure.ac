@@ -18,7 +18,7 @@
 m4_define(python_required_version, 3.4)
 
 AC_PREREQ([2.63])
-AC_INIT([anaconda], [43.20], [anaconda-devel@lists.fedoraproject.org])
+AC_INIT([anaconda], [43.45], [anaconda-devel@lists.fedoraproject.org])
 
 # make it possible to set build info at build time
 # (patch only builds, modular builds, mass-rebuilds, etc.)
@@ -165,6 +165,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/payloads/Makefile
                  pyanaconda/modules/payloads/payload/Makefile
                  pyanaconda/modules/payloads/payload/dnf/Makefile
+                 pyanaconda/modules/payloads/payload/flatpak/Makefile
                  pyanaconda/modules/payloads/payload/live_os/Makefile
                  pyanaconda/modules/payloads/payload/live_image/Makefile
                  pyanaconda/modules/payloads/payload/rpm_ostree/Makefile

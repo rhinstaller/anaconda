@@ -41,6 +41,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.modules.storage.platform import (
     PLATFORM_DEVICE_TYPES,
+    PLATFORM_DISK_LABEL_TYPES,
     PLATFORM_FORMAT_TYPES,
     PLATFORM_MAX_END,
     PLATFORM_MOUNT_POINTS,
@@ -532,7 +533,7 @@ class BootLoader:
         if is_on_non_ibft_sw_iscsi(device):
             if conf.bootloader.nonibft_iscsi_boot:
                 log.debug("stage1 device on non-iBFT iSCSI disk allowed "
-                          "by boot option inst.iscsi.nonibftboot")
+                          "by boot option inst.nonibftiscsiboot")
             else:
                 log.debug("stage1 device cannot be on an non-iBFT iSCSI disk")
                 self.errors.append(_("Boot loader stage1 device cannot be on "
@@ -553,8 +554,14 @@ class BootLoader:
         if device.protected:
             valid = False
 
+        # Check disklabel - architecture validity via blivet's DiskLabel class
         if not self._is_valid_disklabel(device,
                                         disklabel_types=self.disklabel_types):
+            valid = False
+
+        # Check extra disklabel validity via anaconda's platform constraints
+        if not self._is_valid_disklabel(device,
+                                        disklabel_types=constraints[PLATFORM_DISK_LABEL_TYPES]):
             valid = False
 
         if not self._is_valid_size(device, desc=description):
@@ -1000,17 +1007,12 @@ class BootLoader:
 
         log.debug("Console is set to %s with options '%s'", self.console, self.console_options)
 
-    def write_config_console(self, config):
-        """Write console-related configuration lines."""
-        pass
-
     def write_config_password(self, config):
         """Write password-related configuration lines."""
         pass
 
     def write_config_header(self, config):
         """Write global configuration lines."""
-        self.write_config_console(config)
         self.write_config_password(config)
 
     def write_config_images(self, config):

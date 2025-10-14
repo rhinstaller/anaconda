@@ -9,15 +9,20 @@ permissions:
   contents: read
 
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ''  # Empty = all releases
+
   update-container:
+    needs: define-matrix
     strategy:
       fail-fast: false
-      matrix:
-        branch: ['main'{% for branch in supported_branches %}, '{$ branch|first $}'{% endfor %}]
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: ${{ matrix.branch }}
-      branch: ${{ matrix.branch }}
+      container-tag: ${{ matrix.release }}
+      branch: ${{ matrix.target_branch }}

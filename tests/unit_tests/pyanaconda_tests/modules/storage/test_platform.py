@@ -80,6 +80,7 @@ class PlatformTestCase(unittest.TestCase):
         """Check the platform-specific constraints."""
         all_constraints = {
             "device_types": [],
+            "disklabel_types": [],
             "format_types": [],
             "mountpoints": [],
             "max_end": None,
@@ -106,7 +107,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="biosboot", size=Size("1MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB")),
+            PartSpec(mountpoint="/boot", size=Size("2GiB")),
         )
 
         self._check_constraints(
@@ -137,7 +138,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"), lv=False),
+            PartSpec(mountpoint="/boot", size=Size("2GiB"), lv=False),
         )
 
         self._check_constraints(
@@ -167,7 +168,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -195,7 +196,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -226,13 +227,47 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt", "msdos"],
+                "mountpoints": ["/boot/efi"],
+                "raid_levels": [raid.RAID1],
+                "raid_metadata": ["1.0"]
+            },
+            descriptions={
+                "partition": "EFI System Partition",
+                "mdarray": "RAID Device"
+            },
+            error_message=str(
+                "For a UEFI installation, you must include "
+                "an EFI System Partition on a GPT-formatted "
+                "disk, mounted at /boot/efi."
+            )
+        )
+
+    @patch("pyanaconda.modules.storage.platform.arch")
+    def test_x86_efi(self, arch):
+        """Test the x86 EFI platform."""
+        self._reset_arch(arch)
+        arch.is_efi.return_value = True
+        arch.is_x86.return_value = True
+
+        self._check_partitions(
+            PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
+                     size=Size("500MiB"), max_size=Size("600MiB")),
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
+        )
+
+        self._check_constraints(
+            constraints={
+                "format_types": ["efi"],
+                "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -263,13 +298,14 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt", "msdos"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -300,13 +336,14 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt", "msdos"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -337,13 +374,14 @@ class PlatformTestCase(unittest.TestCase):
         self._check_partitions(
             PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
                      size=Size("500MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
             constraints={
                 "format_types": ["efi"],
                 "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt", "msdos"],
                 "mountpoints": ["/boot/efi"],
                 "raid_levels": [raid.RAID1],
                 "raid_metadata": ["1.0"]
@@ -374,7 +412,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="appleboot", size=Size("1MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -406,7 +444,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="prepboot", size=Size("4MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -438,7 +476,7 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_partitions(
             PartSpec(fstype="prepboot", size=Size("4MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -469,7 +507,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(
@@ -496,7 +534,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
         self._check_partitions(
-            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
         )
 
         self._check_constraints(

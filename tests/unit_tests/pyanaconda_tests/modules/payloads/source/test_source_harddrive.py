@@ -101,7 +101,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Hard drive source module has a correct type."""
-        assert SourceType.HDD == self.module.type
+        assert self.module.type == SourceType.HDD
 
     def test_network_required(self):
         """Test the property network_required."""

@@ -262,7 +262,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         platform.partitions = [PartSpec("/boot")]
         requests = get_default_partitioning()
 
-        assert ["/boot", "/", "/home"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/boot", "/", "/home"]
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
@@ -289,7 +289,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request
         )
 
-        assert ["/"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/"]
 
         partitioning_request = PartitioningRequest()
         partitioning_request._excluded_mount_points = []
@@ -299,10 +299,10 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request
         )
 
-        assert ["/boot", "/", "/home"] == \
-            [spec.mountpoint for spec in requests]
-        assert ["xfs", "ext4", "ext4"] == \
-            [spec.fstype for spec in requests]
+        assert [spec.mountpoint for spec in requests] == \
+            ["/boot", "/", "/home"]
+        assert [spec.fstype for spec in requests] == \
+            ["xfs", "ext4", "ext4"]
         assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
             [spec.size for spec in requests]
 
@@ -413,7 +413,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request,
         )
 
-        assert ["/", "/var"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/", "/var"]
 
         # Collect the requests for the LVM scheme.
         partitioning_request = PartitioningRequest()
@@ -423,7 +423,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             request=partitioning_request,
         )
 
-        assert ["/"] == [spec.mountpoint for spec in requests]
+        assert [spec.mountpoint for spec in requests] == ["/"]
 
 
 class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
@@ -432,10 +432,20 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.destroy_device')
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.platform')
     def test_remove_bootloader_partitions(self, platform, destroy_device):
+        # Mock a regular partitioned, unprotected disk
+        regular_disk = Mock()
+        regular_disk.partitioned = True
+        regular_disk.protected = False
+        regular_disk.format.parted_disk.type = "gpt"
+
+        # Mock an ISO device and add it to selected disks to ensure it does not cause AttributeError
+        iso_device = Mock()
+        iso_device.partitioned = False
+        iso_device.protected = True  # ISO devices are protected
+        del iso_device.format.parted_disk  # No parted_disk attribute
+
         storage = Mock()
-        storage.disks = [
-            Mock(format=Mock(parted_disk=Mock(type="gpt")))
-        ]
+        storage.disks = [regular_disk, iso_device]  # Mixed device types
 
         # Test platfrorm bootloader partitions
 
@@ -567,7 +577,7 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
     def test_remove_bootloader_partitions_mbr(self, platform, destroy_device):
         storage = Mock()
         storage.disks = [
-            Mock(format=Mock(parted_disk=Mock(type="msdos")))
+            Mock(partitioned=True, protected=False, format=Mock(parted_disk=Mock(type="msdos")))
         ]
 
         # Test platfrorm bootloader partitions
@@ -672,7 +682,6 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
             AutomaticPartitioningTask._remove_bootloader_partitions(storage)
         assert e.match("Both boot")
 
-
     def test_get_mountpoint_device(self):
         storage = Mock()
 
@@ -768,6 +777,32 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         ]
         AutomaticPartitioningTask._check_reused_scheme(storage, request)
 
+        # /boot/efi partitions are ignored in the check
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home", "/boot/efi"]
+        )
+        storage = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="btrfs subvolume"),
+                "/boot/efi": Mock(type="vfat"),
+            }),
+        ]
+
+        # "bootloader" partitions (eg biosboot) are ignored in the check
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_BTRFS,
+            reused_mount_points=["/home", "bootloader"]
+        )
+        storage = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="btrfs subvolume"),
+            }),
+        ]
+
+        AutomaticPartitioningTask._check_reused_scheme(storage, request)
         # all reused mountpoints must have the type based on the scheme
         request.reused_mount_points = ["/home", "/data"]
         storage.roots = [
@@ -816,7 +851,7 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
             storage.roots[0].mounts["/boot"] = boot_device
 
         storage.disks = [
-            Mock(format=Mock(parted_disk=Mock(type="gpt")))
+            Mock(partitioned=True, protected=False, format=Mock(parted_disk=Mock(type="gpt")))
         ]
 
         return storage, bootloader_device, boot_device, root_device, home_device

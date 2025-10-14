@@ -21,12 +21,74 @@ import sys
 import tempfile
 import unittest
 import warnings
+from unittest.mock import patch
 
 import pytest
 from pykickstart.version import isRHEL as is_rhel
+from pykickstart.version import stringToVersion
 
 from pyanaconda import kickstart
-from pyanaconda.core.kickstart.version import VERSION
+from pyanaconda.core.kickstart.version import VERSION, _get_version_from_os_release
+
+
+class OSReleaseVersionTestCase(unittest.TestCase):
+    """Test OS-release based version detection."""
+
+    @patch('pyanaconda.core.kickstart.version.get_os_release_value')
+    def test_fedora_version_detection(self, mock_get_os_release):
+        """Test Fedora version detection from os-release."""
+        def mock_side_effect(key):
+            keys = {
+                "ID": "fedora",
+                "VERSION_ID": "43",
+                "ID_LIKE": None
+            }
+            return keys.get(key)
+
+        mock_get_os_release.side_effect = mock_side_effect
+
+        version = _get_version_from_os_release()
+        expected = stringToVersion("f43")
+
+        assert version == expected
+        assert version == 43000
+
+    @patch('pyanaconda.core.kickstart.version.get_os_release_value')
+    def test_rhel_version_detection(self, mock_get_os_release):
+        """Test RHEL version detection from os-release."""
+        def mock_side_effect(key):
+            keys = {
+                "ID": "rhel",
+                "VERSION_ID": "10",
+                "ID_LIKE": None
+            }
+            return keys.get(key)
+
+        mock_get_os_release.side_effect = mock_side_effect
+
+        version = _get_version_from_os_release()
+        expected = stringToVersion("rhel10")
+
+        assert version == expected
+        assert version == 40100
+
+    @patch('pyanaconda.core.kickstart.version.get_os_release_value')
+    def test_id_like_priority(self, mock_get_os_release):
+        """Test that ID_LIKE takes priority over ID for remixed distributions."""
+        def mock_side_effect(key):
+            keys = {
+                "ID": "bazzite",
+                "VERSION_ID": "43",
+                "ID_LIKE": "fedora"
+            }
+            return keys.get(key)
+
+        mock_get_os_release.side_effect = mock_side_effect
+
+        version = _get_version_from_os_release()
+        expected = stringToVersion("f43")
+
+        assert version == expected
 
 
 # Verify that each kickstart command in anaconda uses the correct version of

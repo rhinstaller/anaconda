@@ -22,6 +22,16 @@
 
 set -eux
 
+# derive release from CI_TAG (e.g. fedora-43 → 43, fedora-rawhide → rawhide)
+CI_TAG="${CI_TAG:-fedora-rawhide}"
+DISTRO_RELEASE="${CI_TAG#fedora-}"
+[ "$DISTRO_RELEASE" = "$CI_TAG" ] && DISTRO_RELEASE="$CI_TAG"
+if [ "$DISTRO_RELEASE" = "rawhide" ]; then
+    BOTS_IMAGE="fedora-rawhide-boot"
+else
+    BOTS_IMAGE="fedora-${DISTRO_RELEASE}-boot"
+fi
+
 INPUT_RPMS=/anaconda-rpms/
 REPO_DIR=/tmp/anaconda-rpms/
 OUT_DIR=/images/
@@ -67,8 +77,8 @@ popd
 mkdir /var/tmp/lmc-build
 pushd /var/tmp/lmc-build
 git clone --depth 1 https://github.com/cockpit-project/bots.git
-./bots/image-download fedora-rawhide-boot
-cp -L ./bots/images/fedora-rawhide-boot /lorax/fedora-boot.iso
+./bots/image-download "$BOTS_IMAGE"
+cp -L "./bots/images/${BOTS_IMAGE}" /lorax/fedora-boot.iso
 rm -rf ./bots
 popd
 
@@ -111,7 +121,7 @@ livemedia-creator \
     --iso-name="Fedora-Workstation.iso" \
     --macboot \
     --project=Fedora-Workstation-Live \
-    --releasever=rawhide \
+    --releasever="${DISTRO_RELEASE}" \
     --vcpus=$proposed_cpu \
     --ram=$proposed_mem \
     --iso=/lorax/fedora-boot.iso \

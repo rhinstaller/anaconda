@@ -19,12 +19,8 @@
 DESCRIPTION = "Anaconda is the installation program used by Fedora, " \
               "Red Hat Enterprise Linux and some other distributions."
 
-import fcntl
 import itertools
 import os
-import struct
-import sys
-import termios
 from argparse import (
     SUPPRESS,
     Action,
@@ -65,9 +61,8 @@ def get_help_width():
         return DEFAULT_HELP_WIDTH
 
     try:
-        data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '1234')
-        columns = int(struct.unpack('hh', data)[1])
-    except (OSError, ValueError) as e:
+        columns = os.get_terminal_size().columns
+    except OSError as e:
         log.info("Unable to determine terminal width: %s", e)
         print("terminal size detection failed, using default width")
         return DEFAULT_HELP_WIDTH

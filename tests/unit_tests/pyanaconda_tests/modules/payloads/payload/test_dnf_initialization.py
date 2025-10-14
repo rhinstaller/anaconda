@@ -154,7 +154,7 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
 
             dnf_manager = result.dnf_manager
             # The DNF manager should use the proxy of the source.
-            assert dnf_manager._base.conf.proxy == "http://proxy:3128"
+            assert dnf_manager._base.get_config().proxy == "http://proxy:3128"
 
     def test_invalid_source(self):
         """Set up an invalid source."""
@@ -170,8 +170,8 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             with pytest.raises(SourceSetupError) as cm:
                 self._run_task(source)
 
-        msg = "Failed to add the 'anaconda' repository:"
-        assert str(cm.value).startswith(msg)
+        assert str(cm.value).startswith("Failed to download metadata")
+        assert "for repository \"anaconda\"" in str(cm.value)
 
     def test_valid_repository(self):
         """Set up a valid additional repository."""
@@ -208,8 +208,8 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             with pytest.raises(SourceSetupError) as cm:
                 self._run_task(source, [repository])
 
-            msg = "Failed to add the 'test' repository:"
-            assert str(cm.value).startswith(msg)
+            assert str(cm.value).startswith("Failed to download metadata")
+            assert "for repository \"test\"" in str(cm.value)
 
     def test_system_repository(self):
         """Set up a system repository."""
@@ -262,16 +262,17 @@ class SetUpDNFSourcesTaskTestCase(unittest.TestCase):
             dnf_manager = result.dnf_manager
 
             # The treeinfo release version is used.
-            assert dnf_manager._base.conf.releasever == "8.5"
+            assert dnf_manager._base.get_vars().get_value("releasever") == "8.5"
 
             # The treeinfo repositories are configured.
             assert dnf_manager.enabled_repositories == [
-                "anaconda", "AppStream"
+                "AppStream", "anaconda"
             ]
 
             # The treeinfo base repository is configured.
             repo_object = dnf_manager._get_repository("anaconda")
-            assert repo_object.baseurl == ["file://{}/baseos".format(path)]
+            repo_config = repo_object.get_config()
+            assert repo_config.baseurl == ("file://{}/baseos".format(path),)
 
             # Check the generated treeinfo repository.
             repository = RepoConfigurationData()

@@ -74,6 +74,10 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 # Program for rendering infra Jinja2 templates
 TEMPLATE_RENDERER = scripts/jinja-render
 
+# Helper target to print CI_TAG for workflows
+print-CI_TAG:
+	@echo $(CI_TAG)
+
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
 # Network needs to use host configuration so it is sharing VPN connection
@@ -97,7 +101,6 @@ RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
 RELEASE_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-release
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 LIVE_ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-live-iso-creator
-CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z --tmpfs=/var/tmp:rw,mode=1777
 CI_CMD ?= make ci
 
@@ -171,30 +174,32 @@ container-release:
 	$(RELEASE_NAME):$(CI_TAG) \
 	sh -exc './autogen.sh && ./configure && make release'
 
+# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 anaconda-ci-build:
 	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
-	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
 	--tag $(CI_NAME):$(CI_TAG) \
 	$$TEMP/ && \
 	rm -rf $$TEMP
 
+# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 anaconda-rpm-build:
 	TEMP=$$(mktemp -t -d anaconda-rpm-build.XXXX) && \
 	cp $(srcdir)/anaconda.spec.in $(RPM_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
-	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
 	--tag $(RPM_NAME):$(CI_TAG) \
@@ -209,26 +214,27 @@ anaconda-release-build: anaconda-rpm-build
 	--tag $(RELEASE_NAME):$(CI_TAG) \
 	$(RELEASE_DOCKERFILE)
 
+# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 anaconda-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
-
-	sudo $(CONTAINER_ENGINE) build \
+	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(ISO_CREATOR_NAME):$(CI_TAG) \
 	$(ISO_CREATOR_DOCKERFILE)
 
+# TODO: Revert to --pull=newer once https://github.com/containers/podman/issues/22845 is resolved.
 anaconda-live-iso-creator-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
 
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
-
-	sudo $(CONTAINER_ENGINE) build \
+	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
-	--pull=newer \
+	--pull=always \
 	$(CONTAINER_ADD_ARGS) \
+	--build-arg=ci_tag=$(CI_TAG) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
 	$(LIVE_ISO_CREATOR_DOCKERFILE)
@@ -370,11 +376,9 @@ container-iso-build:
 	@echo 'If you need VPN access, please use `CONTAINER_ADD_ARGS=--network=host`'
 
 	mkdir -p result/iso
-	sudo $(CONTAINER_ENGINE) run \
+	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
 	--rm \
 	--privileged \
-	$(shell test $(shell grep MemTotal /proc/meminfo | awk '{print $$2}') -gt 11000000 && \
-	  echo --tmpfs /var/tmp:rw,mode=1777) \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
@@ -402,7 +406,7 @@ container-live-iso-build:
 	fi
 
 	mkdir -p result/iso/logs
-	sudo $(CONTAINER_ENGINE) run \
+	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
 	--rm \
 	--tty \
 	--privileged \

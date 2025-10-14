@@ -228,28 +228,31 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         normalized_layouts = KeyboardLayout.from_structure_list(layouts)
 
         layouts_expectation = [
-            ("ara (olpc)", "Arabic (OLPC)", "Arabic", False),
-            ("cz", "Czech", "Czech", False),
-            ("de (nodeadkeys)", "German (no dead keys)", "German", True),
-            ("es", "Spanish", "Spanish; Castilian", True),
-            ("fr (oss)", "French (alt.)", "French", True),
-            ("gr", "Greek", "Greek, Modern (1453-); Greek", False),
-            ("it", "Italian", "Italian", False),
-            ("jp", "Japanese", "Japanese", True),
-            ("us", "English (US)", "English", True),
+            ("ara (olpc)", "Arabic (OLPC)", "Arabic", False, True),
+            ("cz", "Czech", "Czech", False, True),
+            ("de (nodeadkeys)", "German (no dead keys)", "German", True, True),
+            ("es", "Spanish", "Spanish; Castilian", True, True),
+            ("fr (oss)", "French (alt.)", "French", True, True),
+            ("gr", "Greek", "Greek, Modern (1453-); Greek", False, False),
+            ("it", "Italian", "Italian", False, True),
+            ("jp", "Japanese", "Japanese", True, True),
+            ("us", "English (US)", "English", True, True),
+            ("ru (dos)", "Russian (DOS)", "Russian", False, False),
         ]
 
-        for layout_id, description, lang, is_common in layouts_expectation:
+        for layout_id, description, lang, is_common, supports_ascii in layouts_expectation:
             layout = KeyboardLayout()
             layout.layout_id = layout_id
             layout.description = description
             layout.is_common = is_common
+            layout.supports_ascii = supports_ascii
             layout.langs = [lang]
 
             gen = (normalized_layout for normalized_layout in normalized_layouts if layout.layout_id == normalized_layout.layout_id)
             for normalized_layout in gen:
                 assert layout.description == normalized_layout.description
                 assert layout.is_common == normalized_layout.is_common
+                assert layout.supports_ascii == normalized_layout.supports_ascii
                 assert layout.langs == normalized_layout.langs
                 break
             else:

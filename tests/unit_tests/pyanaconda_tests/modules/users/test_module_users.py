@@ -345,6 +345,33 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.IsRootAccountLocked = False
         assert self.users_interface.CheckAdminUserExists()
 
+    def test_guess_username_from_full_name(self):
+        """Test the GuessUsernameFromFullName method."""
+        # Test with typical full name
+        username = self.users_interface.GuessUsernameFromFullName("John Smith")
+        assert username == "jsmith"
+
+        # Test with single name
+        username = self.users_interface.GuessUsernameFromFullName("John")
+        assert username == "john"
+
+        # Test with empty string
+        username = self.users_interface.GuessUsernameFromFullName("")
+        assert username == ""
+
+        # Test with multiple middle names
+        username = self.users_interface.GuessUsernameFromFullName("John Michael Smith")
+        assert username == "jsmith"
+
+        # Test with special characters and accents
+        username = self.users_interface.GuessUsernameFromFullName("José García")
+        assert username == "jgarcia"
+
+        # Test with Arabic name (non-Latin script)
+        username = self.users_interface.GuessUsernameFromFullName("أحمد محمد")
+        # Arabic characters are not valid for usernames, so should return empty string
+        assert username == ""
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self.users_interface, ks_in, ks_out)
 
@@ -612,17 +639,17 @@ class UsersDataTestCase(unittest.TestCase):
         user_data_3.name = "foo"
 
         assert user_data_1 == user_data_3
-        assert not (user_data_1 == user_data_2)
-        assert not (user_data_2 == user_data_1)
-        assert not (user_data_2 == user_data_3)
+        assert user_data_1 != user_data_2
+        assert user_data_2 != user_data_1
+        assert user_data_2 != user_data_3
 
         # now try changing the name on existing instance
         user_data_1.name = "bar"
         user_data_2.name = "foo"
         user_data_3.name = "foo"
 
-        assert not (user_data_1 == user_data_2)
-        assert not (user_data_1 == user_data_3)
+        assert user_data_1 != user_data_2
+        assert user_data_1 != user_data_3
         assert user_data_2 == user_data_3
         assert user_data_3 == user_data_2
 

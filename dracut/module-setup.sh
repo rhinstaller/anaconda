@@ -3,7 +3,10 @@
 set -eu -o pipefail
 
 check() {
-    [[ $hostonly ]] && return 1
+    if [[ $hostonly ]]; then
+        derror "The anaconda module doesn't support the host-only mode."
+        return 1
+    fi
     return 255 # this module is optional
 }
 
@@ -83,7 +86,7 @@ install() {
     # python deps for parse-kickstart. DOUBLE WOOOO
     PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py" | while read -r dep; do
         case "$dep" in
-            *.so) inst_library "$dep" ;;
+            *.so) inst "$dep" ;;
             *.py) inst_simple "$dep" ;;
             *) inst "$dep" ;;
         esac

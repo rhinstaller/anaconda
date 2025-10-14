@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import WARNING_SMT_ENABLED_GUI
+from pyanaconda.core.constants import RHEL_SMT_URL, WARNING_SMT_ENABLED_GUI
 from pyanaconda.core.hw import is_smt_enabled
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.ui.gui.hubs import Hub
@@ -104,7 +104,7 @@ class SummaryHub(Hub):
                   "configuration. These are not fatal, but you may wish to make changes "
                   "to your kernel config.")
 
-        warning = _(WARNING_SMT_ENABLED_GUI)
+        warning = _(WARNING_SMT_ENABLED_GUI) % RHEL_SMT_URL
 
         dialog = DetailedErrorDialog(
             self.data,

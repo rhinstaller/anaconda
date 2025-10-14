@@ -18,6 +18,7 @@
 import unittest
 from textwrap import dedent
 
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.runtime.runtime import RuntimeService
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
@@ -44,7 +45,12 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
                     "graphical",
                     "text",
                     "cmdline",
-                    "vnc"]
+                    "vnc",
+                    "rdp",
+                    "reboot",
+                    "poweroff",
+                    "shutdown",
+                    "halt"]
         assert self.interface.KickstartCommands == commands
         sections = ['pre-install',
                     'post',
@@ -132,8 +138,41 @@ class RuntimeInterfaceTestCase(unittest.TestCase):
         ks_out = "cmdline\n"
         self._test_kickstart(ks_in, ks_out)
 
-    def test_kickstart_vnc(self):
-        """Test vnc via kickstart."""
-        ks_in = "vnc --host=192.168.1.100 --port=5901 --password=testpassword\n"
-        ks_out = "vnc --host=192.168.1.100 --port=5901 --password=testpassword\n"
+    def test_kickstart_rdp(self):
+        """Test rdp via kickstart."""
+        ks_in = "rdp --username=anacondauser --password=testpassword\n"
+        ks_out = "rdp --username=anacondauser --password=testpassword\n"
         self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_reboot(self):
+        """Test reboot via kickstart."""
+        ks_in = "reboot --eject --kexec\n"
+        ks_out = "# Reboot after installation\nreboot --eject --kexec\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_poweroff(self):
+        """Test poweroff via kickstart."""
+        ks_in = "poweroff --eject\n"
+        ks_out = "# Shutdown after installation\nshutdown --eject\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_shutdown(self):
+        """Test shutdown via kickstart."""
+        ks_in = "shutdown\n"
+        ks_out = "# Shutdown after installation\nshutdown\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_halt(self):
+        """Test halt via kickstart."""
+        ks_in = "halt --eject\n"
+        ks_out = "# Halt after installation\nhalt --eject\n"
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_process_kickstart_with_no_payload(self):
+        """Test all values are ints when reading empty kickstart."""
+        self.interface.ReadKickstart("")
+        assert isinstance(self.module.reboot.action, int)
+        assert isinstance(self.module.reboot.eject, int)
+        assert isinstance(self.module.reboot.kexec, int)
+        # and check we can to_structure it
+        RebootData.to_structure(self.module.reboot)

@@ -217,3 +217,11 @@ class UsersInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.set_root_password_with_task()
         )
+
+    def GuessUsernameFromFullName(self, fullname: Str) -> Str:
+        """Guess a username from a full name.
+
+        :param fullname: full user name to base the username on
+        :returns: guessed username
+        """
+        return self.implementation.guess_username(fullname)

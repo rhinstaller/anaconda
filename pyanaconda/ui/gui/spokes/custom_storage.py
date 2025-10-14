@@ -42,9 +42,7 @@ from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.core.storage import (
     CONTAINER_DEVICE_TYPES,
     DEVICE_TEXT_MAP,
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_MD,
-    DEVICE_TYPE_UNSUPPORTED,
+    DEVICE_TYPES,
     MOUNTPOINT_DESCRIPTIONS,
     NAMED_DEVICE_TYPES,
     PROTECTED_FORMAT_TYPES,
@@ -715,7 +713,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             return None
 
         device_type = self._typeStore[itr][1]
-        if device_type == DEVICE_TYPE_UNSUPPORTED:
+        if device_type == DEVICE_TYPES.UNSUPPORTED:
             return None
 
         return device_type
@@ -747,12 +745,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         """Set up device type combo."""
         # Include md only if there are two or more disks.
         if len(self._selected_disks) <= 1:
-            device_types.remove(DEVICE_TYPE_MD)
+            device_types.remove(DEVICE_TYPES.MD)
 
         # For existing unsupported device add the information in the UI.
         if device_type not in device_types:
             log.debug("Existing device with unsupported type %s found.", device_type)
-            device_type = DEVICE_TYPE_UNSUPPORTED
+            device_type = DEVICE_TYPES.UNSUPPORTED
             device_types.append(device_type)
 
         # Add values.
@@ -1215,7 +1213,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self.reset_state()
 
-        is_md = self._get_current_device_type() == DEVICE_TYPE_MD
+        is_md = self._get_current_device_type() == DEVICE_TYPES.MD
 
         dialog = DisksDialog(
             self.data,
@@ -1675,7 +1673,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             Preconditions are:
             * the filesystem combo contains at least the default filesystem
             * the default filesystem is not the same as btrfs
-            * if device_type is DEVICE_TYPE_BTRFS, btrfs is supported
+            * if device_type is DEVICE_TYPES.BTRFS, btrfs is supported
 
             This method is idempotent, and must remain so.
         """
@@ -1684,7 +1682,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         btrfs_iter = ((idx, row) for idx, row in enumerate(model) if row[1] == "btrfs")
         btrfs_idx, btrfs_row = next(btrfs_iter, (None, None))
 
-        if device_type == DEVICE_TYPE_BTRFS:
+        if device_type == DEVICE_TYPES.BTRFS:
             # If no btrfs entry, add one, and select the new entry
             if btrfs_idx is None:
                 fmt = DeviceFormatData.from_structure(
@@ -1719,7 +1717,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._fsCombo.set_active(active_index)
         fancy_set_sensitive(
             self._fsCombo,
-            self._reformatCheckbox.get_active() and device_type != DEVICE_TYPE_BTRFS
+            self._reformatCheckbox.get_active() and device_type != DEVICE_TYPES.BTRFS
         )
 
     def on_device_type_changed(self, combo):

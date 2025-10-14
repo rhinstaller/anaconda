@@ -276,7 +276,7 @@ def find_unconfigured_luks(storage):
 
     for device in storage.devices:
         # Only LUKS devices.
-        if not device.format.type == "luks":
+        if device.format.type != "luks":
             continue
 
         # Skip existing formats.

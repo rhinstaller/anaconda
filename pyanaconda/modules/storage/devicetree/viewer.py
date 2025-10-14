@@ -458,6 +458,16 @@ class DeviceTreeViewer(ABC):
         """
         return self.storage.get_file_system_free_space(mount_points).get_bytes()
 
+    def get_free_space_for_system(self, mount_points):
+        """Get total space available for system on the given mount points.
+
+        Counts the free space available on empty formatted devices.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
+        return self.storage.get_free_space_for_system(mount_points).get_bytes()
+
     def get_disk_free_space(self, disk_ids):
         """Get total free space on the given disks.
 

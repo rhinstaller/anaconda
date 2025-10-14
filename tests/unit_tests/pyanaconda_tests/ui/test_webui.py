@@ -199,8 +199,7 @@ class SimpleWebUITestCase(unittest.TestCase):
 
             mocked_startProgram.assert_called_once_with(
                 ["/usr/libexec/anaconda/webui-desktop",
-                 "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
-                 "/cockpit/@localhost/anaconda-webui/index.html"],
+                 "-t", FIREFOX_THEME_DEFAULT, "-r", "1"],
                 reset_lang=False
             )
             # Check if backend flag file was removed after finish of run method
@@ -228,8 +227,7 @@ class SimpleWebUITestCase(unittest.TestCase):
             self.intf.run()
 
             mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
-                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "0",
-                                                         "/cockpit/@localhost/anaconda-webui/index.html"],
+                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "0"],
                                                         reset_lang=False)
             # check if backend flag file was removed after finish of run method
             assert os.path.exists(backend_file) is False

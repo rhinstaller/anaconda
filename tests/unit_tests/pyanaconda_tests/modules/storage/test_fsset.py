@@ -157,21 +157,42 @@ class FSSetTestCase(unittest.TestCase):
             'ext4',
         ]
 
+    def test_swap_devices(self):
+        """Test the swap_devices property"""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
+        self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
+        self._add_device(StorageDevice("dev3", fmt=get_format("ext4", mountpoint="/home")))
+        swap1 = StorageDevice("dev4", fmt=get_format("swap"))
+        self._add_device(swap1)
+        swap2 = StorageDevice("dev5", fmt=get_format("swap"))
+        self._add_device(swap2)
+
+        assert self.fsset.swap_devices == []
+
+        self.fsset.add_fstab_swap(swap2)
+        assert self.fsset.swap_devices == [swap2]
+
+        self.fsset.set_fstab_swaps([swap1])
+        assert self.fsset.swap_devices == [swap1]
+
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
     def test_collect_filesystems_extra(self):
         """Test the collect_filesystems method with additional devices."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
         self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
         self._add_device(StorageDevice("dev3", fmt=get_format("ext4", mountpoint="/home")))
-        self._add_device(StorageDevice("dev4", fmt=get_format("swap")))
-        self._add_device(StorageDevice("dev5", fmt=get_format("swap")))
+        existing_swap = StorageDevice("dev4", fmt=get_format("swap"))
+        self._add_device(existing_swap)
+        reused_swap = StorageDevice("dev5", fmt=get_format("swap"))
+        self._add_device(reused_swap)
 
+        self.fsset.add_fstab_swap(reused_swap)
         devices = self.fsset.collect_filesystems()
         mount_points = self._get_mount_points(devices)
         format_types = self._get_format_types(devices)
 
+
         assert mount_points == [
-            None,
             None,
             '/',
             '/boot',
@@ -187,8 +208,8 @@ class FSSetTestCase(unittest.TestCase):
             '/tmp',
         ]
 
+        # Only one of the swap devices (the reused one) is collected
         assert format_types == [
-            'swap',
             'swap',
             'ext4',
             'ext4',

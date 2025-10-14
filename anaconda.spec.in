@@ -16,17 +16,14 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
+%bcond glade %{undefined rhel}
+%bcond live %[%{defined fedora} || %{defined eln}]
 %if ! 0%{?rhel}
-%bcond_without glade
-%bcond_without live
 %define blivetguiver 2.4.2-3
-%else
-%bcond_with glade
-%bcond_with live
 %endif
 %define dasbusver 1.3
 %define dbusver 1.2.3
-%define dnfver 3.6.0
+%define dnfver 5.2.15.0-1
 %define dracutver 102-3
 %define fcoeutilsver 1.0.12-3.20100323git
 %define gettextver 0.19.8
@@ -38,7 +35,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.64-1
+%define pykickstartver 3.65-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.12.1-1
 %define rpmver 4.15.0
@@ -87,7 +84,7 @@ Requires: python3-libs
 %if 0%{?rhel} > 10 || 0%{?fedora} > 40
 Requires: python3-crypt-r
 %endif
-Requires: python3-dnf >= %{dnfver}
+Requires: python3-libdnf5 >= %{dnfver}
 Requires: python3-blivet >= %{pythonblivetver}
 Requires: python3-blockdev >= %{libblockdevver}
 Requires: python3-meh >= %{mehver}
@@ -110,6 +107,7 @@ Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
 Requires: python3-xkbregistry
+Requires: flatpak
 Requires: flatpak-libs
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
@@ -141,6 +139,10 @@ Requires: python3-pid
 # Required by the systemd service anaconda-fips.
 Requires: crypto-policies
 Requires: crypto-policies-scripts
+
+%ifnarch s390 s390x
+Requires: grub2-common >= 2.12-37
+%endif
 
 # required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
@@ -175,8 +177,8 @@ system.
 Summary: Live installation specific files and dependencies
 BuildArch: noarch
 BuildRequires: desktop-file-utils
-# live installation currently implies a graphical installation
-Requires: anaconda-gui = %{version}-%{release}
+# live installation currently implies a graphical installation with Web UI
+Requires: anaconda-webui
 Requires: zenity
 Recommends: xhost
 # FIXME: This is currently needed by the locale1-x11-sync script.
@@ -366,6 +368,12 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %autosetup -p 1
 
 %build
+
+# Work around an issue where a version mismatch between the automake version on
+# the build system and what was used when the tarball was created will cause
+# a failure.
+autoreconf -vfi
+
 # use actual build-time release number, not tarball creation time release number
 %configure ANACONDA_RELEASE=%{release} %{!?with_glade:--disable-glade}
 %{__make} %{?_smp_mflags}
@@ -502,6 +510,278 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 14 2025 github-actions <github-actions@github.com> - 43.45-1
+- RebootData: don't allow action to be None (awilliam)
+- pyanaconda: localization: Indicate ASCII support in get_keyboard_layouts
+  (awilliam)
+- Add error handling for symlink creation (ppolawsk)
+
+* Thu Oct 09 2025 github-actions <github-actions@github.com> - 43.44-1
+- flatpak: enable installation with CDROM source type (bciconel)
+- storage: Improve NotEnoughFreeSpaceError message with specific request
+  details (k.koukiou)
+- pyanaconda: storage: platform: Raise /boot to 2 GiB (neal)
+
+* Tue Oct 07 2025 github-actions <github-actions@github.com> - 43.43-1
+- anaconda: Do not execute reboot in exitHandler if the system cannot reboot
+  (k.koukiou)
+- Authselect code simplification (adamkankovsky)
+
+* Tue Sep 30 2025 github-actions <github-actions@github.com> - 43.42-1
+- fix: use inst from dracut instead of inst_library module-setup.sh (pvalena)
+- update impi_abort logic and use it before exit + blivet cd device
+  (adamkankovsky)
+- Migrate exit function to Runtime module (adamkankovsky)
+- Add exit commands to Runtime module (adamkankovsky)
+- Emit authselect in KS when fingerprint is enabled (adamkankovsky)
+
+* Tue Sep 23 2025 github-actions <github-actions@github.com> - 43.41-1
+- data: profiles: enable geolocation on Fedora Workstation live image
+  (matiwari)
+- storage: fix mount point assignment of non-formatted swap partitions
+  (rvykydal)
+- storage: include only fstab devices in fsset swap devices property (rvykydal)
+- ui: tui: installation_source: show error message in the TUI screen
+  (k.koukiou)
+- pyanaconda: dnf: clarify is_ready boolean return (k.koukiou)
+- tui: make SoftwareSpoke ready once installation source succeeds or fails
+  (k.koukiou)
+- spec: enable live in ELN (yselkowi)
+- Mark unused variables with a leading underscore (a.badger)
+
+* Tue Sep 16 2025 github-actions <github-actions@github.com> - 43.40-1
+- Do not catch blivet.safe_dbus exceptions in iSCSI module (vtrefny)
+- Fixing unittests (a.badger)
+- ostree needs to have /boot be bindmounted into sysroot. (a.badger)
+- gui: Fix GTK warnings when removing non-existent accelerators (k.koukiou)
+
+* Tue Sep 09 2025 github-actions <github-actions@github.com> - 43.39-1
+- Fix setting of kernel console logging level for anaconda (rvykydal)
+- Use new more suitable API for Gtk UI required space check (rvykydal)
+- Add GetFreeSpaceForSystem API (rvykydal)
+- docs: update CONTRIBUTING.rst with new branching approach (k.koukiou)
+
+* Tue Sep 02 2025 github-actions <github-actions@github.com> - 43.38-1
+- Use slots (and a dataclass) to enforce Flag names (a.badger)
+- Reset comps queries when resetting the dnf base (pkratoch)
+- i18n: fix embedded URLs in SMT warning messages (k.koukiou)
+- docs: remove submodule link added by mistake (k.koukiou)
+- docs: tests: we use 'latest' tag - not 'main' for containers (k.koukiou)
+- build: makefile: remove noope CI_TAG self assignment (k.koukiou)
+
+* Mon Aug 25 2025 github-actions <github-actions@github.com> - 43.37-1
+- Log correct boot option for iSCSI boot without iBFT (jstodola)
+- Get full nevra string from dnf instead of composing it (pkratoch)
+- Add release notes for RDP kickstart support (adamkankovsky)
+- test: Enable kickstart RDP command in Anaconda (adamkankovsky)
+- Enable kickstart RDP command in Anaconda (adamkankovsky)
+- storage: devicetree: read VERSION or VERSION_CODENAME for identifying OS from
+  os-release (k.koukiou)
+
+* Tue Aug 19 2025 github-actions <github-actions@github.com> - 43.36-1
+- packit: drive jobs from supported_releases per branch; dedupe and group
+  targets (k.koukiou)
+- Fix pylint warnings caused by dynamic kickstart command imports (k.koukiou)
+- core: kickstart: implement OS-release based version detection (k.koukiou)
+- build: decouple BASE_CONTAINER from branch configuration (k.koukiou)
+- workflows: remove hardcoded CONTAINER_TAG="lorax" usage (k.koukiou)
+- dracut module requires generic initramfs (jstodola)
+
+* Tue Aug 12 2025 github-actions <github-actions@github.com> - 43.35-1
+- storage: Fix AttributeError and protect installation media in bootloader
+  partition removal (k.koukiou)
+
+* Tue Aug 05 2025 github-actions <github-actions@github.com> - 43.34-1
+- Document Lorax template patching (mkolman)
+
+* Thu Jul 31 2025 github-actions <github-actions@github.com> - 43.33-1
+- Revert "Default to GTK UI when available, fallback to Web UI otherwise"
+  (k.koukiou)
+- Rename DNF strings to Flatpak in installation.py (jkonecny)
+- Remove unused Flatpak manager code (jkonecny)
+
+* Tue Jul 29 2025 github-actions <github-actions@github.com> - 43.32-1
+- Make sure the pre_install queue is run (#2378660) (mkolman)
+- Default to GTK UI when available, fallback to Web UI otherwise (k.koukiou)
+- build: switch live installation dependency from anaconda-gui to anaconda-
+  webui (k.koukiou)
+- users: fix guess_username to return empty string for invalid usernames
+  (k.koukiou)
+- users: expose guess_username as GuessUsernameFromFullName API (k.koukiou)
+- data: profile: hide date time screen from workstation (k.koukiou)
+- Create new D-Bus API for NTP server checking (k.koukiou)
+- Test for ntp servers from config (adamkankovsky)
+- Create new DBUS API for ntp servers from config (adamkankovsky)
+
+* Tue Jul 22 2025 github-actions <github-actions@github.com> - 43.31-1
+- Fix unit tests for code running rsync by mocking it. (rvykydal)
+
+* Tue Jul 15 2025 github-actions <github-actions@github.com> - 43.30-1
+- Bump the required version of dnf (pkratoch)
+- storage: Prevent accidental erasure of Live installation media (k.koukiou)
+- bootloader: efi: utilize grub2-common script for handling config file
+  generation (k.koukiou)
+- Remove leftover commented-out call to close base (pkratoch)
+- Update DNFManager.get_flatpak_refs to dnf5 (pkratoch)
+- Comment how getting the packages to download works (pkratoch)
+- Add a test for resolving selection with errors (pkratoch)
+- Rename the DNFManager tests back to test_module_payload_dnf_manager
+  (pkratoch)
+- Adapt the remaining DNFManager tests (pkratoch)
+- Fix checking if PackageQuery is empty (pkratoch)
+- Implement verifying repomd hashes (pkratoch)
+- Catch libdnf5 exceptions instead of previously thrown RuntimeError (pkratoch)
+- Adapt test_module_payload_dnf_manager comps tests for DNF5 (pkratoch)
+- Require the correct package for dnf5 plugins (pkratoch)
+- Handle group package types that can be specified by options in kickstart
+  (pkratoch)
+- Use pkg_gpgcheck config option instead of deprecated gpgcheck (pkratoch)
+- Sort groups and environments by display_order (pkratoch)
+- Set excludes for environments and groups (pkratoch)
+- Reduce installation progress log verbosity (pkratoch)
+- Add a second goal for second resolving in case of unavailable packages
+  (pkratoch)
+- Print number of packages when reporting installation progress (pkratoch)
+- Set package excludes (pkratoch)
+- Remove the dnf_manager exceptions related to selection resolving (pkratoch)
+- Remove unused imports (pkratoch)
+- Report downloading progress (pkratoch)
+- Respect the missing_ignored and broken_ignored configuration (pkratoch)
+- Implement replacing repositories (pkratoch)
+- Reset the dnf base when clearing cache (pkratoch)
+- Remember if repositories were loaded (pkratoch)
+- Set the destdir option (pkratoch)
+- Always call progress.quit in mocked installing packages in tests (pkratoch)
+- Don't close the multiprocessing queue too soon (pkratoch)
+- Log messages from dnf into /tmp/dnf.log (pkratoch)
+- Report error when the dnf transaction fails (pkratoch)
+- Log also the message of the dnf transaction result (pkratoch)
+- Enable some tests in test_module_payload_dnf5_manager (pkratoch)
+- Remove the test_dnf_tear_down (pkratoch)
+- Report warnings in DNFManager.resolve_selection (pkratoch)
+- Fix transaction callbacks (pkratoch)
+- Adapt tests of DNFManager.install_packages for dnf5 (pkratoch)
+- Fix setting up and running transaction (pkratoch)
+- Adapt test_module_payload_dnf_installation for dnf5 (pkratoch)
+- Adapt checking transaction errors to DNF5 (pkratoch)
+- Enable comps tests (pkratoch)
+- Fix setting of libdnf5.repo.PackageDownloader (pkratoch)
+- TEMPORARY: Store comps queries (pkratoch)
+- Remove unused _create_group method from DNFRequirementsTestCase (pkratoch)
+- Update TransactionItemState_ERROR import to libdnf5 (pkratoch)
+- Adapt dnf validation tests for dnf5 (pkratoch)
+- Fix use of group and environment iterators (pkratoch)
+- Replace `base.load_config_from_file` with `base.load_config` method
+  (pkratoch)
+- Remove variable loading, since it's done in base.setup() (pkratoch)
+- Remove test for reset_substitution method (pkratoch)
+- Adapt test_module_payload_dnf_manager download tests for dnf5 (pkratoch)
+- Adapt test_dnf_initialization.py tests for dnf5 (pkratoch)
+- Load all repositories at once (pkratoch)
+- Call dnf5 base setup at a proper place (pkratoch)
+- Fix setting releasever in dnf5 base (pkratoch)
+- Call get_download_size instead of get_package_size because of rename
+  (pkratoch)
+- Remove the DNFConfigWrapper and access the configuration options directly
+  (pkratoch)
+- Use repo.get() (vponcova)
+- Use the DNF5 API (vponcova)
+- Update to the approved version of the blivet change (a.badger)
+- pyanaconda: storage: enforce GPT partition table for ESP on EFI x86 platforms
+  (k.koukiou)
+- Do not duplicate the DEVICE_TYPES enum in storage_constraints (a.badger)
+- Retrieve DEVICE_TYPES from blivet. (a.badger)
+
+* Wed Jul 09 2025 github-actions <github-actions@github.com> - 43.29-1
+- data: profile.d: use slitherer as default web engine everywhere but for
+  workstation (k.koukiou)
+
+* Mon Jul 07 2025 github-actions <github-actions@github.com> - 43.28-1
+- Fix an issue with automake versions when building the rpm (a.badger)
+- anaconda.py: remove duplicate import (k.koukiou)
+- anaconda.py: remove obsolete comment (k.koukiou)
+
+* Fri Jul 04 2025 github-actions <github-actions@github.com> - 43.27-1
+- conf: Add configuration option for default browser in Web UI (k.koukiou)
+- webui-desktop: no need to specify the URL - this is now hardcoded in the
+  script (k.koukiou)
+- Disable pylint complain about returning None (jkonecny)
+- flatpak: Fix Flatpak source generation from DNF (jkonecny)
+
+* Tue Jul 01 2025 github-actions <github-actions@github.com> - 43.26-1
+- ruff: Disable object is missing __hash__ (jkonecny)
+- ruff: Fix `Unnecessary lookup of dictionary value by key` (jkonecny)
+- ruff: Remove unused noqa directive (jkonecny)
+- ruff: Disable check for import on top level (jkonecny)
+- Adjust to pykickstart removing support for VNC (k.koukiou)
+- Adjust to pykickstart adding support for RDP (k.koukiou)
+
+* Tue Jun 24 2025 github-actions <github-actions@github.com> - 43.25-1
+- Change formatting on some error messages (a.badger)
+- Enable all steps of the installation queue (adamkankovsky)
+- Fix a pair of error messages (a.badger)
+- Remove tmpfs on /var/tmp for ISO builds (jkonecny)
+- ruff: enable and autofix SIM300 (k.koukiou)
+- ruff: enable and fix SIM222 rule (k.koukiou)
+- ruff: enable and autofix SIM201 (k.koukiou)
+- pylint: suppress false positives related to GI and GTK introspection
+  (k.koukiou)
+- ruff: enable and autofix SIM118 rule (k.koukiou)
+- tests/network: reorder filterwarnings to fix warning handling in
+  test_sync_call_glib_in_thread (k.koukiou)
+- bootloader: drop write_config_console, just preserve console= (awilliam)
+
+* Tue Jun 17 2025 github-actions <github-actions@github.com> - 43.24-1
+- makeupdates: Bump Python version in site packages path to 3.14 (k.koukiou)
+- Add documentation for the unified feature (jkonecny)
+- Use os.get_terminal_size rather than ioctl magic (miro)
+- Avoid the multiprocessing forkserver method with dnf (miro)
+- anaconda: Remove manual start of `systemd --user` (k.koukiou)
+
+* Tue Jun 10 2025 github-actions <github-actions@github.com> - 43.23-1
+- storage: home reuse - do not check /boot/efi for autopart scheme (rvykydal)
+- Don't pass --no-x11 to gnome-kiosk (awilliam)
+
+* Mon Jun 02 2025 github-actions <github-actions@github.com> - 43.22-1
+- flatpak: Add constants for Flatpak (jkonecny)
+- flatpak: Change log level for source processing (jkonecny)
+- flatpak: Improve log for setting refs for install (jkonecny)
+- flatpak: Improve documentation (jkonecny)
+- flatpak: `NoSourceError` to `SourceSetupError` (jkonecny)
+- Update FSF address for new Flatpak module sources (jkonecny)
+- Add release notes for Flatpak preinstall.d support (jkonecny)
+- Fix imports in flatpak payload (jkonecny)
+- When installing Flatpaks from a local repository, disable download (otaylor)
+- Add additional logging to Flatpak code (jkonecny)
+- Fix directory where flatpak blobs are stored (jkonecny)
+- Add FlatpakManager tests (jkonecny)
+- Improve FlatpakManager testing (jkonecny)
+- Add tests for Flatpak source.py (jkonecny)
+- Add tests for Flatpak payload utils (jkonecny)
+- payload/rpm-ostree: Include program output in exception (walters)
+- Don't pass --sm-disable to gnome-kiosk (awilliam)
+- Revert "Allow to use an existing unlocked LUKS in one special case
+  (#1772902)" (k.koukiou)
+- Extract flatpak.source utils to a separate module (jkonecny)
+- Add Flatpak tests for the Flatpak module (jkonecny)
+- Do not allow any sources for Flatpak payload (jkonecny)
+- Support payload with no default source (jkonecny)
+- Add new API for Flatpak to CalculateSizeWithTask (jkonecny)
+- Add side_payload to PayloadBase object (jkonecny)
+- Add more logs for easier Flatpak module debugging (jkonecny)
+- Call calculate_size of the Flatpak manager (jkonecny)
+- Improve logging of the Flatpak module (jkonecny)
+- Support Flatpak preinstallation as part of a DNF install (otaylor)
+- anaconda.spec: Add Flatpak client to Requires (otaylor)
+- Extract pick_download_location(), calculate_required_space() utilities
+  (otaylor)
+- Extract get_downloader_for_repo_configuration() utility function (otaylor)
+- Add release note for home reuse on MBR partitionied disks (rvykydal)
+
+* Tue May 27 2025 github-actions <github-actions@github.com> - 43.21-1
+- Revert "s390x - enable raid1 as a stage2 device" (jkonecny)
+- docs: update release documentation (k.koukiou)
+
 * Tue May 20 2025 github-actions <github-actions@github.com> - 43.20-1
 - Support home reuse on MBR partitioned disks (rvykydal)
 - pyanaconda: localization: adjust existing keyboard API to fetch all available

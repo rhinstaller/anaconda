@@ -242,6 +242,10 @@ def _release_from_os_release(fn):
                 # Throw away the "=".
                 parser.get_token()
                 rel_ver = parser.get_token().strip("'\"")
+            elif key  == "VERSION_CODENAME" and not rel_ver:
+                # Throw away the "=".
+                parser.get_token()
+                rel_ver = parser.get_token().strip("'\"")
 
     return rel_name, rel_ver
 

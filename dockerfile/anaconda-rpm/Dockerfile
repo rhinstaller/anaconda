@@ -15,15 +15,15 @@ FROM ${image}
 # The `git_branch` arg will set git branch of Anaconda from which we are downloding spec file to get
 # dependencies.
 # possible values:
-#   main
+#   fedora-rawhide
 #   fedora-38
-ARG git_branch
+ARG ci_tag
 ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
-COPY ["anaconda.spec.in", "/root/"]
+COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Replace standalone systemd package with systemd as these are conflicting
 RUN set -ex; \
@@ -41,22 +41,17 @@ RUN set -ex; \
   'dnf5-command(copr)' \
   git \
   curl \
+  python3-pip \
   python3-polib \
-  # Requirement for translation-canary which is started during RPM build
-  python3-pocketlint \
   /usr/bin/xargs \
   rsync \
   rpm-build \
   rpmlint; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
-    BRANCH="${git_branch}"; \
-    if [ $BRANCH == "main" ]; then \
-      BRANCH="rawhide"; \
-    fi; \
-    BRANCH=${BRANCH#fedora-}; \
-    dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
-    dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
-    dnf copr enable -y @storage/udisks-daily fedora-${BRANCH}-x86_64; \
+    CI_TAG=${ci_tag}; \
+    dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
+    dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
+    dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
@@ -64,5 +59,8 @@ RUN set -ex; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf clean all; \
   mkdir /anaconda
+
+RUN pip install --no-cache-dir --upgrade pip; \
+  pip install --no-cache-dir -r /root/requirements.txt
 
 WORKDIR /anaconda

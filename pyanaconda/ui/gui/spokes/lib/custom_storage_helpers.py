@@ -23,10 +23,7 @@ from dasbus.structure import get_fields
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import C_, CN_, N_, _
 from pyanaconda.core.storage import (
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_LVM_THINP,
-    DEVICE_TYPE_MD,
+    DEVICE_TYPES,
     PROTECTED_FORMAT_TYPES,
     SIZE_POLICY_AUTO,
     SIZE_POLICY_MAX,
@@ -86,13 +83,13 @@ DESIRED_CAPACITY_ERROR = DESIRED_CAPACITY_HINT
 ContainerType = namedtuple("ContainerType", ["name", "label"])
 
 CONTAINER_TYPES = {
-    DEVICE_TYPE_LVM: ContainerType(
+    DEVICE_TYPES.LVM: ContainerType(
         N_("Volume Group"),
         CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume Group:")),
-    DEVICE_TYPE_LVM_THINP: ContainerType(
+    DEVICE_TYPES.LVM_THINP: ContainerType(
         N_("Volume Group"),
         CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume Group:")),
-    DEVICE_TYPE_BTRFS: ContainerType(
+    DEVICE_TYPES.BTRFS: ContainerType(
         N_("Volume"),
         CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume:"))
 }
@@ -190,7 +187,7 @@ def get_default_raid_level(device_type):
     :param int device_type: an int representing the device_type
     :return str: the default RAID level for this device type or an empty string
     """
-    if device_type == DEVICE_TYPE_MD:
+    if device_type == DEVICE_TYPES.MD:
         return "raid1"
 
     return ""
@@ -203,7 +200,7 @@ def get_supported_device_raid_levels(device_tree, device_type):
     supports for the given device type.
 
     Since anaconda only ever allows the user to choose RAID levels for
-    device type DEVICE_TYPE_MD, hiding the RAID menu for all other device
+    device type DEVICE_TYPES.MD, hiding the RAID menu for all other device
     types, the function only returns a non-empty set for this device type.
     If this changes, then so should this function, but at this time it
     is not clear what RAID levels should be offered for other device types.
@@ -213,9 +210,9 @@ def get_supported_device_raid_levels(device_tree, device_type):
     :return: a set of supported raid levels
     :rtype: a set of strings
     """
-    if device_type == DEVICE_TYPE_MD:
+    if device_type == DEVICE_TYPES.MD:
         supported = {"raid0", "raid1", "raid4", "raid5", "raid6", "raid10"}
-        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPE_MD))
+        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPES.MD))
         return levels.intersection(supported)
 
     return set()
@@ -231,14 +228,14 @@ def get_supported_container_raid_levels(device_tree, device_type):
     :return: a set of supported raid levels
     :rtype: a set of strings
     """
-    if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
+    if device_type in (DEVICE_TYPES.LVM, DEVICE_TYPES.LVM_THINP):
         supported = {"raid0", "raid1", "raid4", "raid5", "raid6", "raid10"}
-        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPE_MD))
+        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPES.MD))
         return levels.intersection(supported).union({""})
 
-    if device_type == DEVICE_TYPE_BTRFS:
+    if device_type == DEVICE_TYPES.BTRFS:
         supported = {"raid0", "raid1", "raid10", "single"}
-        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPE_BTRFS))
+        levels = set(device_tree.GetSupportedRaidLevels(DEVICE_TYPES.BTRFS))
         return levels.intersection(supported)
 
     return set()

@@ -1,7 +1,5 @@
 #
-# Supported kickstart version.
-#
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2025 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -11,25 +9,29 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
 # Public License for more details.  You should have received a copy of the
 # GNU General Public License along with this program; if not, write to the
-{% if distro_name == "rhel" and distro_release in (9, 10) %}
-# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
-{% else %}
 # Free Software Foundation, Inc., 31 Milk Street #960789 Boston, MA
 # 02196 USA.  Any Red Hat trademarks that are incorporated in the
-{% endif %}
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
 
-{% if distro_release == "rawhide" %}
-from pykickstart.version import DEVEL as VERSION
-{% elif distro_name == "fedora" %}
-from pykickstart.version import F{$ distro_release $} as VERSION
-{% elif distro_name == "rhel" %}
-# WARNING: template does not switch commands to rhel-specific versions, you must do this manually
-from pykickstart.version import RHEL{$ distro_release $} as VERSION
-{% endif %}
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import FlatpakManager
 
-__all__ = ["VERSION"]
+
+class CalculateFlatpaksSizeTask(Task):
+    """Task to determine space needed for Flatpaks"""
+
+    def __init__(self, flatpak_manager: FlatpakManager):
+        """Create a new task."""
+        super().__init__()
+        self._flatpak_manager = flatpak_manager
+
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Calculate needed space for Flatpaks"
+
+    def run(self):
+        self._flatpak_manager.calculate_size()

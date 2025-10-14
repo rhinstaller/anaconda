@@ -1,5 +1,7 @@
 #
-# Copyright (C) 2022  Red Hat, Inc.
+# Constants for the Flatpak
+#
+# Copyright (C) 2025 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,23 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import unittest
 
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
+FLATPAK_SCHEMA_V2 = 2
+FLATPAK_IMAGE_LAYOUT_VERSION = "1.0.0"
+FLATPAK_MEDIA_TYPE = "application/vnd.oci.image.manifest.v1+json"
 
-
-class ResetDNFManagerTaskTestCase(unittest.TestCase):
-    """Test the installation task for setting the RPM macros."""
-
-    def test_reset_dnf_manager_task(self):
-        """Test the ResetDNFManagerTask task."""
-        dnf_manager = DNFManager()
-        dnf_base = dnf_manager._base
-
-        task = ResetDNFManagerTask(
-            dnf_manager=dnf_manager
-        )
-        task.run()
-
-        assert dnf_base._closed
+FLATPAK_REGISTRY_URL_PATTERN = "{}/index/static?label:org.flatpak.ref:exists=1&architecture={}&tag={}"

@@ -6,7 +6,7 @@
 # The template is located in: try-release-daily.yml.j2
 
 name: Try building a release daily
-# Build a release tarball for all supported branches to verify the code is releasable.
+# Build a release tarball for all supported releases to verify the code is releasable.
 
 on:
   schedule:
@@ -18,20 +18,27 @@ permissions:
   contents: read
 
 jobs:
+  define-matrix:
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ''  # Empty = all releases
+
   daily-release-test:
+    needs: define-matrix
     runs-on: [self-hosted, kstest]
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
       fail-fast: false
-      matrix:
-        branch: ['main', 'rhel-9', 'rhel-10']
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
+    env:
+      CI_TAG: '${{ matrix.release }}'
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          ref: ${{ matrix.branch }}
+          ref: ${{ matrix.target_branch }}
 
       - name: Build anaconda container (to make the release)
         run: |

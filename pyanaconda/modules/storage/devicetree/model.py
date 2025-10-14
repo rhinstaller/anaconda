@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
+import errno
 import logging
 import os
 
@@ -150,14 +151,7 @@ class InstallerStorage(Blivet):
     def root_device(self):
         return self.fsset.root_device
 
-    def get_file_system_free_space(self, mount_points=("/", "/usr")):
-        """Get total file system free space on the given mount points.
-
-        Calculates total free space in / and /usr, by default.
-
-        :param mount_points: a list of mount points
-        :return: a total size
-        """
+    def _get_mount_points_free_space(self, mount_points, calculate):
         free = Size(0)
         btrfs_volumes = []
 
@@ -174,12 +168,44 @@ class InstallerStorage(Blivet):
                 else:
                     btrfs_volumes.append(device.volume)
 
-            if device.format.exists:
-                free += device.format.free
-            else:
-                free += device.format.free_space_estimate(device.size)
+            mp_size = calculate(device)
+            log.debug("Free size of mount point %s: %s", mount_point, mp_size.get_bytes())
+            free += mp_size
 
         return free
+
+    def get_file_system_free_space(self, mount_points):
+        """Get total file system free space on the given mount points.
+
+        WARNING: For existing mount points the size available for resizing is
+        obtained. It means that for non resizeable format types it returns the
+        value 0.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
+        def calculate(device):
+            if device.format.exists:
+                return device.format.free
+            else:
+                return device.format.free_space_estimate(device.size)
+
+        return self._get_mount_points_free_space(mount_points, calculate)
+
+    def get_free_space_for_system(self, mount_points):
+        """Get total space available for system on the given mount points.
+
+        Counts the free space available on empty formatted devices.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
+        def calculate(device):
+            if device.format.exists:
+                log.debug("Free size calculation: %s considered as formatted", device)
+            return device.format.free_space_estimate(device.size)
+
+        return self._get_mount_points_free_space(mount_points, calculate)
 
     def get_disk_free_space(self, disks=None):
         """Get total free space on the given disks.
@@ -288,7 +314,7 @@ class InstallerStorage(Blivet):
         identify protected devices.
         """
         protected = []
-        protected_with_ancestors = []
+        protected_with_subtree = []
 
         # Resolve the protected device specs to devices.
         for spec in self.protected_devices:
@@ -310,7 +336,7 @@ class InstallerStorage(Blivet):
 
         if live_device:
             log.debug("Resolved live device to %s.", live_device.name)
-            protected_with_ancestors.append(live_device)
+            protected_with_subtree.append(live_device)
 
         # Find the backing device of a stage2 source and its parents.
         source_device = find_backing_device(self.devicetree, DRACUT_REPO_DIR)
@@ -323,20 +349,20 @@ class InstallerStorage(Blivet):
         # storage disks as ignored so they are protected from teardown.
         # Here we protect also cdrom devices from tearing down that, in case of
         # cdroms, involves unmounting which is undesirable (see bug #1671713).
-        protected_with_ancestors.extend(dev for dev in self.devicetree.devices
+        protected_with_subtree.extend(dev for dev in self.devicetree.devices
                                         if dev.type == "cdrom")
 
         # Protect also all devices with an iso9660 file system. It will protect
         # NVDIMM devices that can be used only as an installation source anyway
         # (see the bug #1856264).
-        protected_with_ancestors.extend(dev for dev in self.devicetree.devices
+        protected_with_subtree.extend(dev for dev in self.devicetree.devices
                                         if dev.format.type == "iso9660")
 
         # Mark the collected devices as protected.
         for dev in protected:
             self._mark_protected_device(dev)
-        for dev in protected_with_ancestors:
-            self._mark_protected_device(dev, include_ancestors=True)
+        for dev in protected_with_subtree:
+            self._mark_protected_device(dev, include_subtree=True)
 
     def protect_devices(self, protected_names):
         """Protect given devices.
@@ -361,18 +387,27 @@ class InstallerStorage(Blivet):
         # Update the list.
         self.protected_devices = protected_names
 
-    def _mark_protected_device(self, device, include_ancestors=False):
-        """Mark a device and its ancestors as protected."""
+    def _mark_protected_device(self, device, include_subtree=False):
+        """Mark a device as protected.
+
+        :param include_subtree: if set also mark the whole subtree of devices as protected
+        """
         if not device:
             return
 
         device.protected = True
         log.debug("Marking device %s as protected.", device.name)
-        if include_ancestors:
+        if include_subtree:
             for d in device.ancestors:
                 log.debug("Marking ancestor %s of device %s as protected.",
                           d.name, device.name)
                 d.protected = True
+
+                for child in d.children:
+                    if child.device_id != device.device_id:
+                        log.debug("Marking sibling device %s of %s as protected.",
+                                  child.name, device.name)
+                        child.protected = True
 
     def _mark_unprotected_device(self, device, include_ancestors=False):
         """Mark a device and its ancestors as unprotected."""
@@ -507,7 +542,13 @@ class InstallerStorage(Blivet):
         if os.path.exists(path):
             os.unlink(path)
 
-        os.symlink(target, path)
+        try:
+            os.symlink(target, path)
+        except OSError as e:
+            if e.errno in (errno.EROFS, errno.EEXIST):
+                log.debug("Failed to create symlink from %s to %s: %s", path, target, e)
+            else:
+                raise
 
     def add_fstab_swap(self, device):
         """

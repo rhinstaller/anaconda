@@ -16,39 +16,12 @@
 # Red Hat, Inc.
 #
 #
-from enum import Enum
 
 from pyanaconda.core.configuration.base import Section
-from pyanaconda.core.storage import (
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_DISK,
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_LVM_THINP,
-    DEVICE_TYPE_MD,
-    DEVICE_TYPE_PARTITION,
-    Size,
-)
 
-
-class DeviceType(Enum):
-    """Type of a device."""
-    LVM = DEVICE_TYPE_LVM
-    MD = DEVICE_TYPE_MD
-    PARTITION = DEVICE_TYPE_PARTITION
-    BTRFS = DEVICE_TYPE_BTRFS
-    DISK = DEVICE_TYPE_DISK
-    LVM_THINP = DEVICE_TYPE_LVM_THINP
-
-    @classmethod
-    def from_name(cls, value):
-        """Convert the given value into a device type."""
-        try:
-            member = cls.__members__[value]  # pylint: disable=unsubscriptable-object
-            return member.value
-        except KeyError:
-            pass
-
-        raise ValueError("'{}' is not a valid device typ".format(value))
+# Use the blivet idea of DeviceTypes instead of pyanaconda.core.storage.DEVICE_TYPES because
+# we are using it for validation here so we don't want to allow the UNSUPPORTED type.
+from pyanaconda.core.storage import DeviceTypes, Size
 
 
 class StorageConstraints(Section):
@@ -103,12 +76,9 @@ class StorageConstraints(Section):
 
         Valid values:
 
-          0  LVM        Allow LVM.
-          1  MD         Allow RAID.
-          2  PARTITION  Allow standard partitions.
-          3  BTRFS      Allow Btrfs.
-          4  DISK       Allow disks.
-          5  LVM_THINP  Allow LVM Thin Provisioning.
+            The set of device types listed in blivet's DeviceTypes enum.
+            This currently includes devices that we do not support for
+            all usecases (2025-07-09).
 
         :return: a set of device types
         """
@@ -116,7 +86,21 @@ class StorageConstraints(Section):
 
     def _convert_device_types(self, value):
         """Convert the given value into a set of device types."""
-        return set(map(DeviceType.from_name, value.split()))
+        device_names = value.split()
+
+        device_codes = set()
+        bad_names = []
+        for name in device_names:
+            try:
+                device_codes.add(getattr(DeviceTypes, name).value)
+            except AttributeError:
+                bad_names.append(name)
+
+        if bad_names:
+            raise ValueError("Invalid device type(s) specified: {bad_types}".format(
+                bad_types=bad_names))
+
+        return device_codes
 
     @property
     def must_be_on_linuxfs(self):

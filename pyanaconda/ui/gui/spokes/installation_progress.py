@@ -23,6 +23,8 @@ from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once
@@ -54,7 +56,7 @@ class ProgressSpoke(StandaloneSpoke):
         self._progressLabel = self.builder.get_object("progressLabel")
         self._progressNotebook = self.builder.get_object("progressNotebook")
         self._spinner = self.builder.get_object("progressSpinner")
-        self._task = None
+        self._task_proxy = None
 
     @property
     def completed(self):
@@ -73,7 +75,7 @@ class ProgressSpoke(StandaloneSpoke):
         gtk_call_once(self._spinner.hide)
 
         # Finish the installation task. Re-raise tracebacks if any.
-        self._task.finish()
+        self._task_proxy.Finish()
 
         util.ipmi_report(IPMI_FINISHED)
 
@@ -92,8 +94,10 @@ class ProgressSpoke(StandaloneSpoke):
         quit_button = self.window.get_quit_button()
         quit_button.hide()
 
+        runtime_proxy = RUNTIME.get_proxy()
+        reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
         # kickstart install, continue automatically if reboot or shutdown selected
-        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+        if flags.automatedInstall and reboot_data.action in [KS_REBOOT, KS_SHUTDOWN]:
             self.window.emit("continue-clicked")
 
     def initialize(self):
@@ -129,26 +133,34 @@ class ProgressSpoke(StandaloneSpoke):
         self._progressNotebook.set_current_page(0)
 
     def refresh(self):
-        from pyanaconda.installation import RunInstallationTask
+        from pyanaconda.core.dbus import DBus
+        from pyanaconda.core.threads import thread_manager
+        from pyanaconda.modules.common.constants.services import BOSS
+
         super().refresh()
 
-        # Initialize the progress bar.
+        # Wait for background threads to finish
+        if thread_manager.running > 1:
+            log.debug("Waiting for %s threads to finish...", thread_manager.running - 1)
+            for name in thread_manager.names:
+                log.debug("Thread %s is still running", name)
+            thread_manager.wait_all()
+            log.debug("No more threads are running, continuing with installation.")
+
+        # Initialize the progress bar
         gtk_call_once(self._progressBar.set_fraction, 0.0)
 
-        # Start the installation task.
-        self._task = RunInstallationTask(
-            payload=self.payload,
-            ksdata=self.data
-        )
-        self._task.progress_changed_signal.connect(
-            self._on_progress_changed
-        )
-        self._task.stopped_signal.connect(
-            self._on_installation_done
-        )
-        self._task.start()
+        # Start the installation task via D-Bus
+        boss_proxy = BOSS.get_proxy()
+        task_path = boss_proxy.InstallWithTasks()[0]
+        self._task_proxy = DBus.get_proxy(BOSS.service_name, task_path)
 
-        # Start the spinner.
+        self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
+        self._task_proxy.Stopped.connect(self._on_installation_done)
+
+        self._task_proxy.Start()
+
+        # Start the spinner
         gtk_call_once(self._spinner.start)
 
         log.debug("The installation has started.")
@@ -158,5 +170,5 @@ class ProgressSpoke(StandaloneSpoke):
         if message:
             gtk_call_once(self._progressLabel.set_text, message)
 
-        if self._task.steps > 0:
-            gtk_call_once(self._progressBar.set_fraction, step/self._task.steps)
+        if self._task_proxy.Steps > 0:
+            gtk_call_once(self._progressBar.set_fraction, step/self._task_proxy.Steps)

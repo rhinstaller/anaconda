@@ -137,7 +137,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # Start with the already set locale. Whether kickstart, geolocation, or default - it does
         # not matter, it's resolved and loaded by now.
-        locales = [self._l12_module.Language] or [DEFAULT_LANG]
+        locales = [self._l12_module.Language or DEFAULT_LANG]
 
         # get the data models
         filter_store = self._languageStoreFilter
@@ -288,7 +288,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
                 rc = dialog.run()
 
             if rc != 1:
-                ipmi_abort(scripts=self.data.scripts)
+                ipmi_abort()
                 sys.exit(0)
 
         StandaloneSpoke._on_continue_clicked(self, window, user_data)

@@ -17,29 +17,25 @@
 #
 import fnmatch
 import hashlib
-import os
 
 import rpm
-from blivet.size import Size
-from libdnf.transaction import TransactionItemState_ERROR
+from libdnf5 import comps
+from libdnf5.transaction import TransactionItemState_ERROR
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.hw import is_lpae_available
-from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import execWithCapture
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE, DISK_SELECTION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 from pyanaconda.modules.payloads.constants import SourceType
 
 log = get_module_logger(__name__)
-
-DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 
 
 def calculate_hash(data):
@@ -157,6 +153,22 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
     return include_list, exclude_list
 
 
+def get_group_package_types(spec):
+    package_types = 0
+    if spec.startswith("@") and '/' in spec:
+        spec, types = spec.split('/')
+        types = types.split(',')
+        if constants.GROUP_PACKAGE_TYPE_MANDATORY in types:
+            package_types += comps.PackageType_MANDATORY
+        if constants.GROUP_PACKAGE_TYPE_CONDITIONAL in types:
+            package_types += comps.PackageType_CONDITIONAL
+        if constants.GROUP_PACKAGE_TYPE_DEFAULT in types:
+            package_types += comps.PackageType_DEFAULT
+        if constants.GROUP_PACKAGE_TYPE_OPTIONAL in types:
+            package_types += comps.PackageType_OPTIONAL
+    return spec, package_types
+
+
 def get_kernel_version_list():
     """Get a list of installed kernel versions.
 
@@ -181,190 +193,6 @@ def get_kernel_version_list():
     sort_kernel_version_list(files)
 
     return files
-
-
-def get_free_space_map(current=True, scheduled=False):
-    """Get the available file system disk space.
-
-    :param bool current: use information about current mount points
-    :param bool scheduled: use information about scheduled mount points
-    :return: a dictionary of mount points and their available space
-    """
-    mount_points = {}
-
-    if scheduled:
-        mount_points.update(_get_scheduled_free_space_map())
-
-    if current:
-        mount_points.update(_get_current_free_space_map())
-
-    return mount_points
-
-
-def _get_current_free_space_map():
-    """Get the available file system disk space of the current system.
-
-    :return: a dictionary of mount points and their available space
-    """
-    mapping = {}
-
-    # Generate the dictionary of mount points and sizes.
-    output = execWithCapture('df', ['--output=target,avail'])
-    lines = output.rstrip().splitlines()
-
-    for line in lines:
-        key, val = line.rsplit(maxsplit=1)
-
-        if not key.startswith('/'):
-            continue
-
-        mapping[key] = Size(int(val) * 1024)
-
-    # Add /var/tmp/ if this is a directory or image installation.
-    if not conf.target.is_hardware:
-        var_tmp = os.statvfs("/var/tmp")
-        mapping["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
-
-    return mapping
-
-
-def _get_scheduled_free_space_map():
-    """Get the available file system disk space of the scheduled system.
-
-    :return: a dictionary of mount points and their available space
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    mount_points = {}
-
-    for mount_point in device_tree.GetMountPoints():
-        # we can ignore swap
-        if not mount_point.startswith('/'):
-            continue
-
-        free_space = Size(
-            device_tree.GetFileSystemFreeSpace([mount_point])
-        )
-        mount_point = os.path.normpath(
-            conf.target.system_root + mount_point
-        )
-        mount_points[mount_point] = free_space
-
-    return mount_points
-
-
-def _pick_mount_points(mount_points, download_size, install_size):
-    """Pick mount points for the package installation.
-
-    :return: a set of sufficient mount points
-    """
-    suitable = {
-        '/var/tmp',
-        conf.target.system_root,
-        join_paths(conf.target.system_root, 'home'),
-        join_paths(conf.target.system_root, 'tmp'),
-        join_paths(conf.target.system_root, 'var'),
-    }
-
-    sufficient = set()
-
-    for mount_point, size in mount_points.items():
-        # Ignore mount points that are not suitable.
-        if mount_point not in suitable:
-            continue
-
-        if size >= (download_size + install_size):
-            log.debug("Considering %s (%s) for download and install.", mount_point, size)
-            sufficient.add(mount_point)
-
-        elif size >= download_size and not mount_point.startswith(conf.target.system_root):
-            log.debug("Considering %s (%s) for download.", mount_point, size)
-            sufficient.add(mount_point)
-
-    return sufficient
-
-
-def _get_biggest_mount_point(mount_points, sufficient):
-    """Get the biggest sufficient mount point.
-
-    :return: a mount point or None
-    """
-    return max(sufficient, default=None, key=mount_points.get)
-
-
-def pick_download_location(dnf_manager):
-    """Pick the download location.
-
-    :param dnf_manager: the DNF manager
-    :return: a path to the download location
-    """
-    download_size = dnf_manager.get_download_size()
-    install_size = dnf_manager.get_installation_size()
-    mount_points = get_free_space_map()
-
-    # Try to find mount points that are sufficient for download and install.
-    sufficient = _pick_mount_points(
-        mount_points,
-        download_size,
-        install_size
-    )
-
-    # Or find mount points that are sufficient only for download.
-    if not sufficient:
-        sufficient = _pick_mount_points(
-            mount_points,
-            download_size,
-            install_size=0
-        )
-
-    # Ignore the system root if there are other mount points.
-    if len(sufficient) > 1:
-        sufficient.discard(conf.target.system_root)
-
-    if not sufficient:
-        raise RuntimeError(
-            "Not enough disk space to download the "
-            "packages; size {}.".format(download_size)
-        )
-
-    # Choose the biggest sufficient mount point.
-    mount_point = _get_biggest_mount_point(mount_points, sufficient)
-
-    log.info("Mount point %s picked as download location", mount_point)
-    location = join_paths(mount_point, DNF_PACKAGE_CACHE_DIR_SUFFIX)
-
-    return location
-
-
-def calculate_required_space(dnf_manager):
-    """Calculate the space required for the installation.
-
-    :param DNFManager dnf_manager: the DNF manager
-    :return Size: the required space
-    """
-    installation_size = dnf_manager.get_installation_size()
-    download_size = dnf_manager.get_download_size()
-    mount_points = get_free_space_map(scheduled=True)
-
-    # Find sufficient mount points.
-    sufficient = _pick_mount_points(
-        mount_points,
-        download_size,
-        installation_size
-    )
-
-    # Choose the biggest sufficient mount point.
-    mount_point = _get_biggest_mount_point(mount_points, sufficient)
-
-    if not mount_point or mount_point.startswith(conf.target.system_root):
-        log.debug("The install and download space is required.")
-        required_space = installation_size + download_size
-    else:
-        log.debug("Use the %s mount point for the %s download.", mount_point, download_size)
-        log.debug("Only the install space is required.")
-        required_space = installation_size
-
-    log.debug("The package installation requires %s.", required_space)
-    return required_space
 
 
 def collect_installation_devices(sources, repositories):
@@ -421,8 +249,16 @@ def transaction_has_errors(transaction):
     :return: True if the transaction has any error, otherwise False
     """
     has_errors = False
-    for tsi in transaction:
-        if tsi.state == TransactionItemState_ERROR:
-            log.error("The transaction contains item %s in error state.", tsi)
+    for environment in transaction.get_transaction_environments():
+        if environment.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains environment %s in error state.", environment)
+            has_errors = True
+    for group in transaction.get_transaction_groups():
+        if group.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains group %s in error state.", group)
+            has_errors = True
+    for package in transaction.get_transaction_packages():
+        if package.get_state() == TransactionItemState_ERROR:
+            log.error("The transaction contains package %s in error state.", package)
             has_errors = True
     return has_errors

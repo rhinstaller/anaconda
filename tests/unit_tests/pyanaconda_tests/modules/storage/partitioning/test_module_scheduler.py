@@ -23,12 +23,6 @@ from unittest.mock import Mock, patch
 
 import pytest
 from blivet.devicefactory import (
-    DEVICE_TYPE_BTRFS,
-    DEVICE_TYPE_DISK,
-    DEVICE_TYPE_LVM,
-    DEVICE_TYPE_LVM_THINP,
-    DEVICE_TYPE_MD,
-    DEVICE_TYPE_PARTITION,
     SIZE_POLICY_AUTO,
 )
 from blivet.devices import (
@@ -49,6 +43,7 @@ from dasbus.structure import compare_data
 from dasbus.typing import get_native
 from pykickstart.constants import AUTOPART_TYPE_PLAIN
 
+from pyanaconda.core.storage import DEVICE_TYPES
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
@@ -189,7 +184,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
     def test_get_supported_raid_levels(self):
         """Test GetSupportedRaidLevels."""
-        assert self.interface.GetSupportedRaidLevels(DEVICE_TYPE_MD) == \
+        assert self.interface.GetSupportedRaidLevels(DEVICE_TYPES.MD) == \
             ['linear', 'raid0', 'raid1', 'raid10', 'raid4', 'raid5', 'raid6']
 
     @patch('pyanaconda.modules.storage.partitioning.interactive.utils.get_format')
@@ -264,7 +259,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         ))
 
         request = DeviceFactoryRequest()
-        request.device_type = DEVICE_TYPE_LVM
+        request.device_type = DEVICE_TYPES.LVM
         request.mount_point = "/home"
         request.size = Size("5 GiB")
         request.disks = ["dev1"]
@@ -291,7 +286,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         original_request = self.module.generate_device_factory_request("dev2")
         request = copy.deepcopy(original_request)
 
-        request.device_type = DEVICE_TYPE_LVM
+        request.device_type = DEVICE_TYPES.LVM
         request.mount_point = "/home"
         request.size = Size("4 GiB")
         request.label = "home"
@@ -352,7 +347,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'format-type': 'ext4',
             'label': 'root',
             'luks-version': '',
-            'device-type': DEVICE_TYPE_PARTITION,
+            'device-type': DEVICE_TYPES.PARTITION,
             'device-name': 'dev2',
             'device-size': Size("5 GiB").get_bytes(),
             'device-encrypted': False,
@@ -403,11 +398,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         """Test GetDeviceTypesForDevice."""
         self._add_device(DiskDevice("dev1"))
         assert self.interface.GetDeviceTypesForDevice("dev1") == [
-            DEVICE_TYPE_LVM,
-            DEVICE_TYPE_MD,
-            DEVICE_TYPE_PARTITION,
-            DEVICE_TYPE_DISK,
-            DEVICE_TYPE_LVM_THINP,
+            DEVICE_TYPES.LVM,
+            DEVICE_TYPES.MD,
+            DEVICE_TYPES.PARTITION,
+            DEVICE_TYPES.DISK,
+            DEVICE_TYPES.LVM_THINP,
         ]
 
     def test_validate_device_factory_request(self):
@@ -429,7 +424,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev3)
 
         request = self.module.generate_device_factory_request("dev3")
-        request.device_type = DEVICE_TYPE_LVM
+        request.device_type = DEVICE_TYPES.LVM
         request.disks = ["dev1", "dev2"]
         request.format_type = "ext4"
         request.mount_point = "/boot"
@@ -778,8 +773,8 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        assert self.interface.CollectContainers(DEVICE_TYPE_BTRFS) == [dev2.device_id]
-        assert self.interface.CollectContainers(DEVICE_TYPE_LVM) == []
+        assert self.interface.CollectContainers(DEVICE_TYPES.BTRFS) == [dev2.device_id]
+        assert self.interface.CollectContainers(DEVICE_TYPES.LVM) == []
 
     def test_get_container_free_space(self):
         """Test GetContainerFreeSpace."""
@@ -859,7 +854,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         request = DeviceFactoryRequest()
         request.device_spec = lv.device_id
 
-        request.device_type = DEVICE_TYPE_LVM
+        request.device_type = DEVICE_TYPES.LVM
         request = DeviceFactoryRequest.from_structure(
             self.interface.GenerateContainerData(
                 DeviceFactoryRequest.to_structure(request)
@@ -872,7 +867,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         assert request.container_raid_level == ""
         assert request.container_size_policy == Size("1.5 GiB").get_bytes()
 
-        request.device_type = DEVICE_TYPE_BTRFS
+        request.device_type = DEVICE_TYPES.BTRFS
         request = DeviceFactoryRequest.from_structure(
             self.interface.GenerateContainerData(
                 DeviceFactoryRequest.to_structure(request)
@@ -885,7 +880,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         assert request.container_raid_level == "single"
         assert request.container_size_policy == 0
 
-        request.device_type = DEVICE_TYPE_PARTITION
+        request.device_type = DEVICE_TYPES.PARTITION
         request = DeviceFactoryRequest.from_structure(
             self.interface.GenerateContainerData(
                 DeviceFactoryRequest.to_structure(request)
@@ -920,7 +915,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(vg)
 
         request = DeviceFactoryRequest()
-        request.device_type = DEVICE_TYPE_PARTITION
+        request.device_type = DEVICE_TYPES.PARTITION
 
         with pytest.raises(StorageError):
             self.interface.UpdateContainerData(
@@ -928,7 +923,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
                     "anaconda"
             )
 
-        request.device_type = DEVICE_TYPE_BTRFS
+        request.device_type = DEVICE_TYPES.BTRFS
         request = DeviceFactoryRequest.from_structure(
             self.interface.UpdateContainerData(
                 DeviceFactoryRequest.to_structure(request),
@@ -943,7 +938,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         assert request.container_size_policy == 0
         assert request.disks == []
 
-        request.device_type = DEVICE_TYPE_LVM
+        request.device_type = DEVICE_TYPES.LVM
         request = DeviceFactoryRequest.from_structure(
             self.interface.UpdateContainerData(
                 DeviceFactoryRequest.to_structure(request),

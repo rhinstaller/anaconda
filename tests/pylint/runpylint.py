@@ -21,21 +21,61 @@ class AnacondaLintConfig(CensorshipConfig):
 
         self.pylintrc_path = os.path.join(current_dir, "pylintrc")
 
+        gtk_instance_classes = [
+            "Accordion",
+            "Box",
+            "Builder",
+            "ComboBox",
+            "Cursor",
+            "CustomListBoxRow",
+            "EnvironmentListBoxRow",
+            "GraphicalUserInterface",
+            "IconSize",
+            "IconTheme",
+            "MainWindow",
+            "MessageDialog",
+            "Page",
+            "SeparatorRow",
+            "StyleContext",
+            "UnknownPage",
+        ]
+        gi_repository_instance_classes = [
+            "TransactionOperationType",
+            "LogLevelFlags",
+        ]
+
         self.false_positives = [
             FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
-            FalsePositive(r"^E1101.*: Class 'Bytes' has no 'new' member$"),
 
             # TODO: BlockDev introspection needs to be added to pylint to handle these
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_fba' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_format' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'sanitize_dev_input' member"),
-            FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_online' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_wwpn_input' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_lun_input' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
+            FalsePositive(r"I1101.*: Module 'gi.repository.BlockDev' has no 'loop_get_backing_file' member"),
+            FalsePositive(r"E1120.*: _load_plugin_s390: No value for argument 'self' in function call"),
+
+            # TODO: NM introspection needs to be added to pylint to handle these
+            # https://github.com/pylint-dev/pylint/issues/10433
+            FalsePositive(r"E1120.*(?:network\.py|nm_client\.py|test_module_network_nm_client\.py|glib\.py|device_configuration\.py):.* No value for argument 'self' in .* call"),
+            FalsePositive(r"E1101.*(?:network\.py|nm_client\.py):.* Class .* has no .* member"),
+
+            # TODO: OStree introspection needs to be added to pylint to handle these
+            FalsePositive(r"E1120.*: PullRemoteAndDeleteTask.run: No value for argument 'self' in unbound method call"),
+
+            # TODO: GTK introspection needs to be added to pylint to handle these
+            FalsePositive(r"E1120.*(?:MainWindow|GraphicalUserInterface|busyCursor|unbusyCursor|setup_gtk_direction|CreateNewPage|LangLocaleHandler).* No value for argument 'self' in .* call"),
+            FalsePositive(fr"E1101.*(?:{'|'.join(gtk_instance_classes)}).* has no .* member.*"),
+
+            # TODO: GI Repository introspection needs to be added to pylint to handle these
+            FalsePositive(fr"E1101.*(?:{'|'.join(gi_repository_instance_classes)}).* has no .* member.*"),
+            FalsePositive(r"I1101.* Module 'gi.repository.Gtk'.* has no .* member.*"),
+            FalsePositive(r"I1101.* Module 'gi.repository.Gdk'.* has no .* member.*"),
         ]
 
     def _files(self):

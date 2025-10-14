@@ -1,7 +1,7 @@
 #
-# DBus structure for module ui module vnc data.
+# DBus structure for RDP UI module runtime data.
 #
-# Copyright (C) 2024 Red Hat, Inc.
+# Copyright (C) 2025 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -22,22 +22,20 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.structures.secret import SecretData
 
-__all__ = ["VncData"]
+__all__ = ["RdpData"]
 
 
-class VncData(DBusData):
-    """Module Vnc runtime data"""
+class RdpData(DBusData):
+    """Runtime data for the RDP UI module."""
 
     def __init__(self):
         self._enabled = False
-        self._host = ""
-        self._port = ""
+        self._username = ""
         self._password = SecretData()
 
     @property
     def enabled(self) -> Bool:
-        """Whether VNC is enabled.
-
+        """Whether RDP is enabled.
         :return: True if enabled, False otherwise.
         """
         return self._enabled
@@ -47,40 +45,22 @@ class VncData(DBusData):
         self._enabled = value
 
     @property
-    def host(self) -> Str:
-        """The VNC host address.
-
-        This could be an IP address or a hostname where the VNC server is running.
-
-        :return: a host address.
+    def username(self) -> Str:
+        """The RDP username.
+        This is the username used to authenticate the RDP session.
+        :return: a username string.
         """
-        return self._host
+        return self._username
 
-    @host.setter
-    def host(self, value: Str):
-        self._host = value
-
-    @property
-    def port(self) -> Str:
-        """The VNC port number.
-
-        This is the port on which the VNC server is listening.
-
-        :return: a port number as a string.
-        """
-        return self._port
-
-    @port.setter
-    def port(self, value: Str):
-        self._port = value
+    @username.setter
+    def username(self, value: Str):
+        self._username = value
 
     @property
     def password(self) -> SecretData:
-        """The VNC password.
-
-        This is the password required to connect to the VNC server.
-
-        :return: a password.
+        """The RDP password.
+        This is the password required to authenticate the RDP session.
+        :return: a password object.
         """
         return self._password
 

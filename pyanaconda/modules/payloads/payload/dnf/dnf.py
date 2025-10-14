@@ -24,6 +24,7 @@ from pyanaconda.modules.common.structures.packages import (
     PackagesConfigurationData,
     PackagesSelectionData,
 )
+from pyanaconda.modules.payloads.base.utils import calculate_required_space
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.kickstart import (
     convert_ks_data_to_packages_configuration,
@@ -39,7 +40,6 @@ from pyanaconda.modules.payloads.payload.dnf.initialization import (
     SetUpDNFSourcesResult,
     SetUpDNFSourcesTask,
     TearDownDNFSourcesTask,
-    configure_dnf_logging,
 )
 from pyanaconda.modules.payloads.payload.dnf.installation import (
     CleanUpDownloadLocationTask,
@@ -54,7 +54,6 @@ from pyanaconda.modules.payloads.payload.dnf.installation import (
 )
 from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
 from pyanaconda.modules.payloads.payload.dnf.utils import (
-    calculate_required_space,
     collect_installation_devices,
     protect_installation_devices,
 )
@@ -68,9 +67,6 @@ from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 # Set up the modules logger.
 log = get_module_logger(__name__)
-
-# Configure the DNF logging.
-configure_dnf_logging()
 
 __all__ = ["DNFModule"]
 
@@ -368,6 +364,12 @@ class DNFModule(PayloadBase):
         """
         return VerifyRepomdHashesTask(self.dnf_manager)
 
+    def _refresh_side_payload_selection(self):
+        """Set new resolved software selection to side payload."""
+        if self.side_payload and self.side_payload.type == PayloadType.FLATPAK:
+            self.side_payload.set_sources(self.sources)
+            self.side_payload.set_flatpak_refs(self.get_flatpak_refs())
+
     def validate_packages_selection_with_task(self, data):
         """Validate the specified packages selection.
 
@@ -377,10 +379,12 @@ class DNFModule(PayloadBase):
         :param PackagesSelectionData data: a packages selection
         :return: a task
         """
-        return CheckPackagesSelectionTask(
+        task = CheckPackagesSelectionTask(
             dnf_manager=self.dnf_manager,
             selection=data,
         )
+        task.succeeded_signal.connect(self._refresh_side_payload_selection)
+        return task
 
     def calculate_required_space(self):
         """Calculate space required for the installation.
@@ -388,8 +392,19 @@ class DNFModule(PayloadBase):
         :return: required size in bytes
         :rtype: int
         """
-        required_space = calculate_required_space(self.dnf_manager)
+        required_space = calculate_required_space(self._dnf_manager.get_download_size(),
+                                                  self._dnf_manager.get_installation_size())
         return required_space.get_bytes()
+
+    def needs_flatpak_side_payload(self):
+        return True
+
+    def get_flatpak_refs(self):
+        """Get the list of Flatpak refs to install.
+
+        :return: list of Flatpak refs
+        """
+        return self._dnf_manager.get_flatpak_refs()
 
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.

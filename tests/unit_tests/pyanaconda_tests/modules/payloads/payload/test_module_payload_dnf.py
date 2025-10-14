@@ -137,11 +137,17 @@ class DNFKickstartTestCase(unittest.TestCase):
             assert not payload.sources
         else:
             sources = payload.sources
-            assert 1 == len(sources)
+            assert len(sources) == 1
             assert sources[0].type.value == expected_source_type
 
     def _test_kickstart(self, ks_in, ks_out, *args, **kwargs):
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out, *args, **kwargs)
+        # DNF module also spawns Flatpak module as side payload by default
+        if "expected_publish_calls" not in kwargs:
+            kwargs["expected_publish_calls"] = 2
+
+        self.shared_ks_tests.check_kickstart(
+            ks_in, ks_out, *args, **kwargs
+        )
 
     def test_cdrom_kickstart(self):
         ks_in = """
@@ -692,6 +698,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             payload=self.module,
             payload_intf=self.interface
         )
+        self.interface.implementation._dnf_manager.setup_base()
 
     def test_type(self):
         """Test the Type property."""

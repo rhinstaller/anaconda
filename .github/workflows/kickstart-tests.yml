@@ -22,6 +22,9 @@
 # /kickstart-test --skip-testtypes gh123,gh765
 # ... run all the tests while skipping tests with given types (comma separated)
 #
+# /kickstart-test --testtypes packaging,payload
+# ... run all the tests of type packaging and payload
+#
 # By default all disabled tests are skipped.
 # To force running disabled tests use --force option.
 #
@@ -104,19 +107,29 @@ jobs:
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       kstest_pr: ${{ steps.parse_comment_args.outputs.kstest_pr }}
 
-  run:
+  define-matrix:
     needs: pr-info
+    uses: ./.github/workflows/define-matrix.yml
+    with:
+      target_branch: ${{ needs.pr-info.outputs.base_ref }}  #Set target_branch to PR's base branch in order to filter only supported releases for this branch
+      use_full_releases: false # Set .release to '' for default release per branch so that default statuses are set in GitHub with non-release specific names
+
+  run:
+    needs: [pr-info, define-matrix]
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != '' && ! contains(github.event.comment.body, '--waive')
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
     env:
-       STATUS_NAME: kickstart-test
+       STATUS_NAME: "kickstart-test${{ matrix.release != '' && format(' --os {0}', matrix.release) || '' }}"
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
-       CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        TEST_JOBS: 16
+       CI_TAG: ${{ matrix.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -140,7 +153,7 @@ jobs:
           sudo rm -rf * .git
 
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -155,7 +168,7 @@ jobs:
           git rebase origin/${{ env.TARGET_BRANCH }}
 
       - name: Check out kickstart-tests
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: rhinstaller/kickstart-tests
           fetch-depth: 0
@@ -181,14 +194,14 @@ jobs:
         run: scripts/generate-testcases.py -t ./testlib/test_cases/kstest-template.tc.yaml.j2 . -o ./testlib/test_cases
 
       - name: Clone Permian repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: rhinstaller/permian
           path: permian
           ref: main
 
       - name: Clone tplib repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: rhinstaller/tplib
           path: tplib
@@ -241,20 +254,18 @@ jobs:
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo -E make -f ./Makefile.am anaconda-iso-creator-build
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         working-directory: ./anaconda
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am container-rpms-scratch
           mkdir -p ${{ github.workspace }}/kickstart-tests/data/additional_repo/
           cp -av ./result/build/01-rpm-build/*.rpm ${{ github.workspace }}/kickstart-tests/data/additional_repo/
 
@@ -262,18 +273,18 @@ jobs:
         run: |
           mkdir -p images
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged \
+          sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v ${{ github.workspace }}/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
             -v ${{ github.workspace }}/images:/images:z \
-            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+            $ISO_BUILD_CONTAINER_NAME:$CI_TAG
 
       - name: Clean up after lorax
         if: always()
         run: |
           # remove container images together with the container
-          sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
-          sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
+          sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CI_TAG || true
+          sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CI_TAG || true
 
       - name: Create Permian settings file
         working-directory: ./permian
@@ -300,9 +311,10 @@ jobs:
       - name: Run kickstart tests in container
         working-directory: ./permian
         run: |
+          PERMIAN_LOG=permian.log
           sudo --preserve-env=TEST_JOBS \
           PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
-          ./run_subset --debug-log permian.log \
+          ./run_subset --debug-log ${PERMIAN_LOG} \
             --settings settings.ini \
             --override workflows.dry_run=False \
             --testcase-query '${{ steps.generate_query.outputs.query }}' \
@@ -317,10 +329,13 @@ jobs:
             }'
 
           # Permian hides the exit code of launcher, so error out this step manually based on logs
-          rc=$( awk '/Runner return code: /{ print $4 }' permian.log)
+          rc=$( awk '/Runner return code: /{ print $4 }' ${PERMIAN_LOG})
           if [ -n "$rc" ]; then
             exit $rc
           else
+            if grep -q "All execution and reporting is done" ${PERMIAN_LOG}; then
+              echo "0 tests were run. It can be caused by using a wrong parameter or by the test(s) being disabled for the os variant."
+            fi
             exit 111
           fi
 
@@ -332,6 +347,7 @@ jobs:
           sudo chown -R github:github .
 
       - name: Construct image description
+        if: always()
         id: kstest_run_description
         run: |
           set -eux
@@ -343,12 +359,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}
-          # skip the /anaconda subdirectories, too large
+          name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}_${{ matrix.ci_tag }}
           path: |
             kickstart-tests/data/logs/kstest*.log
+            kickstart-tests/data/logs/kstest-*/anaconda/*
             kickstart-tests/data/logs/kstest-*/*.log
+            kickstart-tests/data/logs/kstest-*/anaconda-ks.cfg
             kickstart-tests/data/logs/kstest-*/original-ks.cfg
+            kickstart-tests/data/logs/kstest-*/RESULT
             kickstart-tests/data/logs/kstest-list-substituted/
             kickstart-tests/data/additional_repo/*.rpm
             permian/permian.log

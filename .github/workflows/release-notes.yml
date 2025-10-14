@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Clone Anaconda repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
           # without ref is doing the rebase for us.

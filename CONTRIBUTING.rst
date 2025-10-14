@@ -51,19 +51,19 @@ How to Contribute to the Anaconda Installer (the short version)
 
 1) I want to contribute to the upstream Anaconda Installer (used in Fedora):
 
-- base and test your changes on a clone of the ``fedora-<next Fedora number>`` branch.
-- open a pull request for the ``fedora-<next Fedora number>`` branch (``fedora-38``, etc.)
+- base and test your changes on ``main`` branch.
+- open a pull request for the ``main`` branch
 - check the *Commit Messages* section below for how to format your commit messages
 - check the *Release Notes* section below for how to provide a release note
 
 2) I want to contribute to the RHEL Anaconda installer:
 
-- base and test your changes on a clone of the ``rhel-<RHEL number>``  branch.
-- open a pull request for the ``rhel-<RHEL number>``  branch (``rhel-9``, etc.)
+- follow step 1) above to contribute to the ``main`` branch
+- after merging to ``main``, backport the change to the corresponding ``rhel-<RHEL number>`` branch
 - check the *Commits for RHEL Branches* section below for how to format your commit messages
 - check the *Release Notes* section below for how to provide a release note
 
-If you want to contribute a change to both the upstream and RHEL Anaconda then follow both 1) and 2) separately.
+**Exception:** If the code is significantly divergent between RHEL and upstream (e.g., due to major architectural changes), RHEL only PR may be more appropriate than the standard upstream-first workflow. In such cases, consult with the development team for guidance.
 
 Which is my target git branch?
 ------------------------------
@@ -71,12 +71,13 @@ Which is my target git branch?
 Depending on where you want to make your contribution please choose your correct branch based on the table below.
 
 +--------------------------+--------------+
-| Fedora Rawhide           | main         |
-+--------------------------+--------------+
-| Fedora XX                | fedora-XX    |
+| Fedora 43+               | main         |
 +--------------------------+--------------+
 | RHEL-X / CentOS Stream X | rhel-X       |
 +--------------------------+--------------+
+
+**Note:** Starting with Fedora 43, all Fedora development happens on the ``main`` branch.
+This includes Fedora 43 and all future Fedora releases. RHEL branches remain separate and independent.
 
 All of these branches are independent, never merged into each another, so if you want to put your
 changes into multiple branches, you have to open multiple pull requests.
@@ -200,56 +201,37 @@ The ``updated_boot.iso`` is just a regular bootable image, but there are a coupl
   currently running image has been updated. You can check this boot option either in the image boot menu
   or by checking ``/proc/cmdline`` on a running system.
 
-Anaconda Installer Branching Policy (the long version)
--------------------------------------------------------
+Anaconda Installer Branching Policy
+-----------------------------------
 
-The basic premise is that there are the following branches:
+Current Branches
+^^^^^^^^^^^^^^^
 
-- main
-- fedora-<next fedora number>
+- ``main`` - Fedora 43+ and future development
+- ``rhel-9`` - RHEL 9 and CentOS Stream 9
+- ``rhel-10`` - RHEL 10 and CentOS Stream 10
 
-The ``main`` branch never waits for any release-related processes to take place and is used for Fedora Rawhide Anaconda builds.
+Fedora Development (43+)
+^^^^^^^^^^^^^^^^^^^^^^^
 
-Concerning current RHEL branches, they are too divergent to integrate into this scheme. Thus, commits are merged onto, and builds are done on the RHEL branches.
-In this case, multiple pull requests will very likely be needed:
+Starting with Fedora 43, all Fedora development happens on the ``main`` branch. This eliminates the need for separate Fedora branches and reduces maintenance burden.
 
-- one for the ``rhel<number>-branch``
-- one for the ``main`` branch, if the change is not RHEL only
-- one for the ``fedora-<number>`` branch, if change should apply to branched Fedora too
+RHEL Development
+^^^^^^^^^^^^^^^
+
+RHEL branches remain separate. See the contribution guidelines above for the workflow.
 
 Releases
----------
+^^^^^^^^
 
-The release process is as follows, for both Fedora Rawhide and branched Fedora versions:
+The release process is as follows, for both Fedora and RHEL:
 
-- a release commit is made (which bumps version in spec file) & tagged on the ``fedora-XX`` or ``main`` branch
+- **Fedora:** Releases are made in the ``main`` branch for all Fedora versions under development. When a Fedora version is branched, releases are made to both rawhide and the branched version. PRs are opened in dist-git from the same tarball and upstream release.
+- **RHEL:** Releases are handled from the respective ``rhel-X`` branches.
 
-Concerning the ``<next Fedora number>`` branches (which could also be called ``next stable release`` if we wanted to decouple our versioning from Fedora in the future):
+Before a release is triggered, a release commit is created (which bumps the version in the spec file) and tagged on the corresponding branch. Tag creation automatically starts the release through the GitHub Actions `release-from-tag workflow`_. Afterward, Packit takes over to create the dist-git PRs.
 
-- work which goes into the next Fedora goes to ``fedora-<next Fedora number>`` and must have another PR for ``main``, too
-- stuff we *don't* want to go to the next Fedora (too cutting edge, etc.) goes only to ``main`` branch
-- commits specific to a given Fedora release (temporary fixes, etc.) go only to the ``fedora-<next Fedora number>`` branch
-- this way we can easily see what was developed in which Fedora timeframe and possibly due to given Fedora testing phase feedback (bugfixes, etc.)
-
-Example for the F38 and F39 cycle
-----------------------------------
-
-Once Fedora 38 is branched, we have these branches in the repository:
-
-- ``main``
-- ``fedora-38``
-
-This would continue until f38 is released, after which we:
-
-- keep the ``fedora-38`` branch as an inactive record of the f38 cycle
-- work on the ``main`` branch only
-
-After a while, Fedora 39 is branched and we start the ``fedora-39`` branch off the ``main`` branch.
-
-This will result in the following branches for the f39 cycle:
-
-- ``main``
-- ``fedora-39``
+**Note:** During beta or final freeze periods for a branched Fedora version, if bugfixes are accepted as blockers/exceptions, patch builds in dist-git are required in that timeframe.
 
 Guidelines for Commits
 -----------------------
@@ -347,7 +329,6 @@ Merging examples
 
 Merging a GitHub pull request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Fedora 38 is used as an example, don't forget to use appropriate Fedora version.)
 
 Press the green *Merge pull request* button on the pull request page.
 
@@ -355,7 +336,6 @@ Then you are done.
 
 Merging a topic branch manually
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Fedora 38 is used as an example, don't forget to use appropriate Fedora version.)
 
 Let's say that there is a topic branch called "fix_foo_with_bar" that should be merged to a given Anaconda non-topic branch.
 
@@ -368,8 +348,6 @@ Checkout the given target branch, pull it and merge your topic branch into it::
 Then push the merge to the remote::
 
     git push origin <target branch>
-
-If the pull request has been opened for the ``fedora-38`` branch, then you also need to check if the same change should go to the ``main`` branch in another PR.
 
 .. _pure-community-features:
 

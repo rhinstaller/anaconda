@@ -42,83 +42,84 @@ actions:
     - "make release"
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
+{% set branch = branch_name %}
+{% set releases_for_branch = supported_releases | selectattr('target_branch', 'equalto', branch) | list %}
+{% set fedora_releases = releases_for_branch | selectattr('variant', 'equalto', 'fedora') | list %}
+{% set rhel_releases = releases_for_branch | selectattr('variant', 'equalto', 'rhel') | list %}
 jobs:
-{% if distro_release == "rawhide" %}
+{% if fedora_releases %}
+  # Propose downstream (Fedora)
   - job: propose_downstream
     trigger: release
     packages: [anaconda-fedora]
     dist_git_branches:
-      - main
-
-  - job: tests
-    trigger: pull_request
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-rawhide
-
-  - job: copr_build
-    trigger: pull_request
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-rawhide
-      - fedora-eln
-
-  - job: copr_build
-    trigger: commit
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-rawhide
-      - fedora-eln
-    branch: main
-    owner: "@rhinstaller"
-    project: Anaconda
-    preserve_project: True
-
-{% elif distro_name == "fedora" %}
-
-  - job: propose_downstream
-    trigger: release
-    packages: [anaconda-fedora]
-    dist_git_branches:
-      - f{$ distro_release $}
-
-  - job: tests
-    trigger: pull_request
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-{$ distro_release $}
-
-  - job: copr_build
-    trigger: pull_request
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-{$ distro_release $}
-
-  - job: copr_build
-    trigger: commit
-    packages: [anaconda-fedora]
-    targets:
-      - fedora-{$ distro_release $}
-    branch: fedora-{$ distro_release $}
-    owner: "@rhinstaller"
-    project: Anaconda
-    preserve_project: True
-    additional_repos:
-      - "copr://@storage/blivet-daily"
-      # This repository contains fixup of Rawhide broken environment.
-      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
-      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
-
-{% elif distro_name == "rhel" %}
-
+{% for rel in fedora_releases %}
+      - {$ 'main' if rel.release == 'fedora-rawhide' else 'f' ~ (rel.release|replace('fedora-', '')) $}
+{% endfor %}
+{% endif %}
+{% if rhel_releases %}
+  # Propose downstream (RHEL)
   - job: propose_downstream
     trigger: release
     # Tarballs are not uploaded to GitLab PR on CentOS (https://github.com/packit/packit-service/issues/2436)
     manual_trigger: True
     packages: [anaconda-centos]
-    dist_git_branches: c{$ distro_release $}s
-
+    dist_git_branches:
+{% for rel in rhel_releases %}
+      - c{$ rel.release|replace('rhel-', '') $}s
+{% endfor %}
 {% endif %}
+
+{% if fedora_releases %}
+  # Tests on PR (Fedora)
+  - job: tests
+    trigger: pull_request
+    packages: [anaconda-fedora]
+    targets:
+{% for rel in fedora_releases %}
+      - {$ rel.release $}
+{% endfor %}
+{% endif %}
+
+{% if fedora_releases %}
+  # COPR builds on PR (Fedora)
+  - job: copr_build
+    trigger: pull_request
+    packages: [anaconda-fedora]
+    targets:
+{% for rel in fedora_releases %}
+      - {$ rel.release $}
+{% endfor %}
+{% if branch == 'main' %}
+      - fedora-eln
+{% endif %}
+{% endif %}
+
+{% if fedora_releases %}
+  # COPR builds on commit (Fedora): single job with multiple targets (add ELN on main)
+  - job: copr_build
+    trigger: commit
+    packages: [anaconda-fedora]
+    targets:
+{% for rel in fedora_releases %}
+      - {$ rel.release $}
+{% endfor %}
+{% if branch == 'main' %}
+      - fedora-eln
+{% endif %}
+    branch: {$ branch $}
+    owner: "@rhinstaller"
+    project: Anaconda
+    preserve_project: True
+{% if branch != 'main' %}
+    additional_repos:
+      - "copr://@storage/blivet-daily"
+      # This repository contains fixup of Rawhide broken environment.
+      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
+      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
+{% endif %}
+{% endif %}
+
 {% if distro_name == "fedora" %}
   - job: koji_build
     trigger: commit

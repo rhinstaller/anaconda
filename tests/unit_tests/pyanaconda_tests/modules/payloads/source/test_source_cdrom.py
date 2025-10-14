@@ -47,7 +47,7 @@ class CdromSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test CD-ROM source has a correct type specified."""
-        assert SOURCE_TYPE_CDROM == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_CDROM
 
     def test_device(self):
         """Test CD-ROM source Device API."""
@@ -68,24 +68,24 @@ class CdromSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test CD-ROM source module has a correct type."""
-        assert SourceType.CDROM == self.module.type
+        assert self.module.type == SourceType.CDROM
 
     @patch("os.path.ismount")
     def test_get_state(self, ismount_mock):
         """Test CD-ROM source state."""
         ismount_mock.return_value = False
-        assert SourceState.UNREADY == self.module.get_state()
+        assert self.module.get_state() == SourceState.UNREADY
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        assert SourceState.READY == self.module.get_state()
+        assert self.module.get_state() == SourceState.READY
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def test_description(self):
         """Hard drive source description."""
-        assert "Local media" == self.interface.Description
+        assert self.interface.Description == "Local media"
 
     def test_network_required(self):
         """Test the property network_required."""

@@ -17,6 +17,10 @@
 #
 # To use webui on boot.iso, add also:
 # --webui
+#
+# To build for a specific release, add:
+# --image [image-id] (e.g., --image fedora-43, --image fedora-rawhide)
+# If --image is not specified, the current branch's default CI_TAG will be used.
 
 name: Build images
 on:
@@ -63,7 +67,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get commit sha
+        id: commit_sha
+        run: |
+          set -eux
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] ; then
+            SHA="$GITHUB_SHA"
+          else
+            # comment on PR
+            SHA="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
+          fi
+          echo "sha=${SHA}" >> $GITHUB_OUTPUT
+
+      - name: Clone repository
+        # Required to use Makefile in the job
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.commit_sha.outputs.sha }}
+          fetch-depth: 0
+          path: anaconda
+
       - name: Parse arguments
+        working-directory: ./anaconda
         id: parse_args
         # Do not use comment body directly in the shell command to avoid possible code injection.
         env:
@@ -76,22 +101,40 @@ jobs:
             ARGS="$ARGS --boot.iso"
             echo "adding implicit --boot.iso, arguments now are: $ARGS"
           fi
+
+          # Extract --image parameter if present
+          IMAGE_TAG=""
+          if [[ "$ARGS" == *"--image"* ]]; then
+            # Extract the value after --image
+            IMAGE_TAG=$(echo "$ARGS" | sed -n 's/.*--image \([^[:space:]]*\).*/\1/p')
+            echo "extracted image tag: $IMAGE_TAG"
+          fi
+
+          # Set CI_TAG based on image_tag parameter or current branch default
+          if [[ -n "$IMAGE_TAG" ]]; then
+            CI_TAG="$IMAGE_TAG"
+          else
+            CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
+          fi
+
           echo "args=${ARGS}" >> $GITHUB_OUTPUT
+          echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+          echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
 
       - name: Construct image description
         id: image_description
         run: |
           set -eux
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] ; then
+          CI_TAG="${{ steps.parse_args.outputs.ci_tag }}"
+          SHA="${{ steps.commit_sha.outputs.sha }}"
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] ; then
             # manual run from actions page
             branch_name="$GITHUB_REF_NAME"
-            sha="$GITHUB_SHA"
-            echo "image_description=$branch_name-$sha" >> $GITHUB_OUTPUT
+            echo "image_description=$branch_name-$CI_TAG-$SHA" >> $GITHUB_OUTPUT
           else
             # comment on PR
             pr_num="${{ github.event.issue.number }}"
-            sha="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
-            echo "image_description=pr$pr_num-$sha" >> $GITHUB_OUTPUT
+            echo "image_description=pr$pr_num-$CI_TAG-$SHA" >> $GITHUB_OUTPUT
           fi
 
       - name: Mark comment as seen
@@ -114,16 +157,16 @@ jobs:
 
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
             echo "allowed_user=true" >> $GITHUB_OUTPUT
-            echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
           else
             echo "allowed_user=${{ steps.check_user_perm.outcome == 'success' && steps.check_user_perm.outputs.allowed_user }}" >> $GITHUB_OUTPUT
-            echo "sha=${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}" >> $GITHUB_OUTPUT
           fi
+          echo "sha=${{ steps.commit_sha.outputs.sha }}" >> $GITHUB_OUTPUT
 
     outputs:
       allowed_user: ${{ steps.set_outputs.outputs.allowed_user }}
       sha: ${{ steps.set_outputs.outputs.sha }}
       args: ${{ steps.parse_args.outputs.args }}
+      ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
       image_description: ${{ steps.image_description.outputs.image_description }}
 
   boot-iso:
@@ -134,8 +177,8 @@ jobs:
     timeout-minutes: 300
     env:
        STATUS_NAME: boot-iso
-       CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -150,25 +193,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
 
       - name: Build anaconda-iso-creator container image
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo -E make -f ./Makefile.am anaconda-iso-creator-build
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am container-rpms-scratch
           mkdir -p ./anaconda_rpms/
           cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
@@ -179,12 +220,12 @@ jobs:
             WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
           fi
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged \
+          sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
             $WEBUI_OPTIONAL_ARG \
-            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+            $ISO_BUILD_CONTAINER_NAME:$CI_TAG
           mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
 
       - name: Collect logs
@@ -220,8 +261,8 @@ jobs:
     timeout-minutes: 300
     env:
        STATUS_NAME: live-iso
-       CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-live-iso-creator'
+       CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -236,30 +277,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-rpm-build
 
       - name: Build Anaconda RPM files
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am container-rpms-scratch
 
       - name: Build anaconda-live-iso-creator container image
         run: |
-          # set static tag to avoid complications when looking what tag is used
-          make -f ./Makefile.am anaconda-live-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo -E make -f ./Makefile.am anaconda-live-iso-creator-build
 
       - name: Build the ISO image
         run: |
           mkdir -p images
-          make -f Makefile.am container-live-iso-build CI_TAG=$CONTAINER_TAG
+          sudo -E make -f Makefile.am container-live-iso-build
           mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
 
       - name: Make artefacts created by sudo cleanable
@@ -301,7 +340,7 @@ jobs:
        STATUS_NAME: updates-img
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -344,7 +383,7 @@ jobs:
 
       - name: Clone repository
         # need the repo to successfully post a comment :-/
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 1

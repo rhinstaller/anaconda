@@ -135,13 +135,14 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         bootloader_parts = [part for part in platform.partitions
                             if part.fstype in bootloader_types]
         if len(bootloader_parts) > 1:
-            raise StorageError(_("Multiple boot loader partitions required: %s"), bootloader_parts)
+            raise StorageError(_("Multiple boot loader partitions required: %(bootparts)s") %
+                               {"bootparts": bootloader_parts})
         if not bootloader_parts:
             log.debug("No bootloader partition required")
             return False
         part_type = bootloader_parts[0].fstype
 
-        partition_table_types = {disk.format.parted_disk.type for disk in storage.disks}
+        partition_table_types = {disk.format.parted_disk.type for disk in storage.disks if disk.partitioned and not disk.protected}
         devices = []
 
         for device in storage.devices:
@@ -191,6 +192,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             AUTOPART_TYPE_PLAIN: "partition",
         }
         for mountpoint in request.reused_mount_points:
+            if mountpoint in ["bootloader", "/boot/efi"]:
+                continue
             device = cls._get_mountpoint_device(storage, mountpoint)
             if device.type != required_home_device_type[scheme]:
                 raise StorageError(_("Reused device type '{}' of mount point '{}' does not "

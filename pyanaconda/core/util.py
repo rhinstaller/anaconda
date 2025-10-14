@@ -34,6 +34,7 @@ import tempfile
 import types
 
 import requests
+from pykickstart.constants import KS_SCRIPT_ONERROR
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
@@ -44,16 +45,17 @@ from pyanaconda.core.constants import (
     DRACUT_REPO_DIR,
     DRACUT_SHUTDOWN_EJECT,
     IPMI_ABORTED,
+    IPMI_FAILED,
     PACKAGES_LIST_FILE,
 )
 from pyanaconda.core.live_user import get_live_user
 from pyanaconda.core.path import join_paths, make_directories, open_with_perm
 from pyanaconda.errors import RemovedModuleError
+from pyanaconda.modules.common.constants.objects import SCRIPTS
+from pyanaconda.modules.common.constants.services import RUNTIME
 
 log = get_module_logger(__name__)
 program_log = get_program_logger()
-
-from pykickstart.constants import KS_SCRIPT_ONERROR
 
 _child_env = {}
 
@@ -298,6 +300,26 @@ def execWithCapture(command, argv, stdin=None, root='/',
                         env_prune=env_prune, env_add=env_add,
                         replace_utf_decode_errors=replace_utf_decode_errors,
                         filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
+
+def execProgram(command, argv, stdin=None, root='/', env_prune=None, env_add=None,
+                log_output=True, filter_stderr=False, do_preexec=True):
+    """ Run an external program and capture standard out and err as well as the return code.
+
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :param env_prune: environment variable to remove before execution
+        :param env_add: environment variables added for the execution
+        :param log_output: Whether to log the output of command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
+        :param do_preexec: whether to use the preexec function
+        :return: Tuple of the return code and the output of the command
+    """
+    argv = [command] + argv
+
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output, env_prune=env_prune,
+                        env_add=env_add, filter_stderr=filter_stderr, do_preexec=do_preexec)
 
 
 def execWithCaptureAsLiveUser(command, argv, stdin=None, root='/', log_output=True,
@@ -581,18 +603,24 @@ def ipmi_report(event):
     os.remove(path)
 
 
-def ipmi_abort(scripts=None):
+def ipmi_abort():
     ipmi_report(IPMI_ABORTED)
-    runOnErrorScripts(scripts)
+    runOnErrorScripts()
 
 
-def runOnErrorScripts(scripts):
-    if not scripts:
-        return
+def ipmi_failed():
+    ipmi_report(IPMI_FAILED)
+    runOnErrorScripts()
 
-    log.info("Running kickstart %%onerror script(s)")
-    for script in filter(lambda s: s.type == KS_SCRIPT_ONERROR, scripts):
-        script.run("/")
+
+def runOnErrorScripts():
+    from pyanaconda.modules.common.task import sync_run_task
+    scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+
+    # OnError script call
+    onerror_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_ONERROR)
+    onerror_task_proxy = RUNTIME.get_proxy(onerror_task_path)
+    sync_run_task(onerror_task_proxy)
     log.info("All kickstart %%onerror script(s) have been run")
 
 
