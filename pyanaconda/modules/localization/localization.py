@@ -21,8 +21,10 @@ import langtable
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.keyboard import can_configure_keyboard, normalize_layout_variant
 from pyanaconda.localization import (
     _build_layout_infos,
     _get_layout_variant_description,
@@ -32,6 +34,7 @@ from pyanaconda.localization import (
     get_english_name,
     get_language_id,
     get_language_locales,
+    get_locale_keyboards,
     get_native_name,
     layout_supports_ascii,
 )
@@ -420,3 +423,55 @@ class LocalizationService(KickstartService):
 
     def set_compositor_layouts(self, layout_variants, options):
         self.localed_compositor_wrapper.set_layouts(layout_variants, options)
+
+    def set_x_keyboard_defaults(self):
+        """
+        Set default keyboard settings (layouts, layout switching).
+
+        :raise InvalidLocaleSpec: if an invalid locale is given (see
+                                  localization.is_valid_langcode)
+        """
+        x_layouts = self.x_layouts
+        # remove all X layouts that are not valid X layouts (unsupported)
+        valid_layouts = []
+        for layout in x_layouts:
+            if layout in self._layout_infos:
+                valid_layouts.append(layout)
+        self.set_x_layouts(valid_layouts)
+
+        if valid_layouts:
+            # do not add layouts if there are any specified in the kickstart
+            # (the x_layouts list comes from kickstart)
+            return
+
+        locale = get_language_id(self.language)
+        layouts = get_locale_keyboards(locale)
+        if layouts:
+            # take the first locale (with highest rank) from the list and
+            # store it normalized
+            new_layouts = [normalize_layout_variant(layouts[0])]
+            # annoyingly, langtable expects *no* space between layout and
+            # (variant) here
+            if not langtable.supports_ascii(layouts[0].replace(" ", "")):
+                # The default keymap setting should have "us" before the native layout
+                # which does not support ascii,
+                # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1039185
+                new_layouts.insert(0, DEFAULT_KEYBOARD)
+        else:
+            log.error("Failed to get layout for chosen locale '%s'", locale)
+            new_layouts = [DEFAULT_KEYBOARD]
+
+        self.set_x_layouts(new_layouts)
+
+        if can_configure_keyboard():
+            self.set_compositor_layouts(new_layouts, self.switch_options or [])
+
+        if len(new_layouts) >= 2 and not self.switch_options:
+            # initialize layout switching if needed
+            self.set_switch_options(["grp:alt_shift_toggle"])
+
+            if can_configure_keyboard():
+                self.set_compositor_layouts(new_layouts, ["grp:alt_shift_toggle"])
+                # activate the language-default layout instead of the additional
+                # one
+                self.set_compositor_selected_layout(new_layouts[0])

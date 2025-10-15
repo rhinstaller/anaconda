@@ -22,12 +22,8 @@ This module provides functions for dealing with keyboard layouts/keymaps in Anac
 
 import re
 
-import langtable
-
-from pyanaconda import localization
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.task import sync_run_task
 
@@ -150,60 +146,3 @@ def activate_keyboard(localization_proxy):
     task_path = localization_proxy.ApplyKeyboardWithTask()
     task_proxy = LOCALIZATION.get_proxy(task_path)
     sync_run_task(task_proxy)
-
-
-def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
-    """
-    Set default keyboard settings (layouts, layout switching).
-
-    :param localization_proxy: DBus proxy of the localization module or None
-    :type ksdata: object instance
-    :param xkl_wrapper: XklWrapper instance
-    :type xkl_wrapper: object instance
-    :raise InvalidLocaleSpec: if an invalid locale is given (see
-                              localization.is_valid_langcode)
-    """
-    x_layouts = localization_proxy.XLayouts
-    # remove all X layouts that are not valid X layouts (unsupported)
-    valid_layouts = []
-    for layout in x_layouts:
-        if xkl_wrapper.is_valid_layout(layout):
-            valid_layouts.append(layout)
-    localization_proxy.XLayouts = valid_layouts
-
-    if valid_layouts:
-        # do not add layouts if there are any specified in the kickstart
-        # (the x_layouts list comes from kickstart)
-        return
-
-    locale = localization_proxy.Language
-    layouts = localization.get_locale_keyboards(locale)
-    if layouts:
-        # take the first locale (with highest rank) from the list and
-        # store it normalized
-        new_layouts = [normalize_layout_variant(layouts[0])]
-        # annoyingly, langtable expects *no* space between layout and
-        # (variant) here
-        if not langtable.supports_ascii(layouts[0].replace(" ", "")):
-            # The default keymap setting should have "us" before the native layout
-            # which does not support ascii,
-            # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1039185
-            new_layouts.insert(0, DEFAULT_KEYBOARD)
-    else:
-        log.error("Failed to get layout for chosen locale '%s'", locale)
-        new_layouts = [DEFAULT_KEYBOARD]
-
-    localization_proxy.XLayouts = new_layouts
-
-    if can_configure_keyboard():
-        xkl_wrapper.replace_layouts(new_layouts)
-
-    if len(new_layouts) >= 2 and not localization_proxy.LayoutSwitchOptions:
-        # initialize layout switching if needed
-        localization_proxy.LayoutSwitchOptions = ["grp:alt_shift_toggle"]
-
-        if can_configure_keyboard():
-            xkl_wrapper.set_switching_options(["grp:alt_shift_toggle"])
-            # activate the language-default layout instead of the additional
-            # one
-            xkl_wrapper.activate_default_layout()
