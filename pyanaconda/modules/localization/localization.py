@@ -420,3 +420,36 @@ class LocalizationService(KickstartService):
 
     def set_compositor_layouts(self, layout_variants, options):
         self.localed_compositor_wrapper.set_layouts(layout_variants, options)
+
+    def set_x_keyboard_defaults(self):
+        """Set default keyboard settings based on the selected language."""
+        from pyanaconda.keyboard import can_configure_keyboard
+        from pyanaconda.localization import get_locale_keyboards
+
+        # Get keyboard layouts for the current language
+        locale_keyboards = get_locale_keyboards(self.language)
+        if not locale_keyboards:
+            # Fall back to default US layout if no layouts found
+            self.set_x_layouts(["us"])
+            self.set_vc_keymap("us")
+            return
+
+        # Check if the language supports ASCII
+        language_id = get_language_id(self.language)
+        supports_ascii = langtable.supports_ascii(language_id)
+
+        # Set up layouts
+        if supports_ascii:
+            # Language supports ASCII, use its layouts directly
+            self.set_x_layouts(locale_keyboards)
+        else:
+            # Language doesn't support ASCII, add US layout for ASCII support
+            self.set_x_layouts(["us"] + locale_keyboards)
+            self.set_switch_options(["grp:alt_shift_toggle"])
+
+        # Set virtual console keymap to the first layout
+        self.set_vc_keymap(self.x_layouts[0])
+
+        # Set compositor layouts if keyboard configuration is enabled
+        if can_configure_keyboard():
+            self.set_compositor_layouts(self.x_layouts, self.switch_options or [])

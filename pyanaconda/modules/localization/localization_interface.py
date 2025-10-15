@@ -329,6 +329,15 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         self.implementation.set_compositor_layouts(layout_variants, options)
 
+    def SetXKeyboardDefaults(self):
+        """Set default keyboard settings based on the selected language.
+
+        This method sets sensible default keyboard layouts based on the currently
+        selected language using langtable data. It will populate XLayouts with
+        appropriate layouts for the language, including ASCII support when needed.
+        """
+        self.implementation.set_x_keyboard_defaults()
+
     @dbus_signal
     def CompositorLayoutsChanged(self, layouts: List[Str]):
         """Signal emitted when available layouts change."""
