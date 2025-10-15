@@ -397,7 +397,7 @@ class KeyboardSpoke(NormalSpoke):
         # set X keyboard defaults
         # - this needs to be done early in spoke initialization so that
         #   the spoke status does not show outdated keyboard selection
-        keyboard.set_x_keyboard_defaults(self._l12_module, self._xkl_wrapper)
+        self._l12_module.SetXKeyboardDefaults()
 
         # make sure the x_layouts list has at least one keyboard layout
         if not self._l12_module.XLayouts:
