@@ -104,17 +104,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
         runner.assert_called_once_with()
         assert self.module.required_space == 12345
 
-    @patch("os.path.ismount")
-    def test_get_state(self, ismount_mock):
+    def test_get_state(self):
         """Test the source state."""
-        ismount_mock.return_value = False
-        assert self.module.get_state() == SourceState.UNREADY
-
-        ismount_mock.reset_mock()
-        ismount_mock.return_value = True
-
-        assert self.module.get_state() == SourceState.READY
-        ismount_mock.assert_called_once_with(self.module.mount_point)
+        # LiveOS source doesn't have a traditional mount state since it reuses existing mounts
+        assert self.module.get_state() == SourceState.NOT_APPLICABLE
 
     def test_set_up_with_tasks(self):
         """Test the set up tasks."""
@@ -125,8 +118,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def test_tear_down_with_tasks(self):
         """Test the tear down tasks."""
         tasks = self.module.tear_down_with_tasks()
-        assert len(tasks) == 1
-        assert isinstance(tasks[0], TearDownMountTask)
+        assert len(tasks) == 0  # No tear-down tasks needed for LiveOS
 
     def test_repr(self):
         """Test the string representation."""
