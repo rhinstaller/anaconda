@@ -28,7 +28,6 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import (
-    get_mount_device,
     make_directories,
     set_system_root,
     touch,
@@ -43,7 +42,7 @@ from pyanaconda.modules.common.errors.installation import (
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.base.utils import get_boot_partition
+from pyanaconda.modules.payloads.base.utils import get_device_for_mount
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 gi.require_version("OSTree", "1.0")
@@ -721,7 +720,7 @@ class DeployBootcTask(Task):
         # mkdir /mnt/sysroot/boot
         safe_exec_program("mkdir", ["-p", "/mnt/sysroot/boot"])
         # Mount /boot partition created by autopart
-        boot_partition = "/dev/" + get_boot_partition()
+        boot_partition = "/dev/" + get_device_for_mount("/boot")
         safe_exec_program("mount", [boot_partition, "/mnt/sysroot/boot"])
         # Make sure the partition is empty
         safe_exec_program("rm", ["-rf", "/mnt/sysroot/boot/*"])
@@ -743,7 +742,7 @@ class DeployBootcTask(Task):
         # in the /mnt/sysroot. We need to fix those mounts.
 
         # Track which partition is sysroot
-        sysroot_partition = get_mount_device(self._sysroot)
+        sysroot_partition = get_device_for_mount(self._sysroot)
 
         # Remove existing mounts as they are read only
         safe_exec_program("umount", ["-l", "/run/bootc/storage"])

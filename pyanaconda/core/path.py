@@ -80,29 +80,6 @@ def get_mount_paths(devnode):
     return [info[4] for info in mountinfo if info[2] == majmin]
 
 
-def get_mount_device(mount_point, mounts_file="/proc/mounts"):
-    """
-    Return the device which should be mounted on `mount_point`
-
-    :arg mount_point: The full path of the mount point
-    :kwarg mounts_file: A mounts file to use.  Defaults to `/proc/mounts`
-
-    We expect all lines in the mounts_file to have the following format::
-
-        /dev/mapper/luks-90a6412f-c588-46ca-9118-5aca35943d25 / ext4 rw,seclabel,relatime 0 0
-    """
-    with open(mounts_file, "r") as f:
-        for line in f:
-            parts = line.split()
-            if len(parts) >= 3 and parts[1] == mount_point:
-                return parts[0]
-
-    raise ValueError("Mount point {mount_point} was not found in {mounts_file}".format(
-        mount_point=mount_point,
-        mounts_file=mounts_file
-    ))
-
-
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.
 
