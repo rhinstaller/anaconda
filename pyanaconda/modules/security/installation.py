@@ -24,6 +24,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.util import join_paths
+from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.security.constants import SELinuxMode
@@ -406,14 +407,28 @@ class ConfigureFingerprintAuthTask(Task):
 
         if not self._is_fingerprint_configuration_supported():
             log.debug("Fingerprint conifguration is not supported on target system.")
-        else:
-            log.debug("Enabling fingerprint authentication.")
-            run_auth_tool(
-                AUTHSELECT_TOOL_PATH,
-                AUTHSELECT_ARGS,
-                self._sysroot,
-                required=False
+            return
+
+        #Check current kickstarted authselect args
+        security_proxy = SECURITY.get_proxy()
+        current_args = list(security_proxy.Authselect) or []
+
+        if current_args:
+            log.debug(
+                "Authselect already specified in kickstart (%s). Not overriding.", current_args
             )
+            return
+
+        log.debug("Enabling fingerprint authentication.")
+        run_auth_tool(
+            AUTHSELECT_TOOL_PATH,
+            AUTHSELECT_ARGS,
+            self._sysroot,
+            required=False
+        )
+
+        security_proxy.SetAuthselect(AUTHSELECT_ARGS)
+        log.debug("Authselect kickstart set to: %s", AUTHSELECT_ARGS)
 
 
 class ConfigureAuthselectTask(Task):
