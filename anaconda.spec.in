@@ -510,6 +510,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 16 2025 github-actions <github-actions@github.com> - 43.46-1
+- Introduce SetXKeyboardDefaults D-Bus method for setting sensible keyboard
+  defaults (k.koukiou)
+
 * Tue Oct 14 2025 github-actions <github-actions@github.com> - 43.45-1
 - RebootData: don't allow action to be None (awilliam)
 - pyanaconda: localization: Indicate ASCII support in get_keyboard_layouts
