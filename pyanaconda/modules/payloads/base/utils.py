@@ -39,9 +39,9 @@ class DeviceNotFound(Exception):
     """Raised when a device file is not found."""
 
 
-def get_device_for_mount(mount_point):
+def get_device_path_for_mount_point(mount_point):
     """
-    Return the device which should be mounted on `mount_point`
+    Return the device path which should be mounted on `mount_point`
 
     :arg mount_point: The full path of the mount point
     :returns: The device name
@@ -51,7 +51,8 @@ def get_device_for_mount(mount_point):
 
     for path, device_id in mount_points.items():
         if path == mount_point:
-            return device_id
+            device_path = device_tree.GetDeviceData(deviceid).path
+            return device_path
 
     raise DeviceNotFound("Unable to find a device for the mountpoint {0}".format(
         mount_point

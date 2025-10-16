@@ -42,7 +42,7 @@ from pyanaconda.modules.common.errors.installation import (
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.base.utils import get_device_for_mount
+from pyanaconda.modules.payloads.base.utils import get_device_path_for_mount_point
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 gi.require_version("OSTree", "1.0")
@@ -708,22 +708,22 @@ class DeployBootcTask(Task):
         # during the partitioning by blivet
         log.debug("Bootc workaround: remove unwanted directories")
         # rm -rf /mnt/sysroot/*
-        safe_exec_program("rm", ["-rf", "/mnt/sysroot/root"])
-        safe_exec_program("rmdir", ["/mnt/sysroot/dev"])
-        safe_exec_program("rmdir", ["/mnt/sysroot/proc"])
-        safe_exec_program("rmdir", ["/mnt/sysroot/run"])
-        safe_exec_program("rmdir", ["/mnt/sysroot/sys"])
-        safe_exec_program("rmdir", ["/mnt/sysroot/tmp"])
+        safe_exec_program("rm", ["-rf", self._sysroot + "/root"])
+        safe_exec_program("rmdir", [self._sysroot + "/dev"])
+        safe_exec_program("rmdir", [self._sysroot + "/proc"])
+        safe_exec_program("rmdir", [self._sysroot + "/run"])
+        safe_exec_program("rmdir", [self._sysroot + "/sys"])
+        safe_exec_program("rmdir", [self._sysroot + "/tmp"])
 
         # Bootc requires empty `boot` directory to be presentd
         log.debug("Bootc workaround: create bootc required dirs")
         # mkdir /mnt/sysroot/boot
-        safe_exec_program("mkdir", ["-p", "/mnt/sysroot/boot"])
+        safe_exec_program("mkdir", ["-p", self._sysroot + "/boot"])
         # Mount /boot partition created by autopart
-        boot_partition = "/dev/" + get_device_for_mount("/boot")
-        safe_exec_program("mount", [boot_partition, "/mnt/sysroot/boot"])
+        boot_partition = get_device_path_for_mount_point("/boot")
+        safe_exec_program("mount", [boot_partition, self._sysroot + "/boot"])
         # Make sure the partition is empty
-        safe_exec_program("rm", ["-rf", "/mnt/sysroot/boot/*"])
+        safe_exec_program("rm", ["-rf", self._sysroot + "/boot/*"])
 
         log.debug("Executing bootc install command")
         safe_exec_program(
@@ -742,7 +742,7 @@ class DeployBootcTask(Task):
         # in the /mnt/sysroot. We need to fix those mounts.
 
         # Track which partition is sysroot
-        sysroot_partition = get_device_for_mount(self._sysroot)
+        sysroot_partition = get_device_path_for_mount_point("/")
 
         # Remove existing mounts as they are read only
         safe_exec_program("umount", ["-l", "/run/bootc/storage"])
@@ -755,12 +755,12 @@ class DeployBootcTask(Task):
         new_home_path = execWithCapture("find", [self._physroot, "-name", "home"]).rstrip()
         new_root_path = execWithCapture("dirname", [new_home_path]).rstrip()
 
-        #safe_exec_program("mount", ["--bind", new_root_path, "/mnt/sysroot"])
+        #safe_exec_program("mount", ["--bind", new_root_path, self._sysroot])
         set_system_root(new_root_path)
 
         # Anaconda is expecting to put some files in new root directory
         # but after bootc install root is a symlinkg to not existing var/roothome
-        safe_exec_program("mkdir", ["/mnt/sysroot/var/roothome"])
+        safe_exec_program("mkdir", [self._sysroot + "/var/roothome"])
 
         log.info("Bootc deploy complete")
         self.report_progress(_("Bootc deployment complete: {}").format(ref))
