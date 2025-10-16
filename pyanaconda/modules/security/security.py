@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 import shlex
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -113,8 +114,6 @@ class SecurityService(KickstartService):
 
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
-        elif self.fingerprint_auth_enabled:
-            data.authselect.authselect = " ".join(AUTHSELECT_ARGS)
 
         if self.realm.name:
             data.realm.join_realm = self.realm.name
