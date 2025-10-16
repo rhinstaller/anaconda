@@ -22,6 +22,7 @@ import tempfile
 import unittest
 from contextlib import contextmanager
 from textwrap import dedent
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
@@ -36,6 +37,7 @@ from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import (
+    AUTHSELECT_ARGS,
     AUTHSELECT_TOOL_PATH,
     PAM_SO_64_PATH,
     PAM_SO_PATH,
@@ -159,6 +161,22 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def test_kickstart_contains_authselect_when_module_property_is_set(self):
+        self.security_interface.Authselect = [
+            "select",
+            "sssd",
+            "with-fingerprint",
+            "with-silent-lastlog",
+            "--force",
+        ]
+
+        ks_in = ""
+        ks_out = """
+        # System authorization information
+        authselect select sssd with-fingerprint with-silent-lastlog --force
+        """
+        self._test_kickstart(ks_in, ks_out)
+
     def test_realm_kickstart(self):
         """Test the realm command."""
         ks_in = """
@@ -232,17 +250,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def test_kickstart_authselect_merges_with_fingerprint(self):
-        self.security_interface.FingerprintAuthEnabled = True
-
-        ks_in = ""
-        ks_out = """
-        # System authorization information
-        authselect enable-feature with-fingerprint
-        """
-
-        self._test_kickstart(ks_in, ks_out)
-
     @patch_dbus_publish_object
     def test_realm_discover_default(self, publisher):
         """Test module in default state with realm discover task."""
@@ -270,8 +277,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """Test InstallWithTasks."""
         task_classes = [
             ConfigureSELinuxTask,
-            ConfigureFingerprintAuthTask,
-            ConfigureAuthselectTask,
         ]
         task_paths = self.security_interface.InstallWithTasks()
         task_objs = check_task_creation_list(task_paths, publisher, task_classes)
@@ -279,12 +284,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         # ConfigureSELinuxTask
         obj = task_objs[0]
         assert obj.implementation._selinux_mode == SELinuxMode.DEFAULT
-        # ConfigureFingerprintAuthTask
-        obj = task_objs[1]
-        assert obj.implementation._fingerprint_auth_enabled is False
-        # ConfigureAuthselectTask
-        obj = task_objs[2]
-        assert obj.implementation._authselect_options == []
 
     @patch_dbus_publish_object
     def test_realm_join_default(self, publisher):
@@ -312,9 +311,9 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface.Authselect = authselect
         self.security_interface.FingerprintAuthEnabled = fingerprint
 
+        # We have ks args => no fingerprint task
         task_classes = [
             ConfigureSELinuxTask,
-            ConfigureFingerprintAuthTask,
             ConfigureAuthselectTask,
         ]
         task_paths = self.security_interface.InstallWithTasks()
@@ -323,12 +322,29 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         # ConfigureSELinuxTask
         obj = task_objs[0]
         assert obj.implementation._selinux_mode == SELinuxMode.PERMISSIVE
+        # ConfigureAuthselectTask
+        obj = task_objs[1]
+        assert obj.implementation._authselect_options == authselect
+
+    @patch_dbus_publish_object
+    def test_install_with_tasks_fingerprint_only(self, publisher):
+        """When fingerprint is enabled and KS authselect is empty, enqueue fingerprint task."""
+        self.security_interface.FingerprintAuthEnabled = True
+        self.security_interface.Authselect = []
+
+        task_classes = [
+            ConfigureSELinuxTask,
+            ConfigureFingerprintAuthTask,
+        ]
+        task_paths = self.security_interface.InstallWithTasks()
+        task_objs = check_task_creation_list(task_paths, publisher, task_classes)
+
+        # ConfigureSELinuxTask
+        obj = task_objs[0]
+        assert obj.implementation._selinux_mode == SELinuxMode.DEFAULT
         # ConfigureFingerprintAuthTask
         obj = task_objs[1]
-        assert obj.implementation._fingerprint_auth_enabled == fingerprint
-        # ConfigureAuthselectTask
-        obj = task_objs[2]
-        assert obj.implementation._authselect_options == authselect
+        assert obj.implementation._fingerprint_auth_enabled is True
 
     @patch_dbus_publish_object
     def test_realm_join_configured(self, publisher):
@@ -888,9 +904,12 @@ class SecurityTasksTestCase(unittest.TestCase):
             # check if the realm command invocation looks right
             execWithRedirect.assert_not_called()
 
-    @patch('pyanaconda.core.util.execWithRedirect')
-    def test_configure_fingerprint_auth_task(self, execWithRedirect):
-        """Test the configure fingerprint task."""
+    @patch("pyanaconda.modules.security.installation.SECURITY.get_proxy")
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_configure_fingerprint_auth_task(self, execWithRedirect, get_proxy):
+        proxy = SimpleNamespace(Authselect=[])
+        get_proxy.return_value = proxy
+
         with tempfile.TemporaryDirectory() as sysroot:
 
             authselect_dir = os.path.normpath(sysroot + os.path.dirname(AUTHSELECT_TOOL_PATH))
@@ -925,6 +944,7 @@ class SecurityTasksTestCase(unittest.TestCase):
 
             # Authselect command and pam library are there
             execWithRedirect.reset_mock()
+            proxy.Authselect = []
             os.mknod(pam_so_path)
             os.mknod(authselect_path)
             task = ConfigureFingerprintAuthTask(
@@ -934,14 +954,16 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
-                ["enable-feature", "with-fingerprint"],
+                AUTHSELECT_ARGS,
                 root=sysroot
             )
+            assert proxy.Authselect == AUTHSELECT_ARGS
             os.remove(pam_so_path)
             os.remove(authselect_path)
 
             # Authselect command and pam library are there
             execWithRedirect.reset_mock()
+            proxy.Authselect = []
             os.mknod(pam_so_64_path)
             os.mknod(authselect_path)
             task = ConfigureFingerprintAuthTask(
@@ -951,9 +973,10 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
-                ["enable-feature", "with-fingerprint"],
+                AUTHSELECT_ARGS,
                 root=sysroot
             )
+            assert proxy.Authselect == AUTHSELECT_ARGS
             os.remove(pam_so_64_path)
             os.remove(authselect_path)
 
