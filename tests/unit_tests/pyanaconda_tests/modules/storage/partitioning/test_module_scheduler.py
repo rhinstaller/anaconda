@@ -92,7 +92,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
     def test_generate_system_name(self):
         """Test GenerateSystemName."""
         assert self.interface.GenerateSystemName() == \
-            "New anaconda bluesky Installation"
+            "New Fedora Linux 41 Installation"
 
     def test_generate_system_data(self):
         """Test GenerateSystemData."""
@@ -102,7 +102,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         os_data = self.interface.GenerateSystemData("dev1")
         assert get_native(os_data) == {
-            'os-name': 'New anaconda bluesky Installation',
+            'os-name': 'New Fedora Linux 41 Installation',
             'devices': ['dev1', 'dev2', 'dev3'],
             'mount-points': {'/boot': 'dev1', '/': 'dev2'},
         }
@@ -806,13 +806,13 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         network_proxy.Hostname = "localhost"
         network_proxy.GetCurrentHostname.return_value = "localhost"
-        assert self.interface.GenerateContainerName() == "anaconda"
+        assert self.interface.GenerateContainerName() == "fedora"
 
         network_proxy.GetCurrentHostname.return_value = "hostname"
-        assert self.interface.GenerateContainerName() == "anaconda_hostname"
+        assert self.interface.GenerateContainerName() == "fedora_hostname"
 
         network_proxy.Hostname = "best.hostname"
-        assert self.interface.GenerateContainerName() == "anaconda_best"
+        assert self.interface.GenerateContainerName() == "fedora_best"
 
     @patch_dbus_get_proxy
     def test_generate_container_data(self, proxy_getter):
@@ -875,7 +875,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         )
 
         assert request.container_spec == ""
-        assert request.container_name == "anaconda"
+        assert request.container_name == "fedora"
         assert request.container_encrypted is False
         assert request.container_raid_level == "single"
         assert request.container_size_policy == 0

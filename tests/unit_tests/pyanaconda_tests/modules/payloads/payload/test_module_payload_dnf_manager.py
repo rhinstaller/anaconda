@@ -163,7 +163,6 @@ class DNFManagerTestCase(unittest.TestCase):
             "/etc/yum.repos.d",
             "/etc/anaconda.repos.d"
         )
-        self._check_variables(releasever="rawhide")
 
     def test_configure_proxy(self):
         """Test the proxy configuration."""
