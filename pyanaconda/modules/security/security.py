@@ -32,7 +32,6 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.certificates import CertificatesModule
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import (
-    AUTHSELECT_ARGS,
     ConfigureAuthconfigTask,
     ConfigureAuthselectTask,
     ConfigureFingerprintAuthTask,
@@ -127,8 +126,6 @@ class SecurityService(KickstartService):
 
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
-        elif self.fingerprint_auth_enabled:
-            data.authselect.authselect = " ".join(AUTHSELECT_ARGS)
 
         if self.authconfig:
             data.authconfig.authconfig = " ".join(self.authconfig)
@@ -331,21 +328,38 @@ class SecurityService(KickstartService):
 
         :returns: list of installation tasks
         """
-        return [
-            ConfigureSELinuxTask(
-                sysroot=conf.target.system_root,
-                selinux_mode=self.selinux
-            ),
-            ConfigureFingerprintAuthTask(
-                sysroot=conf.target.system_root,
-                fingerprint_auth_enabled=self.fingerprint_auth_enabled
-            ),
-            ConfigureAuthselectTask(
-                sysroot=conf.target.system_root,
-                authselect_options=self.authselect
-            ),
+        tasks = []
+
+        # 1) SELinux first
+        tasks.append(
+            ConfigureSELinuxTask(sysroot=conf.target.system_root, selinux_mode=self.selinux)
+        )
+
+        # 2) Fingerprint vs Authselect
+        if self.fingerprint_auth_enabled and not self.authselect:
+            log.debug("No KS authselect args; enqueue ConfigureFingerprintAuthTask.")
+            tasks.append(
+                ConfigureFingerprintAuthTask(
+                    sysroot=conf.target.system_root,
+                    fingerprint_auth_enabled=self.fingerprint_auth_enabled,
+                )
+            )
+        elif self.authselect:
+            log.debug(
+                "KS authselect present %s; enqueue ConfigureAuthselectTask.", self.authselect
+            )
+            tasks.append(
+                ConfigureAuthselectTask(
+                    sysroot=conf.target.system_root, authselect_options=self.authselect
+                )
+            )
+        else:
+            log.debug("No fingerprint (without args) and no KS authselect; nothing to configure.")
+
+        tasks.append(
             ConfigureAuthconfigTask(
                 sysroot=conf.target.system_root,
                 authconfig_options=self.authconfig
             )
-        ]
+        )
+        return tasks
