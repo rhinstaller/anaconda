@@ -42,7 +42,7 @@ class BootcConfigurationData(DBusData):
 
     @property
     def sourceImgRef(self) -> Str:
-        """Remote management root for OS installation."""
+        """Explicitly given installation source"""
         return self._sourceImgRef
 
     @sourceImgRef.setter
@@ -51,7 +51,7 @@ class BootcConfigurationData(DBusData):
 
     @property
     def targetImgRef(self) -> Str:
-        """URL of the repository to install from."""
+        """Image to fetch for subsequent updates"""
         return self._targetImgRef
 
     @targetImgRef.setter
