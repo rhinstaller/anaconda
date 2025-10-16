@@ -109,12 +109,6 @@ class BootcSourceModule(PayloadSourceBase):
         data.bootc.targetImgRef = self.configuration.targetImgRef
         data.bootc.seen = True
 
-        log.debug("XXX bootc kickstart config '%s' '%s' '%s' '%s'.",
-                  data.bootc.stateroot,
-                  data.bootc.sourceImgRef,
-                  data.bootc.targetImgRef,
-                  data.bootc.seen)
-
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
 
