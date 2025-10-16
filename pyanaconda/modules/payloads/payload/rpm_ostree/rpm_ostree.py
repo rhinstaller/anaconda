@@ -92,9 +92,7 @@ class RPMOSTreeModule(PayloadBase):
 
         source = SourceFactory.create_source(source_type)
         source.process_kickstart(data)
-        self._get_ostree_source()
         self.add_source(source)
-        self._get_ostree_source()
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
