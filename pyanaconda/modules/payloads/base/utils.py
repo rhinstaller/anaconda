@@ -31,6 +31,8 @@ from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.storage import DeviceData
+
 
 log = get_module_logger(__name__)
 
@@ -51,7 +53,10 @@ def get_device_path_for_mount_point(mount_point):
 
     for path, device_id in mount_points.items():
         if path == mount_point:
-            device_path = device_tree.GetDeviceData(deviceid).path
+            device_path = DeviceData.from_structure(
+                device_tree.GetDeviceData(device_id)
+            ).path
+
             return device_path
 
     raise DeviceNotFound("Unable to find a device for the mountpoint {0}".format(
