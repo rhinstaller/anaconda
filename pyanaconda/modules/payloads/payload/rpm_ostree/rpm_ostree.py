@@ -224,7 +224,7 @@ class RPMOSTreeModule(PayloadBase):
             return []
 
         # No extra steps in case of the bootc install
-        if ostree_source == SourceType.BOOTC:
+        if ostree_source.type == SourceType.BOOTC:
             return []
 
         # Has to be RPM_OSTREE or RPM_OSTREE_CONTAINER
