@@ -27,16 +27,22 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import make_directories, set_system_root
-from pyanaconda.core.util import execProgram, execWithRedirect
+from pyanaconda.core.path import (
+    make_directories,
+    set_system_root,
+    touch,
+)
+from pyanaconda.core.util import execProgram, execWithCapture, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.modules.common.errors.installation import (
     BootloaderInstallationError,
     PayloadInstallationError,
 )
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.base.utils import get_device_path_for_mount_point
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 gi.require_version("OSTree", "1.0")
@@ -70,6 +76,10 @@ def _get_ref(data):
     :param data: OSTree source structure
     :return str: ref or name based on source
     """
+    if isinstance(data, BootcConfigurationData):
+        # Bootc uses sourceImgRef instead of url
+        return data.sourceImgRef
+
     # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
     if data.is_container():
         # we don't have ref with container; there are not multiple references in one container
@@ -86,6 +96,10 @@ def _get_stateroot(data):
     :param data: OSTree source structure
     :return str: stateroot or osname value based on source
     """
+    if isinstance(data, BootcConfigurationData):
+        # Bootc uses stateroot instead of osname
+        return data.stateroot
+
     if data.is_container():
         # osname was renamed to stateroot so let's use the new name
         if data.stateroot:
@@ -633,6 +647,125 @@ class ConfigureBootloader(Task):
                  self._sysroot + "/boot"])
 
 
+class DeployBootcTask(Task):
+    """Task to deploy Bootc based image."""
+
+    def __init__(self, data, physroot, sysroot):
+        """Create a new task.
+
+        :param data: a bootc configuration
+        :param str physroot: a path to the physical root
+        :param str sysroot: a path to the system root
+        """
+        super().__init__()
+        self._data = data
+        self._physroot = physroot
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Deploy bootc"
+
+    def run(self):
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        # Bootc will handle bootloader config so disable it
+        bootloader.BootloaderMode = 0
+        log.debug("Disabled bootloader configuration due to bootc mode")
+
+        stateroot = _get_stateroot(self._data)
+        ref = _get_ref(self._data)
+
+        log.debug("Run the bootc based installation")
+
+        self.report_progress(_("Bootc deployment starting: {}").format(ref))
+
+        # Some workarounds are needed due to current bootc development status
+
+        # The main one is SELinux to be presented in the system.
+        # https://github.com/bootc-dev/bootc/issues/1438
+        # It may be disabled but need to be presented.
+        # Both pairs of kernel parameters will work:
+        # * selinux=0 enforcing=0
+        # * selinux=1 enforcing=0
+        # Right now we use the /etc/selinux/config file to do the equivalent of
+        # selinux=1 enforcing=0.
+        # We set this in lorax-build using the whitelist_selinux.patch
+
+        # Bootc expects `prepare-root.conf` file to be presented in the system
+        # https://github.com/bootc-dev/bootc/discussions/1400
+        # https://github.com/bootc-dev/bootc/issues/1410
+        log.debug("Bootc workaround: add missing configuration file")
+        # touch /etc/ostree/prepare-root.conf
+        touch("/etc/ostree/prepare-root.conf")
+
+        # After automatic partitioning sysroot and sysimage are mounted,
+        # but we need a clear directory strucutre expected by the bootc
+        log.debug("Bootc workaround: remove unwanted mounts")
+        # umount -l /mnt/sysimage/
+        safe_exec_program("umount", ["-l", self._physroot])
+
+        # Bootc does not need any directories created automatically
+        # during the partitioning by blivet
+        log.debug("Bootc workaround: remove unwanted directories")
+        # rm -rf /mnt/sysroot/*
+        safe_exec_program("rm", ["-rf", self._sysroot + "/root"])
+        safe_exec_program("rmdir", [self._sysroot + "/dev"])
+        safe_exec_program("rmdir", [self._sysroot + "/proc"])
+        safe_exec_program("rmdir", [self._sysroot + "/run"])
+        safe_exec_program("rmdir", [self._sysroot + "/sys"])
+        safe_exec_program("rmdir", [self._sysroot + "/tmp"])
+
+        # Bootc requires empty `boot` directory to be presentd
+        log.debug("Bootc workaround: create bootc required dirs")
+        # mkdir /mnt/sysroot/boot
+        safe_exec_program("mkdir", ["-p", self._sysroot + "/boot"])
+        # Mount /boot partition created by autopart
+        boot_partition = get_device_path_for_mount_point("/boot")
+        safe_exec_program("mount", [boot_partition, self._sysroot + "/boot"])
+        # Make sure the partition is empty
+        safe_exec_program("rm", ["-rf", self._sysroot + "/boot/*"])
+
+        log.debug("Executing bootc install command")
+        safe_exec_program(
+            "bootc",
+            ["install",
+            "to-filesystem",
+            "--stateroot=" + stateroot,
+            "--source-imgref=" + self._data.sourceImgRef,
+            "--target-imgref=" + self._data.targetImgRef,
+            self._sysroot]
+        )
+
+        # After bootc install is completed sysroot is mounted in read only mode
+        # and it points to the base of ostree deployment but not the new true sysroot.
+        # Final steps of Anaconda install expects to find config dirs like `/etc`
+        # in the /mnt/sysroot. We need to fix those mounts.
+
+        # Track which partition is sysroot
+        sysroot_partition = get_device_path_for_mount_point("/")
+
+        # Remove existing mounts as they are read only
+        safe_exec_program("umount", ["-l", "/run/bootc/storage"])
+        safe_exec_program("umount", ["-l", self._sysroot])
+
+        # Mount current sysroot as sysimage (umounted before)
+        safe_exec_program("mount", [sysroot_partition, self._physroot])
+
+        # Find directory containing `home` and make it a new sysroot
+        new_home_path = execWithCapture("find", [self._physroot, "-name", "home"]).rstrip()
+        new_root_path = execWithCapture("dirname", [new_home_path]).rstrip()
+
+        #safe_exec_program("mount", ["--bind", new_root_path, self._sysroot])
+        set_system_root(new_root_path)
+
+        # Anaconda is expecting to put some files in new root directory
+        # but after bootc install root is a symlinkg to not existing var/roothome
+        safe_exec_program("mkdir", [self._sysroot + "/var/roothome"])
+
+        log.info("Bootc deploy complete")
+        self.report_progress(_("Bootc deployment complete: {}").format(ref))
+
+
 class DeployOSTreeTask(Task):
     """Task to deploy OSTree."""
 
@@ -651,8 +784,8 @@ class DeployOSTreeTask(Task):
         return "Deploy OSTree"
 
     def run(self):
-        ref = _get_ref(self._data)
         stateroot = _get_stateroot(self._data)
+        ref = _get_ref(self._data)
 
         self.report_progress(_("Deployment starting: {}").format(ref))
 
