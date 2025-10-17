@@ -16,7 +16,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
-%bcond glade %{undefined rhel}
+%bcond glade %[%{undefined rhel} && %{undefined eln}]
 %bcond live %[%{defined fedora} || %{defined eln}]
 %if ! 0%{?rhel}
 %define blivetguiver 2.4.2-3
