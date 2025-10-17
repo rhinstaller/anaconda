@@ -215,15 +215,18 @@ class RPMOSTreeModule(PayloadBase):
 
         :return: list of tasks
         """
-        # No extra steeps in case of the bootc install
-        if self._get_source(SourceType.BOOTC):
-            return []
-
         ostree_source = self._get_ostree_source()
+
+        # Not an ostree or bootc install
         if not ostree_source:
             log.debug("No OSTree RPM source is available.")
             return []
 
+        # No extra steps in case of the bootc install
+        if ostree_source == SourceType.BOOTC:
+            return []
+
+        # Has to be RPM_OSTREE or RPM_OSTREE_CONTAINER
         return [
             ChangeOSTreeRemoteTask(
                 data=ostree_source.configuration,
@@ -243,7 +246,7 @@ class RPMOSTreeModule(PayloadBase):
         """
         tasks = super().tear_down_with_tasks()
 
-        # No extra steeps in case of the bootc install
+        # No extra steps in case of the bootc install
         if self._get_source(SourceType.BOOTC):
             return tasks
 
