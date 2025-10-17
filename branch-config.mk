@@ -37,7 +37,7 @@ CI_TAG_VERSION := $(word 2,$(subst -, ,$(CI_TAG)))
 # Compute BASE_CONTAINER based on CI_TAG
 BASE_CONTAINER = $(strip \
   $(if $(filter eln,$(CI_TAG)), \
-      $(ELN_CONTAINER_REGISTRY)/fedoraci/fedora:eln-x86_64, \
+      $(ELN_CONTAINER_REGISTRY)/fedora/eln:latest-x86_64, \
       $(if $(filter fedora,$(CI_TAG_DISTRO)), \
           $(FEDORA_CONTAINER_REGISTRY)/$(CI_TAG_DISTRO):$(CI_TAG_VERSION), \
           $(if $(filter rhel,$(CI_TAG_DISTRO)), \
