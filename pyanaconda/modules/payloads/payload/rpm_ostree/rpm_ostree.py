@@ -82,11 +82,12 @@ class RPMOSTreeModule(PayloadBase):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
+        # Try bootc source
+        source_type = SourceFactory.get_bootc_type_for_kickstart(data)
 
         if source_type is None:
-            # Try bootc source
-            source_type = SourceFactory.get_bootc_type_for_kickstart(data)
+            # Try ostree source next
+            source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
             if source_type is None:
                 return
 
