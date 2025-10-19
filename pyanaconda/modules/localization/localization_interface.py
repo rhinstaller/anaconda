@@ -329,6 +329,7 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         self.implementation.set_compositor_layouts(layout_variants, options)
 
+    @emits_properties_changed
     def SetXKeyboardDefaults(self):
         """Set default keyboard settings based on the selected language.
 
