@@ -38,7 +38,6 @@ RUN set -ex; \
   git \
   curl \
   python3-pip \
-  python3-polib \
   /usr/bin/xargs \
   rsync \
   rpm-build \
@@ -52,6 +51,7 @@ RUN set -ex; \
     dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
+    dnf install -y python3-polib; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
