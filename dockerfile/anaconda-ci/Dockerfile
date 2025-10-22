@@ -38,18 +38,16 @@ RUN set -ex; \
   dnf install -y \
   'dnf5-command(copr)'; \
   # Enable COPR repositories
+  CI_TAG="${ci_tag}"; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
     # if fedora-cisco is not enabled it will fallback to stub library in main repository which is
     # what we want
     sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/fedora-cisco-openh264.repo; \
-    CI_TAG="${ci_tag}"; \
-    dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
-  else \
-    dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
+  dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
   # Update the base container packages
   dnf update -y; \
   # Install rest of the dependencies
