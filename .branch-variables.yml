@@ -16,7 +16,7 @@ rawhide_fedora_version: 44 # number without quotation marks, or nothing if CI sh
 # List of supported releases. Each release can track its own branch or derive from main.
 # - release: string identifier (e.g., "rhel-9", "fedora-43")
 # - target_branch: git branch to check out for this release
-# - variant: optional, "rhel" or "fedora"
+# - variant: optional, "rhel" or "fedora" or "eln"
 supported_releases:
   - release: "fedora-rawhide"
     target_branch: "main"
@@ -27,6 +27,9 @@ supported_releases:
   - release: "rhel-10"
     target_branch: "rhel-10"
     variant: "rhel"
+  - release: "fedora-eln"
+    target_branch: "main"
+    variant: "eln"
 
 # List of all the branches which should get translation updates
 translation_branches:
