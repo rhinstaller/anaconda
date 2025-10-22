@@ -65,11 +65,17 @@ AC_SUBST([HTML_DIR])
 AC_ARG_ENABLE([glade],
               AS_HELP_STRING([--disable-glade], [Build without glade module]))
 
-AS_IF([test "x$enable_glade" != "xno"],
-      [ANACONDA_PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
-       AC_SUBST(GLADE_SUBDIR, "glade")
-       AC_CONFIG_FILES([glade/Makefile])],
-      [AC_SUBST(GLADE_SUBDIR, "")])
+m4_if(m4_esyscmd([test "x$ANACONDA_DISABLE_GLADE" = "xyes" && echo -n yes]), [yes], [
+  dnl Glade disabled - skip glade configuration
+  AC_SUBST(GLADE_SUBDIR, "")
+], [
+  dnl Normal glade configuration
+  AS_IF([test "x$enable_glade" != "xno"],
+        [ANACONDA_PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
+         AC_SUBST(GLADE_SUBDIR, "glade")
+         AC_CONFIG_FILES([glade/Makefile])],
+        [AC_SUBST(GLADE_SUBDIR, "")])
+])
 
 ANACONDA_PKG_CHECK_MODULES([GTK], [gtk+-wayland-3.0 >= 3.11.3])
 ANACONDA_PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
