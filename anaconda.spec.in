@@ -372,6 +372,8 @@ runtime on NFS/HTTP/FTP servers or local disks.
 # Work around an issue where a version mismatch between the automake version on
 # the build system and what was used when the tarball was created will cause
 # a failure.
+# The glade configuration is passed to m4 via environment variable.
+%{!?with_glade:export ANACONDA_DISABLE_GLADE=yes}
 autoreconf -vfi
 
 # use actual build-time release number, not tarball creation time release number
