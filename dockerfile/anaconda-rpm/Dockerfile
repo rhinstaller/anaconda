@@ -42,19 +42,17 @@ RUN set -ex; \
   rsync \
   rpm-build \
   rpmlint; \
+  CI_TAG=${ci_tag}; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
     # if fedora-cisco is not enabled it will fallback to stub library in main repository which is
     # what we want
     sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/fedora-cisco-openh264.repo; \
-    CI_TAG=${ci_tag}; \
-    dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
     dnf install -y python3-polib; \
-  else \
-    dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
+  dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf clean all; \

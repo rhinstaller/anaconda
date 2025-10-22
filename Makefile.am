@@ -90,7 +90,7 @@ CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
 CONTAINER_ADD_ARGS ?=
 # Glade was removed in RHEL from RHEL-10
-CONTAINER_CONFIGURE_ARGS ?= $(shell test "$(CI_TAG)" = "eln" -o "$(CI_TAG)" = "rhel-10" && echo "--env=CONFIGURE_ARGS=--disable-glade")
+CONTAINER_CONFIGURE_ARGS ?= $(shell test "$(CI_TAG)" = "fedora-eln" -o "$(CI_TAG)" = "rhel-10" && echo "--env=CONFIGURE_ARGS=--disable-glade")
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
