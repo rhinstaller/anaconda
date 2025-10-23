@@ -21,6 +21,7 @@ import json
 import os
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import Mock, call, patch
 
 import gi
@@ -77,6 +78,7 @@ from pyanaconda.modules.subscription.runtime import (
     RollBackSatelliteProvisioningTask,
     RunSatelliteProvisioningScriptTask,
     SetRHSMConfigurationTask,
+    SetupContainerCertificatesTask,
     SystemPurposeConfigurationTask,
     UnregisterTask,
 )
@@ -566,6 +568,30 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             with pytest.raises(SubscriptionTokenTransferError):
                 task._transfer_entitlement_keys()
 
+    def test_transfer_folder(self):
+        """Test the transfer folder method "greenpath"."""
+        with (
+            tempfile.TemporaryDirectory() as sysroot,
+            patch("pyanaconda.modules.subscription.installation.copy_folder", return_value=True) as copy_folder,
+        ):
+            task = TransferSubscriptionTokensTask(sysroot=sysroot, transfer_subscription_tokens=True)
+            task._transfer_folder("/etc/containers/certs.d", "container certs")
+            sysroot_path = join_paths(sysroot, "/etc/containers/certs.d")
+            copy_folder.assert_called_once_with("/etc/containers/certs.d", sysroot_path)
+
+    def test_transfer_folder_error(self):
+        """Test the transfer folder method on failure."""
+
+        # simulate the folder not existing
+        # - this is a critical error and should raise an exception
+        with (
+            tempfile.TemporaryDirectory() as sysroot,
+            patch("pyanaconda.modules.subscription.installation.copy_folder", return_value=False),
+        ):
+            task = TransferSubscriptionTokensTask(sysroot=sysroot, transfer_subscription_tokens=True)
+            with pytest.raises(SubscriptionTokenTransferError):
+                task._transfer_folder("/etc/containers/certs.d", "container certs")
+
     def test_transfer(self):
         """Test transfer_tokens being True is handled correctly for token transfer task."""
 
@@ -574,11 +600,11 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
         # expected method are called.
 
         with tempfile.TemporaryDirectory() as sysroot:
-            task = TransferSubscriptionTokensTask(sysroot=sysroot,
-                                                  transfer_subscription_tokens=True)
+            task = TransferSubscriptionTokensTask(sysroot=sysroot, transfer_subscription_tokens=True)
             task._transfer_system_purpose = Mock()
             task._transfer_entitlement_keys = Mock()
             task._transfer_file = Mock()
+            task._transfer_folder = Mock()
             # run the task
             task.run()
             # all the transfer operations should have been done
@@ -590,6 +616,8 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                  call('/etc/yum.repos.d/redhat.repo', 'RHSM repo file'),
                  call('/etc/rhsm/rhsm.conf', 'RHSM config file')]
             )
+            # verify container certs transfer was called
+            task._transfer_folder.assert_called_once_with("/etc/containers/certs.d", "container certs")
 
     def test_no_transfer(self):
         """Test transfer_tokens being False is handled correctly for token transfer task."""
@@ -1143,7 +1171,7 @@ class SatelliteTasksTestCase(unittest.TestCase):
         )
 
 
-class RegisterAndSubscribeTestCase(unittest.TestCase):
+class RegisterAndSubscribeTestCase:
     """Test the RegisterAndSubscribeTask orchestration task.
 
     This task does orchestration of many individual tasks,
@@ -1492,7 +1520,8 @@ class RegisterAndSubscribeTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.subscription.runtime.ParseSubscriptionDataTask")
     @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
-    def test_registration_and_subscribe(self, register_task, parse_task):
+    @patch("pyanaconda.modules.subscription.runtime.SetupContainerCertificatesTask")
+    def test_registration_and_subscribe(self, container_certs_task, register_task, parse_task):
         """Test RegisterAndSubscribeTask - success."""
         # create the task and related bits
         rhsm_observer = Mock()
@@ -1533,6 +1562,12 @@ class RegisterAndSubscribeTestCase(unittest.TestCase):
             activation_keys=['key1', 'key2', 'key3']
         )
         register_task.return_value.run_with_signals.assert_called_once()
+        # check if SetupContainerCertificatesTask was invoked
+        container_certs_task.assert_called_with(
+            provisioned_for_satellite=False,
+            subscription_request=subscription_request,
+        )
+        container_certs_task.return_value.run_with_signals.assert_called_once()
         # also check the callback was called correctly
         subscription_attached_callback.assert_called_once_with(True)
         # check the subscription parsing task has been properly instantiated and run
@@ -1543,7 +1578,8 @@ class RegisterAndSubscribeTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.subscription.runtime.ParseSubscriptionDataTask")
     @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
-    def test_registration_and_subscribe_satellite(self, register_task, parse_task):
+    @patch("pyanaconda.modules.subscription.runtime.SetupContainerCertificatesTask")
+    def test_registration_and_subscribe_satellite(self, container_certs_task, register_task, parse_task):
         """Test RegisterAndSubscribeTask - success with satellite provisioning."""
         # create the task and related bits
         rhsm_observer = Mock()
@@ -1585,6 +1621,12 @@ class RegisterAndSubscribeTestCase(unittest.TestCase):
             activation_keys=['key1', 'key2', 'key3']
         )
         register_task.return_value.run_with_signals.assert_called_once()
+        # check if SetupContainerCertificatesTask was invoked as expected
+        container_certs_task.assert_called_with(
+            provisioned_for_satellite=True,
+            subscription_request=subscription_request,
+        )
+        container_certs_task.return_value.run_with_signals.assert_called_once()
         # also check the callback was called correctly
         subscription_attached_callback.assert_called_once_with(True)
         # check the subscription parsing task has been properly instantiated and run
@@ -1650,6 +1692,108 @@ class RegisterAndSubscribeTestCase(unittest.TestCase):
         parse_task.return_value.run_with_signals.assert_not_called()
         # the Satellite provisioning rollback should have been called due to the failure
         task._roll_back_satellite_provisioning.assert_called_once()
+
+    @pytest.mark.parametrize(
+        "is_satellite,server_hostname",
+        [
+            (True, "satellite.example.com"),
+            (True, f"{SERVER_HOSTNAME_NOT_SATELLITE_PREFIX}some.server"),
+            (False, ""),
+        ],
+    )
+    @patch("pyanaconda.modules.subscription.runtime.ParseSubscriptionDataTask")
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    @patch("pyanaconda.modules.subscription.runtime.SetupContainerCertificatesTask")
+    def test_registration_container_cert_failure(
+        self,
+        container_certs_task,
+        register_task,
+        parse_task,
+        is_satellite,
+        server_hostname,
+    ):
+        """Test RegisterAndSubscribeTask - container cert setup fails (should fail with proper rollback behavior)."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        rhsm_register_server = Mock()
+        rhsm_config = Mock()
+        rhsm_syspurpose = Mock()
+
+        # For satellite, we need an extra proxy call for config during provisioning
+        if is_satellite:
+            rhsm_observer.get_proxy.side_effect = [
+                rhsm_register_server,
+                rhsm_config,
+                rhsm_syspurpose,
+            ]
+        else:
+            rhsm_observer.get_proxy.side_effect = [rhsm_register_server, rhsm_syspurpose]
+
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        subscription_request.server_hostname = server_hostname
+
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.sla = "foo_sla"
+        subscription_attached_callback = Mock()
+
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=system_purpose_data,
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
+            subscription_attached_callback=subscription_attached_callback,
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock(),
+        )
+
+        # mock the Satellite provisioning/rollback methods
+        task._provision_system_for_satellite = Mock()
+        task._roll_back_satellite_provisioning = Mock()
+
+        # make container cert task fail
+        container_certs_task.return_value.run_with_signals.side_effect = RegistrationError(
+            "Cert setup failed"
+        )
+
+        with pytest.raises(RegistrationError):
+            task.run()
+
+        if is_satellite:
+            task._provision_system_for_satellite.assert_called_once_with()
+        else:
+            task._provision_system_for_satellite.assert_not_called()
+
+        # check the register task was properly instantiated and run
+        register_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_register_server,
+            organization="foo_org",
+            activation_keys=["key1", "key2", "key3"],
+        )
+        register_task.return_value.run_with_signals.assert_called_once()
+
+        # check if SetupContainerCertificatesTask was invoked
+        container_certs_task.assert_called_with(
+            provisioned_for_satellite=is_satellite,
+            subscription_request=subscription_request,
+        )
+        container_certs_task.return_value.run_with_signals.assert_called_once()
+        # subscription callback should NOT be called because cert setup failed before that point
+        subscription_attached_callback.assert_not_called()
+
+        # check the subscription parsing task should NOT run due to cert failure
+        parse_task.assert_not_called()
+
+        # Verify rollback behavior
+        if is_satellite:
+            task._roll_back_satellite_provisioning.assert_called_once()
+        else:
+            task._roll_back_satellite_provisioning.assert_not_called()
 
 
 class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
@@ -1979,3 +2123,176 @@ class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
         private_register_proxy.GetOrgs.assert_called_once_with(
             'foo_user', 'bar_password', {}, 'en_US.UTF-8'
         )
+
+
+class SetupContainerCertificatesTaskTestCase:
+    """Test the SetupContainerCertificatesTask task."""
+
+    @pytest.fixture(autouse=True)
+    def tmpdir(self):
+        """Patches SetupContainerCertificatesTask paths with a temp dir"""
+        with (
+            tempfile.TemporaryDirectory() as tmpdir,
+            patch.object(
+                SetupContainerCertificatesTask,
+                "PODMAN_CONTAINER_CERTS_PATH",
+                str(Path(tmpdir) / "certs.d"),
+            ),
+            patch.object(
+                SetupContainerCertificatesTask,
+                "RHSM_ENTITLEMENT_PATH",
+                str(Path(tmpdir) / "entitlement"),
+            ),
+            patch.object(
+                SetupContainerCertificatesTask,
+                "RHSM_CA_BUNDLE_PATH",
+                str(Path(tmpdir) / "ca-bundle.crt"),
+            ),
+        ):
+            yield tmpdir
+
+    @patch("pyanaconda.modules.subscription.runtime.conf")
+    def test_setup_container_certs_not_satellite(self, conf_mock, tmpdir):
+        """Test SetupContainerCertificatesTask for non-Satellite registration"""
+        conf_mock.payload.flatpak_remote = ("rhel", "oci+https://some.flatpak.registry/blabla")
+
+        # Create mock CA bundle
+        ca_bundle_path = Path(tmpdir) / "ca-bundle.crt"
+        ca_bundle_path.touch()
+
+        # Create entitlements directory with cert files
+        entitlements_dir = Path(tmpdir) / "entitlement"
+        entitlements_dir.mkdir()
+        (entitlements_dir / "123456.pem").touch()
+        (entitlements_dir / "123456-key.pem").touch()
+
+        # Create container certs directory
+        container_certs_dir = Path(tmpdir) / "certs.d"
+        container_certs_dir.mkdir()
+
+        # Mock subscription request
+        sub_req = SubscriptionRequest()
+        sub_req.server_hostname = ""
+
+        task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=False, subscription_request=sub_req,
+        )
+        task.run()
+
+        # Verify directory was created for the registry
+        registry_dir = container_certs_dir / "some.flatpak.registry"
+        assert registry_dir.is_dir()
+        # Verify symlinks were created
+        assert (registry_dir / "ca-bundle.crt").is_symlink()
+
+    def test_setup_container_certs_satellite(self, tmpdir):
+        """Test SetupContainerCertificatesTask for Satellite registration"""
+
+        # Create mock CA bundle
+        ca_bundle_path = Path(tmpdir) / "ca-bundle.crt"
+        ca_bundle_path.touch()
+
+        # Create entitlements directory with cert files
+        entitlements_dir = Path(tmpdir) / "entitlement"
+        entitlements_dir.mkdir()
+        (entitlements_dir / "123456.pem").touch()
+        (entitlements_dir / "123456-key.pem").touch()
+
+        # Create container certs directory
+        container_certs_dir = Path(tmpdir) / "certs.d"
+        container_certs_dir.mkdir()
+
+        # Mock subscription request
+        sub_req = SubscriptionRequest()
+        sub_req.server_hostname = "satellite.example.com"
+
+        task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=True, subscription_request=sub_req,
+        )
+        task.run()
+
+        # Verify directory was created for the satellite
+        satellite_dir = container_certs_dir / "satellite.example.com"
+        assert satellite_dir.is_dir()
+        # Verify symlinks were created
+        assert (satellite_dir / "client.cert").is_symlink()
+        assert (satellite_dir / "client.key").is_symlink()
+        assert (satellite_dir / "ca-bundle.crt").is_symlink()
+
+    def test_setup_container_certs_skip_staging_cdn(self, tmpdir):
+        """Test SetupContainerCertificatesTask skips for staging CDN"""
+        sub_req = SubscriptionRequest()
+        sub_req.server_hostname = SERVER_HOSTNAME_NOT_SATELLITE_PREFIX + "staging.cdn.com"
+
+        task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=False, subscription_request=sub_req
+        )
+
+        with patch.object(SetupContainerCertificatesTask, "_find_cert_pair") as patched_find_cert_pair:
+            task.run()
+            # _find_cert_pair must not have been called
+            patched_find_cert_pair.assert_not_called()
+        # make sure the path was not created
+        expected_certificates_path = Path(SetupContainerCertificatesTask.PODMAN_CONTAINER_CERTS_PATH) / sub_req.server_hostname
+        assert not expected_certificates_path.exists()
+
+
+    def test_setup_container_certs_wrong_pem_count(self, tmpdir):
+        """Test SetupContainerCertificatesTask with unexpected number of PEM files"""
+        # Create mock CA bundle
+        ca_bundle_path = Path(tmpdir) / "ca-bundle.crt"
+        ca_bundle_path.touch()
+
+        # Create entitlements directory with only ONE cert file (wrong count)
+        entitlements_dir = Path(tmpdir) / "entitlement"
+        entitlements_dir.mkdir()
+        (entitlements_dir / "123456.pem").touch()
+
+        # Create container certs directory
+        container_certs_dir = Path(tmpdir) / "certs.d"
+        container_certs_dir.mkdir()
+
+        sub_req = SubscriptionRequest()
+        sub_req.server_hostname = "satellite.example.com"
+
+        task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=True, subscription_request=sub_req
+        )
+        # Should raise RegistrationError when certificate pair is not found
+        with pytest.raises(RegistrationError):
+            task.run()
+
+    @patch("pyanaconda.modules.subscription.runtime.conf")
+    def test_setup_container_certs_with_port(self, conf_mock, tmpdir):
+        """Test SetupContainerCertificatesTask handles hostname with port"""
+
+        conf_mock.payload.flatpak_remote = (
+            "rhel",
+            "oci+https://flatpaks.redhat.io:8443/rhel/",
+        )
+
+        # Create mock CA bundle
+        ca_bundle_path = Path(tmpdir) / "ca-bundle.crt"
+        ca_bundle_path.touch()
+
+        # Create entitlements directory with cert files
+        entitlements_dir = Path(tmpdir) / "entitlement"
+        entitlements_dir.mkdir()
+        (entitlements_dir / "123456.pem").touch()
+        (entitlements_dir / "123456-key.pem").touch()
+
+        # Create container certs directory
+        container_certs_dir = Path(tmpdir) / "certs.d"
+        container_certs_dir.mkdir()
+
+        sub_req = SubscriptionRequest()
+        sub_req.server_hostname = ""
+
+        task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=False, subscription_request=sub_req
+        )
+        task.run()
+
+        # Verify directory was created with port in the name
+        registry_dir = container_certs_dir / "flatpaks.redhat.io:8443"
+        assert registry_dir.is_dir()

@@ -24,7 +24,7 @@ from dasbus.typing import Str, get_variant
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
-from pyanaconda.core.path import join_paths, make_directories
+from pyanaconda.core.path import copy_folder, join_paths, make_directories
 from pyanaconda.core.subscription import check_system_purpose_set
 from pyanaconda.modules.common.errors.installation import (
     InsightsClientMissingError,
@@ -139,6 +139,7 @@ class TransferSubscriptionTokensTask(Task):
     RHSM_ENTITLEMENT_KEYS_PATH = "/etc/pki/entitlement"
     RHSM_CONSUMER_KEY_PATH = "/etc/pki/consumer/key.pem"
     RHSM_CONSUMER_CERT_PATH = "/etc/pki/consumer/cert.pem"
+    PODMAN_CONTAINER_CERT_PATH = "/etc/containers/certs.d"
 
     def __init__(self, sysroot, transfer_subscription_tokens):
         """Create a new task.
@@ -199,6 +200,19 @@ class TransferSubscriptionTokensTask(Task):
             msg = "{} ({}) is missing".format(target_name, self.RHSM_REPO_FILE_PATH)
             raise SubscriptionTokenTransferError(msg)
 
+    def _transfer_folder(self, target_path, target_name):
+        """Transfer a folder with nice logs and raise an exception if it does not exist.
+
+        :param str target_path: path to the folder to transfer
+        :param str target_name: human-readable name for logging
+        :raises SubscriptionTokenTransferError: if the folder does not exist
+        """
+        log.debug("subscription: transferring %s", target_name)
+        target_folder_path = join_paths(self._sysroot, target_path)
+        if not copy_folder(target_path, target_folder_path):
+            msg = "{} ({}) is missing".format(target_name, target_path)
+            raise SubscriptionTokenTransferError(msg)
+
     def _transfer_system_purpose(self):
         """Transfer the system purpose file if present.
 
@@ -249,6 +263,9 @@ class TransferSubscriptionTokensTask(Task):
 
         # transfer the RHSM config file
         self._transfer_file(self.RHSM_CONFIG_FILE_PATH, "RHSM config file")
+
+        # transfer the container certificates directory
+        self._transfer_folder(self.PODMAN_CONTAINER_CERT_PATH, "container certs")
 
 
 class ProvisionTargetSystemForSatelliteTask(Task):
