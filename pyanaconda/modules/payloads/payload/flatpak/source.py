@@ -24,6 +24,7 @@ from abc import ABC, abstractmethod
 from configparser import ConfigParser, NoSectionError
 from contextlib import contextmanager
 from functools import cached_property
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
@@ -39,6 +40,7 @@ from pyanaconda.modules.payloads.payload.flatpak.constants import (
     FLATPAK_MEDIA_TYPE,
     FLATPAK_REGISTRY_URL_PATTERN,
     FLATPAK_SCHEMA_V2,
+    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
 )
 from pyanaconda.modules.payloads.payload.flatpak.utils import (
     canonicalize_flatpak_ref,
@@ -420,14 +422,14 @@ class FlatpakRegistrySource(FlatpakSource):
             tag = "latest"
 
         full_url = FLATPAK_REGISTRY_URL_PATTERN.format(base_url, arch, tag)
+        kw = self._get_request_keyword_args(parsed)
         with requests_session() as session:
-            response = session.get(full_url)
+            response = session.get(full_url, **kw)
             response.raise_for_status()
             index = response.json()
 
         result = []
 
-        arch = get_container_arch()
         for repository in index["Results"]:
             for image in repository["Images"]:
                 if image['Architecture'] != arch:
@@ -436,6 +438,31 @@ class FlatpakRegistrySource(FlatpakSource):
                 result.append(RegistrySourceImage(image["Labels"]))
 
         return result
+
+    def _get_request_keyword_args(self, parsed):
+        """Get keyword arguments for requests session based on available certificates.
+
+        :param parsed: Parsed URL object containing hostname
+        :return: Dictionary of keyword arguments for requests.get()
+        :rtype: dict
+        """
+
+        kw = {}
+
+        # FIXME: RHEL staging CDN requires internal certificates, not the ones from rhsm
+        if self._url == RHEL_FLATPAK_ENGINEERING_STAGING_CDN:
+            return {"verify": "/etc/ssl/certs/ca-bundle.crt"}
+
+        # Check for host-specific certificates (used for authentication)
+        certs_path = Path("/etc/containers/certs.d") / parsed.netloc
+        if certs_path.exists():
+            # Use client certificates for authentication and rhsm's
+            # CA bundle for verifying its self-signed certificates
+            kw.update(
+                cert=(certs_path / "client.cert", certs_path / "client.key"),
+                verify=(certs_path / "ca-bundle.crt"),
+            )
+        return kw
 
     def download(self, refs, download_location, progress=None):
         return None
