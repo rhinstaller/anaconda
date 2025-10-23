@@ -23,6 +23,7 @@ from unittest.mock import call, patch
 import pytest
 
 from pyanaconda.core.path import (
+    copy_folder,
     get_mount_paths,
     join_paths,
     make_directories,
@@ -266,3 +267,67 @@ class MiscTests(unittest.TestCase):
             assert os.stat(file_path).st_mode == 0o100744
         finally:
             shutil.rmtree(test_dir)
+
+    def test_copy_folder(self):
+        """Test copy_folder function"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # create source folder with content
+            source_folder = os.path.join(tmpdir, "source")
+            os.makedirs(source_folder)
+            test_file = os.path.join(source_folder, "test.txt")
+            with open(test_file, "w") as f:
+                f.write("test content")
+
+            # create nested folder
+            nested_folder = os.path.join(source_folder, "nested")
+            os.makedirs(nested_folder)
+            nested_file = os.path.join(nested_folder, "nested.txt")
+            with open(nested_file, "w") as f:
+                f.write("nested content")
+
+            # copy to target
+            target_folder = os.path.join(tmpdir, "target")
+            result = copy_folder(source_folder, target_folder)
+
+            # verify success
+            assert result
+            assert os.path.isdir(target_folder)
+            assert os.path.isfile(os.path.join(target_folder, "test.txt"))
+            assert os.path.isfile(os.path.join(target_folder, "nested", "nested.txt"))
+            # verify content
+            with open(os.path.join(target_folder, "test.txt"), "r") as f:
+                assert f.read() == "test content"
+            with open(os.path.join(target_folder, "nested", "nested.txt"), "r") as f:
+                assert f.read() == "nested content"
+
+    def test_copy_folder_nonexistent(self):
+        """Test copy_folder with non-existent source"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            source_folder = os.path.join(tmpdir, "nonexistent")
+            target_folder = os.path.join(tmpdir, "target")
+
+            result = copy_folder(source_folder, target_folder)
+
+            assert result is False
+            assert not os.path.exists(target_folder)
+
+    def test_copy_folder_dirs_exist_ok(self):
+        """Test copy_folder overwrites existing directory"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # create source folder
+            source_folder = os.path.join(tmpdir, "source")
+            os.makedirs(source_folder)
+            with open(os.path.join(source_folder, "file.txt"), "w") as f:
+                f.write("new content")
+
+            # create existing target with different content
+            target_folder = os.path.join(tmpdir, "target")
+            os.makedirs(target_folder)
+            with open(os.path.join(target_folder, "file.txt"), "w") as f:
+                f.write("old content")
+
+            result = copy_folder(source_folder, target_folder)
+
+            assert result
+            with open(os.path.join(target_folder, "file.txt"), "r") as f:
+                assert f.read() == "new content"
