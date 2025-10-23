@@ -18,6 +18,8 @@
 import json
 import os
 from collections import namedtuple
+from pathlib import Path
+from urllib.parse import urlparse
 
 import gi
 from dasbus.connection import MessageBus
@@ -26,6 +28,7 @@ from dasbus.typing import Bool, Str, get_native, get_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import service
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
@@ -899,6 +902,20 @@ class RegisterAndSubscribeTask(Task):
                 self._roll_back_satellite_provisioning()
             raise RegistrationError(_("Registration failed due to insufficient credentials."))
 
+        # set up container certificates for Flatpak/Podman access to registries
+        log.debug("registration attempt: setting up container certificates")
+        cert_task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=provisioned_for_satellite,
+            subscription_request=self._subscription_request,
+        )
+        try:
+            cert_task.run_with_signals()
+        except RegistrationError as e:
+            log.debug("registration attempt: failed when setting up container authentication with certificates")
+            if provisioned_for_satellite:
+                self._roll_back_satellite_provisioning()
+            raise e
+
         # if we got this far without an exception then subscriptions have been attached
         self._subscription_attached_callback(True)
 
@@ -910,6 +927,111 @@ class RegisterAndSubscribeTask(Task):
             lambda: self._subscription_data_callback(parse_task.get_result())
         )
         parse_task.run_with_signals()
+
+
+class SetupContainerCertificatesTask(Task):
+    """Set up certificates for container registry authentication.
+
+    This task creates the necessary certificate structure in /etc/containers/certs.d/
+    to allow Flatpak and Podman to authenticate with container registries when the
+    system is registered to Red Hat Satellite.
+
+    The certificates are symlinked from the entitlement certificates created during
+    RHSM registration.
+    """
+
+    PODMAN_CONTAINER_CERTS_PATH = "/etc/containers/certs.d/"
+    RHSM_ENTITLEMENT_PATH = "/etc/pki/entitlement/"
+    RHSM_CA_BUNDLE_PATH = "/etc/pki/tls/certs/ca-bundle.crt"
+
+    def __init__(self, provisioned_for_satellite, subscription_request):
+        """Create a new container certificate setup task.
+
+        :param provisioned_for_satellite: boolean indicating if system was provisioned for satellite
+        :param subscription_request: subscription request data
+        :type subscription_request: SubscriptionRequest instance
+        """
+        super().__init__()
+        self._provisioned_for_satellite = provisioned_for_satellite
+        self._subscription_request = subscription_request
+
+    @property
+    def name(self):
+        return "Set up container certificates"
+
+    def run(self):
+        """Set up container registry certificates.
+
+        Creates certificate directory structure and symlinks to entitlement
+        certificates for container registry authentication.
+        """
+        flatpak_hostname = self._get_flatpak_remote_hostname()
+        if not flatpak_hostname:
+            # skip certificate logic if hostname is not detected (stage registry)
+            return
+
+        # Create certificate directory for the registry
+        flatpak_cert_dir = Path(self.PODMAN_CONTAINER_CERTS_PATH) / flatpak_hostname
+        flatpak_cert_dir.mkdir(parents=True, exist_ok=True)
+
+        # Symlink CA certificate
+        ca_cert = Path(self.RHSM_CA_BUNDLE_PATH)
+        ca_cert_link = flatpak_cert_dir / "ca-bundle.crt"
+        if not ca_cert_link.exists():
+            ca_cert_link.symlink_to(ca_cert)
+
+        key_file, cert_file = self._find_cert_pair()
+        # Create symlinks for the certificate pair
+        key_link = flatpak_cert_dir / "client.key"
+        if not key_link.exists():
+            key_link.symlink_to(key_file)
+
+        cert_link = flatpak_cert_dir / "client.cert"
+        if not cert_link.exists():
+            cert_link.symlink_to(cert_file)
+
+        log.debug("Container certificates configured successfully for %s", flatpak_hostname)
+
+    def _get_flatpak_remote_hostname(self):
+        if self._subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX):
+            log.debug("Using a custom CDN. Skipping certificate configuration.")
+            # In this case we are either using staging CDN or the user has a custom CDN that we
+            # don't know how to configure.
+            return
+        elif self._provisioned_for_satellite:
+            log.debug("Setting up container certificates for Satellite registry access")
+            # Determine the registry hostname from subscription request
+            flatpak_hostname = self._subscription_request.server_hostname
+        else:
+            log.debug("Not registered to Satellite, using default Flatpak configuration")
+            _, flatpak_hostname = conf.payload.flatpak_remote
+        log.debug("parsing flatpak hostname: %s", flatpak_hostname)
+        # remove oci prefix as this won't be used on the requests call later
+        url_to_parse = flatpak_hostname.removeprefix("oci+")
+        if "://" not in url_to_parse:
+            # if the hostname is specified without a protocol (e.g, satellite.example.com), the urlparser
+            # will recognize the hostname as the path, not netloc. prepending // fixes the issue.
+            url_to_parse = f"//{url_to_parse}"
+        parsed_url = urlparse(url_to_parse)
+        return parsed_url.netloc
+
+    def _find_cert_pair(self):
+        # Find and symlink entitlement certificates
+        entitlements_dir = Path(self.RHSM_ENTITLEMENT_PATH)
+        # Find matching certificate pair (e.g., 123-key.pem and 123.pem)
+        key_files = list(entitlements_dir.glob("*-key.pem"))
+
+        for key_file in key_files:
+            # Derive the expected cert filename from the key filename
+            # e.g., "123-key.pem" -> "123.pem"
+            cert_name = key_file.name.replace("-key.pem", ".pem")
+            cert_file = entitlements_dir / cert_name
+
+            if cert_file.exists():
+                return key_file, cert_file
+
+        log.error("No matching entitlement certificate pair found.")
+        raise RegistrationError(_("Unable to find entitlement certificate pair."))
 
 
 class RetrieveOrganizationsTask(Task):

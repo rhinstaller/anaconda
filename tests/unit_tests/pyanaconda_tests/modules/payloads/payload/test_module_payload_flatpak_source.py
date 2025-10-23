@@ -18,9 +18,14 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+from pathlib import Path
 from unittest.mock import PropertyMock, patch
+from urllib.parse import urlparse
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.flatpak.constants import (
+    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
+)
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
     FlatpakStaticSource,
@@ -311,3 +316,35 @@ class FlatpakRegistrySourceTestCase(unittest.TestCase):
             0,
             20 + 30,
         )
+
+    def test_get_request_keyword_args_no_certs(self):
+        """Test _get_request_keyword_args with no certificates"""
+        source = FlatpakRegistrySource("oci+https://example.com/flatpaks")
+        parsed = urlparse("https://example.com")
+
+        with patch("pathlib.Path.exists", return_value=False):
+            kw = source._get_request_keyword_args(parsed)
+
+        assert kw == {}
+
+    def test_get_request_keyword_args_with_certs(self):
+        """Test _get_request_keyword_args with certificates"""
+        source = FlatpakRegistrySource("oci+https://satellite.example.com/flatpaks")
+        parsed = urlparse("https://satellite.example.com")
+        expected_base_path = Path("/etc/containers/certs.d/satellite.example.com")
+
+        with patch("pathlib.Path.exists", return_value=True):
+            kw = source._get_request_keyword_args(parsed)
+        assert kw == {
+            "cert": (expected_base_path / "client.cert", expected_base_path / "client.key"),
+            "verify": expected_base_path / "ca-bundle.crt",
+        }
+
+    def test_get_request_keyword_args_staging_cdn(self):
+        """Test _get_request_keyword_args for staging CDN"""
+        source = FlatpakRegistrySource(RHEL_FLATPAK_ENGINEERING_STAGING_CDN)
+        parsed = urlparse(RHEL_FLATPAK_ENGINEERING_STAGING_CDN)
+
+        kw = source._get_request_keyword_args(parsed)
+
+        assert kw == {"verify": "/etc/ssl/certs/ca-bundle.crt"}

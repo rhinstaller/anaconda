@@ -27,10 +27,16 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 from pyanaconda.modules.common.task.progress import ProgressReporter
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.payload.flatpak.constants import (
+    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
+)
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
     FlatpakStaticSource,
@@ -94,6 +100,33 @@ class FlatpakManager:
         """
         return self._skip_installation
 
+    def _get_registry_url(self):
+        _, remote_url = conf.payload.flatpak_remote
+
+        if not is_module_available(SUBSCRIPTION):
+            # We assume that if subscription module is not available, this
+            # is fedora or another distro that does not rely on subscription, so the
+            # default config works just fine.
+            return remote_url
+        # we can only safely import from subscription module at this point
+        from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+
+        subscription_interface = SUBSCRIPTION.get_proxy()
+        sub_req = SubscriptionRequest.from_structure(subscription_interface.SubscriptionRequest)
+        if subscription_interface.IsRegisteredToSatellite:
+            prefix = "oci+" if sub_req.server_hostname.startswith(("http://", "https://")) else "oci+https://"
+            return prefix + sub_req.server_hostname
+        if subscription_interface.IsRegistered and sub_req.server_hostname.startswith(
+            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+        ):
+            # Assume that when "not-satellite" prefix is present we are dealing with staging CDN
+            # FIXME: currently there's no way to customize flatpak registry through rhsm.
+            # Adjust/remove this once it is possible to configure this either through anaconda, rshm
+            # or whatever other solution better than this.
+            return RHEL_FLATPAK_ENGINEERING_STAGING_CDN
+        # if none of the above apply, use the fallback remote from config
+        return remote_url
+
     def set_sources(self, sources: List[PayloadSourceBase]):
         """Set the source object we use to download Flatpak content.
 
@@ -119,7 +152,7 @@ class FlatpakManager:
             if self._source and isinstance(self._source, FlatpakRegistrySource):
                 log.debug("Skipping registry source: %s as it is already set.", source)
                 return
-            _, remote_url = conf.payload.flatpak_remote
+            remote_url = self._get_registry_url()
             log.debug("Using Flatpak registry source: %s", remote_url)
             self._source = FlatpakRegistrySource(remote_url)
         elif isinstance(source, RepositorySourceMixin) or source.type in (SourceType.REPO_PATH, SourceType.CDROM):
@@ -256,6 +289,19 @@ class FlatpakManager:
                 # want to install what was in the install image even if it is
                 # out of date.
                 saved_urls = self._disable_network_download(installation)
+            else:
+                # Override remote URLs to match our configured source.
+                # This is necessary when using Satellite, as the preinstall
+                # packages may configure remotes pointing to CDN, but we need
+                # to use the Satellite registry instead.
+                source = self.get_source()
+                # NOTE: Hardcoded dependency on "rhel" remote name configured by redhat-flatpak-data.
+                # This will break if the remote is renamed. Failures would surface in nightly tests
+                # for Satellite and CDN staging environments (when they get implemented).
+                # Reference: https://gitlab.com/redhat/centos-stream/rpms/redhat-flatpak-data/-/blob/bc718455404682bc6804a1140b413bd540a70beb/rhel.flatpakrepo
+                rhel_remote = installation.get_remote_by_name("rhel")
+                if rhel_remote:
+                    self._update_repo_with_source_url(installation, source, rhel_remote)
 
             self._transaction = self._create_flatpak_transaction(installation)
 
@@ -280,6 +326,21 @@ class FlatpakManager:
                 self._reenable_network_download(installation, saved_urls)
 
             self._progress = None
+
+    def _update_repo_with_source_url(self, installation, source, remote):
+        """Update Flatpak repo with provided source URL.
+
+        This is required for Satellite or when CDN configuration don't match.
+        """
+        if remote.get_url() == source._url:
+            log.debug(
+                "Flatpak repo URL match configured source (%s). Nothing to do.",
+                source._url,
+            )
+            return
+        log.debug("Updating flatpak remote URL to %s.", source._url)
+        remote.set_url(source._url)
+        installation.modify_remote(remote)
 
     def _create_flatpak_installation(self):
         return Installation.new_system(None)
