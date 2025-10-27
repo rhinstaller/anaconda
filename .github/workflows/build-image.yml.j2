@@ -224,14 +224,14 @@ jobs:
 
       - name: Collect logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: 'logs'
           path: |
            images/*.log
 
       - name: Upload image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: boot.iso image for ${{ needs.pr-info.outputs.image_description }}
           path: |
@@ -302,13 +302,13 @@ jobs:
 
       - name: Collect logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: 'logs'
           path: result/iso/logs/*
 
       - name: Upload image artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: live image for ${{ needs.pr-info.outputs.image_description }}
           path: |
@@ -351,7 +351,7 @@ jobs:
           lsinitrd "$new_name"
 
       - name: Upload image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: updates.img for ${{ needs.pr-info.outputs.image_description }}
           path: |

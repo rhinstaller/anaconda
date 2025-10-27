@@ -357,7 +357,7 @@ jobs:
 
       - name: Collect logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: kstest_logs_${{ steps.kstest_run_description.outputs.image_description }}_${{ matrix.ci_tag }}
           path: |
