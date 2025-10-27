@@ -66,7 +66,7 @@ jobs:
 
       - name: Upload test and coverage logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: 'logs (${{ matrix.ci_tag }})'
           path: test-logs/*
@@ -136,7 +136,7 @@ jobs:
 
       - name: Upload test logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: 'logs-rpm-test (${{ matrix.ci_tag }})'
           path: test-logs/*
