@@ -510,6 +510,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 28 2025 github-actions <github-actions@github.com> - 43.47-1
+- custom: Reallocate partitions when removing a partition (vtrefny)
+
 * Thu Oct 16 2025 github-actions <github-actions@github.com> - 43.46-1
 - Introduce SetXKeyboardDefaults D-Bus method for setting sensible keyboard
   defaults (k.koukiou)
