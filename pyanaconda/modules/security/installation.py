@@ -24,6 +24,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.path import join_paths, make_directories
+from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.security.constants import SELinuxMode
@@ -32,6 +33,7 @@ log = get_module_logger(__name__)
 
 REALM_TOOL_NAME = "realm"
 AUTHSELECT_TOOL_PATH = "/usr/bin/authselect"
+AUTHSELECT_ARGS = ["enable-feature", "with-fingerprint"]
 PAM_SO_PATH = "/lib/security/pam_fprintd.so"
 PAM_SO_64_PATH = "/lib64/security/pam_fprintd.so"
 
@@ -434,13 +436,26 @@ class ConfigureFingerprintAuthTask(Task):
             log.debug("Fingerprint configuration is not supported on target system. Skipping.")
             return
 
+        #Check current kickstarted authselect args
+        security_proxy = SECURITY.get_proxy()
+        current_args = list(security_proxy.Authselect) or []
+
+        if current_args:
+            log.debug(
+                "Authselect already specified in kickstart (%s). Not overriding.", current_args
+            )
+            return
+
         log.debug("Enabling fingerprint authentication.")
         run_auth_tool(
             AUTHSELECT_TOOL_PATH,
-            ["enable-feature", "with-fingerprint"],
+            AUTHSELECT_ARGS,
             self._sysroot,
             required=False
         )
+
+        security_proxy.Authselect = AUTHSELECT_ARGS
+        log.debug("Authselect kickstart set to: %s", AUTHSELECT_ARGS)
 
 
 class ConfigureAuthselectTask(Task):

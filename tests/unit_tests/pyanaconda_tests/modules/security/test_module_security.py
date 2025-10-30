@@ -22,6 +22,7 @@ import tempfile
 import unittest
 from contextlib import contextmanager
 from textwrap import dedent
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
@@ -36,6 +37,7 @@ from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import (
+    AUTHSELECT_ARGS,
     AUTHSELECT_TOOL_PATH,
     PAM_SO_64_PATH,
     PAM_SO_PATH,
@@ -156,6 +158,22 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # System authorization information
         authselect select sssd with-mkhomedir
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart_contains_authselect_when_module_property_is_set(self):
+        self.security_interface.Authselect = [
+            "select",
+            "sssd",
+            "with-fingerprint",
+            "with-silent-lastlog",
+            "--force",
+        ]
+
+        ks_in = ""
+        ks_out = """
+        # System authorization information
+        authselect select sssd with-fingerprint with-silent-lastlog --force
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -877,9 +895,12 @@ class SecurityTasksTestCase(unittest.TestCase):
             # check if the realm command invocation looks right
             execWithRedirect.assert_not_called()
 
-    @patch('pyanaconda.core.util.execWithRedirect')
-    def test_configure_fingerprint_auth_task(self, execWithRedirect):
-        """Test the configure fingerprint task."""
+    @patch("pyanaconda.modules.security.installation.SECURITY.get_proxy")
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_configure_fingerprint_auth_task(self, execWithRedirect, get_proxy):
+        proxy = SimpleNamespace(Authselect=[])
+        get_proxy.return_value = proxy
+
         with tempfile.TemporaryDirectory() as sysroot:
 
             authselect_dir = os.path.normpath(sysroot + os.path.dirname(AUTHSELECT_TOOL_PATH))
@@ -914,6 +935,7 @@ class SecurityTasksTestCase(unittest.TestCase):
 
             # Authselect command and pam library are there
             execWithRedirect.reset_mock()
+            proxy.Authselect = []
             os.mknod(pam_so_path)
             os.mknod(authselect_path)
             task = ConfigureFingerprintAuthTask(
@@ -923,14 +945,16 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
-                ["enable-feature", "with-fingerprint"],
+                AUTHSELECT_ARGS,
                 root=sysroot
             )
+            assert proxy.Authselect == AUTHSELECT_ARGS
             os.remove(pam_so_path)
             os.remove(authselect_path)
 
             # Authselect command and pam library are there
             execWithRedirect.reset_mock()
+            proxy.Authselect = []
             os.mknod(pam_so_64_path)
             os.mknod(authselect_path)
             task = ConfigureFingerprintAuthTask(
@@ -940,9 +964,10 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
-                ["enable-feature", "with-fingerprint"],
+                AUTHSELECT_ARGS,
                 root=sysroot
             )
+            assert proxy.Authselect == AUTHSELECT_ARGS
             os.remove(pam_so_64_path)
             os.remove(authselect_path)
 
