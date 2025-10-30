@@ -41,7 +41,7 @@ from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.flags import flags
 from pyanaconda.gnome_remote_desktop import GRDServer
 from pyanaconda.mutter_display import MutterConfigError, MutterDisplay
-from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
+from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
 
