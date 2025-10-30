@@ -25,9 +25,7 @@
 # Store a branch specific configuration here to avoid dealing with
 # conflicts on multiple places.
 
-FEDORA_CONTAINER_REGISTRY = registry.fedoraproject.org
-CENTOS_CONTAINER_REGISTRY = quay.io
-ELN_CONTAINER_REGISTRY = quay.io
+CONTAINER_REGISTRY = quay.io
 CI_TAG ?= fedora-rawhide
 
 # Parse CI_TAG into distro and version (e.g., "fedora-41" or "rhel-9")
@@ -37,11 +35,11 @@ CI_TAG_VERSION := $(word 2,$(subst -, ,$(CI_TAG)))
 # Compute BASE_CONTAINER based on CI_TAG
 BASE_CONTAINER = $(strip \
   $(if $(filter eln,$(CI_TAG_VERSION)), \
-      $(ELN_CONTAINER_REGISTRY)/fedora/eln:latest-x86_64, \
+      $(CONTAINER_REGISTRY)/fedora/$(CI_TAG_VERSION):latest-x86_64, \
       $(if $(filter fedora,$(CI_TAG_DISTRO)), \
-          $(FEDORA_CONTAINER_REGISTRY)/$(CI_TAG_DISTRO):$(CI_TAG_VERSION), \
+          $(CONTAINER_REGISTRY)/fedora/$(CI_TAG_DISTRO):$(CI_TAG_VERSION), \
           $(if $(filter rhel,$(CI_TAG_DISTRO)), \
-              $(CENTOS_CONTAINER_REGISTRY)/centos/centos:stream$(CI_TAG_VERSION), \
+              $(CONTAINER_REGISTRY)/centos/centos:stream$(CI_TAG_VERSION), \
           ) \
       ) \
   ))
