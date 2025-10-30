@@ -34,13 +34,13 @@ from simpleline.render.widgets import CheckboxWidget, TextWidget
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_CLEANUP,IPMI_ABORTED, QUIT_MESSAGE, THREAD_STORAGE
+from pyanaconda.core.constants import ANACONDA_CLEANUP, IPMI_ABORTED, QUIT_MESSAGE, THREAD_STORAGE
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, SCRIPTS
-from pyanaconda.modules.common.constants.services import STORAGE, RUNTIME
+from pyanaconda.modules.common.constants.services import RUNTIME, STORAGE
 from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.rescue import RescueData

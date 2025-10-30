@@ -28,8 +28,8 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.core.signal import Signal
 from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.errors.runtime import ScriptError
+from pyanaconda.modules.common.task import sync_run_task
 
 log = get_module_logger(__name__)
 

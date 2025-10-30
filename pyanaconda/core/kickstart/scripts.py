@@ -19,10 +19,11 @@
 #
 import os
 import tempfile
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.path import open_with_perm
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 script_log = log.getChild("script")
