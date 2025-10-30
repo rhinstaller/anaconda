@@ -3,6 +3,7 @@
 
 # Auto-apply release labels based on base branch
 {% for rel in supported_releases %}
+{% if rel.variant in ['rhel', 'fedora'] %}
 {% if rel.release == 'fedora-rawhide' %}
 f{$ rawhide_fedora_version $}:
 {% elif rel.release.startswith('fedora-') %}
@@ -16,6 +17,7 @@ f{$ rel.release|replace('fedora-', '') $}:
   - base-branch: '{$ rel.target_branch $}'
   - changed-files:
     - any-glob-to-any-file: ['**']
+{% endif %}
 {% endfor %}
 
 documentation:
