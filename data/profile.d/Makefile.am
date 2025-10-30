@@ -30,6 +30,7 @@ dist_config_DATA    = \
 	fedora-silverblue.conf \
 	fedora-workstation.conf \
 	fedora.conf \
+	navix.conf \
 	ovirt.conf \
 	rhel.conf \
 	rhvh.conf \
