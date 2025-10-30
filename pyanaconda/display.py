@@ -26,7 +26,6 @@ import time
 from collections import namedtuple
 
 import blivet
-from pykickstart.constants import DISPLAY_MODE_TEXT
 from simpleline import App
 from simpleline.render.screen_handler import ScreenHandler
 from systemd import journal
@@ -101,6 +100,7 @@ def ask_rd_question(anaconda, message):
     rdp_credentials.password
 
     :param anaconda: instance of the Anaconda class
+    :param vnc_server: instance of the VNC server object
     :param str message: a message to show to the user together
                         with the question
     :return: (use_rd, rdp_credentials(username, password))
@@ -162,7 +162,7 @@ def check_rd_can_be_started(anaconda):
         rd_startup_possible = False
 
     # disable remote desktop question if we were explicitly asked for text in kickstart
-    if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+    if anaconda.display_mode == constants.DisplayModes.TUI:
         error_messages.append("Not asking for remote desktop session because text mode "
                               "was explicitly asked for in kickstart")
         rd_startup_possible = False
