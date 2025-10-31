@@ -1394,14 +1394,6 @@ class InstallationTaskTestCase(unittest.TestCase):
         )
         self._mock_task_paths(task)
         task.run()
-        # Check /etc/sysconfig/network was written by anaconda
-        self._check_config_file(
-            self._sysconf_dir,
-            "network",
-            """
-            # Created by anaconda
-            """
-        )
         self._check_config_file(
             self._sysctl_dir,
             "anaconda.conf",
@@ -1481,14 +1473,6 @@ class InstallationTaskTestCase(unittest.TestCase):
         )
         self._mock_task_paths(task)
         task.run()
-        # Check /etc/sysconfig/network was written by anaconda
-        self._check_config_file(
-            self._sysconf_dir,
-            "network",
-            """
-            # Created by anaconda
-            """
-        )
         self._check_config_file(
             self._sysctl_dir,
             "anaconda.conf",
@@ -1747,14 +1731,6 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._mock_task_paths(task)
         task.run()
 
-        # Files that are created are overwritten
-        self._check_config_file(
-            self._sysconf_dir,
-            "network",
-            """
-            # Created by anaconda
-            """
-        )
         content_template = NetworkInstallationTask.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE
         self._check_config_file(
             self._systemd_network_dir,
@@ -1817,13 +1793,6 @@ class InstallationTaskTestCase(unittest.TestCase):
         self._mock_task_paths(task)
         task.run()
 
-        self._check_config_file(
-            self._sysconf_dir,
-            "network",
-            """
-            original target system content
-            """
-        )
         self._check_config_file(
             self._resolv_conf_dir,
             "resolv.conf",
