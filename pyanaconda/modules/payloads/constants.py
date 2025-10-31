@@ -58,6 +58,7 @@ class PayloadType(Enum):
     LIVE_IMAGE = PAYLOAD_TYPE_LIVE_IMAGE
     RPM_OSTREE = PAYLOAD_TYPE_RPM_OSTREE
 
+
 @unique
 class SourceType(Enum):
     """Type of the payload source."""

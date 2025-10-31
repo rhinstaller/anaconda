@@ -17,6 +17,8 @@
 #
 import glob
 import os
+import pathlib
+import shutil
 from subprocess import CalledProcessError
 
 import blivet.util
@@ -27,10 +29,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant, create_new_context, format_size_full
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import (
-    make_directories,
-    set_system_root,
-)
+from pyanaconda.core.path import make_directories, set_system_root
 from pyanaconda.core.util import execProgram, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
@@ -43,6 +42,7 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.base.utils import get_device_path_for_mount_point
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
+from pyanaconda.modules.storage.constants import BootloaderMode
 
 gi.require_version("OSTree", "1.0")
 gi.require_version("Gio", "2.0")
@@ -120,22 +120,18 @@ def _find_first_filename(root, pattern, directory=True, file=True):
     This is a top-down depth-first search.
 
     :arg root: The directory to perform the search from
-    :arg pattern: The filename to search for (Note: this is not currently a regex
-        or glob pattern)
+    :arg pattern: The filename to search for.  This can be a shell glob.
     :kwarg directory: If set to False, do not return directories with this name
     :kwarg file: If set to False, do not return files with this name
     :returns: The complete path to the filename, including `root`.
     """
-    # Find directory containing `home` and make it a new sysroot
-    for dirpath, dirs, files in os.walk(root):
-        if directory:
-            for dirname in dirs:
-                if dirname == pattern:
-                    return os.path.join(dirpath, dirname)
-        if file:
-            for filename in files:
-                if pattern == filename:
-                    return os.path.join(dirpath, pattern)
+    root = pathlib.Path(root)
+
+    for path in root.rglob(pattern):
+        if path.is_dir() and directory:
+            return path.resolve()
+        if path.is_file() and file:
+            return path.resolve()
 
     raise FileNotFoundError("Could not find {pattern} in directory: {root}".format(
         pattern=pattern,
@@ -698,7 +694,7 @@ class DeployBootcTask(Task):
     def run(self):
         bootloader = STORAGE.get_proxy(BOOTLOADER)
         # Bootc will handle bootloader config so disable it
-        bootloader.BootloaderMode = 0
+        bootloader.BootloaderMode = BootloaderMode.DISABLED
         log.debug("Disabled bootloader configuration due to bootc mode")
 
         stateroot = _get_stateroot(self._data)
@@ -742,28 +738,29 @@ class DeployBootcTask(Task):
         # during the partitioning by blivet
         log.debug("Bootc workaround: remove unwanted directories")
         # rm -rf /mnt/sysroot/*
-        safe_exec_program("rm", ["-rf", self._sysroot + "/root"])
-        os.rmdir(self._sysroot + "/dev")
-        os.rmdir(self._sysroot + "/proc")
-        os.rmdir(self._sysroot + "/run")
-        os.rmdir(self._sysroot + "/sys")
-        os.rmdir(self._sysroot + "/tmp")
-        try:
-            os.rmdir(self._sysroot + "/home")
-        except FileNotFoundError:
-            # This is fine because we just need to make sure all of these
-            # directories do not exist
-            log.debug("No /home directory to remove")
+        shutil.rmtree(self._sysroot + "/root")
+        directories_to_remove = ("dev", "proc", "run", "sys", "tmp", "home")
+        for directory in (f"{self._sysroot}/{d}" for d in directories_to_remove):
+            try:
+                os.rmdir(directory)
+            except FileNotFoundError:
+                # This is fine because we just need to make sure all of these
+                # directories do not exist
+                log.debug("No {directory} directory to remove", directory)
 
         # Bootc requires empty `boot` directory to be presentd
         log.debug("Bootc workaround: create bootc required dirs")
         # mkdir /mnt/sysroot/boot
-        safe_exec_program("mkdir", ["-p", self._sysroot + "/boot"])
+        # Security risk of exists_ok is allowed because the installer is
+        # running in a single user environment.
+        os.makedirs(self._sysroot + "/boot", mode=0o555, exists_ok=True)
+
         # Mount /boot partition created by autopart
         boot_partition = get_device_path_for_mount_point("/boot")
         safe_exec_program("mount", [boot_partition, self._sysroot + "/boot"])
+
         # Make sure the partition is empty
-        safe_exec_program("rm", ["-rf", self._sysroot + "/boot/*"])
+        shutil.rmtree(self._sysroot + "/boot/*")
 
         # This is a debugging hook. Uncoment it so anaconda will fail and hang
         # just before calling a bootc command. This way it is possible to ssh
@@ -803,18 +800,17 @@ class DeployBootcTask(Task):
         set_system_root(new_root_path)
 
         # Anaconda is expecting to put some files in new root directory
-        # but after bootc install root is a symlinkg to not existing var/roothome
-        if not os.path.exists(self._sysroot + "/var/roothome"):
-            safe_exec_program("mkdir", ["-p", self._sysroot + "/var/roothome"])
+        # but after bootc install root is a symlink to not existing var/roothome
+        os.makedirs(self._sysroot + "/var/roothome", mode=0o755, exists_ok=True)
 
         # Prepare SELinux hooks needed by the `chpasswd` running in chroot
         # when SELinux is enabled: https://bugzilla.redhat.com/show_bug.cgi?id=1321375
         proc_path = "/proc"
-        safe_exec_program("mkdir", ["-p", self._sysroot + proc_path])
+        os.makedirs(self._sysroot + proc_path, mode=0o555, exists_ok=True)
         safe_exec_program("mount", ["--bind", proc_path, self._sysroot + proc_path])
 
         selinuxfs_path = "/sys/fs/selinux"
-        safe_exec_program("mkdir", ["-p", self._sysroot + selinuxfs_path])
+        os.makedirs(self._sysroot + selinuxfs_path, mode=0o555, exists_ok=True)
         safe_exec_program("mount", ["--bind", selinuxfs_path, self._sysroot + selinuxfs_path])
 
         log.info("Bootc deploy complete")
@@ -839,8 +835,8 @@ class DeployOSTreeTask(Task):
         return "Deploy OSTree"
 
     def run(self):
-        stateroot = _get_stateroot(self._data)
         ref = _get_ref(self._data)
+        stateroot = _get_stateroot(self._data)
 
         self.report_progress(_("Deployment starting: {}").format(ref))
 

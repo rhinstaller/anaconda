@@ -30,14 +30,11 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError, rpm_version_k
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 
 log = get_module_logger(__name__)
-
-
-class DeviceNotFound(Exception):
-    """Raised when a device file is not found."""
 
 
 def get_device_path_for_mount_point(mount_point):
@@ -58,7 +55,7 @@ def get_device_path_for_mount_point(mount_point):
 
             return device_path
 
-    raise DeviceNotFound("Unable to find a device for the mountpoint {0}".format(
+    raise UnknownDeviceError("Unable to find a device for the mountpoint {0}".format(
         mount_point
     ))
 
