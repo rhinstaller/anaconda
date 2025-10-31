@@ -162,7 +162,6 @@ Name={}
         return "Configure network"
 
     def run(self):
-        self._write_sysconfig_network(self._sysroot, self._overwrite)
         self._write_interface_rename_config(self._sysroot, self._ifname_option_values,
                                             self._overwrite)
         if self._disable_ipv6:
@@ -185,20 +184,6 @@ Name={}
             self._copy_prefixdevname_files(self._sysroot)
         self._copy_global_dns_config(self._sysroot)
         self._enable_dnsconfd(self._sysroot)
-
-    def _write_sysconfig_network(self, root, overwrite):
-        """Write empty /etc/sysconfig/network target system configuration file.
-
-        :param root: path to the root of the target system
-        :type root: str
-        :param overwrite: overwrite existing configuration file
-        :type overwrite: bool
-        """
-        return _write_config_file(root, self.SYSCONF_NETWORK_FILE_PATH,
-                                  "# Created by anaconda\n",
-                                  "Cannot write {} configuration file".format(
-                                      self.SYSCONF_NETWORK_FILE_PATH),
-                                  overwrite)
 
     def _write_interface_rename_config(self, root, ifname_option_values, overwrite):
         """Write systemd configuration .link file for interface renaming.

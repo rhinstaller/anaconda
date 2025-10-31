@@ -19,6 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import (
@@ -28,6 +29,7 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     ChangeOSTreeRemoteTask,
     ConfigureBootloader,
     CopyBootloaderDataTask,
+    DeployBootcTask,
     DeployOSTreeTask,
     InitOSTreeFsAndRepoTask,
     PrepareOSTreeMountTargetsTask,
@@ -75,14 +77,19 @@ class RPMOSTreeModule(PayloadBase):
             SourceType.RPM_OSTREE,
             SourceType.RPM_OSTREE_CONTAINER,
             SourceType.FLATPAK,
+            SourceType.BOOTC
         ]
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
+        # Try bootc source
+        source_type = SourceFactory.get_bootc_type_for_kickstart(data)
 
         if source_type is None:
-            return
+            # Try ostree source next
+            source_type = SourceFactory.get_rpm_ostree_type_for_kickstart(data)
+            if source_type is None:
+                return
 
         source = SourceFactory.create_source(source_type)
         source.process_kickstart(data)
@@ -96,24 +103,26 @@ class RPMOSTreeModule(PayloadBase):
     def _get_ostree_source(self):
         """Get source for RPM OSTree.
 
-        Find out if we need OSTree repo or container source type.
+        Find out if we need OSTree repo, container or bootc source type.
         """
-        return self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
+        return self._get_source(SourceType.BOOTC) or \
+            self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
             self._get_source(SourceType.RPM_OSTREE)
 
-    def install_with_tasks(self):
-        """Install the payload.
+    def _install_with_tasks_bootc(self, data):
+        """Create the set of tasks to install the payload with bootc"""
+        # Bootc requires very limited set of tasks
+        tasks = [
+            DeployBootcTask(
+                data=data,
+                physroot=conf.target.physical_root,
+                sysroot=conf.target.system_root
+            )
+        ]
+        return tasks
 
-        :return: list of tasks
-        """
-        ostree_source = self._get_ostree_source()
-
-        if not ostree_source:
-            log.debug("No OSTree RPM source is available.")
-            return []
-
-        data = ostree_source.configuration
-
+    def _install_with_tasks_ostree(self, data):
+        """Create the set of tasks to install the payload with ostree"""
         tasks = [
             InitOSTreeFsAndRepoTask(
                 physroot=conf.target.physical_root
@@ -121,7 +130,7 @@ class RPMOSTreeModule(PayloadBase):
             ChangeOSTreeRemoteTask(
                 data=data,
                 physroot=conf.target.physical_root
-            )
+            ),
         ]
 
         # separate pulling of the container will be handled by deployment on the container
@@ -162,6 +171,25 @@ class RPMOSTreeModule(PayloadBase):
         self._collect_mount_points_on_success(tasks)
         return tasks
 
+    def install_with_tasks(self):
+        """Install the payload.
+
+        :return: list of tasks
+        """
+        ostree_source = self._get_ostree_source()
+
+        if not ostree_source:
+            log.debug("No OSTree RPM source is available.")
+            return []
+
+        data = ostree_source.configuration
+
+        if isinstance(data, BootcConfigurationData):
+            return self._install_with_tasks_bootc(data)
+
+        # If we're not configured for bootc, then we're configured for ostree
+        return self._install_with_tasks_ostree(data)
+
     def _collect_mount_points_on_success(self, tasks):
         """Collect mount points from successful tasks.
 
@@ -190,10 +218,16 @@ class RPMOSTreeModule(PayloadBase):
         """
         ostree_source = self._get_ostree_source()
 
+        # Not an ostree or bootc install
         if not ostree_source:
             log.debug("No OSTree RPM source is available.")
             return []
 
+        # No extra steps in case of the bootc install
+        if ostree_source.type == SourceType.BOOTC:
+            return []
+
+        # Has to be RPM_OSTREE or RPM_OSTREE_CONTAINER
         return [
             ChangeOSTreeRemoteTask(
                 data=ostree_source.configuration,
@@ -212,6 +246,10 @@ class RPMOSTreeModule(PayloadBase):
         :return: a list of tasks
         """
         tasks = super().tear_down_with_tasks()
+
+        # No extra steps in case of the bootc install
+        if self._get_source(SourceType.BOOTC):
+            return tasks
 
         tasks.append(
             TearDownOSTreeMountTargetsTask(
