@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 import os
+import shutil
 
 from pyanaconda.core.configuration.anaconda import conf
 
@@ -142,3 +143,20 @@ def set_mode(file_path, perm=0o600):
     if not os.path.exists(file_path):
         touch(file_path)
     os.chmod(file_path, perm)
+
+
+def copy_folder(folder_path, target_folder_path):
+    """Copy a folder and its contents to the target system.
+
+    :param str folder_path: source folder path in the installation environment
+    :param str target_folder_path: destination folder path on the target system
+    :return: True if folder exists and was copied, False if folder doesn't exist
+    :rtype: bool
+    """
+    if not os.path.isdir(folder_path):
+        return False
+    # make sure the parent directory exists
+    make_directories(os.path.dirname(target_folder_path))
+    # copy the entire directory tree
+    shutil.copytree(folder_path, target_folder_path, dirs_exist_ok=True)
+    return True
