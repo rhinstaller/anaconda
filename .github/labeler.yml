@@ -24,11 +24,6 @@ rhel-10:
   - base-branch: 'rhel-10'
   - changed-files:
     - any-glob-to-any-file: ['**']
-f43:
-- all:
-  - base-branch: 'main'
-  - changed-files:
-    - any-glob-to-any-file: ['**']
 
 documentation:
 - any:
