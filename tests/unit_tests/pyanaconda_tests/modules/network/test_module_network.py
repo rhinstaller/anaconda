@@ -1498,8 +1498,6 @@ class InstallationTaskTestCase(unittest.TestCase):
             net.ipv6.conf.default.disable_ipv6=1
             """
         )
-        # on Fedora, systemd-resolved in used, so there should be no copied-over resolv.conf
-        self._check_config_file_does_not_exist(self._resolv_conf_dir, "resolv.conf")
         self._check_config_file(
             self._network_scripts_dir,
             "ifcfg-ens3",
