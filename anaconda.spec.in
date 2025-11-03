@@ -488,6 +488,50 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 03 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.35-1
+- Add release notes for RDP kickstart support (adamkankovsky)
+  Resolves: RHEL-96216
+- test: Enable kickstart RDP command in Anaconda (adamkankovsky)
+  Resolves: RHEL-96216
+- Enable kickstart RDP command in Anaconda (adamkankovsky)
+  Resolves: RHEL-96216
+- Adjust to pykickstart adding support for RDP (k.koukiou)
+  Resolves: RHEL-96216
+- Adjust to pykickstart removing support for VNC (k.koukiou)
+  Resolves: RHEL-119216
+- Remove temporary isFinal getter and DBUS API (adamkankovsky)
+  Resolves: RHEL-119216
+- Add test for product DBUS API (adamkankovsky)
+  Resolves: RHEL-119216
+- New getter for product in Runtime module (adamkankovsky)
+  Resolves: RHEL-119216
+- Partial pick of 7a1ae76 (ruff/isort) limited to runtime (adamkankovsky)
+  Resolves: RHEL-119216
+- Test for kickstart scripts (akankovs)
+  Resolves: RHEL-119216
+- Migrate the %%pre-install, %%post, %%onerror and %%traceback scripts
+  (akankovs)
+  Resolves: RHEL-119216
+- Check if text mode was actually requested by kickstart (#2293672) (mkolman)
+  Resolves: RHEL-119216
+- Get kickstart data via DBus (akankovs)
+  Resolves: RHEL-119216
+- Adding a implementation for runtime and ui commands (akankovs)
+  Resolves: RHEL-119216
+- Update tests for kickstart commands (akankovs)
+  Resolves: RHEL-119216
+- Migration of the remaining kickstart commands to the Runtime module
+  (akankovs)
+  Resolves: RHEL-119216
+- Fix mock LUKS devices logic in tests (vtrefny)
+- Fix checking for locked LUKS devices (vtrefny)
+- Bump required version of blivet to 3.13 (vtrefny)
+  Resolves: RHEL-115016
+- Catch blivet.errors.ISCSIError in ISCSIDiscoverTask (vtrefny)
+  Resolves: RHEL-115016
+- Disable LVM auto-activation during installation (vtrefny)
+  Resolves: RHEL-115016
+
 * Tue Sep 23 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.34-1
 - ui: tui: installation_source: show error message in the TUI screen
   (k.koukiou)
