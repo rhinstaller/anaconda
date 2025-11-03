@@ -46,8 +46,8 @@ MINOR_VERSION=${VERSION_ID#*.}
 lorax -p RHEL -v "$MAJOR_VERSION" -r "$MINOR_VERSION" \
       --volid "RHEL-$MAJOR_VERSION-$MINOR_VERSION-BaseOS-x86_64" \
       --nomacboot \
-      -s http://download.devel.redhat.com/rhel-10/nightly/RHEL-10/latest-RHEL-10/compose/BaseOS/x86_64/os/ \
-      -s http://download.devel.redhat.com/rhel-10/nightly/RHEL-10/latest-RHEL-10/compose/AppStream/x86_64/os/ \
+      -s http://download.devel.redhat.com/rhel-10/development/RHEL-10/latest-RHEL-10/compose/BaseOS/x86_64/os/ \
+      -s http://download.devel.redhat.com/rhel-10/development/RHEL-10/latest-RHEL-10/compose/AppStream/x86_64/os/ \
       -s file://$REPO_DIR/ \
       "$@" \
       output || cp *.log "$OUT_DIR"
