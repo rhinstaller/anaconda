@@ -7,11 +7,24 @@ for GitHub Actions workflows.
 """
 
 import json
-import sys
+from argparse import ArgumentParser
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import yaml
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = ArgumentParser(description="Generate matrix data for GitHub Actions workflows.")
+    parser.add_argument("target_branch", nargs='?', default=None,
+                        help="Target branch to filter matrix for (optional, defaults to all branches)")
+    parser.add_argument("--no-use-full-releases", dest='use_full_releases', action='store_false', default=True,
+                        help="Replace current branch in 'release' with empty string for consistent check names")
+    parser.add_argument("--skip-releases", default="",
+                        help="Comma-separated list of releases to skip in the matrix output")
+
+    return parser.parse_args()
 
 
 def load_branch_variables() -> Dict[str, Any]:
@@ -83,6 +96,14 @@ def process_release_names(matrix: List[Dict[str, str]], use_full_releases: bool)
         return matrix
 
 
+def filter_ignored_releases(matrix: List[Dict[str, str]], ignore_releases: List[str]) -> List[Dict[str, str]]:
+    """Filter out releases that should be ignored"""
+    if not ignore_releases:
+        return matrix
+
+    return [entry for entry in matrix if entry['release'] not in ignore_releases]
+
+
 def create_github_matrix(matrix: List[Dict[str, str]]) -> Dict[str, Any]:
     """Create GitHub Actions matrix format"""
     releases = [entry['release'] for entry in matrix]
@@ -96,8 +117,10 @@ def create_github_matrix(matrix: List[Dict[str, str]]) -> Dict[str, Any]:
 def main():
     """Main function to generate matrix data"""
     # Parse command line arguments
-    target_branch = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] else None
-    use_full_releases = sys.argv[2].lower() == 'true' if len(sys.argv) > 2 else True
+    args = parse_args()
+    target_branch = args.target_branch
+    use_full_releases = args.use_full_releases
+    ignore_releases = [r.strip() for r in args.skip_releases.split(',') if r.strip()]
 
     # Load branch variables
     branch_vars = load_branch_variables()
@@ -108,6 +131,9 @@ def main():
 
     # Filter by target branch
     matrix = filter_matrix_by_branch(matrix_by_branch, target_branch)
+
+    # Filter out ignored releases
+    matrix = filter_ignored_releases(matrix, ignore_releases)
 
     # Process release names
     matrix = process_release_names(matrix, use_full_releases)
