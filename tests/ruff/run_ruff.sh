@@ -7,8 +7,4 @@ fi
 
 ruff --version
 
-ruff check \
-  --config "$top_srcdir/tests/ruff/ruff.toml" \
-  "$top_srcdir/pyanaconda/" \
-  "$top_srcdir/tests/" \
-  "$top_srcdir/scripts/" \
+ruff check "$top_srcdir"
