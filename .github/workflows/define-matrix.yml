@@ -13,6 +13,11 @@ on:
         required: false
         type: string
         default: 'true'
+      ignore_releases:
+        description: 'Comma-separated list of releases to ignore in the matrix output'
+        required: false
+        type: string
+        default: ''
     outputs:
       releases:
         description: 'Matrix data for the target branch or all branches if no target specified'
@@ -38,5 +43,23 @@ jobs:
       - name: Generate matrix data
         id: get_matrix
         run: |
-          MATRIX=$(python3 scripts/define-matrix.py "${{ inputs.target_branch }}" "${{ inputs.use_full_releases }}")
+          # Build command arguments array
+          args=("python3" "scripts/define-matrix.py")
+
+          # Add target branch if specified
+          if [ -n "${{ inputs.target_branch }}" ]; then
+            args+=("${{ inputs.target_branch }}")
+          fi
+
+          # Add use_full_releases flag
+          if [ "${{ inputs.use_full_releases }}" = "false" ]; then
+            args+=("--no-use-full-releases")
+          fi
+
+          # Add skip releases if specified
+          if [ -n "${{ inputs.ignore_releases }}" ]; then
+            args+=("--skip-releases" "${{ inputs.ignore_releases }}")
+          fi
+
+          MATRIX=$("${args[@]}")
           echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
