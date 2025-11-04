@@ -514,6 +514,7 @@ class FlatpakManagerTestCase:
         url = fm._get_registry_url()
 
         assert url == expected_url
+        assert False
 
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.SUBSCRIPTION")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available")
