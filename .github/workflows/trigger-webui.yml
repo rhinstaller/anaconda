@@ -26,6 +26,7 @@ jobs:
     with:
       target_branch: main  # Only run for releases that target main branch
       use_full_releases: true  # Keep full release names for container tags
+      ignore_releases: fedora-eln
 
   trigger-webui:
     needs: define-matrix
