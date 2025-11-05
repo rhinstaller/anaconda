@@ -488,6 +488,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 05 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.36-1
+- Set Authselect agruments after run in Security module (adamkankovsky)
+  Resolves: RHEL-118305
+- Authselect code simplification (adamkankovsky)
+  Resolves: RHEL-118305
+- Emit authselect in KS when fingerprint is enabled (adamkankovsky)
+  Resolves: RHEL-118305
+- custom: Reallocate partitions when removing a partition (vtrefny)
+  Resolves: RHEL-115411
+- Add pyproject.toml for project configuration (bciconel)
+- Support Flatpak installations from Satellite OCI registries (bciconel)
+  Resolves: RHEL-4216
+  Related: RHEL-4214
+  Resolves: INSTALLER-4434
+- Configure default Flatpak remote for RHEL 10 (bciconel)
+- flatpak: enable installation with CDROM source type (bciconel)
+  Resolves: RHEL-116800
+
 * Mon Nov 03 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.35-1
 - Add release notes for RDP kickstart support (adamkankovsky)
   Resolves: RHEL-96216
