@@ -445,7 +445,7 @@ class ConfigureFingerprintAuthTask(Task):
         )
 
         security_proxy = SECURITY.get_proxy()
-        security_proxy.Authselect = AUTHSELECT_ARGS
+        security_proxy.SetAuthselect(AUTHSELECT_ARGS)
         log.debug("Authselect kickstart set to: %s", AUTHSELECT_ARGS)
 
 
