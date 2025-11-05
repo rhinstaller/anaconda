@@ -512,6 +512,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 05 2025 github-actions <github-actions@github.com> - 44.1-1
+
 * Tue Nov 04 2025 github-actions <github-actions@github.com> - 43.48-1
 - Support Flatpak installations from Satellite OCI registries (bciconel)
 - Configure default Flatpak remote for RHEL 10 (bciconel)
