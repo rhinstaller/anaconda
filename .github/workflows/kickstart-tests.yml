@@ -113,6 +113,7 @@ jobs:
     with:
       target_branch: ${{ needs.pr-info.outputs.base_ref }}  #Set target_branch to PR's base branch in order to filter only supported releases for this branch
       use_full_releases: false # Set .release to '' for default release per branch so that default statuses are set in GitHub with non-release specific names
+      ignore_releases: fedora-eln
 
   run:
     needs: [pr-info, define-matrix]
