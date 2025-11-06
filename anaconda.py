@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 #
+# Trigger test
 # anaconda: The Red Hat Linux Installation program
 #
 # Copyright (C) 1999-2013
