@@ -422,6 +422,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 07 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.10-1
+- Fixing authselect logical differences not resolved during backporting
+  (adamkankovsky)
+  Resolves: RHEL-85175
+
 * Wed Nov 05 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.9-1
 - Set Authselect agruments after run in Security module (adamkankovsky)
   Resolves: RHEL-85175
