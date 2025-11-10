@@ -13,7 +13,12 @@ RUN set -e; \
   # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
   # if fedora-cisco is not enabled it will fallback to stub library in main repository which is
   # what we want
-  sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/fedora-cisco-openh264.repo; \
+  if ! grep -q VARIANT.*eln /etc/os-release; then \
+    # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
+    # if fedora-cisco is not enabled it will fallback to stub library in main repository which is
+    # what we want
+    sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/fedora-cisco-openh264.repo; \
+  fi; \
   dnf install -y \
   git \
   python3-pip; \
