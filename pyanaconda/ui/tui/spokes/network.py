@@ -123,10 +123,10 @@ class WiredTUIConfigurationData():
             nameservers.append(ip6_config.get_dns(i))
         self.nameserver = ",".join(nameservers)
 
-        self.onboot = connection.get_setting_connection().get_autoconnect()
         s_con = connection.get_setting_connection()
+        self.onboot = s_con.get_autoconnect()
         zone = s_con.get_zone()
-        self.apply_configuration = zone == "anaconda-apply" if zone else False
+        self.apply_configuration = zone == "anaconda-apply"
 
     def update_connection(self, connection):
         """Update NM RemoteConnection from the object.
