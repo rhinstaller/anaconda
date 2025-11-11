@@ -64,7 +64,7 @@ class WelcomeWindow extends Adw.ApplicationWindow {
         const statusPage = new Adw.StatusPage({
             title,
             iconName: 'fedora-logo-icon',
-            description: _('This live media can be used to install %s or as a temporary system. Installation can be started at any time using the install icon in Activities.').replace('%s', osReleaseLineName),
+            description: _('This live media can be used to install %s or as a temporary system. Installation can be started at any time by launching the install app.').replace('%s', osReleaseLineName),
         });
         this.content.set_child(statusPage);
 
