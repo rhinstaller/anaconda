@@ -339,6 +339,7 @@ container-rpm-test:
 	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
 
 	$(CONTAINER_ENGINE) run \
+	-e LANG=C.UTF-8 -e LC_ALL=C.UTF-8 \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
