@@ -37,7 +37,7 @@ from pyanaconda.modules.common.errors.installation import (
 )
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.common.task import Task, sync_run_task
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 gi.require_version("OSTree", "1.0")
@@ -709,6 +709,25 @@ class ConfigureBootloader(Task):
                  self._sysroot + "/boot"])
 
 
+class CollectBootcKernelArgumentsTask(Task):
+    """Task to collect kernel arguments for bootc before installation.
+
+    This ensures kernel arguments (including LUKS UUIDs) are collected before
+    bootc installation, so they can be passed via --karg flags.
+    """
+
+    @property
+    def name(self):
+        return "Collect kernel arguments for bootc"
+
+    def run(self):
+        """Collect kernel arguments via bootloader module."""
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        task_path = bootloader_proxy.CollectKernelArgumentsWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+
 class DeployBootcTask(Task):
     """Task to deploy Bootc based image."""
 
@@ -842,8 +861,16 @@ class DeployBootcTask(Task):
         if not arch.is_s390():
             bootc_args.append("--bootloader=grub")
 
+        # Add kernel arguments from bootloader (storage, network, LUKS, etc.)
+        # CollectBootcKernelArgumentsTask should have been run before this task
+        # to ensure collect_arguments() has been called, which collects LUKS UUIDs
+        # via dracut_setup_args().
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        for arg in bootloader.GetArguments():
+            bootc_args.append("--karg=" + arg)
+
         bootc_args.extend([
-            "--karg=root=" + root_device_uuid,
+            "--root-mount-spec=" + root_device_uuid,
             "--boot-mount-spec=" + boot_device_uuid,
             "--stateroot=" + stateroot,
             "--source-imgref=" + self._data.sourceImgRef,
