@@ -504,6 +504,19 @@ class BootloaderModule(StorageSubscriberModule):
             )
         ]
 
+    def collect_kernel_arguments_with_task(self):
+        """Collect kernel arguments with a task.
+
+        This is used by payloads that need kernel arguments before bootloader installation,
+        such as bootc which passes arguments during installation.
+
+        :return: a task to collect kernel arguments
+        """
+        return CollectKernelArgumentsTask(
+            storage=self.storage,
+            mode=self.bootloader_mode
+        )
+
     def generate_initramfs_with_tasks(self, payload_type, kernel_versions):
         """Generate initramfs with a list of tasks.
 

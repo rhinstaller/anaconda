@@ -27,6 +27,7 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import 
 )
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     ChangeOSTreeRemoteTask,
+    CollectBootcKernelArgumentsTask,
     ConfigureBootloader,
     CopyBootloaderDataTask,
     DeployBootcTask,
@@ -114,11 +115,13 @@ class RPMOSTreeModule(PayloadBase):
         """Create the set of tasks to install the payload with bootc
 
         Similar to ostree flow, but bootc handles bootloader setup, so we skip
-        CopyBootloaderDataTask. DeployBootcTask handles deployment using physroot,
+        CopyBootloaderDataTask. We first collect kernel arguments (including LUKS UUIDs),
+        then DeployBootcTask handles deployment using physroot,
         then SetSystemRootTask sets the system root to the deployment path,
         then PrepareBootcMountTargetsTask sets up bind mounts from physroot to sysroot.
         """
         tasks = [
+            CollectBootcKernelArgumentsTask(),
             DeployBootcTask(
                 data=data,
                 physroot=conf.target.physical_root,
