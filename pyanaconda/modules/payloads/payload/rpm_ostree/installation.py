@@ -214,6 +214,16 @@ class PrepareMountTargetsTaskBase(Task):
         else:
             self._setup_internal_bindmount('/var', recurse=False)
 
+    def _handle_boot_if_not_mount_point(self, mount_points):
+        """Make sure that /boot is bind mounted into the sysroot
+
+        This ensures /boot is accessible to %post scripts when they are running.
+        """
+        if "/boot" not in self._internal_mounts:
+            # Should this be ro?  I feel like the bind mount should be rw but
+            # /usr is being mounted ro for ostree installs (in run()).
+            self._setup_internal_bindmount('/boot', recurse=False)
+
 
 class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
     """Task to prepare OSTree mount targets."""
@@ -291,15 +301,6 @@ class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
             if mount in ('/', '/var', "/dev", "/proc", "/run", "/sys"):
                 continue
             self._setup_internal_bindmount(mount, recurse=False)
-
-    def _handle_boot_if_not_mount_point(self, mount_points):
-        """Make sure that /boot is bind mounted into the sysroot
-
-        """
-        if "/boot" not in self._internal_mounts:
-            # Should ths be ro?  I feel like the bind mount should be rw but
-            # /usr is being mounted ro for ostree installs (in run()).
-            self._setup_internal_bindmount('/boot', recurse=False)
 
     def run(self):
         """Run the task.
@@ -379,6 +380,9 @@ class PrepareBootcMountTargetsTask(PrepareMountTargetsTaskBase):
 
         # Create /var subdirectories (roothome and home) after bind mount
         self._fill_var_subdirectories()
+
+        # Make sure /boot is accessible during %post scripts
+        self._handle_boot_if_not_mount_point(mount_points)
 
         return self._internal_mounts
 
