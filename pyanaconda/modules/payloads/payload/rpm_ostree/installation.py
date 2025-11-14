@@ -37,7 +37,7 @@ from pyanaconda.modules.common.errors.installation import (
 )
 from pyanaconda.modules.common.structures.bootc import BootcConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.common.task import Task, sync_run_task
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 gi.require_version("OSTree", "1.0")
@@ -214,6 +214,16 @@ class PrepareMountTargetsTaskBase(Task):
         else:
             self._setup_internal_bindmount('/var', recurse=False)
 
+    def _handle_boot_if_not_mount_point(self, mount_points):
+        """Make sure that /boot is bind mounted into the sysroot
+
+        This ensures /boot is accessible during %post scripts.
+        """
+        if "/boot" not in self._internal_mounts:
+            # Should this be ro?  I feel like the bind mount should be rw but
+            # /usr is being mounted ro for ostree installs (in run()).
+            self._setup_internal_bindmount('/boot', recurse=False)
+
 
 class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
     """Task to prepare OSTree mount targets."""
@@ -291,15 +301,6 @@ class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
             if mount in ('/', '/var', "/dev", "/proc", "/run", "/sys"):
                 continue
             self._setup_internal_bindmount(mount, recurse=False)
-
-    def _handle_boot_if_not_mount_point(self, mount_points):
-        """Make sure that /boot is bind mounted into the sysroot
-
-        """
-        if "/boot" not in self._internal_mounts:
-            # Should ths be ro?  I feel like the bind mount should be rw but
-            # /usr is being mounted ro for ostree installs (in run()).
-            self._setup_internal_bindmount('/boot', recurse=False)
 
     def run(self):
         """Run the task.
@@ -379,6 +380,9 @@ class PrepareBootcMountTargetsTask(PrepareMountTargetsTaskBase):
 
         # Create /var subdirectories (roothome and home) after bind mount
         self._fill_var_subdirectories()
+
+        # Make sure /boot is accessible during %post scripts
+        self._handle_boot_if_not_mount_point(mount_points)
 
         return self._internal_mounts
 
@@ -705,6 +709,25 @@ class ConfigureBootloader(Task):
                  self._sysroot + "/boot"])
 
 
+class CollectBootcKernelArgumentsTask(Task):
+    """Task to collect kernel arguments for bootc before installation.
+
+    This ensures kernel arguments (including LUKS UUIDs) are collected before
+    bootc installation, so they can be passed via --karg flags.
+    """
+
+    @property
+    def name(self):
+        return "Collect kernel arguments for bootc"
+
+    def run(self):
+        """Collect kernel arguments via bootloader module."""
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        task_path = bootloader_proxy.CollectKernelArgumentsWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+
 class DeployBootcTask(Task):
     """Task to deploy Bootc based image."""
 
@@ -831,13 +854,21 @@ class DeployBootcTask(Task):
         bootc_args = [
             "install",
             "to-filesystem",
-            "--karg=root=" + root_device_uuid,
+            "--root-mount-spec=" + root_device_uuid,
             "--boot-mount-spec=" + boot_device_uuid,
             "--stateroot=" + stateroot,
             "--source-imgref=" + self._data.sourceImgRef,
             "--target-imgref=" + self._data.targetImgRef,
             self._physroot
         ]
+
+        # Add kernel arguments from bootloader (storage, network, LUKS, etc.)
+        # CollectBootcKernelArgumentsTask should have been run before this task
+        # to ensure collect_arguments() has been called, which collects LUKS UUIDs
+        # via dracut_setup_args().
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        for arg in bootloader.GetArguments():
+            bootc_args.append("--karg=" + arg)
 
         try:
             self.report_progress(_("Deploying image..."))

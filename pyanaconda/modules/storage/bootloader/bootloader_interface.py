@@ -299,6 +299,17 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         )
         return TaskContainer.to_object_path_list(tasks)
 
+    def CollectKernelArgumentsWithTask(self) -> ObjPath:
+        """Collect kernel arguments with a task.
+
+        This is used by payloads that need kernel arguments before bootloader installation,
+        such as bootc which passes arguments during installation.
+
+        :return: a path to a DBus task
+        """
+        task = self.implementation.collect_kernel_arguments_with_task()
+        return TaskContainer.to_object_path(task)
+
     def GenerateInitramfsWithTasks(self, payload_type: Str, kernel_versions: List[Str]) \
             -> List[ObjPath]:
         """Generate initramfs with a list of tasks.
