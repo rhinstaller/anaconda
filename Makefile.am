@@ -242,6 +242,53 @@ anaconda-live-iso-creator-build:
 	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
 	$(LIVE_ISO_CREATOR_DOCKERFILE)
 
+# KIWI live ISO builder
+KIWI_LIVE_ISO_CREATOR_DIR ?= $(srcdir)/dockerfile/anaconda-kiwi-live-iso-creator
+KIWI_LIVE_ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-kiwi-live-iso-creator
+
+anaconda-kiwi-live-iso-creator-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password (privileged container)."
+	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull=always \
+	$(CONTAINER_ADD_ARGS) \
+	--build-arg=ci_tag=$(CI_TAG) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	--tag $(KIWI_LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
+	$(KIWI_LIVE_ISO_CREATOR_DIR)
+
+FEDORA_VARIANT ?= Workstation
+
+container-kiwi-live-iso-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device usage in KIWI."
+
+	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
+		echo "You need to have anaconda RPMs built first. Please run 'make -f ./Makefile.am container-rpms-scratch'."; \
+		exit 1; \
+	fi
+
+	@echo "Building Live ISO with CI_TAG=$(CI_TAG) FEDORA_VARIANT=$(FEDORA_VARIANT)"
+	sudo $(CONTAINER_ENGINE) volume rm kiwi-work 2>/dev/null || true
+	sudo $(CONTAINER_ENGINE) volume create kiwi-work >/dev/null
+	sudo $(CONTAINER_ENGINE) volume inspect kiwi-var-tmp >/dev/null 2>&1 || sudo $(CONTAINER_ENGINE) volume create kiwi-var-tmp >/dev/null
+	sudo $(CONTAINER_ENGINE) volume inspect kiwi-tmp >/dev/null 2>&1 || sudo $(CONTAINER_ENGINE) volume create kiwi-tmp >/dev/null
+	mkdir -p result/iso
+	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
+		--env FEDORA_VARIANT=$(FEDORA_VARIANT) \
+		--rm --tty --privileged \
+		--security-opt label=disable \
+		-v /dev:/dev \
+		--volume kiwi-work:/work \
+		--volume kiwi-var-tmp:/var/tmp \
+		--volume kiwi-tmp:/tmp \
+		-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
+		-v $(srcdir)/result/iso:/images:z \
+		$(CONTAINER_ADD_ARGS) $(CONTAINER_RUN_ARGS) \
+		$(KIWI_LIVE_ISO_CREATOR_NAME):$(CI_TAG)
+	@echo "ISO is stored in $(srcdir)/result/iso/"
+
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
 anaconda-ci-push:

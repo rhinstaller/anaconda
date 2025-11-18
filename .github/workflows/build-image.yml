@@ -261,7 +261,7 @@ jobs:
     timeout-minutes: 300
     env:
        STATUS_NAME: live-iso
-       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-live-iso-creator'
+       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-kiwi-live-iso-creator'
        CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
@@ -291,14 +291,14 @@ jobs:
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
           make -f ./Makefile.am container-rpms-scratch
 
-      - name: Build anaconda-live-iso-creator container image
+      - name: Build anaconda-kiwi-live-iso-creator container image
         run: |
-          sudo -E make -f ./Makefile.am anaconda-live-iso-creator-build
+          sudo -E make -f ./Makefile.am anaconda-kiwi-live-iso-creator-build
 
-      - name: Build the ISO image
+      - name: Build the Live ISO image using KIWI
         run: |
           mkdir -p images
-          sudo -E make -f Makefile.am container-live-iso-build
+          sudo -E make -f Makefile.am container-kiwi-live-iso-build
           mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
 
       - name: Make artefacts created by sudo cleanable
