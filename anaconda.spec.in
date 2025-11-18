@@ -518,6 +518,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 18 2025 github-actions <github-actions@github.com> - 44.3-1
+- Add bootc installation method (ppolawsk)
+- Reword text in Fedora welcome app (mcatanzaro)
+
 * Tue Nov 11 2025 github-actions <github-actions@github.com> - 44.2-1
 - fix: remove the unused file 'a' (lonicerae)
 
