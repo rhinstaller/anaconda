@@ -238,6 +238,43 @@ anaconda-live-iso-creator-build:
 	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
 	$(LIVE_ISO_CREATOR_DOCKERFILE)
 
+# KIWI live ISO builder
+KIWI_LIVE_ISO_CREATOR_DIR ?= $(srcdir)/dockerfile/anaconda-kiwi-live-iso-creator
+KIWI_LIVE_ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-kiwi-live-iso-creator
+
+anaconda-kiwi-live-iso-creator-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password."
+	sudo $(CONTAINER_ENGINE) build --pull=newer \
+	$(CONTAINER_BUILD_ARGS) $(CONTAINER_ADD_ARGS) \
+	--build-arg=CI_TAG=$(CI_TAG) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	--tag $(KIWI_LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
+	$(KIWI_LIVE_ISO_CREATOR_DIR)
+
+container-kiwi-live-iso-build:
+	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The Live ISO builds are not supported on rhel-10!"; exit 99 )
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password."
+	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
+		echo "You need to have anaconda RPMs built first. Please run 'make -f ./Makefile.am container-rpms-scratch'."; \
+		exit 1; \
+	fi
+	sudo $(CONTAINER_ENGINE) volume rm kiwi-work 2>/dev/null || true
+	sudo $(CONTAINER_ENGINE) volume create kiwi-work >/dev/null
+	mkdir -p result/iso
+	sudo $(CONTAINER_ENGINE) run \
+		--env CI_TAG=$(CI_TAG) --env FEDORA_VARIANT=$(FEDORA_VARIANT) \
+		--env KIWI_BOXED_CACHE_DIR=/work/.kiwi_boxes \
+		--rm --privileged --network=host \
+		-v /dev:/dev --volume kiwi-work:/work \
+		-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
+		-v $(srcdir)/result/iso:/images:z \
+		$(CONTAINER_ADD_ARGS) $(CONTAINER_RUN_ARGS) \
+		$(KIWI_LIVE_ISO_CREATOR_NAME):$(CI_TAG)
+	sudo chown -R $$(id -u):$$(id -g) result/iso/
+	sudo chmod -R a+r result/iso/
+	@echo "ISO is stored in result/iso/"
+
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
 anaconda-ci-push:

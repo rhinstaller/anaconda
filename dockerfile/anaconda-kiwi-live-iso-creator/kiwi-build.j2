@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# --- Logging ------------------------------------------------------------------
+log()  { echo "[$(date -u +%H:%M:%S)] $*" >&2; }
+warn() { echo "[$(date -u +%H:%M:%S)] WARNING: $*" >&2; }
+err()  { echo "[$(date -u +%H:%M:%S)] ERROR:   $*" >&2; }
+
+# --- Configuration ------------------------------------------------------------
+WORK_DIR=/work
+REPOS_DIR=/repos
+FEDORA_KIWI_DESC_URL="${FEDORA_KIWI_DESC_URL:-https://pagure.io/fedora-kiwi-descriptions.git}"
+: "${CI_TAG:=fedora-rawhide}"
+: "${FEDORA_VARIANT:=Workstation}"
+
+# --- KIWI boxed plugin cache (persist boxes in /work volume) ------------------
+: "${KIWI_BOXED_CACHE_DIR:=/work/.kiwi_boxes}"
+export KIWI_BOXED_CACHE_DIR
+mkdir -p "${KIWI_BOXED_CACHE_DIR}"
+
+# --- Temp directories & cleanup -----------------------------------------------
+FEDORA_KIWI_DESC_DIR="$(mktemp -d /tmp/fedora-kiwi-descriptions.XXXXXX)"
+DESC_TMP="$(mktemp -d /tmp/kiwi-desc.XXXXXX)"
+trap 'rm -rf "${FEDORA_KIWI_DESC_DIR}" "${DESC_TMP}" 2>/dev/null || true' EXIT
+
+# --- Create local repository with Anaconda RPMs -------------------------------
+mkdir -p "${REPOS_DIR}/anaconda-local"
+if compgen -G "/anaconda-rpms/*.rpm" > /dev/null; then
+  log "Copying Anaconda RPMs to local repo..."
+  cp -a /anaconda-rpms/*.rpm "${REPOS_DIR}/anaconda-local/"
+fi
+createrepo_c "${REPOS_DIR}/anaconda-local"
+
+# --- Map CI_TAG to branch and KIWI file ---------------------------------------
+case "${CI_TAG}" in
+  fedora-rawhide)       BRANCH="rawhide";                  KIWI_FILE="Fedora.kiwi" ;;
+  fedora-eln)           BRANCH="rawhide";                  KIWI_FILE="Fedora-ELN.kiwi" ;;
+  fedora-*)             BRANCH="f${CI_TAG#fedora-}";       KIWI_FILE="Fedora.kiwi" ;;
+  *)                    BRANCH="rawhide";                  KIWI_FILE="Fedora.kiwi" ;;
+esac
+log "CI_TAG=${CI_TAG}, branch=${BRANCH}, kiwi=${KIWI_FILE}"
+
+# --- Clone fedora-kiwi-descriptions -------------------------------------------
+log "Cloning ${FEDORA_KIWI_DESC_URL} (branch ${BRANCH})..."
+git clone --depth 1 --branch "${BRANCH}" "${FEDORA_KIWI_DESC_URL}" "${FEDORA_KIWI_DESC_DIR}" || {
+  err "Failed to clone branch '${BRANCH}'"
+  exit 1
+}
+
+# --- Locate and copy KIWI description -----------------------------------------
+KIWI_PATH="$(find "${FEDORA_KIWI_DESC_DIR}" -maxdepth 4 -name "${KIWI_FILE}" -type f | head -n1)"
+[ -z "${KIWI_PATH}" ] && { err "${KIWI_FILE} not found"; exit 1; }
+
+KIWI_DIR="$(dirname "${KIWI_PATH}")"
+log "Using KIWI description: ${KIWI_PATH}"
+
+# Copy with symlink resolution (9p + symlinks = ELOOP errors)
+(cd "${KIWI_DIR}" && tar --dereference -cf - .) | (cd "${DESC_TMP}" && tar -xf -)
+
+# --- Map FEDORA_VARIANT to KIWI profile ---------------------------------------
+case "${FEDORA_VARIANT}" in
+  Workstation)  PROFILE="Workstation-Live" ;;
+  KDE)          PROFILE="KDE-Desktop-Live" ;;
+  Xfce)         PROFILE="Xfce-Live" ;;
+  Cinnamon)     PROFILE="Cinnamon-Live" ;;
+  MATE|Compiz)  PROFILE="MATE_Compiz-Live" ;;
+  LXDE)         PROFILE="LXDE-Live" ;;
+  LXQt)         PROFILE="LXQt-Live" ;;
+  Sway)         PROFILE="Sway-Live" ;;
+  Budgie)       PROFILE="Budgie-Live" ;;
+  SoaS)         PROFILE="SoaS-Live" ;;
+  i3)           PROFILE="i3-Live" ;;
+  MiracleWM)    PROFILE="MiracleWM-Live" ;;
+  COSMIC)       PROFILE="COSMIC-Live" ;;
+  Phosh)        PROFILE="Phosh-Live" ;;
+  *)            PROFILE="Workstation-Live"; warn "Unknown variant, using Workstation" ;;
+esac
+log "FEDORA_VARIANT=${FEDORA_VARIANT}, PROFILE=${PROFILE}"
+
+# --- Disable mediacheck (tagmedia not available in boxbuild VM) ---------------
+find "${DESC_TMP}" \( -name "*.kiwi" -o -name "*.xml" \) -exec \
+  sed -i 's/mediacheck="true"/mediacheck="false"/g' {} \; 2>/dev/null || true
+
+# --- Build ISO via boxbuild ---------------------------------------------------
+mkdir -p "${WORK_DIR}"
+kiwi-ng --debug --type iso --profile "${PROFILE}" --kiwi-file "${KIWI_FILE}" \
+  system boxbuild --box universal --box-memory=12288 -- \
+  --add-repo="/repos/anaconda-local,rpm-md,anaconda-local,10" \
+  --description="${DESC_TMP}" \
+  --target-dir="${WORK_DIR}"
+
+# --- Copy resulting ISO -------------------------------------------------------
+ISO="$(find "${WORK_DIR}" -maxdepth 1 -name "*.iso" -type f | head -n1)"
+if [ -n "${ISO}" ]; then
+  cp -L "${ISO}" "/images/Fedora-${FEDORA_VARIANT}.iso"
+  log "ISO written to /images/Fedora-${FEDORA_VARIANT}.iso"
+else
+  err "No ISO produced"; exit 2
+fi
