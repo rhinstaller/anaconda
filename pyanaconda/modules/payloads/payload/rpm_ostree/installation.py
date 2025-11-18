@@ -831,13 +831,21 @@ class DeployBootcTask(Task):
         bootc_args = [
             "install",
             "to-filesystem",
+        ]
+
+        # FIXME: remove once https://github.com/bootc-dev/bootc/issues/1778 is fixed
+        # Workaround: Add bootloader arg only when not s390x
+        if not arch.is_s390():
+            bootc_args.append("--bootloader=grub")
+
+        bootc_args.extend([
             "--karg=root=" + root_device_uuid,
             "--boot-mount-spec=" + boot_device_uuid,
             "--stateroot=" + stateroot,
             "--source-imgref=" + self._data.sourceImgRef,
             "--target-imgref=" + self._data.targetImgRef,
             self._physroot
-        ]
+        ])
 
         try:
             self.report_progress(_("Deploying image..."))
