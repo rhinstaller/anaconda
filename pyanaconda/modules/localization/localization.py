@@ -52,6 +52,7 @@ from pyanaconda.modules.localization.localed import (
     CompositorLocaledWrapper,
     LocaledWrapper,
 )
+from pyanaconda.modules.localization.live_keyboard import get_live_keyboard_instance
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import (
     ApplyKeyboardTask,
@@ -422,7 +423,27 @@ class LocalizationService(KickstartService):
         return self.localed_compositor_wrapper.get_layouts_variants()
 
     def set_compositor_layouts(self, layout_variants, options):
-        self.localed_compositor_wrapper.set_layouts(layout_variants, options)
+        """Set compositor keyboard layouts.
+
+        Try to use localed first, and fall back to gsettings if localed is not available.
+        This is needed because workstation doesn't support localed for compositor keyboard control.
+
+        FIXME: Remove the gsettings fallback once GNOME Shell supports systemd-localed.
+        See: https://bugzilla.redhat.com/show_bug.cgi?id=2346830
+        """
+        # Check if localed is available by checking if the wrapper has a proxy
+        if self.localed_compositor_wrapper._localed_proxy is not None:
+            # Use localed (works for KDE and other environments with localed support)
+            self.localed_compositor_wrapper.set_layouts(layout_variants, options)
+        else:
+            # Fall back to gsettings (for workstation and other GNOME environments)
+            # FIXME: Remove this fallback once GNOME Shell supports systemd-localed
+            # (https://bugzilla.redhat.com/show_bug.cgi?id=2346830)
+            log.debug("Localed not available, using gsettings fallback for keyboard layouts")
+            live_keyboard = get_live_keyboard_instance()
+            success = live_keyboard.write_keyboard_layouts(layout_variants, options)
+            if not success:
+                log.warning("Failed to set keyboard layouts via gsettings fallback")
 
     def set_x_keyboard_defaults(self):
         """
