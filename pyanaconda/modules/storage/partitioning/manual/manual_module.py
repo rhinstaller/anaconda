@@ -21,6 +21,7 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.errors.storage import UnsupportedPartitioningError
 from pyanaconda.modules.common.structures.partitioning import MountPointRequest
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
@@ -81,6 +82,24 @@ class ManualPartitioningModule(PartitioningModule):
 
             if request.device_spec:
                 device = self.storage.devicetree.get_device_by_device_id(request.device_spec)
+                # Skip requests for devices that no longer exist in the device tree
+                # (e.g., BTRFS subvolumes removed when their parent is reformatted)
+                # Only skip if the device has no mount point (unmounted/unused devices)
+                if device is None:
+                    if request.mount_point in ("none", ""):
+                        log.warning("Device '%s' not found in devicetree and has no mount point. "
+                                   "This typically occurs when a BTRFS subvolume's parent is reformatted, "
+                                   "causing child subvolumes to be removed from the device tree. Skipping this request.",
+                                   request.device_spec)
+                        continue
+                    else:
+                        # Device with mount point should exist - this is an error condition
+                        raise UnsupportedPartitioningError(
+                            "Device '{}' with mount point '{}' not found in devicetree. "
+                            "This indicates a configuration issue.".format(
+                                request.device_spec, request.mount_point
+                            )
+                        )
                 mount_data.device = device.path
             else:
                 mount_data.device = request.ks_spec
