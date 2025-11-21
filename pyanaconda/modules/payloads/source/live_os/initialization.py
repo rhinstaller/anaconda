@@ -135,7 +135,11 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
             # Execute the `du` command
             result = execWithCapture("du", du_cmd_args)
             # Parse the output for the total size
-            required_space = result.split()[0]  # First column is the total
+            # When du has errors, it outputs error messages but the summary is on the last line
+            lines = result.strip().split('\n')
+            # Get the last line which contains the summary
+            last_line = lines[-1]
+            required_space = last_line.split()[0]  # First column is the total
             log.debug("Required space: %s", Size(required_space))
             return int(required_space)
         except (OSError, FileNotFoundError) as e:
