@@ -343,6 +343,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         dialog = Dialog(_("Host Name"))
         self._container.add(TextWidget(_("Set host name")), callback=self._set_hostname_callback, data=dialog)
 
+        self._container.add(TextWidget(_("Apply host name")), callback=self._apply_hostname_callback)
+
         for device_configuration in self.editable_configurations:
             iface = device_configuration.device_name
             text = (_("Configure device %s") % iface)
@@ -353,6 +355,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _set_hostname_callback(self, dialog):
         self.hostname = dialog.run()
+        self.redraw()
+        self.apply()
+
+    def _apply_hostname_callback(self):
+        self._network_module.SetCurrentHostname(self.hostname)
         self.redraw()
         self.apply()
 
