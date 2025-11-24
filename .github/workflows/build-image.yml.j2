@@ -76,7 +76,7 @@ jobs:
 
       - name: Clone repository
         # Required to use Makefile in the job
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.commit_sha.outputs.sha }}
           fetch-depth: 0
@@ -201,7 +201,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clone repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -286,7 +286,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clone repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -349,7 +349,7 @@ jobs:
        STATUS_NAME: updates-img
     steps:
       - name: Clone repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -392,7 +392,7 @@ jobs:
 
       - name: Clone repository
         # need the repo to successfully post a comment :-/
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 1

@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
           # without ref is doing the rebase for us.
@@ -91,7 +91,7 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
           # without ref is doing the rebase for us.
