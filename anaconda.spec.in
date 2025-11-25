@@ -518,6 +518,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 25 2025 github-actions <github-actions@github.com> - 44.4-1
+- bootc: Collect kernel arguments before installation to pass to bootc
+  (k.koukiou)
+- bootc: Bind mount /boot into sysroot for %%post scripts (k.koukiou)
+- pyanaconda: bootc: specify the bootloader to grub for bootc (k.koukiou)
+- storage: stop creating /etc/mtab symlink during installation (k.koukiou)
+
 * Tue Nov 18 2025 github-actions <github-actions@github.com> - 44.3-1
 - Add bootc installation method (ppolawsk)
 - Reword text in Fedora welcome app (mcatanzaro)
