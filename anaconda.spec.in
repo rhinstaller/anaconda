@@ -156,6 +156,7 @@ Requires: dbus-daemon
 
 # setting time from time spoke
 Requires: /usr/bin/date
+                log.debug("Failed to mount %s: %s", device_data.path, str(e))
 
 # Ensure it's not possible for a version of grubby to be installed
 # that doesn't work with btrfs subvolumes correctly...
@@ -165,6 +166,11 @@ Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
+
+# DBus API version, bumped by 1 on any change in behavior or the DBus API.
+# (calls add/remove/modified)
+# The Anaconda DBus API is not yet considered stable.
+Provides: anaconda-dbus-api = 100
 
 %description core
 The anaconda-core package contains the program which was used to install your
