@@ -229,7 +229,7 @@ class StorageCheckerTests(unittest.TestCase):
                 '/tmp': Size("50 MiB"),
                 '/var': Size("384 MiB"),
                 '/home': Size("100 MiB"),
-                '/boot': Size("512 MiB")
+                '/boot': Size("1 GiB"),
             },
             checks.STORAGE_REQ_PARTITION_SIZES: {},
             checks.STORAGE_MUST_BE_ON_LINUXFS: {
