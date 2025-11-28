@@ -122,7 +122,6 @@ class WiredTUIConfigurationData():
         for i in range(0, ip6_config.get_num_dns()):
             nameservers.append(ip6_config.get_dns(i))
         self.nameserver = ",".join(nameservers)
-
         s_con = connection.get_setting_connection()
         self.onboot = s_con.get_autoconnect()
         zone = s_con.get_zone()
@@ -191,9 +190,9 @@ class WiredTUIConfigurationData():
 
         s_con = connection.get_setting_connection()
         s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, self.onboot)
-        if self.apply_configuration:  
-            s_con.set_property(NM.SETTING_CONNECTION_ZONE, "anaconda-apply")  
-        else:  
+        if self.apply_configuration:
+            s_con.set_property(NM.SETTING_CONNECTION_ZONE, "anaconda-apply")
+        else:
             s_con.set_property(NM.SETTING_CONNECTION_ZONE, None)
 
     def __str__(self):
