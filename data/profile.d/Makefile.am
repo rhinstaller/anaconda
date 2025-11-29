@@ -24,6 +24,7 @@ dist_config_DATA    = \
 	fedora-eln.conf \
 	fedora-iot.conf \
 	fedora-kde.conf \
+	fedora-kde-mobile.conf \
 	fedora-kinoite.conf \
 	fedora-sericea.conf \
 	fedora-server.conf \
