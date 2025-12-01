@@ -59,9 +59,6 @@ Anaconda Web UI
 |container-autoupdate|
   Fedora and CentOS Stream CI test container images, built daily. The containers are used in unit and rpm tests.
 
-|container-autoupdate-eln|
-  Same as above but for ELN. It is expected this can often fail.
-
 |try-release-daily|
   Tests the release process daily, including checks for missing important translations.
 
