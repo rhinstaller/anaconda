@@ -492,6 +492,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 01 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.38-1
+- bootloader: efi: utilize grub2-common script for handling config file
+  generation (k.koukiou)
+  Resolves: RHEL-58830
+
 * Thu Nov 20 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.37-1
 - Don't pass --sm-disable to gnome-kiosk (awilliam)
   Resolves: RHEL-129573
