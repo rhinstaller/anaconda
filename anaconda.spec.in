@@ -426,6 +426,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 01 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.11-1
+- bootloader: efi: utilize grub2-common script for handling config file
+  generation (k.koukiou)
+  Resolves: RHEL-36187
+
 * Fri Nov 07 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.10-1
 - Fixing authselect logical differences not resolved during backporting
   (adamkankovsky)
