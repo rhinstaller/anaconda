@@ -191,6 +191,10 @@ class EFIGRUB(EFIBase, GRUB2):
         return "%s/%s" % (self.efi_config_dir, self._config_file)
 
     def write_config(self):
+        # Ensure the EFI config directory exists before calling gen_grub_cfgstub
+        efi_config_path = join_paths(conf.target.system_root, self.efi_config_dir)
+        os.makedirs(efi_config_path, exist_ok=True)
+
         rc = util.execWithRedirect(
             "gen_grub_cfgstub",
             [self.config_dir, self.efi_config_dir],
