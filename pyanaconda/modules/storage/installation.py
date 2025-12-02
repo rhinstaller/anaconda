@@ -279,6 +279,7 @@ class WriteConfigurationTask(Task):
             os.mkdir("%s/etc" % sysroot)
 
         self._write_escrow_packets(storage, sysroot)
+        self._adjust_options_for_root_volume(storage, sysroot)
 
         storage.make_mtab()
         storage.fsset.write()
@@ -295,6 +296,29 @@ class WriteConfigurationTask(Task):
         nvme_proxy.WriteConfiguration()
 
         self._write_s390_device_config(sysroot)
+
+    def _adjust_options_for_root_volume(self, storage, sysroot):
+        """Adjust options for the root volume.
+
+        Currently this only affects root volumes that are located on LUKS,
+        resulting in x-initrd.attach option being added for such volumes
+        into /etc/crypttab.
+
+        :type storage: an instance of InstallerStorage
+        :param sysroot: a path to the target OS installation
+        """
+
+        # find the root device
+        if storage.root_device:
+            # check if it is on a LUKS volume
+            for m in storage.root_device.ancestors:
+                if m.format.type == "luks":
+                    log.debug("adding x-initrd.attach option for LUKS device containing / volume to /etc/crypttab")
+                    # handle options being empty
+                    if m.format.options:
+                        m.format.options += ",x-initrd.attach"
+                    else:
+                        m.format.options = "x-initrd.attach"
 
     def _write_escrow_packets(self, storage, sysroot):
         """Write the escrow packets.
