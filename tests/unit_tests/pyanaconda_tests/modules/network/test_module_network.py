@@ -50,6 +50,7 @@ from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTa
 from pyanaconda.modules.network.initialization import (
     ApplyKickstartTask,
     DumpMissingConfigFilesTask,
+    PersistInitramfsConfigTask,
 )
 from pyanaconda.modules.network.installation import (
     ConfigureActivationOnBootTask,
@@ -97,6 +98,54 @@ class MockedNMClient():
 
     def get_capabilities(self):
         return self.capabilities
+
+
+def mock_nm_client_devices(device_specs):
+    """Mock NM Client devices.
+    :param device_specs: list of specifications of devices which are tuples
+                            (DEVICE_NAME, PERMANENT_HWADDRESS, HWADDRESS, DEVICE_TYPE,
+                            AVAILABLE_CONNECTIONS, ACTIVE_CONNECTION)
+                            None value of PERMANENT_HWADDRESS means raising Attribute exception
+    :type device_specs: list(tuple(str, str, str, int, list, con))
+    """
+    devices = []
+    for name, perm_hw, hw, dtype, available_cons, active_con in device_specs:
+        dev = Mock()
+        dev.get_iface.return_value = name
+        dev.get_device_type.return_value = dtype
+        dev.get_hw_address.return_value = hw
+        if perm_hw:
+            dev.get_permanent_hw_address.return_value = perm_hw
+        else:
+            dev.get_permanent_hw_address = Mock(side_effect=AttributeError('mocking no permanent hw address'))
+        dev.get_available_connections.return_value = available_cons
+        mock_ac = Mock()
+        mock_ac.get_connection.return_value = active_con
+        dev.get_active_connection.return_value = mock_ac
+        devices.append(dev)
+    return devices
+
+
+def mock_nm_client_cons(con_specs):
+    """Mock NM Client connections.
+    :param con_specs: list of specifications of connections which are tuples
+                      (ID, UUID, INTERFACE-NAME, CONTROLLER, MAC)
+    :type con_specs: list(tuple(str, str, str, str, str))
+    """
+    cons = []
+    for con_id, uuid, iface, controller, mac in con_specs:
+        con = Mock()
+        con.get_id.return_value = con_id
+        con.get_uuid.return_value = uuid
+        con.get_interface_name.return_value = iface
+        mock_setting = Mock()
+        mock_setting.get_controller.return_value = controller
+        con.get_setting_connection.return_value = mock_setting
+        mock_setting = Mock()
+        mock_setting.get_mac_address.return_value = mac
+        con.get_setting_wired.return_value = mock_setting
+        cons.append(con)
+    return cons
 
 
 class NetworkInterfaceTestCase(unittest.TestCase):
@@ -293,13 +342,17 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module._disable_ipv6 = True
         self.network_module.nm_client = Mock()
         self.network_module._is_using_persistent_device_names = Mock(return_value=True)
-        self.__mock_nm_client_devices(
+        mocked_devices = mock_nm_client_devices(
             [
-                ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET),
-                ("ens4", "44:44:44:44:44:44", "44:44:44:44:44:44", NM.DeviceType.ETHERNET),
-                ("ens5", "55:55:55:55:55:55", "55:55:55:55:55:55", NM.DeviceType.ETHERNET)
+                ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+                 [], None),
+                ("ens4", "44:44:44:44:44:44", "44:44:44:44:44:44", NM.DeviceType.ETHERNET,
+                 [], None),
+                ("ens5", "55:55:55:55:55:55", "55:55:55:55:55:55", NM.DeviceType.ETHERNET,
+                 [], None)
             ]
         )
+        self.network_module.nm_client.get_devices.return_value = mocked_devices
 
         task_path = self.network_interface.InstallNetworkWithTask(False)
 
@@ -387,25 +440,17 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         obj.implementation.succeeded_signal.emit()
         self.network_module.log_task_result.assert_called_once()
 
-    def __mock_nm_client_devices(self, device_specs):
-        """Mock NM Client devices obtained by get_devices() method.
-        :param device_specs: list of specifications of devices which are tuples
-                             (DEVICE_NAME, PERMANENT_HWADDRESS, HWADDRESS, DEVICE_TYPE)
-                             None value of PERMANENT_HWADDRESS means raising Attribute exception
-        :type device_specs: list(tuple(str, str, str, int))
-        """
-        ret_val = []
-        for name, perm_hw, hw, dtype in device_specs:
-            dev = Mock()
-            dev.get_iface.return_value = name
-            dev.get_device_type.return_value = dtype
-            dev.get_hw_address.return_value = hw
-            if perm_hw:
-                dev.get_permanent_hw_address.return_value = perm_hw
-            else:
-                dev.get_permanent_hw_address = Mock(side_effect=AttributeError('mocking no permanent hw address'))
-            ret_val.append(dev)
-        self.network_module.nm_client.get_devices.return_value = ret_val
+    @patch_dbus_publish_object
+    def test_persist_initramfs_config_with_task(self, publisher):
+        """Test PersistInitramfsConfigWithTask."""
+        task_path = self.network_interface.PersistInitramfsConfigWithTask()
+
+        obj = check_task_creation(task_path, publisher, PersistInitramfsConfigTask)
+
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
 
     def test_get_supported_devices(self):
         """Test GetSupportedDevices."""
@@ -416,16 +461,21 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         # Mocked NM
         self.network_module.nm_client = Mock()
-        self.__mock_nm_client_devices(
+        mocked_devices = mock_nm_client_devices(
             [
-                ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET),
-                ("ens4", "44:44:44:44:44:44", "44:44:44:44:44:44", NM.DeviceType.ETHERNET),
+                ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+                 [], None),
+                ("ens4", "44:44:44:44:44:44", "44:44:44:44:44:44", NM.DeviceType.ETHERNET,
+                 [], None),
                 # Permanent address is preferred
-                ("ens5", "55:55:55:55:55:55", "FF:FF:FF:FF:FF:FF", NM.DeviceType.ETHERNET),
+                ("ens5", "55:55:55:55:55:55", "FF:FF:FF:FF:FF:FF", NM.DeviceType.ETHERNET,
+                 [], None),
                 # Virtual devices don't have permanent hw address
-                ("team0", None, "33:33:33:33:33:33", NM.DeviceType.TEAM)
+                ("team0", None, "33:33:33:33:33:33", NM.DeviceType.TEAM,
+                 [], None),
             ]
         )
+        self.network_module.nm_client.get_devices.return_value = mocked_devices
 
         devs_infos = self.network_interface.GetSupportedDevices()
         assert devs_infos[0] == \
@@ -614,13 +664,15 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         # mock an infiniband device
         self.network_module.nm_client = Mock()
-        self.__mock_nm_client_devices(
+        mocked_devices = mock_nm_client_devices(
             [
                 ("ibp130s0f0", None,
                  "00:00:0e:4e:fe:80:00:00:00:00:00:00:24:8a:07:03:00:49:d7:5c",
-                 NM.DeviceType.INFINIBAND)
+                 NM.DeviceType.INFINIBAND,
+                 [], None),
             ]
         )
+        self.network_module.nm_client.get_devices.return_value = mocked_devices
 
         # check that the rdma-core package is requested
         assert self.network_interface.CollectRequirements() == [
@@ -639,11 +691,13 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         # mock a team device
         self.network_module.nm_client = Mock()
-        self.__mock_nm_client_devices(
+        mocked_devices = mock_nm_client_devices(
             [
-                ("team0", None, "33:33:33:33:33:33", NM.DeviceType.TEAM)
+                ("team0", None, "33:33:33:33:33:33", NM.DeviceType.TEAM,
+                 [], None),
             ]
         )
+        self.network_module.nm_client.get_devices.return_value = mocked_devices
 
         # check that the teamd package is requested
         assert self.network_interface.CollectRequirements() == [
@@ -685,6 +739,250 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ks_in = "network --hostname sorry_underscores_banned"
         ks_out = ""
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+
+class PersistInitramfsConfigTaskTestCase(unittest.TestCase):
+    """Test the persisting initramfs configuration task."""
+
+    def setUp(self):
+        """Set up the test with shared mock."""
+        # Patch nm_client_in_thread for all tests in this class
+        self.nm_client_patcher = patch('pyanaconda.modules.network.initialization.nm_client_in_thread')
+        self.mock_nm_client_in_thread = self.nm_client_patcher.start()
+
+        # Mock the configuration guard to allow network configuration
+        self.conf_patcher = patch('pyanaconda.modules.network.utils.conf')
+        self.mock_conf = self.conf_patcher.start()
+        self.mock_conf.system.can_configure_network = True
+
+        self.commit_patcher = patch(
+            'pyanaconda.modules.network.initialization.commit_changes_with_autoconnection_blocked'
+        )
+        self.mock_commit_changes = self.commit_patcher.start()
+
+        self.get_config_patcher = patch(
+            'pyanaconda.modules.network.initialization.get_config_file_connection_of_device'
+        )
+        self.mock_get_config = self.get_config_patcher.start()
+        self.mock_get_config.return_value = None
+
+        self.get_iface_from_hwaddr_patcher = patch(
+            'pyanaconda.modules.network.initialization.get_iface_from_hwaddr'
+        )
+        self.mock_get_iface_from_hwaddr = self.get_iface_from_hwaddr_patcher.start()
+
+    def tearDown(self):
+        """Clean up the patches."""
+        self.nm_client_patcher.stop()
+        self.conf_patcher.stop()
+        self.commit_patcher.stop()
+        self.get_config_patcher.stop()
+        self.get_iface_from_hwaddr_patcher.stop()
+
+    def _get_nm_client_mock(self, mocked_devices):
+        # Create a mock nm_client
+        nm_client_mock = Mock()
+        nm_client_mock.get_devices.return_value = mocked_devices
+        return nm_client_mock
+
+    def _use_nm_client(self, nm_client_mock):
+        # Configure the context manager mock to yield our nm_client_mock
+        self.mock_nm_client_in_thread.return_value.__enter__.return_value = nm_client_mock
+        self.mock_nm_client_in_thread.return_value.__exit__.return_value = None
+
+    def test_no_client(self):
+        self._use_nm_client(None)
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_no_devices(self):
+        mocked_devices = mock_nm_client_devices([])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_unsupported_devices(self):
+        mocked_devices = mock_nm_client_devices([
+            ("wlp61s0", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.WIFI,
+             [], None),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_nbft_devices(self):
+        mocked_devices = mock_nm_client_devices([
+            ("nbft0", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             [], None),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_config_file_exists(self):
+        self.mock_get_config.return_value = 'ens3.nmconnection'
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             [], None),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_no_connection(self):
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             [], None),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_no_ifs_connection(self):
+        mocked_cons = mock_nm_client_cons([
+            ("Wired Connection 1", "<UUID>", "ens3", None, None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, mocked_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_no_bound_connection(self):
+        mocked_cons = mock_nm_client_cons([
+            ("Wired Connection", "<UUID>", None, None, None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, mocked_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == []
+
+    def test_iface_bound_active_connection(self):
+        mocked_cons = mock_nm_client_cons([
+            ("ens3", "<UUID>", "ens3", None, None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, mocked_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == ['ens3']
+
+    def test_mac_bound_active_connection(self):
+        mocked_cons = mock_nm_client_cons([
+            ("Wired Connection", "<UUID>", None, None, "33:33:33:33:33:33")
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, mocked_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == ['ens3']
+
+    def test_iface_bound_active_port_connection(self):
+        mocked_cons = mock_nm_client_cons([
+            ("ens3", "<UUID>", "ens3", "bridge0", None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, mocked_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == ['ens3']
+
+    def test_bootif_connection(self):
+        mocked_bond0_cons = mock_nm_client_cons([
+            ("bond0", "<UUID_bond0>", "bond0", None, None)
+        ])
+        mocked_enp1s0_cons = mock_nm_client_cons([
+            ("enp1s0", "<UUID_enp1s0>", "enp1s0", "<UUID_bond0>", None),
+            ("BOOTIF Connection", "<UUID_BOOTIF_Connection>", None, None, "52:54:00:12:34:63")
+        ])
+        mocked_enp2s0_cons = mock_nm_client_cons([
+            ("enp2s0", "<UUID_enp2s0>", "enp2s0", "<UUID_bond0>", None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("bond0", "52:54:00:12:34:63", "52:54:00:12:34:63", NM.DeviceType.BOND,
+             mocked_bond0_cons, mocked_bond0_cons[0]),
+            ("enp1s0", "52:54:00:12:34:63", "52:54:00:12:34:63", NM.DeviceType.ETHERNET,
+             mocked_enp1s0_cons, mocked_enp1s0_cons[0]),
+            ("enp2s0", "52:54:00:12:34:63", "52:54:00:12:34:63", NM.DeviceType.ETHERNET,
+             mocked_enp2s0_cons, mocked_enp2s0_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert set(result) == set(['bond0', 'enp1s0', 'enp2s0'])
+
+    def test_iface_bound_nonactive_connection(self):
+        mocked_cons = mock_nm_client_cons([
+            ("ens3", "<UUID>", "ens3", None, None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, []),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == ['ens3']
+
+    def test_mac_bound_nonactive_connection(self):
+        self.mock_get_iface_from_hwaddr.return_value = "ens3"
+        mocked_cons = mock_nm_client_cons([
+            ("ens3", "<UUID>", None, None, "33:33:33:33:33:33")
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET,
+             mocked_cons, []),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert result == ['ens3']
+
+    def test_port_multiple_connections(self):
+        mocked_bond0_cons = mock_nm_client_cons([
+            ("bond0", "<UUID_bond0>", "bond0", None, None)
+        ])
+        mocked_enp1s0_cons = mock_nm_client_cons([
+            ("enp1s0", "<UUID_enp1s0>", "enp1s0", "<UUID_bond0>", None),
+            ("Wired Connection 1", "<UUID_Wired_Connection 1>", "enp1s0", None, None),
+        ])
+        mocked_enp2s0_cons = mock_nm_client_cons([
+            ("enp2s0", "<UUID_enp2s0>", "enp2s0", "<UUID_bond0>", None)
+        ])
+        mocked_devices = mock_nm_client_devices([
+            ("bond0", "52:54:00:12:34:63", "52:54:00:12:34:63", NM.DeviceType.BOND,
+             mocked_bond0_cons, mocked_bond0_cons[0]),
+            ("enp1s0", "52:54:00:12:34:63", "52:54:00:12:34:63", NM.DeviceType.ETHERNET,
+             mocked_enp1s0_cons, mocked_enp1s0_cons[0]),
+            ("enp2s0", "52:54:00:12:34:63", "52:54:00:12:34:63", NM.DeviceType.ETHERNET,
+             mocked_enp2s0_cons, mocked_enp2s0_cons[0]),
+        ])
+        self._use_nm_client(self._get_nm_client_mock(mocked_devices))
+        task = PersistInitramfsConfigTask()
+        result = task.run()
+        assert set(result) == set(['bond0', 'enp2s0'])
 
 
 class FirewallInterfaceTestCase(unittest.TestCase):
