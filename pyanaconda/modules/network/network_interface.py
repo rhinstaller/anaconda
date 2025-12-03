@@ -228,6 +228,21 @@ class NetworkInterface(KickstartModuleInterface):
             self.implementation.apply_kickstart_with_task()
         )
 
+    def PersistInitramfsConfigWithTask(self) -> ObjPath:
+        """Make configuration created in initramfs persistent.
+
+        In initramfs the configuration can be created via boot options or by
+        kickstart.
+
+        Only configuration bound to an interface is persisted. For example
+        configuration created based on ip=dhcp option is not.
+
+        :returns: DBus path of the task dumping the files
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.persist_initramfs_config_with_task()
+        )
+
     def DumpMissingConfigFilesWithTask(self) -> ObjPath:
         """Dump missing default config file for wired devices.
 

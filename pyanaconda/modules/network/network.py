@@ -45,6 +45,7 @@ from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.initialization import (
     ApplyKickstartTask,
     DumpMissingConfigFilesTask,
+    PersistInitramfsConfigTask,
 )
 from pyanaconda.modules.network.installation import (
     ConfigureActivationOnBootTask,
@@ -683,6 +684,21 @@ class NetworkService(KickstartService):
                                   self.capabilities,
                                   self.bootif,
                                   self.ifname_option_values)
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
+        return task
+
+    def persist_initramfs_config_with_task(self):
+        """Make configuration created in initramfs persistent.
+
+        In initramfs the configuration can be created via boot options or by
+        kickstart.
+
+        Only configuration bound to an interface is persisted. For example
+        configuration created based on ip=dhcp option is not.
+
+        :returns: DBus path of the task dumping the files
+        """
+        task = PersistInitramfsConfigTask()
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
