@@ -583,6 +583,7 @@ class NetworkControlBox(GObject.GObject):
             if not con:
                 log.debug("on_edit_connection: connection for device %s not found", iface)
                 if device_type == NM.DeviceType.ETHERNET:
+                    # TODO: dump call dump missing here
                     # Create default connection for the device and run nm-c-e on it
                     default_con = self._default_eth_con(iface, autoconnect=False)
                     persistent = False

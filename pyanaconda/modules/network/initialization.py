@@ -196,9 +196,14 @@ class DumpMissingConfigFilesTask(Task):
         return NetworkInitializationTaskInterface(self)
 
     def _select_persistent_connection_for_device(self, device, cons, allow_ports=False):
-        """Select the connection suitable to store configuration for the device."""
+        """Select the connection suitable to store configuration for the device.
+
+        It has to be bound by interface-name.
+
+        """
         iface = device.get_iface()
         ac = device.get_active_connection()
+        # First try active connection on the device
         if ac:
             con = ac.get_connection()
             if con.get_interface_name() == iface and con in cons:
@@ -207,6 +212,7 @@ class DumpMissingConfigFilesTask(Task):
             else:
                 log.debug("%s: active connection for %s can't be used as persistent",
                           self.name, iface)
+        # If not usable take the first connection bound to the interface name
         for con in cons:
             if con.get_interface_name() == iface:
                 if allow_ports or not con.get_setting_connection().get_controller():
@@ -304,9 +310,13 @@ class DumpMissingConfigFilesTask(Task):
                 # Try to clone the persistent connection for the device
                 # from the connection which should be a generic (not bound
                 # to iface) connection created by NM in initramfs
-                dumped_con = clone_connection_sync(nm_client, initramfs_cons[0], con_id=iface)
+                # REMOVE
+                log.debug("%s: DDDDD NOT cloning generic unbound connection %s for %s",
+                          self.name, initramfs_cons[0].get_id(), iface)
+                #dumped_con = clone_connection_sync(nm_client, initramfs_cons[0], con_id=iface)
 
             if dumped_con:
+                # KEEP Dumping bound initramfs connection
                 log.debug("%s: dumping connection %s to config file for %s",
                           self.name, dumped_con.get_uuid(), iface)
                 self._dump_connection(nm_client, dumped_con, iface, bool(initramfs_cons))
@@ -317,8 +327,9 @@ class DumpMissingConfigFilesTask(Task):
                     log.warning("%s: unexpected number of connections, not dumping any",
                                 self.name)
                     continue
-                log.debug("%s: creating default connection for %s", self.name, iface)
-                self._create_default_connection(nm_client, iface, bool(initramfs_cons))
+                # REMOVE
+                log.debug("%s: DDDDD NOT creating default connection for %s", self.name, iface)
+                #self._create_default_connection(nm_client, iface, bool(initramfs_cons))
 
             new_configs.append(iface)
 
