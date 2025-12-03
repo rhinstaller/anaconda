@@ -845,6 +845,9 @@ class DeployBootcTask(Task):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
         root_device_id = device_tree.GetRootDevice()
         root_device_uuid = device_tree.GetFstabSpec(root_device_id)
+        root_data = DeviceData.from_structure(
+            device_tree.GetDeviceData(root_device_id)
+        )
 
         boot_device_id = device_tree.GetBootDevice()
         boot_device_uuid = device_tree.GetFstabSpec(boot_device_id)
@@ -868,6 +871,12 @@ class DeployBootcTask(Task):
         bootloader = STORAGE.get_proxy(BOOTLOADER)
         for arg in bootloader.GetArguments():
             bootc_args.append("--karg=" + arg)
+
+        # Add btrfs subvolume information if root is a btrfs subvolume
+        # This ensures bootc mounts the subvolume correctly, which affects where
+        # it creates the ostree directory structure.
+        if root_data.type == "btrfs subvolume":
+            bootc_args.append("--karg=rootflags=subvol=" + root_data.name)
 
         bootc_args.extend([
             "--root-mount-spec=" + root_device_uuid,
