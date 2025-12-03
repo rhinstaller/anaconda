@@ -842,13 +842,6 @@ class DeployBootcTask(Task):
         # bootc requires the target to be a mount point and needs an empty directory with only /boot
         self._clean_physroot()
 
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        root_device_id = device_tree.GetRootDevice()
-        root_device_uuid = device_tree.GetFstabSpec(root_device_id)
-
-        boot_device_id = device_tree.GetBootDevice()
-        boot_device_uuid = device_tree.GetFstabSpec(boot_device_id)
-
         log.debug("Executing bootc install command")
         # Install bootc directly to physroot
         bootc_args = [
@@ -869,9 +862,12 @@ class DeployBootcTask(Task):
         for arg in bootloader.GetArguments():
             bootc_args.append("--karg=" + arg)
 
+        # Don't pass --root-mount-spec or --boot-mount-spec to let bootc auto-detect:
+        # - UUIDs from the filesystems at physroot
+        # - btrfs subvolumes from mount options (inspect.options)
+        # This allows bootc's built-in btrfs subvolume detection to work correctly.
+        # https://github.com/bootc-dev/bootc/blob/main/crates%2Flib%2Fsrc%2Finstall.rs#L2094
         bootc_args.extend([
-            "--root-mount-spec=" + root_device_uuid,
-            "--boot-mount-spec=" + boot_device_uuid,
             "--stateroot=" + stateroot,
             "--source-imgref=" + self._data.sourceImgRef,
             "--target-imgref=" + self._data.targetImgRef,
