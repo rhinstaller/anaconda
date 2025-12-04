@@ -9,11 +9,12 @@
 #
 # Choose type of the image with these options:
 # --boot.iso
-# --live
+# --live [variant]  (Workstation, KDE, Xfce, Cinnamon, MATE, LXDE, LXQt, Sway, Budgie, i3)
 # --updates.img
 #
 # If none of these is present, --boot.iso is assumed.
 # If more are present at once, all variants are built.
+# If --live is used without variant, Workstation is assumed.
 #
 # To use webui on boot.iso, add also:
 # --webui
@@ -117,9 +118,21 @@ jobs:
             CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
           fi
 
+          # Extract --live variant (Workstation, KDE, Xfce, etc.)
+          LIVE_VARIANT="Workstation"
+          if [[ "$ARGS" == *"--live"* ]]; then
+            # Extract variant after --live (first word that doesn't start with --)
+            EXTRACTED=$(echo "$ARGS" | sed -n 's/.*--live[[:space:]]\+\([A-Za-z]*\).*/\1/p')
+            if [[ -n "$EXTRACTED" ]]; then
+              LIVE_VARIANT="$EXTRACTED"
+            fi
+          fi
+          echo "live_variant=${LIVE_VARIANT}"
+
           echo "args=${ARGS}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
           echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
+          echo "live_variant=${LIVE_VARIANT}" >> $GITHUB_OUTPUT
 
       - name: Construct image description
         id: image_description
@@ -167,6 +180,7 @@ jobs:
       sha: ${{ steps.set_outputs.outputs.sha }}
       args: ${{ steps.parse_args.outputs.args }}
       ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
+      live_variant: ${{ steps.parse_args.outputs.live_variant }}
       image_description: ${{ steps.image_description.outputs.image_description }}
 
   boot-iso:
@@ -263,6 +277,7 @@ jobs:
        STATUS_NAME: live-iso
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-kiwi-live-iso-creator'
        CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
+       FEDORA_VARIANT: ${{ needs.pr-info.outputs.live_variant }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -299,7 +314,7 @@ jobs:
         run: |
           mkdir -p images
           sudo -E make -f Makefile.am container-kiwi-live-iso-build
-          mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
+          mv "result/iso/Fedora-${FEDORA_VARIANT}.iso" "images/${{ needs.pr-info.outputs.image_description }}-Fedora-${FEDORA_VARIANT}-Live.iso"
 
       - name: Make artefacts created by sudo cleanable
         if: always()
@@ -402,7 +417,7 @@ jobs:
             echo -e "- \`boot.iso\`: ${{ needs.boot-iso.result }}\n" >> comment.txt
           fi
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--live"* ]] ; then
-            echo -e "- Live: ${{ needs.live-iso.result }}\n" >> comment.txt
+            echo -e "- Live (${{ needs.pr-info.outputs.live_variant }}): ${{ needs.live-iso.result }}\n" >> comment.txt
           fi
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--updates.img"* ]] ; then
             echo -e "- \`updates.img\`: ${{ needs.updates-img.result }}\n" >> comment.txt
