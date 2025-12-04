@@ -3,8 +3,8 @@
 # Disable only on system with rhel policy (RHEL, CentOS, Alma Linux, Rocky Linux, ...)
 if [ "$1" == "rhel" ]; then
     source /etc/os-release
-    if [[ ! "${ID}" == "rhel" ]] && [[ ! "${ID}" == "centos" ]] && [[ ! "${ID_LIKE}" =~ "rhel" ]]; then
-        echo "Skipping the RHEL NM autoconnections policy setting on system with ID: ${ID}, ID_LIKE: ${ID_LIKE}."
+    if [[ ! "${ID}" == "rhel" ]] && [[ ! "${ID}" == "centos" ]] && [[ ! "${ID_LIKE}" =~ "rhel" ]] && [[ ! "${VARIANT_ID}" == "eln" ]]; then
+        echo "Skipping the RHEL NM autoconnections policy setting on system with ID: ${ID}, ID_LIKE: ${ID_LIKE}, VARIANT_ID: ${VARIANT_ID}."
         exit 0
     fi
 fi
