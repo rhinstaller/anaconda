@@ -30,13 +30,9 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.modules.payloads.payload.flatpak.constants import (
-    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
-)
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
     FlatpakStaticSource,
@@ -109,21 +105,17 @@ class FlatpakManager:
             # default config works just fine.
             return remote_url
         # we can only safely import from subscription module at this point
-        from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+        from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 
         subscription_interface = SUBSCRIPTION.get_proxy()
-        sub_req = SubscriptionRequest.from_structure(subscription_interface.SubscriptionRequest)
+        sub_req :SubscriptionRequest = SubscriptionRequest.from_structure(subscription_interface.SubscriptionRequest)
+
+        if subscription_interface.IsRegistered and sub_req.flatpak_registry_url:
+            return sub_req.flatpak_registry_url
+
         if subscription_interface.IsRegisteredToSatellite:
             prefix = "oci+" if sub_req.server_hostname.startswith(("http://", "https://")) else "oci+https://"
             return prefix + sub_req.server_hostname
-        if subscription_interface.IsRegistered and sub_req.server_hostname.startswith(
-            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
-        ):
-            # Assume that when "not-satellite" prefix is present we are dealing with staging CDN
-            # FIXME: currently there's no way to customize flatpak registry through rhsm.
-            # Adjust/remove this once it is possible to configure this either through anaconda, rshm
-            # or whatever other solution better than this.
-            return RHEL_FLATPAK_ENGINEERING_STAGING_CDN
         # if none of the above apply, use the fallback remote from config
         return remote_url
 

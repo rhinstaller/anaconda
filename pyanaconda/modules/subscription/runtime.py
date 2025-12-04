@@ -51,11 +51,13 @@ from pyanaconda.modules.common.errors.subscription import (
 )
 from pyanaconda.modules.common.structures.subscription import (
     OrganizationData,
+    SubscriptionRequest,
     SystemPurposeData,
 )
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.subscription import satellite, system_purpose
 from pyanaconda.modules.subscription.constants import (
+    FLATPAK_REGISTRY_UNAUTHENTICATED,
     RHSM_SERVICE_NAME,
     SERVER_HOSTNAME_NOT_SATELLITE_PREFIX,
 )
@@ -944,7 +946,7 @@ class SetupContainerCertificatesTask(Task):
     RHSM_ENTITLEMENT_PATH = "/etc/pki/entitlement/"
     RHSM_CA_BUNDLE_PATH = "/etc/pki/tls/certs/ca-bundle.crt"
 
-    def __init__(self, provisioned_for_satellite, subscription_request):
+    def __init__(self, provisioned_for_satellite: bool, subscription_request: SubscriptionRequest):
         """Create a new container certificate setup task.
 
         :param provisioned_for_satellite: boolean indicating if system was provisioned for satellite
@@ -952,7 +954,8 @@ class SetupContainerCertificatesTask(Task):
         :type subscription_request: SubscriptionRequest instance
         """
         super().__init__()
-        self._provisioned_for_satellite = provisioned_for_satellite
+        # provisioned_for_satellite is also true for custom rshm environments
+        self._provisioned_for_satellite = provisioned_for_satellite and subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX)
         self._subscription_request = subscription_request
 
     @property
@@ -993,17 +996,19 @@ class SetupContainerCertificatesTask(Task):
         log.debug("Container certificates configured successfully for %s", flatpak_hostname)
 
     def _get_flatpak_remote_hostname(self):
-        if self._subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX):
-            log.debug("Using a custom CDN. Skipping certificate configuration.")
-            # In this case we are either using staging CDN or the user has a custom CDN that we
-            # don't know how to configure.
+        if self._subscription_request.flatpak_authentication_host == FLATPAK_REGISTRY_UNAUTHENTICATED:
+            log.debug("Flatpak registry does not require authentication. Skipping certificate configuration.")
             return
+        elif self._subscription_request.flatpak_authentication_host:
+            flatpak_hostname = self._subscription_request.flatpak_authentication_host
+            log.debug("Flatpak authentication host '%s'", flatpak_hostname)
+
         elif self._provisioned_for_satellite:
             log.debug("Setting up container certificates for Satellite registry access")
             # Determine the registry hostname from subscription request
             flatpak_hostname = self._subscription_request.server_hostname
         else:
-            log.debug("Not registered to Satellite, using default Flatpak configuration")
+            log.debug("Using default Flatpak configuration")
             _, flatpak_hostname = conf.payload.flatpak_remote
         log.debug("parsing flatpak hostname: %s", flatpak_hostname)
         # remove oci prefix as this won't be used on the requests call later

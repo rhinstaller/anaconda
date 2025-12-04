@@ -28,6 +28,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
+import requests
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import requests_session
@@ -40,7 +42,6 @@ from pyanaconda.modules.payloads.payload.flatpak.constants import (
     FLATPAK_MEDIA_TYPE,
     FLATPAK_REGISTRY_URL_PATTERN,
     FLATPAK_SCHEMA_V2,
-    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
 )
 from pyanaconda.modules.payloads.payload.flatpak.utils import (
     canonicalize_flatpak_ref,
@@ -424,8 +425,17 @@ class FlatpakRegistrySource(FlatpakSource):
         full_url = FLATPAK_REGISTRY_URL_PATTERN.format(base_url, arch, tag)
         kw = self._get_request_keyword_args(parsed)
         with requests_session() as session:
-            response = session.get(full_url, **kw)
-            response.raise_for_status()
+            try:
+                response = session.get(full_url, **kw)
+                response.raise_for_status()
+            except requests.exceptions.SSLError as e:
+                if "CERTIFICATE_VERIFY_FAILED" in str(e) and "self-signed certificate" in str(e):
+                    # This might happen on certain test scenarions, like when using stage CDN. Try
+                    # again pointing to the updated ca-bundle
+                    kw.update(verify="/etc/ssl/certs/ca-bundle.crt")
+                    response = session.get(full_url, **kw)
+                    response.raise_for_status()
+                raise e
             index = response.json()
 
         result = []
@@ -448,10 +458,6 @@ class FlatpakRegistrySource(FlatpakSource):
         """
 
         kw = {}
-
-        # FIXME: RHEL staging CDN requires internal certificates, not the ones from rhsm
-        if self._url == RHEL_FLATPAK_ENGINEERING_STAGING_CDN:
-            return {"verify": "/etc/ssl/certs/ca-bundle.crt"}
 
         # Check for host-specific certificates (used for authentication)
         certs_path = Path("/etc/containers/certs.d") / parsed.netloc
