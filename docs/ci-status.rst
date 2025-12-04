@@ -54,6 +54,10 @@ Anaconda Web UI
    :alt: Sync pot (source) files to Weblate repository
    :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml
 
+.. |test-compose| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/test-compose.yml/badge.svg
+   :alt: Test Results Integration with Fedora QA Wiki
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/test-compose.yml
+
 .. _Dependabot: https://github.com/rhinstaller/anaconda-webui/network/updates
 
 |container-autoupdate|
