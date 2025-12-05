@@ -17,10 +17,6 @@ Anaconda
    :alt: Refresh Fedora and CentOS Stream container images
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate.yml
 
-.. |container-autoupdate-eln| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml/badge.svg
-   :alt: Refresh ELN container images
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml
-
 .. |try-release-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml/badge.svg
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
