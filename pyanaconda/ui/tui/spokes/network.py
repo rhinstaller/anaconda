@@ -363,6 +363,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 if connection_uuid:
                     self._configure_connection(iface, connection_uuid)
                 else:
+                    # TODO: dump call dump missing here
                     device_type = self.nm_client.get_device_by_iface(iface).get_device_type()
                     connection = get_default_connection(iface, device_type)
                     connection_uuid = connection.get_uuid()
