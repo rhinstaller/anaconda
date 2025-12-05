@@ -95,11 +95,6 @@ Kickstart-tests
    :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/container-autoupdate.yml
 
 
-.. |daily-boot-iso-rhel8| image:: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-rhel8.yml/badge.svg
-   :alt: Build and test daily RHEL boot.iso
-   :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-rhel8.yml
-
-
 .. |daily-boot-iso-rawhide| image:: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-rawhide.yml/badge.svg
    :alt: Build daily Rawhide+COPR boot.iso
    :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-rawhide.yml
@@ -111,9 +106,6 @@ Kickstart-tests
 
 |ks-container-autoupdate|
   CI test container images, built daily. Reused by daily kickstart test runs as well as kickstart tests on PRs.
-
-|daily-boot-iso-rhel8|
-  Build RHEL 8 ``boot.iso`` every day.
 
 |daily-boot-iso-rawhide|
   Build Rawhide ``boot.iso`` every day.
