@@ -39,27 +39,6 @@ Anaconda
 
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
-Anaconda Web UI
----------------
-
-.. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml/badge.svg
-   :alt: Updates Cockpit library
-   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml
-
-.. |weblate-sync-po| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-po.yml/badge.svg
-   :alt: Sync translations from Weblate repository
-   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-po.yml
-
-.. |weblate-sync-pot| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml/badge.svg
-   :alt: Sync pot (source) files to Weblate repository
-   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml
-
-.. |test-compose| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/test-compose.yml/badge.svg
-   :alt: Test Results Integration with Fedora QA Wiki
-   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/test-compose.yml
-
-.. _Dependabot: https://github.com/rhinstaller/anaconda-webui/network/updates
-
 |container-autoupdate|
   Fedora and CentOS Stream CI test container images, built daily. The containers are used in unit and rpm tests.
 
@@ -81,6 +60,36 @@ Anaconda Web UI
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
 
+Anaconda Web UI
+---------------
+
+.. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml/badge.svg
+   :alt: Updates Cockpit library
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml
+
+.. |weblate-sync-po| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-po.yml/badge.svg
+   :alt: Sync translations from Weblate repository
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-po.yml
+
+.. |weblate-sync-pot| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml/badge.svg
+   :alt: Sync pot (source) files to Weblate repository
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/weblate-sync-pot.yml
+
+.. |test-compose| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/test-compose.yml/badge.svg
+   :alt: Test Results Integration with Fedora QA Wiki
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/test-compose.yml
+
+|cockpit-lib-update|
+  Updates the Cockpit library used by Anaconda Web UI to the latest commit in Cockpit's main branch.
+
+|weblate-sync-po|
+  Syncs translation files (``.po``) from Weblate to the repository.
+
+|weblate-sync-pot|
+  Syncs source translation definition files (``.pot``) from the repository to Weblate.
+
+|test-compose|
+  Runs WebUI tests against latest compose and reports results to Fedora QA Wiki.
 
 Kickstart-tests
 ---------------
