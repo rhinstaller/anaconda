@@ -499,6 +499,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Dec 05 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.39-1
+- Remove --root-mount-spec to enable bootc's btrfs subvolume auto-detection
+  (k.koukiou)
+  Related: RHEL-58215
+- bootc: Collect kernel arguments before installation to pass to bootc
+  (k.koukiou)
+  Related: RHEL-58215
+- bootc: Bind mount /boot into sysroot for %%post scripts (k.koukiou)
+  Related: RHEL-58215
+- pyanaconda: bootc: specify the bootloader to grub for bootc (k.koukiou)
+  Related: RHEL-58215
+- Add bootc installation method (ppolawsk)
+  Resolves: RHEL-58215
+- Include bootc command in expected pykickstart commands (ppolawsk)
+  Related: RHEL-58215
+
 * Mon Dec 01 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.38-1
 - bootloader: efi: utilize grub2-common script for handling config file
   generation (k.koukiou)
