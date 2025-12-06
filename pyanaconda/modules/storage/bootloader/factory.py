@@ -57,6 +57,8 @@ class BootLoaderFactory:
 
         :param default_class: a boot loader class or None
         """
+        log.debug("The default class is set to '%s'.",
+                  "None" if default_class is None else default_class.__name__)
         cls._default_class = default_class
 
     @classmethod
