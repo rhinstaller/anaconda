@@ -98,7 +98,7 @@ class BootLoaderFactory:
                     Aarch64EFISystemdBoot,
                 )
                 return Aarch64EFISystemdBoot
-            if platform_class is platform.EFI:
+            if platform_class is platform.EFI or platform_class is platform.X86EFI:
                 from pyanaconda.modules.storage.bootloader.efi import X64EFISystemdBoot
                 return X64EFISystemdBoot
 
