@@ -201,6 +201,9 @@ class NTPConfigDialog(GUIObject):
         """Handler for Edit button"""
         selection = self._serversView.get_selection()
         _store, items = selection.get_selected_rows()
+        if len(items) == 0:
+            # No items selected, nothing to edit
+            return
         path = items[-1]  # take only the last item
         column = self._serversView.get_column(0)  # first column is server/hostname
         self._serversView.set_cursor(path, column, True)
