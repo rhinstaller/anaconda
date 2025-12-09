@@ -93,6 +93,8 @@ kiwi-ng --debug --type iso --profile "${PROFILE}" --kiwi-file "${KIWI_FILE}" \
 ISO="$(find "${WORK_DIR}" -maxdepth 1 -name "*.iso" -type f | head -n1)"
 if [ -n "${ISO}" ]; then
   cp -L "${ISO}" "/images/Fedora-${FEDORA_VARIANT}.iso"
+  # Fix ownership of the built artifacts to match the host user.
+  chown -Rv --reference="/anaconda-rpms" "/images"
   log "ISO written to /images/Fedora-${FEDORA_VARIANT}.iso"
 else
   err "No ISO produced"; exit 2

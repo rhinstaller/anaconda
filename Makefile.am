@@ -271,8 +271,6 @@ container-kiwi-live-iso-build:
 		-v $(srcdir)/result/iso:/images:z \
 		$(CONTAINER_ADD_ARGS) $(CONTAINER_RUN_ARGS) \
 		$(KIWI_LIVE_ISO_CREATOR_NAME):$(CI_TAG)
-	sudo chown -R $$(id -u):$$(id -g) result/iso/
-	sudo chmod -R a+r result/iso/
 	@echo "ISO is stored in result/iso/"
 
 # User has to be logged first to be able to push the image.
