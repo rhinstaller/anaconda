@@ -518,6 +518,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 09 2025 github-actions <github-actions@github.com> - 44.7-1
+- storage: add logging in set_default_class (jbock-java)
+- storage: in get_class_by_name, check for X86EFI (jbock-java)
+- Apply RHEL autoconections policy on Fedora ELN. (rvykydal)
+- docs: ci-status: remove non-existing rhel-8 kickstart test (k.koukiou)
+- docs: ci-status: remove container-eln-autoupdate badge (k.koukiou)
+- docs: ci-status: use substitutions for WebUI workflows mentions (k.koukiou)
+- pyanaconda: webui: enable DNF payload support (k.koukiou)
+- docs: ci-status: show webui compose testing (k.koukiou)
+
 * Thu Dec 04 2025 github-actions <github-actions@github.com> - 44.6-1
 - Remove --root-mount-spec to enable bootc's btrfs subvolume auto-detection
   (k.koukiou)
