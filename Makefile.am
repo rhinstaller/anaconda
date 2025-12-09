@@ -405,7 +405,7 @@ container-rpms:
 container-rpms-scratch:
 	$(MAKE) -f ./Makefile.am CONTAINER_ADD_ARGS="-e TEST_BUILD=true" container-rpms
 
-# Build ISO from Anaconda RPM files build here
+# Build ISO from Anaconda RPM files build her
 container-iso-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
 
