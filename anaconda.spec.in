@@ -518,6 +518,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 10 2025 github-actions <github-actions@github.com> - 44.8-1
+- ui: gui: fix IndexError when editing NTP servers with empty list (k.koukiou)
+
 * Tue Dec 09 2025 github-actions <github-actions@github.com> - 44.7-1
 - storage: add logging in set_default_class (jbock-java)
 - storage: in get_class_by_name, check for X86EFI (jbock-java)
