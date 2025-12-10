@@ -535,9 +535,15 @@ def vtActivate(num):
 
     try:
         ret = execWithRedirect("chvt", [str(num)], do_preexec=False)
-    except OSError as oserr:
-        ret = -1
-        log.error("Failed to run chvt: %s", oserr.strerror)
+    except (OSError, RuntimeError) as err:
+        if isinstance(err, RuntimeError):
+            # RuntimeError can occur during interpreter shutdown when subprocess
+            # cannot fork/exec. This is harmless and can be safely ignored.
+            log.debug("Cannot switch VT during interpreter shutdown: %s", err)
+            return False
+        else:
+            log.error("Failed to run chvt: %s", err.strerror)
+            ret = -1
 
     if ret != 0:
         log.error("Failed to switch to tty%d", num)
