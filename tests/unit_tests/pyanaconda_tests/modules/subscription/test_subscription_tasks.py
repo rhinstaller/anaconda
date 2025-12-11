@@ -2151,16 +2151,13 @@ class SetupContainerCertificatesTaskTestCase:
         ):
             yield tmpdir
 
-    @patch("pyanaconda.modules.subscription.runtime.conf")
-    def test_setup_container_certs_not_satellite(self, conf_mock, tmpdir):
-        """Test SetupContainerCertificatesTask for non-Satellite registration"""
-        conf_mock.payload.flatpak_remote = ("rhel", "oci+https://some.flatpak.registry/blabla")
-
+    def test_setup_container_certs_not_satellite(self, tmpdir):
+        """Test SetupContainerCertificatesTask skips for non-Satellite (CDN) registration"""
         # Create mock CA bundle
         ca_bundle_path = Path(tmpdir) / "ca-bundle.crt"
         ca_bundle_path.touch()
 
-        # Create entitlements directory with cert files
+        # Create entitlements directory with cert files (even though they exist, they should not be used)
         entitlements_dir = Path(tmpdir) / "entitlement"
         entitlements_dir.mkdir()
         (entitlements_dir / "123456.pem").touch()
@@ -2170,20 +2167,58 @@ class SetupContainerCertificatesTaskTestCase:
         container_certs_dir = Path(tmpdir) / "certs.d"
         container_certs_dir.mkdir()
 
-        # Mock subscription request
+        # Mock subscription request for CDN registration
         sub_req = SubscriptionRequest()
         sub_req.server_hostname = ""
 
         task = SetupContainerCertificatesTask(
             provisioned_for_satellite=False, subscription_request=sub_req,
         )
-        task.run()
 
-        # Verify directory was created for the registry
-        registry_dir = container_certs_dir / "some.flatpak.registry"
-        assert registry_dir.is_dir()
-        # Verify symlinks were created
-        assert (registry_dir / "ca-bundle.crt").is_symlink()
+        with (
+            patch.object(
+                SetupContainerCertificatesTask, "_find_cert_pair"
+            ) as patched_find_cert_pair,
+            patch.object(
+                SetupContainerCertificatesTask, "_get_flatpak_remote_hostname"
+            ) as patched_get_hostname,
+        ):
+            task.run()
+            # Neither method should be called since task should skip for CDN
+            patched_find_cert_pair.assert_not_called()
+            patched_get_hostname.assert_not_called()
+
+        # Verify no directories were created (task skipped completely)
+        assert len(list(container_certs_dir.iterdir())) == 0
+        # Verify entitlement files still exist but were not used
+        assert (entitlements_dir / "123456.pem").exists()
+        assert (entitlements_dir / "123456-key.pem").exists()
+
+    def test_setup_container_certs_cdn_with_empty_hostname(self, tmpdir):
+        """Test SetupContainerCertificatesTask skips when server_hostname is empty even with satellite flag"""
+        # Create container certs directory
+        container_certs_dir = Path(tmpdir) / "certs.d"
+        container_certs_dir.mkdir()
+
+        # Mock subscription request with empty hostname (CDN default)
+        sub_req = SubscriptionRequest()
+        sub_req.server_hostname = ""
+
+        # Even if provisioned_for_satellite is True, empty hostname means default CDN
+        task = SetupContainerCertificatesTask(
+            provisioned_for_satellite=True,
+            subscription_request=sub_req,
+        )
+
+        with patch.object(
+            SetupContainerCertificatesTask, "_find_cert_pair"
+        ) as patched_find_cert_pair:
+            task.run()
+            # Should not attempt to find certificates for CDN
+            patched_find_cert_pair.assert_not_called()
+
+        # Verify no directories were created
+        assert len(list(container_certs_dir.iterdir())) == 0
 
     def test_setup_container_certs_satellite(self, tmpdir):
         """Test SetupContainerCertificatesTask for Satellite registration"""
@@ -2220,21 +2255,25 @@ class SetupContainerCertificatesTaskTestCase:
         assert (satellite_dir / "ca-bundle.crt").is_symlink()
 
     def test_setup_container_certs_skip_staging_cdn(self, tmpdir):
-        """Test SetupContainerCertificatesTask skips for staging CDN"""
+        """Test SetupContainerCertificatesTask skips for custom server with NOT_SATELLITE prefix"""
+        # Create container certs directory
+        container_certs_dir = Path(tmpdir) / "certs.d"
+        container_certs_dir.mkdir()
+
         sub_req = SubscriptionRequest()
         sub_req.server_hostname = SERVER_HOSTNAME_NOT_SATELLITE_PREFIX + "staging.cdn.com"
 
         task = SetupContainerCertificatesTask(
-            provisioned_for_satellite=False, subscription_request=sub_req
+            provisioned_for_satellite=True, subscription_request=sub_req
         )
 
         with patch.object(SetupContainerCertificatesTask, "_find_cert_pair") as patched_find_cert_pair:
             task.run()
-            # _find_cert_pair must not have been called
+            # _find_cert_pair must not have been called since hostname has NOT_SATELLITE prefix
             patched_find_cert_pair.assert_not_called()
-        # make sure the path was not created
-        expected_certificates_path = Path(SetupContainerCertificatesTask.PODMAN_CONTAINER_CERTS_PATH) / sub_req.server_hostname
-        assert not expected_certificates_path.exists()
+
+        # Verify no directories were created (task skipped due to prefix)
+        assert len(list(container_certs_dir.iterdir())) == 0
 
 
     def test_setup_container_certs_wrong_pem_count(self, tmpdir):
@@ -2262,15 +2301,8 @@ class SetupContainerCertificatesTaskTestCase:
         with pytest.raises(RegistrationError):
             task.run()
 
-    @patch("pyanaconda.modules.subscription.runtime.conf")
-    def test_setup_container_certs_with_port(self, conf_mock, tmpdir):
-        """Test SetupContainerCertificatesTask handles hostname with port"""
-
-        conf_mock.payload.flatpak_remote = (
-            "rhel",
-            "oci+https://flatpaks.redhat.io:8443/rhel/",
-        )
-
+    def test_setup_container_certs_with_port(self, tmpdir):
+        """Test SetupContainerCertificatesTask handles Satellite hostname with port"""
         # Create mock CA bundle
         ca_bundle_path = Path(tmpdir) / "ca-bundle.crt"
         ca_bundle_path.touch()
@@ -2286,13 +2318,17 @@ class SetupContainerCertificatesTaskTestCase:
         container_certs_dir.mkdir()
 
         sub_req = SubscriptionRequest()
-        sub_req.server_hostname = ""
+        sub_req.server_hostname = "satellite.example.com:8443"
 
         task = SetupContainerCertificatesTask(
-            provisioned_for_satellite=False, subscription_request=sub_req
+            provisioned_for_satellite=True, subscription_request=sub_req
         )
         task.run()
 
         # Verify directory was created with port in the name
-        registry_dir = container_certs_dir / "flatpaks.redhat.io:8443"
+        registry_dir = container_certs_dir / "satellite.example.com:8443"
         assert registry_dir.is_dir()
+        # Verify symlinks were created
+        assert (registry_dir / "client.cert").is_symlink()
+        assert (registry_dir / "client.key").is_symlink()
+        assert (registry_dir / "ca-bundle.crt").is_symlink()
