@@ -280,7 +280,7 @@ def initialize_network():
         print("WARNING:", msg)
 
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
-    run_network_initialization_task(network_proxy.DumpMissingConfigFilesWithTask())
+    run_network_initialization_task(network_proxy.PersistInitramfsConfigWithTask())
 
     if not network_proxy.Hostname:
         bootopts_hostname = hostname_from_cmdline(kernel_arguments)
