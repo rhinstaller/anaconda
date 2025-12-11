@@ -148,6 +148,8 @@ class SubscriptionRequest(DBusData):
         self._server_proxy_hostname = ""
         self._server_proxy_port = -1
         self._server_proxy_user = ""
+        # Custom Flatpak registry
+        self._flatpak_registry_url = ""
         # private data
         # - we are using SecretData & SecretDataList
         #   nested DBus structures to protect this
@@ -410,6 +412,22 @@ class SubscriptionRequest(DBusData):
     @server_proxy_password.setter
     def server_proxy_password(self, password: SecretData):
         self._server_proxy_password = password
+
+    @property
+    def flatpak_registry_url(self) -> Str:
+        """Flatpak registry URL.
+
+        If unset, falls back to the default configuration or, for Satellite,
+        server_hostname.
+
+        :return: Flatpak registry URL
+        :rtype: str
+        """
+        return self._flatpak_registry_url
+
+    @flatpak_registry_url.setter
+    def flatpak_registry_url(self, url: Str):
+        self._flatpak_registry_url = url
 
 
 class OrganizationData(DBusData):
