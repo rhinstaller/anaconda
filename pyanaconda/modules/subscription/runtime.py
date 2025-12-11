@@ -955,7 +955,12 @@ class SetupContainerCertificatesTask(Task):
         """
         super().__init__()
         # Only run for Satellite provisioning, skip for CDN or NOT_SATELLITE prefixed servers
-        self._provisioned_for_satellite = provisioned_for_satellite and not subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX)
+        self._provisioned_for_satellite = (
+            provisioned_for_satellite
+            and not subscription_request.server_hostname.startswith(
+                SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+            )
+        )
         self._subscription_request = subscription_request
 
     @property

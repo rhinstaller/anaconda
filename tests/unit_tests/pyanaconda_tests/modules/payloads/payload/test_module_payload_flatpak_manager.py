@@ -148,7 +148,9 @@ class FlatpakManagerTestCase:
         """Test FlatpakManager the set_sources when the system is subscribed to a satellite instance."""
         subscription_proxy = get_proxy.return_value
         subscription_proxy.IsRegisteredToSatellite = True
-        from_structure.return_value = Mock(server_hostname="https://satellite.server", flatpak_registry_url=None)
+        from_structure.return_value = Mock(
+            server_hostname="https://satellite.server", flatpak_registry_url=None
+        )
 
         source = CDNSourceModule()
 
@@ -173,7 +175,7 @@ class FlatpakManagerTestCase:
         subscription_proxy.IsRegistered = True
         from_structure.return_value = Mock(
             server_hostname="whatever.redhat.com",
-            flatpak_registry_url="oci+https://custom-flatpak-registry.example.com"
+            flatpak_registry_url="oci+https://custom-flatpak-registry.example.com",
         )
 
         source = CDNSourceModule()

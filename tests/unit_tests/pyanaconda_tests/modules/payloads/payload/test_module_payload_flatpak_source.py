@@ -376,7 +376,7 @@ class FlatpakRegistrySourceTestCase(unittest.TestCase):
                                 "org.flatpak.ref": "app/org.example.App/amd64/stable",
                                 "org.flatpak.download-size": "1000",
                                 "org.flatpak.installed-size": "2000",
-                            }
+                            },
                         }
                     ]
                 }
@@ -420,8 +420,7 @@ class FlatpakRegistrySourceTestCase(unittest.TestCase):
 
         # Create a different SSL error (not self-signed)
         ssl_error = requests.exceptions.SSLError(
-            "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: "
-            "certificate has expired"
+            "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired"
         )
 
         mock_session.get.side_effect = ssl_error

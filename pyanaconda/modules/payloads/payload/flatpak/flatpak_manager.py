@@ -108,7 +108,9 @@ class FlatpakManager:
         from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 
         subscription_interface = SUBSCRIPTION.get_proxy()
-        sub_req :SubscriptionRequest = SubscriptionRequest.from_structure(subscription_interface.SubscriptionRequest)
+        sub_req: SubscriptionRequest = SubscriptionRequest.from_structure(
+            subscription_interface.SubscriptionRequest
+        )
 
         if subscription_interface.IsRegistered and sub_req.flatpak_registry_url:
             return sub_req.flatpak_registry_url

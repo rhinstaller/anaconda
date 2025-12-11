@@ -2175,8 +2175,14 @@ class SetupContainerCertificatesTaskTestCase:
             provisioned_for_satellite=False, subscription_request=sub_req,
         )
 
-        with patch.object(SetupContainerCertificatesTask, "_find_cert_pair") as patched_find_cert_pair, \
-             patch.object(SetupContainerCertificatesTask, "_get_flatpak_remote_hostname") as patched_get_hostname:
+        with (
+            patch.object(
+                SetupContainerCertificatesTask, "_find_cert_pair"
+            ) as patched_find_cert_pair,
+            patch.object(
+                SetupContainerCertificatesTask, "_get_flatpak_remote_hostname"
+            ) as patched_get_hostname,
+        ):
             task.run()
             # Neither method should be called since task should skip for CDN
             patched_find_cert_pair.assert_not_called()
@@ -2200,10 +2206,13 @@ class SetupContainerCertificatesTaskTestCase:
 
         # Even if provisioned_for_satellite is True, empty hostname means default CDN
         task = SetupContainerCertificatesTask(
-            provisioned_for_satellite=True, subscription_request=sub_req,
+            provisioned_for_satellite=True,
+            subscription_request=sub_req,
         )
 
-        with patch.object(SetupContainerCertificatesTask, "_find_cert_pair") as patched_find_cert_pair:
+        with patch.object(
+            SetupContainerCertificatesTask, "_find_cert_pair"
+        ) as patched_find_cert_pair:
             task.run()
             # Should not attempt to find certificates for CDN
             patched_find_cert_pair.assert_not_called()
