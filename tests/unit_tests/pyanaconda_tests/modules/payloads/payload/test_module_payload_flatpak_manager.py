@@ -28,9 +28,6 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
-from pyanaconda.modules.payloads.payload.flatpak.constants import (
-    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
-)
 from pyanaconda.modules.payloads.payload.flatpak.flatpak_manager import (
     FlatpakManager,
 )
@@ -45,7 +42,6 @@ from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import (
 )
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
-from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
 
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
@@ -141,7 +137,7 @@ class FlatpakManagerTestCase:
         # the URL should be set to configuration value
         assert fp_source._url == conf.payload.flatpak_remote[1]
 
-    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.SubscriptionRequest.from_structure")
+    @patch("pyanaconda.modules.common.structures.subscription.SubscriptionRequest.from_structure")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.SUBSCRIPTION.get_proxy")
     @patch(
         "pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available",
@@ -151,7 +147,9 @@ class FlatpakManagerTestCase:
         """Test FlatpakManager the set_sources when the system is subscribed to a satellite instance."""
         subscription_proxy = get_proxy.return_value
         subscription_proxy.IsRegisteredToSatellite = True
-        from_structure.return_value = Mock(server_hostname="https://satellite.server")
+        from_structure.return_value = Mock(
+            server_hostname="https://satellite.server", flatpak_registry_url=""
+        )
 
         source = CDNSourceModule()
 
@@ -163,19 +161,20 @@ class FlatpakManagerTestCase:
         # the URL should be set to satellite server
         assert fp_source._url == "oci+https://satellite.server"
 
-    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.SubscriptionRequest.from_structure")
+    @patch("pyanaconda.modules.common.structures.subscription.SubscriptionRequest.from_structure")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.SUBSCRIPTION.get_proxy")
     @patch(
         "pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available",
         return_value=True,
     )
     def test_set_source_with_cdn_non_satellite(self, is_module_available_mock, get_proxy, from_structure):
-        """Test FlatpakManager the set_sources when the system is subscribed to a satellite instance."""
+        """Test FlatpakManager the set_sources when system is registered with custom flatpak registry."""
         subscription_proxy = get_proxy.return_value
         subscription_proxy.IsRegisteredToSatellite = False
         subscription_proxy.IsRegistered = True
         from_structure.return_value = Mock(
-            server_hostname=f"{SERVER_HOSTNAME_NOT_SATELLITE_PREFIX}https://custom-server"
+            server_hostname="whatever.redhat.com",
+            flatpak_registry_url="oci+https://custom-flatpak-registry.example.com",
         )
 
         source = CDNSourceModule()
@@ -185,8 +184,8 @@ class FlatpakManagerTestCase:
         fp_source = fm.get_source()
 
         assert isinstance(fp_source, FlatpakRegistrySource)
-        # TODO: replace this when kickstart supports configuring custom flatpak registries
-        assert fp_source._url == RHEL_FLATPAK_ENGINEERING_STAGING_CDN
+        # the URL should be set to custom flatpak registry URL
+        assert fp_source._url == "oci+https://custom-flatpak-registry.example.com"
 
     @patch(
         "pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available",
@@ -514,25 +513,6 @@ class FlatpakManagerTestCase:
         url = fm._get_registry_url()
 
         assert url == expected_url
-
-    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.SUBSCRIPTION")
-    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available")
-    def test_get_registry_url_staging_cdn(self, is_available_mock, subscription_mock):
-        """Test _get_registry_url with staging CDN (not-satellite prefix)"""
-        is_available_mock.return_value = True
-        # Mock subscription interface
-        subscription_interface = Mock()
-        subscription_interface.IsRegisteredToSatellite = False
-        subscription_mock.get_proxy.return_value = subscription_interface
-
-        sub_req = SubscriptionRequest()
-        sub_req.server_hostname = SERVER_HOSTNAME_NOT_SATELLITE_PREFIX + "whatever"
-        subscription_interface.SubscriptionRequest = SubscriptionRequest.to_structure(sub_req)
-
-        fm = FlatpakManager()
-        url = fm._get_registry_url()
-
-        assert url == RHEL_FLATPAK_ENGINEERING_STAGING_CDN
 
     def test_update_repo_with_source_url(self):
         """Test _update_repo_with_source_url updates remote URL"""
