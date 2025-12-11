@@ -445,12 +445,13 @@ class GRUB2(BootLoader):
         """When installing to the mbr of a disk grub2 needs enough space
         before the first partition in order to embed its core.img
 
-        Until we have a way to ask grub2 what the size is we check to make
-        sure it starts >= 512K, otherwise return an error.
+        The GRUB manual recommends at least 1 MiB of MBR gap for modern
+        configurations. See:
+        https://www.gnu.org/software/grub/manual/grub/html_node/BIOS-installation.html
         """
         ret = True
         base_gap_bytes = 32256       # 31.5KiB
-        advanced_gap_bytes = 524288  # 512KiB
+        advanced_gap_bytes = 1024 * 1024  # 1 MiB (GRUB manual recommendation)
         self.errors = []
         self.warnings = []
 
