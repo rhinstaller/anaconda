@@ -954,8 +954,8 @@ class SetupContainerCertificatesTask(Task):
         :type subscription_request: SubscriptionRequest instance
         """
         super().__init__()
-        # provisioned_for_satellite is also true for custom rshm environments
-        self._provisioned_for_satellite = provisioned_for_satellite and subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX)
+        # Only run for Satellite provisioning, skip for CDN or NOT_SATELLITE prefixed servers
+        self._provisioned_for_satellite = provisioned_for_satellite and not subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX)
         self._subscription_request = subscription_request
 
     @property
@@ -968,9 +968,13 @@ class SetupContainerCertificatesTask(Task):
         Creates certificate directory structure and symlinks to entitlement
         certificates for container registry authentication.
         """
+        if not self._provisioned_for_satellite:
+            log.debug("Container Certificate Task is only required for Satellite. Skipping setup.")
+            return
+
         flatpak_hostname = self._get_flatpak_remote_hostname()
         if not flatpak_hostname:
-            # skip certificate logic if hostname is not detected (stage registry)
+            # skip certificate logic if hostname is not detected
             return
 
         # Create certificate directory for the registry
@@ -996,20 +1000,7 @@ class SetupContainerCertificatesTask(Task):
         log.debug("Container certificates configured successfully for %s", flatpak_hostname)
 
     def _get_flatpak_remote_hostname(self):
-        if self._subscription_request.flatpak_authentication_host == FLATPAK_REGISTRY_UNAUTHENTICATED:
-            log.debug("Flatpak registry does not require authentication. Skipping certificate configuration.")
-            return
-        elif self._subscription_request.flatpak_authentication_host:
-            flatpak_hostname = self._subscription_request.flatpak_authentication_host
-            log.debug("Flatpak authentication host '%s'", flatpak_hostname)
-
-        elif self._provisioned_for_satellite:
-            log.debug("Setting up container certificates for Satellite registry access")
-            # Determine the registry hostname from subscription request
-            flatpak_hostname = self._subscription_request.server_hostname
-        else:
-            log.debug("Using default Flatpak configuration")
-            _, flatpak_hostname = conf.payload.flatpak_remote
+        flatpak_hostname = self._subscription_request.server_hostname
         log.debug("parsing flatpak hostname: %s", flatpak_hostname)
         # remove oci prefix as this won't be used on the requests call later
         url_to_parse = flatpak_hostname.removeprefix("oci+")

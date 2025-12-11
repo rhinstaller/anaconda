@@ -435,7 +435,8 @@ class FlatpakRegistrySource(FlatpakSource):
                     kw.update(verify="/etc/ssl/certs/ca-bundle.crt")
                     response = session.get(full_url, **kw)
                     response.raise_for_status()
-                raise e
+                else:
+                    raise e
             index = response.json()
 
         result = []
