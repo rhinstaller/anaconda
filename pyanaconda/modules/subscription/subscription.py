@@ -241,6 +241,9 @@ class SubscriptionService(KickstartService):
                 message = "Failed to parse proxy for the rhsm command: {}".format(str(e))
                 warnings.warn(message, KickstartParseWarning)
 
+        # Flatpak registry configuration
+        if data.rhsm.flatpak_registry_url:
+            subscription_request.flatpak_registry_url = data.rhsm.flatpak_registry_url
         # set the resulting subscription request
         self.set_subscription_request(subscription_request)
 
