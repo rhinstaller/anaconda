@@ -57,7 +57,6 @@ from pyanaconda.modules.common.structures.subscription import (
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.subscription import satellite, system_purpose
 from pyanaconda.modules.subscription.constants import (
-    FLATPAK_REGISTRY_UNAUTHENTICATED,
     RHSM_SERVICE_NAME,
     SERVER_HOSTNAME_NOT_SATELLITE_PREFIX,
 )
