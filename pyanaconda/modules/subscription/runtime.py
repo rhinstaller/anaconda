@@ -28,7 +28,6 @@ from dasbus.typing import Bool, Str, get_native, get_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import service
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,

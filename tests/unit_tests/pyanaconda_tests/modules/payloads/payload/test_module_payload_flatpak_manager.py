@@ -42,7 +42,6 @@ from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import (
 )
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
-from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
 
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")

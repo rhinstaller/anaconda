@@ -19,7 +19,7 @@
 #
 import unittest
 from pathlib import Path
-from unittest.mock import MagicMock, PropertyMock, call, patch
+from unittest.mock import MagicMock, PropertyMock, patch
 from urllib.parse import urlparse
 
 import pytest
