@@ -436,7 +436,7 @@ class FlatpakRegistrySource(FlatpakSource):
                     response = session.get(full_url, **kw)
                     response.raise_for_status()
                 else:
-                    raise e
+                    raise
             index = response.json()
 
         result = []
