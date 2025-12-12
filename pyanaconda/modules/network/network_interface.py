@@ -243,29 +243,6 @@ class NetworkInterface(KickstartModuleInterface):
             self.implementation.persist_initramfs_config_with_task()
         )
 
-    def DumpMissingConfigFilesWithTask(self) -> ObjPath:
-        """Dump missing default config file for wired devices.
-
-        Make sure each supported wired device has config file.
-
-        For default auto connections created by NM upon start (which happens in
-        case of missing config file, eg the file was not created in initramfs)
-        rename the in-memory connection using device name and dump it into
-        config file.
-
-        If default auto connections are turned off by NM configuration (based
-        on policy, eg on RHEL or server), the connection will be created by Anaconda
-        and dumped into config file.
-
-        The connection id (and consequently config file name) is set to device
-        name.
-
-        :returns: DBus path of the task dumping the files
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.dump_missing_config_files_with_task()
-        )
-
     def NetworkDeviceConfigurationChanged(self):
         """Inform module that network device configuration might have changed.
 

@@ -49,7 +49,6 @@ from pyanaconda.modules.network.firewall.firewall_interface import FirewallInter
 from pyanaconda.modules.network.firewall.installation import ConfigureFirewallTask
 from pyanaconda.modules.network.initialization import (
     ApplyKickstartTask,
-    DumpMissingConfigFilesTask,
     PersistInitramfsConfigTask,
 )
 from pyanaconda.modules.network.installation import (
@@ -422,18 +421,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         task_path = self.network_interface.ApplyKickstartWithTask()
 
         obj = check_task_creation(task_path, publisher, ApplyKickstartTask)
-
-        self.network_module.log_task_result = Mock()
-
-        obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.assert_called_once()
-
-    @patch_dbus_publish_object
-    def test_dump_missing_ifcfg_files_with_task(self, publisher):
-        """Test DumpMissingConfigFilesWithTask."""
-        task_path = self.network_interface.DumpMissingConfigFilesWithTask()
-
-        obj = check_task_creation(task_path, publisher, DumpMissingConfigFilesTask)
 
         self.network_module.log_task_result = Mock()
 
