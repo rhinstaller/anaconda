@@ -1130,33 +1130,6 @@ def commit_changes_with_autoconnection_blocked(connection, nm_client, save_to_di
     return result.received_data
 
 
-def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
-    """Clone a connection synchronously.
-
-    :param connection: NetworkManager connection
-    :type connection: NM.RemoteConnection
-    :param con_id: id of the cloned connection
-    :type con_id: str
-    :param uuid: uuid of the cloned connection (None to be generated)
-    :type uuid: str
-    :return: NetworkManager connection or None on timeout
-    :rtype: NM.RemoteConnection
-    """
-    cloned_connection = NM.SimpleConnection.new_clone(connection)
-    s_con = cloned_connection.get_setting_connection()
-    s_con.props.uuid = uuid or NM.utils_uuid_generate()
-    s_con.props.id = con_id or "{}-clone".format(connection.get_id())
-
-    log.debug("cloning connection %s", connection.get_uuid())
-    added_connection = add_connection_sync(nm_client, cloned_connection)
-
-    if added_connection:
-        log.debug("connection was cloned into %s", added_connection.get_uuid())
-    else:
-        log.debug("connection cloning failed")
-    return added_connection
-
-
 def get_dracut_arguments_from_connection(nm_client, connection, iface, target_ip,
                                          hostname):
     """Get dracut arguments for the iface and SAN target from NM connection.
