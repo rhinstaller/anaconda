@@ -94,8 +94,8 @@ Zipl = _commands['zipl']
 
 # RHEL-specific commands - import latest available classes regardless of current version
 # This ensures they're always available for modules and testing
-from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
-from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
+from pykickstart.commands.rhsm import RHEL10_RHSM as RHSM
+from pykickstart.commands.syspurpose import RHEL10_Syspurpose as Syspurpose
 
 # Supported kickstart data - dynamically imported
 BTRFSData = _data['BTRFSData']

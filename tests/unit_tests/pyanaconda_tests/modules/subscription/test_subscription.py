@@ -220,6 +220,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": "",
             "server-proxy-port": -1,
             "server-proxy-user": "",
+            "flatpak-registry-url": "",
             "account-password": {"type": SECRET_TYPE_NONE, "value": ""},
             "activation-keys": {"type": SECRET_TYPE_NONE, "value": []},
             "server-proxy-password": {"type": SECRET_TYPE_NONE, "value": ""},
@@ -257,6 +258,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": "proxy.foo.com",
             "server-proxy-port": 9001,
             "server-proxy-user": "foo_proxy_user",
+            "flatpak-registry-url": "",
             "account-password": {"type": SECRET_TYPE_TEXT, "value": "foo_password"},
             "activation-keys": {"type": SECRET_TYPE_TEXT, "value": ["key1", "key2", "key3"]},
             "server-proxy-password": {"type": SECRET_TYPE_TEXT, "value": "foo_proxy_password"},
@@ -284,6 +286,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": "proxy.foo.com",
             "server-proxy-port": 9001,
             "server-proxy-user": "foo_proxy_user",
+            "flatpak-registry-url": "",
             "account-password": {"type": SECRET_TYPE_HIDDEN, "value": ""},
             "activation-keys": {"type": SECRET_TYPE_HIDDEN, "value": []},
             "server-proxy-password": {"type": SECRET_TYPE_HIDDEN, "value": ""},
@@ -312,6 +315,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "HIDDEN"),
@@ -353,6 +357,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "NONE"),
@@ -395,6 +400,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, "proxy.foo.bar"),
             "server-proxy-port": get_variant(Int, 9001),
             "server-proxy-user": get_variant(Str, "foo_proxy_user"),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "NONE"),
@@ -431,6 +437,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "NONE"),
@@ -480,6 +487,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "HIDDEN"),
@@ -530,6 +538,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "NONE"),
@@ -580,6 +589,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "HIDDEN"),
@@ -639,6 +649,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": get_variant(Str, ""),
             "server-proxy-port": get_variant(Int, -1),
             "server-proxy-user": get_variant(Str, ""),
+            "flatpak-registry-url": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "HIDDEN"),
@@ -978,6 +989,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "server-proxy-hostname": "proxy.foo.com",
             "server-proxy-port": 9001,
             "server-proxy-user": "foo_proxy_user",
+            "flatpak-registry-url": "",
             "account-password": {"type": SECRET_TYPE_TEXT, "value": "foo_password"},
             "activation-keys": {"type": SECRET_TYPE_TEXT, "value": ["key1", "key2", "key3"]},
             "server-proxy-password": {"type": SECRET_TYPE_TEXT, "value": "foo_proxy_password"},

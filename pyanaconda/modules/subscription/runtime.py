@@ -28,7 +28,6 @@ from dasbus.typing import Bool, Str, get_native, get_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import service
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD,
@@ -51,6 +50,7 @@ from pyanaconda.modules.common.errors.subscription import (
 )
 from pyanaconda.modules.common.structures.subscription import (
     OrganizationData,
+    SubscriptionRequest,
     SystemPurposeData,
 )
 from pyanaconda.modules.common.task import Task
@@ -944,7 +944,7 @@ class SetupContainerCertificatesTask(Task):
     RHSM_ENTITLEMENT_PATH = "/etc/pki/entitlement/"
     RHSM_CA_BUNDLE_PATH = "/etc/pki/tls/certs/ca-bundle.crt"
 
-    def __init__(self, provisioned_for_satellite, subscription_request):
+    def __init__(self, provisioned_for_satellite: bool, subscription_request: SubscriptionRequest):
         """Create a new container certificate setup task.
 
         :param provisioned_for_satellite: boolean indicating if system was provisioned for satellite
@@ -952,7 +952,13 @@ class SetupContainerCertificatesTask(Task):
         :type subscription_request: SubscriptionRequest instance
         """
         super().__init__()
-        self._provisioned_for_satellite = provisioned_for_satellite
+        # Only run for Satellite provisioning, skip for CDN or NOT_SATELLITE prefixed servers
+        self._provisioned_for_satellite = (
+            provisioned_for_satellite
+            and not subscription_request.server_hostname.startswith(
+                SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+            )
+        )
         self._subscription_request = subscription_request
 
     @property
@@ -965,9 +971,13 @@ class SetupContainerCertificatesTask(Task):
         Creates certificate directory structure and symlinks to entitlement
         certificates for container registry authentication.
         """
+        if not self._provisioned_for_satellite:
+            log.debug("Container Certificate Task is only required for Satellite. Skipping setup.")
+            return
+
         flatpak_hostname = self._get_flatpak_remote_hostname()
         if not flatpak_hostname:
-            # skip certificate logic if hostname is not detected (stage registry)
+            # skip certificate logic if hostname is not detected
             return
 
         # Create certificate directory for the registry
@@ -993,18 +1003,7 @@ class SetupContainerCertificatesTask(Task):
         log.debug("Container certificates configured successfully for %s", flatpak_hostname)
 
     def _get_flatpak_remote_hostname(self):
-        if self._subscription_request.server_hostname.startswith(SERVER_HOSTNAME_NOT_SATELLITE_PREFIX):
-            log.debug("Using a custom CDN. Skipping certificate configuration.")
-            # In this case we are either using staging CDN or the user has a custom CDN that we
-            # don't know how to configure.
-            return
-        elif self._provisioned_for_satellite:
-            log.debug("Setting up container certificates for Satellite registry access")
-            # Determine the registry hostname from subscription request
-            flatpak_hostname = self._subscription_request.server_hostname
-        else:
-            log.debug("Not registered to Satellite, using default Flatpak configuration")
-            _, flatpak_hostname = conf.payload.flatpak_remote
+        flatpak_hostname = self._subscription_request.server_hostname
         log.debug("parsing flatpak hostname: %s", flatpak_hostname)
         # remove oci prefix as this won't be used on the requests call later
         url_to_parse = flatpak_hostname.removeprefix("oci+")
