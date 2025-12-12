@@ -5,6 +5,73 @@ This document describes major installer-related changes in Fedora releases.
 
 A guide on adding new entries is in the release documentation.
 
+Fedora 43
+#########
+
+Changes in the graphical interface
+----------------------------------
+
+Support Reinstall scenario on MBR partitioned disks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Reinstall Fedora installation option is now supported also for disks with
+MBR partition table.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2353002
+    - https://issues.redhat.com/browse/INSTALLER-4164
+
+Changes in kickstart support
+----------------------------
+
+Kickstart support for starting RDP installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This change adds Kickstart-level support to start a remote graphical installation via RDP.
+Anaconda now parses the new rdp Kickstart command (implemented in pykickstart) and
+configures the installer to accept an incoming RDP connection.
+
+In addition, Anaconda's **Runtime** D-Bus module exposes a small API to carry the parsed
+RDP configuration (``enabled``, ``username``, ``password``) to the UI layer so that both
+TUI prompts and GUI startup honor Kickstart-provided values.
+
+Usage in Kickstart::
+
+    rdp [--username USERNAME] [--password PASSWORD]
+
+If credentials are omitted, the installer will prompt early in startup.
+
+This complements the existing boot options (``inst.rdp``, ``inst.rdp.username``,
+``inst.rdp.password``) by allowing fully automated, headless setups using Kickstart alone.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/6512
+    - https://issues.redhat.com/browse/INSTALLER-4205
+
+General changes
+---------------
+
+Initial support for Flatpak preinstall
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is initial support for Flatpak preinstall feature. This feature allows marking flatpaks
+for the installation from the target system payload. The benefit of this functionality is that
+it is attached to the original payload (DNF packages, bootc container images…).
+
+The current implementation is not used in Fedora but the plan is to use this in future
+Fedora Atomic desktops and maybe even Workstation to deliver some of the applications
+as Flatpaks seamlessly.
+
+To mark Flatpaks for installation in the current implementation you need to have a package
+based installation and install a package with Provides similar to
+``flatpak-preinstall(app/org.mozilla.firefox//stable)`` and correctly installing
+``/etc/flatpak/preinstall.d`` configuration. With such a package installed to
+the system Anaconda will also install the ``org.mozilla.firefox`` Flatpak.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/6056
+    - https://github.com/flatpak/flatpak/issues/5579
+
 Fedora 42
 #########
 
