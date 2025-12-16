@@ -19,19 +19,17 @@ import os
 import stat
 from collections import namedtuple
 
-import blivet.util
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import execWithCapture
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 log = get_module_logger(__name__)
+
+# Mount point for the Live OS rootfsbase (mounted by the live system)
+LIVE_OS_ROOTFSBASE_MOUNT = "/run/rootfsbase"
 
 SetupLiveOSResult = namedtuple("SetupLiveOSResult", ["required_space"])
 
@@ -53,7 +51,7 @@ class DetectLiveOSImageTask(Task):
         block_device = \
             self._check_block_device("/dev/mapper/live-base") or \
             self._check_block_device("/dev/mapper/live-osimg-min") or \
-            self._check_mount_point("/run/rootfsbase")
+            self._check_mount_point(LIVE_OS_ROOTFSBASE_MOUNT)
 
         if not block_device:
             raise SourceSetupError("No Live OS image found!")
@@ -89,22 +87,19 @@ class DetectLiveOSImageTask(Task):
         return None
 
 
-class SetUpLiveOSSourceTask(SetUpMountTask):
+class SetUpLiveOSSourceTask(Task):
     """Task to set up a Live OS image."""
 
-    def __init__(self, image_path, target_mount):
+    def __init__(self, target_mount):
         """Create a new task.
 
-        :param image_path: a path to a Live OS image
         :param target_mount: a path to a mount point
         """
-        super().__init__(target_mount)
-        self._image_path = image_path
+        super().__init__()
+        self._target_mount = target_mount
 
     def run(self):
         """Run the task."""
-        super().run()
-
         required_space = self._calculate_required_space()
         return SetupLiveOSResult(required_space=required_space)
 
@@ -132,7 +127,7 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
             du_cmd_args.extend(["--exclude", f"{self._target_mount}{pattern}"])
 
         try:
-            # Execute the `du` command
+            # Execute the `du` command on the existing mount point
             result = execWithCapture("du", du_cmd_args)
             # Parse the output for the total size
             # When du has errors, it outputs error messages but the summary is on the last line
@@ -148,50 +143,3 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
     @property
     def name(self):
         return "Set up a Live OS image"
-
-    def _do_mount(self):
-        """Run live installation source setup.
-
-        Mount the live device and copy from it instead of the overlay at /.
-        """
-        device_path = self._get_device_path()
-        self._mount_device(device_path)
-
-    def _get_device_path(self):
-        """Get a device path of the block device."""
-        log.debug("Resolving %s.", self._image_path)
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-
-        # Get the device name.
-        device_id = device_tree.ResolveDevice(self._image_path)
-
-        if not device_id:
-            raise SourceSetupError("Failed to resolve the Live OS image.")
-
-        # Get the device path.
-        device_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(device_id)
-        )
-        device_path = device_data.path
-
-        if not stat.S_ISBLK(os.stat(device_path)[stat.ST_MODE]):
-            raise SourceSetupError("{} is not a valid block device.".format(device_path))
-
-        return device_path
-
-    def _mount_device(self, device_path):
-        """Mount the specified device."""
-        log.debug("Mounting %s at %s.", device_path, self._target_mount)
-
-        try:
-            rc = blivet.util.mount(
-                device_path,
-                self._target_mount,
-                fstype="auto",
-                options="ro"
-            )
-        except OSError as e:
-            raise SourceSetupError(str(e)) from e
-
-        if rc != 0:
-            raise SourceSetupError("Failed to mount the Live OS image.")
