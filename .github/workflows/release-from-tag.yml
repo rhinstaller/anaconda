@@ -55,7 +55,7 @@ jobs:
           fi
 
       - name: Check out repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.get_ref.outputs.ref }}
           fetch-depth: 0
