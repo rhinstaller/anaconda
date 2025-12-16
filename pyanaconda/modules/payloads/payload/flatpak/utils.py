@@ -18,6 +18,8 @@
 # Red Hat, Inc.
 #
 
+import ssl
+from contextlib import suppress
 from typing import Optional, Tuple
 
 from blivet.arch import get_arch
@@ -69,3 +71,31 @@ def canonicalize_flatpak_ref(ref) -> Tuple[Optional[str], str]:
         parts[2] = get_arch()
 
     return collection, "/".join(parts)
+
+
+def is_self_signed_certificate_error(exc):
+    """Check if an SSL exception is due to a self-signed certificate.
+
+    Traverses the exception chain to find ssl.SSLCertVerificationError and
+    checks for self-signed certificate error codes.
+
+    :param exc: The exception to check
+    :return: True if the error is due to a self-signed certificate, False otherwise
+    """
+    SELF_SIGNED_CERTIFICATE_ERROR_CODES = (18, 19)
+    # 18: X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT
+    # 19: X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN
+    # https://github.com/openssl/openssl/blob/ba4970afb5b60f022126b7fb3ee3c44cb9ceac8c/include/openssl/x509_vfy.h.in#L233-L234
+    current = exc
+    while isinstance(current, Exception):
+        if isinstance(current, ssl.SSLCertVerificationError):
+            # Check for self-signed certificate error codes
+            if current.verify_code in SELF_SIGNED_CERTIFICATE_ERROR_CODES:
+                return True
+        # Try to get the next exception in the chain
+        next_exc = current.__cause__
+        if next_exc is None and current.args:
+            with suppress(TypeError, IndexError):
+                next_exc = current.args[0]
+        current = next_exc
+    return False
