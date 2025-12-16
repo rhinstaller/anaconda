@@ -20,7 +20,7 @@ import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import users
-from pyanaconda.core.path import open_with_perm
+from pyanaconda.core.util import open_with_perm
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
