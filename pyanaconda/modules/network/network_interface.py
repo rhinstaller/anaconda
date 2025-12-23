@@ -228,27 +228,19 @@ class NetworkInterface(KickstartModuleInterface):
             self.implementation.apply_kickstart_with_task()
         )
 
-    def DumpMissingConfigFilesWithTask(self) -> ObjPath:
-        """Dump missing default config file for wired devices.
+    def PersistInitramfsConfigWithTask(self) -> ObjPath:
+        """Make configuration created in initramfs persistent.
 
-        Make sure each supported wired device has config file.
+        In initramfs the configuration can be created via boot options or by
+        kickstart.
 
-        For default auto connections created by NM upon start (which happens in
-        case of missing config file, eg the file was not created in initramfs)
-        rename the in-memory connection using device name and dump it into
-        config file.
-
-        If default auto connections are turned off by NM configuration (based
-        on policy, eg on RHEL or server), the connection will be created by Anaconda
-        and dumped into config file.
-
-        The connection id (and consequently config file name) is set to device
-        name.
+        Only configuration bound to an interface is persisted. For example
+        configuration created based on ip=dhcp option is not.
 
         :returns: DBus path of the task dumping the files
         """
         return TaskContainer.to_object_path(
-            self.implementation.dump_missing_config_files_with_task()
+            self.implementation.persist_initramfs_config_with_task()
         )
 
     def NetworkDeviceConfigurationChanged(self):

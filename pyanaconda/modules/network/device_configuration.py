@@ -263,6 +263,10 @@ class DeviceConfigurations:
                 if c.get_setting_connection() and c.get_setting_connection().get_port_type():
                     continue
                 candidate_uuid = c.get_uuid()
+                # Ignore non-bound connections
+                if not get_iface_from_connection(self.nm_client, candidate_uuid):
+                    log.debug("ignoring non-bound connection %s", candidate_uuid)
+                    continue
                 # In case of multiple connections choose the config connection
                 if not config_uuid or candidate_uuid == config_uuid:
                     uuid = candidate_uuid
