@@ -1,0 +1,470 @@
+#!/usr/bin/env python3
+"""
+Enhanced Fedora ISO Comparison Tool with Lorax Package Log Analysis
+
+This script compares two Fedora installation ISO images with specific focus
+on the lorax-packages.log files contained within the install.img SquashFS filesystem.
+
+Usage: python3 compare_iso boot_1.iso boot_2.iso
+"""
+
+import os
+import sys
+import subprocess
+import tempfile
+import shutil
+import json
+import hashlib
+from pathlib import Path
+from typing import Dict, List, Tuple, Set
+import argparse
+from datetime import datetime
+import re
+
+class LoraxISOComparator:
+    def __init__(self, iso1_path: str, iso2_path: str, verbose: bool = False):
+        self.iso1_path = Path(iso1_path)
+        self.iso2_path = Path(iso2_path)
+        self.verbose = verbose
+        self.temp_dir = None
+
+    def __enter__(self):
+        """Context manager entry - create temporary directories"""
+        self.temp_dir = Path(tempfile.mkdtemp(prefix="lorax_iso_compare_"))
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context manager exit - cleanup temporary directories"""
+        if self.temp_dir and self.temp_dir.exists():
+            # Fix permissions before cleanup to avoid permission errors
+            try:
+                subprocess.run(['chmod', '-R', 'u+w', str(self.temp_dir)],
+                             capture_output=True, check=False)
+                shutil.rmtree(self.temp_dir)
+            except Exception as e:
+                if self.verbose:
+                    print(f"Warning: Failed to cleanup temp directory {self.temp_dir}: {e}")
+
+    def _run_command(self, cmd: List[str], capture_output: bool = True, cwd: str = None) -> subprocess.CompletedProcess:
+        """Run a shell command and return the result"""
+        if self.verbose:
+            print(f"Running: {' '.join(cmd)}")
+
+        try:
+            result = subprocess.run(
+                cmd,
+                capture_output=capture_output,
+                text=True,
+                check=False,
+                cwd=cwd
+            )
+            return result
+        except Exception as e:
+            print(f"Error running command {' '.join(cmd)}: {e}")
+            return None
+
+    def get_iso_info(self, iso_path: Path) -> Dict:
+        """Extract basic information about an ISO file"""
+        info = {
+            'path': str(iso_path),
+            'size': iso_path.stat().st_size,
+            'size_mb': round(iso_path.stat().st_size / (1024 * 1024), 2)
+        }
+
+        # Get ISO volume information using isoinfo
+        result = self._run_command(['isoinfo', '-d', '-i', str(iso_path)])
+        if result and result.returncode == 0:
+            iso_info = {}
+            for line in result.stdout.split('\n'):
+                if ':' in line:
+                    key, value = line.split(':', 1)
+                    iso_info[key.strip()] = value.strip()
+            info['iso_metadata'] = iso_info
+
+        return info
+
+    def extract_install_img(self, iso_path: Path, output_path: Path) -> bool:
+        """Extract the install.img file from an ISO"""
+        if self.verbose:
+            print(f"Extracting install.img from {iso_path}")
+
+        # Use isoinfo to extract the binary file
+        with open(output_path, 'wb') as f:
+            result = subprocess.run([
+                'isoinfo', '-x', '/IMAGES/INSTALL.IMG;1', '-i', str(iso_path)
+            ], stdout=f, stderr=subprocess.PIPE, check=False)
+
+        if result.returncode != 0:
+            if self.verbose:
+                print(f"isoinfo extraction failed: {result.stderr.decode()}")
+            return False
+
+        return output_path.exists() and output_path.stat().st_size > 0
+
+    def extract_from_squashfs(self, squashfs_path: Path, extract_dir: Path) -> bool:
+        """Extract contents from a SquashFS filesystem"""
+        if self.verbose:
+            print(f"Extracting SquashFS {squashfs_path} to {extract_dir}")
+
+        # Check if unsquashfs is available
+        result = self._run_command(['which', 'unsquashfs'])
+        if result.returncode != 0:
+            print("Warning: unsquashfs not found, trying alternative methods")
+            return self._extract_squashfs_alternative(squashfs_path, extract_dir)
+
+        result = self._run_command([
+            'unsquashfs', '-no-xattrs', '-d', str(extract_dir), str(squashfs_path)
+        ])
+
+        return result.returncode == 0
+
+    def _extract_squashfs_alternative(self, squashfs_path: Path, extract_dir: Path) -> bool:
+        """Alternative SquashFS extraction using mount (requires sudo)"""
+        mount_point = self.temp_dir / "squashfs_mount"
+        mount_point.mkdir(exist_ok=True)
+
+        # Try to mount the SquashFS
+        result = self._run_command([
+            'sudo', 'mount', '-o', 'loop,ro', str(squashfs_path), str(mount_point)
+        ])
+
+        if result.returncode != 0:
+            print("Failed to mount SquashFS filesystem")
+            return False
+
+        try:
+            # Copy contents
+            result = self._run_command([
+                'cp', '-r', str(mount_point) + '/.', str(extract_dir)
+            ])
+            success = result.returncode == 0
+        finally:
+            # Unmount
+            self._run_command(['sudo', 'umount', str(mount_point)])
+
+        return success
+
+    def extract_lorax_packages_log(self, iso_path: Path) -> Dict:
+        """Extract and parse the lorax-packages.log file from an ISO"""
+        if self.verbose:
+            print(f"Processing {iso_path} for lorax package information")
+
+        # Create temporary directories
+        install_img_path = self.temp_dir / f"{iso_path.stem}_install.img"
+        extract_dir = self.temp_dir / f"{iso_path.stem}_extracted"
+        extract_dir.mkdir(exist_ok=True)
+
+        # Extract install.img from ISO
+        if not self.extract_install_img(iso_path, install_img_path):
+            print(f"Failed to extract install.img from {iso_path}")
+            return {}
+
+        # Extract SquashFS contents
+        if not self.extract_from_squashfs(install_img_path, extract_dir):
+            print(f"Failed to extract SquashFS contents from {install_img_path}")
+            return {}
+
+        # Look for lorax-packages.log
+        lorax_log_path = extract_dir / "root" / "lorax-packages.log"
+
+        if not lorax_log_path.exists():
+            print(f"lorax-packages.log not found in {iso_path}")
+            return {}
+
+        # Parse the lorax packages log
+        return self.parse_lorax_packages_log(lorax_log_path)
+
+    def parse_lorax_packages_log(self, log_path: Path) -> Dict:
+        """Parse the lorax-packages.log file"""
+        packages = {}
+
+        try:
+            with open(log_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith('#'):
+                        continue
+
+                    # Format: package-name-version-release.arch
+                    if '.' in line:
+                        # Split on the last dot to get architecture
+                        package_with_version, arch = line.rsplit('.', 1)
+
+                        # Now we need to separate package name from version-release
+                        # This is tricky because package names can contain hyphens
+                        # We'll use a heuristic: find the first part that looks like a version
+                        parts = package_with_version.split('-')
+
+                        # Look for the first part that starts with a digit (likely version)
+                        package_name_parts = []
+                        version_parts = []
+                        found_version = False
+
+                        for i, part in enumerate(parts):
+                            if not found_version and (part[0].isdigit() if part else False):
+                                found_version = True
+                                version_parts = parts[i:]
+                                break
+                            else:
+                                if not found_version:
+                                    package_name_parts.append(part)
+                                else:
+                                    version_parts.append(part)
+
+                        if package_name_parts and version_parts:
+                            package_name = '-'.join(package_name_parts)
+                            version_release = '-'.join(version_parts)
+                        else:
+                            # Fallback: assume last two parts are version-release
+                            if len(parts) >= 3:
+                                package_name = '-'.join(parts[:-2])
+                                version_release = '-'.join(parts[-2:])
+                            else:
+                                package_name = parts[0] if parts else line
+                                version_release = "unknown"
+                                arch = "unknown"
+
+                        packages[package_name] = {
+                            'version': version_release,
+                            'architecture': arch,
+                            'raw_line': line
+                        }
+                    else:
+                        # No architecture info, treat as single package entry
+                        packages[line] = {
+                            'version': "unknown",
+                            'architecture': "unknown",
+                            'raw_line': line
+                        }
+
+        except Exception as e:
+            print(f"Error parsing {log_path}: {e}")
+
+        return packages
+
+    def compare_package_sets(self, packages1: Dict, packages2: Dict) -> Dict:
+        """Compare two package sets and return differences"""
+        pkg_names1 = set(packages1.keys())
+        pkg_names2 = set(packages2.keys())
+
+        comparison = {
+            'total_packages_iso1': len(pkg_names1),
+            'total_packages_iso2': len(pkg_names2),
+            'package_count_diff': len(pkg_names2) - len(pkg_names1),
+            'packages_only_in_iso1': [],
+            'packages_only_in_iso2': [],
+            'packages_with_version_changes': [],
+            'common_packages': len(pkg_names1 & pkg_names2)
+        }
+
+        # Packages only in ISO1
+        for pkg in sorted(pkg_names1 - pkg_names2):
+            comparison['packages_only_in_iso1'].append({
+                'name': pkg,
+                'version': packages1[pkg]['version'],
+                'architecture': packages1[pkg]['architecture']
+            })
+
+        # Packages only in ISO2
+        for pkg in sorted(pkg_names2 - pkg_names1):
+            comparison['packages_only_in_iso2'].append({
+                'name': pkg,
+                'version': packages2[pkg]['version'],
+                'architecture': packages2[pkg]['architecture']
+            })
+
+        # Version changes in common packages
+        for pkg in sorted(pkg_names1 & pkg_names2):
+            pkg1_info = packages1[pkg]
+            pkg2_info = packages2[pkg]
+
+            if (pkg1_info['version'] != pkg2_info['version'] or
+                pkg1_info['architecture'] != pkg2_info['architecture']):
+                comparison['packages_with_version_changes'].append({
+                    'name': pkg,
+                    'iso1_version': pkg1_info['version'],
+                    'iso1_arch': pkg1_info['architecture'],
+                    'iso2_version': pkg2_info['version'],
+                    'iso2_arch': pkg2_info['architecture']
+                })
+
+        return comparison
+
+    def generate_report(self, iso1_info: Dict, iso2_info: Dict,
+                       packages1: Dict, packages2: Dict,
+                       comparison: Dict) -> str:
+        """Generate a comprehensive comparison report"""
+        report = []
+        report.append("=" * 80)
+        report.append("FEDORA ISO LORAX PACKAGE COMPARISON REPORT")
+        report.append("=" * 80)
+        report.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        report.append("")
+
+        # Basic ISO information
+        report.append("ISO INFORMATION:")
+        report.append("-" * 40)
+        report.append(f"ISO 1: {iso1_info['path']}")
+        report.append(f"  Size: {iso1_info['size_mb']} MB")
+        if 'iso_metadata' in iso1_info and 'Volume id' in iso1_info['iso_metadata']:
+            report.append(f"  Volume ID: {iso1_info['iso_metadata']['Volume id']}")
+
+        report.append(f"ISO 2: {iso2_info['path']}")
+        report.append(f"  Size: {iso2_info['size_mb']} MB")
+        if 'iso_metadata' in iso2_info and 'Volume id' in iso2_info['iso_metadata']:
+            report.append(f"  Volume ID: {iso2_info['iso_metadata']['Volume id']}")
+
+        size_diff = iso2_info['size_mb'] - iso1_info['size_mb']
+        report.append(f"  Size difference: {size_diff:+.2f} MB")
+        report.append("")
+
+        # Package comparison
+        report.append("PACKAGE COMPARISON (from lorax-packages.log):")
+        report.append("-" * 40)
+        report.append(f"Total packages in ISO 1: {comparison['total_packages_iso1']}")
+        report.append(f"Total packages in ISO 2: {comparison['total_packages_iso2']}")
+        report.append(f"Package count difference: {comparison['package_count_diff']:+d}")
+        report.append(f"Common packages: {comparison['common_packages']}")
+        report.append("")
+
+        # Packages only in ISO 1
+        if comparison['packages_only_in_iso1']:
+            report.append(f"PACKAGES ONLY IN ISO 1 ({len(comparison['packages_only_in_iso1'])}):")
+            report.append("-" * 40)
+            for pkg in comparison['packages_only_in_iso1']:
+                report.append(f"  - {pkg['name']} {pkg['version']} ({pkg['architecture']})")
+            report.append("")
+
+        # Packages only in ISO 2
+        if comparison['packages_only_in_iso2']:
+            report.append(f"PACKAGES ONLY IN ISO 2 ({len(comparison['packages_only_in_iso2'])}):")
+            report.append("-" * 40)
+            for pkg in comparison['packages_only_in_iso2']:
+                report.append(f"  + {pkg['name']} {pkg['version']} ({pkg['architecture']})")
+            report.append("")
+
+        # Version changes
+        if comparison['packages_with_version_changes']:
+            report.append(f"PACKAGES WITH VERSION CHANGES ({len(comparison['packages_with_version_changes'])}):")
+            report.append("-" * 40)
+            for pkg in comparison['packages_with_version_changes']:
+                report.append(f"  ~ {pkg['name']}: {pkg['iso1_version']} ({pkg['iso1_arch']}) -> {pkg['iso2_version']} ({pkg['iso2_arch']})")
+            report.append("")
+
+        # Summary
+        report.append("SUMMARY:")
+        report.append("-" * 40)
+        total_differences = (len(comparison['packages_only_in_iso1']) +
+                           len(comparison['packages_only_in_iso2']) +
+                           len(comparison['packages_with_version_changes']))
+
+        if total_differences == 0:
+            report.append("✓ The ISOs have identical package sets")
+        else:
+            report.append(f"✗ Found {total_differences} package differences:")
+            report.append(f"  - {len(comparison['packages_only_in_iso1'])} packages only in ISO 1")
+            report.append(f"  - {len(comparison['packages_only_in_iso2'])} packages only in ISO 2")
+            report.append(f"  - {len(comparison['packages_with_version_changes'])} packages with version changes")
+
+        report.append("")
+        return "\n".join(report)
+
+    def compare(self) -> Dict:
+        """Main comparison function"""
+        print(f"Comparing lorax package logs in {self.iso1_path} and {self.iso2_path}")
+
+        # Get basic ISO information
+        print("Gathering ISO metadata...")
+        iso1_info = self.get_iso_info(self.iso1_path)
+        iso2_info = self.get_iso_info(self.iso2_path)
+
+        # Extract lorax package information
+        print("Extracting lorax package information from ISO 1...")
+        packages1 = self.extract_lorax_packages_log(self.iso1_path)
+
+        print("Extracting lorax package information from ISO 2...")
+        packages2 = self.extract_lorax_packages_log(self.iso2_path)
+
+        if not packages1 and not packages2:
+            print("Warning: Could not extract lorax package information from either ISO")
+        elif not packages1:
+            print("Warning: Could not extract lorax package information from ISO 1")
+        elif not packages2:
+            print("Warning: Could not extract lorax package information from ISO 2")
+
+        # Compare packages
+        print("Comparing package sets...")
+        comparison = self.compare_package_sets(packages1, packages2)
+
+        return {
+            'iso1_info': iso1_info,
+            'iso2_info': iso2_info,
+            'packages1': packages1,
+            'packages2': packages2,
+            'comparison': comparison
+        }
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Compare lorax package logs in two Fedora ISO images')
+    parser.add_argument('iso1', help='Path to first ISO file')
+    parser.add_argument('iso2', help='Path to second ISO file')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    parser.add_argument('-o', '--output', help='Output file for report (default: stdout)')
+    parser.add_argument('--json', action='store_true', help='Output raw JSON data')
+
+    args = parser.parse_args()
+
+    # Validate input files
+    iso1_path = Path(args.iso1)
+    iso2_path = Path(args.iso2)
+
+    if not iso1_path.exists():
+        print(f"Error: {iso1_path} does not exist")
+        sys.exit(1)
+
+    if not iso2_path.exists():
+        print(f"Error: {iso2_path} does not exist")
+        sys.exit(1)
+
+    try:
+        with LoraxISOComparator(iso1_path, iso2_path, args.verbose) as comparator:
+            comparison_data = comparator.compare()
+
+            if args.json:
+                # Convert to JSON-serializable format
+                json_data = {
+                    'iso1_info': comparison_data['iso1_info'],
+                    'iso2_info': comparison_data['iso2_info'],
+                    'comparison': comparison_data['comparison']
+                }
+                output = json.dumps(json_data, indent=2, default=str)
+            else:
+                output = comparator.generate_report(
+                    comparison_data['iso1_info'],
+                    comparison_data['iso2_info'],
+                    comparison_data['packages1'],
+                    comparison_data['packages2'],
+                    comparison_data['comparison']
+                )
+
+            if args.output:
+                with open(args.output, 'w') as f:
+                    f.write(output)
+                print(f"Report written to {args.output}")
+            else:
+                print(output)
+
+    except KeyboardInterrupt:
+        print("\nComparison interrupted by user")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error during comparison: {e}")
+        if args.verbose:
+            import traceback
+            traceback.print_exc()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
