@@ -23,6 +23,3 @@ FLATPAK_IMAGE_LAYOUT_VERSION = "1.0.0"
 FLATPAK_MEDIA_TYPE = "application/vnd.oci.image.manifest.v1+json"
 
 FLATPAK_REGISTRY_URL_PATTERN = "{}/index/static?label:org.flatpak.ref:exists=1&architecture={}&tag={}"
-
-# FIXME: Workaround for configuring staging CDN
-RHEL_FLATPAK_ENGINEERING_STAGING_CDN = "oci+https://flatpaks.engineering.redhat.com/staging#rhel-10"
