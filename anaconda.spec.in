@@ -518,6 +518,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 30 2025 github-actions <github-actions@github.com> - 44.11-1
+
 * Tue Dec 23 2025 github-actions <github-actions@github.com> - 44.10-1
 - rhsm: add --flatpak-registry-url support (bciconel)
 - flatpak: handle self-signed certificate errors in registry sources (bciconel)
