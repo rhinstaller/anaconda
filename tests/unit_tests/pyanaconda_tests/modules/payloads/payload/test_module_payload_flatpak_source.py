@@ -17,15 +17,16 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import ssl
 import unittest
 from pathlib import Path
-from unittest.mock import PropertyMock, patch
+from unittest.mock import MagicMock, PropertyMock, patch
 from urllib.parse import urlparse
 
+import pytest
+import requests
+
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.flatpak.constants import (
-    RHEL_FLATPAK_ENGINEERING_STAGING_CDN,
-)
 from pyanaconda.modules.payloads.payload.flatpak.source import (
     FlatpakRegistrySource,
     FlatpakStaticSource,
@@ -340,11 +341,101 @@ class FlatpakRegistrySourceTestCase(unittest.TestCase):
             "verify": expected_base_path / "ca-bundle.crt",
         }
 
-    def test_get_request_keyword_args_staging_cdn(self):
-        """Test _get_request_keyword_args for staging CDN"""
-        source = FlatpakRegistrySource(RHEL_FLATPAK_ENGINEERING_STAGING_CDN)
-        parsed = urlparse(RHEL_FLATPAK_ENGINEERING_STAGING_CDN)
+    @patch("pyanaconda.modules.payloads.payload.flatpak.source.get_container_arch")
+    @patch("pyanaconda.modules.payloads.payload.flatpak.source.requests_session")
+    def test_images_ssl_self_signed_cert_fallback(self, mock_requests_session, mock_get_arch):
+        """Test _images property with self-signed certificate fallback
 
-        kw = source._get_request_keyword_args(parsed)
+        When a self-signed certificate error occurs, the code should retry with the
+        updated ca-bundle.crt and successfully retrieve the images.
+        """
+        mock_get_arch.return_value = "amd64"
 
-        assert kw == {"verify": "/etc/ssl/certs/ca-bundle.crt"}
+        # Mock session
+        mock_session = MagicMock()
+        mock_requests_session.return_value.__enter__.return_value = mock_session
+
+        # Create the underlying SSLCertVerificationError with verify_code 18 or 19
+        ssl_cert_error = ssl.SSLCertVerificationError(
+            "certificate verify failed: self-signed certificate in certificate chain"
+        )
+        ssl_cert_error.verify_code = 19  # X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN
+
+        # Wrap it in a requests.exceptions.SSLError as happens in real usage
+        ssl_error = requests.exceptions.SSLError(ssl_cert_error)
+
+        # Mock first response that will raise SSL error on raise_for_status
+        mock_first_response = MagicMock()
+        mock_first_response.raise_for_status.side_effect = ssl_error
+
+        # Mock successful response after retry
+        mock_success_response = MagicMock()
+        mock_success_response.json.return_value = {
+            "Results": [
+                {
+                    "Images": [
+                        {
+                            "Architecture": "amd64",
+                            "Labels": {
+                                "org.flatpak.ref": "app/org.example.App/amd64/stable",
+                                "org.flatpak.download-size": "1000",
+                                "org.flatpak.installed-size": "2000",
+                            },
+                        }
+                    ]
+                }
+            ]
+        }
+
+        # First call returns response that fails on raise_for_status, second call succeeds
+        mock_session.get.side_effect = [mock_first_response, mock_success_response]
+
+        source = FlatpakRegistrySource("oci+https://stage.cdn.example.com/flatpaks")
+
+        # Access _images to trigger the property - should succeed after retry
+        images = source._images
+
+        # Verify we got the expected image
+        assert len(images) == 1
+        assert images[0].ref == "app/org.example.App/amd64/stable"
+        assert images[0].download_size == 1000
+        assert images[0].installed_size == 2000
+
+        # Verify session.get was called twice (the retry happened)
+        assert mock_session.get.call_count == 2
+
+        # First call should use default kw args (empty dict in this case)
+        first_call = mock_session.get.call_args_list[0]
+        assert first_call[1] == {}
+
+        # Second call should include verify with ca-bundle path (the retry used the updated cert)
+        second_call = mock_session.get.call_args_list[1]
+        assert second_call[1] == {"verify": "/etc/ssl/certs/ca-bundle.crt"}
+
+    @patch("pyanaconda.modules.payloads.payload.flatpak.source.get_container_arch")
+    @patch("pyanaconda.modules.payloads.payload.flatpak.source.requests_session")
+    def test_images_ssl_error_non_self_signed_reraises(self, mock_requests_session, mock_get_arch):
+        """Test _images property re-raises SSL errors that are not self-signed certificate errors"""
+        mock_get_arch.return_value = "amd64"
+
+        # Mock session
+        mock_session = MagicMock()
+        mock_requests_session.return_value.__enter__.return_value = mock_session
+
+        # Create a different SSL error (not self-signed)
+        ssl_error = requests.exceptions.SSLError(
+            "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired"
+        )
+
+        mock_session.get.side_effect = ssl_error
+
+        source = FlatpakRegistrySource("oci+https://example.com/flatpaks")
+
+        # Access _images should re-raise the SSL error
+        with pytest.raises(requests.exceptions.SSLError) as context:
+            _ = source._images
+
+        assert "certificate has expired" in str(context.value)
+
+        # Verify session.get was called only once (no retry for non-self-signed errors)
+        assert mock_session.get.call_count == 1
