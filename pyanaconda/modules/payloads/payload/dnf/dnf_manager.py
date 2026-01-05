@@ -826,7 +826,8 @@ class DNFManager:
                 "The transaction finished with %s (%s)",
                 result, transaction.transaction_result_to_string(result)
             )
-            if result != 0 or transaction_has_errors(transaction):
+            has_item_errors = transaction_has_errors(transaction)
+            if has_item_errors or result != 0:
                 progress.error("The transaction process has ended with errors.")
         except BaseException as e:  # pylint: disable=broad-except
             progress.error("The transaction process has ended abruptly: {}\n{}".format(
