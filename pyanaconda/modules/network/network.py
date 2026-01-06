@@ -44,7 +44,7 @@ from pyanaconda.modules.network.device_configuration import (
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.initialization import (
     ApplyKickstartTask,
-    DumpMissingConfigFilesTask,
+    PersistInitramfsConfigTask,
 )
 from pyanaconda.modules.network.installation import (
     ConfigureActivationOnBootTask,
@@ -686,29 +686,18 @@ class NetworkService(KickstartService):
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
-    def dump_missing_config_files_with_task(self):
-        """Dump missing default config file for wired devices.
+    def persist_initramfs_config_with_task(self):
+        """Make configuration created in initramfs persistent.
 
-        Make sure each supported wired device has config file.
+        In initramfs the configuration can be created via boot options or by
+        kickstart.
 
-        For default auto connections created by NM upon start (which happens in
-        case of missing config file, eg the file was not created in initramfs)
-        rename the in-memory connection using device name and dump it into
-        config file.
+        Only configuration bound to an interface is persisted. For example
+        configuration created based on ip=dhcp option is not.
 
-        If default auto connections are turned off by NM configuration (based
-        on policy, eg on RHEL or server), the connection will be created by Anaconda
-        and dumped into config file.
-
-        The connection id (and consequently config file name) is set to device
-        name.
-
-        :returns: a task dumping the files
+        :returns: DBus path of the task dumping the files
         """
-        data = self.get_kickstart_handler()
-        default_network_data = data.NetworkData(onboot=False, ipv6="auto")
-        task = DumpMissingConfigFilesTask(default_network_data,
-                                          self.ifname_option_values)
+        task = PersistInitramfsConfigTask()
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
