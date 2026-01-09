@@ -829,6 +829,8 @@ class DNFManager:
             has_item_errors = transaction_has_errors(transaction)
             if has_item_errors or result != 0:
                 progress.error("The transaction process has ended with errors.")
+                for problem in transaction.get_transaction_problems():
+                    log.error(problem)
         except BaseException as e:  # pylint: disable=broad-except
             progress.error("The transaction process has ended abruptly: {}\n{}".format(
                 str(e), traceback.format_exc()))
