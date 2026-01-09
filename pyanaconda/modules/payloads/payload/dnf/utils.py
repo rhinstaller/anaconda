@@ -251,14 +251,17 @@ def transaction_has_errors(transaction):
     has_errors = False
     for environment in transaction.get_transaction_environments():
         if environment.get_state() == TransactionItemState_ERROR:
-            log.error("The transaction contains environment %s in error state.", environment)
+            log.error(
+                "The transaction contains environment %s in error state.",
+                environment.get_environment().get_name()
+            )
             has_errors = True
     for group in transaction.get_transaction_groups():
         if group.get_state() == TransactionItemState_ERROR:
-            log.error("The transaction contains group %s in error state.", group)
+            log.error("The transaction contains group %s in error state.", group.get_group().get_name())
             has_errors = True
     for package in transaction.get_transaction_packages():
         if package.get_state() == TransactionItemState_ERROR:
-            log.error("The transaction contains package %s in error state.", package)
+            log.error("The transaction contains package %s in error state.", package.get_package().get_full_nevra())
             has_errors = True
     return has_errors
