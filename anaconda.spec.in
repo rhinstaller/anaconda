@@ -499,6 +499,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 13 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.40-1
+- rhsm: add --flatpak-registry-url support (bciconel)
+  Resolves: RHEL-132652
+  Related: INSTALLER-4530
+- flatpak: handle self-signed certificate errors in registry sources (bciconel)
+  Resolves: RHEL-132652
+  Related: INSTALLER-4530
+- flatpak: add utility to check for self-signed certificate errors (bciconel)
+  Resolves: RHEL-132652
+  Related: INSTALLER-4530
+- Fix permissions of the ssh config created by Anaconda (ppolawsk)
+  Resolves: RHEL-99673
+- Add x-initrd.attach to /etc/crypttab device for / volumes (mkolman)
+  Resolves: RHEL-112702
+  Related: RHEL-132666
+
 * Fri Dec 05 2025 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.39-1
 - Remove --root-mount-spec to enable bootc's btrfs subvolume auto-detection
   (k.koukiou)
