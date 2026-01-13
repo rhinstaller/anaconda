@@ -115,18 +115,31 @@ def _find_existing_installations(devicetree):
             blivet_util.umount(mountpoint=sysroot)
             continue
 
-        if not os.access(sysroot + "/etc/fstab", os.R_OK):
+        # Find the root filesystem by locating /etc/fstab
+        # This handles deployments where the root filesystem is nested (such as atomic OSTree deployments)
+        chroot_path = _find_root_from_fstab(sysroot) or sysroot
+
+        if not os.access(chroot_path + "/etc/fstab", os.R_OK):
             blivet_util.umount(mountpoint=sysroot)
             device.teardown()
             continue
 
-        architecture, product, version = get_release_string(chroot=sysroot)
-        (mounts, devices, mountopts) = _parse_fstab(devicetree, chroot=sysroot)
+        architecture, product, version = get_release_string(chroot=chroot_path)
+        (mounts, devices, mountopts) = _parse_fstab(devicetree, chroot=chroot_path)
         blivet_util.umount(mountpoint=sysroot)
 
         if not mounts and not devices:
             # empty /etc/fstab. weird, but I've seen it happen.
             continue
+
+        # Deduplicate: skip if we already have a Root with the same root device
+        root_device = mounts.get('/')
+        if root_device:
+            root_device_id = root_device.id
+            if any((existing_dev := existing_root.mounts.get('/')) and existing_dev.id == root_device_id
+                   for existing_root in roots):
+                device.teardown()
+                continue
 
         roots.append(Root(
             product=product,
@@ -138,6 +151,20 @@ def _find_existing_installations(devicetree):
         ))
 
     return roots
+
+
+def _find_root_from_fstab(mountpoint):
+    """Find the root filesystem by locating /etc/fstab.
+
+    :param mountpoint: path to the mounted device
+    :return: root filesystem path (where /etc/fstab exists), or None if not found
+    """
+    for root, dirs, _files in os.walk(mountpoint):
+        if 'etc' in dirs:
+            fstab_path = os.path.join(root, 'etc', 'fstab')
+            if os.path.isfile(fstab_path):
+                return root
+    return None
 
 
 def get_release_string(chroot):
