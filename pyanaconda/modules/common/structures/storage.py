@@ -450,3 +450,10 @@ class OSData(DBusData):
         :return: a device name or None
         """
         return self.mount_points.get("/")
+
+    def get_boot_device(self):
+        """Get the boot device.
+
+        :return: a device name or None
+        """
+        return self.mount_points.get("/boot")
