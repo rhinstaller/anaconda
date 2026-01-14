@@ -46,6 +46,7 @@ from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.rescue import RescueData
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, OSData
 from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.payloads.payload.rpm_ostree.util import get_ostree_deployment_path
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
@@ -204,6 +205,14 @@ class Rescue(object):
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
             log.info("System has been mounted under: %s", conf.target.system_root)
+
+            # Mount /boot if it exists
+            # This is needed for OSTree deployments to be detected properly
+            boot_device = root.get_boot_device()
+            if boot_device:
+                boot_path = os.path.join(conf.target.system_root, "boot")
+                read_only = "ro" if self.ro else ""
+                self._device_tree_proxy.MountDevice(boot_device, boot_path, read_only)
         except MountFilesystemError as e:
             log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
             self.status = RescueModeStatus.MOUNT_FAILED
@@ -453,12 +462,17 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                                      "command line for autorelabel to work properly.\n")
                                    if self._rescue.autorelabel else "")
 
+                # For OSTree installations, find the deployment directory for chroot
+                mountpoint = conf.target.system_root
+                deployment_path = get_ostree_deployment_path(mountpoint)
+                chroot_path = deployment_path if deployment_path else mountpoint
+
                 text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
-                                    "\tchroot %(mountpoint)s\n\n")
-                                  % {"mountpoint": conf.target.system_root} + autorelabel_msg
-                                  + finish_msg)
+                                    "\tchroot %(chroot_path)s\n\n")
+                                  % {"mountpoint": mountpoint, "chroot_path": chroot_path}
+                                  + autorelabel_msg + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
                     finish_msg = exit_reboot_msg
