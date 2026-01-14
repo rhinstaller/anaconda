@@ -426,6 +426,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 14 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.12-1
+- Fix permissions of the ssh config created by Anaconda (ppolawsk)
+  Resolves: RHEL-129787
+- pyanaconda: rpm_ostree: fix _handle_boot_if_not_mount_point method issues
+  (k.koukiou)
+  Related: RHEL-74145
+- ostree needs to have /boot be bindmounted into sysroot. (a.badger)
+  Resolves: RHEL-74145
+
 * Mon Dec 01 2025 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.11-1
 - bootloader: efi: utilize grub2-common script for handling config file
   generation (k.koukiou)
