@@ -320,6 +320,7 @@ class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
         self._fill_var_subdirectories()
 
         self._handle_other_mount_points(mount_points)
+        self._handle_boot_if_not_mount_point(mount_points)
 
         # And finally, do a nonrecursive bind for the sysroot
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
