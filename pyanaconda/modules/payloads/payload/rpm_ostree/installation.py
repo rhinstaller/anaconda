@@ -31,7 +31,10 @@ from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
+from pyanaconda.modules.payloads.payload.rpm_ostree.util import (
+    get_ostree_deployment_path,
+    have_bootupd,
+)
 from pyanaconda.payload.errors import PayloadInstallError
 
 gi.require_version("OSTree", "1.0")
@@ -739,13 +742,8 @@ class SetSystemRootTask(Task):
         return "Set OSTree system root"
 
     def run(self):
-        sysroot_file = Gio.File.new_for_path(self._physroot)
-        sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(None)
-
-        deployments = sysroot.get_deployments()
-        assert len(deployments) > 0
-
-        deployment = deployments[0]
-        deployment_path = sysroot.get_deployment_directory(deployment)
-        set_system_root(deployment_path.get_path())
+        """Reload and find the path to the new deployment."""
+        deployment_path = get_ostree_deployment_path(self._physroot)
+        if not deployment_path:
+            raise PayloadInstallError("Failed to find OSTree deployment")
+        set_system_root(deployment_path)
