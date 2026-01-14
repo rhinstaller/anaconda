@@ -1144,17 +1144,14 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
 
 
 class SetSystemRootTaskTestCase(unittest.TestCase):
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot.new")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.get_ostree_deployment_path")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.set_system_root")
-    def test_run(self, set_mock, new_sysroot_mock):
+    def test_run(self, set_mock, get_deployment_path_mock):
         """Test OSTree sysroot set task"""
-        sysroot_mock = new_sysroot_mock()
-        sysroot_mock.get_deployments.return_value = [None]
+        get_deployment_path_mock.return_value = "/physroot/ostree/deploy/default/deploy/abc123.0"
 
         task = SetSystemRootTask("/physroot")
         task.run()
 
-        assert len(new_sysroot_mock.mock_calls) == 2+4
-        # 2 above: new, get_deployments;
-        # 4 in run(): new(), load(), get_deployments(), get_deployment_directory()
-        set_mock.assert_called_once()
+        get_deployment_path_mock.assert_called_once_with("/physroot")
+        set_mock.assert_called_once_with("/physroot/ostree/deploy/default/deploy/abc123.0")
