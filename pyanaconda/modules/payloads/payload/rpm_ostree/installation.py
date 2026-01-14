@@ -214,12 +214,12 @@ class PrepareMountTargetsTaskBase(Task):
         else:
             self._setup_internal_bindmount('/var', recurse=False)
 
-    def _handle_boot_if_not_mount_point(self, mount_points):
-        """Make sure that /boot is bind mounted into the sysroot
+    def _handle_boot_if_not_mount_point(self):
+        """Make sure that /boot is bind mounted into the sysroot.
 
         This ensures /boot is accessible to %post scripts when they are running.
         """
-        if "/boot" not in self._internal_mounts:
+        if self._sysroot + "/boot" not in self._internal_mounts:
             # Should this be ro?  I feel like the bind mount should be rw but
             # /usr is being mounted ro for ostree installs (in run()).
             self._setup_internal_bindmount('/boot', recurse=False)
@@ -289,7 +289,7 @@ class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
     def _handle_other_mount_points(self, existing_mount_points):
         """Handle other mount points
 
-        Handle mounts like /boot (except avoid /boot/efi; we just need the  toplevel), and any
+        Handle mounts like /boot (except avoid /boot/efi; we just need the toplevel), and any
         admin-specified points like /home (really /var/home). Note we already handled /var
         earlier. Avoid recursion since sub-mounts will be in the list too.  We sort by length as
         a crude hack to try to simulate the tree relationship; it looks like this is handled in
@@ -320,7 +320,7 @@ class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
         self._fill_var_subdirectories()
 
         self._handle_other_mount_points(mount_points)
-        self._handle_boot_if_not_mount_point(mount_points)
+        self._handle_boot_if_not_mount_point()
 
         # And finally, do a nonrecursive bind for the sysroot
         self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
@@ -382,7 +382,7 @@ class PrepareBootcMountTargetsTask(PrepareMountTargetsTaskBase):
         self._fill_var_subdirectories()
 
         # Make sure /boot is accessible during %post scripts
-        self._handle_boot_if_not_mount_point(mount_points)
+        self._handle_boot_if_not_mount_point()
 
         return self._internal_mounts
 
