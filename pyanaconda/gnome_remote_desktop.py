@@ -128,7 +128,7 @@ class GRDServer(object):
         self._run_grdctl(["rdp", "enable"])
 
     def _find_network_address(self):
-        """Find machine IP address, so we can show it to the user."""
+        """Find machine IP address"""
 
         # Network may be slow. Try for 5 seconds
         tries = 5
@@ -209,8 +209,11 @@ class GRDServer(object):
         # next try to find our IP address or even the hostname
         network.wait_for_connectivity()
         try:
+            # Print connection information to user with all machine IPs
+            for ip in network.get_ip_addresses():
+                if ip not in ("127.0.0.1", "::1"):
+                    self.log.info(_("GNOME remote desktop RDP IP: %s"), ip)
             self._find_network_address()
-            self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
             self.log.info(_("GNOME remote desktop RDP host name: %s"), self.name)
         except (socket.herror, ValueError) as e:
             stdoutLog.critical("GNOME remote desktop RDP: Could not find network address: %s", e)
