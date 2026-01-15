@@ -32,3 +32,7 @@ syntaxError:widgets/src/StandaloneWindow.c:67
 //
 returnDanglingLifetime:*widgets/src/gettext.h
 returnDanglingLifetime:widgets/src/gettext.h
+
+// Suppress GLIB_CHECK_VERSION errors in generated gdbus-codegen files (GLib 2.86.x)
+syntaxError:*widgets/src/an-localization.h:186
+syntaxError:widgets/src/an-localization.h:186
