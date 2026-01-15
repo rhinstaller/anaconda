@@ -169,6 +169,7 @@ class Rescue:
         self.ro = False
 
         self.autorelabel = False
+        self.is_ostree = False
 
         self.status = RescueModeStatus.NOT_SET
         self.error = None
@@ -261,6 +262,10 @@ class Rescue:
 
         # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
         makeFStab()
+
+        # Check if this is an OSTree/immutable system
+        if get_ostree_deployment_path(conf.target.system_root):
+            self.is_ostree = True
 
         # run %post if we've mounted everything
         if not self.ro and self._scripts:
@@ -480,12 +485,18 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                 deployment_path = get_ostree_deployment_path(mountpoint)
                 chroot_path = deployment_path if deployment_path else mountpoint
 
+                ostree_warning = (_("Warning: An immutable system has been detected. "
+                                    "It is not recommended to make manual changes to the deployment "
+                                    "directories as this may break system integrity. Only modify "
+                                    "/etc, /var, or boot loader configuration files as needed.\n\n")
+                                 if self._rescue.is_ostree else "")
+
                 text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
                                     "\tchroot %(chroot_path)s\n\n")
                                   % {"mountpoint": mountpoint, "chroot_path": chroot_path}
-                                  + autorelabel_msg + finish_msg)
+                                  + ostree_warning + autorelabel_msg + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
                     finish_msg = exit_reboot_msg
