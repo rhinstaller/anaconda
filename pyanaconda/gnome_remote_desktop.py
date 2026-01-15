@@ -235,7 +235,9 @@ class GRDServer:
         # Lets start GRD.
         self._start_grd_process()
 
-        # Print connection information to user
-        self.log.info(_("GNOME remote desktop RDP IP: %s"), self.ip)
+        # Print connection information to user with all machine IPs
+        for ip in network.get_ip_addresses():
+            if ip not in ("127.0.0.1", "::1"):
+                self.log.info(_("GNOME remote desktop RDP IP: %s"), ip)
         # Print hostname when available (run in separate thread to avoid blocking)
         self._get_hostname()
