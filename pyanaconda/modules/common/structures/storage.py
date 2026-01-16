@@ -501,6 +501,13 @@ class OSData(DBusData):
         """
         return self.mount_points.get("/")
 
+    def get_boot_device(self):
+        """Get the boot device.
+
+        :return: a device name or None
+        """
+        return self.mount_points.get("/boot")
+
 
 class MountPointConstraintsData(DBusData):
     """Constrains (filesystem and device types allowed) for mount points"""
