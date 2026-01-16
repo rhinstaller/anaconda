@@ -761,8 +761,8 @@ class DeployBootcTask(Task):
         # Get mount points from device tree (includes user-specified mount points from kickstart)
         user_mount_points = device_tree.GetMountPoints()
 
-        # Standard mount points: / (root), /boot, /home, /var
-        allowed_mount_points = {'/', '/boot', '/home', '/var'}
+        # Standard mount points: / (root), /boot, /boot/efi, /home, /var
+        allowed_mount_points = {'/', '/boot', '/boot/efi', '/home', '/var'}
 
         # Check for user-specified mount points
         unsupported_mount_points = []
