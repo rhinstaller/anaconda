@@ -109,13 +109,23 @@ class IsSelfSignedCertificateErrorTestCase:
                 raise ValueError("Connection failed") from ssl_exc
         except ValueError as outer_exc:
             assert is_self_signed_certificate_error(outer_exc) is True
+            # also, prove that __context__ is filled in this use case
+            assert isinstance(outer_exc.__context__, ssl.SSLCertVerificationError)
+            assert outer_exc.__context__.verify_code == 18
 
-    def test_self_signed_cert_in_args_chain(self):
-        """Test detection when SSLCertVerificationError is in args[0] chain."""
-        ssl_exc = self.create_ssl_error(19)
-
-        outer_exc = Mock(spec=Exception, args=[ssl_exc], __cause__=None)
-        assert is_self_signed_certificate_error(outer_exc) is True
+    def test_self_signed_cert_in_context_chain(self):
+        """Test detection when SSLCertVerificationError is in __context__ chain."""
+        try:
+            try:
+                raise ssl.SSLCertVerificationError("Self-signed cert")
+            except ssl.SSLCertVerificationError as ssl_exc:
+                ssl_exc.verify_code = 18
+                # this test is very similar to test_self_signed_cert_in_cause_chain; the key difference is
+                # here: we are not using the syntax that fill __cause__
+                raise ValueError("Connection failed")  # pylint: disable=raise-missing-from
+        except ValueError as outer_exc:
+            assert is_self_signed_certificate_error(outer_exc) is True
+            assert outer_exc.__cause__ is None
 
     def test_deep_exception_chain_with_self_signed(self):
         """Test detection in a deep exception chain."""
