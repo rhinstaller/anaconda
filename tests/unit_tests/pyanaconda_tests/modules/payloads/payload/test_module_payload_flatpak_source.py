@@ -362,7 +362,8 @@ class FlatpakRegistrySourceTestCase(unittest.TestCase):
         ssl_cert_error.verify_code = 19  # X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN
 
         # Wrap it in a requests.exceptions.SSLError as happens in real usage
-        ssl_error = requests.exceptions.SSLError(ssl_cert_error)
+        ssl_error = requests.exceptions.SSLError("some err message")
+        ssl_error.__context__ = ssl_cert_error
 
         # Mock first response that will raise SSL error on raise_for_status
         mock_first_response = MagicMock()
