@@ -361,19 +361,6 @@ class RunInstallationTask(InstallationTask):
             ])
             configuration_queue.append(certificates_import)
 
-        # add installation tasks for the Subscription DBus module
-        if is_module_available(SUBSCRIPTION):
-            # we only run the tasks if the Subscription module is available
-            subscription_config = TaskQueue(
-                "Subscription configuration",
-                _("Configuring Red Hat subscription"),
-                CATEGORY_SYSTEM
-            )
-            subscription_proxy = SUBSCRIPTION.get_proxy()
-            subscription_dbus_tasks = subscription_proxy.InstallWithTasks()
-            subscription_config.append_dbus_tasks(SUBSCRIPTION, subscription_dbus_tasks)
-            configuration_queue.append(subscription_config)
-
         # schedule the execute methods of ksdata that require an installed system to be present
         os_config = TaskQueue(
             "Installed system configuration",
@@ -428,6 +415,19 @@ class RunInstallationTask(InstallationTask):
                 (overwrite, )
             ))
             configuration_queue.append(network_config)
+
+        # add installation tasks for the Subscription DBus module
+        if is_module_available(SUBSCRIPTION):
+            # we only run the tasks if the Subscription module is available
+            subscription_config = TaskQueue(
+                "Subscription configuration",
+                _("Configuring Red Hat subscription"),
+                CATEGORY_SYSTEM
+            )
+            subscription_proxy = SUBSCRIPTION.get_proxy()
+            subscription_dbus_tasks = subscription_proxy.InstallWithTasks()
+            subscription_config.append_dbus_tasks(SUBSCRIPTION, subscription_dbus_tasks)
+            configuration_queue.append(subscription_config)
 
         # add installation tasks for the Users DBus module
         if is_module_available(USERS):
