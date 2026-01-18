@@ -42,6 +42,7 @@ class ConnectToInsightsTask(Task):
     """Connect the target system to Red Hat Insights."""
 
     INSIGHTS_TOOL_PATH = "/usr/bin/insights-client"
+    LIB_INSIGHTS_PATH = "/var/lib/insights"
 
     def __init__(self, sysroot, subscription_attached, connect_to_insights):
         """Create a new task.
@@ -71,6 +72,11 @@ class ConnectToInsightsTask(Task):
             log.debug("insights-connect-task: "
                       "Insights requested but target system is not subscribed, skipping")
             return
+
+        # /var/lib/insights which is required to run insights client. However,
+        # on bootc/ostree it will only be created on first boot by systemd-tempfiles,
+        # but that would be too late for anaconda.
+        make_directories(join_paths(self._sysroot, self.LIB_INSIGHTS_PATH))
 
         insights_path = join_paths(self._sysroot, self.INSIGHTS_TOOL_PATH)
         # check the insights client utility is available
