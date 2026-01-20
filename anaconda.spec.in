@@ -131,6 +131,7 @@ Requires: NetworkManager-libnm >= %{nmver}
 Requires: kbd
 Requires: chrony
 Requires: systemd
+Requires: systemd-pam
 %if ! 0%{?rhel}
 Requires: systemd-resolved
 %endif
