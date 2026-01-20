@@ -518,6 +518,23 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 20 2026 github-actions <github-actions@github.com> - 44.14-1
+- installation: run subscription tasks after network configuration (bciconel)
+- subscription: ensure /var/lib/insights exists before running insights-client
+  (bciconel)
+- dnf: Print transaction problems when transaction ends with errors (pkratoch)
+- dnf: Print names and NEVRAs for failed TransactionItems (pkratoch)
+- dnf: Report transaction errors for individual TransactionItems (pkratoch)
+- network: List all network interfaces IP for RDP session (ppolawsk)
+- pyanaconda: rpm_ostree: fix _handle_boot_if_not_mount_point method issues
+  (k.koukiou)
+- network: add release note for INSTALLER-3088 (rvykydal)
+- network: remove DumpMissingConfigFiles API (rvykydal)
+- network: stop creating default profiles for each wired device (rvykydal)
+- network: add API for persisting initramfs configuration (rvykydal)
+- modules: rpm_ostree: allow /boot/efi mount point in bootc installation
+  (k.koukiou)
+
 * Tue Jan 13 2026 github-actions <github-actions@github.com> - 44.13-1
 
 * Tue Jan 06 2026 github-actions <github-actions@github.com> - 44.12-1
