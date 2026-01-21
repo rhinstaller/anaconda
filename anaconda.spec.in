@@ -257,7 +257,7 @@ Requires: fcoe-utils >= %{fcoeutilsver}
 Requires: device-mapper-multipath
 # only WeakRequires in -env-
 Requires: kdump-anaconda-addon
-%if ! 0%{?rhel}
+%if ! 0%{?rhel} || 0%{?rhel} >= 10
 Requires: zram-generator-defaults
 %else
 Requires: zram-generator
