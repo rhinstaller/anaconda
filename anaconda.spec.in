@@ -499,6 +499,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 21 2026 Bruno <bciconel@redhat.com> - 40.22.3.42-1
+- payloads: flatpak: fix SSL error detection on older Python versions
+  (bciconel)
+  Related: RHEL-141069
+  Related: INSTALLER-4575
+  Resolves: RHEL-142694
+
 * Wed Jan 21 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.41-1
 - Fixing unittests (a.badger)
 - pyanaconda: rpm_ostree: fix _handle_boot_if_not_mount_point method issues
