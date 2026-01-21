@@ -499,6 +499,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 21 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.41-1
+- Fixing unittests (a.badger)
+- pyanaconda: rpm_ostree: fix _handle_boot_if_not_mount_point method issues
+  (k.koukiou)
+  Related: RHEL-74145
+- ostree needs to have /boot be bindmounted into sysroot (k.koukiou)
+  Resolves: RHEL-74145
+- modules: rpm_ostree: allow /boot/efi mount point in bootc installation
+  (k.koukiou)
+  Resolves: RHEL-141155
+  Related: INSTALLER-4549
+
 * Tue Jan 13 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.40-1
 - rhsm: add --flatpak-registry-url support (bciconel)
   Resolves: RHEL-132652
