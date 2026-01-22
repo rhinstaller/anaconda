@@ -170,7 +170,7 @@ See --help for further information.
 The ``update_iso`` script
 """"""""""""""""""""""""""""""
 
-This is the main script that enables local development by quickly updating a boot iso with local changes.
+This is the main script that enables local development by quickly updating a boot.iso with local changes.
 This should take a couple seconds on modern hardware.
 
 For the most common use case ("I have changed the Anaconda source and want to see what it does.") just do this:
@@ -187,6 +187,37 @@ The script also has a few command line options that might come handy:
 * ``-v, --virt-install`` boot the updated iso in a temporary VM for super fast & simple debugging
 * ``-t, --tag`` use a specific Git revision when generating the updates image
 * You can specify custom ISO image (requirement for Live ISO usage) as optional positional parameter.
+
+Updating an externally built boot.iso with the ``update_iso`` script
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+In some cases it is necessary to inject changes to a boot.iso that has not been built by the ``rebuild_iso`` script.
+
+This might be due to the need to test translation related issues (``rebuild_iso`` generated images do not include translations)
+or to debug an issue that only happens on one specific boot.iso image.
+
+First thing that needs to be done is to find what version of Anaconda is used on the media. This is necessary for the ``update_iso`` script
+to determine the right Git commit range to include in the updates image.
+
+There are a couple of ways to find the Anaconda version:
+
+* boot the boot.iso and check Anaconda version printed on the TTY1 terminal or in Journal of the booted image
+* grep for the "anaconda" package in /root/lorax-packages.log in the boot.iso image
+* check image build logs (if available) for the version of the Anaconda package
+
+For an example, let's suppose the above has been done and the image contains Anaconda 44.11. Anaconda releases are tagged as
+``anaconda-<version number>`` so the Anaconda tag for this version should be ``anaconda-44.11``.
+
+Once the tag is known, pass the tag via the ``-t`` or ``--tag`` option of the ``update_iso`` script, pointing to the externally
+built boot.iso. An example invocation could look like this:
+
+  ./scripts/testing/update_iso Fedora-Everything-netinst-x86_64-Rawhide-20260119.n.0.iso -t anaconda-44.11
+
+After this invocation, there should be a new boot.iso image in current directory with an ``-updated`` suffix,
+so ``Fedora-Everything-netinst-x86_64-Rawhide-20260119.n.0-updated.iso`` in this concrete example.
+
+This image will be the same as the original externally built boot.iso but with an Anaconda updates image from the current Git branch,
+adding all changes added since the Anaconda version used on the media was released.
 
 Running the updated boot.iso
 """"""""""""""""""""""""""""
