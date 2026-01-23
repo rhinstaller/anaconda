@@ -6,20 +6,36 @@
 Welcome to Anaconda's documentation!
 ====================================
 
-Contents:
+Anaconda is the installation program used by Fedora, Red Hat Enterprise Linux
+and some other distributions. This documentation covers everything from basic
+usage to advanced development topics.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
+   :caption: User Guide
 
-   intro
-   release-notes
-   boot-options
-   kickstart
-   How to report a bug <reporting>
-   common-bugs
-   How to contribute <contributing>
-   release
-   list-harddrives
-   developer
-   modules
-   ci-status
+   user-guide/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developer Documentation
+
+   developer/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   api/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Release Notes
+
+   release-notes/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
+
+   reference/index
