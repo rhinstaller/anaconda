@@ -433,6 +433,10 @@ if __name__ == "__main__":
     # Initialize the security configuration.
     startup_utils.initialize_security()
 
+    # Make sure display mode is set early enough.
+    # - locale initialization needs to know if text mode is in use
+    anaconda.display_mode = opts.display_mode
+
     # Set the language before loading an interface, when it may be too late.
     startup_utils.initialize_locale(opts, text_mode=anaconda.tui_mode)
 
