@@ -324,31 +324,6 @@ In general, we aim to stay as close as possible to `PEP8 <https://www.python.org
 * Never call ``upper()`` on translated strings. See the bug `1619530 <https://bugzilla.redhat.com/show_bug.cgi?id=1619530>`_
 * Names of signal handlers defined in ``.glade`` files should have the ``on_`` prefix.
 
-Merging examples
-----------------
-
-Merging a GitHub pull request
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Press the green *Merge pull request* button on the pull request page.
-
-Then you are done.
-
-Merging a topic branch manually
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Let's say that there is a topic branch called "fix_foo_with_bar" that should be merged to a given Anaconda non-topic branch.
-
-Checkout the given target branch, pull it and merge your topic branch into it::
-
-    git checkout <target branch>
-    git pull
-    git merge --no-ff fix_foo_with_bar
-
-Then push the merge to the remote::
-
-    git push origin <target branch>
-
 .. _pure-community-features:
 
 Pure community features
