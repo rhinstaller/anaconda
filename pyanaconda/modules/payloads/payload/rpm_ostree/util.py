@@ -18,11 +18,42 @@
 
 import os.path
 
+import gi
+
+gi.require_version("OSTree", "1.0")
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio, OSTree
+
 from pyanaconda.core.path import join_paths
 
-__all__ = ["have_bootupd"]
+__all__ = ["get_ostree_deployment_path", "have_bootupd"]
 
 
 def have_bootupd(sysroot):
     """Is bootupd/bootupctl present in sysroot?"""
     return os.path.exists(join_paths(sysroot, "/usr/bin/bootupctl"))
+
+
+def get_ostree_deployment_path(sysroot_path):
+    """Get the OSTree deployment path for a given sysroot.
+
+    :param sysroot_path: path to the mounted sysroot
+    :return: deployment directory path, or None if not found
+    """
+    # Check if this looks like an ostree installation
+    ostree_deploy_path = os.path.join(sysroot_path, "ostree", "deploy")
+    if not os.path.isdir(ostree_deploy_path):
+        return None
+
+    sysroot_file = Gio.File.new_for_path(sysroot_path)
+    ostree_sysroot = OSTree.Sysroot.new(sysroot_file)
+    ostree_sysroot.load(None)
+    deployments = ostree_sysroot.get_deployments()
+    if deployments:
+        deployment = deployments[0]
+        deployment_dir = ostree_sysroot.get_deployment_directory(deployment)
+        deployment_path = deployment_dir.get_path()
+        if os.path.isdir(deployment_path):
+            return deployment_path
+
+    return None
