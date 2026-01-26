@@ -946,11 +946,18 @@ class BootLoader:
                 continue
 
             arg = kernel_arguments.get(opt)
-            new_arg = opt
-            if arg:
-                new_arg += "=%s" % arg
 
-            self.boot_args.add(new_arg)
+            # [RHEL-101789]
+            # Parse and store multiple console options to reproduce them
+            # in the same order on deployed system
+            if opt == "console" and arg and " " in arg:
+                log.debug('Multiple "console=" kernel parameters to be preserved')
+                for item in arg.split():
+                    self.boot_args.add("%s=%s" % (opt, item))
+            else:
+                new_arg = opt if not arg else "%s=%s" % (opt, arg)
+
+                self.boot_args.add(new_arg)
 
     def _set_graphical_boot_args(self):
         """Set up the graphical boot."""
@@ -1001,6 +1008,13 @@ class BootLoader:
 
         if not console:
             return
+
+        # Handle multiple console= entries (RHEL-101789)
+        # e.g., "ttyS0,115200n8 tty0" -> "console=ttyS0,115200n8 console=tty0"
+        if " " in console:
+            log.debug('Multiple "console=" kernel parameters found: %s', console)
+            console = console.split()[-1]
+            log.debug("Main console set to: %s", console)
 
         console = os.path.basename(console)
         self.console, _x, self.console_options = console.partition(",")
