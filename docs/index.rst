@@ -22,4 +22,5 @@ Contents:
    list-harddrives
    developer
    modules
+   Web UI <webui-customization>
    ci-status
