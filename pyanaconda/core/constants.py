@@ -258,7 +258,7 @@ CMDLINE_FILES = [
 ]
 
 # cmdline arguments that append instead of overwrite
-CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
+CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip", "console"]
 CMDLINE_LIST = ["addrepo"]
 
 # An estimated ratio for metadata size to total disk space.
