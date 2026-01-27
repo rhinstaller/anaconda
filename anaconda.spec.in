@@ -519,6 +519,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 27 2026 github-actions <github-actions@github.com> - 44.16-1
+- Remove Merging examples section from CONTRIBUTING.rst (k.koukiou)
+
 * Tue Jan 27 2026 github-actions <github-actions@github.com> - 44.15-1
 - spec: Require zram-generator-defaults for RHEL-10 (k.koukiou)
 - RPM spec: make anaconda-core require systemd-pam (awilliam)
