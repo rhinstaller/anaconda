@@ -519,6 +519,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 27 2026 github-actions <github-actions@github.com> - 44.15-1
+- spec: Require zram-generator-defaults for RHEL-10 (k.koukiou)
+- RPM spec: make anaconda-core require systemd-pam (awilliam)
+- payloads: flatpak: fix SSL error detection on older Python versions
+  (bciconel)
+- rescue: Add warning for immutable systems (k.koukiou)
+- rescue: detect OSTree deployments in rescue mode and show deployment path
+  (k.koukiou)
+- pyanaconda: storage: fix FindExistingSystems API for ostree based OSes
+  (k.koukiou)
+
 * Tue Jan 20 2026 github-actions <github-actions@github.com> - 44.14-1
 - installation: run subscription tasks after network configuration (bciconel)
 - subscription: ensure /var/lib/insights exists before running insights-client
