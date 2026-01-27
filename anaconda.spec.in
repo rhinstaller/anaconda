@@ -519,6 +519,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 27 2026 github-actions <github-actions@github.com> - 44.17-1
+- rescue: Change 'immutable' to 'atomic' in warning message (k.koukiou)
+- Only show compatible translations in text mode (mkolman)
+- Add instructions for externally build boot iso updates (mkolman)
+
 * Tue Jan 27 2026 github-actions <github-actions@github.com> - 44.16-1
 - Remove Merging examples section from CONTRIBUTING.rst (k.koukiou)
 
