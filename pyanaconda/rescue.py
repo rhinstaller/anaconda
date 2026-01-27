@@ -263,7 +263,7 @@ class Rescue:
         # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
         makeFStab()
 
-        # Check if this is an OSTree/immutable system
+        # Check if this is an OSTree/atomic system
         if get_ostree_deployment_path(conf.target.system_root):
             self.is_ostree = True
 
@@ -485,7 +485,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                 deployment_path = get_ostree_deployment_path(mountpoint)
                 chroot_path = deployment_path if deployment_path else mountpoint
 
-                ostree_warning = (_("Warning: An immutable system has been detected. "
+                ostree_warning = (_("Warning: An atomic system has been detected. "
                                     "It is not recommended to make manual changes to the deployment "
                                     "directories as this may break system integrity. Only modify "
                                     "/etc, /var, or boot loader configuration files as needed.\n\n")
