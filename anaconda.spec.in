@@ -499,6 +499,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 28 2026 Bruno <bciconel@redhat.com> - 40.22.3.43-1
+- installation: run subscription tasks after network configuration (bciconel)
+  Related: RHEL-142674
+  Resolves: RHEL-135111
+- subscription: ensure /var/lib/insights exists before running insights-client
+  (bciconel)
+  Resolves: RHEL-135111
+- spec: Require zram-generator-defaults for RHEL-10 (k.koukiou)
+  Resolves: RHEL-117685
+- Only show compatible translations in text mode (mkolman)
+  Related: RHEL-140193
+  Resolves: RHEL-16168
+
 * Wed Jan 21 2026 Bruno <bciconel@redhat.com> - 40.22.3.42-1
 - payloads: flatpak: fix SSL error detection on older Python versions
   (bciconel)
