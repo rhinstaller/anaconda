@@ -29,6 +29,12 @@ jobs:
       CI_TAG: '${{ matrix.release }}'
 
     steps:
+      # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
+      # need to run sudo as previous runs (e.g. kickstart-tests) may create root/other user owned files
+      - name: Clean up previous run
+        run: |
+          sudo rm -rf * .git
+
       - name: Check out repo
         uses: actions/checkout@v5
         with:
