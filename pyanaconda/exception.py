@@ -255,7 +255,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         import termios
         si = sys.stdin.fileno()
         attr = termios.tcgetattr(si)
-        attr[3] = attr[3] & termios.ECHO
+        attr[3] |= termios.ECHO
         termios.tcsetattr(si, termios.TCSADRAIN, attr)
 
         print("\nEntering debugger...")
