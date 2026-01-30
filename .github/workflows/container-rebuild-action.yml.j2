@@ -1,6 +1,6 @@
 {% if distro_release == "rawhide" %}
 name: Rebuild container images
-# Rebuilds both ci and rpm container images for a given "target". Currently known targets:
+# Rebuilds ci, rpm, and iso-creator container images for a given "target". Currently known targets:
 #  - main
 #  - eln
 #  - fedora-NN
@@ -8,7 +8,7 @@ name: Rebuild container images
 # Image is:
 # - built from the repo at ref <branch>,
 # - based on the right container according to branch settings, or optionally on <base-container> if set,
-# - tagged as quay.io/rhinstaller/anaconda-{ci|rpm}:<container-tag>.
+# - tagged as quay.io/rhinstaller/anaconda-{ci|rpm|iso-creator}:<container-tag>.
 #
 # See also inputs below.
 
@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container-type: ['ci', 'rpm']
+        container-type: ['ci', 'rpm', 'iso-creator']
     env:
       CI_TAG: '${{ inputs.container-tag }}'
     timeout-minutes: 60
