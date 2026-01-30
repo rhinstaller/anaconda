@@ -73,7 +73,10 @@ import sys
 # backspace working right. Do not import readline if not connected to a tty
 # because it breaks sometimes.
 if os.isatty(0):
-    import readline  # pylint:disable=unused-import
+    try:
+        import readline  # pylint:disable=unused-import
+    except ImportError:
+        pass
 import shutil
 from contextlib import contextmanager
 from logging.handlers import SysLogHandler
@@ -87,6 +90,20 @@ try:
     _input = raw_input  # pylint: disable=undefined-variable
 except NameError:
     _input = input
+
+
+def fix_tty():
+    """Ensure the TTY has echo and line buffering enabled."""
+    import termios
+    try:
+        fd = sys.stdin.fileno()
+        attrs = termios.tcgetattr(fd)
+        # Enable echo and canonical mode (backspace handling)
+        attrs[3] |= (termios.ECHO | termios.ICANON)
+        termios.tcsetattr(fd, termios.TCSANOW, attrs)
+    except (OSError, AttributeError) as e:
+        log.warning("Failed to fix TTY settings: %s", e)
+
 
 log = logging.getLogger("DD")
 
@@ -749,6 +766,7 @@ class TextMenu:
 
     def run(self):
         while not self.is_done:
+            fix_tty()
             print(self.format_page())
             k = _input(self.format_prompt())
             action = self.action_dict().get(k)
@@ -860,6 +878,7 @@ def check_args(args):
 
 
 def main(args):
+    fix_tty()
     if not check_args(args):
         print_usage()
         raise SystemExit(2)

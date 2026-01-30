@@ -8,15 +8,16 @@ Before=shutdown.target
 [Service]
 Type=oneshot
 RemainAfterExit=no
+Environment=HOME=/ TERM=linux
 WorkingDirectory=/
-ExecStartPre=-/bin/plymouth --hide-splash
+ExecStartPre=-/bin/plymouth --quit
 ExecStartPre=-/bin/cp -n /proc/sys/kernel/printk /tmp/printk
 ExecStartPre=-/bin/dmesg -n 1
 ExecStart=/bin/driver-updates --interactive
 ExecStopPost=-/bin/cp /tmp/printk /proc/sys/kernel/printk
 StandardInput=tty-force
-StandardOutput=inherit
-StandardError=inherit
+StandardOutput=tty
+StandardError=tty
 TTYPath=/dev/%I
 TTYReset=yes
 TimeoutSec=0
