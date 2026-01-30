@@ -23,10 +23,6 @@ FROM ${image}
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 LABEL maintainer=anaconda-list@redhat.com
 
-# Enable our repositories (RHEL 9 and overlays)
-RUN rm -f /etc/yum.repos.d/*.repo
-COPY *.repo /etc/yum.repos.d/
-
 # Add development repositories instead of the production ones
 # We need development repositories to get our dependencies sooner
 RUN rm -f /etc/yum.repos.d/*.repo
