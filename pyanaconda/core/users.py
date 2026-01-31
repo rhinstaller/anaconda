@@ -470,7 +470,11 @@ def create_user(username, password=False, is_crypted=False, lock=False,
     elif status != 0:
         raise OSError("Unable to create user %s: status=%s" % (username, status))
 
-    if not mk_homedir:
+    if mk_homedir:
+        # correct SELinux context - useradd does not do this from
+        # 4.19 onwards, see https://bugzilla.redhat.com/show_bug.cgi?id=2417302
+        util.restorecon([homedir], root=root)
+    else:
         log.info("Home directory for the user %s already existed, "
                  "fixing the owner and SELinux context.", username)
         _reown_homedir(root, homedir, username)
