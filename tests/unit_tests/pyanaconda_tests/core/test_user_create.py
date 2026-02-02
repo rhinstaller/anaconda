@@ -316,7 +316,7 @@ class UserCreateTest(unittest.TestCase):
         assert crypt_r.crypt(password, shadow_fields[1][1:]) == shadow_fields[1][1:]
 
         # Try an encrypted password
-        password = "$1$asdf$password"
+        password = crypt_r.crypt("testpass", crypt_r.METHOD_MD5)
         users.set_root_password(password, is_crypted=True, root=self.tmpdir)
         shadow_fields = self._readFields("/etc/shadow", "root")
         assert password == shadow_fields[1]
