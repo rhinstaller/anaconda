@@ -295,7 +295,7 @@ def create_group(group_name, gid=None, root=None):
     if _getgrnam(group_name, root):
         raise ValueError("Group %s already exists" % group_name)
 
-    args = ["-R", root]
+    args = ["-R", root] if root != "/" else []
     if gid is not None:
         args.extend(["-g", str(gid)])
 
@@ -392,7 +392,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
     if check_user_exists(username, root):
         raise ValueError("User %s already exists" % username)
 
-    args = ["-R", root]
+    args = ["-R", root] if root != "/" else []
 
     # Split the groups argument into a list of (username, gid or None) tuples
     # the gid, if any, is a string since that makes things simpler
@@ -507,6 +507,7 @@ def set_user_password(username, password, is_crypted, lock, root="/"):
     :param str root: target system sysroot path
     """
 
+    rootargs = ["-R", root] if root != "/" else []
     # Only set the password if it is a string, including the empty string.
     # Otherwise leave it alone (defaults to locked for new users) and reset sp_lstchg
     if password or password == "":
@@ -519,7 +520,7 @@ def set_user_password(username, password, is_crypted, lock, root="/"):
             password = "!" + password
             log.info("user account %s locked", username)
 
-        proc = util.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
+        proc = util.startProgram(["chpasswd", "-e"] + rootargs, stdin=subprocess.PIPE)
         proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
         if proc.returncode != 0:
             raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
@@ -527,7 +528,7 @@ def set_user_password(username, password, is_crypted, lock, root="/"):
     # Reset sp_lstchg to an empty string. On systems with no rtc, this
     # field can be set to 0, which has a special meaning that the password
     # must be reset on the next login.
-    util.execWithRedirect("chage", ["-R", root, "-d", "", username])
+    util.execWithRedirect("chage", rootargs + ["-d", "", username])
 
 
 def set_root_password(password, is_crypted=False, lock=False, root="/"):
