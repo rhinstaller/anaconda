@@ -25,7 +25,7 @@ jobs:
 
   daily-release-test:
     needs: define-matrix
-    runs-on: [self-hosted, kstest]
+    runs-on: ubuntu-latest
     # Don't run scheduled workflows on forks.
     if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
