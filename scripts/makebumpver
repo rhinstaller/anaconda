@@ -321,12 +321,33 @@ class MakeBumpVer:
 
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), list(bugs)))
             else:
-                rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
+                # Check for rhbz references on Fedora
+                rhbz_issues = self._check_bugzilla_issues(commit, body)
+                if rhbz_issues:
+                    rpm_log.append(("%s (%s)" % (summary.strip(), author), list(rhbz_issues)))
+                else:
+                    rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
 
         if bad:
             sys.exit(1)
 
         return rpm_log
+
+    def _check_bugzilla_issues(self, commit, body):
+        """Extract rhbz (Red Hat Bugzilla) references from commit body."""
+        issues = set()
+
+        for bodyline in body:
+            # Check for rhbz references with Resolves prefix (Resolves: rhbz#123456)
+            # Only matches lowercase rhbz# format without spaces
+            m_rhbz = re.search(r"^Resolves:\s+rhbz#(\d+).*$", bodyline)
+            if m_rhbz:
+                bug_num = m_rhbz.group(1)
+                rhbz_ref = f"rhbz#{bug_num}"
+                issues.add(f"Resolves: {rhbz_ref}")
+                print(f"*** Resolves: {rhbz_ref} commit {commit} found\n")
+
+        return issues
 
     def _check_rhel_issues(self, commit, summary, body, author):
         issues = set()
