@@ -426,6 +426,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 09 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.13-1
+- Only show compatible translations in text mode (mkolman)
+  Resolves: RHEL-144834
+
 * Wed Jan 14 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.12-1
 - Fix permissions of the ssh config created by Anaconda (ppolawsk)
   Resolves: RHEL-129787
