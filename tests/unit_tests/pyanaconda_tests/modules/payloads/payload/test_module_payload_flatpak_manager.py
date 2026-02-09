@@ -24,7 +24,9 @@ import pytest
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError
-from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+)
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
@@ -440,7 +442,7 @@ class FlatpakManagerTestCase:
         transaction.run.side_effect = GError("Test error")
 
         # run installation
-        with pytest.raises(PayloadInstallationError):
+        with pytest.raises(NonCriticalInstallationError):
             fm.install(progress)
             transaction.run_dispose.assert_called_once()
 
