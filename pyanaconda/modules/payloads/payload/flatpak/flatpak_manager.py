@@ -28,7 +28,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+)
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 from pyanaconda.modules.common.task.progress import ProgressReporter
@@ -309,7 +311,7 @@ class FlatpakManager:
             self._progress = progress
             self._transaction.run()
         except GError as e:
-            raise PayloadInstallationError("Failed to install flatpaks: {}".format(e)) from e
+            raise NonCriticalInstallationError("Failed to install flatpaks: {}".format(e)) from e
         finally:
             if self._transaction:
                 self._transaction.run_dispose()
