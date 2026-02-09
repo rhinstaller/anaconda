@@ -65,9 +65,6 @@ def mount_existing_system(storage, root_device, read_only=None):
         except StorageError as e:
             log.error("Error enabling swap: %s", str(e))
 
-    # Generate mtab.
-    if not read_only:
-        storage.make_mtab(chroot=root_path)
 
 
 def find_existing_installations(devicetree):

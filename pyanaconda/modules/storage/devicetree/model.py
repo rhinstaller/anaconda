@@ -18,7 +18,6 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 import logging
-import os
 
 from blivet.blivet import Blivet
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
@@ -491,25 +490,6 @@ class InstallerStorage(Blivet):
     def parse_fstab(self, chroot=None):
         self.fsset.parse_fstab(chroot=chroot)
 
-    def make_mtab(self, chroot=None):
-        path = "/etc/mtab"
-        target = "/proc/self/mounts"
-        chroot = chroot or conf.target.system_root
-        path = os.path.normpath("%s/%s" % (chroot, path))
-
-        if os.path.islink(path):
-            # return early if the mtab symlink is already how we like it
-            target_full = os.path.normpath("%s%s" % (chroot, target))
-            try:
-                if os.path.samefile(path, target_full):
-                    return
-            except OSError:
-                pass
-
-        if os.path.exists(path):
-            os.unlink(path)
-
-        os.symlink(target, path)
 
     def add_fstab_swap(self, device):
         """
