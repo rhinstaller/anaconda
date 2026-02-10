@@ -93,8 +93,7 @@ class SignalTestCase(unittest.TestCase):
         signal = Signal()
         assert foo.var is None
         # connect the signal
-        # pylint: disable=unnecessary-lambda
-        lambda_instance = lambda x: foo.set_var(x)
+        lambda_instance = foo.set_var
         signal.connect(lambda_instance)
         # trigger the signal
         signal.emit("bar")
@@ -124,8 +123,7 @@ class SignalTestCase(unittest.TestCase):
         # connect the callbacks
         signal.connect(set_var)
         signal.connect(foo.set_var)
-        # pylint: disable=unnecessary-lambda
-        signal.connect(lambda x: lambda_foo.set_var(x))
+        signal.connect(lambda_foo.set_var)
         # trigger the signal
         signal.emit("bar")
         # check that the callbacks were triggered
