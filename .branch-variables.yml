@@ -30,6 +30,9 @@ supported_releases:
   - release: "fedora-eln"
     target_branch: "main"
     variant: "eln"
+  - release: "fedora-44"
+    target_branch: "main"
+    variant: "fedora"
 
 # List of all the branches which should get translation updates
 translation_branches:
