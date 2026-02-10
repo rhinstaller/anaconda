@@ -499,6 +499,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 10 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.44-1
+- storage: stop creating /etc/mtab symlink during installation (k.koukiou)
+  Related: RHEL-135116
+- rescue: Add warning for immutable systems (k.koukiou)
+  Related: RHEL-135116
+- rescue: detect OSTree deployments in rescue mode and show deployment path
+  (k.koukiou)
+  Resolves: RHEL-135116
+- pyanaconda: storage: fix FindExistingSystems API for ostree based OSes
+  (k.koukiou)
+  Related: RHEL-135116
+- network: List all network interfaces IP for RDP session (ppolawsk)
+  Resolves: RHEL-74268
+
 * Wed Jan 28 2026 Bruno <bciconel@redhat.com> - 40.22.3.43-1
 - installation: run subscription tasks after network configuration (bciconel)
   Related: RHEL-142674
