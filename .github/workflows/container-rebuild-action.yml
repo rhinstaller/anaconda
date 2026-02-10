@@ -38,6 +38,17 @@ on:
         type: string
     # secrets consumed: QUAY_USERNAME, QUAY_PASSWORD
     # these are provided by using the quay.io environment below
+  # Allow manual run so we can build future images (e.g. fedora-[next]) before they are in the autoupdate matrix
+  workflow_dispatch:
+    inputs:
+      container-tag:
+        description: 'Container tag to build (e.g. fedora-rawhide)'
+        required: true
+        type: string
+      branch:
+        description: 'Git branch to build from'
+        required: true
+        type: string
 
 permissions:
   contents: read
