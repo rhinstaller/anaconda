@@ -311,13 +311,15 @@ class FlatpakManagerTestCase:
 
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Installation")
-    def test_install(self, installation_mock, transaction_mock):
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available")
+    def test_install(self, is_subscription_module_available, installation_mock, transaction_mock):
         """Test FlatpakManager the install method."""
         progress = Mock()
         installation = Mock()
         transaction = Mock()
         installation_mock.new_system.return_value = installation
         transaction_mock.new_for_installation.return_value = transaction
+        is_subscription_module_available.return_value = False
 
         fm = FlatpakManager()
 
@@ -423,13 +425,15 @@ class FlatpakManagerTestCase:
 
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Installation")
-    def test_install_with_error(self, installation_mock, transaction_mock):
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available")
+    def test_install_with_error(self, is_subscription_module_available, installation_mock, transaction_mock):
         """Test FlatpakManager the install method with raised error."""
         progress = Mock()
         installation = Mock()
         transaction = Mock()
         installation_mock.new_system.return_value = installation
         transaction_mock.new_for_installation.return_value = transaction
+        is_subscription_module_available.return_value = False
 
         fm = FlatpakManager()
 

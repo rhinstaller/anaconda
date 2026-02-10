@@ -287,19 +287,16 @@ class FlatpakManager:
                 # want to install what was in the install image even if it is
                 # out of date.
                 saved_urls = self._disable_network_download(installation)
-            else:
+            elif is_module_available(SUBSCRIPTION):
                 # Override remote URLs to match our configured source.
-                # This is necessary when using Satellite, as the preinstall
-                # packages may configure remotes pointing to CDN, but we need
-                # to use the Satellite registry instead.
+                # This is necessary when using Satellite or custom CDN (like staging) on RHEL
                 source = self.get_source()
                 # NOTE: Hardcoded dependency on "rhel" remote name configured by redhat-flatpak-data.
                 # This will break if the remote is renamed. Failures would surface in nightly tests
                 # for Satellite and CDN staging environments (when they get implemented).
                 # Reference: https://gitlab.com/redhat/centos-stream/rpms/redhat-flatpak-data/-/blob/bc718455404682bc6804a1140b413bd540a70beb/rhel.flatpakrepo
                 rhel_remote = installation.get_remote_by_name("rhel")
-                if rhel_remote:
-                    self._update_repo_with_source_url(installation, source, rhel_remote)
+                self._update_repo_with_source_url(installation, source, rhel_remote)
 
             self._transaction = self._create_flatpak_transaction(installation)
 
