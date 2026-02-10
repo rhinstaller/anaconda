@@ -448,7 +448,7 @@ class FlatpakManagerTestCase:
         # run installation
         with pytest.raises(NonCriticalInstallationError):
             fm.install(progress)
-            transaction.run_dispose.assert_called_once()
+        transaction.run_dispose.assert_called_once()
 
     def _create_transaction_operation(self):
         operation = Mock()
