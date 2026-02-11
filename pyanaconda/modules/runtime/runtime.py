@@ -259,6 +259,9 @@ class RuntimeService(KickstartService):
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
 
+        # We're done with the chroot: restore host SELinux policy so dracut shutdown works (RHEL-144456).
+        util.reload_installer_selinux_policy()
+
         # Schedule optical media eject via dracut if requested
         if self._reboot.eject:
             for dev in self._optical_media:
