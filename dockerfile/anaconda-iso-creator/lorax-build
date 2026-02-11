@@ -27,6 +27,11 @@ mkdir -p $REPO_DIR
 cp -a $INPUT_RPMS/* $REPO_DIR
 createrepo_c $REPO_DIR
 
+# Workaround for dracut xattr issues in containers
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2358683#c14
+# and https://github.com/dracut-ng/dracut-ng/issues/443
+export DRACUT_NO_XATTR=1
+
 # build boot.iso with our rpms
 . /etc/os-release
 MAJOR_VERSION=${VERSION_ID%%.*}
