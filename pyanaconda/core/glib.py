@@ -161,7 +161,7 @@ def sync_call_glib(context, async_call, async_call_finish, timeout, *call_args):
     cancellable_id = cancellable.connect(_cancellable_cb)
     callbacks.append(lambda: cancellable.disconnect(cancellable_id))
 
-    def _timeout_cb(user_data):
+    def _timeout_cb(user_data=None):
         log.debug("sync_call_glib[%s]: timeout", info)
         result.timeout = True
         cancellable.cancel()
