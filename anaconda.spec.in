@@ -288,6 +288,7 @@ Requires: dnsconfd-dracut
 Requires: selinux-policy
 Requires: libselinux-utils
 Requires: selinux-policy-targeted
+Requires: policycoreutils
 Requires: policycoreutils-python-utils
 
 %description install-img-deps

@@ -94,6 +94,9 @@ def exitHandler(rebootData):
     if conf.system.can_reboot:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
+        # We're done with the chroot: restore host SELinux policy so dracut shutdown works (RHEL-144456).
+        util.reload_installer_selinux_policy()
+
         if flags.eject or rebootData.eject:
             for device_path in optical_media:
                 if path.get_mount_paths(device_path):

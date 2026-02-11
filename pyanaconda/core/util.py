@@ -503,6 +503,23 @@ def dracut_eject(device):
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
 
 
+def reload_installer_selinux_policy():
+    """
+    Reload the installer's SELinux policy into the kernel.
+    Call when finished with the target chroot (e.g. at install exit).
+
+    After the installation, the system is running with policy loaded from the
+    chroot instead of from the running installer system. This causes problems
+    with invalid contexts.
+    See: https://issues.redhat.com/browse/RHEL-144456
+    """
+    rc = execWithRedirect("/usr/sbin/load_policy", ["-q"], root='/', log_output=False)
+    if rc == 0:
+        log.info("Reloaded installer SELinux policy for shutdown.")
+    else:
+        log.warning("load_policy failed (exit code %s), dracut shutdown may be affected.", rc)
+
+
 def vtActivate(num):
     """
     Try to switch to tty number $num.
