@@ -77,7 +77,7 @@ include ./l10n-config.mk
 PO_DOWNLOADED_FLAG = $(srcdir)/.po_downloaded
 
 # What kind of files are we looking for?
-POTFILE_SUFFIXES = py c glade desktop
+POTFILE_SUFFIXES = py c glade desktop js
 
 # Below this line is the part that shouldn't need to be changed for other
 # projects
