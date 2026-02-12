@@ -37,6 +37,9 @@ restorecon -ir \
   /var/spool \
   /var/srv \
 
+# override also container_file_t - INSTALLER-4605
+restorecon -irF /etc/X11/xorg.conf.d
+
 echo "Finished."
 
 %end
