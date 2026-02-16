@@ -945,9 +945,17 @@ class DeployOSTreeTask(Task):
             if not self._data.signature_verification_enabled:
                 args.append("--no-signature-verification")
 
+            # startProgram() sets LC_ALL=C by default (reset_lang=True).
+            # The C locale uses ASCII, so libarchive (used by ostree to
+            # process container tar layers) fails on non-ASCII pathnames
+            # with "Pathname can't be converted from UTF-8 to current
+            # locale".  Force LC_ALL=C.UTF-8 via env_add (which is
+            # applied after reset_lang) so libarchive can handle all
+            # valid UTF-8 pathnames.
             safe_exec_program(
                 "ostree",
-                args
+                args,
+                env_add={"LC_ALL": "C.UTF-8"},
             )
         else:
             log.info("ostree admin deploy starting")
