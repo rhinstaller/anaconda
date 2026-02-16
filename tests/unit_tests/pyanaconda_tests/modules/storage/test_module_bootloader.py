@@ -507,6 +507,9 @@ class BootloaderTasksTestCase(unittest.TestCase):
             os.makedirs(root + "/boot/loader/entries/", exist_ok=True)
             open(root + "/boot/loader/entries/fake.conf", 'wb').close()
 
+            os.makedirs(root + "/lib/modules/" + version, exist_ok=True)
+            open(root + "/lib/modules/" + version + "/vmlinuz", 'wb').close()
+
             task = CreateBLSEntriesTask(
                 storage=storage,
                 sysroot=root,
@@ -537,6 +540,9 @@ class BootloaderTasksTestCase(unittest.TestCase):
         storage = Mock(bootloader=EFIGRUB())
 
         with tempfile.TemporaryDirectory() as root:
+            os.makedirs(root + "/lib/modules/" + version, exist_ok=True)
+            open(root + "/lib/modules/" + version + "/vmlinuz", 'wb').close()
+
             task = CreateBLSEntriesTask(
                 storage=storage,
                 sysroot=root,

@@ -213,11 +213,14 @@ def create_bls_entries(sysroot, storage, kernel_versions):
     # Create new BLS entries for this system
     for kernel in kernel_versions:
         log.info("Regenerating BLS info for %s", kernel)
-        execWithRedirect(
-            "kernel-install",
-            ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
-            root=sysroot
-        )
+        for file in "vmlinuz", "vmlinuz-dtbloader.efi":
+            vmlinuz="/lib/modules/{0}/{1}".format(kernel, file)
+            if os.path.exists(sysroot + vmlinuz):
+                execWithRedirect(
+                    "kernel-install",
+                    ["add", kernel, vmlinuz],
+                    root=sysroot
+                )
 
     # Update the bootloader configuration to make sure that the BLS
     # entries will have the correct kernel cmdline and not the value
