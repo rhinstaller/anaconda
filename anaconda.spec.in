@@ -519,6 +519,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 16 2026 github-actions <github-actions@github.com> - 44.21-1
+- anaconda.conf: Add clk_ignore_unused, pd_ignore_unused to preserved_arguments
+  (johannes.goede)
+- storage/bootloader/utils: Make create_bls_entries() work with kernel-uki-
+  dtbloader (johannes.goede)
+- data/profile.d/fedora-kde-mobile: Set the correct payload settings (neal)
+
 * Fri Feb 13 2026 github-actions <github-actions@github.com> - 44.20-1
 - Don't pass `-R /` to shadow commands (awilliam)
   Resolves: rhbz#2435621
