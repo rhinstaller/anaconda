@@ -500,6 +500,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 16 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.45-1
+- Fix user input in driver disk menu is not displayed (adamkankovsky)
+  Resolves: RHEL-58828
+- flatpak: tests: fix unreachable code (fsouza.bruno)
+  Related: RHEL-143566
+- flatpak: Only override remote URLs when subscription module is available
+  (bciconel)
+  Related: RHEL-143566
+- flatpak: Make installation failures non-blocking (bciconel)
+  Related: INSTALLER-4581
+  Resolves: RHEL-143566
+- Reload installer SELinux policy at exit so dracut shutdown works (k.koukiou)
+  Resolves: RHEL-144456
+
 * Tue Feb 10 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.44-1
 - storage: stop creating /etc/mtab symlink during installation (k.koukiou)
   Related: RHEL-135116
