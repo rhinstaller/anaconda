@@ -426,6 +426,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 17 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.14-1
+- Fix user input in driver disk menu is not displayed (adamkankovsky)
+  Resolves: RHEL-4737
+
 * Mon Feb 09 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.13-1
 - Only show compatible translations in text mode (mkolman)
   Resolves: RHEL-144834
