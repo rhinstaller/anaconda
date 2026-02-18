@@ -35,6 +35,19 @@ createrepo_c $REPO_DIR
 # and https://github.com/dracut-ng/dracut-ng/issues/443
 export DRACUT_NO_XATTR=1
 
+{% if distro_name == "fedora" or (distro_name == "rhel" and distro_release == 10) %}
+# Do not copy container_file_t labels to the installer image
+# INSTALLER-4609, INSTALLER-4592
+# This does not work on rhel-9 where there is inner ext4 filesystem containing
+# the container_file_t attributes packed into squashfs image
+mkdir -p /etc/lorax
+cat > /etc/lorax/lorax.conf <<EOF
+# Added by Anaconda's lorax-build script for INSTALLER-4609
+[compression]
+args = -xattrs-exclude ^security.selinux
+EOF
+{% endif %}
+
 . /etc/os-release
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
