@@ -8,7 +8,6 @@ err()  { echo "[$(date -u +%H:%M:%S)] ERROR:   $*" >&2; }
 
 # --- Configuration ------------------------------------------------------------
 WORK_DIR=/work
-REPOS_DIR=/repos
 FEDORA_KIWI_DESC_URL="${FEDORA_KIWI_DESC_URL:-https://pagure.io/fedora-kiwi-descriptions.git}"
 : "${CI_TAG:=fedora-rawhide}"
 : "${FEDORA_VARIANT:=Workstation}"
@@ -21,15 +20,57 @@ mkdir -p "${KIWI_BOXED_CACHE_DIR}"
 # --- Temp directories & cleanup -----------------------------------------------
 FEDORA_KIWI_DESC_DIR="$(mktemp -d /tmp/fedora-kiwi-descriptions.XXXXXX)"
 DESC_TMP="$(mktemp -d /tmp/kiwi-desc.XXXXXX)"
-trap 'rm -rf "${FEDORA_KIWI_DESC_DIR}" "${DESC_TMP}" 2>/dev/null || true' EXIT
 
-# --- Create local repository with Anaconda RPMs -------------------------------
-mkdir -p "${REPOS_DIR}/anaconda-local"
+# Function to stop HTTP server
+stop_http_server() {
+  if [ -n "${HTTP_PID:-}" ] && [ -f "${HTTP_PID}" ]; then
+    local pid
+    pid=$(cat "${HTTP_PID}")
+    if kill -0 "${pid}" 2>/dev/null; then
+      kill -s SIGTERM "${pid}" 2>/dev/null || true
+      log "HTTP server stopped (PID: ${pid})"
+    fi
+    rm -f "${HTTP_PID}"
+  fi
+  if [ -n "${HTTP_LOG:-}" ] && [ -f "${HTTP_LOG}" ]; then
+    rm -f "${HTTP_LOG}"
+  fi
+}
+
+trap 'stop_http_server; rm -rf "${FEDORA_KIWI_DESC_DIR}" "${DESC_TMP}" 2>/dev/null || true' EXIT
+
+# --- Create local repository with Anaconda RPMs and serve via HTTP ------------
+REPO_DIR="/tmp/anaconda-rpms"
+HTTP_PID="$(mktemp /tmp/httpd.pid.XXXXXX)"
+HTTP_LOG="$(mktemp /tmp/httpd.log.XXXXXX)"
+
+# Create repository directory
+mkdir -p "${REPO_DIR}"
 if compgen -G "/anaconda-rpms/*.rpm" > /dev/null; then
-  log "Copying Anaconda RPMs to local repo..."
-  cp -a /anaconda-rpms/*.rpm "${REPOS_DIR}/anaconda-local/"
+  log "Copying Anaconda RPMs to repository..."
+  cp -a /anaconda-rpms/*.rpm "${REPO_DIR}/"
+  log "RPMs copied: $(ls -1 "${REPO_DIR}"/*.rpm 2>/dev/null | wc -l) files"
+else
+  warn "No Anaconda RPMs found in /anaconda-rpms/"
 fi
-createrepo_c "${REPOS_DIR}/anaconda-local"
+
+# Create repository metadata
+createrepo_c "${REPO_DIR}"
+log "Repository metadata created"
+
+# Start HTTP server in background to serve the repository
+# This is required for KIWI boxbuild VM to access the repository
+log "Starting HTTP server to serve repository..."
+# Bind to 0.0.0.0 to make it accessible from VM
+# Use --directory flag instead of cd for better reliability
+python3 -m http.server 8000 --bind 0.0.0.0 --directory "${REPO_DIR}" >"${HTTP_LOG}" 2>&1 &
+echo "$!" > "${HTTP_PID}"
+
+# For QEMU/KVM VMs, use 10.0.2.2 which is the default gateway IP pointing to host
+# This is the standard way for VMs to access services on the host
+HTTP_SERVER="http://10.0.2.2:8000/"
+log "HTTP server started at ${HTTP_SERVER} (PID: $(cat "${HTTP_PID}"))"
+log "Server is bound to 0.0.0.0:8000, accessible from VM via 10.0.2.2:8000"
 
 # --- Map CI_TAG to branch and KIWI file ---------------------------------------
 case "${CI_TAG}" in
@@ -78,24 +119,45 @@ esac
 log "FEDORA_VARIANT=${FEDORA_VARIANT}, PROFILE=${PROFILE}"
 
 # --- Disable mediacheck (tagmedia not available in boxbuild VM) ---------------
-find "${DESC_TMP}" \( -name "*.kiwi" -o -name "*.xml" \) -exec \
+find "${DESC_TMP}" \( -name "*.kiwi" -o -name "*.xml" \) -type f -exec \
   sed -i 's/mediacheck="true"/mediacheck="false"/g' {} \; 2>/dev/null || true
 
-# --- Build ISO via boxbuild ---------------------------------------------------
+# --- Build ISO via boxbuild ----------------------------------------------------
 mkdir -p "${WORK_DIR}"
+# Use HTTP URL for repository - required for KIWI boxbuild VM to access repository
+log "Starting KIWI build with HTTP repository: ${HTTP_SERVER}"
+# Note: If you encounter "Checksum failed" errors with Universal-Box, try:
+#   sudo podman volume rm kiwi-work
+#   sudo podman volume create kiwi-work
+# This will force KIWI to re-download the Universal-Box image
 kiwi-ng --debug --type iso --profile "${PROFILE}" --kiwi-file "${KIWI_FILE}" \
   system boxbuild --box universal --box-memory=12288 -- \
-  --add-repo="/repos/anaconda-local,rpm-md,anaconda-local,10" \
+  --add-repo="${HTTP_SERVER},rpm-md,anaconda-local,1" \
   --description="${DESC_TMP}" \
   --target-dir="${WORK_DIR}"
+
+# Stop HTTP server after build
+stop_http_server
 
 # --- Copy resulting ISO -------------------------------------------------------
 ISO="$(find "${WORK_DIR}" -maxdepth 1 -name "*.iso" -type f | head -n1)"
 if [ -n "${ISO}" ]; then
   cp -L "${ISO}" "/images/Fedora-${FEDORA_VARIANT}.iso"
+  log "ISO written to /images/Fedora-${FEDORA_VARIANT}.iso"
+
+  # Copy KIWI boxbuild log from /work
+  mkdir -p "/images/logs"
+  if [ -f "/work/result.log" ]; then
+    cp -L "/work/result.log" "/images/logs/kiwi-boxbuild-result.log" 2>/dev/null || true
+  fi
+  # Copy HTTP server log for debugging
+  if [ -n "${HTTP_LOG:-}" ] && [ -f "${HTTP_LOG}" ]; then
+    cp -L "${HTTP_LOG}" "/images/logs/http-server.log" 2>/dev/null || true
+  fi
+
   # Fix ownership of the built artifacts to match the host user.
   chown -Rv --reference="/anaconda-rpms" "/images"
-  log "ISO written to /images/Fedora-${FEDORA_VARIANT}.iso"
 else
-  err "No ISO produced"; exit 2
+  err "No ISO produced"
+  exit 2
 fi
