@@ -202,7 +202,13 @@ def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
         argv.extend(["--vt", "6"])
 
     # add the generic GNOME Kiosk invocation
-    argv.extend(["gnome-kiosk", "--wayland", "--wayland-display", constants.WAYLAND_SOCKET_NAME])
+    argv.extend([
+        "gnome-kiosk",
+        "--wayland",
+        "--wayland-display",
+        "--enable-vt-switch",
+        constants.WAYLAND_SOCKET_NAME]
+    )
 
     # remote access needs gnome-kiosk to start in headless mode
     if headless:
