@@ -1427,7 +1427,13 @@ class DNFManagerReposTestCase(unittest.TestCase):
             if isinstance(option.get_value(), bool):
                 assert option.get_value() == (value.strip() == "1")
             else:
-                assert option.get_value_string() == value.strip()
+                actual = option.get_value_string()
+                expected = value.strip()
+                # Normalize comma-separated values (new version of libdnf
+                # ommits spaces after commas)
+                actual_parts = [part.strip() for part in actual.split(',')]
+                expected_parts = [part.strip() for part in expected.split(',')]
+                assert actual_parts == expected_parts
 
     def test_read_system_repositories(self):
         """Test the read_system_repositories method."""
