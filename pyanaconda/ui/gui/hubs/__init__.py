@@ -126,9 +126,9 @@ class Hub(GUIObject, common.Hub):
                         halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
                         row_homogeneous=True)
 
-        col = 0
-
         row_in_column = [-1] * self._gridColumns
+
+        category_index = 0
 
         for category in common.sort_categories(categories):
             selectors = []
@@ -187,6 +187,13 @@ class Hub(GUIObject, common.Hub):
             if not selectors:
                 continue
 
+            # Start a new logical row after every full set of columns.
+            if category_index > 0 and (category_index % self._gridColumns) == 0:
+                max_row = max(row_in_column)
+                row_in_column = [max_row] * self._gridColumns
+
+            col = category_index % self._gridColumns
+
             # category handling
 
             # excape unwanted markup
@@ -205,7 +212,7 @@ class Hub(GUIObject, common.Hub):
                 grid.attach(selector, col, row_in_column[col], 1, 1)
                 row_in_column[col] += 1
 
-            col = (col + 1) % self._gridColumns
+            category_index += 1
 
         # initialization of all expected spokes has been started, so notify the controller
         hub_controller = lifecycle.get_controller_by_name(self.__class__.__name__)
