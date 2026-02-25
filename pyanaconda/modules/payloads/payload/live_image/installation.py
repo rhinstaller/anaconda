@@ -429,6 +429,11 @@ class InstallFromImageTask(Task):
             "--exclude", "/boot/*rescue*",
             "--exclude", "/boot/loader/",
             "--exclude", "/boot/efi/",
+            # Fixup: exclude paths that fail with lremovexattr(security.selinux) on KIWI-built
+            # images. Remove after https://github.com/OSInside/kiwi-boxed-plugin/issues/99
+            "--exclude", "/boot/grub2/",
+            "--exclude", "/etc/sysconfig/",
+            "--exclude", "/usr/lib/grub/",
             "--exclude", "/etc/machine-id",
             "--exclude", "/etc/machine-info",
             os.path.normpath(self._mount_point) + "/",
@@ -463,6 +468,30 @@ class InstallFromImageTask(Task):
             except (OSError, RuntimeError) as e:
                 msg = "Failed to install /boot/efi from image: {}".format(e)
                 raise PayloadInstallationError(msg) from None
+
+        # Fixup: re-copy with -rx (no xattrs) paths that fail above on KIWI-built images.
+        # Remove after https://github.com/OSInside/kiwi-boxed-plugin/issues/99 is fixed.
+        for rel_src in ("boot/grub2", "etc/sysconfig", "usr/lib/grub"):
+            src_dir = os.path.join(self._mount_point, rel_src)
+            if not os.path.exists(src_dir):
+                continue
+            dest_dir = os.path.join(self._sysroot, rel_src)
+            os.makedirs(dest_dir, exist_ok=True)
+            try:
+                rc = execWithRedirect(cmd, [
+                    "-rx", "--no-inc-recursive",
+                    os.path.normpath(src_dir) + "/", dest_dir,
+                ])
+                if rc != 0:
+                    raise PayloadInstallationError(
+                        "Failed to install {} from image: rsync exited with {}".format(
+                            rel_src, rc
+                        )
+                    )
+            except OSError as e:
+                raise PayloadInstallationError(
+                    "Failed to install {} from image: {}".format(rel_src, e)
+                ) from None
 
     def _parse_rsync_update(self, line):
         """Try to extract progress from rsync output.
