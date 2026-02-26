@@ -61,9 +61,19 @@ else
     FEDORA_VERSION=$VOLID_VERSION
 fi
 
+if [ "$CI_TAG" = "fedora-eln" ]; then
+    ELN_BASE_URL="https://download.fedoraproject.org/pub/eln"
+    LORAX_SOURCES="-s ${ELN_BASE_URL}/1/BaseOS/x86_64/os/ -s ${ELN_BASE_URL}/1/AppStream/x86_64/os/"
+    EXTRA_ARGS="--nomacboot"
+else
+    LORAX_SOURCES="-s http://dl.fedoraproject.org/pub/fedora/linux/development/$FEDORA_VERSION/Everything/x86_64/os/"
+    EXTRA_ARGS=""
+fi
+
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       --volid Fedora-S-dvd-x86_64-$VOLID_VERSION \
-      -s http://dl.fedoraproject.org/pub/fedora/linux/development/$FEDORA_VERSION/Everything/x86_64/os/ \
+      ${EXTRA_ARGS} \
+      ${LORAX_SOURCES} \
 {% elif distro_name == "rhel" and distro_release == 10 %}
 MAJOR_VERSION=${VERSION_ID%%.*}
 MINOR_VERSION=${VERSION_ID#*.}
