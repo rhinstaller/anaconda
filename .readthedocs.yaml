@@ -18,3 +18,8 @@ sphinx:
 python:
   install:
     - requirements: docs/requirements.txt
+
+# Configuration of Git submodules
+submodules:
+  include:
+    - docs/anaconda-webui
