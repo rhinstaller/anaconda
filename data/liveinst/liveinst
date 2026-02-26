@@ -107,6 +107,21 @@ export HOME
 XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CONFIG_HOME
 
+# Prevent multiple instances (rhbz#2440264): only one installer at a time
+LIVEINST_LOCK=/run/anaconda/liveinst.lock
+mkdir -p /run/anaconda
+exec 9>"${LIVEINST_LOCK}"
+if ! flock -n 9; then
+    title="Installer already running"
+    text="The installer is already running. Please use the existing installer window."
+    if which zenity &>/dev/null; then
+        zenity --info --no-markup --title="$title" --text="$text"
+    else
+        echo "$title: $text" >&2
+    fi
+    exit 0
+fi
+
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
 # loading and lvm control in this file, too.
