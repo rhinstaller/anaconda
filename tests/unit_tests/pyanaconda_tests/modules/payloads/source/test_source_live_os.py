@@ -18,14 +18,13 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.live_os.initialization import (
     DetectLiveOSImageTask,
@@ -36,11 +35,9 @@ from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModul
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import (
     LiveOSSourceInterface,
 )
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from tests.unit_tests.pyanaconda_tests import (
     check_dbus_property,
     check_task_creation,
-    patch_dbus_get_proxy,
     patch_dbus_publish_object,
 )
 
@@ -104,17 +101,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
         runner.assert_called_once_with()
         assert self.module.required_space == 12345
 
-    @patch("os.path.ismount")
-    def test_get_state(self, ismount_mock):
+    def test_get_state(self):
         """Test the source state."""
-        ismount_mock.return_value = False
-        assert self.module.get_state() == SourceState.UNREADY
-
-        ismount_mock.reset_mock()
-        ismount_mock.return_value = True
-
-        assert self.module.get_state() == SourceState.READY
-        ismount_mock.assert_called_once_with(self.module.mount_point)
+        # LiveOS source doesn't have a traditional mount state since it reuses existing mounts
+        assert self.module.get_state() == SourceState.NOT_APPLICABLE
 
     def test_set_up_with_tasks(self):
         """Test the set up tasks."""
@@ -125,8 +115,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def test_tear_down_with_tasks(self):
         """Test the tear down tasks."""
         tasks = self.module.tear_down_with_tasks()
-        assert len(tasks) == 1
-        assert isinstance(tasks[0], TearDownMountTask)
+        assert len(tasks) == 0  # No tear-down tasks needed for LiveOS
 
     def test_repr(self):
         """Test the string representation."""
@@ -142,7 +131,6 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         exec_mock.return_value = "29696      /path/to/base/image/"
 
         task = SetUpLiveOSSourceTask(
-                "/path/to/base/image",
                 "/path/to/mount/source/image"
         )
 
@@ -211,115 +199,54 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self, required_space):
         """Test Live OS Source setup installation source task name."""
         task = SetUpLiveOSSourceTask(
-                "/path/to/base/image",
                 "/path/to/mount/source/image"
             )
 
         assert task.name == "Set up a Live OS image"
 
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.blivet.util.mount")
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
-    @patch("os.stat")
-    @patch_dbus_get_proxy
-    def test_setup_install_source_task_run(self, proxy_getter, os_stat, calculate_space, stat,
-                                           mount):
+    def test_setup_install_source_task_run(self, calculate_space):
         """Test Live OS Source setup installation source task run."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
-
-        device = DeviceData()
-        device.path = "/resolved/path/to/base/image"
-
-        device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
-
-        mount.return_value = 0
-
         result = SetUpLiveOSSourceTask(
-            "/path/to/base/image",
             "/path/to/mount/source/image"
         ).run()
 
         assert isinstance(result, SetupLiveOSResult)
         assert result.required_space == 12345
+        calculate_space.assert_called_once_with()
 
-        device_tree.ResolveDevice.assert_called_once_with("/path/to/base/image")
-        os_stat.assert_called_once_with("/resolved/path/to/base/image")
-
-    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
-    @patch_dbus_get_proxy
-    def test_setup_install_source_task_missing_image(self, proxy_getter, required_space):
-        """Test Live OS Source setup installation source task missing image error."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = ""
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
+    def test_setup_install_source_task_missing_mount(self, exec_mock):
+        """Test Live OS Source setup installation source task with missing mount point."""
+        exec_mock.side_effect = FileNotFoundError("du: cannot access '/nonexistent': No such file or directory")
 
         with pytest.raises(SourceSetupError) as cm:
             SetUpLiveOSSourceTask(
-                "/path/to/base/image",
-                "/path/to/mount/source/image"
+                "/nonexistent"
             ).run()
 
-        assert str(cm.value) == "Failed to resolve the Live OS image."
+        assert "du: cannot access" in str(cm.value) or "No such file" in str(cm.value)
 
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
-    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
-    @patch("os.stat")
-    @patch_dbus_get_proxy
-    def test_setup_install_source_task_invalid_block_dev(self, proxy_getter, os_stat,
-                                                         required_space, stat_mock):
-        """Test Live OS Source setup installation source task with invalid block device error."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "dev1"
-
-        device = DeviceData()
-        device.path = "/dev/dev1"
-
-        device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
-
-        stat_mock.S_ISBLK = Mock()
-        stat_mock.S_ISBLK.return_value = False
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
+    def test_setup_install_source_task_calculate_space_error(self, exec_mock):
+        """Test Live OS Source setup installation source task with space calculation error."""
+        exec_mock.side_effect = OSError("Permission denied")
 
         with pytest.raises(SourceSetupError) as cm:
             SetUpLiveOSSourceTask(
-                "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
 
-        assert str(cm.value) == "/dev/dev1 is not a valid block device."
+        assert "Permission denied" in str(cm.value)
 
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.blivet.util.mount")
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
-    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
-    @patch("os.stat")
-    @patch_dbus_get_proxy
-    def test_setup_install_source_task_failed_to_mount(self, proxy_getter, os_stat, required_space,
-                                                       stat, mount):
-        """Test Live OS Source setup installation source task mount error."""
-        device_tree = Mock()
-        proxy_getter.return_value = device_tree
-        device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "dev1"
-
-        device = DeviceData()
-        device.path = "/dev/dev1"
-
-        device_tree.GetDeviceData = Mock()
-        device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
-
-        mount.return_value = -20
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
+    def test_setup_install_source_task_du_command_error(self, exec_mock):
+        """Test Live OS Source setup installation source task with du command error."""
+        exec_mock.side_effect = OSError("du: cannot execute")
 
         with pytest.raises(SourceSetupError) as cm:
             SetUpLiveOSSourceTask(
-                "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
 
-        assert str(cm.value) == "Failed to mount the Live OS image."
+        assert "du: cannot execute" in str(cm.value)
