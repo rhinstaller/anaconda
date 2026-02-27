@@ -40,6 +40,24 @@ mkdir -p $REPO_DIR
 cp -a $INPUT_RPMS/* $REPO_DIR || echo "RPM files can't be copied!"  # We could just do the build with official repositories only
 createrepo_c $REPO_DIR
 
+# Workaround for dracut xattr issues in containers
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2358683#c14
+# and https://github.com/dracut-ng/dracut-ng/issues/443
+export DRACUT_NO_XATTR=1
+
+{% if distro_name == "fedora" or (distro_name == "rhel" and distro_release == 10) %}
+# Do not copy container_file_t labels to the installer image
+# INSTALLER-4609, INSTALLER-4592
+# This does not work on rhel-9 where there is inner ext4 filesystem containing
+# the container_file_t attributes packed into squashfs image
+mkdir -p /etc/lorax
+cat > /etc/lorax/lorax.conf <<EOF
+# Added by Anaconda's lorax-build script for INSTALLER-4609
+[compression]
+args = -xattrs-exclude ^security.selinux
+EOF
+{% endif %}
+
 cp -r /usr/share/lorax/templates.d/ /lorax/
 patch -p2 -i /adjust-templates-for-webui.patch
 
