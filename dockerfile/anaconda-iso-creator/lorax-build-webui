@@ -47,6 +47,17 @@ createrepo_c $REPO_DIR
 # and https://github.com/dracut-ng/dracut-ng/issues/443
 export DRACUT_NO_XATTR=1
 
+# Do not copy container_file_t labels to the installer image
+# INSTALLER-4609, INSTALLER-4592
+# This does not work on rhel-9 where there is inner ext4 filesystem containing
+# the container_file_t attributes packed into squashfs image
+mkdir -p /etc/lorax
+cat > /etc/lorax/lorax.conf <<EOF
+# Added by Anaconda's lorax-build script for INSTALLER-4609
+[compression]
+args = -xattrs-exclude ^security.selinux
+EOF
+
 cp -r /usr/share/lorax/templates.d/ /lorax/
 patch -p2 -i /adjust-templates-for-webui.patch
 
