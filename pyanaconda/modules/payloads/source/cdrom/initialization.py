@@ -64,8 +64,16 @@ class SetUpCdromSourceTask(SetUpMountTask):
                 device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_id))
                 mount(device_data.path, self._target_mount, "iso9660", "ro")
             except OSError as e:
-                log.debug("Failed to mount %s: %s", device_data.path, str(e))
-                continue
+                log.debug("Failed to iso9660 mount %s: %s", device_data.path, str(e))
+
+            if not is_valid_install_disk(self._target_mount):
+                try:
+                    log.debug("try udf mount %s", device_data.path)
+                    device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_data.path))
+                    mount(device_data.path, self._target_mount, "udf", "ro")
+                except OSError as e:
+                    log.debug("Failed to udf mount %s: %s", device_data.path, str(e))
+                    continue
 
             if is_valid_install_disk(self._target_mount):
                 device_id = dev_id

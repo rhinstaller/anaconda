@@ -181,7 +181,7 @@ def find_optical_media(devicetree):
     devices = []
 
     for device in devicetree.devices:
-        if device.type != "cdrom" and device.format.type != "iso9660":
+        if device.type != "cdrom" and device.format.type != "iso9660" and device.format.type != "udf":
             continue
 
         if not device.controllable:
