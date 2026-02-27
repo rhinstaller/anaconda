@@ -42,6 +42,11 @@ mkdir -p $REPO_DIR
 cp -a $INPUT_RPMS/* $REPO_DIR || echo "RPM files can't be copied!"  # We could just do the build with official repositories only
 createrepo_c $REPO_DIR
 
+# Workaround for dracut xattr issues in containers
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2358683#c14
+# and https://github.com/dracut-ng/dracut-ng/issues/443
+export DRACUT_NO_XATTR=1
+
 cp -r /usr/share/lorax/templates.d/ /lorax/
 patch -p2 -i /adjust-templates-for-webui.patch
 
