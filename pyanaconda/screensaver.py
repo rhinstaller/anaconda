@@ -85,7 +85,11 @@ class SetEuidFromPkexec():
 
 
 def inhibit_screensaver():
-    """Inhibit the "screensaver" idle timer."""
+    """Inhibit the "screensaver" idle timer.
+
+    If org.freedesktop.ScreenSaver does not provide Inhibit method log a
+    warning and continue without inhibition.
+    """
     log.info("Inhibiting screensaver.")
     global session_proxy
     global inhibit_id
@@ -96,9 +100,14 @@ def inhibit_screensaver():
                 message_bus=SessionMessageBus()
             )
             session_proxy = SCREENSAVER.get_proxy()
+            if not hasattr(session_proxy, "Inhibit"):
+                log.warning("Unable to inhibit the screensaver: Inhibit method not found.")
+                session_proxy = None
+                return
             inhibit_id = session_proxy.Inhibit("anaconda", "Installing")
     except DBusError as e:
         log.warning("Unable to inhibit the screensaver: %s", e)
+        session_proxy = None
 
 
 def uninhibit_screensaver():
