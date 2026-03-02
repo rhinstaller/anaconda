@@ -500,6 +500,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 02 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.46-1
+- pyanaconda: storage: platform: Raise /boot to 2 GiB (neal)
+  Resolves: RHEL-151547
+
 * Mon Feb 16 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.45-1
 - Fix user input in driver disk menu is not displayed (adamkankovsky)
   Resolves: RHEL-58828
