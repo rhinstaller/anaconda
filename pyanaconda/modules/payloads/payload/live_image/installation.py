@@ -421,6 +421,10 @@ class InstallFromImageTask(Task):
             "--stats",  # show statistics at end of process
             "--info=flist2,name,progress2",  # show progress after each file
             "--no-inc-recursive",  # force calculating total work in advance
+            # Workaround: skip security.selinux xattr to avoid lremovexattr Permission denied
+            # on KIWI boxed-build Live ISOs. SELinux contexts are set later by restorecon.
+            # Remove once https://github.com/OSInside/kiwi-boxed-plugin/issues/99 is fixed.
+            "--filter=-x security.selinux",
             "--exclude", "/dev/",
             "--exclude", "/proc/",
             "--exclude", "/tmp/*",

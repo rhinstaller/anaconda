@@ -119,6 +119,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
                 "--stats",
                 "--info=flist2,name,progress2",
                 "--no-inc-recursive",
+                "--filter=-x security.selinux",
                 "--exclude", "/dev/",
                 "--exclude", "/proc/",
                 "--exclude", "/tmp/*",
