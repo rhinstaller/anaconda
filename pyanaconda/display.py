@@ -27,6 +27,7 @@ from collections import namedtuple
 
 import blivet
 from simpleline import App
+from simpleline.event_loop.glib_event_loop import GLibEventLoop
 from simpleline.render.screen_handler import ScreenHandler
 from systemd import journal
 
@@ -79,8 +80,8 @@ def ask_rd_question(anaconda, message):
     :return: (use_rd, rdp_credentials(username, password))
     :rtype: Tuple(bool, NameTuple(username, password))
     """
-    App.initialize()
-    loop = App.get_event_loop()
+    loop = GLibEventLoop()
+    App.initialize(event_loop=loop)
     loop.set_quit_callback(tui_quit_callback)
     # Get current RDP data from DBUS
     ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
@@ -102,8 +103,8 @@ def ask_for_rd_credentials(anaconda, username=None, password=None):
     :return: (use_rd, rdp_credentials(username, password))
     :rtype: Tuple(bool, NameTuple(username, password))
     """
-    App.initialize()
-    loop = App.get_event_loop()
+    loop = GLibEventLoop()
+    App.initialize(event_loop=loop)
     loop.set_quit_callback(tui_quit_callback)
     ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
     rdp_data = RdpData.from_structure(ui_proxy.Rdp)

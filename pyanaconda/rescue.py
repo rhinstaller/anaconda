@@ -24,6 +24,7 @@ from enum import Enum
 
 from pykickstart.constants import KS_REBOOT, KS_SCRIPT_POST, KS_SHUTDOWN
 from simpleline import App
+from simpleline.event_loop.glib_event_loop import GLibEventLoop
 from simpleline.render.adv_widgets import PasswordDialog, YesNoDialog
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
@@ -628,8 +629,8 @@ def start_rescue_mode_ui(anaconda):
 
     # We still want to choose from multiple roots, or unlock encrypted devices
     # if needed, so we run UI even for kickstarts (automated install).
-    App.initialize()
-    loop = App.get_event_loop()
+    loop = GLibEventLoop()
+    App.initialize(event_loop=loop)
     loop.set_quit_callback(tui_quit_callback)
     spoke = RescueModeSpoke(rescue)
     ScreenHandler.schedule_screen(spoke)

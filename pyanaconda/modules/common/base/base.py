@@ -43,6 +43,19 @@ from pyanaconda.modules.common.structures.kickstart import (
 
 log = get_module_logger(__name__)
 
+# Suppress PyGObject asyncio deprecation warnings as they are breaking
+# kickstart tests for fedora-eln. These are triggered by gi/events.py when GLib event loop starts
+# and are not actionable from anaconda code (PyGObject library issue) [1].
+# Looks like upstream PyGObject already solved this [2], so we can remove
+# this warning when the lib is updated on fedora.
+# [1]: https://issues.redhat.com/browse/INSTALLER-4613
+# [2]: https://gitlab.gnome.org/GNOME/pygobject/-/commit/2b7822f5b3a5f0595f63e6fb99c7c0b05dc7ffb3
+warnings.filterwarnings(
+    "ignore",
+    category=DeprecationWarning,
+    message="'asyncio.get_event_loop_policy' is deprecated"
+)
+
 
 class BaseModule(ABC):
     """Implementation of a base module."""
