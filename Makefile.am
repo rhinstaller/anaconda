@@ -418,8 +418,19 @@ container-iso-build:
 
 	@echo 'If you need VPN access, please use `CONTAINER_ADD_ARGS=--network=host`'
 
+	@if [ -n "$$ANACONDA_WEBUI_PR" ] && ! echo "$$ANACONDA_WEBUI_PR" | grep -q '^[0-9][0-9]*$$'; then \
+		echo "ERROR: ANACONDA_WEBUI_PR must be numeric, got: $$ANACONDA_WEBUI_PR"; \
+		exit 1; \
+	fi
+	@if [ -n "$$COCKPIT_PR" ] && ! echo "$$COCKPIT_PR" | grep -q '^[0-9][0-9]*$$'; then \
+		echo "ERROR: COCKPIT_PR must be numeric, got: $$COCKPIT_PR"; \
+		exit 1; \
+	fi
+
 	mkdir -p result/iso
 	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
+	$(if $(ANACONDA_WEBUI_PR),--env ANACONDA_WEBUI_PR="$$ANACONDA_WEBUI_PR") \
+	$(if $(COCKPIT_PR),--env COCKPIT_PR="$$COCKPIT_PR") \
 	--rm \
 	--privileged \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \

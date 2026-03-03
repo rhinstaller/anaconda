@@ -74,11 +74,33 @@ else
     FEDORA_VERSION=$VOLID_VERSION
 fi
 
+# Check for COPR repositories from pull requests
+ADDITIONAL_SOURCES=()
+
+# Function to add COPR repository if PR variable is set
+add_copr_repo() {
+    local pr_var_name="$1"
+    local copr_project_path="$2"
+    local project_name="$3"
+    local pr_number="${!pr_var_name:-}"
+
+    if [ -n "${pr_number}" ]; then
+        local copr_url="https://download.copr.fedorainfracloud.org/results/packit/${copr_project_path}-${pr_number}/fedora-${FEDORA_VERSION}-x86_64/"
+        ADDITIONAL_SOURCES+=("-s" "${copr_url}")
+        echo "Using ${project_name} COPR from PR #${pr_number}: ${copr_url}"
+    fi
+}
+
+# Add COPR repositories for anadconda-webui and cockpit
+add_copr_repo "ANACONDA_WEBUI_PR" "rhinstaller-anaconda-webui" "anaconda-webui"
+add_copr_repo "COCKPIT_PR" "cockpit-project-cockpit" "cockpit"
+
 lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       --volid Fedora-S-dvd-x86_64-$VOLID_VERSION \
       --sharedir ./templates.d/99-generic/ \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/$FEDORA_VERSION/Everything/x86_64/os/ \
       -s file://$REPO_DIR/ \
+      "${ADDITIONAL_SOURCES[@]}" \
       -i anaconda-webui -i cockpit-ws -i cockpit-bridge -i firefox -i dbus-glib --rootfs-size 5 \
       "$@" \
       output || cp *.log "$OUT_DIR"
