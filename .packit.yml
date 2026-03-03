@@ -87,7 +87,6 @@ jobs:
   - job: koji_build
     trigger: commit
     packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
     dist_git_branches:
       - fedora-development
     allowed_committers:
@@ -106,9 +105,6 @@ jobs:
   - job: bodhi_update
     trigger: koji_build
     packages: [anaconda-fedora]
-    sidetag_group: anaconda-releases
-    dependencies:
-      - anaconda-webui
     dist_git_branches:
       - fedora-development
     allowed_builders:
