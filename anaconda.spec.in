@@ -519,6 +519,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 03 2026 github-actions <github-actions@github.com> - 44.23-1
+
 * Tue Feb 24 2026 github-actions <github-actions@github.com> - 44.22-1
 - test: normalize comma-separated values in dnf repo config check (rvykydal)
 - Fix ostree container deploy failing on non-ASCII pathnames (me)
