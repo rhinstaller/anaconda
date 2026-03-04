@@ -519,6 +519,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 04 2026 github-actions <github-actions@github.com> - 44.24-1
+- Fix crash when org.freedesktop.ScreenSaver Inhibit is unavailable (k.koukiou)
+  Resolves: rhbz#2440367
+
 * Tue Mar 03 2026 github-actions <github-actions@github.com> - 44.23-1
 
 * Tue Feb 24 2026 github-actions <github-actions@github.com> - 44.22-1
