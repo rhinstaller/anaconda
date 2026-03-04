@@ -440,6 +440,7 @@ container-iso-build:
 	$(ISO_CREATOR_NAME):$(CI_TAG)
 	@echo "ISO is stored in $(scrdir)/result/iso/"
 
+# DBG THIS!
 # Build WebUI ISO from Anaconda RPM files build here
 container-webui-iso-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The webui ISO builds are not supported on rhel-10!"; exit 99 )
