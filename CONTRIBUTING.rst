@@ -138,6 +138,10 @@ To build a Web UI boot.iso run::
   make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
   make -f ./Makefile.am container-webui-iso-build
 
+The Web UI boot.iso build process supports including pull request builds from the `anaconda-webui <https://github.com/rhinstaller/anaconda-webui>`_ and `cockpit <https://github.com/cockpit-project/cockpit/>`_ repositories by using environment variables. For example::
+
+  ANACONDA_WEBUI_PR=1161 COCKPIT_PR=22884 make -f ./Makefile.am container-webui-iso-build
+
 To build a Web UI in Live image run::
 
   make -f ./Makefile.am anaconda-live-iso-creator-build # to build the container if it doesn't exists already
