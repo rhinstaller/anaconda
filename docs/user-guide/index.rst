@@ -12,6 +12,7 @@ Contents:
    boot-options
    kickstart
    ../rescue
+   customization
 
 Troubleshooting
 ---------------
