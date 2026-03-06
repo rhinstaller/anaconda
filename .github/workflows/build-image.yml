@@ -19,6 +19,10 @@
 # To use webui on boot.iso, add also:
 # --webui
 #
+# To include anaconda-webui or cockpit PRs in the webui boot.iso, add:
+# --anaconda-webui-pr <number>
+# --cockpit-pr <number>
+#
 # To build for a specific release, add:
 # --image [image-id] (e.g., --image fedora-43, --image fedora-rawhide)
 # If --image is not specified, the current branch's default CI_TAG will be used.
@@ -129,10 +133,32 @@ jobs:
           fi
           echo "live_variant=${LIVE_VARIANT}"
 
+          # Extract --anaconda-webui-pr number if present
+          ANACONDA_WEBUI_PR=""
+          if [[ "$ARGS" == *"--anaconda-webui-pr"* ]]; then
+            ANACONDA_WEBUI_PR=$(echo "$ARGS" | sed -n 's/.*--anaconda-webui-pr \([0-9][0-9]*\).*/\1/p')
+            echo "anaconda-webui-pr: $ANACONDA_WEBUI_PR"
+          fi
+
+          # Extract --cockpit-pr number if present
+          COCKPIT_PR=""
+          if [[ "$ARGS" == *"--cockpit-pr"* ]]; then
+            COCKPIT_PR=$(echo "$ARGS" | sed -n 's/.*--cockpit-pr \([0-9][0-9]*\).*/\1/p')
+            echo "cockpit-pr: $COCKPIT_PR"
+          fi
+
+          # Validate that --webui is used with PR options
+          if [[ -n "$ANACONDA_WEBUI_PR" || -n "$COCKPIT_PR" ]] && ! [[ "$ARGS" == *"--webui"* ]]; then
+            echo "::error::--anaconda-webui-pr and --cockpit-pr require --webui to be specified"
+            exit 1
+          fi
+
           echo "args=${ARGS}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
           echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
           echo "live_variant=${LIVE_VARIANT}" >> $GITHUB_OUTPUT
+          echo "anaconda_webui_pr=${ANACONDA_WEBUI_PR}" >> $GITHUB_OUTPUT
+          echo "cockpit_pr=${COCKPIT_PR}" >> $GITHUB_OUTPUT
 
       - name: Construct image description
         id: image_description
@@ -181,6 +207,8 @@ jobs:
       args: ${{ steps.parse_args.outputs.args }}
       ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
       live_variant: ${{ steps.parse_args.outputs.live_variant }}
+      anaconda_webui_pr: ${{ steps.parse_args.outputs.anaconda_webui_pr }}
+      cockpit_pr: ${{ steps.parse_args.outputs.cockpit_pr }}
       image_description: ${{ steps.image_description.outputs.image_description }}
 
   boot-iso:
@@ -233,12 +261,20 @@ jobs:
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--webui"* ]] ; then
             WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
           fi
+          WEBUI_PR_ARGS=""
+          if [ -n "${{ needs.pr-info.outputs.anaconda_webui_pr }}" ]; then
+            WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env ANACONDA_WEBUI_PR=${{ needs.pr-info.outputs.anaconda_webui_pr }}"
+          fi
+          if [ -n "${{ needs.pr-info.outputs.cockpit_pr }}" ]; then
+            WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env COCKPIT_PR=${{ needs.pr-info.outputs.cockpit_pr }}"
+          fi
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
             $WEBUI_OPTIONAL_ARG \
+            $WEBUI_PR_ARGS \
             $ISO_BUILD_CONTAINER_NAME:$CI_TAG
           mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
 
