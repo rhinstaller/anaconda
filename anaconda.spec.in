@@ -519,6 +519,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 06 2026 github-actions <github-actions@github.com> - 44.25-1
+- Workaround rsync xattr errors on KIWI boxed-build ISOs (adamkankovsky)
+- Make --enable-vt-switch backwards compatible with older gnome-kiosk
+  (k.koukiou)
+- Add --enable-vt-switch when running gnome-kiosk (mkolman)
+- Fix asyncio deprecation warnings flooding logs in text mode (bciconel)
+- Hub: Fix grid layout alignment in Hub (yueyuankun)
+- liveinst: prevent launching multiple installer instances (k.koukiou)
+  Resolves: rhbz#2440264
+- doc: update documentation for webui boot.iso build and PR inclusion
+  (rvykydal)
+
 * Wed Mar 04 2026 github-actions <github-actions@github.com> - 44.24-1
 - Fix crash when org.freedesktop.ScreenSaver Inhibit is unavailable (k.koukiou)
   Resolves: rhbz#2440367
