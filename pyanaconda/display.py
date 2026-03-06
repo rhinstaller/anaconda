@@ -21,6 +21,7 @@
 #
 import os
 import signal
+import subprocess
 import textwrap
 import time
 from collections import namedtuple
@@ -50,6 +51,25 @@ stdout_log = get_stdout_logger()
 
 
 rdp_credentials = namedtuple("rdp_credentials", ["username", "password"])
+
+
+def _gnome_kiosk_supports_vt_switch():
+    """Return True if the installed gnome-kiosk supports --enable-vt-switch (v50+).
+
+    Older gnome-kiosk versions do not recognize this option and would fail to start.
+    """
+    try:
+        result = subprocess.run(
+            ["gnome-kiosk", "--help"],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=5,
+        )
+        out = (result.stdout or "") + (result.stderr or "")
+        return "--enable-vt-switch" in out
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False
 
 
 WAYLAND_TIMEOUT_ADVICE = \
@@ -206,9 +226,11 @@ def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
         "gnome-kiosk",
         "--wayland",
         "--wayland-display",
-        constants.WAYLAND_SOCKET_NAME,
-        "--enable-vt-switch"]
+        constants.WAYLAND_SOCKET_NAME]
     )
+    # --enable-vt-switch is only supported in gnome-kiosk 50+; skip on older versions
+    if _gnome_kiosk_supports_vt_switch():
+        argv.append("--enable-vt-switch")
 
     # remote access needs gnome-kiosk to start in headless mode
     if headless:
