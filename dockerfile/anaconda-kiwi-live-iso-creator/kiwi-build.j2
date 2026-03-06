@@ -8,7 +8,6 @@ err()  { echo "[$(date -u +%H:%M:%S)] ERROR:   $*" >&2; }
 
 # --- Configuration ------------------------------------------------------------
 WORK_DIR=/work
-REPOS_DIR=/repos
 FEDORA_KIWI_DESC_URL="${FEDORA_KIWI_DESC_URL:-https://pagure.io/fedora-kiwi-descriptions.git}"
 : "${CI_TAG:=fedora-rawhide}"
 : "${FEDORA_VARIANT:=Workstation}"
@@ -23,13 +22,20 @@ FEDORA_KIWI_DESC_DIR="$(mktemp -d /tmp/fedora-kiwi-descriptions.XXXXXX)"
 DESC_TMP="$(mktemp -d /tmp/kiwi-desc.XXXXXX)"
 trap 'rm -rf "${FEDORA_KIWI_DESC_DIR}" "${DESC_TMP}" 2>/dev/null || true' EXIT
 
-# --- Create local repository with Anaconda RPMs -------------------------------
-mkdir -p "${REPOS_DIR}/anaconda-local"
+# --- Create local repository inside target-dir (shared as /bundle in VM) ------
+REPO_DIR="${WORK_DIR}/repos/anaconda-local"
+REPO_URL="file:///bundle/repos/anaconda-local"
+mkdir -p "${REPO_DIR}"
+
 if compgen -G "/anaconda-rpms/*.rpm" > /dev/null; then
   log "Copying Anaconda RPMs to local repo..."
-  cp -a /anaconda-rpms/*.rpm "${REPOS_DIR}/anaconda-local/"
+  cp -a /anaconda-rpms/*.rpm "${REPO_DIR}/"
+else
+  warn "No Anaconda RPMs found in /anaconda-rpms/"
 fi
-createrepo_c "${REPOS_DIR}/anaconda-local"
+
+createrepo_c "${REPO_DIR}"
+log "Repository metadata created at ${REPO_DIR} (shared into VM as ${REPO_URL})"
 
 # --- Map CI_TAG to branch and KIWI file ---------------------------------------
 case "${CI_TAG}" in
@@ -83,9 +89,10 @@ find "${DESC_TMP}" \( -name "*.kiwi" -o -name "*.xml" \) -exec \
 
 # --- Build ISO via boxbuild ---------------------------------------------------
 mkdir -p "${WORK_DIR}"
+log "Starting KIWI build with repository: ${REPO_URL}"
 kiwi-ng --debug --type iso --profile "${PROFILE}" --kiwi-file "${KIWI_FILE}" \
   system boxbuild --box universal --box-memory=12288 -- \
-  --add-repo="/repos/anaconda-local,rpm-md,anaconda-local,10" \
+  --add-repo="${REPO_URL},rpm-md,anaconda-local,1" \
   --description="${DESC_TMP}" \
   --target-dir="${WORK_DIR}"
 
@@ -93,9 +100,14 @@ kiwi-ng --debug --type iso --profile "${PROFILE}" --kiwi-file "${KIWI_FILE}" \
 ISO="$(find "${WORK_DIR}" -maxdepth 1 -name "*.iso" -type f | head -n1)"
 if [ -n "${ISO}" ]; then
   cp -L "${ISO}" "/images/Fedora-${FEDORA_VARIANT}.iso"
-  # Fix ownership of the built artifacts to match the host user.
-  chown -Rv --reference="/anaconda-rpms" "/images"
   log "ISO written to /images/Fedora-${FEDORA_VARIANT}.iso"
+
+  mkdir -p "/images/logs"
+  if [ -f "/work/result.log" ]; then
+    cp -L "/work/result.log" "/images/logs/kiwi-boxbuild-result.log" 2>/dev/null || true
+  fi
+
+  chown -Rv --reference="/anaconda-rpms" "/images"
 else
   err "No ISO produced"; exit 2
 fi
