@@ -5,6 +5,47 @@ This document describes major installer-related changes in Fedora releases.
 
 A guide on adding new entries is in the release documentation.
 
+Fedora 44
+#########
+
+Changes in kickstart support
+----------------------------
+
+Add bootc kickstart command support
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda now supports the new ``bootc`` kickstart command to install bootc-based
+bootable containers. This command is similar to the existing ``ostreecontainer``
+command, but uses the ``bootc`` tool to handle both filesystem population and
+bootloader configuration.
+
+Usage example::
+
+    bootc --source-imgref=registry:quay.io/fedora/fedora-bootc:rawhide
+
+Note that there are some current limitations, such as lack of support for
+partitioning setups spanning multiple disks, arbitrary mount points, or installation
+from authenticated registries.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/6298
+    - https://issues.redhat.com/browse/INSTALLER-4024
+
+General changes
+---------------
+
+Stop creating default network profiles for unconfigured devices
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Traditionally Anaconda created default persistent network profiles (ifcfg files or
+keyfiles) for every supported wired network device. With this change only devices
+configured during installation (via boot options, kickstart, or in the UI) will
+have a persistent profile created on the installed system.
+
+See also:
+    - https://issues.redhat.com/browse/INSTALLER-3088
+    - https://github.com/rhinstaller/anaconda/pull/6787
+
 Fedora 43
 #########
 
