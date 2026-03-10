@@ -519,6 +519,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 10 2026 github-actions <github-actions@github.com> - 44.26-1
+- docs: integrate WebUI customization documentation (k.koukiou)
+
 * Fri Mar 06 2026 github-actions <github-actions@github.com> - 44.25-1
 - Workaround rsync xattr errors on KIWI boxed-build ISOs (adamkankovsky)
 - Make --enable-vt-switch backwards compatible with older gnome-kiosk
