@@ -30,6 +30,7 @@ from pyanaconda.core.configuration.localization import LocalizationSection
 from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.payload import PayloadSection
 from pyanaconda.core.configuration.profile import ProfileLoader
+from pyanaconda.core.configuration.runtime import RuntimeSection
 from pyanaconda.core.configuration.security import SecuritySection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.storage_constraints import StorageConstraints
@@ -158,6 +159,9 @@ class AnacondaConfiguration(Configuration):
         self._localization = LocalizationSection(
             "Localization", self.get_parser()
         )
+        self._runtime = RuntimeSection(
+            "Runtime", self.get_parser()
+        )
 
     @property
     def anaconda(self):
@@ -224,6 +228,11 @@ class AnacondaConfiguration(Configuration):
         """The Localization section."""
         return self._localization
 
+    @property
+    def runtime(self):
+        """The Runtime section."""
+        return self._runtime
+
     def set_from_defaults(self):
         """Set the configuration from the default configuration files.
 
@@ -239,7 +248,24 @@ class AnacondaConfiguration(Configuration):
             path = os.path.join(ANACONDA_CONFIG_DIR, "anaconda.conf")
 
         self.read(path)
+        self._ensure_runtime_section()
         self.validate()
+
+    def _ensure_runtime_section(self):
+        """Add in-memory [Runtime] defaults if the config file has no such section.
+
+        [Runtime] is not shipped in /etc/anaconda/anaconda.conf; it exists only
+        in the runtime copy under /run/anaconda/ after anaconda writes session
+        """
+        parser = self.get_parser()
+        if not parser.has_section("Runtime"):
+            parser.add_section("Runtime")
+
+        if not parser.has_option("Runtime", "automated_install"):
+            parser["Runtime"]["automated_install"] = "False"
+
+        if not parser.has_option("Runtime", "interactive_mode"):
+            parser["Runtime"]["interactive_mode"] = "True"
 
     def set_from_profile(self, profile_id):
         """Set the configuration from the requested profile configuration files.
@@ -402,6 +428,21 @@ class AnacondaConfiguration(Configuration):
             )
 
         self.validate()
+
+    def set_runtime_install_session(self, automated_install, interactive_mode):
+        """Set [Runtime] install-session flags and write the runtime config file.
+
+        Unlike :meth:`set_from_opts`, this runs only after kickstart and display
+        setup, when ``automated_install`` and ``interactive_mode`` are final.
+
+        :param bool automated_install: kickstart-driven installation
+        :param bool interactive_mode: user may interact (e.g. partial kickstart)
+        """
+        self.runtime._set_option("automated_install", automated_install)
+        self.runtime._set_option("interactive_mode", interactive_mode)
+        self.validate()
+        path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
+        self.write(path)
 
 
 def _convert_geoloc_provider_id_to_url(provider_id):
