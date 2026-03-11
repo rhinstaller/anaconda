@@ -434,6 +434,14 @@ if __name__ == "__main__":
     if not anaconda.interactive_mode:
         flags.ksprompt = False
 
+    # Expose to UIs via Runtime UserInterface: AutomatedInstall and
+    # InteractiveMode (matches anaconda.interactive_mode). Fully automated
+    # when AutomatedInstall True and InteractiveMode False.
+    from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    ui_proxy.SetAutomatedInstall(flags.automatedInstall)
+    ui_proxy.SetInteractiveMode(anaconda.interactive_mode)
+
     # Set minimal ram size to the storage checker.
     startup_utils.set_storage_checker_minimal_ram_size(anaconda.display_mode)
 

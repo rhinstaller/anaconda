@@ -86,3 +86,15 @@ class UIInterfaceTestCase(unittest.TestCase):
         assert product_data.name == "anaconda"
         assert product_data.version == "bluesky"
         assert product_data.short_name == "anaconda"
+
+    def test_automated_install_and_interactive_mode(self):
+        """AutomatedInstall / InteractiveMode defaults and Set* update module + interface."""
+        assert self.interface.AutomatedInstall is False
+        assert self.interface.InteractiveMode is True
+
+        self.interface.SetAutomatedInstall(True)
+        self.interface.SetInteractiveMode(False)
+        assert self.module.automated_install is True
+        assert self.module.interactive_mode is False
+        assert self.interface.AutomatedInstall is True
+        assert self.interface.InteractiveMode is False
