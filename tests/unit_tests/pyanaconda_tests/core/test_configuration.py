@@ -520,6 +520,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             },
         ]
 
+    def test_runtime_section_defaults(self):
+        conf = AnacondaConfiguration.from_defaults()
+        assert conf.runtime.automated_install is False
+        assert conf.runtime.interactive_mode is True
+
     def test_convert_password_policy(self):
         convert_line = UserInterfaceSection._convert_policy_line
 
