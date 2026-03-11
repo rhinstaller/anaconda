@@ -274,7 +274,7 @@ CMDLINE_FILES = [
 ]
 
 # cmdline arguments that append instead of overwrite
-CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
+CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip", "console"]
 CMDLINE_LIST = ["addrepo"]
 
 # Filesystems which are not supported by Anaconda
