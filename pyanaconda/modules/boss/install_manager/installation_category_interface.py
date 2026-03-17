@@ -34,6 +34,7 @@ class CategoryReportTaskInterface(TaskInterface):
     def connect_signals(self):
         super().connect_signals()
         self.implementation.category_changed_signal.connect(self.CategoryChanged)
+        self.implementation.error_raised_signal.connect(self.ErrorRaised)
 
     @dbus_signal
     def CategoryChanged(self, category: Str):
@@ -43,3 +44,21 @@ class CategoryReportTaskInterface(TaskInterface):
         InstallationCategories for info about a category indexes.
         """
         pass
+
+    @dbus_signal
+    def ErrorRaised(self, message: Str):
+        """Signal emitted when an error needs user interaction.
+
+        The UI should show the error message to the user and call
+        AnswerError with the user's response.
+
+        :param message: the error message to display
+        """
+        pass
+
+    def AnswerError(self, answer: Bool):
+        """Provide the user's answer to an error question.
+
+        :param answer: True to continue, False to abort.
+        """
+        self.implementation.answer_error(answer)
