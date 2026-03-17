@@ -519,6 +519,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 17 2026 github-actions <github-actions@github.com> - 44.27-1
+- docs: incorporate Anaconda Web UI release notes in release notes index
+  (k.koukiou)
+- docs: Add Fedora 44 release notes (k.koukiou)
+
 * Tue Mar 10 2026 github-actions <github-actions@github.com> - 44.26-1
 - docs: integrate WebUI customization documentation (k.koukiou)
 
