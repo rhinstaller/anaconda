@@ -519,6 +519,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 17 2026 github-actions <github-actions@github.com> - 44.28-1
+- anaconda.conf: Add arm64.nopauth to preserved_arguments (johannes.goede)
+
 * Tue Mar 17 2026 github-actions <github-actions@github.com> - 44.27-1
 - docs: incorporate Anaconda Web UI release notes in release notes index
   (k.koukiou)
