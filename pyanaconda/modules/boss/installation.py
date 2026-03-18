@@ -297,22 +297,25 @@ class _RemoteErrorUI:
     """Error UI proxy that forwards dialog calls to the real UI over D-Bus.
 
     This is used in the Boss process where errorHandler.ui is not set.
-    It forwards showYesNoQuestion and showDetailedError calls via
-    the RunInstallationTask's error_raised_signal, blocking until
-    the UI responds via answer_error.
+    It forwards showYesNoQuestion, showDetailedError, and showError
+    calls via the RunInstallationTask's error_raised_signal, blocking
+    until the UI responds via answer_error.
     """
 
     def __init__(self, task):
         self._task = task
 
     def showYesNoQuestion(self, message):
-        return self._task._ask_question(message)
+        return self._task._show_dialog(message, "yesno")
 
     def showDetailedError(self, message, details, buttons=None):
         full_message = message
         if details:
             full_message += "\n\n" + details
-        return self._task._ask_question(full_message)
+        return self._task._show_dialog(full_message, "yesno")
+
+    def showError(self, message):
+        self._task._show_dialog(message, "error")
 
 
 class RunInstallationTask(InstallationTask):
@@ -332,14 +335,19 @@ class RunInstallationTask(InstallationTask):
     def error_raised_signal(self):
         """Signal emitted when an error needs user interaction.
 
-        Carries the error message string.
+        Carries the error message string and the dialog type.
         """
         return self._error_raised_signal
 
-    def _ask_question(self, message):
-        """Emit error signal and block until UI responds."""
+    def _show_dialog(self, message, dialog_type):
+        """Emit error signal and block until UI responds.
+
+        :param message: the error message to display
+        :param dialog_type: "yesno" for a yes/no question,
+            "error" for a fatal error dialog
+        """
         self._error_response_event.clear()
-        self._error_raised_signal.emit(message)
+        self._error_raised_signal.emit(message, dialog_type)
         self._error_response_event.wait()
         return self._error_answer
 

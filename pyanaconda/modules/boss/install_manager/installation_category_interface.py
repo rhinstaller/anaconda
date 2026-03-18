@@ -46,13 +46,15 @@ class CategoryReportTaskInterface(TaskInterface):
         pass
 
     @dbus_signal
-    def ErrorRaised(self, message: Str):
+    def ErrorRaised(self, message: Str, detail_type: Str):
         """Signal emitted when an error needs user interaction.
 
         The UI should show the error message to the user and call
         AnswerError with the user's response.
 
         :param message: the error message to display
+        :param detail_type: the type of dialog to show
+            ("yesno" for a yes/no question, "error" for a fatal error)
         """
         pass
 

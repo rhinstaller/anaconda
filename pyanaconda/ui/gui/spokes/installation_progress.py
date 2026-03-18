@@ -167,15 +167,23 @@ class ProgressSpoke(StandaloneSpoke):
 
         log.debug("The installation has started.")
 
-    def _on_error_raised(self, message):
+    def _on_error_raised(self, message, detail_type):
         """Handle an error that needs user interaction.
 
         Show the error message dialog and send the user's
         answer back to the Boss process so the installation
         task queue can continue or abort.
+
+        :param message: the error message to display
+        :param detail_type: "yesno" for a yes/no question,
+            "error" for a fatal error dialog
         """
-        answer = errorHandler.ui.showYesNoQuestion(message)
-        self._task_proxy.AnswerError(answer)
+        if detail_type == "error":
+            errorHandler.ui.showError(message)
+            self._task_proxy.AnswerError(False)
+        else:
+            answer = errorHandler.ui.showYesNoQuestion(message)
+            self._task_proxy.AnswerError(answer)
 
     def _on_progress_changed(self, step, message):
         """Handle a new progress report."""
