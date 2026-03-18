@@ -1,98 +1,81 @@
-From e6da728c72a220df2d96c966b782b247b9ada845 Mon Sep 17 00:00:00 2001
-From: Radek Vykydal <rvykydal@redhat.com>
-Date: Fri, 27 Feb 2026 11:08:49 +0100
-Subject: [PATCH] Add boot options to the Web UI
+From 739db9a2cb8834e25fad1cd89b76d2c805c37bc7 Mon Sep 17 00:00:00 2001
+From: Adam Kankovsky <adamkankovsky@gmail.com>
+Date: Tue, 17 Mar 2026 21:08:44 +0100
+Subject: [PATCH] Add local and remote boot options for Web UI boot.iso
 
-There does not seem to be an easy way to do this other than using a
-forked set of templates.
+Use boot menu entries to start the Web UI in local or remote mode.
+
+The local Web UI entry is the default and is intended for boot.iso use,
+where the installer launches the browser in the guest. The remote entry
+keeps support for network access via inst.webui.remote.
 
 Changes:
-- use boot options to start the Web UI & enable remote access
-- skip image checksum check
-- 5 second boot menu timeout
-- for better debugging drop quiet boot option
-- add anaconda-webui package
+- add a default local Web UI boot entry
+- keep a separate remote Web UI boot entry
+- make the EFI menu boot the local Web UI entry by default
+- keep resolution settings for the Web UI entries
 ---
- .../config_files/x86/grub2-bios.cfg           |  6 ++---
- .../99-generic/config_files/x86/grub2-efi.cfg | 16 +++++++++-----
- .../99-generic/config_files/x86/isolinux.cfg  | 22 ++++++++++++++-----
- 3 files changed, 30 insertions(+), 14 deletions(-)
+ .../99-generic/config_files/x86/grub2-bios.cfg     |  8 ++++----
+ .../99-generic/config_files/x86/grub2-efi.cfg      | 10 +++++-----
+ .../99-generic/config_files/x86/isolinux.cfg       | 14 +++++++-------
+ 3 files changed, 16 insertions(+), 16 deletions(-)
 
 diff --git a/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg b/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
-index cfca1bf6..cafee5d6 100644
+index cfca1bf6..07d8ff3e 100644
 --- a/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
 +++ b/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
-@@ -18,16 +18,16 @@ search --no-floppy --set=root -l '@ISOLABEL@'
- 
+@@ -17,12 +17,12 @@ set timeout=60
+ search --no-floppy --set=root -l '@ISOLABEL@'
+
  ### BEGIN /etc/grub.d/10_linux ###
- menuentry 'Install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-menuentry 'Install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
 -	linux @KERNELPATH@ @ROOT@ quiet
++menuentry 'Install @PRODUCT@ @VERSION@ with Web UI' --class fedora --class gnu-linux --class gnu --class os {
++	linux @KERNELPATH@ @ROOT@ inst.webui inst.resolution=1280x1024
+ 	initrd @INITRDPATH@
+ }
+-menuentry 'Test this media & install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ rd.live.check quiet
++menuentry 'Install @PRODUCT@ @VERSION@ with Web UI (remote)' --class fedora --class gnu-linux --class gnu --class os {
 +	linux @KERNELPATH@ @ROOT@ inst.webui inst.webui.remote inst.resolution=1280x1024
  	initrd @INITRDPATH@
  }
- menuentry 'Test this media & install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
--	linux @KERNELPATH@ @ROOT@ rd.live.check quiet
-+	linux @KERNELPATH@ @ROOT@ rd.live.check inst.webui inst.webui.remote inst.resolution=1280x1024
- 	initrd @INITRDPATH@
- }
  submenu 'Troubleshooting -->' {
- 	menuentry 'Install @PRODUCT@ @VERSION@ in basic graphics mode' --class fedora --class gnu-linux --class gnu --class os {
--		linux @KERNELPATH@ @ROOT@ nomodeset quiet
-+		linux @KERNELPATH@ @ROOT@ nomodeset quiet inst.resolution=1280x1024
- 		initrd @INITRDPATH@
- 	}
- 	menuentry 'Rescue a @PRODUCT@ system' --class fedora --class gnu-linux --class gnu --class os {
 diff --git a/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg b/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
-index c2fa2d5a..8328ccef 100644
+index c2fa2d5a..cda75ee0 100644
 --- a/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
 +++ b/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
 @@ -1,4 +1,4 @@
 -set default="1"
 +set default="0"
- 
+
  function load_video {
    insmod efi_gop
-@@ -20,15 +20,21 @@ set timeout=60
+@@ -20,12 +20,12 @@ set timeout=60
  search --no-floppy --set=root -l '@ISOLABEL@'
- 
+
  ### BEGIN /etc/grub.d/10_linux ###
 -menuentry 'Install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
 -	linux @KERNELPATH@ @ROOT@ quiet
 +menuentry 'Install @PRODUCT@ @VERSION@ with Web UI' --class fedora --class gnu-linux --class gnu --class os {
-+	linux @KERNELPATH@ @ROOT@ inst.webui inst.webui.remote inst.resolution=1280x1024
++	linux @KERNELPATH@ @ROOT@ inst.webui inst.resolution=1280x1024
  	initrd @INITRDPATH@
  }
 -menuentry 'Test this media & install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
 -	linux @KERNELPATH@ @ROOT@ rd.live.check quiet
-+menuentry 'Test this media & install @PRODUCT@ @VERSION@ with Web UI' --class fedora --class gnu-linux --class gnu --class os {
-+	linux @KERNELPATH@ @ROOT@ rd.live.check quiet inst.webui inst.webui.remote inst.resolution=1280x1024
-+
++menuentry 'Install @PRODUCT@ @VERSION@ with Web UI (remote)' --class fedora --class gnu-linux --class gnu --class os {
++	linux @KERNELPATH@ @ROOT@ inst.webui inst.webui.remote inst.resolution=1280x1024
  	initrd @INITRDPATH@
  }
  submenu 'Troubleshooting -->' {
-+	menuentry 'Install @PRODUCT@ @VERSION@ with classic GTK3 GUI' --class fedora --class gnu-linux --class gnu --class os {
-+		linux @KERNELPATH@ @ROOT@ quiet inst.resolution=1280x1024
-+
-+		initrd @INITRDPATH@
-+	}
- 	menuentry 'Install @PRODUCT@ @VERSION@ in basic graphics mode' --class fedora --class gnu-linux --class gnu --class os {
- 		linux @KERNELPATH@ @ROOT@ nomodeset quiet
- 		initrd @INITRDPATH@
 diff --git a/share/templates.d/99-generic/config_files/x86/isolinux.cfg b/share/templates.d/99-generic/config_files/x86/isolinux.cfg
-index 216d36f2..3c516843 100644
+index 216d36f2..ea84875f 100644
 --- a/share/templates.d/99-generic/config_files/x86/isolinux.cfg
 +++ b/share/templates.d/99-generic/config_files/x86/isolinux.cfg
-@@ -1,5 +1,5 @@
- default vesamenu.c32
--timeout 600
-+timeout 50
- 
- display boot.msg
- 
 @@ -58,16 +58,16 @@ menu tabmsg Press Tab for full configuration options on menu items.
  menu separator # insert an empty line
  menu separator # insert an empty line
- 
+
 -label linux
 -  menu label ^Install @PRODUCT@ @VERSION@
 +label linux-webui
@@ -100,34 +83,19 @@ index 216d36f2..3c516843 100644
 +  menu default
    kernel vmlinuz
 -  append initrd=initrd.img @ROOT@ quiet
-+  append initrd=initrd.img @ROOT@ inst.webui inst.webui.remote inst.resolution=1280x1024
- 
- label check
-   menu label Test this ^media & install @PRODUCT@ @VERSION@
++  append initrd=initrd.img @ROOT@ inst.webui inst.resolution=1280x1024
+
+-label check
+-  menu label Test this ^media & install @PRODUCT@ @VERSION@
 -  menu default
++label linux-webui-remote
++  menu label Install @PRODUCT@ @VERSION@ with Web UI (^remote)
    kernel vmlinuz
 -  append initrd=initrd.img @ROOT@ rd.live.check quiet
-+  append initrd=initrd.img @ROOT@ rd.live.check quiet inst.webui inst.webui.remote inst.resolution=1280x1024
- 
++  append initrd=initrd.img @ROOT@ inst.webui inst.webui.remote inst.resolution=1280x1024
+
  menu separator # insert an empty line
- 
-@@ -75,6 +75,16 @@ menu separator # insert an empty line
- menu begin ^Troubleshooting
-   menu title Troubleshooting @PRODUCT@ @VERSION@
- 
-+label linux-gtk3
-+  menu indent count 5
-+  menu label ^Install @PRODUCT@ @VERSION@ with classic GUI
-+  text help
-+	Try this option if you want to use the legacy
-+	@PRODUCT@ @VERSION@ GTK3 installation GUI.
-+  endtext
-+  kernel vmlinuz
-+  append initrd=initrd.img @ROOT@ quiet inst.resolution=1280x1024
-+
- label basic
-   menu indent count 5
-   menu label Install using ^basic graphics mode
+
 -- 
 2.53.0
 

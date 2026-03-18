@@ -24,6 +24,7 @@ Options:
  -h, --help                         Print this help
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
+ -w, --webui                        Build WebUI boot.iso (includes firefox, cockpit, WebUI)
  -l, --live                         Build Live ISO instead of boot.iso
 EOF
 }
@@ -37,12 +38,13 @@ BUILD_TARGET="boot.iso"
 COPY_RPMS=""
 
 # parse arguments
-eval set -- "$(getopt -o ha:l --long help,add-rpms:,live -- "$@")"
+eval set -- "$(getopt -o ha:wl --long help,add-rpms:,webui,live -- "$@")"
 
 while true; do
     case "${1:-}" in
         -h|--help) help; exit 0 ;;
         -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
+        -w|--webui) BUILD_TARGET="webui" ;;
         -l|--live) BUILD_TARGET="live" ;;
         --) shift; break ;;
     esac
@@ -69,10 +71,16 @@ for i in $COPY_RPMS; do
 done
 
 # build the ISO
+# Note: container-iso-build and container-webui-iso-build use "sudo podman run",
+# so the container image must be built with sudo too, otherwise the run step
+# would use a stale image from root's podman storage.
 if [ "$BUILD_TARGET" = "boot.iso" ]; then
-    make -f ./Makefile.am anaconda-iso-creator-build
+    sudo make -f ./Makefile.am anaconda-iso-creator-build
     make -f ./Makefile.am container-iso-build
+elif [ "$BUILD_TARGET" = "webui" ]; then
+    sudo make -f ./Makefile.am anaconda-iso-creator-build
+    make -f ./Makefile.am container-webui-iso-build
 elif [ "$BUILD_TARGET" = "live" ]; then
-    make -f ./Makefile.am anaconda-live-iso-creator-build
+    sudo make -f ./Makefile.am anaconda-live-iso-creator-build
     make -f ./Makefile.am container-live-iso-build
 fi
