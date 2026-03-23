@@ -78,25 +78,27 @@ class SimpleWebUITestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.webui.flags")
     def test_setup_automated_installation(self, mocked_flags):
-        """Test webui setup call for automated installation."""
+        """Test webui rejects kickstart prompt (partial) installation."""
         mocked_flags.automatedInstall = True
         mocked_flags.ksprompt = True
 
-        with pytest.raises(RuntimeError) as cm:
+        with pytest.raises(NotImplementedError) as cm:
             self._setup_interface()
 
-        assert str(cm.value) == "Automated installations are not supported by Web UI."
+        assert str(cm.value) == (
+            "Kickstart prompt (partial) installations are not yet supported by Web UI."
+        )
 
+    @patch("pyanaconda.ui.webui.conf")
     @patch("pyanaconda.ui.webui.flags")
-    def test_setup_non_interactive_installation(self, mocked_flags):
-        """Test webui setup call for automated installation."""
+    def test_setup_non_interactive_installation(self, mocked_flags, mocked_conf):
+        """Test webui setup succeeds for fully automated kickstart (no ksprompt)."""
         mocked_flags.automatedInstall = True
         mocked_flags.ksprompt = False
-
-        with pytest.raises(RuntimeError) as cm:
-            self._setup_interface()
-
-        assert str(cm.value) == "Non-interactive installations are not supported by Web UI."
+        mocked_conf.target.is_directory = False
+        mocked_conf.target.is_image = False
+        mocked_conf.system.supports_web_ui = True
+        self._setup_interface()
 
     @patch("pyanaconda.ui.webui.conf")
     def test_setup_dir_installation(self, mocked_conf):
