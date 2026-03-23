@@ -86,3 +86,12 @@ class UIInterfaceTestCase(unittest.TestCase):
         assert product_data.name == "anaconda"
         assert product_data.version == "bluesky"
         assert product_data.short_name == "anaconda"
+
+    def test_pause_at_summary_property(self):
+        """Test the PauseAtSummary DBus property."""
+        self._check_dbus_property(
+            "PauseAtSummary",
+            True,
+            getter=lambda: self.interface.PauseAtSummary,
+            setter=self.interface.PauseAtSummary,
+        )

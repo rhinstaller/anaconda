@@ -61,6 +61,15 @@ class UIModule(KickstartBaseModule):
         self.rdp_changed = Signal()
         self._rdp = RdpData()
 
+        self.automated_install_changed = Signal()
+        self._automated_install = False
+
+        self.interactive_mode_changed = Signal()
+        self._interactive_mode = True
+
+        self.pause_at_summary_changed = Signal()
+        self._pause_at_summary = False
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USER_INTERFACE.object_path, UIInterface(self))
@@ -186,6 +195,46 @@ class UIModule(KickstartBaseModule):
             PASSWORD_POLICY_USER: PasswordPolicy.from_defaults(PASSWORD_POLICY_USER),
             PASSWORD_POLICY_LUKS: PasswordPolicy.from_defaults(PASSWORD_POLICY_LUKS),
         }
+
+    @property
+    def automated_install(self):
+        """Whether the installation is automated (kickstart file was provided)."""
+        return self._automated_install
+
+    def set_automated_install(self, value):
+        """Set automated install flag."""
+        self._automated_install = bool(value)
+        self.automated_install_changed.emit()
+        log.debug("AutomatedInstall set to: %s", self._automated_install)
+
+    @property
+    def interactive_mode(self):
+        """Whether the installation is interactive (user can interact with the UI).
+
+        When False with automated_install True, the install is fully
+        non-interactive (no prompts, progress only).
+        """
+        return self._interactive_mode
+
+    def set_interactive_mode(self, value):
+        """Set interactive mode flag."""
+        self._interactive_mode = bool(value)
+        self.interactive_mode_changed.emit()
+        log.debug("InteractiveMode set to: %s", self._interactive_mode)
+
+    @property
+    def pause_at_summary(self):
+        """Whether an automated install waits at the installation summary (boot flag; fixed for the run).
+
+        False by default; mirrors ``inst.pauseatsummary`` when anaconda sets it at startup.
+        """
+        return self._pause_at_summary
+
+    def set_pause_at_summary(self, value):
+        """Set pause-at-summary for automated installs."""
+        self._pause_at_summary = bool(value)
+        self.pause_at_summary_changed.emit()
+        log.debug("PauseAtSummary set to: %s", self._pause_at_summary)
 
     @property
     def product_data(self):
