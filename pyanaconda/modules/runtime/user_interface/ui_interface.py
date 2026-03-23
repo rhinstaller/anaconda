@@ -157,3 +157,19 @@ class UIInterface(KickstartModuleInterfaceTemplate):
     def SetInteractiveMode(self, value: Bool):
         """Set InteractiveMode."""
         self.implementation.set_interactive_mode(value)
+
+    @property
+    def PauseAtSummary(self) -> Bool:
+        """Whether an automated install waits at the installation summary for user confirmation.
+
+        False by default; set from the ``inst.pauseatsummary`` boot option at startup.
+        When True with AutomatedInstall, the installer does not automatically continue past
+        the summary; the user must confirm before installation continues.
+        """
+        return self.implementation.pause_at_summary
+
+    @emits_properties_changed
+    def SetPauseAtSummary(self, value: Bool):
+        """Set PauseAtSummary (boot-time value; emits once when anaconda sets it)."""
+        self.implementation.set_pause_at_summary(value)
+        self.report_changed_property("PauseAtSummary")

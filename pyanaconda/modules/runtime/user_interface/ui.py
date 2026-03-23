@@ -64,6 +64,8 @@ class UIModule(KickstartBaseModule):
         self._automated_install = False
         self._interactive_mode = True
 
+        self._pause_at_summary = False
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USER_INTERFACE.object_path, UIInterface(self))
@@ -213,6 +215,19 @@ class UIModule(KickstartBaseModule):
         """Set interactive mode flag."""
         self._interactive_mode = bool(value)
         log.debug("InteractiveMode set to: %s", self._interactive_mode)
+
+    @property
+    def pause_at_summary(self):
+        """Whether an automated install waits at the installation summary (boot flag; fixed for the run).
+
+        False by default; mirrors ``inst.pauseatsummary`` when anaconda sets it at startup.
+        """
+        return self._pause_at_summary
+
+    def set_pause_at_summary(self, value):
+        """Set pause-at-summary for automated installs."""
+        self._pause_at_summary = bool(value)
+        log.debug("PauseAtSummary set to: %s", self._pause_at_summary)
 
     @property
     def product_data(self):

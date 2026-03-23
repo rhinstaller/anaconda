@@ -84,10 +84,10 @@ class Hub(GUIObject, common.Hub):
         GUIObject.__init__(self, data)
         common.Hub.__init__(self, storage, payload)
 
-        # enable the auto continue feature if we are in kickstart
-        # mode, but if the user interacts with the hub, it will be
-        # disabled again
-        self._auto_continue = flags.automatedInstall
+        # enable the auto continue feature if we are in kickstart mode, but if
+        # the user interacts with the hub or if they have set
+        # inst.pauseatsummary it will be disabled again
+        self._auto_continue = flags.automatedInstall and not flags.pause_at_summary
         self._click_continue = False
 
         self._hubs_collection.append(self)
