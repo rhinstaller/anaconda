@@ -85,14 +85,6 @@ class CockpitUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
-        # FIXME: Support automated installations in Web UI.
-        if flags.automatedInstall and flags.ksprompt:
-            raise NotImplementedError("Automated installations are not supported by Web UI.")
-
-        # FIXME: Support non-interactive installations in Web UI.
-        if flags.automatedInstall and not flags.ksprompt:
-            raise NotImplementedError("Non-interactive installations are not supported by Web UI.")
-
         # Make sure that Web UI can be used only for hardware installations.
         if conf.target.is_directory or conf.target.is_image:
             raise RuntimeError("Dir and image installations are not supported by Web UI.")
@@ -100,6 +92,11 @@ class CockpitUserInterface(ui.UserInterface):
         # Make sure that Web UI can be used only on boot.iso or Live media.
         if not conf.system.supports_web_ui:
             raise RuntimeError("This installation environment is not supported by Web UI.")
+
+        if flags.automatedInstall and not conf.runtime.pause_at_summary:
+            raise RuntimeError(
+                "Web UI with kickstart requires inst.pauseatsummary."
+            )
 
         # Finish all initialization jobs. Don't remove this unless you fully understand all
         # consequences of such removal. Web UI is not able to check the initialization threads,
