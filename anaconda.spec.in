@@ -519,6 +519,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 24 2026 github-actions <github-actions@github.com> - 44.29-1
+
 * Tue Mar 17 2026 github-actions <github-actions@github.com> - 44.28-1
 - anaconda.conf: Add arm64.nopauth to preserved_arguments (johannes.goede)
 
