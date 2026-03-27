@@ -129,3 +129,31 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         return ProductData.to_structure(
             self.implementation.product_data
         )
+
+    @property
+    def AutomatedInstall(self) -> Bool:
+        """Whether the installation is automated (kickstart file was provided).
+
+        True if a kickstart file was used to drive the installation; False for
+        manual (interactive) installs.
+        """
+        return self.implementation.automated_install
+
+    def SetAutomatedInstall(self, value: Bool):
+        """Set AutomatedInstall."""
+        self.implementation.set_automated_install(value)
+
+    @property
+    def InteractiveMode(self) -> Bool:
+        """Whether the installation is interactive (user can interact with the UI).
+
+        When True (and AutomatedInstall is True), the UI may prompt the user
+        to confirm or fill in missing kickstart data (partial/ksprompt mode).
+        When False with AutomatedInstall True, the install is fully
+        non-interactive: no prompts, UI typically shows progress only.
+        """
+        return self.implementation.interactive_mode
+
+    def SetInteractiveMode(self, value: Bool):
+        """Set InteractiveMode."""
+        self.implementation.set_interactive_mode(value)
