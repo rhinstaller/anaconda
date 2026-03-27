@@ -19,6 +19,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# LOREM IPSUM
+
 # This toplevel file is a little messy at the moment... (2001-06-22)
 # ...still messy (2013-07-12)
 # A lot less messy now. :) (2016-10-13)
