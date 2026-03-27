@@ -296,6 +296,16 @@ will terminate immediately.
 By default, the warnings are printed to logs and the installation
 continues.
 
+.. inst.pauseatsummary:
+
+inst.pauseatsummary
+^^^^^^^^^^^^^^^^^^^
+
+Off by default. During a kickstart-driven installation, wait on the installation summary for
+explicit user confirmation before starting installation.
+
+Without this option, the installer will advance automatically once configuration is complete.
+
 Network Options
 ---------------
 
