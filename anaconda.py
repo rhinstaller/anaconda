@@ -304,6 +304,7 @@ if __name__ == "__main__":
     flags.rescue_mode = opts.rescue
     flags.eject = opts.eject
     flags.kexec = opts.kexec
+    flags.pause_at_summary = opts.pause_at_summary
 
     if opts.liveinst:
         startup_utils.live_startup()
@@ -433,6 +434,16 @@ if __name__ == "__main__":
     # Set flag to prompt for missing ks data
     if not anaconda.interactive_mode:
         flags.ksprompt = False
+
+    # Expose to UIs via Runtime UserInterface: AutomatedInstall,
+    # InteractiveMode (matches anaconda.interactive_mode), and
+    # PauseAtSummary (wait at installation summary; see inst.pauseatsummary). Fully automated
+    # when AutomatedInstall True and InteractiveMode False.
+    from pyanaconda.modules.common.constants.objects import USER_INTERFACE
+    ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
+    ui_proxy.AutomatedInstall = flags.automatedInstall
+    ui_proxy.InteractiveMode = anaconda.interactive_mode
+    ui_proxy.PauseAtSummary = flags.pause_at_summary
 
     # Set minimal ram size to the storage checker.
     startup_utils.set_storage_checker_minimal_ram_size(anaconda.display_mode)
