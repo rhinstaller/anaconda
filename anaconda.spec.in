@@ -520,6 +520,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 31 2026 github-actions <github-actions@github.com> - 44.31-1
+
 * Thu Mar 26 2026 github-actions <github-actions@github.com> - 44.30-1
 - Reload installer SELinux policy at exit so dracut shutdown works (k.koukiou)
 
