@@ -451,6 +451,17 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Method of operation
     ap.add_argument("-d", "--debug", dest="debug", action="store_true",
                     default=False, help=help_parser.help_text("debug"))
+
+    from pyanaconda.argparse_actions.remote_debugger import ParseRemoteDebugger
+
+    ap.add_argument("--remote-debugger", dest="remote_debugger", metavar="MODULE:PORT",
+                    action=ParseRemoteDebugger, default=None,
+                    help="Enable remote debugging with debugpy. Can be specified multiple times. "
+                         "Format: moduleName:port or all:startPort-endPort. "
+                         "Examples: --remote-debugger anaconda:50000 --remote-debugger "
+                         "pyanaconda.modules.boss:50001 OR --remote-debugger all:50000-50020. "
+                         "When 'all' is used, anaconda gets the start port and modules "
+                         "are assigned sequentially.")
     ap.add_argument("--ks", dest="ksfile", action="store_const",
                     metavar="KICKSTART_URL", const="/run/install/ks.cfg",
                     help=help_parser.help_text("ks"))

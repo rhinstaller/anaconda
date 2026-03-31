@@ -28,8 +28,38 @@ PYTHONPATH="$PYTHONPATH:/usr/share/anaconda/addons"
 # Export the modified PYTHONPATH.
 export PYTHONPATH
 
+# Get remote debugger port for a module from the configuration file
+# Returns the port number for the given module, or empty if not configured
+get_remote_debugger_port() {
+  local module="$1"
+  local config_file="/run/anaconda/remote-debugger.conf"
+
+  # Check if config file exists
+  if [ ! -f "$config_file" ]; then
+    return
+  fi
+
+  # Read port from config file (format: module=port)
+  local port
+  port=$(grep "^${module}=" "$config_file" | cut -d'=' -f2)
+
+  if [ -n "$port" ]; then
+    echo "$port"
+  fi
+}
+
 # Start a Python module in the detached mode.
-python3 -m $1 &
+PORT=$(get_remote_debugger_port "$1")
+
+if [ -n "$PORT" ]; then
+  # Start with remote debugger (debugpy)
+  echo "Starting module $1 with remote debugger on port $PORT"
+  python3 -m debugpy --wait-for-client --listen "0.0.0.0:$PORT" -m "$1" &
+else
+  # Start normally without remote debugger
+  python3 -m "$1" &
+fi
+
 module_pid="$!"
 
 # Wait for a minute in the detached mode.
