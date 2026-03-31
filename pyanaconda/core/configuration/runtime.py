@@ -36,3 +36,8 @@ class RuntimeSection(Section):
         non-interactive.
         """
         return self._get_option("interactive_mode", bool)
+
+    @property
+    def pause_at_summary(self):
+        """True if automated install should wait at summary for confirmation."""
+        return self._get_option("pause_at_summary", bool)

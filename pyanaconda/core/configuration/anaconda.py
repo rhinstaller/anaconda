@@ -267,6 +267,9 @@ class AnacondaConfiguration(Configuration):
         if not parser.has_option("Runtime", "interactive_mode"):
             parser["Runtime"]["interactive_mode"] = "True"
 
+        if not parser.has_option("Runtime", "pause_at_summary"):
+            parser["Runtime"]["pause_at_summary"] = "False"
+
     def set_from_profile(self, profile_id):
         """Set the configuration from the requested profile configuration files.
 
@@ -429,7 +432,7 @@ class AnacondaConfiguration(Configuration):
 
         self.validate()
 
-    def set_runtime_install_session(self, automated_install, interactive_mode):
+    def set_runtime_install_session(self, automated_install, interactive_mode, pause_at_summary=False):
         """Set [Runtime] install-session flags and write the runtime config file.
 
         Unlike :meth:`set_from_opts`, this runs only after kickstart and display
@@ -437,9 +440,11 @@ class AnacondaConfiguration(Configuration):
 
         :param bool automated_install: kickstart-driven installation
         :param bool interactive_mode: user may interact (e.g. partial kickstart)
+        :param bool pause_at_summary: wait at installation summary for confirmation
         """
         self.runtime._set_option("automated_install", automated_install)
         self.runtime._set_option("interactive_mode", interactive_mode)
+        self.runtime._set_option("pause_at_summary", pause_at_summary)
         self.validate()
         path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
         self.write(path)

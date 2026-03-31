@@ -524,12 +524,14 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         conf = AnacondaConfiguration.from_defaults()
         assert conf.runtime.automated_install is False
         assert conf.runtime.interactive_mode is True
+        assert conf.runtime.pause_at_summary is False
 
     def test_runtime_section_is_not_overwritten_if_present(self):
         conf = AnacondaConfiguration.from_defaults()
         parser = conf.get_parser()
         parser["Runtime"]["automated_install"] = "True"
         parser["Runtime"]["interactive_mode"] = "False"
+        parser["Runtime"]["pause_at_summary"] = "True"
 
         with tempfile.NamedTemporaryFile("w") as f:
             conf.write(f.name)
@@ -539,6 +541,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         assert loaded_conf.runtime.automated_install is True
         assert loaded_conf.runtime.interactive_mode is False
+        assert loaded_conf.runtime.pause_at_summary is True
 
     def test_convert_password_policy(self):
         convert_line = UserInterfaceSection._convert_policy_line

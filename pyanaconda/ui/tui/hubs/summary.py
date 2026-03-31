@@ -111,7 +111,7 @@ class SummaryHub(TUIHub):
                 # TRANSLATORS: 'b' to begin installation
                 print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
                       PROMPT_BEGIN_KEY)
-            else:
+            elif not conf.runtime.pause_at_summary:
                 # Space is ok and spokes are complete, continue.
                 self.close()
                 return None
