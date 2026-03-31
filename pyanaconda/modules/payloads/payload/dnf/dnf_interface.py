@@ -32,6 +32,7 @@ from pyanaconda.modules.common.structures.packages import (
     PackagesSelectionData,
 )
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.payload.payload_base_interface import (
     PayloadBaseInterface,
 )
@@ -57,6 +58,10 @@ class DNFInterface(PayloadBaseInterface):
         self.watch_property(
             "PackagesSelection",
             self.implementation.packages_selection_changed
+        )
+        self.watch_property(
+            "ValidationReport",
+            self.implementation.validation_report_changed
         )
 
     @property
@@ -131,6 +136,13 @@ class DNFInterface(PayloadBaseInterface):
         :return: True or False
         """
         return self.implementation.packages_kickstarted
+
+    @property
+    def ValidationReport(self) -> Structure:
+        """The current payload validation report."""
+        return ValidationReport.to_structure(
+            self.implementation.validation_report
+        )
 
     def GetAvailableRepositories(self) -> List[Str]:
         """Get a list of available repositories.

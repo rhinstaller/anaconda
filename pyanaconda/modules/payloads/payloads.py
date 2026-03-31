@@ -24,6 +24,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.installation import (
     CopyDriverDisksFilesTask,
@@ -49,6 +50,9 @@ class PayloadsService(KickstartService):
 
         self._active_payload = None
         self.active_payload_changed = Signal()
+        self._validation_report = ValidationReport()
+        self.validation_report_changed = Signal()
+        self._update_validation_report()
 
     def publish(self):
         """Publish the module."""
@@ -97,7 +101,37 @@ class PayloadsService(KickstartService):
             log.debug("Created side payload %s.", side_payload.type)
 
         self.active_payload_changed.emit()
+        if hasattr(self._active_payload, "validation_report_changed"):
+            self._active_payload.validation_report_changed.connect(
+                self._update_validation_report
+            )
+        self._update_validation_report()
         log.debug("Activated the payload %s.", payload.type)
+
+    @property
+    def validation_report(self):
+        """Current payloads validation report."""
+        return self._validation_report
+
+    def _set_validation_report(self, report):
+        """Set the payloads validation report and emit a change signal."""
+        self._validation_report = report
+        self.validation_report_changed.emit()
+
+    def _update_validation_report(self):
+        """Recompute payloads validation report from active payload state."""
+        report = ValidationReport()
+
+        if not self.active_payload:
+            report.error_messages.append("No active payload is configured.")
+        elif hasattr(self.active_payload, "validation_report"):
+            payload_report = self.active_payload.validation_report
+            report.error_messages.extend(payload_report.error_messages)
+            report.warning_messages.extend(payload_report.warning_messages)
+        else:
+            report.error_messages.append("Active payload does not provide a validation report.")
+
+        self._set_validation_report(report)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

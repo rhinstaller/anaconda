@@ -28,6 +28,7 @@ from pyanaconda.modules.common.containers import (
     PayloadSourceContainer,
     TaskContainer,
 )
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 
 
@@ -40,6 +41,7 @@ class PayloadsInterface(KickstartModuleInterface):
         super().connect_signals()
         self.watch_property("CreatedPayloads", self.implementation.created_payloads_changed)
         self.watch_property("ActivePayload", self.implementation.active_payload_changed)
+        self.watch_property("ValidationReport", self.implementation.validation_report_changed)
 
     @emits_properties_changed
     def CreatePayload(self, payload_type: Str) -> ObjPath:
@@ -86,6 +88,13 @@ class PayloadsInterface(KickstartModuleInterface):
             return ""
 
         return PayloadContainer.to_object_path(payload)
+
+    @property
+    def ValidationReport(self) -> Structure:
+        """Current payload validation report."""
+        return ValidationReport.to_structure(
+            self.implementation.validation_report
+        )
 
     def CreateSource(self, source_type: Str) -> ObjPath:
         """Create payload source and publish it on DBus.

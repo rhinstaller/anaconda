@@ -28,6 +28,7 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.users.installation import (
     ConfigureRootPasswordSSHLoginTask,
     CreateGroupsTask,
@@ -69,6 +70,13 @@ class UsersService(KickstartService):
         self._ssh_keys = []
 
         self._rootpw_seen = False
+        self._validation_report = ValidationReport()
+        self.validation_report_changed = Signal()
+
+        self.users_changed.connect(self._update_validation_report)
+        self.root_password_is_set_changed.connect(self._update_validation_report)
+        self.root_account_locked_changed.connect(self._update_validation_report)
+        self._update_validation_report()
 
     def publish(self):
         """Publish the module."""
@@ -329,6 +337,25 @@ class UsersService(KickstartService):
             self._root_password_is_crypted = crypted
             self.root_password_is_set_changed.emit()
             log.debug("Root password set.")
+
+    @property
+    def validation_report(self):
+        """Current users validation report."""
+        return self._validation_report
+
+    def _set_validation_report(self, report):
+        """Set the users validation report and emit a change signal."""
+        self._validation_report = report
+        self.validation_report_changed.emit()
+
+    def _update_validation_report(self):
+        """Recompute users validation report from the current module state."""
+        report = ValidationReport()
+
+        if not self.check_admin_user_exists:
+            report.error_messages.append("No administrator account is configured.")
+
+        self._set_validation_report(report)
 
     def clear_root_password(self):
         """Clear any set root password."""

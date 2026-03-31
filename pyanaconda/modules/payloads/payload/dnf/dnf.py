@@ -24,6 +24,7 @@ from pyanaconda.modules.common.structures.packages import (
     PackagesConfigurationData,
     PackagesSelectionData,
 )
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.base.utils import calculate_required_space
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.kickstart import (
@@ -90,11 +91,17 @@ class DNFModule(PayloadBase):
         self.packages_selection_changed = Signal()
 
         self._packages_kickstarted = False
+        self._validation_report = ValidationReport()
+        self.validation_report_changed = Signal()
 
         # Protect installation sources.
         self._protected_devices = set()
         self.sources_changed.connect(self._update_protected_devices)
         self.repositories_changed.connect(self._update_protected_devices)
+        self.sources_changed.connect(self._update_validation_report)
+        self.repositories_changed.connect(self._update_validation_report)
+        self.packages_selection_changed.connect(self._update_validation_report)
+        self._update_validation_report()
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -201,6 +208,33 @@ class DNFModule(PayloadBase):
         self._packages_selection = data
         self.packages_selection_changed.emit()
         log.debug("Packages selection is set to '%s'.", data)
+
+    @property
+    def validation_report(self):
+        """Current payload validation report."""
+        return self._validation_report
+
+    def _set_validation_report(self, report):
+        """Set the payload validation report and emit a change signal."""
+        self._validation_report = report
+        self.validation_report_changed.emit()
+
+    def _update_validation_report(self):
+        """Recompute payload validation report from the current module state."""
+        report = ValidationReport()
+
+        if not self.sources and not self._internal_sources:
+            report.error_messages.append("Installation source is not set up.")
+        else:
+            check_task = CheckPackagesSelectionTask(
+                dnf_manager=self.dnf_manager,
+                selection=self.packages_selection
+            )
+            task_report = check_task.run()
+            report.error_messages.extend(task_report.error_messages)
+            report.warning_messages.extend(task_report.warning_messages)
+
+        self._set_validation_report(report)
 
     @property
     def packages_kickstarted(self):
@@ -435,6 +469,7 @@ class DNFModule(PayloadBase):
         self._set_dnf_manager(result.dnf_manager)
         self.set_repositories(result.repositories)
         self._internal_sources += result.sources
+        self._update_validation_report()
 
     def tear_down_sources_with_task(self):
         """Tear down installation sources."""

@@ -28,6 +28,7 @@ from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 
 
 @dbus_interface(USERS.interface_name)
@@ -47,6 +48,8 @@ class UsersInterface(KickstartModuleInterface):
                             self.implementation.root_password_ssh_login_allowed_changed)
         self.watch_property("CanChangeRootPassword",
                             self.implementation.can_change_root_password_changed)
+        self.watch_property("ValidationReport",
+                            self.implementation.validation_report_changed)
 
     @property
     def CanChangeRootPassword(self) -> Bool:
@@ -190,6 +193,13 @@ class UsersInterface(KickstartModuleInterface):
         :return: if at least one admin user exists
         """
         return self.implementation.check_admin_user_exists
+
+    @property
+    def ValidationReport(self) -> Structure:
+        """Current users validation report."""
+        return ValidationReport.to_structure(
+            self.implementation.validation_report
+        )
 
     def ConfigureGroupsWithTask(self) -> ObjPath:
         """Configure user groups via a DBus task.
