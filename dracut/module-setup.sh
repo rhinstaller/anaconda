@@ -84,12 +84,31 @@ install() {
     # timeout script for errors reporting
     inst_hook initqueue/timeout 50 "$moddir/anaconda-error-reporting.sh"
     # python deps for parse-kickstart. DOUBLE WOOOO
-    PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py" | while read -r dep; do
+    # Also scan .py files for SSL certificate paths during installation
+    local _crt
+    declare -A _crts
+    while read -r dep; do
         case "$dep" in
             *.so) inst "$dep" ;;
-            *.py) inst_simple "$dep" ;;
+            *.py)
+                inst_simple "$dep"
+                # Scan for certificate bundles in Python source
+                [[ -f $dep ]] || continue
+                while IFS= read -r _crt; do
+                    [[ $_crt == /* ]] || continue  # Must be absolute path
+                    [[ -e $_crt ]] || continue     # Must exist
+                    _crts[$_crt]=1  # Associative array auto-deduplicates
+                done < <(grep -oE "([\'\"])/etc/[^'\"]*\.(pem|crt)([\'\"])" "$dep" 2>/dev/null | sed "s/['\"]//g")
+                ;;
             *) inst "$dep" ;;
         esac
+    done < <(PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py")
+
+    # Install discovered certificate bundles
+    for _crt in "${!_crts[@]}"; do
+        if ! inst "$_crt"; then
+            dwarn "Couldn't install '$_crt' SSL CA cert bundle; HTTPS might not work."
+        fi
     done
 
     # support for specific architectures
