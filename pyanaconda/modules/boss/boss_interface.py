@@ -26,6 +26,7 @@ from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.custom_typing import BusName
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
+from pyanaconda.modules.common.structures.readiness import InstallationReadinessReport
 from pyanaconda.modules.common.structures.requirement import Requirement
 
 __all__ = ["BossInterface"]
@@ -95,6 +96,15 @@ class BossInterface(InterfaceTemplate):
         """
         return Requirement.to_structure_list(
             self.implementation.collect_requirements()
+        )
+
+    def ValidateInstallationReadiness(self) -> Structure:
+        """Return global installation readiness status.
+
+        :return: a structure with readiness report
+        """
+        return InstallationReadinessReport.to_structure(
+            self.implementation.validate_installation_readiness()
         )
 
     def InstallWithTasks(self) -> List[ObjPath]:

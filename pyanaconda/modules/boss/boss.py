@@ -43,6 +43,7 @@ class Boss(Service):
         self._module_manager = ModuleManager()
         self._kickstart_manager = KickstartManager()
         self._install_manager = InstallManager()
+        self._last_kickstart_report = None
 
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
@@ -84,7 +85,9 @@ class Boss(Service):
         :returns: a kickstart report
         """
         log.info("Reading a kickstart file at %s.", path)
-        return self._kickstart_manager.read_kickstart_file(path)
+        report = self._kickstart_manager.read_kickstart_file(path)
+        self._last_kickstart_report = report
+        return report
 
     def generate_kickstart(self):
         """Return a kickstart representation of modules.
@@ -100,6 +103,15 @@ class Boss(Service):
         :return: a list of requirements
         """
         return self._install_manager.collect_requirements()
+
+    def validate_installation_readiness(self):
+        """Return the global installation readiness report."""
+        if self._last_kickstart_report:
+            kickstart_report = self._last_kickstart_report.to_structure()
+        else:
+            kickstart_report = None
+
+        return self._install_manager.collect_installation_readiness(kickstart_report)
 
     def install_with_tasks(self):
         """Return installation tasks of this module.

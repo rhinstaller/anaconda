@@ -16,8 +16,9 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.boss.install_manager import InstallManager
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy
 
@@ -130,3 +131,52 @@ class InstallManagerTestCase(unittest.TestCase):
             call("B", "/B/1"),
             call("B", "/B/2")
         ])
+
+    @patch("pyanaconda.modules.boss.install_manager.install_manager.USERS.get_proxy")
+    @patch("pyanaconda.modules.boss.install_manager.install_manager.PAYLOADS.get_proxy")
+    def test_collect_installation_readiness_success(self, payloads_get_proxy, users_get_proxy):
+        """Test successful collection of global readiness."""
+        validation_report = ValidationReport()
+        payloads_service_proxy = Mock(ValidationReport=ValidationReport.to_structure(validation_report))
+
+        payloads_get_proxy.return_value = payloads_service_proxy
+        users_get_proxy.return_value = Mock(ValidationReport=ValidationReport.to_structure(ValidationReport()))
+
+        install_manager = InstallManager()
+        report = install_manager.collect_installation_readiness()
+
+        assert report.can_reach_install is True
+        assert report.blocking_errors == []
+        assert report.reasons_by_module.keys() == {"payload", "users"}
+
+    @patch("pyanaconda.modules.boss.install_manager.install_manager.USERS.get_proxy")
+    @patch("pyanaconda.modules.boss.install_manager.install_manager.PAYLOADS.get_proxy")
+    def test_collect_installation_readiness_failures(self, payloads_get_proxy, users_get_proxy):
+        """Test readiness errors are aggregated."""
+        payloads_get_proxy.return_value = Mock(ActivePayload="")
+        users_report = ValidationReport()
+        users_report.error_messages = ["No administrator account is configured."]
+        users_get_proxy.return_value = Mock(ValidationReport=ValidationReport.to_structure(users_report))
+
+        install_manager = InstallManager()
+        report = install_manager.collect_installation_readiness()
+
+        assert report.can_reach_install is False
+        assert "No active payload is configured." in report.blocking_errors
+        assert "No administrator account is configured." in report.blocking_errors
+
+    @patch("pyanaconda.modules.boss.install_manager.install_manager.USERS.get_proxy")
+    @patch("pyanaconda.modules.boss.install_manager.install_manager.PAYLOADS.get_proxy")
+    def test_collect_installation_readiness_payload_check_error(self, payloads_get_proxy, users_get_proxy):
+        """Test payload validation property error is propagated."""
+        class BrokenPayloadsProxy:
+            @property
+            def ValidationReport(self):
+                raise RuntimeError("task failed")
+
+        payloads_get_proxy.return_value = BrokenPayloadsProxy()
+        users_get_proxy.return_value = Mock(ValidationReport=ValidationReport.to_structure(ValidationReport()))
+
+        install_manager = InstallManager()
+        with self.assertRaisesRegex(RuntimeError, "task failed"):
+            install_manager.collect_installation_readiness()

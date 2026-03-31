@@ -18,7 +18,11 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.modules.common.constants.services import PAYLOADS, USERS
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
+from pyanaconda.modules.common.structures.readiness import InstallationReadinessReport
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.structures.validation import ValidationReport
 
 log = get_module_logger(__name__)
 
@@ -126,3 +130,66 @@ class InstallManager:
                 tasks.append(task_proxy)
 
         return tasks
+
+    def collect_installation_readiness(self, kickstart_report=None):
+        """Collect global installation readiness.
+
+        :param kickstart_report: a kickstart report from ReadKickstartFile
+        :return: a readiness report
+        """
+        readiness = InstallationReadinessReport()
+        reasons_by_module = {}
+
+        self._collect_kickstart_readiness(readiness, reasons_by_module, kickstart_report)
+        self._collect_module_readiness(
+            readiness=readiness,
+            reasons_by_module=reasons_by_module,
+            module_name="payload",
+            service=PAYLOADS
+        )
+        self._collect_module_readiness(
+            readiness=readiness,
+            reasons_by_module=reasons_by_module,
+            module_name="users",
+            service=USERS
+        )
+
+        readiness.reasons_by_module = reasons_by_module
+        readiness.can_reach_install = len(readiness.blocking_errors) == 0
+        return readiness
+
+    @staticmethod
+    def _add_module_report(readiness, reasons_by_module, module_name, module_report):
+        """Add a module report to readiness and aggregate messages."""
+        reasons_by_module[module_name] = ValidationReport.to_structure(module_report)
+        readiness.blocking_errors.extend(module_report.error_messages)
+        readiness.warnings.extend(module_report.warning_messages)
+
+    def _collect_kickstart_readiness(self, readiness, reasons_by_module, kickstart_report):
+        """Collect kickstart readiness from the last kickstart parsing report."""
+        if kickstart_report is None:
+            return
+
+        report = KickstartReport.from_structure(kickstart_report)
+        module_report = ValidationReport()
+        module_report.error_messages = [
+            "{}:{} {}".format(message.file_name, message.line_number, message.message)
+            for message in report.error_messages
+        ]
+        module_report.warning_messages = [
+            "{}:{} {}".format(message.file_name, message.line_number, message.message)
+            for message in report.warning_messages
+        ]
+        self._add_module_report(readiness, reasons_by_module, "kickstart", module_report)
+
+    def _collect_module_readiness(self, readiness, reasons_by_module, module_name, service):
+        """Collect readiness from a module service ValidationReport property."""
+        module_report = ValidationReport()
+        module_proxy = service.get_proxy()
+        validation_report = ValidationReport.from_structure(
+            module_proxy.ValidationReport
+        )
+        module_report.error_messages.extend(validation_report.error_messages)
+        module_report.warning_messages.extend(validation_report.warning_messages)
+
+        self._add_module_report(readiness, reasons_by_module, module_name, module_report)

@@ -164,6 +164,15 @@ class BossInterfaceTestCase(unittest.TestCase):
             }
         ]
 
+    def test_validate_installation_readiness(self):
+        """Test ValidateInstallationReadiness."""
+        report = self.interface.ValidateInstallationReadiness()
+
+        assert "can-reach-install" in report
+        assert "blocking-errors" in report
+        assert "warnings" in report
+        assert "reasons-by-module" in report
+
     @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
     @patch_dbus_get_proxy
     def test_collect_configure_runtime_tasks(self, proxy_getter, handler_getter):
