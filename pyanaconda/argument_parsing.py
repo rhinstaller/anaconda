@@ -458,6 +458,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("kickstart"))
     ap.add_argument("--ksstrict", dest="ksstrict", action="store_true",
                     default=False, help=help_parser.help_text("ksstrict"))
+    ap.add_argument("--pauseatsummary", dest="pause_at_summary", action="store_true",
+                    default=False, help=help_parser.help_text("pauseatsummary"))
     ap.add_argument("--rescue", dest="rescue", action="store_true", default=False,
                     help=help_parser.help_text("rescue"))
     ap.add_argument("--armplatform", dest="armPlatform", type=str, metavar="PLATFORM_ID",

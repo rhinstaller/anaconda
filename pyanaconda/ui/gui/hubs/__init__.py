@@ -19,6 +19,7 @@
 
 from pyanaconda import lifecycle
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.timer import Timer
 from pyanaconda.flags import flags
@@ -84,10 +85,9 @@ class Hub(GUIObject, common.Hub):
         GUIObject.__init__(self, data)
         common.Hub.__init__(self, storage, payload)
 
-        # enable the auto continue feature if we are in kickstart
-        # mode, but if the user interacts with the hub, it will be
-        # disabled again
-        self._auto_continue = flags.automatedInstall
+        # Enable auto-continue only for automated installs that do not request
+        # a confirmation pause at the installation summary.
+        self._auto_continue = flags.automatedInstall and not conf.runtime.pause_at_summary
         self._click_continue = False
 
         self._hubs_collection.append(self)

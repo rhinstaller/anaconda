@@ -41,6 +41,10 @@ With this option, all warnings from reading the kickstart file will be treated a
 They will be printed on the output and the installation will terminate immediately. By default,
 the warnings are printed to logs and the installation continues.
 
+pauseatsummary
+Off by default. During a kickstart-driven installation, wait on the installation summary for
+explicit user confirmation before starting installation.
+
 rescue
 Start the rescue environment instead of installation.  This option is not supported for
 live installations.

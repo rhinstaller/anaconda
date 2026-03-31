@@ -434,8 +434,12 @@ if __name__ == "__main__":
     if not anaconda.interactive_mode:
         flags.ksprompt = False
 
-    # Publish session flags to runtime anaconda.conf for Web UI and other readers.
-    conf.set_runtime_install_session(flags.automatedInstall, anaconda.interactive_mode)
+    # Publish install-session flags to runtime anaconda.conf for UI readers.
+    conf.set_runtime_install_session(
+        flags.automatedInstall,
+        anaconda.interactive_mode,
+        opts.pause_at_summary
+    )
 
     # Set minimal ram size to the storage checker.
     startup_utils.set_storage_checker_minimal_ram_size(anaconda.display_mode)

@@ -76,6 +76,9 @@ class ArgparseTest(unittest.TestCase):
         opts = self._parseCmdline(['--noninteractive'])
         assert opts.noninteractive
 
+        opts = self._parseCmdline(['--pauseatsummary'])
+        assert opts.pause_at_summary is True
+
         # Test the default
         opts = self._parseCmdline([])
         assert opts.display_mode == DisplayModes.GUI
