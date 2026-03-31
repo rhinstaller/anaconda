@@ -237,15 +237,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def mandatory(self):
-        """The spoke is mandatory only if some input is missing.
-
-        Possible reasons to be mandatory:
-        - No admin user has been created
-        - Password has been requested but not entered
-        """
-        return (not self._users_module.CheckAdminUserExists() or
-                (self._use_password and not bool(self.user.password or
-                                                 self.user.is_crypted)))
+        """Global readiness gate decides if install can continue."""
+        return False
 
     @property
     def status(self):

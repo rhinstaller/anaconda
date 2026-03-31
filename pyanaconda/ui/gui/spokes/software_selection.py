@@ -245,6 +245,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 kickstarted=self._kickstarted
             )
 
+    @property
+    def mandatory(self):
+        """Global readiness gate decides if install can continue."""
+        return False
+
     def refresh(self):
         super().refresh()
         thread_manager.wait(THREAD_PAYLOAD)

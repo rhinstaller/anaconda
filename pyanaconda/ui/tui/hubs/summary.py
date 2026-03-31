@@ -29,6 +29,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.errors import CmdlineError
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.structures.readiness import InstallationReadinessReport
 from pyanaconda.ui.lib.space import DirInstallSpaceChecker, FileSystemSpaceChecker
 from pyanaconda.ui.tui.hubs import TUIHub
 
@@ -97,6 +99,12 @@ class SummaryHub(TUIHub):
         # to behave the same, so the user can hit 'b' at the prompt and ignore
         # the warning.
         if flags.automatedInstall and not incomplete_spokes:
+            readiness = self._get_installation_readiness()
+            if not readiness.can_reach_install:
+                print("\n".join(readiness.blocking_errors))
+                flags.automatedInstall = False
+                return super().prompt(args)
+
 
             # Check the available space.
             if flags.ksprompt and self._checker and not self._checker.check():
@@ -120,6 +128,13 @@ class SummaryHub(TUIHub):
         if not flags.ksprompt and incomplete_spokes:
             errtxt = _("The following mandatory spokes are not completed:") + \
                      "\n" + "\n".join(spoke.title for spoke in incomplete_spokes)
+            log.error("CmdlineError: %s", errtxt)
+            raise CmdlineError(errtxt)
+
+        readiness = self._get_installation_readiness()
+        if not readiness.can_reach_install and not flags.ksprompt:
+            errtxt = _("The installation is not ready to continue:") + \
+                     "\n" + "\n".join(readiness.blocking_errors)
             log.error("CmdlineError: %s", errtxt)
             raise CmdlineError(errtxt)
 
@@ -151,6 +166,10 @@ class SummaryHub(TUIHub):
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
                         return InputState.DISCARDED
+                readiness = self._get_installation_readiness()
+                if not readiness.can_reach_install:
+                    print("\n".join(readiness.blocking_errors))
+                    return InputState.DISCARDED
                 # do a bit of final sanity checking, making sure pkg selection
                 # size < available fs space
                 if self._checker and not self._checker.check():
@@ -164,3 +183,17 @@ class SummaryHub(TUIHub):
                 return InputState.DISCARDED
             else:
                 return super().input(args, key)
+
+    @staticmethod
+    def _get_installation_readiness():
+        """Get global installation readiness from the boss service."""
+        try:
+            boss_proxy = BOSS.get_proxy()
+            report = boss_proxy.ValidateInstallationReadiness()
+            return InstallationReadinessReport.from_structure(report)
+        except Exception as error:  # pylint: disable=broad-except
+            log.warning("Unable to check global installation readiness: %s", error)
+            readiness = InstallationReadinessReport()
+            readiness.can_reach_install = False
+            readiness.blocking_errors = [_("Unable to verify installation readiness.")]
+            return readiness

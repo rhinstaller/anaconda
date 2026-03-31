@@ -27,6 +27,8 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda.ui.gui.utils import escape_markup, gtk_call_once
 from pyanaconda.ui.helpers import get_distribution_text
+from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.structures.readiness import InstallationReadinessReport
 
 log = get_module_logger(__name__)
 
@@ -100,6 +102,7 @@ class Hub(GUIObject, common.Hub):
 
         # Used to store the last result of _updateContinue
         self._warningMsg = None
+        self._readiness_warning = None
 
         self._checker = None
         # Flag to indicate the user can continue even if the checker indicates an error.
@@ -255,7 +258,14 @@ class Hub(GUIObject, common.Hub):
         """Get the warning message for the hub."""
         warning = None
         if len(self._incompleteSpokes) == 0:
-            if self._checker and not self._checker.check():
+            readiness = self._get_installation_readiness()
+            if not readiness.can_reach_install:
+                warning = readiness.blocking_errors[0] if readiness.blocking_errors else _(
+                    "The installation is not ready to continue."
+                )
+            elif self._readiness_warning:
+                warning = self._readiness_warning
+            elif self._checker and not self._checker.check():
                 warning = self._checker.error_message
                 log.error(self._checker.error_message)
 
@@ -268,6 +278,23 @@ class Hub(GUIObject, common.Hub):
             warning = _("Please complete items marked with this icon before continuing to the next step.")
 
         return warning
+
+    def _get_installation_readiness(self):
+        """Get global installation readiness from the boss service."""
+        self._readiness_warning = None
+        try:
+            boss_proxy = BOSS.get_proxy()
+            report = boss_proxy.ValidateInstallationReadiness()
+            readiness = InstallationReadinessReport.from_structure(report)
+            if readiness.warnings:
+                self._readiness_warning = readiness.warnings[0]
+            return readiness
+        except Exception as error:  # pylint: disable=broad-except
+            log.warning("Unable to check global installation readiness: %s", error)
+            readiness = InstallationReadinessReport()
+            readiness.can_reach_install = False
+            readiness.blocking_errors = [_("Unable to verify installation readiness.")]
+            return readiness
 
     def _updateContinue(self):
         # Check that this warning isn't already set to avoid spamming the
@@ -285,7 +312,8 @@ class Hub(GUIObject, common.Hub):
 
     @property
     def continuePossible(self):
-        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and (getattr(self._checker, "success", True) or self._checker_ignore)
+        readiness = self._get_installation_readiness()
+        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and readiness.can_reach_install and (getattr(self._checker, "success", True) or self._checker_ignore)
 
     def _updateContinueButton(self):
         self.window.set_may_continue(self.continuePossible)

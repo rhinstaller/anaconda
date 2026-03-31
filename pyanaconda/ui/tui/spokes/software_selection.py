@@ -207,6 +207,11 @@ class SoftwareSpoke(NormalTUISpoke):
                 kickstarted=self._kickstarted
             )
 
+    @property
+    def mandatory(self):
+        """Global readiness gate decides if install can continue."""
+        return False
+
     def setup(self, args):
         """Set up the spoke right before it is used."""
         super().setup(args)
