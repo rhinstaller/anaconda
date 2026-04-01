@@ -259,7 +259,7 @@ CMDLINE_FILES = [
 
 # cmdline arguments that append instead of overwrite
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip", "console"]
-CMDLINE_LIST = ["addrepo"]
+CMDLINE_LIST = ["addrepo", "remote-debugger"]
 
 # An estimated ratio for metadata size to total disk space.
 STORAGE_METADATA_RATIO = 0.1
