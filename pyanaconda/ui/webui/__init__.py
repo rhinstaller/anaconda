@@ -85,13 +85,11 @@ class CockpitUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
-        # FIXME: Support automated installations in Web UI.
+        # Reject partial (ksprompt) for now; fully automated is supported.
         if flags.automatedInstall and flags.ksprompt:
-            raise NotImplementedError("Automated installations are not supported by Web UI.")
-
-        # FIXME: Support non-interactive installations in Web UI.
-        if flags.automatedInstall and not flags.ksprompt:
-            raise NotImplementedError("Non-interactive installations are not supported by Web UI.")
+            raise NotImplementedError(
+                "Kickstart prompt (partial) installations are not yet supported by Web UI."
+            )
 
         # Make sure that Web UI can be used only for hardware installations.
         if conf.target.is_directory or conf.target.is_image:

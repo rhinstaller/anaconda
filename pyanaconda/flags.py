@@ -34,6 +34,7 @@ class Flags:
     preexisting_wayland: bool = False
     preexisting_x11: bool = False
     automatedInstall: bool = False
+    pause_at_summary: bool = False
     eject: bool = True
 
     # ksprompt is whether or not to prompt for missing ksdata
