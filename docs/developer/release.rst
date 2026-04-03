@@ -508,8 +508,26 @@ automatically for all `listed <https://github.com/cockpit-project/bots/blob/main
 
 https://github.com/cockpit-project/bots/pull/5176
 
+Enabling CI and other infra for branched Fedora
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To enable testing and releases for the branched Fedora from main:
+
+1. **Build containers:** Containers are not built automatically for the branched Fedora. Run the `Rebuild container images
+   <https://github.com/rhinstaller/anaconda/actions/workflows/container-rebuild-action.yml>`_
+   workflow with **branch** ``main`` and **container-tag** ``fedora-N``.
+   Wait for success so images are on quay.io.
+
+2. **Edit** ``.branch-variables.yml``: set **rawhide_fedora_version** and add the new fedora release
+   to **supported_releases**.
+
+3. **Regenerate infra:** ``make -f Makefile.am reload-infra``, then commit and push to ``main``.
+
 How to branch Anaconda
 ^^^^^^^^^^^^^^^^^^^^^^
+
+This is required for RHEL branches. For Fedora, it is also needed when rawhide development
+must diverge from the branched Fedora (e.g. a dedicated ``fedora-<version>`` branch).
 
 First make sure that localization branch for the next Fedora is already created.
 
@@ -592,13 +610,6 @@ Then, finally, push the updated main branch:
 ::
 
     git push origin main
-
-Container rebuilds after branching
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Container rebuilds currently do not happen automatically after branching. So do not forget to rebuild
-all relevant containers after Fedora branching.
-
 
 How to add release version for next Fedora
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
