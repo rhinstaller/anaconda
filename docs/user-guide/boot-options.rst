@@ -596,6 +596,33 @@ inst.debug
 
 Run the installer in the debugging mode.
 
+.. inst.remote-debugger:
+
+inst.remote-debugger
+^^^^^^^^^^^^^^^^^^^^
+
+Enable remote debugging with debugpy. This option can be specified multiple times
+to configure debugging for different modules. Cannot mix ``all:`` with specific
+module configurations.
+
+``inst.remote-debugger=all:<startPort>-<endPort>``
+    Enable debugging for anaconda and all modules. The main anaconda process gets
+    ``<startPort>`` and modules are assigned sequential ports in alphabetical order.
+
+    Example: ``inst.remote-debugger=all:50000-50100``
+
+``inst.remote-debugger=<moduleName>:<port>``
+    Enable debugging for a specific module on the given port.
+
+    Examples:
+        - ``inst.remote-debugger=anaconda:50000``
+        - ``inst.remote-debugger=pyanaconda.modules.boss:50002``
+        - ``inst.remote-debugger=pyanaconda.modules.network:50004``
+
+Each process starts with ``wait_for_client=True``, blocking execution until a
+debugger connects. See the :doc:`debugging guide <../developer/debugging>` for
+detailed setup instructions.
+
 .. inst.rescue:
 
 inst.rescue

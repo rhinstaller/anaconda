@@ -1,0 +1,117 @@
+#!/usr/bin/python3
+#
+# fetch_rpm_from_copr
+#
+# Download RPM packages from COPR repositories and save them to the
+# standard RPM build directory for use with other build scripts.
+
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+# Default location for downloaded RPMs
+DEFAULT_OUTPUT_DIR = Path("cache/rpms")
+DEFAULT_CHROOT = "fedora-rawhide-x86_64"
+
+
+def download_from_copr(copr_name, package, chroot, output_dir):
+    """Download an RPM package from a COPR repository
+
+    :param copr_name: COPR name in format 'user/project' or '@group/project'
+    :param package: package name to download
+    :param chroot: COPR chroot (e.g., 'fedora-rawhide-x86_64')
+    :param output_dir: directory to save the downloaded RPM
+    :return: True if successful, False otherwise
+    """
+    # Validate COPR name format
+    if '/' not in copr_name:
+        print(f"error: invalid COPR name '{copr_name}', expected 'user/project' or '@group/project'",
+              file=sys.stderr)
+        return False
+
+    print(f"Downloading {package} from COPR {copr_name} ({chroot})...")
+
+    # Create output directory if it doesn't exist
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Build COPR repo URL
+    base_url = f"https://download.copr.fedorainfracloud.org/results/{copr_name}/{chroot}"
+    repo_id = f"copr_{copr_name.replace('@', 'group_').replace('/', '_')}"
+
+    # Get current architecture
+    arch_result = subprocess.run(['uname', '-m'], capture_output=True, text=True, check=True)
+    arch = arch_result.stdout.strip()
+
+    # Count existing RPMs before download
+    existing_rpms = set(output_dir.glob('*.rpm'))
+
+    # Download using dnf with --repofrompath
+    # Specify --arch to only download binary RPMs (excludes .src.rpm)
+    cmd = [
+        'dnf', 'download',
+        f'--repofrompath={repo_id},{base_url}',
+        '--repo', repo_id,
+        '--setopt=gpgcheck=0',
+        '--arch', arch,      # Current architecture (e.g., x86_64)
+        '--arch', 'noarch',  # Architecture-independent packages
+        '--destdir', str(output_dir),
+        package
+    ]
+
+    print(f"Running: {' '.join(cmd)}")
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+
+    if result.returncode != 0:
+        print(f"error: failed to download {package} from COPR {copr_name}", file=sys.stderr)
+        print(f"dnf output: {result.stderr}", file=sys.stderr)
+        return False
+
+    # Find newly downloaded RPMs
+    current_rpms = set(output_dir.glob('*.rpm'))
+    new_rpms = [rpm for rpm in current_rpms - existing_rpms if not rpm.name.endswith('.src.rpm')]
+
+    if not new_rpms:
+        print(f"warning: no new RPM files found for {package}", file=sys.stderr)
+        return False
+
+    print(f"Successfully downloaded {len(new_rpms)} package(s):")
+    for rpm in sorted(new_rpms):
+        print(f"  {rpm.name}")
+
+    return True
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Download RPM packages from COPR repositories',
+        epilog='Example: %(prog)s @rhinstaller/devutils python3-debugpy'
+    )
+    parser.add_argument('copr_name', metavar='COPR_NAME',
+                        help='COPR name in format "user/project" or "@group/project" '
+                             '(e.g., @rhinstaller/devutils)')
+    parser.add_argument('packages', metavar='PACKAGE', nargs='+',
+                        help='package name(s) to download')
+    parser.add_argument('-c', '--chroot', default=DEFAULT_CHROOT,
+                        help=f'COPR chroot to use (default: {DEFAULT_CHROOT})')
+    parser.add_argument('-o', '--output-dir', type=Path, default=DEFAULT_OUTPUT_DIR,
+                        help=f'output directory for downloaded RPMs (default: {DEFAULT_OUTPUT_DIR})')
+
+    args = parser.parse_args()
+
+    # Process each package
+    success_count = 0
+    for package in args.packages:
+        if download_from_copr(args.copr_name, package, args.chroot, args.output_dir):
+            success_count += 1
+
+    # Exit with error if no packages were successfully downloaded
+    if success_count == 0:
+        print("error: failed to download any packages", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"\nSuccessfully downloaded {success_count}/{len(args.packages)} package(s)")
+
+
+if __name__ == "__main__":
+    main()

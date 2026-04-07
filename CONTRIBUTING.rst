@@ -46,6 +46,11 @@ To prepare Anaconda sources, you need to run these commands::
 
     ./autogen.sh && ./configure
 
+Remote Debugging
+----------------
+
+For information on remote debugging with debugpy, see the :doc:`debugging guide <developer/debugging>`.
+
 How to Contribute to the Anaconda Installer (the short version)
 ----------------------------------------------------------------
 

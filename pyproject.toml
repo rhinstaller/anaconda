@@ -1,7 +1,7 @@
 [tool.pytest.ini_options]
 testpaths = ["tests/unit_tests"]
 python_files = "test_*.py"
-python_classes = "*TestCase *Test"
+python_classes = "*TestCase *Test Test*"
 python_functions = "test_*"
 
 [tool.ruff]

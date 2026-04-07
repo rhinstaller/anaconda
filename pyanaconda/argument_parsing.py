@@ -21,6 +21,7 @@ DESCRIPTION = "Anaconda is the installation program used by Fedora, " \
 
 import itertools
 import os
+import re
 from argparse import (
     SUPPRESS,
     Action,
@@ -29,6 +30,7 @@ from argparse import (
     HelpFormatter,
     Namespace,
 )
+from pathlib import Path
 
 from blivet.arch import is_s390
 
@@ -451,6 +453,101 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Method of operation
     ap.add_argument("-d", "--debug", dest="debug", action="store_true",
                     default=False, help=help_parser.help_text("debug"))
+
+    class ParseRemoteDebugger(Action):
+        @staticmethod
+        def _get_anaconda_modules():
+            """Parse module names from DBus service files.
+
+            Returns a sorted list of module names from the service files.
+            Raises ValueError if any service file cannot be read.
+            """
+            datadir = os.environ.get("ANACONDA_DATADIR", "/usr/share/anaconda")
+            dbus_dir = Path(datadir) / "dbus"
+            service_files = dbus_dir.rglob("*.service")
+            modules = []
+            errors = []
+            # Regex to extract module name from Exec line
+            exec_pattern = re.compile(r"Exec=.*start-module\s+(\S+)")
+
+            for service in service_files:
+                try:
+                    match = exec_pattern.search(service.read_text())
+                    if match:
+                        module_name = match.group(1)
+                        modules.append(module_name)
+                except OSError as e:
+                    errors.append(f"{service}: {e}")
+
+            if errors:
+                raise ValueError(f"Failed to read service files: {'; '.join(errors)}")
+
+            return sorted(modules)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            """Parse remote debugger configuration.
+
+            Format: moduleName:port or all:startPort-endPort
+            Example: --remote-debugger anaconda:50000 --remote-debugger pyanaconda.modules.boss:50001
+            Example: --remote-debugger all:50000-50020
+            """
+            # Get existing config or initialize
+            remote_debugger_config = getattr(namespace, self.dest, self.default) or {}
+
+            if ":" not in values:
+                raise ValueError(
+                    f"Invalid remote-debugger format '{values}'. Use: moduleName:port or all:startPort-endPort"
+                )
+
+            module, port_spec = values.split(":", 1)
+
+            if module == "all":
+                # Check if specific modules were already configured
+                if remote_debugger_config:
+                    raise ValueError(
+                        "Cannot use 'all' with specific module configurations. "
+                        "Use either 'all:startPort-endPort' OR specific 'module:port' entries, not both."
+                    )
+
+                # Expand 'all' immediately into individual module entries
+                if "-" not in port_spec:
+                    raise ValueError("Invalid 'all' format. Use: all:startPort-endPort")
+
+                start_port, _ = port_spec.split("-", 1)
+                start_port = int(start_port.strip())
+
+                # Mark that 'all' mode is being used (as a separate namespace attribute)
+                setattr(namespace, "_remote_debugger_all_mode", True)
+
+                # Assign ports to anaconda and all modules
+                remote_debugger_config["anaconda"] = start_port
+
+                # Dynamically discover modules from service files
+                modules = self._get_anaconda_modules()
+
+                for idx, mod in enumerate(modules, start=1):
+                    remote_debugger_config[mod] = start_port + idx
+            else:
+                # Check if 'all' was already used
+                if getattr(namespace, "_remote_debugger_all_mode", False):
+                    raise ValueError(
+                        "Cannot use specific module configurations with 'all'. "
+                        "Use either 'all:startPort-endPort' OR specific 'module:port' entries, not both."
+                    )
+
+                # Add specific module configuration
+                remote_debugger_config[module] = int(port_spec.strip())
+
+            setattr(namespace, self.dest, remote_debugger_config)
+
+    ap.add_argument("--remote-debugger", dest="remote_debugger", metavar="MODULE:PORT",
+                    action=ParseRemoteDebugger, default=None,
+                    help="Enable remote debugging with debugpy. Can be specified multiple times. "
+                         "Format: moduleName:port or all:startPort-endPort. "
+                         "Examples: --remote-debugger anaconda:50000 --remote-debugger "
+                         "pyanaconda.modules.boss:50001 OR --remote-debugger all:50000-50020. "
+                         "When 'all' is used, anaconda gets the start port and modules "
+                         "are assigned sequentially.")
     ap.add_argument("--ks", dest="ksfile", action="store_const",
                     metavar="KICKSTART_URL", const="/run/install/ks.cfg",
                     help=help_parser.help_text("ks"))

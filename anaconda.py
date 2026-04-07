@@ -25,6 +25,7 @@
 
 import atexit
 import os
+from pathlib import Path
 import signal
 import sys
 import time
@@ -78,6 +79,27 @@ def parse_arguments(argv=None, boot_cmdline=None):
     ap = getArgumentParser(get_anaconda_version_string(), boot_cmdline)
 
     return ap.parse_args(argv, boot_cmdline=boot_cmdline)
+
+
+def _write_remote_debugger_config(remote_debugger_config):
+    """Write remote debugger configuration to a file for modules to read.
+
+    Format: one line per module with "module=port"
+
+    :param remote_debugger_config: remote debugger configuration dict (flat, already expanded)
+    """
+    rundir = Path(os.environ.get("ANACONDA_RUN_DIR", "/run/anaconda"))
+    rundir.mkdir(exist_ok=True)
+    config_file = rundir / "remote-debugger.conf"
+    contents = []
+    for module, module_port in remote_debugger_config.items():
+        contents.append(f"{module}={module_port}")
+    contents = "\n".join(contents)
+    print("="*15)
+    print("remote debugger module to port mapping:")
+    print(contents)
+    print("="*15)
+    config_file.write_text(contents)
 
 
 def setup_environment():
@@ -155,7 +177,7 @@ if __name__ == "__main__":
 
     sys.path.extend(ADDON_PATHS)
 
-    from pyanaconda import startup_utils
+    from pyanaconda import startup_utils  # noqa: I001
     from pyanaconda.core import constants, path, util
     from pyanaconda.core.i18n import _
     from pyanaconda.core.kernel import kernel_arguments
@@ -165,6 +187,23 @@ if __name__ == "__main__":
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
     opts = parse_arguments(boot_cmdline=kernel_arguments)
+
+    if opts.remote_debugger:
+        try:
+            import debugpy
+        except ImportError:
+            print("'debugpy' is required for remote debugging mode.")
+            sys.exit(1)
+        # Write remote debugger configuration file for modules to use
+        _write_remote_debugger_config(opts.remote_debugger)
+
+        # Set up debugpy for anaconda main process
+        port = opts.remote_debugger.get("anaconda")
+        if port is not None:
+            debugpy.listen(("0.0.0.0", port))
+            print(f"Remote debugger listening on port {port}, waiting for client...")
+            debugpy.wait_for_client()
+            print("Remote debugger client connected!")
 
     conf.set_from_opts(opts)
 

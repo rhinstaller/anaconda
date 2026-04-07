@@ -17,6 +17,7 @@ Developer Guides
    :maxdepth: 1
 
    commit-log
+   debugging
    lorax-template-patching
    configuration-files
    driverdisc
