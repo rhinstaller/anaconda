@@ -931,6 +931,19 @@ class DeployOSTreeTask(Task):
              stateroot]
         )
 
+        # Enable bootprefix to support installations without a separate /boot partition.
+        # When /boot is a directory on the root filesystem (not a separate partition),
+        # the BLS entry paths need to include the /boot prefix (e.g., /boot/ostree/...)
+        # so GRUB can find the kernel and initramfs correctly.
+        # See: https://issues.redhat.com/browse/RHEL-141936
+        log.info("ostree config set sysroot.bootprefix true")
+        safe_exec_program(
+            "ostree",
+            ["config",
+             "--repo=" + self._physroot + "/ostree/repo",
+             "set", "sysroot.bootprefix", "true"]
+        )
+
         if self._data.is_container():
             log.info("ostree image deploy starting")
 
