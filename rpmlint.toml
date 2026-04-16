@@ -31,6 +31,6 @@ Filters = [
     'no-manual-page-for-binary handle-sshpw',
     # Discard missing README / documentation for package
     'no-documentation',
-    # Discard spelling errors for project commonly used words
-    'spelling-error .* en_US (metapackage|kickstarts|iso|eg|lorax) ',
+    # FIXME: drop when Rawhide hunspell-en-US works again (stub .dic → bogus rpmlint spelling-error).
+    'spelling-error',
 ]
