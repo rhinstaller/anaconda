@@ -25,6 +25,11 @@ Options:
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
  -l, --live                         Build Live ISO instead of boot.iso
+ -w, --webui                        Build WebUI boot.iso (lorax entrypoint /lorax-build-webui).
+                                    Incompatible with --live. Optional env vars for the ISO
+                                    container (same as make container-webui-iso-build):
+                                      ANACONDA_WEBUI_PR=<n>  COCKPIT_PR=<n>
+
 EOF
 }
 
@@ -33,21 +38,28 @@ PACKAGES_DIR="result/build/01-rpm-build/"
 BOOT_ISO_GIT_REVISION="result/iso/iso.git_rev"
 
 BUILD_TARGET="boot.iso"
+WEBUI_BOOT_ISO=0
 
 COPY_RPMS=""
 
 # parse arguments
-eval set -- "$(getopt -o ha:l --long help,add-rpms:,live -- "$@")"
+eval set -- "$(getopt -o ha:lw --long help,add-rpms:,live,webui -- "$@")"
 
 while true; do
     case "${1:-}" in
         -h|--help) help; exit 0 ;;
         -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
         -l|--live) BUILD_TARGET="live" ;;
+        -w|--webui) WEBUI_BOOT_ISO=1 ;;
         --) shift; break ;;
     esac
     shift
 done
+
+if [ "$BUILD_TARGET" = "live" ] && [ "$WEBUI_BOOT_ISO" = "1" ]; then
+    echo "error: --webui cannot be used with --live (WebUI variant is boot.iso only)." >&2
+    exit 1
+fi
 
 echo "warming up sudo!"
 sudo true
@@ -71,7 +83,11 @@ done
 # build the ISO
 if [ "$BUILD_TARGET" = "boot.iso" ]; then
     make -f ./Makefile.am anaconda-iso-creator-build
-    make -f ./Makefile.am container-iso-build
+    if [ "$WEBUI_BOOT_ISO" = "1" ]; then
+        make -f ./Makefile.am container-webui-iso-build
+    else
+        make -f ./Makefile.am container-iso-build
+    fi
 elif [ "$BUILD_TARGET" = "live" ]; then
     make -f ./Makefile.am anaconda-live-iso-creator-build
     make -f ./Makefile.am container-live-iso-build
