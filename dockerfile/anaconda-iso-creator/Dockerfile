@@ -38,7 +38,11 @@ RUN set -ex; \
 # required for lorax-build-webui script
   patch \
   lorax; \
-  dnf clean all
+  dnf clean all; \
+# Override the container's restrictive %_install_langs macro (set by
+# glibc-minimal-langpack) so that lorax installs all translations
+# into the boot.iso, not just English.
+  echo "%_install_langs all" > /etc/rpm/macros.image-language-conf
 
 COPY ["lorax-build", "/"]
 COPY ["lorax-build-webui", "/"]
