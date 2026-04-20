@@ -40,6 +40,11 @@ RUN set -ex; \
   lorax; \
   dnf clean all
 
+# Remove the container's restrictive %_install_langs macro (set by
+# glibc-minimal-langpack) so that lorax installs all translations
+# into the boot.iso, not just English.
+RUN rm /etc/rpm/macros.image-language-conf
+
 COPY ["lorax-build", "/"]
 COPY ["lorax-build-webui", "/"]
 COPY ["adjust-templates-for-webui.patch", "/"]
