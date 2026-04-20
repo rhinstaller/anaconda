@@ -13,11 +13,11 @@ on:
       - 'pyanaconda/**'
       - '!pyanaconda/gui/**'
       - '!pyanaconda/tui/**'
+      - '!po/**'
       - 'anaconda.py'
       - 'data/anaconda.conf'
       - 'data/conf.d/**/'
       - 'data/profile.d/**'
-      - 'po/l10n-config.mk'
     branches: [ main, fedora-* ]
 
 jobs:
