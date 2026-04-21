@@ -287,7 +287,11 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
             #
             # The best shot seems to just signal out that the layout has changed and nothing else.
 
-            # layouts has changed in compositor, always emit this signal
+            # systemd-localed may emit PropertiesChanged even when X11 layout/variant values are
+            # unchanged; only propagate when the parsed layout list actually differs.
+            if layouts_variants == self._last_layouts_variants:
+                return
+
             log.debug("Localed layouts has changed. Last known: '%s' current: '%s'",
                       self._last_layouts_variants, layouts_variants)
             self.compositor_layouts_changed.emit(layouts_variants)

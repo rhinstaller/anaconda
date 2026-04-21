@@ -629,13 +629,13 @@ class CompositorLocaledWrapperTestCase(LocaledWrapperTestCase):
             expected_layouts_signal=["cz (qwerty)"]
         )
 
-        # test with knowledge of previous state no change
+        # test with knowledge of previous state no change (identical layout list; no signals)
         _check_localed_wrapper_signals(
             last_known_state=[("cz", "qwerty"), ("es", "")],
             compositor_state={"X11Layout": "cz,es",
                               "X11Variant": "qwerty,"},
             expected_selected_signal=None,
-            expected_layouts_signal=["cz (qwerty)", "es"]
+            expected_layouts_signal=None
         )
 
         # test with knowledge of previous state selected has changed
