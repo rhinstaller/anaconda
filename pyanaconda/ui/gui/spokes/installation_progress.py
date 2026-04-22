@@ -156,6 +156,7 @@ class ProgressSpoke(StandaloneSpoke):
         self._task_proxy = DBus.get_proxy(BOSS.service_name, task_path)
 
         self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
+        self._task_proxy.ErrorRaised.connect(self._on_error_raised)
         self._task_proxy.Stopped.connect(self._on_installation_done)
 
         self._task_proxy.Start()
@@ -164,6 +165,21 @@ class ProgressSpoke(StandaloneSpoke):
         gtk_call_once(self._spinner.start)
 
         log.debug("The installation has started.")
+
+    def _on_error_raised(self, error_message):
+        """Handle a non-critical error from the installation.
+
+        Show a continue/abort dialog and respond to the Boss process.
+        This runs in the main Anaconda process where errorHandler.ui exists.
+        """
+        from pyanaconda.errors import ERROR_RAISE, errorHandler
+        from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError
+
+        flags.ksprompt = True
+        exn = NonCriticalInstallationError(error_message)
+        result = errorHandler.cb(exn)
+        should_continue = (result != ERROR_RAISE)
+        self._task_proxy.RespondToError(should_continue)
 
     def _on_progress_changed(self, step, message):
         """Handle a new progress report."""

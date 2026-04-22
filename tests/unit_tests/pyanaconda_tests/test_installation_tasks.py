@@ -19,8 +19,15 @@
 #
 import unittest
 from textwrap import dedent
+from unittest.mock import Mock, patch
 
-from pyanaconda.installation_tasks import Task, TaskQueue
+import pytest
+
+from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+)
 
 
 class InstallTasksTestCase(unittest.TestCase):
@@ -264,3 +271,54 @@ class InstallTasksTestCase(unittest.TestCase):
         assert self._task_completed_count == 4
         assert self._queue_started_count == 3
         assert self._queue_completed_count == 3
+
+
+class DBusTaskNonCriticalErrorTestCase(unittest.TestCase):
+    """Tests for NonCriticalInstallationError handling in DBusTask._run()."""
+
+    def _create_dbus_task(self):
+        """Create a DBusTask with a mocked task proxy."""
+        task_proxy = Mock()
+        task_proxy.Name = "TestTask"
+        task_proxy.IsRunning = False
+
+        task = DBusTask(task_proxy)
+        return task, task_proxy
+
+    @patch("pyanaconda.installation_tasks.sync_run_task")
+    def test_non_critical_error_user_continues(self, mock_sync_run):
+        """Non-critical error, error handler returns continue -- task completes normally."""
+        mock_sync_run.side_effect = NonCriticalInstallationError("missing package")
+
+        error_handler = Mock()
+        error_handler.report_error.return_value = True
+
+        task, _ = self._create_dbus_task()
+        task._error_handler = error_handler
+        task._run()
+
+        error_handler.report_error.assert_called_once_with("missing package")
+
+    @patch("pyanaconda.installation_tasks.sync_run_task")
+    def test_non_critical_error_user_aborts(self, mock_sync_run):
+        """Non-critical error, error handler returns abort -- raises PayloadInstallationError."""
+        mock_sync_run.side_effect = NonCriticalInstallationError("missing package")
+
+        error_handler = Mock()
+        error_handler.report_error.return_value = False
+
+        task, _ = self._create_dbus_task()
+        task._error_handler = error_handler
+
+        with pytest.raises(PayloadInstallationError):
+            task._run()
+
+        error_handler.report_error.assert_called_once_with("missing package")
+
+    @patch("pyanaconda.installation_tasks.sync_run_task")
+    def test_non_critical_error_no_handler(self, mock_sync_run):
+        """Non-critical error without an error handler -- task continues with a warning."""
+        mock_sync_run.side_effect = NonCriticalInstallationError("missing package")
+
+        task, _ = self._create_dbus_task()
+        task._run()
