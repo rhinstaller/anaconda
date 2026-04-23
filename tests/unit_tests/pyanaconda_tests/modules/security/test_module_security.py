@@ -220,7 +220,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         %end
         """
         ks_out = """
-        %certificate --filename=rvtest.pem --dir=/cert_dir
+        %certificate --filename="rvtest.pem" --dir="/cert_dir"
         -----BEGIN CERTIFICATE-----
         MIIBjTCCATOgAwIBAgIUWR5HO3v/0I80Ne0jQWVZFODuWLEwCgYIKoZIzj0EAwIw
         FDESMBAGA1UEAwwJUlZURVNUIENBMB4XDTI0MTEyMDEzNTk1N1oXDTM0MTExODEz
@@ -234,7 +234,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         -----END CERTIFICATE-----
         %end
 
-        %certificate --filename=rvtest2.pem --dir=/cert_dir2
+        %certificate --filename="rvtest2.pem" --dir="/cert_dir2"
         -----BEGIN CERTIFICATE-----
         MIIBkTCCATegAwIBAgIUN6r4TjFJqP/TS6U25iOGL2Wt/6kwCgYIKoZIzj0EAwIw
         FjEUMBIGA1UEAwwLUlZURVNUIDIgQ0EwHhcNMjQxMTIwMTQwMzIxWhcNMzQxMTE4

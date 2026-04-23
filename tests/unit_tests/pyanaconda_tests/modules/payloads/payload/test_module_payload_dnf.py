@@ -186,7 +186,7 @@ class DNFKickstartTestCase(unittest.TestCase):
         """
         ks_out = """
         # Use hard drive installation media
-        harddrive --dir=top-secret --partition=nsa-device
+        harddrive --dir="top-secret" --partition=nsa-device
 
         %packages
 
@@ -213,7 +213,7 @@ class DNFKickstartTestCase(unittest.TestCase):
         """
         ks_out = """
         # Use NFS installation media
-        nfs --server=gotham.city --dir=/secret/underground/base --opts="nomount"
+        nfs --server=gotham.city --dir="/secret/underground/base" --opts="nomount"
 
         %packages
 
