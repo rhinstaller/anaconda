@@ -312,7 +312,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
         )
         self._check_default_profile(
             "fedora-eln",
-            ("fedora", "eln"),
+            ("eln", ""),
             ["rhel.conf", "fedora-eln.conf"],
             ENTERPRISE_PARTITIONING
         )
