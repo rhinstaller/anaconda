@@ -357,7 +357,7 @@ LOGGER_SIMPLELINE = "simpleline"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 
 # Timeout for starting X
-X_TIMEOUT = 60
+X_TIMEOUT = 120
 
 # Setup on boot actions.
 SETUP_ON_BOOT_DEFAULT = -1
