@@ -107,6 +107,8 @@ def verify_partition_formatting(storage, constraints, report_error, report_warni
         and device.format.linux_native
         and not any(filter(mount.startswith, constraints[STORAGE_REFORMAT_BLOCKLIST]))
         and any(filter(mount.startswith, constraints[STORAGE_REFORMAT_ALLOWLIST]))
+        and device.format.mountable
+        and not device.format.is_empty
     ]
 
     for mount in mountpoints:
