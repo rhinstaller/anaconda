@@ -520,6 +520,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 28 2026 github-actions <github-actions@github.com> - 44.35-1
+- Update ELN profile (yselkowi)
+- fix(users): ensure SSH config directory exists before writing (yueyuankun)
+- webui: allow selectively automated installations (k.koukiou)
+- localization: skip compositor layout signals on no-op localed updates
+  (k.koukiou)
+- lorax-build: remove container's %%_install_langs restriction (rvykydal)
+- dracut: Auto-detect SSL certificates from Python dependencies (pvalena)
+
 * Tue Apr 21 2026 github-actions <github-actions@github.com> - 44.34-1
 - anaconda.conf: Add systemd.tpm2_wait to preserved_arguments (johannes.goede)
 - partitioning: manual: skip requests for devices removed from device tree in
