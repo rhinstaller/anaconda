@@ -334,8 +334,8 @@ LOGGER_STDOUT = "anaconda.stdout"
 LOGGER_PROGRAM = "program"
 LOGGER_SIMPLELINE = "simpleline"
 
-# Timeout for starting X
-X_TIMEOUT = 60
+# Timeout for starting the Wayland compositor
+WAYLAND_TIMEOUT = 60
 
 # Setup on boot actions.
 SETUP_ON_BOOT_DEFAULT = -1
