@@ -76,7 +76,7 @@ def _gnome_kiosk_supports_vt_switch():
 WAYLAND_TIMEOUT_ADVICE = \
     "Do not load the stage2 image over a slow network link.\n" \
     "Wait longer for Wayland startup with the inst.xtimeout=<SECONDS> boot option." \
-    "The default is 60 seconds.\n" \
+    "The default is 120 seconds.\n" \
     "Load the stage2 image into memory with the rd.live.ram boot option to decrease access " \
     "time.\n" \
     "Enforce text mode when installing from remote media with the inst.text boot option."

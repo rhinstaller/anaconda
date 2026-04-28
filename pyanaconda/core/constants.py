@@ -335,7 +335,7 @@ LOGGER_PROGRAM = "program"
 LOGGER_SIMPLELINE = "simpleline"
 
 # Timeout for starting the Wayland compositor
-WAYLAND_TIMEOUT = 60
+WAYLAND_TIMEOUT = 120
 
 # Setup on boot actions.
 SETUP_ON_BOOT_DEFAULT = -1
