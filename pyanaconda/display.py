@@ -301,10 +301,10 @@ def setup_display(anaconda, options):
         return
 
     try:
-        xtimeout = int(options.xtimeout)
+        wayland_timeout = int(options.xtimeout)
     except ValueError:
         log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
-        xtimeout = constants.X_TIMEOUT
+        wayland_timeout = constants.WAYLAND_TIMEOUT
 
     rdp_credentials_sufficient = False
     rdp_creds = rdp_credentials("", "")
@@ -373,7 +373,7 @@ def setup_display(anaconda, options):
     want_gui = anaconda.gui_mode and not (flags.preexisting_wayland or flags.use_rd)
     if want_gui:
         try:
-            do_startup_wl_actions(xtimeout)
+            do_startup_wl_actions(wayland_timeout)
         except TimeoutError as e:
             log.warning("Wayland startup failed: %s", e)
             print("\nWayland did not start in the expected time, falling back to text mode. "
@@ -417,7 +417,7 @@ def setup_display(anaconda, options):
 
     # if they want us to use RDP do that now
     if anaconda.gui_mode and flags.use_rd:
-        do_startup_wl_actions(xtimeout, headless=True, headless_resolution=options.runres)
+        do_startup_wl_actions(wayland_timeout, headless=True, headless_resolution=options.runres)
         grd_server = GRDServer(anaconda)  # The RDP server object
         grd_server.rdp_username = rdp_creds.username
         grd_server.rdp_password = rdp_creds.password

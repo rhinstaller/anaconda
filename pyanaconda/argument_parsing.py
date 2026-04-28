@@ -37,7 +37,7 @@ from argparse import (
 from blivet.arch import is_s390
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import VIRTIO_PORT, X_TIMEOUT, DisplayModes
+from pyanaconda.core.constants import VIRTIO_PORT, WAYLAND_TIMEOUT, DisplayModes
 from pyanaconda.core.kernel import KernelArguments
 
 log = get_module_logger(__name__)
@@ -504,7 +504,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Display
     ap.add_argument("--resolution", dest="runres", default=None, metavar="WIDTHxHEIGHT",
                     help=help_parser.help_text("resolution"))
-    ap.add_argument("--xtimeout", dest="xtimeout", action="store", type=int, default=X_TIMEOUT,
+    ap.add_argument("--xtimeout", dest="xtimeout", action="store", type=int, default=WAYLAND_TIMEOUT,
                     metavar="TIMEOUT_IN_SECONDS", help=help_parser.help_text("xtimeout"))
     ap.add_argument("--rdp", action="store_true", default=False, dest="rdp_enabled",
                     help=help_parser.help_text("rdp"))
