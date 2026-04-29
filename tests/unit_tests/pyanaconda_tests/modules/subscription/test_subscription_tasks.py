@@ -692,17 +692,21 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
 class RegistrationTasksTestCase(unittest.TestCase):
     """Test the registration tasks."""
 
+    @patch("pyanaconda.modules.common.constants.services.NETWORK.get_proxy")
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def test_username_password_success(self, private_bus, environ_get):
+    def test_username_password_success(self, private_bus, environ_get, get_proxy):
         """Test the RegisterWithUsernamePasswordTask - success."""
         # register server proxy
         register_server_proxy = Mock()
         # private register proxy
-        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
-        private_register_proxy = get_proxy.return_value
+        private_get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = private_get_proxy.return_value
         # make the Register() method return some JSON data
         private_register_proxy.Register.return_value = '{"json":"stuff"}'
+        # Network module proxy
+        network_proxy = get_proxy.return_value
+        network_proxy.Hostname = "TEST_HOST_NAME"
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
@@ -714,23 +718,30 @@ class RegistrationTasksTestCase(unittest.TestCase):
             "foo_org",
             "foo_user",
             "bar_password",
-            {"enable_content": get_variant(Bool, True)},
+            {
+                "enable_content": get_variant(Bool, True),
+                "name" : get_variant(Str, "TEST_HOST_NAME")
+            },
             {},
             "en_US.UTF-8"
         )
 
+    @patch("pyanaconda.modules.common.constants.services.NETWORK.get_proxy")
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def test_username_password_failure(self, private_bus, environ_get):
+    def test_username_password_failure(self, private_bus, environ_get, get_proxy):
         """Test the RegisterWithUsernamePasswordTask - failure."""
         # register server proxy
         register_server_proxy = Mock()
         # private register proxy
-        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
-        private_register_proxy = get_proxy.return_value
+        private_get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = private_get_proxy.return_value
         # raise DBusError with error message in JSON
         json_error = '{"message": "Registration failed."}'
         private_register_proxy.Register.side_effect = DBusError(json_error)
+        # Network module proxy
+        network_proxy = get_proxy.return_value
+        network_proxy.Hostname = "TEST_HOST_NAME"
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
@@ -743,21 +754,25 @@ class RegistrationTasksTestCase(unittest.TestCase):
             "foo_org",
             "foo_user",
             "bar_password",
-            {"enable_content": get_variant(Bool, True)},
+            {
+                "enable_content": get_variant(Bool, True),
+                "name" : get_variant(Str, "TEST_HOST_NAME")
+            },
             {},
             "en_US.UTF-8"
         )
 
+    @patch("pyanaconda.modules.common.constants.services.NETWORK.get_proxy")
     @patch("pyanaconda.modules.subscription.runtime.RetrieveOrganizationsTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def test_username_password_org_single(self, private_bus, environ_get, retrieve_orgs_task):
+    def test_username_password_org_single(self, private_bus, environ_get, retrieve_orgs_task, get_proxy):
         """Test the RegisterWithUsernamePasswordTask - parsed single org."""
         # register server proxy
         register_server_proxy = Mock()
         # private register proxy
-        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
-        private_register_proxy = get_proxy.return_value
+        private_get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = private_get_proxy.return_value
         # make the Register() method return some JSON data
         private_register_proxy.Register.return_value = '{"json":"stuff"}'
         # mock the org data retrieval task to return single organization
@@ -770,7 +785,10 @@ class RegistrationTasksTestCase(unittest.TestCase):
         org_data_json = json.dumps(org_data)
         org_data_list = RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
         retrieve_orgs_task.return_value.run.return_value = org_data_list
-        # prepare mock data callaback as well
+        # Network module proxy
+        network_proxy = get_proxy.return_value
+        network_proxy.Hostname = "TEST_HOST_NAME"
+        # prepare mock data callback as well
         # instantiate the task and run it - we set organization to "" to make the task
         # fetch organization list
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
@@ -785,10 +803,14 @@ class RegistrationTasksTestCase(unittest.TestCase):
             "",
             "foo_user",
             "bar_password",
-            {"enable_content": get_variant(Bool, True)},
+            {
+                "enable_content": get_variant(Bool, True),
+                "name" : get_variant(Str, "TEST_HOST_NAME")
+            },
             {},
             "en_US.UTF-8"
         )
+
 
     @patch("pyanaconda.modules.subscription.runtime.RetrieveOrganizationsTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
@@ -825,18 +847,22 @@ class RegistrationTasksTestCase(unittest.TestCase):
         with pytest.raises(MultipleOrganizationsError):
             task.run()
 
+    @patch("pyanaconda.modules.common.constants.services.NETWORK.get_proxy")
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def test_org_key_success(self, private_bus, environ_get):
+    def test_org_key_success(self, private_bus, environ_get, get_proxy):
         """Test the RegisterWithOrganizationKeyTask - success."""
         # register server proxy
         register_server_proxy = Mock()
         # private register proxy
-        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
-        private_register_proxy = get_proxy.return_value
+        private_get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = private_get_proxy.return_value
         private_register_proxy.Register.return_value = True, ""
         # make the Register() method return some JSON data
         private_register_proxy.RegisterWithActivationKeys.return_value = '{"json":"stuff"}'
+        # Network module proxy
+        network_proxy = get_proxy.return_value
+        network_proxy.Hostname = "TEST_HOST_NAME"
         # instantiate the task and run it
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization="123456789",
@@ -846,20 +872,24 @@ class RegistrationTasksTestCase(unittest.TestCase):
         private_register_proxy.RegisterWithActivationKeys.assert_called_with(
             "123456789",
             ["foo", "bar", "baz"],
-            {},
+            {"name" : get_variant(Str, "TEST_HOST_NAME")},
             {},
             'en_US.UTF-8'
         )
 
+    @patch("pyanaconda.modules.common.constants.services.NETWORK.get_proxy")
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def test_org_key_failure(self, private_bus, environ_get):
+    def test_org_key_failure(self, private_bus, environ_get, get_proxy):
         """Test the RegisterWithOrganizationKeyTask - failure."""
         # register server proxy
         register_server_proxy = Mock()
         # private register proxy
-        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
-        private_register_proxy = get_proxy.return_value
+        private_get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = private_get_proxy.return_value
+        # Network module proxy
+        network_proxy = get_proxy.return_value
+        network_proxy.Hostname = "TEST_HOST_NAME"
         # raise DBusError with error message in JSON
         json_error = '{"message": "Registration failed."}'
         private_register_proxy.RegisterWithActivationKeys.side_effect = DBusError(json_error)
@@ -873,7 +903,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
         private_register_proxy.RegisterWithActivationKeys.assert_called_with(
             "123456789",
             ["foo", "bar", "baz"],
-            {},
+            {"name" : get_variant(Str, "TEST_HOST_NAME")},
             {},
             'en_US.UTF-8'
         )
