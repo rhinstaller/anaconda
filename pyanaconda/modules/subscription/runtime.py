@@ -41,7 +41,7 @@ from pyanaconda.modules.common.constants.objects import (
     RHSM_SYSPURPOSE,
     RHSM_UNREGISTER,
 )
-from pyanaconda.modules.common.constants.services import RHSM
+from pyanaconda.modules.common.constants.services import NETWORK, RHSM
 from pyanaconda.modules.common.errors.subscription import (
     MultipleOrganizationsError,
     RegistrationError,
@@ -301,17 +301,25 @@ class RegisterWithUsernamePasswordTask(Task):
                 )
 
         log.debug("subscription: registering with username and password")
+        # Get user requested hostname (e.g. by kickstart) and pass it to RHSM,
+        # so that the registered host is correctly named on the subscription management console.
+        network_proxy = NETWORK.get_proxy()
+        hostname = network_proxy.Hostname
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
             try:
                 locale = os.environ.get("LANG", "")
 
                 private_register_proxy = private_bus.get_proxy(RHSM.service_name,
                                                                RHSM_REGISTER.object_path)
+                register_options = {"enable_content": get_variant(Bool, True)}
+                # make sure hostname is set by the user before passing it to RHSM
+                if hostname:
+                    register_options["name"] = get_variant(Str, hostname)
                 registration_data = private_register_proxy.Register(
                     self._organization,
                     self._username,
                     self._password,
-                    {"enable_content": get_variant(Bool, True)},
+                    register_options,
                     {},
                     locale
                 )
@@ -355,15 +363,23 @@ class RegisterWithOrganizationKeyTask(Task):
         :rtype: str
         """
         log.debug("subscription: registering with organization and activation key")
+        # Get user requested hostname (e.g. by kickstart) and pass it to RHSM,
+        # so that the registered host is correctly named on the subscription management console.
+        network_proxy = NETWORK.get_proxy()
+        hostname = network_proxy.Hostname
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
             try:
                 locale = os.environ.get("LANG", "")
                 private_register_proxy = private_bus.get_proxy(RHSM.service_name,
                                                                RHSM_REGISTER.object_path)
+                register_options = {}
+                # make sure hostname is set by the user before passing it to RHSM
+                if hostname:
+                    register_options["name"] = get_variant(Str, hostname)
                 registration_data = private_register_proxy.RegisterWithActivationKeys(
                     self._organization,
                     self._activation_keys,
-                    {},
+                    register_options,
                     {},
                     locale
                 )
