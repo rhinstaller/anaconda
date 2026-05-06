@@ -426,6 +426,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 06 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.15-1
+- Increase GUI startup timeout to 120 seconds (mkolman)
+  Related: RHEL-148965
+  Resolves: RHEL-92999
+- chore: Support multiple console= kernel entries (ppolawsk)
+  Resolves: RHEL-101787
+
 * Tue Feb 17 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.14-1
 - Fix user input in driver disk menu is not displayed (adamkankovsky)
   Resolves: RHEL-4737
