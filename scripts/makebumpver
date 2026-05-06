@@ -128,8 +128,8 @@ class JIRAValidator:
 
         # translation from status id to name because JIRA is using locale set in the JIRA account
         # that can't be changed from REST API
-        valid_status_map = {13521: "Planning",
-                            10018: "In Progress"}
+        valid_status_map = {10149: "Planning",
+                            3: "In Progress"}
 
         status = issue.fields.status
         if int(status.id) not in valid_status_map:
