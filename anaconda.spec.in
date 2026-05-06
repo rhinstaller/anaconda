@@ -500,6 +500,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 06 2026  <adamkankovsky@gmail.com> - 40.22.3.48-1
+- dracut: Auto-detect SSL certificates from Python dependencies (pvalena)
+  Resolves: RHEL-85608
+
 * Wed May 06 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.47-1
 - chore: Support multiple console= kernel entries (ppolawsk)
   Resolves: RHEL-101789
