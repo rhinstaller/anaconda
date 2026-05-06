@@ -500,6 +500,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 06 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.47-1
+- chore: Support multiple console= kernel entries (ppolawsk)
+  Resolves: RHEL-101789
+- Increase GUI startup timeout to 120 seconds (mkolman)
+  Resolves: RHEL-173441
+- Refactor remaining X timeout references (mkolman)
+  Resolves: RHEL-173441
+- Set RHSM machine name based on user provided hostname (mkolman)
+  Resolves: RHEL-149198
+
 * Mon Mar 02 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.46-1
 - pyanaconda: storage: platform: Raise /boot to 2 GiB (neal)
   Resolves: RHEL-151547
