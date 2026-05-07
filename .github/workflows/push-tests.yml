@@ -1,10 +1,11 @@
-{% if distro_release == "rawhide" %}
 name: Run tests on push
 on:
   push:
     branches:
       - main
       - fedora-[0-9]+
+      - rhel-9
+      - rhel-10
 
 permissions:
   contents: read
@@ -15,7 +16,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build anaconda-ci container
         run: make -f Makefile.am anaconda-ci-build
@@ -27,14 +28,13 @@ jobs:
 
       - name: Upload test and coverage logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: 'logs'
           path: test-logs/*
 
       - name: Upload coverage to Codecov
         if: always()
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-{% endif %}
