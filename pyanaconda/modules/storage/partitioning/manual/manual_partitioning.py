@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from blivet.errors import StorageError
+from blivet.flags import flags
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -49,6 +50,54 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         log.debug("Setting up the mount points.")
         for mount_data in self._requests:
             self._setup_mount_point(storage, mount_data)
+
+    @classmethod
+    def _btrfs_mountopts_imply_compress(cls, opts):
+        """True if *opts* already specify btrfs compression (``compress``…).
+
+        Used to detect an explicit choice from kickstart so we do not append
+        the profile default again.
+        """
+        if not opts:
+            return False
+        return any(
+            o.strip().startswith("compress")
+            for o in opts.split(",")
+            if o.strip()
+        )
+
+    @classmethod
+    def _ensure_default_btrfs_compression(cls, device, mountopts):
+        """Append profile ``compress=`` for btrfs when it is not already set.
+
+        Blivet adds ``flags.btrfs_compression`` for new btrfs subvolumes. For existing subvolumes,
+        we need to add it to the mount options if not already implied.
+        """
+        raw = device.raw_device
+        if raw.type not in ("btrfs volume", "btrfs subvolume"):
+            return mountopts
+
+        compression = flags.btrfs_compression
+        if not compression:
+            return mountopts
+
+        volume = getattr(raw, "volume", raw)
+
+        line_opts = mountopts if mountopts is not None else device.format.options
+        line_opts = line_opts or ""
+
+        has_compress = cls._btrfs_mountopts_imply_compress(line_opts)
+        vol_mopts = getattr(volume.format, "mountopts", None) or ""
+        if not has_compress:
+            has_compress = cls._btrfs_mountopts_imply_compress(vol_mopts)
+
+        if has_compress:
+            return mountopts if mountopts is not None else device.format.options
+
+        if not line_opts:
+            return "compress={}".format(compression)
+
+        return "{},compress={}".format(line_opts, compression)
 
     def _setup_mount_point(self, storage, mount_data):
         """Set up a mount point.
@@ -95,5 +144,8 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         if device.format.mountable and mount_point and mount_point != "none":
             device.format.mountpoint = mount_point
 
+        mount_options = self._ensure_default_btrfs_compression(
+            device, mount_data.mount_options
+        )
         device.format.create_options = mount_data.format_options
-        device.format.options = mount_data.mount_options
+        device.format.options = mount_options

@@ -18,9 +18,10 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from blivet.devices import DiskDevice, StorageDevice
+from blivet.flags import flags as blivet_flags
 from blivet.formats import get_format
 from blivet.size import Size
 from dasbus.typing import Bool, Str, get_variant
@@ -262,3 +263,100 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._requests == self.module.requests
+
+
+class ManualPartitioningTaskTestCase(unittest.TestCase):
+    """Test behavior of the manual partitioning task."""
+
+    @patch.object(blivet_flags, "btrfs_compression", "zstd:1")
+    def test_default_btrfs_compression_reused_btrfs_mounts(self):
+        """Reused btrfs: default ``compress=`` on each mount line (Blivet-style)."""
+        storage = Mock()
+        shared_vol = Mock()
+        shared_vol.device_id = "BTRFS-one"
+        shared_vol.format = Mock(mountopts="")
+        root = Mock()
+        root.raw_device = Mock(type="btrfs subvolume", volume=shared_vol)
+        root.format = Mock(mountable=True, options="subvol=root")
+        home = Mock()
+        home.raw_device = Mock(type="btrfs subvolume", volume=shared_vol)
+        home.format = Mock(mountable=True, options="subvol=home")
+
+        def _get_device(spec):
+            if spec == "dev_root":
+                return root
+            if spec == "dev_home":
+                return home
+            return None
+
+        storage.devicetree.get_device_by_device_id.side_effect = _get_device
+
+        md_root = MountPointRequest()
+        md_root.device_spec = "dev_root"
+        md_root.reformat = False
+        md_root.format_type = ""
+        md_root.mount_point = "/"
+        md_root.format_options = ""
+        md_root.mount_options = "subvol=root"
+
+        md_home = MountPointRequest()
+        md_home.device_spec = "dev_home"
+        md_home.reformat = False
+        md_home.format_type = ""
+        md_home.mount_point = "/home"
+        md_home.format_options = ""
+        md_home.mount_options = "subvol=home"
+
+        task = ManualPartitioningTask(storage, [md_root, md_home])
+        task._configure_partitioning(storage)
+
+        assert root.format.mountpoint == "/"
+        assert root.format.options == "subvol=root,compress=zstd:1"
+        assert home.format.mountpoint == "/home"
+        assert home.format.options == "subvol=home,compress=zstd:1"
+
+    @patch.object(blivet_flags, "btrfs_compression", "zstd:1")
+    def test_default_btrfs_compression_skipped_when_volume_has_compress(self):
+        """Blivet skips appending if parent volume ``mountopts`` already set ``compress``."""
+        storage = Mock()
+        shared_vol = Mock()
+        shared_vol.device_id = "BTRFS-one"
+        shared_vol.format = Mock(mountopts="compress=zstd:3")
+
+        root = Mock()
+        root.raw_device = Mock(type="btrfs subvolume", volume=shared_vol)
+        root.format = Mock(mountable=True, options="subvol=root")
+        home = Mock()
+        home.raw_device = Mock(type="btrfs subvolume", volume=shared_vol)
+        home.format = Mock(mountable=True, options="subvol=home")
+
+        def _get_device(spec):
+            if spec == "dev_root":
+                return root
+            if spec == "dev_home":
+                return home
+            return None
+
+        storage.devicetree.get_device_by_device_id.side_effect = _get_device
+
+        md_root = MountPointRequest()
+        md_root.device_spec = "dev_root"
+        md_root.reformat = False
+        md_root.format_type = ""
+        md_root.mount_point = "/"
+        md_root.format_options = ""
+        md_root.mount_options = "subvol=root"
+
+        md_home = MountPointRequest()
+        md_home.device_spec = "dev_home"
+        md_home.reformat = False
+        md_home.format_type = ""
+        md_home.mount_point = "/home"
+        md_home.format_options = ""
+        md_home.mount_options = "subvol=home"
+
+        task = ManualPartitioningTask(storage, [md_root, md_home])
+        task._configure_partitioning(storage)
+
+        assert root.format.options == "subvol=root"
+        assert home.format.options == "subvol=home"
