@@ -18,9 +18,10 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from blivet.devices import DiskDevice, StorageDevice
+from blivet.flags import flags as blivet_flags
 from blivet.formats import get_format
 from blivet.size import Size
 from dasbus.typing import Bool, Str, get_variant
@@ -262,3 +263,28 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._requests == self.module.requests
+
+
+class ManualPartitioningTaskTestCase(unittest.TestCase):
+    """Test behavior of the manual partitioning task."""
+
+    @patch.object(blivet_flags, "btrfs_compression", "zstd:1")
+    def test_setup_mount_point_adds_default_compression_for_reused_btrfs_subvolume(self):
+        storage = Mock()
+        device = Mock(type="btrfs subvolume")
+        device.format = Mock(mountable=True, options="subvol=home")
+        storage.devicetree.get_device_by_device_id.return_value = device
+
+        mount_data = MountPointRequest()
+        mount_data.device_spec = "dev1"
+        mount_data.reformat = False
+        mount_data.format_type = ""
+        mount_data.mount_point = "/home"
+        mount_data.format_options = ""
+        mount_data.mount_options = "subvol=home"
+
+        task = ManualPartitioningTask(storage, [mount_data])
+        task._setup_mount_point(storage, mount_data)
+
+        assert device.format.mountpoint == "/home"
+        assert device.format.options == "subvol=home,compress=zstd:1"

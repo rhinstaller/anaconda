@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from blivet.errors import StorageError
+from blivet.flags import flags
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -49,6 +50,25 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         log.debug("Setting up the mount points.")
         for mount_data in self._requests:
             self._setup_mount_point(storage, mount_data)
+
+    @classmethod
+    def _ensure_default_btrfs_compression(cls, device, mountopts):
+        """Add default btrfs compression to Btrfs mount options if missing."""
+        if getattr(device, "type", None) not in ("btrfs volume", "btrfs subvolume"):
+            return mountopts
+
+        compression = flags.btrfs_compression
+        if not compression:
+            return mountopts
+
+        options = mountopts or device.format.options
+        if not options:
+            return "compress={}".format(compression)
+
+        if any(opt.strip().startswith("compress") for opt in options.split(",")):
+            return options
+
+        return "{},compress={}".format(options, compression)
 
     def _setup_mount_point(self, storage, mount_data):
         """Set up a mount point.
@@ -95,5 +115,8 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         if device.format.mountable and mount_point and mount_point != "none":
             device.format.mountpoint = mount_point
 
+        mount_options = self._ensure_default_btrfs_compression(
+            device, mount_data.mount_options
+        )
         device.format.create_options = mount_data.format_options
-        device.format.options = mount_data.mount_options
+        device.format.options = mount_options
