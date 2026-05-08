@@ -18,9 +18,10 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from blivet.devices import DiskDevice, StorageDevice
+from blivet.flags import flags as blivet_flags
 from blivet.formats import get_format
 from blivet.size import Size
 from dasbus.typing import Bool, Str, get_variant
@@ -262,3 +263,78 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._requests == self.module.requests
+
+
+def _mock_btrfs_volume(mountopts):
+    volume = Mock()
+    volume.device_id = "BTRFS-one"
+    volume.format = Mock(mountopts=mountopts)
+    return volume
+
+
+def _mock_btrfs_subvolume(volume, options):
+    device = Mock()
+    device.raw_device = Mock(type="btrfs subvolume", volume=volume)
+    device.format = Mock(mountable=True, options=options)
+    return device
+
+
+def _mock_storage_for_mount_devices(devices):
+    storage = Mock()
+    storage.devicetree.get_device_by_device_id.side_effect = devices.get
+    return storage
+
+
+def _mount_point_request(device_spec, mount_point, mount_options):
+    request = MountPointRequest()
+    request.device_spec = device_spec
+    request.reformat = False
+    request.format_type = ""
+    request.mount_point = mount_point
+    request.format_options = ""
+    request.mount_options = mount_options
+    return request
+
+
+def _root_and_home_btrfs_reuse_setup(volume_mountopts):
+    """Shared mocks for / and /home on one reused btrfs volume."""
+    volume = _mock_btrfs_volume(volume_mountopts)
+    root = _mock_btrfs_subvolume(volume, "subvol=root")
+    home = _mock_btrfs_subvolume(volume, "subvol=home")
+    storage = _mock_storage_for_mount_devices({
+        "dev_root": root,
+        "dev_home": home,
+    })
+    requests = [
+        _mount_point_request("dev_root", "/", "subvol=root"),
+        _mount_point_request("dev_home", "/home", "subvol=home"),
+    ]
+    return storage, root, home, requests
+
+
+class ManualPartitioningTaskTestCase(unittest.TestCase):
+    """Test behavior of the manual partitioning task."""
+
+    @patch.object(blivet_flags, "btrfs_compression", "zstd:1")
+    def test_default_btrfs_compression_reused_btrfs_mounts(self):
+        """Reused btrfs: default ``compress=`` on each mount line (Blivet-style)."""
+        storage, root, home, requests = _root_and_home_btrfs_reuse_setup("")
+
+        ManualPartitioningTask(storage, requests)._configure_partitioning(storage)
+
+        assert root.format.mountpoint == "/"
+        assert root.format.options == "subvol=root,compress=zstd:1"
+        assert home.format.mountpoint == "/home"
+        assert home.format.options == "subvol=home,compress=zstd:1"
+
+    @patch.object(blivet_flags, "btrfs_compression", "zstd:1")
+    def test_default_btrfs_compression_skipped_when_volume_has_compress(self):
+        """Blivet skips appending if parent volume ``mountopts`` already set ``compress``."""
+        storage, root, home, requests = _root_and_home_btrfs_reuse_setup(
+            "compress=zstd:3"
+        )
+
+        ManualPartitioningTask(storage, requests)._configure_partitioning(storage)
+
+        assert root.format.options == "subvol=root"
+        assert home.format.options == "subvol=home"
