@@ -520,6 +520,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 12 2026 github-actions <github-actions@github.com> - 45.3-1
+- Set RHSM machine name based on user provided hostname (mkolman)
+
 * Tue May 05 2026 github-actions <github-actions@github.com> - 45.2-1
 - Increase GUI startup timeout to 120 seconds (mkolman)
 - Refactor remaining X timeout references (mkolman)
