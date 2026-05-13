@@ -530,16 +530,21 @@ class InstallFromImageTask(Task):
         if "to-chk=" not in line:
             return
 
-        try:
-            # second field has global progress
-            str_pct = line.split()[1]
-            if self._rsync_progress == str_pct:
-                return
-            self._rsync_progress = str_pct
-            log.debug("rsync progress: %s", self._rsync_progress)
-            self.report_progress(_("Installing software {}").format(self._rsync_progress))
-        except IndexError:
-            pass
+        # extract global progress
+        # we search for the token ending with '%' because depending on the locale
+        # rsync might use spaces as thousand separators for the number of bytes
+        str_pct = next((word for word in line.split() if word.endswith("%")), None)
+        if not str_pct:
+            return
+
+        if self._rsync_progress == str_pct:
+            return
+
+        self._rsync_progress = str_pct
+        log.debug("rsync progress: %s", self._rsync_progress)
+        # Use the same translation string as in InstallationProgress for consistency and better i18n.
+        # Since str_pct already contains '%', we strip it to match the expected format.
+        self.report_progress(_("Installing software {}%").format(self._rsync_progress.rstrip("%")))
 
 
 class RemoveImageTask(Task):
