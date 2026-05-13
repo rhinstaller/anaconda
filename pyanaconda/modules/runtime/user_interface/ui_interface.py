@@ -20,6 +20,11 @@
 from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from pykickstart.commands.displaymode import (
+    DISPLAY_MODE_CMDLINE,
+    DISPLAY_MODE_GRAPHICAL,
+    DISPLAY_MODE_TEXT,
+)
 
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -30,6 +35,18 @@ from pyanaconda.modules.common.structures.product import ProductData
 __all__ = ["UIInterface"]
 
 from pyanaconda.modules.common.structures.rdp import RdpData
+
+_INTERNAL_TO_DBUS_DISPLAY_MODE = {
+    DISPLAY_MODE_GRAPHICAL: DisplayModes.GUI.value,
+    DISPLAY_MODE_TEXT: DisplayModes.TUI.value,
+    DISPLAY_MODE_CMDLINE: "cmdline",
+}
+
+_DBUS_TO_INTERNAL_DISPLAY_MODE = {
+    DisplayModes.GUI.value: DisplayModes.GUI,
+    DisplayModes.TUI.value: DisplayModes.TUI,
+    "cmdline": DISPLAY_MODE_CMDLINE,
+}
 
 
 @dbus_interface(USER_INTERFACE.interface_name)
@@ -75,7 +92,10 @@ class UIInterface(KickstartModuleInterfaceTemplate):
 
         Possible values are "TUI", "GUI" and "cmdline".
         """
-        return self.implementation.display_mode
+        mode = self.implementation.display_mode
+        if isinstance(mode, DisplayModes):
+            return mode.value
+        return _INTERNAL_TO_DBUS_DISPLAY_MODE.get(mode, mode)
 
     @DisplayMode.setter
     @emits_properties_changed
@@ -85,7 +105,7 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         :param mode: The display mode as a string.
         """
         self.implementation.set_display_mode(
-            DisplayModes[mode]
+            _DBUS_TO_INTERNAL_DISPLAY_MODE[mode]
         )
 
     @property
