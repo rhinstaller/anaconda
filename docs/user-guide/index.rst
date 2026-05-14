@@ -13,6 +13,7 @@ Contents:
    kickstart
    ../rescue
    customization
+   ../anaconda-webui/docs/installation-steps
 
 Troubleshooting
 ---------------
