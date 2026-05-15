@@ -20,10 +20,19 @@ import os
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import INSTALLATION_PHASE_PREINSTALL, PAYLOAD_TYPE_DNF
 from pyanaconda.core.path import join_paths, make_directories
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
+
+# Mapping of certificate types to their default directories.
+CERT_TYPE_DIRS = {
+    "anchor": "/etc/pki/ca-trust/source/anchors/",
+}
+
+# Certificate types that require running update-ca-trust extract.
+CERT_TYPES_REQUIRING_UPDATE = {"anchor"}
 
 
 class ImportCertificatesTask(Task):
@@ -47,14 +56,23 @@ class ImportCertificatesTask(Task):
     def name(self):
         return "Import CA certificates"
 
+    @staticmethod
+    def _get_cert_dir(cert):
+        """Get the directory for a certificate based on its type."""
+        if cert.type and cert.type in CERT_TYPE_DIRS:
+            return CERT_TYPE_DIRS[cert.type]
+        return cert.dir
+
     def _dump_certificate(self, cert, root):
         """Dump the certificate into specified file and directory."""
-        if not cert.dir:
+        cert_dir = self._get_cert_dir(cert)
+
+        if not cert_dir:
             raise SecurityInstallationError(
                 "Certificate destination is missing for {}".format(cert.filename)
             )
 
-        dst_dir = join_paths(root, cert.dir)
+        dst_dir = join_paths(root, cert_dir)
         if not os.path.exists(dst_dir):
             log.debug("Path %s for certificate %s does not exist, creating.",
                       dst_dir, cert.filename)
@@ -69,6 +87,22 @@ class ImportCertificatesTask(Task):
             f.write(cert.cert)
             f.write('\n')
 
+    def _update_ca_trust(self):
+        """Run update-ca-trust extract to update the system trust store."""
+        update_cmd = join_paths(self._sysroot, "/usr/bin/update-ca-trust")
+        if not os.path.exists(update_cmd):
+            log.debug("update-ca-trust not found in %s, skipping trust store update.",
+                      self._sysroot)
+            return
+
+        log.debug("Running update-ca-trust extract in %s.", self._sysroot)
+        rc = execWithRedirect(
+            "update-ca-trust", ["extract"],
+            root=self._sysroot
+        )
+        if rc != 0:
+            log.warning("update-ca-trust extract failed with return code %d.", rc)
+
     def run(self):
         """Import CA certificates.
 
@@ -80,6 +114,23 @@ class ImportCertificatesTask(Task):
                           self._payload_type)
                 return
 
+        needs_update = False
+
         for cert in self._certificates:
-            log.debug("Importing certificate with filename: %s dir: %s", cert.filename, cert.dir)
+            # In the pre-install phase the target chroot is empty, so skip
+            # certificates that only make sense with a fully populated system
+            # (e.g. anchor type that needs update-ca-trust).
+            if self._phase == INSTALLATION_PHASE_PREINSTALL \
+                    and cert.type in CERT_TYPES_REQUIRING_UPDATE:
+                log.debug("Skipping type=%s certificate %s in pre-install phase.",
+                          cert.type, cert.filename)
+                continue
+
+            log.debug("Importing certificate with filename: %s dir: %s type: %s",
+                      cert.filename, cert.dir, cert.type)
             self._dump_certificate(cert, self._sysroot)
+            if cert.type in CERT_TYPES_REQUIRING_UPDATE:
+                needs_update = True
+
+        if needs_update:
+            self._update_ca_trust()

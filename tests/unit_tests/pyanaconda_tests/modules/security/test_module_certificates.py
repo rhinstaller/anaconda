@@ -20,6 +20,7 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
@@ -35,7 +36,10 @@ from pyanaconda.modules.security.certificates.certificates import CertificatesMo
 from pyanaconda.modules.security.certificates.certificates_interface import (
     CertificatesInterface,
 )
-from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
+from pyanaconda.modules.security.certificates.installation import (
+    CERT_TYPE_DIRS,
+    ImportCertificatesTask,
+)
 from tests.unit_tests.pyanaconda_tests import (
     check_dbus_property,
     check_task_creation,
@@ -84,21 +88,26 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
 
     @staticmethod
     def _get_dbus_certs(certs):
-        return [
-            {
+        result = []
+        for values in certs:
+            cert, filename, cdir = values[0], values[1], values[2]
+            ctype = values[3] if len(values) > 3 else ""
+            result.append({
                 'cert': get_variant(Str, cert),
                 'filename': get_variant(Str, filename),
-                'dir': get_variant(Str, cdir)
-            }
-            for cert, filename, cdir in certs
-        ]
+                'dir': get_variant(Str, cdir),
+                'type': get_variant(Str, ctype),
+            })
+        return result
 
     @staticmethod
     def _get_certs(certs_values):
         certs = []
         for values in certs_values:
             c = CertificateData()
-            c.cert, c.filename, c.dir = values
+            c.cert, c.filename, c.dir = values[0], values[1], values[2]
+            if len(values) > 3:
+                c.type = values[3]
             certs.append(c)
         return certs
 
@@ -174,8 +183,9 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
         assert c1 == (obj_c1.cert, obj_c1.filename, obj_c1.dir)
         assert c2 == (obj_c2.cert, obj_c2.filename, obj_c2.dir)
 
-    def _check_cert_file(self, cert, sysroot, is_missing=False):
-        cert_file = sysroot + cert.dir + "/" + cert.filename
+    def _check_cert_file(self, cert, sysroot, is_missing=False, expected_dir=None):
+        cert_dir = expected_dir or cert.dir
+        cert_file = sysroot + cert_dir + "/" + cert.filename
         if is_missing:
             assert os.path.exists(cert_file) is False
         else:
@@ -295,3 +305,121 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
                 phase=INSTALLATION_PHASE_PREINSTALL
             ).run()
             self._check_cert_file(c2, sysroot)
+
+    @patch("pyanaconda.modules.security.certificates.installation.execWithRedirect")
+    @patch("pyanaconda.modules.security.certificates.installation.os.path.exists")
+    def test_import_certificates_type_anchor(self, mock_exists, mock_exec):
+        """Test the ImportCertificatesTask with type=anchor"""
+        mock_exec.return_value = 0
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '', 'anchor'),
+        ])
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            # The cert dir doesn't exist yet, but update-ca-trust does
+            mock_exists.side_effect = lambda p: "update-ca-trust" in p
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=certs,
+            ).run()
+
+            # Certificate should be in the anchor directory, not cert.dir
+            expected_dir = CERT_TYPE_DIRS["anchor"]
+            self._check_cert_file(certs[0], sysroot, expected_dir=expected_dir)
+
+            # update-ca-trust extract should have been called
+            mock_exec.assert_called_once_with(
+                "update-ca-trust", ["extract"],
+                root=sysroot
+            )
+
+    @patch("pyanaconda.modules.security.certificates.installation.execWithRedirect")
+    @patch("pyanaconda.modules.security.certificates.installation.os.path.exists")
+    def test_import_certificates_type_anchor_ignores_dir(self, mock_exists, mock_exec):
+        """Test that type=anchor ignores the --dir option"""
+        mock_exec.return_value = 0
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '/etc/pki/custom/', 'anchor'),
+        ])
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            mock_exists.side_effect = lambda p: "update-ca-trust" in p
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=certs,
+            ).run()
+
+            # Certificate should be in the anchor directory, NOT /etc/pki/custom/
+            expected_dir = CERT_TYPE_DIRS["anchor"]
+            self._check_cert_file(certs[0], sysroot, expected_dir=expected_dir)
+
+    @patch("pyanaconda.modules.security.certificates.installation.execWithRedirect")
+    @patch("pyanaconda.modules.security.certificates.installation.os.path.exists")
+    def test_import_certificates_mixed_types(self, mock_exists, mock_exec):
+        """Test mixed certificates: one with type=anchor, one without"""
+        mock_exec.return_value = 0
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '', 'anchor'),
+            (CERT_RVTEST2, 'rvtest2.pem', '/etc/pki/custom/'),
+        ])
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            mock_exists.side_effect = lambda p: "update-ca-trust" in p
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=certs,
+            ).run()
+
+            # anchor cert in the anchor directory
+            self._check_cert_file(
+                certs[0], sysroot, expected_dir=CERT_TYPE_DIRS["anchor"]
+            )
+            # non-typed cert in its specified dir
+            self._check_cert_file(certs[1], sysroot)
+
+            # update-ca-trust extract should have been called (due to anchor)
+            mock_exec.assert_called_once()
+
+    @patch("pyanaconda.modules.security.certificates.installation.execWithRedirect")
+    def test_import_certificates_no_type_no_extract(self, mock_exec):
+        """Test that update-ca-trust extract is NOT called when no typed certs"""
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '/etc/pki/dir1'),
+        ])
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=certs,
+            ).run()
+
+            self._check_cert_file(certs[0], sysroot)
+            mock_exec.assert_not_called()
+
+    @patch("pyanaconda.modules.security.certificates.installation.execWithRedirect")
+    def test_import_certificates_type_anchor_skipped_in_preinstall(self, mock_exec):
+        """Test that type=anchor certificates are skipped in pre-install phase"""
+        certs = self._get_certs([
+            (CERT_RVTEST, 'rvtest.pem', '', 'anchor'),
+            (CERT_RVTEST2, 'rvtest2.pem', '/etc/pki/dir1'),
+        ])
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            ImportCertificatesTask(
+                sysroot=sysroot,
+                certificates=certs,
+                payload_type=PAYLOAD_TYPE_DNF,
+                phase=INSTALLATION_PHASE_PREINSTALL,
+            ).run()
+
+            # anchor cert should NOT be dumped
+            self._check_cert_file(
+                certs[0], sysroot,
+                expected_dir=CERT_TYPE_DIRS["anchor"],
+                is_missing=True,
+            )
+            # non-typed cert should still be dumped
+            self._check_cert_file(certs[1], sysroot)
+
+            # update-ca-trust should NOT have been called
+            mock_exec.assert_not_called()
