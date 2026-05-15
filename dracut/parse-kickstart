@@ -406,9 +406,28 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     return " ".join(line)
 
 
+# Mapping of certificate types to their default directories.
+CERT_TYPE_DIRS = {
+    "anchor": "/etc/pki/ca-trust/source/anchors/",
+}
+
+# Certificate types that are transported by type for post-switchroot import.
+CERT_TYPE_TRANSPORT_SUBDIRS = {
+    "anchor": "anchor",
+}
+
+
+def _get_cert_dir(cert):
+    """Get the directory for a certificate based on its type."""
+    cert_type = getattr(cert, 'type', None)
+    if cert_type and cert_type in CERT_TYPE_DIRS:
+        return CERT_TYPE_DIRS[cert_type]
+    return cert.dir
+
+
 def _dump_certificate(cert, root="/", dump_dir=None):
     """Dump the certificate into specified file."""
-    dump_dir = dump_dir or cert.dir
+    dump_dir = dump_dir or _get_cert_dir(cert)
     if not dump_dir:
         log.error("Certificate destination is missing for %s", cert.filename)
         return
@@ -442,13 +461,26 @@ def process_certificates(handler):
             log.error("Missing certificate file name, skipping.")
             continue
 
+        cert_type = getattr(cert, 'type', None)
+        if cert_type and cert_type not in CERT_TYPE_DIRS:
+            log.error("Unknown certificate type %s, skipping.", cert_type)
+            continue
+
         try:
             _dump_certificate(cert)
         except OSError as e:
             log.error("Dump of certificate %s failed: %s", cert.filename, e)
             continue
+
         # Dump for transport to switchroot
-        _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/path/")
+        if cert_type and cert_type in CERT_TYPE_TRANSPORT_SUBDIRS:
+            # Transport typed certificates in a type-specific subdirectory
+            # for post-switchroot import (e.g. anchor/ for CA trust anchors)
+            subdir = CERT_TYPE_TRANSPORT_SUBDIRS[cert_type]
+            _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/type/",
+                              dump_dir=subdir+"/")
+        else:
+            _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/path/")
 
 
 def process_kickstart(ksfile):

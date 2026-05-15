@@ -29,6 +29,7 @@ class CertificateData(DBusData):
         self._filename = ""
         self._cert = ""
         self._dir = ""
+        self._type = ""
 
     @property
     def filename(self) -> Str:
@@ -56,3 +57,12 @@ class CertificateData(DBusData):
     @dir.setter
     def dir(self, value: Str) -> None:
         self._dir = value
+
+    @property
+    def type(self) -> Str:
+        """The certificate type (e.g. "anchor")."""
+        return self._type
+
+    @type.setter
+    def type(self, value: Str) -> None:
+        self._type = value
