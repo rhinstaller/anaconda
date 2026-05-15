@@ -416,6 +416,15 @@ CERT_TYPE_TRANSPORT_SUBDIRS = {
     "anchor": "anchor",
 }
 
+# The CA bundle file to append trusted certificates to in the initramfs.
+# In the initramfs we cannot run update-ca-trust extract (p11-kit trust
+# module is not available), so we append directly to the bundle instead.
+# NOTE: the certificate may be appended multiple times if parse-kickstart
+# is run more than once. This is harmless, and the bundle is only used
+# in the initramfs. After switchroot the trust store is properly built
+# by anaconda-import-initramfs-certs service.
+CA_BUNDLE_PATH = "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+
 
 def _get_cert_dir(cert):
     """Get the directory for a certificate based on its type."""
@@ -446,6 +455,27 @@ def _dump_certificate(cert, root="/", dump_dir=None):
     with open(dst, 'w') as f:
         f.write(cert.cert)
         f.write('\n')
+
+
+def _append_to_ca_bundle(certificates):
+    """Append anchor certificates to the CA bundle in the initramfs."""
+    if not os.path.exists(CA_BUNDLE_PATH):
+        log.warning("CA bundle %s not found, skipping trust store update.", CA_BUNDLE_PATH)
+        return
+
+    for cert in certificates:
+        cert_type = getattr(cert, 'type', None)
+        if cert_type not in CERT_TYPE_TRANSPORT_SUBDIRS:
+            continue
+        log.info("Appending certificate %s to %s.", cert.filename, CA_BUNDLE_PATH)
+        try:
+            with open(CA_BUNDLE_PATH, 'a') as f:
+                f.write('\n')
+                f.write(cert.cert)
+                f.write('\n')
+        except OSError as e:
+            log.error("Failed to append certificate %s to CA bundle: %s",
+                      cert.filename, e)
 
 
 def process_certificates(handler):
@@ -481,6 +511,10 @@ def process_certificates(handler):
                               dump_dir=subdir+"/")
         else:
             _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/path/")
+
+    # Append anchor certificates to the CA bundle so they are trusted
+    # immediately in the initramfs (e.g. for fetching repo over HTTPS).
+    _append_to_ca_bundle(handler.certificates)
 
 
 def process_kickstart(ksfile):

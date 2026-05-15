@@ -34,6 +34,7 @@ EwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMAoGCCqGSM49BAMCA0gAMEUCIAet
 yNWXfdraC/AfMM8fqsxlVJM=
 -----END CERTIFICATE-----"""
 
+CERT_TRANSPORT_DIR = "/run/install/certificates"
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
@@ -281,7 +282,6 @@ class ParseKickstartTestCase(BaseTestCase):
         self._check_cert_file(cert_file, content)
 
         # Check existence for file for transport to root
-        CERT_TRANSPORT_DIR = "/run/install/certificates"
         transport_file = os.path.join(CERT_TRANSPORT_DIR, cert_file)
         self._check_cert_file(transport_file, content)
 
@@ -309,6 +309,37 @@ class ParseKickstartTestCase(BaseTestCase):
         self._check_cert_file(cert_file, content)
 
         # Check existence for file for transport to root
-        CERT_TRANSPORT_DIR = "/run/install/certificates"
         transport_file = os.path.join(CERT_TRANSPORT_DIR, cert_file)
         self._check_cert_file(transport_file, content)
+
+    def test_certificate_anchor(self):
+        filename = "rvtest2.pem"
+        content = CERT_CONTENT
+        ks_cert = f"""
+%certificate --filename={filename} --type=anchor
+{content}
+%end
+"""
+        EXPECTED_TYPE_DIR = "/etc/pki/ca-trust/source/anchors/"
+        cert_file = os.path.join(EXPECTED_TYPE_DIR, filename)
+
+        CA_BUNDLE_PATH = "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+
+        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
+            ks_file.write(ks_cert)
+            ks_file.flush()
+            lines = self.execParseKickstart(ks_file.name)
+            assert lines == []
+
+        self._check_cert_file(cert_file, content)
+
+        # Check existence for file for transport to root
+        CERT_TYPE_TRANSPORT_SUBDIR = "anchor"
+        transport_file = os.path.join(CERT_TRANSPORT_DIR+"/type/"+CERT_TYPE_TRANSPORT_SUBDIR, filename)
+        self._check_cert_file(transport_file, content)
+
+        # Check that the certificate was appended to the CA bundle
+        with open(CA_BUNDLE_PATH) as f:
+            bundle = f.read()
+        assert bundle.rstrip().endswith(content), \
+            "Certificate not found at the end of CA bundle"
