@@ -26,6 +26,7 @@ from pykickstart.constants import (
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
@@ -34,6 +35,7 @@ from pyanaconda.modules.storage.constants import InitializationMode
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import (
     DiskInitializationInterface,
 )
+from pyanaconda.modules.storage.kickstart import get_device_names
 
 log = get_module_logger(__name__)
 
@@ -96,8 +98,20 @@ class DiskInitializationModule(KickstartBaseModule):
         mode = self._map_clearpart_type(data.clearpart.type)
         self.set_initialization_mode(mode)
 
-        self.set_devices_to_clear(data.clearpart.devices)
-        self.set_drives_to_clear(data.clearpart.drives)
+        devices = get_device_names(
+            data.clearpart.devices,
+            disks_only=False,
+            lineno=data.clearpart.lineno,
+            msg=_('Device "{}" given in clearpart device list does not exist.'),
+        )
+        drives = get_device_names(
+            data.clearpart.drives,
+            disks_only=True,
+            lineno=data.clearpart.lineno,
+            msg=_('Disk "{}" given in clearpart command does not exist.'),
+        )
+        self.set_devices_to_clear(devices)
+        self.set_drives_to_clear(drives)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
