@@ -19,6 +19,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
@@ -28,6 +29,7 @@ from pyanaconda.modules.storage.disk_selection.selection_interface import (
     DiskSelectionInterface,
 )
 from pyanaconda.modules.storage.disk_selection.utils import check_disk_selection
+from pyanaconda.modules.storage.kickstart import get_device_names
 
 log = get_module_logger(__name__)
 
@@ -74,10 +76,27 @@ class DiskSelectionModule(KickstartBaseModule):
         DBus.publish_object(DISK_SELECTION.object_path, DiskSelectionInterface(self))
 
     def process_kickstart(self, data):
-        """Process the kickstart data."""
-        self.set_selected_disks(data.ignoredisk.onlyuse)
-        self.set_exclusive_disks(data.ignoredisk.onlyuse)
-        self.set_ignored_disks(data.ignoredisk.ignoredisk)
+        """Process the kickstart data.
+
+        Resolve device specs to actual device names here rather than
+        in IgnoreDisk.parse(), so that iSCSI/zFCP/FCoE disks created
+        during parsing are available regardless of command order.
+        """
+        onlyuse = get_device_names(
+            data.ignoredisk.onlyuse,
+            disks_only=True,
+            lineno=data.ignoredisk.lineno,
+            msg=_('Disk "{}" given in ignoredisk command does not exist.'),
+        )
+        ignored = get_device_names(
+            data.ignoredisk.ignoredisk,
+            disks_only=True,
+            lineno=data.ignoredisk.lineno,
+            msg=_('Disk "{}" given in ignoredisk command does not exist.'),
+        )
+        self.set_selected_disks(onlyuse)
+        self.set_exclusive_disks(onlyuse)
+        self.set_ignored_disks(ignored)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
