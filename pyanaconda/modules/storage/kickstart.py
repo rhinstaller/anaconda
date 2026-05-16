@@ -101,60 +101,44 @@ class AutoPart(COMMANDS.AutoPart):
 
 
 class ClearPart(COMMANDS.ClearPart):
-    """The clearpart kickstart command."""
+    """The clearpart kickstart command.
+
+    Device name resolution (glob expansion via get_device_names) is
+    deferred to DiskInitializationModule.process_kickstart() so that
+    iSCSI, zFCP, and FCoE disks created during parsing are available
+    regardless of command ordering in the kickstart file.
+
+    Note: after this change, glob patterns like ``clearpart --drives=sd*``
+    that appear before ``iscsi`` will now resolve after iSCSI disks are
+    available, potentially matching more devices than before. This is the
+    correct behavior but differs from the old parse-order-dependent
+    resolution.
+    """
 
     def parse(self, args):
-        """Parse the command.
-
-        Do any glob expansion now, since we need to have the real
-        list of disks available before the execute methods run.
-        """
+        """Parse the command."""
         retval = super().parse(args)
 
-        # Set the default type.
-        if self.type is None:
-            self.type = CLEARPART_TYPE_NONE
+        if retval.type is None:
+            retval.type = CLEARPART_TYPE_NONE
 
-        # Check the disk label.
         if self.disklabel and self.disklabel not in DiskLabel.get_platform_label_types():
             raise KickstartParseError(_("Disklabel \"{}\" given in clearpart command is not "
                                         "supported on this platform.").format(self.disklabel),
                                       lineno=self.lineno)
 
-        # Get the disks names to clear.
-        self.drives = get_device_names(self.drives, disks_only=True, lineno=self.lineno,
-                                       msg=_("Disk \"{}\" given in clearpart command does "
-                                             "not exist."))
-
-        # Get the devices names to clear.
-        self.devices = get_device_names(self.devices, disks_only=False, lineno=self.lineno,
-                                        msg=_("Device \"{}\" given in clearpart device list "
-                                              "does not exist."))
-
         return retval
 
 
 class IgnoreDisk(COMMANDS.IgnoreDisk):
-    """The ignoredisk kickstart command."""
+    """The ignoredisk kickstart command.
 
-    def parse(self, args):
-        """Parse the command.
+    Device name resolution (glob expansion via get_device_names) is
+    deferred to DiskSelectionModule.process_kickstart() so that iSCSI,
+    zFCP, and FCoE disks created during parsing are available regardless
+    of command ordering in the kickstart file.
+    """
 
-        Do any glob expansion now, since we need to have the real
-        list of disks available before the execute methods run.
-        """
-        retval = super().parse(args)
-
-        # Get the ignored disk names.
-        self.ignoredisk = get_device_names(self.ignoredisk, disks_only=True, lineno=self.lineno,
-                                           msg=_("Disk \"{}\" given in ignoredisk command does "
-                                                 "not exist."))
-
-        # Get the selected disk names.
-        self.onlyuse = get_device_names(self.onlyuse, disks_only=True, lineno=self.lineno,
-                                        msg=_("Disk \"{}\" given in ignoredisk command does "
-                                              "not exist."))
-        return retval
 
 
 class Fcoe(COMMANDS.Fcoe):
