@@ -306,6 +306,14 @@ explicit user confirmation before starting installation.
 
 Without this option, the installer will advance automatically once configuration is complete.
 
+.. note::
+
+   ``inst.pauseatsummary`` should be treated as mutually exclusive with
+   ``inst.noninteractive``. Non-interactive mode does not allow user
+   interaction, while pausing at the installation summary requires explicit
+   confirmation before installation begins. Combining these boot options is
+   not a supported configuration.
+
 Network Options
 ---------------
 
@@ -514,6 +522,12 @@ inst.noninteractive
 Run the installer in a non-interactive mode. This mode does not allow any
 user interaction and can be used with graphical or text mode. With text
 mode it behaves the same as the ``inst.cmdline`` mode.
+
+.. note::
+
+   Do not combine ``inst.noninteractive`` with ``inst.pauseatsummary``. The
+   latter waits on the installation summary for user confirmation, which
+   conflicts with non-interactive mode.
 
 .. inst.resolution:
 
