@@ -7,8 +7,8 @@ EXCLUDE_PATTERNS="*unit_tests*"
 IGNORE_NAMES="""
 option_string # Used when creating custom actions for argparse
 """
-# replace new line with commas and delete comments
-IGNORE_NAMES=$(echo "$IGNORE_NAMES" | tr '\n' ',' | sed 's/#.*//')
+# Strip comments per line, then join names with commas (no leading comma or spaces).
+IGNORE_NAMES=$(echo "$IGNORE_NAMES" | sed 's/#.*//' | tr -s '[:space:]' '\n' | sed '/^$/d' | paste -sd,)
 
 # If $top_srcdir has not been set by automake, detect it
 if [ -z "$top_srcdir" ]; then
