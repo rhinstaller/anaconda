@@ -267,7 +267,7 @@ class AnacondaLog:
 
             self.anaconda_logger.debug("GLib: %s", message)
 
-        def structured_log_adapter(level, fields, field_count, user_data):
+        def structured_log_adapter(level, fields, field_count, user_data):  # noqa: F841
             message = log_writer_format_fields(level, fields, True)
             self.anaconda_logger.debug("GLib: %s", message)
             return LogWriterOutput.HANDLED
