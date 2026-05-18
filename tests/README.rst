@@ -121,9 +121,10 @@ __________________________________________________________
 
 3. Do your required changes in the container (install pykickstart in this example)::
 
+      rpm -e --nodeps python3-kickstart
       cd /pykickstart && make install DESTDIR=/
 
-4. Commit the changed container as updated one. **DO NOT exit the running container, run this command in new terminal!**
+4. Commit the changed container as updated one. **DO NOT exit the running container, run this command in new terminal!**::
 
       podman commit cnt-add quay.io/rhinstaller/anaconda-ci:latest
 
