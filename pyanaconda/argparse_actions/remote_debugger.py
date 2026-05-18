@@ -51,7 +51,7 @@ class ParseRemoteDebugger(Action):
 
         return sorted(modules)
 
-    def __call__(self, parser, namespace, values, option_string=None):
+    def __call__(self, parser, namespace, values, option_string=None):  # noqa: F841
         """Parse remote debugger configuration.
 
         Format: moduleName:port or all:startPort-endPort
