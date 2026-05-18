@@ -182,14 +182,13 @@ def check_rd_can_be_started(anaconda):
     return rd_startup_possible, error_messages
 
 
-def do_startup_wl_actions(timeout, headless=False, headless_resolution=None):
+def do_startup_wl_actions(timeout, headless=False):
     """Start the Wayland compositor.
 
     Add XDG_DATA_DIRS to the environment to pull in our overridden schema
     files.
 
     :param bool headless: start a headless session (used for RDP access)
-    :param str headless_resolution: headless virtual monitor resolution in WxH format
     """
     datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
     if 'XDG_DATA_DIRS' in os.environ:
@@ -418,7 +417,7 @@ def setup_display(anaconda, options):
 
     # if they want us to use RDP do that now
     if anaconda.gui_mode and flags.use_rd:
-        do_startup_wl_actions(wayland_timeout, headless=True, headless_resolution=options.runres)
+        do_startup_wl_actions(wayland_timeout, headless=True)
         grd_server = GRDServer(anaconda)  # The RDP server object
         grd_server.rdp_username = rdp_creds.username
         grd_server.rdp_password = rdp_creds.password
