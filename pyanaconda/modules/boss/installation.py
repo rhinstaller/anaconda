@@ -18,6 +18,7 @@
 import glob
 import os.path
 import shutil
+from threading import Event
 
 from pykickstart.constants import (
     KS_SCRIPT_POST,
@@ -74,6 +75,7 @@ from pyanaconda.modules.common.constants.services import (
 from pyanaconda.modules.common.task import Task as InstallationTask
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.core.signal import Signal
 
 log = get_module_logger(__name__)
 
@@ -291,6 +293,31 @@ class SetContextsTask(InstallationTask):
             log.warning("Cannot restore contexts because restorecon was not installed.")
 
 
+class _RemoteErrorUI:
+    """Error UI proxy that forwards dialog calls to the real UI over D-Bus.
+
+    This is used in the Boss process where errorHandler.ui is not set.
+    It forwards showYesNoQuestion, showDetailedError, and showError
+    calls via the RunInstallationTask's error_raised_signal, blocking
+    until the UI responds via answer_error.
+    """
+
+    def __init__(self, task):
+        self._task = task
+
+    def showYesNoQuestion(self, message):
+        return self._task._show_dialog(message, "yesno")
+
+    def showDetailedError(self, message, details, buttons=None):
+        full_message = message
+        if details:
+            full_message += "\n\n" + details
+        return self._task._show_dialog(full_message, "yesno")
+
+    def showError(self, message):
+        self._task._show_dialog(message, "error")
+
+
 class RunInstallationTask(InstallationTask):
     """Task to run the installation queue."""
 
@@ -300,6 +327,37 @@ class RunInstallationTask(InstallationTask):
         super().__init__()
         self._total_steps = 0
         self._install_manager = install_manager
+        self._error_raised_signal = Signal()
+        self._error_response_event = Event()
+        self._error_answer = False
+
+    @property
+    def error_raised_signal(self):
+        """Signal emitted when an error needs user interaction.
+
+        Carries the error message string and the dialog type.
+        """
+        return self._error_raised_signal
+
+    def _show_dialog(self, message, dialog_type):
+        """Emit error signal and block until UI responds.
+
+        :param message: the error message to display
+        :param dialog_type: "yesno" for a yes/no question,
+            "error" for a fatal error dialog
+        """
+        self._error_response_event.clear()
+        self._error_raised_signal.emit(message, dialog_type)
+        self._error_response_event.wait()
+        return self._error_answer
+
+    def answer_error(self, answer):
+        """Provide the user's answer to the error question.
+
+        :param answer: True to continue, False to abort.
+        """
+        self._error_answer = answer
+        self._error_response_event.set()
 
     @property
     def name(self):
@@ -747,6 +805,8 @@ class RunInstallationTask(InstallationTask):
 
     def _run_installation(self):
         """Run the complete installation."""
+        from pyanaconda.errors import errorHandler
+
         queue = TaskQueue("Complete installation queue")
         queue.append(self._prepare_installation())
         queue.append(self._prepare_configuration())
@@ -779,8 +839,17 @@ class RunInstallationTask(InstallationTask):
                                 next(task_completed_counter), x.elapsed_time)
         )
 
-        # start the task queue
-        queue.start()
+        # Set up error handler UI for the Boss process.
+        # The errorHandler.ui is not set in the Boss process (no UI),
+        # so we provide a proxy that forwards dialog calls to the
+        # real UI over D-Bus signals.
+        previous_ui = errorHandler.ui
+        errorHandler.ui = _RemoteErrorUI(self)
+        try:
+            # start the task queue
+            queue.start()
+        finally:
+            errorHandler.ui = previous_ui
 
         # done
         self.report_progress(_("Complete!"), step_number=self.steps)
