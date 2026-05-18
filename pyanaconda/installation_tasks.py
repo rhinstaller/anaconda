@@ -28,6 +28,10 @@ from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.core.signal import Signal
 from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+)
 from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.task import sync_run_task
 
@@ -281,6 +285,7 @@ class DBusTask(BaseTask):
         """
         super().__init__(task_proxy.Name)
         self._task_proxy = task_proxy
+        self._error_handler = None
 
     @property
     def summary(self):
@@ -306,6 +311,12 @@ class DBusTask(BaseTask):
                 errorHandler.cb(e)
                 util.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
+            elif isinstance(e, NonCriticalInstallationError):
+                if self._error_handler and hasattr(self._error_handler, 'report_error'):
+                    if not self._error_handler.report_error(str(e)):
+                        raise PayloadInstallationError(str(e)) from e
+                else:
+                    log.warning("Non-critical error (no error handler): %s", e)
             else:
                 if errorHandler.cb(e) == ERROR_RAISE:
                     raise

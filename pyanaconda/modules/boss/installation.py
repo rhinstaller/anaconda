@@ -18,6 +18,7 @@
 import glob
 import os.path
 import shutil
+import threading
 
 from pykickstart.constants import (
     KS_SCRIPT_POST,
@@ -28,6 +29,7 @@ from pykickstart.constants import (
 from pyanaconda import flags, network
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     CATEGORY_BOOTLOADER,
@@ -45,6 +47,7 @@ from pyanaconda.core.path import (
     open_with_perm,
 )
 from pyanaconda.core.service import is_service_installed
+from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect, restorecon
 from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
 from pyanaconda.kexec import setup_kexec
@@ -300,6 +303,9 @@ class RunInstallationTask(InstallationTask):
         super().__init__()
         self._total_steps = 0
         self._install_manager = install_manager
+        self._error_raised_signal = Signal()
+        self._error_event = threading.Event()
+        self._error_should_continue = False
 
     @property
     def name(self):
@@ -331,6 +337,39 @@ class RunInstallationTask(InstallationTask):
     def _progress_report_cb(self, step, message):
         """Handle a progress report of a task."""
         self.report_progress(message)
+
+    @property
+    def error_raised_signal(self):
+        """Signal emitted when a non-critical error needs a user decision."""
+        return self._error_raised_signal
+
+    def report_error(self, error_message):
+        """Emit an error signal and block until the UI responds.
+
+        :param str error_message: description of the non-critical error
+        :return: True if the user chose to continue, False to abort
+        :rtype: bool
+        """
+        self._error_event.clear()
+        self._error_should_continue = False
+        self._report_error_emit(error_message)
+        self._error_event.wait()
+        return self._error_should_continue
+
+    @async_action_nowait
+    def _report_error_emit(self, error_message):
+        """Emit the error signal from the GLib main loop."""
+        self._error_raised_signal.emit(error_message)
+
+    def respond_to_error(self, should_continue):
+        """Respond to a previously reported error.
+
+        Called by the UI via DBus to unblock the installation thread.
+
+        :param bool should_continue: True to continue, False to abort
+        """
+        self._error_should_continue = should_continue
+        self._error_event.set()
 
     def _prepare_configuration(self):
         """Prepare queue with tasks configuring installed system."""
@@ -754,11 +793,12 @@ class RunInstallationTask(InstallationTask):
         # notify progress tracking about the number of steps
         self._total_steps = queue.task_count
 
-        # Set the progress reporting callback of the DBus tasks.
+        # Set the progress reporting callback and error handler of the DBus tasks.
         # FIXME: This is a temporary workaround.
         for item in queue.nested_items:
             if isinstance(item, DBusTask):
                 item._progress_cb = self._progress_report_cb
+                item._error_handler = self
 
         # log contents of the main task queue
         log.info(queue.summary)

@@ -34,6 +34,7 @@ class CategoryReportTaskInterface(TaskInterface):
     def connect_signals(self):
         super().connect_signals()
         self.implementation.category_changed_signal.connect(self.CategoryChanged)
+        self.implementation.error_raised_signal.connect(self.ErrorRaised)
 
     @dbus_signal
     def CategoryChanged(self, category: Str):
@@ -43,3 +44,23 @@ class CategoryReportTaskInterface(TaskInterface):
         InstallationCategories for info about a category indexes.
         """
         pass
+
+    @dbus_signal
+    def ErrorRaised(self, error_message: Str):
+        """Signal emitted when a non-critical error needs a user decision.
+
+        The UI should display the error and call RespondToError to unblock
+        the installation thread.
+
+        :param error_message: description of the non-critical error
+        """
+        pass
+
+    def RespondToError(self, should_continue: Bool):
+        """Respond to a previously emitted ErrorRaised signal.
+
+        Call this after receiving ErrorRaised to unblock the installation.
+
+        :param should_continue: True to continue, False to abort
+        """
+        self.implementation.respond_to_error(should_continue)
