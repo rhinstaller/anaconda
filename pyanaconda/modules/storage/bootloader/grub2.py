@@ -322,6 +322,17 @@ class GRUB2(BootLoader):
         except (BootLoaderError, OSError, RuntimeError) as e:
             log.error("boot loader password setup failed: %s", e)
 
+         # Create the grubenv file. The grubenv file will be created differently
+         # depending on the file system type where it is created. Therefore create
+         # it at the final destination.
+         rc = util.execWithRedirect(
+             "grub2-editenv",
+             ["-", "create"],
+             root=conf.target.system_root
+         )
+         if rc:
+             log.error("failed to create the grubenv file")
+
         # make sure the default entry is the OS we are installing
         if self.default is not None:
             machine_id_path = conf.target.system_root + "/etc/machine-id"
