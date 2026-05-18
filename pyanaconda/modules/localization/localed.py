@@ -269,7 +269,7 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         # to reflect updates from the compositor
         self._localed_proxy.PropertiesChanged.connect(self._on_properties_changed)
 
-    def _on_properties_changed(self, interface, changed_props, invalid_props):
+    def _on_properties_changed(self, interface, changed_props, invalid_props):  # noqa: F841
         if "X11Layout" in changed_props or "X11Variant" in changed_props:
             layouts_variants = self._from_localed_format(changed_props["X11Layout"].get_string(),
                                                          changed_props["X11Variant"].get_string())
