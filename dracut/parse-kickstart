@@ -406,9 +406,37 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     return " ".join(line)
 
 
+# Mapping of certificate types to their default directories.
+CERT_TYPE_DIRS = {
+    "anchor": "/etc/pki/ca-trust/source/anchors/",
+}
+
+# Certificate types that are transported by type for post-switchroot import.
+CERT_TYPE_TRANSPORT_SUBDIRS = {
+    "anchor": "anchor",
+}
+
+# The CA bundle file to append trusted certificates to in the initramfs.
+# In the initramfs we cannot run update-ca-trust extract (p11-kit trust
+# module is not available), so we append directly to the bundle instead.
+# NOTE: This is not idempotent - the certificate may be appended multiple
+# times if parse-kickstart is run more than once. This is harmless as the
+# bundle is only used in the initramfs; after switchroot the trust store
+# is properly rebuilt by anaconda-import-initramfs-certs service.
+CA_BUNDLE_PATH = "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+
+
+def _get_cert_dir(cert):
+    """Get the directory for a certificate based on its type."""
+    cert_type = getattr(cert, 'type', None)
+    if cert_type and cert_type in CERT_TYPE_DIRS:
+        return CERT_TYPE_DIRS[cert_type]
+    return cert.dir
+
+
 def _dump_certificate(cert, root="/", dump_dir=None):
     """Dump the certificate into specified file."""
-    dump_dir = dump_dir or cert.dir
+    dump_dir = dump_dir or _get_cert_dir(cert)
     if not dump_dir:
         log.error("Certificate destination is missing for %s", cert.filename)
         return
@@ -429,6 +457,27 @@ def _dump_certificate(cert, root="/", dump_dir=None):
         f.write('\n')
 
 
+def _append_to_ca_bundle(certificates):
+    """Append anchor certificates to the CA bundle in the initramfs."""
+    if not os.path.exists(CA_BUNDLE_PATH):
+        log.warning("CA bundle %s not found, skipping trust store update.", CA_BUNDLE_PATH)
+        return
+
+    for cert in certificates:
+        cert_type = getattr(cert, 'type', None)
+        if cert_type not in CERT_TYPE_TRANSPORT_SUBDIRS:
+            continue
+        log.info("Appending certificate %s to %s.", cert.filename, CA_BUNDLE_PATH)
+        try:
+            with open(CA_BUNDLE_PATH, 'a') as f:
+                f.write('\n')
+                f.write(cert.cert)
+                f.write('\n')
+        except OSError as e:
+            log.error("Failed to append certificate %s to CA bundle: %s",
+                      cert.filename, e)
+
+
 def process_certificates(handler):
     """Import certificates defined in %certificate sections."""
     # NOTE: parse-kickstart can be run multiple times so either the processing
@@ -447,8 +496,21 @@ def process_certificates(handler):
         except OSError as e:
             log.error("Dump of certificate %s failed: %s", cert.filename, e)
             continue
+
         # Dump for transport to switchroot
-        _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/path/")
+        cert_type = getattr(cert, 'type', None)
+        if cert_type and cert_type in CERT_TYPE_TRANSPORT_SUBDIRS:
+            # Transport typed certificates in a type-specific subdirectory
+            # for post-switchroot import (e.g. anchor/ for CA trust anchors)
+            subdir = CERT_TYPE_TRANSPORT_SUBDIRS[cert_type]
+            _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/type/",
+                              dump_dir=subdir+"/")
+        else:
+            _dump_certificate(cert, root=CERT_TRANSPORT_DIR+"/path/")
+
+    # Append anchor certificates to the CA bundle so they are trusted
+    # immediately in the initramfs (e.g. for fetching repo over HTTPS).
+    _append_to_ca_bundle(handler.certificates)
 
 
 def process_kickstart(ksfile):

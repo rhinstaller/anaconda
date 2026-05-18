@@ -36,7 +36,7 @@ SITE_PACKAGES_PATH = "./usr/lib64/python3.14/site-packages/"
 
 # Anaconda scripts that should be installed into the libexec folder
 LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates", "anaconda-pre-log-gen",
-                   "run-in-new-session"]
+                   "run-in-new-session", "anaconda-import-initramfs-certs"]
 
 # Anaconda scripts that should be installed into /usr/bin
 USR_BIN_SCRIPTS = ["anaconda-disable-nm-ibft-plugin", "anaconda-nm-disable-autocons"]
