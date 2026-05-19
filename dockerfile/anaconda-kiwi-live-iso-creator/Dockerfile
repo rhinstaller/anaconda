@@ -19,6 +19,9 @@ RUN set -ex; \
     kiwi-cli \
     kiwi-systemdeps \
     kiwi-boxed-plugin \
+    # Workaround for cerberus pkg_resources import via kiwi-boxed-plugin
+    # Remove once python3-cerberus or kiwi-boxed-plugin Requires python3-pkg-resources
+    python3-pkg-resources \
     distribution-gpg-keys \
     createrepo_c \
     git && \
