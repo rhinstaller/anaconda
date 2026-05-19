@@ -520,6 +520,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 19 2026 github-actions <github-actions@github.com> - 45.4-1
+- webui: hide network screen on Fedora KDE (Live ISO) (rvykydal)
+- webui: hide network screen on Fedora Workstation (Live ISO) (rvykydal)
+
 * Tue May 12 2026 github-actions <github-actions@github.com> - 45.3-1
 - Set RHSM machine name based on user provided hostname (mkolman)
 
