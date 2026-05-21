@@ -426,6 +426,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 21 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.16-1
+- storage: fix ignoredisk/clearpart ordering with iSCSI disks (bciconel)
+  Resolves: RHEL-138837
+  Related: INSTALLER-4044
+
 * Wed May 06 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.15-1
 - Increase GUI startup timeout to 120 seconds (mkolman)
   Related: RHEL-148965
