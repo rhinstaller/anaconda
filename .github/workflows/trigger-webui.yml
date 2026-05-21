@@ -83,7 +83,7 @@ jobs:
           TEST_OS="${{ matrix.release }}-boot"
 
           bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
-          bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/efi-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
+          bots/tests-trigger --force --repo $REPO $PR_NUMBER $TEST_OS/bios-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui
 
       - name: Send a PR comment that the bots/tests-trigger needs to be manually triggered
         env:
@@ -97,7 +97,7 @@ jobs:
           echo "Only members of the Anaconda team can trigger the Web UI tests for this PR. Since you do not have permission, please ask an Anaconda team member to run the following commands:" > comment.txt
           echo '```bash' >> comment.txt
           echo "bots/tests-trigger --force --repo ${REPO} ${PR_NUMBER} ${TEST_OS}/anaconda-pr-${PR_NUMBER}@rhinstaller/anaconda-webui" >> comment.txt
-          echo "bots/tests-trigger --force --repo ${REPO} ${PR_NUMBER} ${TEST_OS}/efi-anaconda-pr-${PR_NUMBER}@rhinstaller/anaconda-webui" >> comment.txt
+          echo "bots/tests-trigger --force --repo ${REPO} ${PR_NUMBER} ${TEST_OS}/bios-anaconda-pr-${PR_NUMBER}@rhinstaller/anaconda-webui" >> comment.txt
           echo '```' >> comment.txt
 
           gh pr comment "$PR_NUMBER" --repo "$REPO" -F comment.txt
