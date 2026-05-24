@@ -25,12 +25,14 @@ from blivet.size import Size
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.modules.storage.platform import (
     ARM,
+    ArmEFI,
     EFI,
     PS3,
     RISCV64,
     RISCV64EFI,
     S390,
     X86,
+    X86EFI,
     Aarch64EFI,
     IPSeriesPPC,
     NewWorldPPC,
@@ -568,3 +570,41 @@ class PlatformTestCase(unittest.TestCase):
             get_platform()
 
         assert str(cm.value) == "Could not determine system architecture."
+
+
+class EFIFallbackFilenameTestCase(unittest.TestCase):
+    """Test the fallback_efi_filename attribute on EFI platform classes.
+
+    The UEFI specification defines a fixed fallback path per architecture
+    (e.g. /EFI/BOOT/BOOTX64.EFI for x86_64).  Each EFI Platform subclass
+    declares the correct filename so that the bootloader code can look it up
+    without sniffing the binary name at runtime.
+    """
+
+    def test_efi_base_fallback_filename(self):
+        """EFI base class defaults to the x86_64 fallback filename."""
+        assert EFI.fallback_efi_filename == "BOOTX64.EFI"
+
+    @patch("builtins.open",
+           unittest.mock.mock_open(read_data="64\n"))
+    def test_x86efi_fallback_filename_64bit(self):
+        """X86EFI returns BOOTX64.EFI when firmware is 64-bit."""
+        assert X86EFI().fallback_efi_filename == "BOOTX64.EFI"
+
+    @patch("builtins.open",
+           unittest.mock.mock_open(read_data="32\n"))
+    def test_x86efi_fallback_filename_32bit(self):
+        """X86EFI returns BOOTIA32.EFI when firmware is 32-bit."""
+        assert X86EFI().fallback_efi_filename == "BOOTIA32.EFI"
+
+    def test_aarch64efi_fallback_filename(self):
+        """Aarch64EFI uses the AArch64-specific fallback filename."""
+        assert Aarch64EFI.fallback_efi_filename == "BOOTAA64.EFI"
+
+    def test_armefi_fallback_filename(self):
+        """ArmEFI uses the ARM 32-bit-specific fallback filename."""
+        assert ArmEFI.fallback_efi_filename == "BOOTARM.EFI"
+
+    def test_riscv64efi_fallback_filename(self):
+        """RISCV64EFI uses the RISC-V 64-bit-specific fallback filename."""
+        assert RISCV64EFI.fallback_efi_filename == "BOOTRISCV64.EFI"

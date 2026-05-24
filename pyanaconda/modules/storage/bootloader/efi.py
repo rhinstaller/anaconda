@@ -17,6 +17,7 @@
 #
 import os
 import re
+import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
@@ -28,6 +29,7 @@ from pyanaconda.core.product import get_product_name
 from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
 from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
+from pyanaconda.modules.storage.platform import platform
 
 log = get_module_logger(__name__)
 
@@ -45,6 +47,11 @@ __all__ = [
 
 class EFIBase:
     """A base class for EFI-based boot loaders."""
+
+    # Set to True by _add_single_efi_boot_target() when efibootmgr fails so
+    # that write() can trigger the fallback install AFTER write_config() has
+    # fully updated the vendor EFI tree.
+    _fallback_efi_needed = False
 
     @property
     def efi_config_dir(self):
@@ -104,8 +111,79 @@ class EFIBase:
             root=conf.target.system_root
         )
         if rc != 0:
-            raise BootLoaderError("Failed to set new efi boot target. This is most "
-                                  "likely a kernel or firmware bug.")
+            log.warning(
+                "Failed to add EFI boot entry for %s (efibootmgr returned %s). "
+                "This is often caused by Secure Boot or firmware limitations. "
+                "A fallback bootloader entry will be installed at /EFI/BOOT/%s.",
+                get_product_name().split("-")[0], rc,
+                platform.fallback_efi_filename
+            )
+            self._fallback_efi_needed = True
+
+    def _install_fallback_efi_boot(self):
+        """Install the bootloader as the default EFI fallback binary.
+
+        Many UEFI firmwares will automatically boot from the standard
+        fallback path (e.g. /EFI/BOOT/BOOTX64.EFI) even without a Boot####
+        entry in the NVRAM. This provides a functional fallback when
+        efibootmgr is unable to write EFI variables (e.g. due to Secure Boot
+        or firmware restrictions).
+
+        All files from the vendor EFI directory are copied to the fallback
+        directory (e.g. /EFI/fedora/ -> /EFI/BOOT/) to ensure all boot
+        stages (shim, GRUB, MM, etc.) are available in the fallback path.
+        """
+        esp_mount = conf.target.system_root + "/boot/efi"
+
+        # Determine the vendor EFI directory (e.g. EFI/fedora)
+        # pylint: disable=no-member
+        vendor_dir_rel = self.efi_dir_as_efifs_dir.lstrip("\\").replace("\\", "/")
+        vendor_dir = os.path.normpath(esp_mount + "/" + vendor_dir_rel)
+
+        # Determine the fallback directory and filename from the Platform class.
+        # Each EFI platform subclass defines the architecture-specific UEFI
+        # fallback filename (e.g. BOOTX64.EFI, BOOTAA64.EFI, ...) as the
+        # fallback_efi_filename attribute.
+        fallback_dir = os.path.normpath(esp_mount + "/EFI/BOOT")
+        fallback_filename = platform.fallback_efi_filename
+        fallback_path = os.path.normpath(fallback_dir + "/" + fallback_filename)
+
+        if not os.path.isdir(vendor_dir):
+            log.error("Cannot install fallback bootloader: vendor directory "
+                       "%s not found", vendor_dir)
+            return
+
+        try:
+            os.makedirs(fallback_dir, exist_ok=True)
+            # Copy all files from the vendor directory (e.g. EFI/fedora/)
+            # to the fallback directory (EFI/BOOT/). This ensures that all
+            # boot stages (shim, grub, mm, fwupd, etc.) are available.
+            for filename in os.listdir(vendor_dir):
+                src_file = os.path.join(vendor_dir, filename)
+                if not os.path.isfile(src_file):
+                    continue
+                dst_file = os.path.join(fallback_dir, filename)
+                shutil.copy2(src_file, dst_file)
+                log.debug("Copied %s to fallback directory", filename)
+
+            # Rename the shim binary to the fallback name if needed
+            # Determine the installed shim binary name
+            efi_binary_name = self._efi_binary.lstrip("\\")  # pylint: disable=no-member
+            shim_fallback = os.path.normpath(fallback_dir + "/" + efi_binary_name)
+            if shim_fallback != fallback_path and os.path.exists(shim_fallback):
+                # Remove existing target if it was already copied
+                if os.path.exists(fallback_path):
+                    os.remove(fallback_path)
+                os.rename(shim_fallback, fallback_path)
+                log.info("Renamed %s to %s", shim_fallback, fallback_path)
+
+            log.info(
+                "Fallback bootloader installed at %s. "
+                "The system should be bootable even without an EFI Boot#### entry.",
+                fallback_path
+            )
+        except OSError as e:
+            log.error("Failed to install fallback bootloader: %s", e)
 
     def add_efi_boot_target(self):
         if self.stage1_device.type == "partition":  # pylint: disable=no-member
@@ -136,6 +214,8 @@ class EFIBase:
                     raise BootLoaderError("Failed to remove old efi boot entry. This is most "
                                           "likely a kernel or firmware bug.")
 
+
+
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
         if self.skip_bootloader:  # pylint: disable=no-member
@@ -147,6 +227,13 @@ class EFIBase:
             self.install()
         finally:
             self.write_config()  # pylint: disable=no-member
+
+        # Install the fallback only now, after write_config() has finished
+        # updating the vendor EFI tree (e.g. gen_grub_cfgstub for GRUB2).
+        # Doing it earlier would leave a stale grub.cfg in /EFI/BOOT/.
+        if self._fallback_efi_needed:
+            self._install_fallback_efi_boot()
+            self._fallback_efi_needed = False
 
     def check(self):
         return True

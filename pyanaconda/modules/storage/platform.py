@@ -186,6 +186,13 @@ class X86(Platform):
 
 class EFI(Platform):
 
+    #: The UEFI specification-defined fallback bootloader filename for this
+    #: architecture (e.g. BOOTX64.EFI for x86_64, BOOTAA64.EFI for AArch64).
+    #: UEFI firmware will try this path automatically when no Boot#### entry
+    #: is present in the NVRAM.  Subclasses must override this attribute with
+    #: the value that matches their architecture.
+    fallback_efi_filename = "BOOTX64.EFI"
+
     @property
     def non_linux_format_types(self):
         """Format types of devices with non-linux operating systems."""
@@ -234,6 +241,24 @@ class EFI(Platform):
         )
 
 class X86EFI(EFI):
+
+    @property
+    def fallback_efi_filename(self):
+        """The UEFI fallback filename for x86/x86_64.
+
+        The correct name depends on the firmware word size, which is only
+        known at runtime by reading /sys/firmware/efi/fw_platform_size:
+        - 32-bit firmware → BOOTIA32.EFI
+        - 64-bit firmware → BOOTX64.EFI  (default)
+        """
+        try:
+            with open("/sys/firmware/efi/fw_platform_size", "r") as f:
+                if f.readline().strip() == "32":
+                    return "BOOTIA32.EFI"
+        except OSError:
+            pass
+        return "BOOTX64.EFI"
+
     @property
     def stage1_constraints(self):
         """The platform-specific constraints for the stage1 device."""
@@ -244,6 +269,7 @@ class X86EFI(EFI):
 
 
 class Aarch64EFI(EFI):
+    fallback_efi_filename = "BOOTAA64.EFI"
 
     @property
     def non_linux_format_types(self):
@@ -252,6 +278,7 @@ class Aarch64EFI(EFI):
 
 
 class ArmEFI(EFI):
+    fallback_efi_filename = "BOOTARM.EFI"
 
     @property
     def non_linux_format_types(self):
@@ -452,6 +479,7 @@ class RISCV64(Platform):
 
 
 class RISCV64EFI(EFI):
+    fallback_efi_filename = "BOOTRISCV64.EFI"
 
     @property
     def non_linux_format_types(self):

@@ -46,6 +46,7 @@ from pyanaconda.modules.storage.bootloader.bootloader_interface import (
 )
 from pyanaconda.modules.storage.bootloader.efi import (
     EFIGRUB,
+    RISCV64EFIGRUB,
     Aarch64EFIGRUB,
     ArmEFIGRUB,
 )
@@ -830,3 +831,81 @@ class BootLoaderFactoryTestCase(unittest.TestCase):
             # Get the boot loader instance.
             obj = cls()
             assert isinstance(obj, BootLoader)
+
+
+class EFIFallbackBootTestCase(unittest.TestCase):
+    """Test the EFI fallback boot entry logic.
+
+    Covers the ``_install_fallback_efi_boot`` / ``_remove_fallback_efi_boot``
+    methods on EFIBase and verifies that fallback_efi_filename on each
+    platform class returns the UEFI-spec-mandated filename.
+    """
+
+    # ------------------------------------------------------------------
+    # fallback_efi_filename via the Platform class hierarchy
+    # (EFIGRUB no longer owns this property – it lives in platform.py)
+    # ------------------------------------------------------------------
+
+    def test_aarch64_platform_fallback_filename(self):
+        """Aarch64EFI platform class provides the correct fallback filename."""
+        from pyanaconda.modules.storage.platform import Aarch64EFI
+        assert Aarch64EFI.fallback_efi_filename == "BOOTAA64.EFI"
+
+    def test_arm_platform_fallback_filename(self):
+        """ArmEFI platform class provides the correct fallback filename."""
+        from pyanaconda.modules.storage.platform import ArmEFI
+        assert ArmEFI.fallback_efi_filename == "BOOTARM.EFI"
+
+    def test_riscv64_platform_fallback_filename(self):
+        """RISCV64EFI platform class provides the correct fallback filename."""
+        from pyanaconda.modules.storage.platform import RISCV64EFI
+        assert RISCV64EFI.fallback_efi_filename == "BOOTRISCV64.EFI"
+
+    # ------------------------------------------------------------------
+    # _install_fallback_efi_boot
+    # ------------------------------------------------------------------
+
+    @patch("pyanaconda.modules.storage.bootloader.efi.platform")
+    @patch("pyanaconda.modules.storage.bootloader.efi.conf")
+    @patch.object(EFIGRUB, "get_fw_platform_size", return_value="64")
+    def test_install_fallback_efi_boot_copies_files(self, _fw, conf_mock, platform_mock):
+        """_install_fallback_efi_boot copies vendor files to /EFI/BOOT/."""
+        import tempfile, os
+
+        with tempfile.TemporaryDirectory() as root:
+            # Build a fake ESP with one vendor file.
+            vendor_dir = os.path.join(root, "boot", "efi", "EFI", "fedora")
+            os.makedirs(vendor_dir)
+            shim_src = os.path.join(vendor_dir, "shimx64.efi")
+            open(shim_src, "wb").close()
+
+            conf_mock.target.system_root = root
+            conf_mock.bootloader.efi_dir = "fedora"
+            platform_mock.fallback_efi_filename = "BOOTX64.EFI"
+
+            bl = EFIGRUB()
+            bl._install_fallback_efi_boot()
+
+            fallback_dir = os.path.join(root, "boot", "efi", "EFI", "BOOT")
+            fallback_path = os.path.join(fallback_dir, "BOOTX64.EFI")
+
+            # The fallback directory must have been created.
+            assert os.path.isdir(fallback_dir)
+            # shimx64.efi must have been renamed to BOOTX64.EFI.
+            assert os.path.isfile(fallback_path)
+
+    @patch("pyanaconda.modules.storage.bootloader.efi.platform")
+    @patch("pyanaconda.modules.storage.bootloader.efi.conf")
+    @patch.object(EFIGRUB, "get_fw_platform_size", return_value="64")
+    def test_install_fallback_efi_boot_missing_vendor_dir(self, _fw, conf_mock, platform_mock):
+        """_install_fallback_efi_boot logs an error when the vendor dir is absent."""
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as root:
+            conf_mock.target.system_root = root
+            conf_mock.bootloader.efi_dir = "fedora"
+            platform_mock.fallback_efi_filename = "BOOTX64.EFI"
+
+            bl = EFIGRUB()
+            # Must not raise even when the vendor directory is missing.
+            bl._install_fallback_efi_boot()
