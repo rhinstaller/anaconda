@@ -520,6 +520,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 26 2026 github-actions <github-actions@github.com> - 45.5-1
+- anaconda.conf: Add split_lock_detect to preserved_arguments (nathan9512)
+- pyanaconda: silence vulture for unused D-Bus signal arg (k.koukiou)
+- pyanaconda: remove unused headless_resolution parameter (k.koukiou)
+- pyanaconda: silence vulture for unused argparse action arg (k.koukiou)
+- pyanaconda: silence vulture for unused GLib log writer arg (k.koukiou)
+- payloads: fix rsync progress parsing for localized numbers (nathan9512)
+- storage: fix ignoredisk/clearpart ordering with iSCSI disks (bciconel)
+- docs: update doc for pykickstart update in anaconda-ci container (rvykydal)
+
 * Tue May 19 2026 github-actions <github-actions@github.com> - 45.4-1
 - webui: hide network screen on Fedora KDE (Live ISO) (rvykydal)
 - webui: hide network screen on Fedora Workstation (Live ISO) (rvykydal)
