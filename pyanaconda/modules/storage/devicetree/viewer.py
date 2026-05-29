@@ -544,6 +544,7 @@ class DeviceTreeViewer(ABC):
         """
         data = OSData()
         data.os_name = root.name or ""
+        data.os_pretty_name = root.pretty_name or ""
         data.devices = [
             device.device_id for device in root.devices
         ]

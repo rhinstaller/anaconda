@@ -925,12 +925,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.storage.roots = [Root(
             name="My Linux",
+            pretty_name="My Linux 42",
             devices=[root_device, swap_device],
             mounts={"/": root_device},
         )]
 
         assert self.interface.GetExistingSystems() == [{
             'os-name': get_variant(Str, 'My Linux'),
+            'os-pretty-name': get_variant(Str, 'My Linux 42'),
             'devices': get_variant(List[Str], ['dev1', 'dev2']),
             'mount-points': get_variant(Dict[Str, Str], {'/': 'dev1'}),
         }]
@@ -963,6 +965,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GetExistingSystems() == [{
             'os-name': get_variant(Str, 'Windows'),
+            'os-pretty-name': get_variant(Str, ''),
             'devices': get_variant(List[Str], ['dev1', 'dev2']),
             'mount-points': get_variant(Dict[Str, Str], {}),
         }]
@@ -979,6 +982,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GetExistingSystems() == [{
             'os-name': get_variant(Str, 'Mac OS'),
+            'os-pretty-name': get_variant(Str, ''),
             'devices': get_variant(List[Str], ['dev1']),
             'mount-points': get_variant(Dict[Str, Str], {}),
         }]
