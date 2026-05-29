@@ -124,7 +124,7 @@ def _find_existing_installations(devicetree):
             device.teardown()
             continue
 
-        architecture, product, version = get_release_string(chroot=chroot_path)
+        architecture, product, version, pretty_name = get_release_string(chroot=chroot_path)
         (mounts, devices, mountopts) = _parse_fstab(devicetree, chroot=chroot_path)
         blivet_util.umount(mountpoint=sysroot)
 
@@ -145,6 +145,7 @@ def _find_existing_installations(devicetree):
             product=product,
             version=version,
             arch=architecture,
+            pretty_name=pretty_name,
             devices=devices,
             mounts=mounts,
             mountopts=mountopts,
@@ -174,12 +175,13 @@ def get_release_string(chroot):
     a previously mounted filesystem for several files.  The filesystem must
     be mounted under the target physical root.
 
-    :returns: The machine's arch, distribution name, and distribution version
-    or None for any parts that cannot be determined
-    :rtype: (string, string, string)
+    :returns: The machine's arch, distribution name, distribution version,
+    and pretty name, or None for any parts that cannot be determined
+    :rtype: (string, string, string, string)
     """
     rel_name = None
     rel_ver = None
+    rel_pretty_name = None
     sysroot = chroot
 
     try:
@@ -188,17 +190,31 @@ def get_release_string(chroot):
         rel_arch = None
 
     try:
-        filename = "%s/etc/redhat-release" % sysroot
-        if os.access(filename, os.R_OK):
-            (rel_name, rel_ver) = _release_from_redhat_release(filename)
+        os_release = _find_os_release(sysroot)
+        if os_release:
+            (rel_name, rel_ver, rel_pretty_name) = _release_from_os_release(os_release)
         else:
-            filename = "%s/etc/os-release" % sysroot
+            filename = "%s/etc/redhat-release" % sysroot
             if os.access(filename, os.R_OK):
-                (rel_name, rel_ver) = _release_from_os_release(filename)
+                (rel_name, rel_ver, rel_pretty_name) = _release_from_redhat_release(filename)
     except ValueError:
         pass
 
-    return rel_arch, rel_name, rel_ver
+    return rel_arch, rel_name, rel_ver, rel_pretty_name
+
+
+def _find_os_release(sysroot):
+    """Find an os-release file in the given sysroot.
+
+    :param sysroot: a path to the system root
+    :return: a path to an os-release file or None
+    """
+    for path in ("/etc/os-release", "/usr/lib/os-release"):
+        filename = "%s%s" % (sysroot, path)
+        if os.access(filename, os.R_OK):
+            return filename
+
+    return None
 
 
 def _release_from_redhat_release(fn):
@@ -211,8 +227,8 @@ def _release_from_redhat_release(fn):
     :param fn: an open filehandle on /etc/redhat-release
     :type fn: filehandle
     :returns: The distribution's name and version, or None for either or both
-    if they cannot be determined
-    :rtype: (string, string)
+    if they cannot be determined, and the release string as the pretty name
+    :rtype: (string, string, string)
     """
     rel_name = None
     rel_ver = None
@@ -231,7 +247,7 @@ def _release_from_redhat_release(fn):
         rel_name = product
         rel_ver = version.split()[0]
 
-    return rel_name, rel_ver
+    return rel_name, rel_ver, relstr or None
 
 
 def _release_from_os_release(fn):
@@ -243,12 +259,13 @@ def _release_from_os_release(fn):
 
     :param fn: an open filehandle on /etc/os-release
     :type fn: filehandle
-    :returns: The distribution's name and version, or None for either or both
-    if they cannot be determined
-    :rtype: (string, string)
+    :returns: The distribution's name, version, and pretty name, or None for
+    any parts that cannot be determined
+    :rtype: (string, string, string)
     """
     rel_name = None
     rel_ver = None
+    rel_pretty_name = None
 
     with open(fn, "r") as f:
         parser = shlex.shlex(f)
@@ -261,6 +278,10 @@ def _release_from_os_release(fn):
                 # Throw away the "=".
                 parser.get_token()
                 rel_name = parser.get_token().strip("'\"")
+            elif key == "PRETTY_NAME":
+                # Throw away the "=".
+                parser.get_token()
+                rel_pretty_name = parser.get_token().strip("'\"")
             elif key == "VERSION_ID":
                 # Throw away the "=".
                 parser.get_token()
@@ -270,7 +291,7 @@ def _release_from_os_release(fn):
                 parser.get_token()
                 rel_ver = parser.get_token().strip("'\"")
 
-    return rel_name, rel_ver
+    return rel_name, rel_ver, rel_pretty_name
 
 
 def _parse_fstab(devicetree, chroot):
@@ -332,14 +353,15 @@ def _parse_fstab(devicetree, chroot):
 class Root:
     """A root represents an existing OS installation."""
 
-    def __init__(self, name=None, product=None, version=None, arch=None, devices=None,
-                 mounts=None, mountopts=None):
+    def __init__(self, name=None, product=None, version=None, arch=None, pretty_name=None,
+                 devices=None, mounts=None, mountopts=None):
         """Create a new OS representation.
 
         :param name: a name of the OS or None
         :param product: a distribution name or None
         :param version: a distribution version or None
         :param arch: a machine's architecture or None
+        :param pretty_name: a PRETTY_NAME value from os-release or None
         :param devices: a list of all devices
         :param mounts: a dictionary of mount points and devices
         :param mountopts: a dictionary of mount points and its mount options
@@ -348,6 +370,7 @@ class Root:
         self._product = product
         self._version = version
         self._arch = arch
+        self._pretty_name = pretty_name
         self._devices = devices or []
         self._mounts = mounts or {}
         self._mountopts = mountopts or {}
@@ -373,6 +396,11 @@ class Root:
             version=self._version,
             arch=self._arch
         )
+
+    @property
+    def pretty_name(self):
+        """The pretty name of the OS from os-release."""
+        return self._pretty_name
 
     @property
     def devices(self):

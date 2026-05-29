@@ -103,6 +103,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         os_data = self.interface.GenerateSystemData("dev1")
         assert get_native(os_data) == {
             'os-name': 'New anaconda bluesky Installation',
+            'os-pretty-name': '',
             'devices': ['dev1', 'dev2', 'dev3'],
             'mount-points': {'/boot': 'dev1', '/': 'dev2'},
         }
@@ -174,6 +175,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         os_data_list = self.interface.CollectSupportedSystems()
         assert get_native(os_data_list) == [{
             'os-name': 'My Linux',
+            'os-pretty-name': '',
             'devices': ['dev2', 'dev3'],
             'mount-points': {'/': 'dev2'},
         }]
