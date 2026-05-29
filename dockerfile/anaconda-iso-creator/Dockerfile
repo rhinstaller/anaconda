@@ -53,4 +53,5 @@ RUN mkdir /lorax /anaconda-rpms /images
 
 WORKDIR /lorax
 
-ENTRYPOINT /lorax-build
+# Exec form so `podman run ... -s <repo>` args are passed to lorax-build "$@".
+ENTRYPOINT ["/lorax-build"]
