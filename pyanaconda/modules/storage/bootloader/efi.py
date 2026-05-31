@@ -65,15 +65,16 @@ class EFIBase:
         return value
 
     def efibootmgr(self, *args, **kwargs):
+        capture_expected = kwargs.pop("capture", False)
         if not conf.target.is_hardware:
             log.info("Skipping efibootmgr for image/directory install.")
-            return ""
+            return "" if capture_expected else 0
 
         if "noefi" in kernel_arguments:
             log.info("Skipping efibootmgr for noefi")
-            return ""
+            return "" if capture_expected else 0
 
-        if kwargs.pop("capture", False):
+        if capture_expected:
             exec_func = util.execWithCapture
         else:
             exec_func = util.execWithRedirect
