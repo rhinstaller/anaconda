@@ -26,10 +26,10 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
+from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 
@@ -42,7 +42,7 @@ class ScreenReadySignal(AbstractSignal):
     """The current screen is ready."""
 
 
-class ProgressSpoke(StandaloneTUISpoke):
+class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
     """
        .. inheritance-diagram:: ProgressSpoke
           :parts: 3
@@ -66,16 +66,6 @@ class ProgressSpoke(StandaloneTUISpoke):
     def completed(self):
         # this spoke is never completed, initially
         return False
-
-    def _on_error_raised(self, message):
-        """Handle an error that needs user interaction.
-
-        Show the error message dialog and send the user's
-        answer back to the Boss process so the installation
-        task queue can continue or abort.
-        """
-        answer = errorHandler.ui.showYesNoQuestion(message)
-        self._task_proxy.RespondToError(answer)
 
     def _on_progress_changed(self, step, message):
         """Handle a new progress report."""
