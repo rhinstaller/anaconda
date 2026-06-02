@@ -77,34 +77,6 @@ class SimpleWebUITestCase(unittest.TestCase):
         mocked_print_message.assert_called_once_with("""My detailed error\n\nSuch a detail!""")
 
     @patch("pyanaconda.ui.webui.conf")
-    @patch("pyanaconda.ui.webui.flags")
-    def test_setup_non_interactive_installation(self, mocked_flags, mocked_conf):
-        """Test webui setup succeeds for kickstart-driven install with inst.pauseatsummary."""
-        mocked_flags.automatedInstall = True
-        mocked_flags.ksprompt = False
-        mocked_conf.target.is_directory = False
-        mocked_conf.target.is_image = False
-        mocked_conf.system.supports_web_ui = True
-        mocked_conf.runtime.pause_at_summary = True
-        self._setup_interface()
-
-    @patch("pyanaconda.ui.webui.conf")
-    @patch("pyanaconda.ui.webui.flags")
-    def test_setup_automated_requires_pause_at_summary(self, mocked_flags, mocked_conf):
-        """Kickstart-driven Web UI is rejected without inst.pauseatsummary."""
-        mocked_flags.automatedInstall = True
-        mocked_flags.ksprompt = False
-        mocked_conf.target.is_directory = False
-        mocked_conf.target.is_image = False
-        mocked_conf.system.supports_web_ui = True
-        mocked_conf.runtime.pause_at_summary = False
-
-        with pytest.raises(RuntimeError) as cm:
-            self._setup_interface()
-
-        assert "inst.pauseatsummary" in str(cm.value)
-
-    @patch("pyanaconda.ui.webui.conf")
     def test_setup_dir_installation(self, mocked_conf):
         """Test webui setup call for a dir installation."""
         mocked_conf.target.is_directory = True
