@@ -22,20 +22,20 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
-from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
 
 log = get_module_logger(__name__)
 
 __all__ = ["ProgressSpoke"]
 
 
-class ProgressSpoke(StandaloneSpoke):
+class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
     """
        .. inheritance-diagram:: ProgressSpoke
           :parts: 3
@@ -166,16 +166,6 @@ class ProgressSpoke(StandaloneSpoke):
         gtk_call_once(self._spinner.start)
 
         log.debug("The installation has started.")
-
-    def _on_error_raised(self, message):
-        """Handle an error that needs user interaction.
-
-        Show the error message dialog and send the user's
-        answer back to the Boss process so the installation
-        task queue can continue or abort.
-        """
-        answer = errorHandler.ui.showYesNoQuestion(message)
-        self._task_proxy.RespondToError(answer)
 
     def _on_progress_changed(self, step, message):
         """Handle a new progress report."""
