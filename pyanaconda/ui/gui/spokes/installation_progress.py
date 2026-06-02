@@ -22,6 +22,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
+from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
@@ -156,6 +157,7 @@ class ProgressSpoke(StandaloneSpoke):
         self._task_proxy = DBus.get_proxy(BOSS.service_name, task_path)
 
         self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
+        self._task_proxy.ErrorRaised.connect(self._on_error_raised)
         self._task_proxy.Stopped.connect(self._on_installation_done)
 
         self._task_proxy.Start()
@@ -164,6 +166,16 @@ class ProgressSpoke(StandaloneSpoke):
         gtk_call_once(self._spinner.start)
 
         log.debug("The installation has started.")
+
+    def _on_error_raised(self, message):
+        """Handle an error that needs user interaction.
+
+        Show the error message dialog and send the user's
+        answer back to the Boss process so the installation
+        task queue can continue or abort.
+        """
+        answer = errorHandler.ui.showYesNoQuestion(message)
+        self._task_proxy.RespondToError(answer)
 
     def _on_progress_changed(self, step, message):
         """Handle a new progress report."""
