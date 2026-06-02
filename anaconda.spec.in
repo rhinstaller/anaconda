@@ -520,6 +520,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 02 2026 github-actions <github-actions@github.com> - 45.6-1
+- storage: mirror Blivet btrfs default compression in manual reuse (k.koukiou)
+  Resolves: rhbz#2422148
+- Revert "payloads: fix rsync progress parsing for localized numbers"
+  (k.koukiou)
+- dracut: append anchor certs to CA bundle in initramfs (rvykydal)
+- security: add --type support for %%certificate section (rvykydal)
+- Revert "anaconda.conf: Add split_lock_detect to preserved_arguments"
+  (k.koukiou)
+- bootloader/grub2.py: create grubenv on final destination (ppywlkiqletw)
+
 * Tue May 26 2026 github-actions <github-actions@github.com> - 45.5-1
 - anaconda.conf: Add split_lock_detect to preserved_arguments (nathan9512)
 - pyanaconda: silence vulture for unused D-Bus signal arg (k.koukiou)
