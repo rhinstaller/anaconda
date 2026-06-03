@@ -232,6 +232,19 @@ class CryptTab:
         self.chroot = chroot
         self.mappings = {}
 
+    def _resolve_device(self, devspec):
+        device = self.devicetree.resolve_device(devspec)
+        if device is None and self.blkid_tab:
+            blkid_tab_ent = self.blkid_tab.get(devspec)
+            if blkid_tab_ent:
+                log.debug("found blkid.tab entry for '%s'", devspec)
+                uuid = blkid_tab_ent.get("UUID")
+                if uuid:
+                    device = self.devicetree.get_device_by_uuid(uuid)
+                    log.debug("found device '%s' in tree",
+                              device.name if device else "None")
+        return device
+
     def parse(self, chroot=""):
         """ Parse /etc/crypttab from an existing installation. """
         if not chroot or not os.path.isdir(chroot):
@@ -264,8 +277,7 @@ class CryptTab:
                 (name, devspec, keyfile, options) = fields
 
                 # resolve devspec to a device in the tree
-                device = self.devicetree.resolve_device(devspec,
-                                                        blkid_tab=self.blkid_tab)
+                device = self._resolve_device(devspec)
                 if device:
                     self.mappings[name] = {"device": device,
                                            "keyfile": keyfile,
