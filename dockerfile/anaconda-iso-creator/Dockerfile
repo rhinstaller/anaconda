@@ -32,7 +32,9 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # Add development repositories instead of the production ones
 # We need development repositories to get our dependencies sooner
-RUN rm -f /etc/yum.repos.d/*.repo
+# centos-stream-* reinstall production mirrors; pin via excludepkgs for all dnf commands
+RUN rm -f /etc/yum.repos.d/*.repo && \
+  echo 'excludepkgs=centos-stream-repos centos-gpg-keys centos-stream-release' >> /etc/dnf/dnf.conf
 COPY ["anaconda-centos.repo", "/etc/yum.repos.d/"]
 
 # Prepare environment and install build dependencies

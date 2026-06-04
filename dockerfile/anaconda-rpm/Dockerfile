@@ -31,6 +31,8 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
+  # centos-stream-* reinstall production mirrors; pin via excludepkgs for all dnf commands
+  echo 'excludepkgs=centos-stream-repos centos-gpg-keys centos-stream-release' >> /etc/dnf/dnf.conf; \
   # Disable production repositories
   dnf config-manager --disable baseos appstream crb; \
   dnf update -y; \
