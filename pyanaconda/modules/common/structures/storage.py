@@ -449,7 +449,6 @@ class OSData(DBusData):
 
     def __init__(self):
         self._os_name = ""
-        self._os_pretty_name = ""
         self._devices = []
         self._mount_points = {}
 
@@ -464,18 +463,6 @@ class OSData(DBusData):
     @os_name.setter
     def os_name(self, name: Str):
         self._os_name = name
-
-    @property
-    def os_pretty_name(self) -> Str:
-        """Pretty name of the OS from os-release.
-
-        :return: a string with the pretty name
-        """
-        return self._os_pretty_name
-
-    @os_pretty_name.setter
-    def os_pretty_name(self, name: Str):
-        self._os_pretty_name = name
 
     @property
     def devices(self) -> List[Str]:
