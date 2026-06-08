@@ -104,6 +104,8 @@ class UIModule(KickstartBaseModule):
         :param display_mode: the displayMode mode for the installation
         :type display_mode: DisplayModes enum
         """
+        if display_mode is None:
+            return
         self._displayMode = display_mode
         self.display_mode_changed.emit()
         log.debug("Display mode will be: %s", display_mode)
