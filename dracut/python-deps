@@ -27,7 +27,6 @@ from importlib.util import find_spec
 from modulefinder import ModuleFinder
 
 # stringprep is needed by the idna encoding, and idna is needed by requests.
-# The encoding import is implicit so ModuleFinder doesn't find it right.
 alsoNeeded = {find_spec('requests').origin: find_spec('stringprep').origin}
 
 # A couple helper functions...
@@ -90,6 +89,16 @@ while scripts:
 
         if mod.__file__ in alsoNeeded and alsoNeeded[mod.__file__] not in deps:
             scripts.append(alsoNeeded[mod.__file__])
+
+try:
+    # In Python 3.15+, math requires _math_integer but ModuleFinder does
+    # not report this:
+    # https://bugzilla.redhat.com/show_bug.cgi?id=2486569
+    if find_spec('math').origin in deps and not find_spec("_math_integer").origin in deps:
+        deps.append(find_spec("_math_integer").origin)
+except AttributeError:
+    # In older Pythons _math_integer does not exist, this is fine
+    pass
 
 # Include some bits that the python install itself needs
 print(sysconfig.get_makefile_filename())
