@@ -24,7 +24,11 @@ Options:
  -h, --help                         Print this help
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
- -l, --live                         Build Live ISO instead of boot.iso
+ -l, --live                         Build Live ISO via KIWI (fedora-kiwi-descriptions)
+                                    instead of boot.iso. Output: result/iso/Fedora-<variant>.iso
+                                    (default variant: Workstation). Optional env vars:
+                                      FEDORA_VARIANT=Workstation|KDE|...
+                                      CI_TAG=fedora-rawhide|fedora-43|...
  -w, --webui                        Build WebUI boot.iso (lorax entrypoint /lorax-build-webui).
                                     Incompatible with --live. Optional env vars for the ISO
                                     container (same as make container-webui-iso-build):
@@ -33,7 +37,7 @@ Options:
 EOF
 }
 
-BOOT_ISO="result/iso/boot.iso"
+ISO_FILE="result/iso/boot.iso"
 PACKAGES_DIR="result/build/01-rpm-build/"
 BOOT_ISO_GIT_REVISION="result/iso/iso.git_rev"
 
@@ -49,7 +53,10 @@ while true; do
     case "${1:-}" in
         -h|--help) help; exit 0 ;;
         -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
-        -l|--live) BUILD_TARGET="live" ;;
+        -l|--live)
+            BUILD_TARGET="live"
+            ISO_FILE="result/iso/Fedora-${FEDORA_VARIANT:-Workstation}.iso"
+            ;;
         -w|--webui) WEBUI_BOOT_ISO=1 ;;
         --) shift; break ;;
     esac
@@ -65,12 +72,13 @@ echo "warming up sudo!"
 sudo true
 # remove any previous package and relevant iso artifacts
 rm -rf result/build/
-rm -f ${BOOT_ISO}
-rm -f ${BOOT_ISO_GIT_REVISION}
+rm -f "${ISO_FILE}"
+[ "$BUILD_TARGET" = "live" ] && rm -rf result/iso/logs
+rm -f "${BOOT_ISO_GIT_REVISION}"
 # make sure the iso folder actually exists
 mkdir -p result/iso/
-# note the Git revision from which we build the boot.iso
-git rev-parse HEAD > ${BOOT_ISO_GIT_REVISION}
+# note the Git revision from which we build the ISO
+git rev-parse HEAD > "${BOOT_ISO_GIT_REVISION}"
 
 # build the anaconda rpms
 make -f ./Makefile.am container-rpms-scratch
@@ -89,6 +97,8 @@ if [ "$BUILD_TARGET" = "boot.iso" ]; then
         make -f ./Makefile.am container-iso-build
     fi
 elif [ "$BUILD_TARGET" = "live" ]; then
-    make -f ./Makefile.am anaconda-live-iso-creator-build
-    make -f ./Makefile.am container-live-iso-build
+    make -f ./Makefile.am anaconda-kiwi-live-iso-creator-build
+    make -f ./Makefile.am container-kiwi-live-iso-build
 fi
+
+echo "ISO: ${ISO_FILE}"
