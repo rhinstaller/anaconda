@@ -520,6 +520,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 09 2026 github-actions <github-actions@github.com> - 45.7-1
+- Revert "storage: expose os-release PRETTY_NAME for existing installations"
+  (k.koukiou)
+- storage: expose os-release PRETTY_NAME for existing installations (k.koukiou)
+  Resolves: rhbz#2478244
+- bootloader: efi: normalize return type for efibootmgr call (vlad.bespalov)
+
 * Tue Jun 02 2026 github-actions <github-actions@github.com> - 45.6-1
 - storage: mirror Blivet btrfs default compression in manual reuse (k.koukiou)
   Resolves: rhbz#2422148
