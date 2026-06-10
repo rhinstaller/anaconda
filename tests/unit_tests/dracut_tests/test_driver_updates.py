@@ -21,11 +21,11 @@
 import collections
 import logging
 import os
-import re
 import shutil
 import sys
 import tempfile
 import unittest
+from logging.handlers import SysLogHandler
 from unittest import mock
 
 sys.path.append(os.path.normpath(os.path.dirname(__file__)+'/../../dracut'))
@@ -44,6 +44,16 @@ from driver_updates import (
 
 def touch(path):
     open(path, 'a')
+
+
+def _get_log_handlers(mock_log):
+    return [call[0][0] for call in mock_log.addHandler.call_args_list]
+
+
+def _split_log_handlers(handlers):
+    syslog_handlers = [handler for handler in handlers if isinstance(handler, SysLogHandler)]
+    console_handlers = [handler for handler in handlers if isinstance(handler, logging.StreamHandler)]
+    return console_handlers, syslog_handlers
 
 
 def makedir(path):
@@ -134,20 +144,15 @@ class DebuggingTestCase(FileTestCaseBase):
         # check logging level is set to DEBUG
         mock_log.setLevel.assert_called_once_with(logging.DEBUG)
 
-        calls = "\n".join(list(map(repr, mock_log.addHandler.mock_calls)))
+        console_handlers, syslog_handlers = _split_log_handlers(_get_log_handlers(mock_log))
 
         # with debug mode disabled
         # DEBUG logs go to journal only
-        assert "call(<SysLogHandler (DEBUG)>)" in calls
+        assert len(syslog_handlers) == 1
+        assert syslog_handlers[0].level == logging.DEBUG
         # and INFO logs to the console
-        assert re.findall(
-            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(DEBUG\)>\)""",
-            calls
-        ) == []
-        assert len(re.findall(
-            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(INFO\)>\)""",
-            calls
-        )) > 0
+        assert len(console_handlers) == 1
+        assert console_handlers[0].level == logging.INFO
 
         mock_log.addHandler.reset_mock()
         mock_log.setLevel.reset_mock()
@@ -159,21 +164,14 @@ class DebuggingTestCase(FileTestCaseBase):
         # check logging level is set to DEBUG
         mock_log.setLevel.assert_called_once_with(logging.DEBUG)
 
-        calls = "\n".join(list(map(repr, mock_log.addHandler.mock_calls)))
+        console_handlers, syslog_handlers = _split_log_handlers(_get_log_handlers(mock_log))
 
         # with debug mode enabled
         # debug logs go to journal but also console
-        assert "call(<SysLogHandler (DEBUG)>)" in calls
-        assert len(re.findall(
-            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(DEBUG\)>\)""",
-            calls
-        )) > 0
-        # there can't be INFO messages otherwise the logs would have duplicates (DEBUG includes all lower levels)
-        assert "call(<SysLogHandler (INFO)>)" not in calls
-        assert re.findall(
-            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(INFO\)>\)""",
-            calls
-        ) == []
+        assert len(syslog_handlers) == 1
+        assert syslog_handlers[0].level == logging.DEBUG
+        assert len(console_handlers) == 1
+        assert console_handlers[0].level == logging.DEBUG
 
 
 class SelfTestCase(FileTestCaseBase):
