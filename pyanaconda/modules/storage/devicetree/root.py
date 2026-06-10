@@ -188,50 +188,13 @@ def get_release_string(chroot):
         rel_arch = None
 
     try:
-        filename = "%s/etc/redhat-release" % sysroot
+        filename = "%s/etc/os-release" % sysroot
         if os.access(filename, os.R_OK):
-            (rel_name, rel_ver) = _release_from_redhat_release(filename)
-        else:
-            filename = "%s/etc/os-release" % sysroot
-            if os.access(filename, os.R_OK):
-                (rel_name, rel_ver) = _release_from_os_release(filename)
+            (rel_name, rel_ver) = _release_from_os_release(filename)
     except ValueError:
         pass
 
     return rel_arch, rel_name, rel_ver
-
-
-def _release_from_redhat_release(fn):
-    """Identify the installation of a Linux distribution via /etc/redhat-release.
-
-    Attempt to identify the installation of a Linux distribution via
-    /etc/redhat-release.  This file must already have been verified to exist
-    and be readable.
-
-    :param fn: an open filehandle on /etc/redhat-release
-    :type fn: filehandle
-    :returns: The distribution's name and version, or None for either or both
-    if they cannot be determined
-    :rtype: (string, string)
-    """
-    rel_name = None
-    rel_ver = None
-
-    with open(fn) as f:
-        try:
-            relstr = f.readline().strip()
-        except (OSError, AttributeError):
-            relstr = ""
-
-    # get the release name and version
-    # assumes that form is something
-    # like "Red Hat Linux release 6.2 (Zoot)"
-    (product, sep, version) = relstr.partition(" release ")
-    if sep:
-        rel_name = product
-        rel_ver = version.split()[0]
-
-    return rel_name, rel_ver
 
 
 def _release_from_os_release(fn):
