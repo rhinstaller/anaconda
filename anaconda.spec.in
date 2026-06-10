@@ -500,6 +500,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 10 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.50-1
+- dracut: append anchor certs to CA bundle in initramfs (rvykydal)
+  Resolves: RHEL-77154
+- security: add --type support for %%certificate section (rvykydal)
+  Resolves: RHEL-77154
+
 * Thu May 21 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.49-1
 - storage: fix ignoredisk/clearpart ordering with iSCSI disks (bciconel)
   Related: INSTALLER-4044
