@@ -27,6 +27,7 @@ from importlib.util import find_spec
 from modulefinder import ModuleFinder
 
 # stringprep is needed by the idna encoding, and idna is needed by requests.
+# The encoding import is implicit so ModuleFinder doesn't find it right.
 alsoNeeded = {find_spec('requests').origin: find_spec('stringprep').origin}
 
 # A couple helper functions...
@@ -51,6 +52,7 @@ def pyfiles(moddir):
 # OK. Use modulefinder to find all the modules etc. this script uses!
 mods = []
 deps = []
+all_found_modules = set()
 
 scripts = copy.copy(sys.argv[1:])
 scripts.append(find_spec('site').origin)
@@ -76,6 +78,7 @@ while scripts:
     finder = ModuleFinder()
     finder.run_script(script) # parse the script
     for mod in finder.modules.values():
+        all_found_modules.add(mod.__name__)
         if not mod.__file__: # this module is builtin, so we can skip it
             continue
 
@@ -90,15 +93,26 @@ while scripts:
         if mod.__file__ in alsoNeeded and alsoNeeded[mod.__file__] not in deps:
             scripts.append(alsoNeeded[mod.__file__])
 
-try:
-    # In Python 3.15+, math requires _math_integer but ModuleFinder does
-    # not report this:
-    # https://bugzilla.redhat.com/show_bug.cgi?id=2486569
-    if find_spec('math').origin in deps and not find_spec("_math_integer").origin in deps:
-        deps.append(find_spec("_math_integer").origin)
-except AttributeError:
-    # In older Pythons _math_integer does not exist, this is fine
-    pass
+# Detect C-level dependencies that ModuleFinder cannot trace.
+# Extension modules (.so) and builtins may import other C extensions at the
+# C level (e.g. math imports _math_integer in Python 3.15+).  Import all
+# discovered modules and collect any new entries that appear in sys.modules.
+_pre = set(sys.modules.keys())
+for _modname in all_found_modules:
+    try:
+        __import__(_modname)
+    except (ImportError, KeyError):
+        pass
+
+for _modname in set(sys.modules.keys()) - _pre:
+    _mod = sys.modules[_modname]
+    _origin = getattr(_mod, '__file__', None)
+    if _origin and os.path.exists(_origin) and _origin not in deps:
+        deps.append(_origin)
+        _md = moduledir(_origin)
+        if _md and _md not in mods:
+            deps += list(pyfiles(_md))
+            mods.append(_md)
 
 # Include some bits that the python install itself needs
 print(sysconfig.get_makefile_filename())
