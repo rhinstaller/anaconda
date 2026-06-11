@@ -34,7 +34,6 @@ from pyanaconda.core.path import touch
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import startProgram
-from pyanaconda.flags import flags
 
 log = get_module_logger(__name__)
 
@@ -92,11 +91,6 @@ class CockpitUserInterface(ui.UserInterface):
         # Make sure that Web UI can be used only on boot.iso or Live media.
         if not conf.system.supports_web_ui:
             raise RuntimeError("This installation environment is not supported by Web UI.")
-
-        if flags.automatedInstall and not conf.runtime.pause_at_summary:
-            raise RuntimeError(
-                "Web UI with kickstart requires inst.pauseatsummary."
-            )
 
         # Finish all initialization jobs. Don't remove this unless you fully understand all
         # consequences of such removal. Web UI is not able to check the initialization threads,
