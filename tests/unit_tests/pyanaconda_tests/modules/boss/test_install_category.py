@@ -22,6 +22,7 @@ from unittest.mock import Mock, call
 from pyanaconda.core.constants import CATEGORY_STORAGE, CATEGORY_SYSTEM
 from pyanaconda.installation_tasks import Task, TaskQueue
 from pyanaconda.modules.boss.installation import RunInstallationTask
+from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
 
 
 class TestRunInstallation(RunInstallationTask):
@@ -76,3 +77,18 @@ class InstallManagerTestCase(unittest.TestCase):
             call(CATEGORY_SYSTEM),
             call(CATEGORY_STORAGE),
         ])
+
+    def test_error_raised_and_respond_to_error(self):
+        """ErrorRaised and RespondToError are exposed via the DBus interface."""
+        task = TestRunInstallation(Mock())
+        interface = task.for_publication()
+
+        callback = Mock()
+        # pylint: disable=no-member
+        interface.ErrorRaised.connect(callback)
+
+        task.error_raised_signal.emit("queue error", InstallationErrorDialogType.YES_NO.value)
+        callback.assert_called_once_with("queue error", InstallationErrorDialogType.YES_NO.value)
+
+        interface.RespondToError(True)
+        assert task._error_should_continue is True

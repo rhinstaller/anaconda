@@ -28,13 +28,14 @@ from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
 
 log = get_module_logger(__name__)
 
 __all__ = ["ProgressSpoke"]
 
 
-class ProgressSpoke(StandaloneSpoke):
+class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
     """
        .. inheritance-diagram:: ProgressSpoke
           :parts: 3
@@ -156,6 +157,7 @@ class ProgressSpoke(StandaloneSpoke):
         self._task_proxy = DBus.get_proxy(BOSS.service_name, task_path)
 
         self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
+        self._task_proxy.ErrorRaised.connect(self._on_error_raised)
         self._task_proxy.Stopped.connect(self._on_installation_done)
 
         self._task_proxy.Start()

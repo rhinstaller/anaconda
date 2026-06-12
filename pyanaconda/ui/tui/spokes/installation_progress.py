@@ -29,6 +29,7 @@ from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
+from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 
@@ -41,7 +42,7 @@ class ScreenReadySignal(AbstractSignal):
     """The current screen is ready."""
 
 
-class ProgressSpoke(StandaloneTUISpoke):
+class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
     """
        .. inheritance-diagram:: ProgressSpoke
           :parts: 3
@@ -105,6 +106,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         self._task_proxy = DBus.get_proxy(BOSS.service_name, task_path)
 
         self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
+        self._task_proxy.ErrorRaised.connect(self._on_error_raised)
         self._task_proxy.Stopped.connect(self._on_installation_done)
 
         self._task_proxy.Start()
