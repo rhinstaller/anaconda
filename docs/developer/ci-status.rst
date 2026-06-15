@@ -99,6 +99,9 @@ Kickstart-tests
    :alt: Build daily Rawhide+COPR boot.iso
    :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-rawhide.yml
 
+.. |daily-boot-iso-webui-rawhide| image:: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-webui-rawhide.yml/badge.svg
+   :alt: Build daily Rawhide+COPR WebUI boot.iso
+   :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-webui-rawhide.yml
 
 .. |scenarios-permian| image:: https://github.com/rhinstaller/kickstart-tests/actions/workflows/scenarios-permian.yml/badge.svg
    :alt: Daily run
@@ -109,6 +112,9 @@ Kickstart-tests
 
 |daily-boot-iso-rawhide|
   Build Rawhide ``boot.iso`` every day.
+
+|daily-boot-iso-webui-rawhide|
+  Build Rawhide WebUI ``boot.iso`` every day.
 
 |scenarios-permian|
   Daily kickstart test runs. This tries to execute all tests in three scenarios: Rawhide, RHEL 8, and RHEL 9.
