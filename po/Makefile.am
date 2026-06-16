@@ -116,7 +116,6 @@ XGETTEXT = $(top_srcdir)/translation-canary/xgettext_werror.sh
 XGETTEXT_OPTIONS = --keyword=_ --keyword=N_ --keyword=P_:1,2 \
 		   --keyword=C_:1c,2 --keyword=CN_:1c,2 --keyword=CP_:1c,2,3 \
 		   --add-comments=TRANSLATORS: \
-		   --sort-output \
 		   --from-code=UTF-8 --package-name=$(PACKAGE) \
 		   --package-version=$(PACKAGE_VERSION) \
 		   --copyright-holder="$(COPYRIGHT_HOLDER)" \
@@ -187,7 +186,7 @@ main.pot: $(POTFILE_INPUT)
 	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_INPUT))
 
 $(POTFILE): main.pot
-	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot
+	$(AM_V_GEN)$(MSGCAT) --sort-output -o $@ main.pot
 
 # Request po files download before collecting them in the POFILES variable.
 $(POFILES): $(PO_DOWNLOADED_FLAG)
