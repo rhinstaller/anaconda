@@ -106,6 +106,14 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         return request.reused_mount_points + request.reformatted_mount_points
 
     @classmethod
+    def _is_removed_boot_btrfs_subvolume(cls, storage, request):
+        if "/boot" not in request.removed_mount_points:
+            return False
+
+        boot_device = cls._get_mountpoint_device(storage, "/boot", required=False)
+        return bool(boot_device and boot_device.type == "btrfs subvolume")
+
+    @classmethod
     def _get_reused_device_names(cls, storage, request):
         reused_devices = {}
         for mountpoint in cls._reused_devices_mountpoints(request):
@@ -321,6 +329,9 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         """
         specs = []
         swap = None
+        skip_removed_boot = AutomaticPartitioningTask._is_removed_boot_btrfs_subvolume(
+            storage, request
+        )
 
         # Create partitioning specs based on the default configuration.
         for spec in get_default_partitioning():
@@ -329,9 +340,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
                 continue
 
             # Skip excluded or reused mount points.
-            skipped = request.excluded_mount_points
+            skipped = list(request.excluded_mount_points)
             skipped.extend(request.reused_mount_points)
             skipped.extend(request.reformatted_mount_points)
+            if skip_removed_boot:
+                skipped.append("/boot")
             if (spec.mountpoint or spec.fstype) in skipped:
                 continue
 

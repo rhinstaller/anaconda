@@ -307,6 +307,35 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             [spec.size for spec in requests]
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
+    def test_get_partitioning_removed_boot_btrfs_subvolume(self, platform):
+        storage = create_storage()
+        platform.partitions = [
+            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+        ]
+        storage._bootloader = Mock(stage2_format_types=["xfs"])
+
+        request = PartitioningRequest()
+        request._removed_mount_points = ["/boot"]
+
+        # Keep /boot on btrfs if the existing one is a btrfs subvolume.
+        storage.roots = [Mock(mounts={"/boot": Mock(type="btrfs subvolume")})]
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_BTRFS,
+            request=request
+        )
+        assert [spec.mountpoint for spec in requests] == ["/", "/home"]
+
+        # Keep the current behavior for a separate /boot partition.
+        storage.roots = [Mock(mounts={"/boot": Mock(type="partition")})]
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_BTRFS,
+            request=request
+        )
+        assert [spec.mountpoint for spec in requests] == ["/boot", "/", "/home"]
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.conf')
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
     def test_get_partitioning_hibernation(self, suggest_swap_size, mocked_config, platform):
