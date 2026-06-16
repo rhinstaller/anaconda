@@ -520,6 +520,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 16 2026 github-actions <github-actions@github.com> - 45.8-1
+- webui: remove inst.pauseatsummary requirement for kickstart installs
+  (rvykydal)
+- test: add unit tests for Boss remote error UI forwarding (k.koukiou)
+- fix: handle ScriptError via remote error UI during installation (k.koukiou)
+- fix: handle non-critical installation errors in GUI/TUI progress spokes
+  (k.koukiou)
+- dracut: detect C-level module dependencies dynamically (rvykydal)
+- fsset: Do not use resolve_device with BlkidTab (vtrefny)
+- python-deps: add _math_integer if math is present (awilliam)
+  Resolves: rhbz#2486569
+
 * Tue Jun 09 2026 github-actions <github-actions@github.com> - 45.7-1
 - Revert "storage: expose os-release PRETTY_NAME for existing installations"
   (k.koukiou)
