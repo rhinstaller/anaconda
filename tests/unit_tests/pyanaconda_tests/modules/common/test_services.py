@@ -32,6 +32,7 @@ from pyanaconda.core.constants import (
     TEXT_ONLY_TARGET,
 )
 from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.installation import (
@@ -468,3 +469,36 @@ class ServicesTasksTestCase(unittest.TestCase):
         assert isinstance(obj, TaskInterface)
         assert isinstance(obj.implementation, ConfigureDefaultDesktopTask)
         assert obj.implementation._default_desktop == "GNOME"
+
+    @patch("pyanaconda.modules.services.installation.enable_service")
+    @patch("pyanaconda.modules.services.installation.is_service_installed")
+    def test_configure_services_missing_service(self, mock_is_installed, mock_enable):
+        """Test that valid services are enabled even when some are missing."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            # Simulate service-A and service-C being installed, but service-B missing
+            def is_installed_side_effect(service, root=None):
+                return service in ["service-A", "service-C"]
+
+            mock_is_installed.side_effect = is_installed_side_effect
+
+            task = ConfigureServicesTask(
+                sysroot=sysroot,
+                disabled_services=[],
+                enabled_services=["service-A", "service-B", "service-C"]
+            )
+
+            # The task should raise NonCriticalInstallationError for service-B
+            with self.assertRaises(NonCriticalInstallationError) as cm:
+                task.run()
+
+            # Verify the error message mentions the missing service
+            error_msg = str(cm.exception)
+            assert "service-B" in error_msg
+            assert "not installed" in error_msg
+
+            # Verify that service-A and service-C were still enabled
+            assert mock_enable.call_count == 2
+            enabled_services = [call[0][0] for call in mock_enable.call_args_list]
+            assert "service-A" in enabled_services
+            assert "service-C" in enabled_services
+            assert "service-B" not in enabled_services

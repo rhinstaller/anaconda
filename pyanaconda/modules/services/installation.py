@@ -21,6 +21,7 @@ from configparser import ConfigParser
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import GRAPHICAL_TARGET, TEXT_ONLY_TARGET
+from pyanaconda.core.i18n import _
 from pyanaconda.core.path import touch
 from pyanaconda.core.service import (
     disable_service,
@@ -28,6 +29,7 @@ from pyanaconda.core.service import (
     is_service_installed,
 )
 from pyanaconda.core.util import get_anaconda_version_string
+from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.services.constants import SetupOnBootAction
 
@@ -170,9 +172,24 @@ class ConfigureServicesTask(Task):
             log.debug("Disabling service: %s.", service_name)
             disable_service(service_name, root=self._sysroot)
 
+        missing_services = []
         for service_name in self._enabled_services:
+            # Skip the check for template service instances (e.g., getty@ttyS0.service)
+            # as is_service_installed does not work for template unit files
+            if "@" not in service_name and not is_service_installed(service_name, root=self._sysroot):
+                log.warning("Service '%s' is not installed, skipping enablement.", service_name)
+                missing_services.append(service_name)
+                continue
             log.debug("Enabling service: %s.", service_name)
             enable_service(service_name, root=self._sysroot)
+
+        if missing_services:
+            raise NonCriticalInstallationError(
+                _("Cannot enable the following services because they are not installed: {names}. "
+                  "Make sure the packages providing these services are included in %packages.").format(
+                    names=", ".join(missing_services)
+                )
+            )
 
 
 class ConfigureSystemdDefaultTargetTask(Task):
