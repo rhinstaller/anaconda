@@ -99,11 +99,15 @@ class SummaryHub(TUIHub):
         if flags.automatedInstall and not incomplete_spokes:
 
             # Check the available space.
-            if flags.ksprompt and self._checker and not self._checker.check():
+            if self._checker and not self._checker.check():
 
                 # Space is not ok.
                 print(self._checker.error_message)
                 log.error(self._checker.error_message)
+
+                if not flags.ksprompt:
+                    # In cmdline mode, raise an error — cannot prompt the user.
+                    raise CmdlineError(self._checker.error_message)
 
                 # Unset the checker so everything passes next time.
                 self._checker = None
