@@ -458,6 +458,13 @@ class RISCV64EFI(EFI):
         """Format types of devices with non-linux operating systems."""
         return ["vfat", "ntfs"]
 
+class LOONGARCH64EFI(EFI):
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        return ["vfat", "ntfs"]
+
 
 def get_platform():
     """Check the architecture of the system and return an instance of a
@@ -487,6 +494,8 @@ def get_platform():
             return ArmEFI()
         elif arch.is_riscv64():
             return RISCV64EFI()
+        elif arch.is_loongarch(bits=64):
+            return LOONGARCH64EFI()
         else:
             return EFI()
     elif arch.is_x86():

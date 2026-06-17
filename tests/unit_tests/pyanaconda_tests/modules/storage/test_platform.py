@@ -26,6 +26,7 @@ from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.modules.storage.platform import (
     ARM,
     EFI,
+    LOONGARCH64EFI,
     PS3,
     RISCV64,
     RISCV64EFI,
@@ -57,6 +58,7 @@ class PlatformTestCase(unittest.TestCase):
         arch.is_x86.return_value = False
         arch.is_arm.return_value = False
         arch.is_riscv64.return_value = False
+        arch.is_loongarch.return_value = False
 
     def _check_platform(self, platform_cls, packages=None, non_linux_format_types=None):
         """Check the detected platform."""
@@ -368,6 +370,44 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_platform(
             platform_cls=RISCV64EFI,
+            non_linux_format_types=["vfat", "ntfs"]
+        )
+
+        self._check_partitions(
+            PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
+                     size=Size("500MiB"), max_size=Size("600MiB")),
+            PartSpec(mountpoint="/boot", size=Size("2GiB"))
+        )
+
+        self._check_constraints(
+            constraints={
+                "format_types": ["efi"],
+                "device_types": ["partition", "mdarray"],
+                "disklabel_types": ["gpt", "msdos"],
+                "mountpoints": ["/boot/efi"],
+                "raid_levels": [raid.RAID1],
+                "raid_metadata": ["1.0"]
+            },
+            descriptions={
+                "partition": "EFI System Partition",
+                "mdarray": "RAID Device"
+            },
+            error_message=str(
+                "For a UEFI installation, you must include "
+                "an EFI System Partition on a GPT-formatted "
+                "disk, mounted at /boot/efi."
+            )
+        )
+
+    @patch("pyanaconda.modules.storage.platform.arch")
+    def test_loongarch64_efi(self, arch):
+        """Test the loongarch64 EFI platform."""
+        self._reset_arch(arch)
+        arch.is_efi.return_value = True
+        arch.is_loongarch.return_value = True
+
+        self._check_platform(
+            platform_cls=LOONGARCH64EFI,
             non_linux_format_types=["vfat", "ntfs"]
         )
 
