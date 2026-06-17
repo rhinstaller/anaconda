@@ -33,6 +33,7 @@ log = get_module_logger(__name__)
 
 __all__ = [
     "EFIGRUB",
+    "LOONGARCH64EFIGRUB",
     "RISCV64EFIGRUB",
     "Aarch64EFIGRUB",
     "Aarch64EFISystemdBoot",
@@ -292,3 +293,11 @@ class RISCV64EFIGRUB(EFIGRUB):
     def __init__(self):
         super().__init__()
         self._packages64 = ["grub2-efi-riscv64"]
+
+class LOONGARCH64EFIGRUB(EFIGRUB):
+    _serial_consoles = ["ttyS"]
+    _efi_binary = "\\grubloongarch64.efi"
+
+    def __init__(self):
+        super().__init__()
+        self._packages64 = ["grub2-efi-loongarch64"]

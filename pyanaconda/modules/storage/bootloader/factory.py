@@ -164,4 +164,8 @@ class BootLoaderFactory:
             from pyanaconda.modules.storage.bootloader.efi import RISCV64EFIGRUB
             return RISCV64EFIGRUB
 
+        if platform_class is platform.LOONGARCH64EFI:
+            from pyanaconda.modules.storage.bootloader.efi import LOONGARCH64EFIGRUB
+            return LOONGARCH64EFIGRUB
+
         return None
