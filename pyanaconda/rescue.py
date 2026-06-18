@@ -42,6 +42,7 @@ from pyanaconda.core.constants import (
     THREAD_STORAGE,
 )
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.path import set_system_root
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
@@ -265,8 +266,10 @@ class Rescue:
         makeFStab()
 
         # Check if this is an OSTree/atomic system
-        if get_ostree_deployment_path(conf.target.system_root):
+        deployment_path = get_ostree_deployment_path(conf.target.physical_root)
+        if deployment_path:
             self.is_ostree = True
+            set_system_root(deployment_path)
 
         # run %post if we've mounted everything
         if not self.ro and self._scripts:
@@ -481,11 +484,6 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                                      "command line for autorelabel to work properly.\n")
                                    if self._rescue.autorelabel else "")
 
-                # For OSTree installations, find the deployment directory for chroot
-                mountpoint = conf.target.system_root
-                deployment_path = get_ostree_deployment_path(mountpoint)
-                chroot_path = deployment_path if deployment_path else mountpoint
-
                 ostree_warning = (_("Warning: An atomic system has been detected. "
                                     "It is not recommended to make manual changes to the deployment "
                                     "directories as this may break system integrity. Only modify "
@@ -495,8 +493,8 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                 text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
-                                    "\tchroot %(chroot_path)s\n\n")
-                                  % {"mountpoint": mountpoint, "chroot_path": chroot_path}
+                                    "\tchroot %(mountpoint)s\n\n")
+                                  % {"mountpoint": conf.target.system_root}
                                   + ostree_warning + autorelabel_msg + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
