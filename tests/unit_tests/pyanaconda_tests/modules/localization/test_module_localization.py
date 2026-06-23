@@ -169,6 +169,18 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.localization_interface.SetKeyboard("us")
         assert self.localization_interface.VirtualConsoleKeymap == "us"
 
+    @patch("pyanaconda.modules.localization.localization.get_locale_keyboards")
+    def test_set_x_keyboard_defaults_uses_full_locale(self, mock_get_keyboards):
+        """Test that set_x_keyboard_defaults() uses full locale with territory."""
+        mock_get_keyboards.return_value = ["pt"]
+
+        self.localization_interface.Language = "pt_PT.UTF-8"
+        self.localization_interface.XLayouts = []
+        self.localization_module.set_x_keyboard_defaults()
+
+        # Verify get_locale_keyboards was called with full locale, not stripped
+        mock_get_keyboards.assert_called_once_with("pt_PT.UTF-8")
+
     def test_collect_requirements(self):
         """Test the CollectRequirements method."""
         # No default requirements.
