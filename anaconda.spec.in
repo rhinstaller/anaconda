@@ -520,6 +520,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 23 2026 github-actions <github-actions@github.com> - 45.9-1
+- docs: add daily WebUI boot.iso CI status badge (k.koukiou)
+- storage: check disk space in cmdline mode before starting installation
+  (rvykydal)
+
 * Tue Jun 16 2026 github-actions <github-actions@github.com> - 45.8-1
 - webui: remove inst.pauseatsummary requirement for kickstart installs
   (rvykydal)
