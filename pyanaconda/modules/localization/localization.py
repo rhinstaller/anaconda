@@ -444,8 +444,9 @@ class LocalizationService(KickstartService):
             # (the x_layouts list comes from kickstart)
             return
 
-        locale = get_language_id(self.language)
-        layouts = get_locale_keyboards(locale)
+        # Use the full locale (with territory) to get the correct keyboard layout.
+        # For example, pt_PT should get 'pt' keyboard, not 'br' keyboard.
+        layouts = get_locale_keyboards(self.language)
         if layouts:
             # take the first locale (with highest rank) from the list and
             # store it normalized
@@ -458,7 +459,7 @@ class LocalizationService(KickstartService):
                 # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1039185
                 new_layouts.insert(0, DEFAULT_KEYBOARD)
         else:
-            log.error("Failed to get layout for chosen locale '%s'", locale)
+            log.error("Failed to get layout for chosen locale '%s'", self.language)
             new_layouts = [DEFAULT_KEYBOARD]
 
         self.set_x_layouts(new_layouts)
