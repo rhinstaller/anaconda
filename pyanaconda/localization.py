@@ -251,6 +251,10 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
                     font_set = True
                     break
 
+            if font_set:
+                log.debug("reapplying console font via systemd-vconsole-setup")
+                execWithRedirect("systemctl", ["restart", "systemd-vconsole-setup.service"])
+
         if not font_set:
             log.warning("can't set console font for locale %s", locale)
             # report what exactly went wrong
