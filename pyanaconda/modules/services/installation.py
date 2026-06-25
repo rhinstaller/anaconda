@@ -189,8 +189,8 @@ class ConfigureServicesTask(Task):
 
         if missing_services:
             raise NonCriticalInstallationError(
-                _("Cannot enable the following services because they are not installed: {names}. "
-                  "Make sure the packages providing these services are included in %packages.").format(
+                _("Cannot enable the following services because they are not installed on "
+                  "the target system: {names}.").format(
                     names=", ".join(missing_services)
                 )
             )
