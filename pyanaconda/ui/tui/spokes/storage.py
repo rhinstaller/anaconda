@@ -72,7 +72,6 @@ from pyanaconda.ui.lib.storage import (
     get_disks_summary,
     is_passphrase_required,
     reset_storage,
-    select_default_disks,
     set_required_passphrase,
 )
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -439,9 +438,6 @@ class StorageSpoke(NormalTUISpoke):
         # Automatically format DASDs if allowed.
         disks = self._disk_select_module.GetUsableDisks()
         DasdFormatting.run_automatically(disks)
-
-        # Update the selected disks.
-        select_default_disks()
 
         # Automatically apply the preconfigured partitioning.
         if flags.automatedInstall and self._is_preconfigured:

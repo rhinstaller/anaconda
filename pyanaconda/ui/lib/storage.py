@@ -33,7 +33,6 @@ from pyanaconda.core.i18n import P_, _
 from pyanaconda.core.storage import device_matches
 from pyanaconda.errors import ERROR_RAISE
 from pyanaconda.errors import errorHandler as error_handler
-from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import (
     BOOTLOADER,
     DEVICE_TREE,
@@ -125,47 +124,6 @@ def reset_bootloader():
     """Reset the bootloader."""
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_proxy.Drive = BOOTLOADER_DRIVE_UNSET
-
-
-def select_default_disks():
-    """Select default disks for the partitioning.
-
-    If there are some disks already selected, do nothing.
-    In the automatic installation, select all disks. In
-    the interactive installation, select a disk if there
-    is only one available.
-
-    :return: a list of selected disks
-    """
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    selected_disks = disk_select_proxy.SelectedDisks
-    ignored_disks = disk_select_proxy.IgnoredDisks
-
-    if selected_disks:
-        # Do nothing if there are some disks selected.
-        pass
-    elif flags.automatedInstall:
-        # Get all disks.
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        all_disks = device_tree.GetDisks()
-
-        # Select all disks.
-        selected_disks = [d for d in all_disks if d not in ignored_disks]
-        disk_select_proxy.SelectedDisks = selected_disks
-        log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
-    else:
-        # Get usable disks.
-        usable_disks = disk_select_proxy.GetUsableDisks()
-        available_disks = [d for d in usable_disks if d not in ignored_disks]
-
-        # Select a usable disk if there is only one available.
-        if len(available_disks) == 1:
-            selected_disks = available_disks
-            apply_disk_selection(selected_disks)
-
-        log.debug("Selecting one or less disks by default: %s", ",".join(selected_disks))
-
-    return selected_disks
 
 
 def apply_disk_selection(selected_names, reset_boot_drive=False):

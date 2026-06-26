@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
@@ -186,3 +187,57 @@ class DiskSelectionModule(StorageSubscriberModule):
         :return: a list of disk IDs
         """
         return [disk.device_id for disk in self.storage.usable_disks]
+
+    def on_storage_changed(self, storage):
+        """Keep the instance of the current storage."""
+        super().on_storage_changed(storage)
+
+        if storage.disks:
+            self.select_default_disks()
+
+    def select_default_disks(self):
+        """Select default disks for the partitioning.
+
+        If there are some disks already selected, do nothing.
+        In the automatic installation, select all disks. In
+        the interactive installation, select a disk if there
+        is only one available.
+
+        :return: a list of selected disks
+        """
+        if self._selected_disks:
+            log.debug(
+                "Skipping default disk selection, disks already selected: %s",
+                self._selected_disks,
+            )
+            return self._selected_disks
+
+        log.debug(
+            "Default disk selection: automated_install=%s, interactive_mode=%s, "
+            "storage disks=%s, usable disks=%s",
+            conf.runtime.automated_install,
+            conf.runtime.interactive_mode,
+            [d.device_id for d in self.storage.disks],
+            self.get_usable_disks(),
+        )
+
+        if conf.runtime.automated_install:
+            all_disks = [d.device_id for d in self.storage.disks]
+            drives = [d for d in all_disks if d not in self._ignored_disks]
+            self.set_selected_disks(drives)
+            log.debug("Selecting all disks by default: %s", ",".join(drives))
+        else:
+            usable_disks = self.get_usable_disks()
+            available_disks = [d for d in usable_disks if d not in self._ignored_disks]
+
+            if len(available_disks) == 1:
+                self.set_selected_disks(available_disks)
+                log.debug("Single disk detected, selecting it for installation: %s", available_disks[0])
+            else:
+                log.debug(
+                    "Not selecting disks by default in interactive mode "
+                    "(%d usable disks available)",
+                    len(available_disks),
+                )
+
+        return self._selected_disks

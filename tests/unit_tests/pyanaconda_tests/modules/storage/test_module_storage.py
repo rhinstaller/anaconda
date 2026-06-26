@@ -88,6 +88,15 @@ from tests.unit_tests.pyanaconda_tests import (
 )
 
 
+def _mock_storage():
+    """Return a storage mock with disk list properties used by DiskSelectionModule."""
+    storage = Mock()
+    storage.disks = []
+    storage.usable_disks = []
+    storage.copy.side_effect = _mock_storage
+    return storage
+
+
 class StorageInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the storage module."""
 
@@ -175,6 +184,29 @@ class StorageInterfaceTestCase(unittest.TestCase):
         storage_changed_callback.assert_called_once()
         partitioning_reset_callback.assert_not_called()
 
+    @patch("pyanaconda.modules.storage.disk_selection.selection.conf")
+    def test_select_default_disks_on_rescan(self, mock_conf):
+        """Default disk selection is skipped on rescan if disks are already selected."""
+        mock_conf.runtime.automated_install = True
+
+        disk1 = Mock()
+        disk1.device_id = "sda"
+        disk2 = Mock()
+        disk2.device_id = "sdb"
+
+        scanned = _mock_storage()
+        scanned.disks = [disk1, disk2]
+
+        self.storage_module._set_storage(scanned)
+        assert self.storage_module._disk_selection_module.selected_disks == ["sda", "sdb"]
+
+        self.storage_module._disk_selection_module.set_selected_disks(["sda"])
+
+        rescanned = _mock_storage()
+        rescanned.disks = [disk1, disk2]
+        self.storage_module._set_storage(rescanned)
+        assert self.storage_module._disk_selection_module.selected_disks == ["sda"]
+
     @patch_dbus_publish_object
     def test_create_partitioning(self, published):
         """Test CreatePartitioning."""
@@ -230,9 +262,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
     def test_apply_partitioning(self, storage_checker, published):
         """Test ApplyPartitioning."""
-        storage_1 = Mock()
-        storage_2 = storage_1.copy.return_value
-        storage_3 = storage_2.copy.return_value
+        storage_1 = _mock_storage()
+        storage_2 = _mock_storage()
+        storage_3 = _mock_storage()
+        storage_1.copy.side_effect = lambda: storage_2
+        storage_2.copy.side_effect = lambda: storage_3
 
         report = StorageCheckerReport()
         storage_checker.check.return_value = report
@@ -261,7 +295,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
     def test_applied_partitioning(self, storage_checker, publisher):
         """Test the property AppliedPartitioning."""
-        storage = Mock()
+        storage = _mock_storage()
 
         report = StorageCheckerReport()
         storage_checker.check.return_value = report
@@ -279,9 +313,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
     def test_reset_partitioning(self, storage_checker, published):
         """Test ResetPartitioning."""
-        storage_1 = Mock()
-        storage_2 = storage_1.copy.return_value
-        storage_3 = storage_2.copy.return_value
+        storage_1 = _mock_storage()
+        storage_2 = _mock_storage()
+        storage_3 = _mock_storage()
+        storage_1.copy.side_effect = lambda: storage_2
+        storage_2.copy.side_effect = lambda: storage_3
 
         report = StorageCheckerReport()
         storage_checker.check.return_value = report
@@ -299,8 +335,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         assert self.storage_interface.AppliedPartitioning == partitioning
         assert self.storage_module.storage == storage_3
 
-        storage_4 = Mock()
-        storage_1.copy.return_value = storage_4
+        storage_4 = _mock_storage()
+        storage_1.copy.side_effect = lambda: storage_4
 
         self.storage_interface.ResetPartitioning()
         assert self.storage_interface.AppliedPartitioning == ""
@@ -310,7 +346,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.storage.storage.platform", S390())
     def test_collect_requirements(self):
         """Test CollectRequirements."""
-        storage = Mock()
+        storage = _mock_storage()
         storage.bootloader = GRUB2()
         storage.packages = ["lvm2"]
 

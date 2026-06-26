@@ -18,9 +18,11 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import patch
 
 import pytest
 from blivet.devices import DiskDevice
+from blivet.flags import flags
 from blivet.formats import get_format
 from blivet.size import Size
 
@@ -173,3 +175,26 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
 
         self.disk_selection_module.on_storage_changed(create_storage())
         assert self.disk_selection_interface.GetUsableDisks() == []
+
+    def _add_disks(self, storage, names):
+        flags.testing = True
+        for name in names:
+            disk = DiskDevice(
+                name,
+                exists=False,
+                size=Size("15 GiB"),
+                fmt=get_format("disklabel"),
+            )
+            storage.devicetree._add_device(disk)
+
+        return storage
+
+    @patch("pyanaconda.modules.storage.disk_selection.selection.conf")
+    def test_select_default_disks_automated_install(self, mock_conf):
+        """Test all disks are selected by default in an automated installation."""
+        mock_conf.runtime.automated_install = True
+
+        storage = self._add_disks(create_storage(), ["sda", "sdb"])
+        self.disk_selection_module.on_storage_changed(storage)
+
+        assert self.disk_selection_module.selected_disks == ["sda", "sdb"]
