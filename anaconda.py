@@ -371,6 +371,17 @@ if __name__ == "__main__":
     log.info("anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
+    # Find a kickstart file.
+    kspath = startup_utils.find_kickstart(opts)
+    log.info("Found a kickstart file: %s", kspath)
+
+    # Publish install-session flags before modules start.
+    conf.set_runtime_install_session(
+        flags.automatedInstall,
+        not opts.noninteractive,
+        opts.pause_at_summary,
+    )
+
     # start dbus session (if not already running) and run boss in it
     try:
         anaconda.dbus_launcher.start()
@@ -380,10 +391,6 @@ if __name__ == "__main__":
         util.ipmi_report(constants.IPMI_ABORTED)
         time.sleep(10)
         sys.exit(1)
-
-    # Find a kickstart file.
-    kspath = startup_utils.find_kickstart(opts)
-    log.info("Found a kickstart file: %s", kspath)
 
     # Run %pre scripts.
     startup_utils.run_pre_scripts(kspath)

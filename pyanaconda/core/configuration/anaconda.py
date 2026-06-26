@@ -447,6 +447,9 @@ class AnacondaConfiguration(Configuration):
         self.runtime._set_option("pause_at_summary", pause_at_summary)
         self.validate()
         path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
+        dirname = os.path.dirname(path)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
         self.write(path)
 
 
