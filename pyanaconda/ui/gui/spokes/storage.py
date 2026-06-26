@@ -83,7 +83,6 @@ from pyanaconda.ui.lib.storage import (
     is_local_disk,
     is_passphrase_required,
     reset_storage,
-    select_default_disks,
     set_required_passphrase,
 )
 
@@ -531,9 +530,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         disks = self._disk_select_module.GetUsableDisks()
         DasdFormatting.run_automatically(disks, self._show_dasdfmt_report)
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-
-        # Update the selected disks.
-        select_default_disks()
 
         # Automatically apply the preconfigured partitioning.
         # Do not set ready in the automated installation before
