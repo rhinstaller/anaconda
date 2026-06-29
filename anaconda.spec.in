@@ -500,6 +500,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 29 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.51-1
+- gui: disable overlay scrolling on disk selection lists (k.koukiou)
+  Resolves: RHEL-69902
+- fix: use static string for tmux status line to reduce CPU usage (k.koukiou)
+  Resolves: RHEL-180821
+- fix: improve error when enabling missing services on target (k.koukiou)
+  Related: RHEL-61134
+- fix: check if service is installed before enabling in kickstart (k.koukiou)
+  Resolves: RHEL-61134
+- storage: check disk space in cmdline mode before starting installation
+  (rvykydal)
+  Resolves: RHEL-142734
+
 * Wed Jun 10 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.50-1
 - dracut: append anchor certs to CA bundle in initramfs (rvykydal)
   Resolves: RHEL-77154
