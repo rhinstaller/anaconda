@@ -36,6 +36,7 @@ run_checkisomd5() {
                 die "Media check failed!"
                 exit 1
             fi
+            info "Installation media verification passed successfully on ${livedev}."
             [ -x /bin/plymouth ] && /bin/plymouth --show-splash
         fi
     fi
