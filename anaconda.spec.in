@@ -520,6 +520,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 30 2026 github-actions <github-actions@github.com> - 45.10-1
+- po: stop using deprecated xgettext --sort-output (k.koukiou)
+- fix: improve error when enabling missing services on target (k.koukiou)
+- fix: Use full locale for keyboard layout selection (k.koukiou)
+  Resolves: rhbz#2491211
+- Revert "localization: ensure console font persists via systemd-vconsole-
+  setup" (k.koukiou)
+- localization: ensure console font persists via systemd-vconsole-setup
+  (k.koukiou)
+- fix: use static string for tmux status line to reduce CPU usage (k.koukiou)
+- rescue: Set system root to OSTree deployment path (k.koukiou)
+- fix: check if service is installed before enabling in kickstart (k.koukiou)
+- gui: disable overlay scrolling on disk selection lists (k.koukiou)
+
 * Tue Jun 23 2026 github-actions <github-actions@github.com> - 45.9-1
 - docs: add daily WebUI boot.iso CI status badge (k.koukiou)
 - storage: check disk space in cmdline mode before starting installation
