@@ -256,6 +256,23 @@ int checkDDRPM(const char *source,
     return RPM_OK;
 }
 
+static const char *payloadCompressorToIoType(const char *compr)
+{
+    if (!compr || !*compr)
+        return "gzdio";
+    if (!strcmp(compr, "gzip"))
+        return "gzdio";
+    if (!strcmp(compr, "zstd"))
+        return "zstdio";
+    if (!strcmp(compr, "xz"))
+        return "xzdio";
+    if (!strcmp(compr, "bzip2"))
+        return "bzdio";
+    if (!strcmp(compr, "lzma"))
+        return "lzdio";
+    return "gzdio";
+}
+
 /*
  * explode source RPM into the current directory
  * use filters to skip files we do not need
@@ -272,6 +289,7 @@ int explodeDDRPM(const char *source,
     rpmRC rc;
     FD_t gzdi;
     const char *compr;
+    const char *io_type;
     struct archive *cpio;
     struct archive_entry *cpio_entry;
     struct cpio_mydata cpio_mydata;
@@ -285,12 +303,8 @@ int explodeDDRPM(const char *source,
 
     /* Retrieve type of payload compression. */
     compr = headerGetString(h, RPMTAG_PAYLOADCOMPRESSOR);
-    if (compr && strcmp(compr, "gzip")) {
-        checked_asprintf(&rpmio_flags, "r.%sdio", compr);
-    }
-    else {
-        checked_asprintf(&rpmio_flags, "r.gzdio");
-    }
+    io_type = payloadCompressorToIoType(compr);
+    checked_asprintf(&rpmio_flags, "r.%s", io_type);
 
     /* Open uncompressed cpio stream */
     gzdi = Fdopen(fdi, rpmio_flags);
