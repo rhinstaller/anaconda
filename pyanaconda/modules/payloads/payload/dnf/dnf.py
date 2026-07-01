@@ -373,6 +373,9 @@ class DNFModule(PayloadBase):
         if self.side_payload and self.side_payload.type == PayloadType.FLATPAK:
             self.side_payload.set_sources(self.sources)
             self.side_payload.set_flatpak_refs(self.get_flatpak_refs())
+            self.side_payload.set_ignore_missing(
+                self._packages_configuration.missing_ignored
+            )
 
     def validate_packages_selection_with_task(self, data):
         """Validate the specified packages selection.
