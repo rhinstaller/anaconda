@@ -30,6 +30,20 @@ __all__ = [
     "stop_service",
 ]
 
+SYSTEMD_UNIT_SUFFIXES = (
+    ".service",
+    ".socket",
+    ".device",
+    ".mount",
+    ".automount",
+    ".swap",
+    ".target",
+    ".path",
+    ".timer",
+    ".slice",
+    ".scope",
+)
+
 
 def _run_systemctl(command, service, root):
     """Runs 'systemctl command service'
@@ -96,14 +110,14 @@ def is_service_running(service):
 
 
 def is_service_installed(service, root="/"):
-    """Is a systemd service installed?
+    """Is a systemd unit installed?
 
-    Runs 'systemctl list-unit-files' to determine if the service exists.
+    Runs 'systemctl list-unit-files' to determine if the unit exists.
 
-    :param str service: name of the service to check
+    :param str service: name of the unit to check
     :param str root: path to the sysroot, defaults to installation environment
     """
-    if not service.endswith(".service"):
+    if not service.endswith(SYSTEMD_UNIT_SUFFIXES):
         service += ".service"
 
     args = ["list-unit-files", service, "--no-legend"]
