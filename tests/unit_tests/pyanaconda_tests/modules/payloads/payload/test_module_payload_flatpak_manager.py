@@ -285,6 +285,22 @@ class FlatpakManagerTestCase:
 
         assert fm.skip_installation is True
 
+    @patch.object(FlatpakManager, "get_source")
+    def test_calculate_size_ignored_when_missing_ignored(self, get_source_mock, caplog):
+        """calculate_size does not raise when ignore_missing is set."""
+        source = Mock(spec=FlatpakStaticSource)
+        source.calculate_size.side_effect = SourceSetupError
+        get_source_mock.return_value = source
+
+        fm = FlatpakManager()
+        refs = ["app/org.example.App1/amd64/stable"]
+        fm.set_flatpak_refs(refs)
+        fm.set_ignore_missing(True)
+
+        fm.calculate_size()
+
+        assert fm.skip_installation is True
+        assert "Ignoring Flatpak error due to %packages --ignoremissing flag" in caplog.text
 
     @patch.object(FlatpakManager, "get_source")
     def test_download(self, get_source_mock):
@@ -326,6 +342,42 @@ class FlatpakManagerTestCase:
             fm.download(progress)
 
         assert fm.skip_installation is True
+
+    @patch.object(FlatpakManager, "get_source")
+    def test_download_ignored_when_missing_ignored(self, get_source_mock, caplog):
+        """Test download does not raise when ignore_missing is set."""
+        source = Mock(spec=FlatpakStaticSource)
+        source.download.side_effect = SourceSetupError("gone")
+        get_source_mock.return_value = source
+        progress = Mock()
+
+        fm = FlatpakManager()
+        fm.set_flatpak_refs([TEST_REF])
+        fm.set_download_location("test-location")
+        fm.set_ignore_missing(True)
+
+        fm.download(progress)
+
+        assert fm.skip_installation is True
+        assert "Ignoring Flatpak error due to %packages --ignoremissing flag" in caplog.text
+
+    @patch.object(FlatpakManager, "get_source")
+    def test_download_ignored_when_missing_ignored_oserror(self, get_source_mock, caplog):
+        """Test download does not raise on OSError when ignore_missing is set."""
+        source = Mock(spec=FlatpakStaticSource)
+        source.download.side_effect = OSError("network error")
+        get_source_mock.return_value = source
+        progress = Mock()
+
+        fm = FlatpakManager()
+        fm.set_flatpak_refs([TEST_REF])
+        fm.set_download_location("test-location")
+        fm.set_ignore_missing(True)
+
+        fm.download(progress)
+
+        assert fm.skip_installation is True
+        assert "Ignoring Flatpak error due to %packages --ignoremissing flag" in caplog.text
 
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Installation")
@@ -472,6 +524,32 @@ class FlatpakManagerTestCase:
             fm.install(progress)
         transaction.run.assert_called_once()
         transaction.run_dispose.assert_called()
+
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Transaction")
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.Installation")
+    @patch("pyanaconda.modules.payloads.payload.flatpak.flatpak_manager.is_module_available")
+    def test_install_ignored_when_missing_ignored(self, is_subscription_module_available, installation_mock, transaction_mock, caplog):
+        """Test install does not raise when ignore_missing is set."""
+        progress = Mock()
+        installation = Mock()
+        transaction = Mock()
+        installation_mock.new_system.return_value = installation
+        transaction_mock.new_for_installation.return_value = transaction
+        is_subscription_module_available.return_value = False
+
+        fm = FlatpakManager()
+        fm._source = Mock(spec=FlatpakStaticSource)
+        fm._skip_installation = False
+        fm.set_flatpak_refs([TEST_REF])
+        fm.set_ignore_missing(True)
+
+        transaction.run.side_effect = GError("Test error")
+
+        fm.install(progress)
+
+        transaction.run.assert_called_once()
+        transaction.run_dispose.assert_called()
+        assert "Ignoring Flatpak error due to %packages --ignoremissing flag" in caplog.text
 
     def _create_transaction_operation(self):
         operation = Mock()
