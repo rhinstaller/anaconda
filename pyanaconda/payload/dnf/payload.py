@@ -32,7 +32,7 @@ from pyanaconda.core.constants import (
     SOURCE_TYPE_URL,
 )
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import NonCriticalSourceSetupError, SourceSetupError
 from pyanaconda.modules.common.structures.packages import (
     PackagesConfigurationData,
     PackagesSelectionData,
@@ -44,7 +44,6 @@ from pyanaconda.modules.payloads.payload.dnf.repositories import (
     generate_driver_disk_repositories,
 )
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository
-from pyanaconda.payload.manager import NonCriticalSourceSetupError
 from pyanaconda.payload.manager import payloadMgr as payload_manager
 from pyanaconda.payload.migrated import MigratedDBusPayload
 from pyanaconda.ui.lib.payload import (
@@ -356,7 +355,10 @@ class DNFPayload(MigratedDBusPayload):
             if side_payload_path:
                 side_payload = PAYLOADS.get_proxy(side_payload_path)
                 side_task_proxy = PAYLOADS.get_proxy(side_payload.CalculateSizeWithTask())
-                sync_run_task(side_task_proxy)
+                try:
+                    sync_run_task(side_task_proxy)
+                except NonCriticalSourceSetupError as e:
+                    report.error_messages.append(str(e))
 
         # This validation is no longer required.
         self._software_validation_required = False
