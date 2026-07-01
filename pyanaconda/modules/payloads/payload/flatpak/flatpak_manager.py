@@ -31,7 +31,10 @@ from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.errors.installation import (
     NonCriticalInstallationError,
 )
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.errors.payload import (
+    NonCriticalSourceSetupError,
+    SourceSetupError,
+)
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.util import is_module_available
@@ -217,10 +220,16 @@ class FlatpakManager:
         try:
             self._download_size, self._install_size = \
                 self.get_source().calculate_size(self._flatpak_refs)
-        except SourceSetupError as e:
-            log.error("Flatpak source not available, skipping size calculation %s: %s",
+        # SourceSetupError: missing index.json; OSError: HTTP failures; ValueError: corrupted manifest JSON.
+        except (SourceSetupError, OSError, ValueError) as e:
+            log.error("Flatpak source not available for %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
+            raise NonCriticalSourceSetupError(
+                _("Cannot install the following Flatpaks because the source "
+                  "is not available: {refs}").format(
+                      refs=", ".join(self._flatpak_refs))
+            ) from e
 
     @property
     def download_size(self):
@@ -254,10 +263,16 @@ class FlatpakManager:
             self._collection_location = self.get_source().download(self._flatpak_refs,
                                                                    self._download_location,
                                                                    progress)
-        except SourceSetupError as e:
-            log.error("Flatpak source not available, skipping download %s: %s",
+        # OSError covers requests.HTTPError (blob download failures) in addition to SourceSetupError.
+        except (SourceSetupError, OSError) as e:
+            log.error("Flatpak download failed for %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
+            raise NonCriticalInstallationError(
+                _("Cannot download Flatpaks because the source is not "
+                  "available: {refs}").format(
+                      refs=", ".join(self._flatpak_refs))
+            ) from e
 
     def install(self, progress: ProgressReporter):
         """Install the Flatpak content to the target system.
@@ -308,7 +323,7 @@ class FlatpakManager:
             self._progress = progress
             self._transaction.run()
         except GError as e:
-            raise NonCriticalInstallationError("Failed to install flatpaks: {}".format(e)) from e
+            raise NonCriticalInstallationError(_("Failed to install Flatpaks: {}").format(e)) from e
         finally:
             if self._transaction:
                 self._transaction.run_dispose()
