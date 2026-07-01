@@ -111,6 +111,13 @@ class FlatpakModule(PayloadBase):
         log.debug("Flatpak refs are set to: %s", refs)
         self._flatpak_manager.set_flatpak_refs(refs)
 
+    def set_ignore_missing(self, ignore_missing):
+        """Set whether missing flatpaks should be ignored.
+
+        :param bool ignore_missing: True to suppress errors for missing flatpaks
+        """
+        self._flatpak_manager.set_ignore_missing(ignore_missing)
+
     def calculate_required_space(self):
         """Calculate space required for the installation.
 
