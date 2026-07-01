@@ -89,6 +89,14 @@ class RunSystemctlTests(unittest.TestCase):
             "list-unit-files", "fake.service", "--no-legend"
         ])
 
+        # socket unit
+        exec_mock.reset_mock()
+        exec_mock.return_value = "cockpit.socket enabled enabled"
+        assert service.is_service_installed("cockpit.socket", root="/")
+        exec_mock.assert_called_once_with("systemctl", [
+            "list-unit-files", "cockpit.socket", "--no-legend"
+        ])
+
     @patch('pyanaconda.core.service.execWithRedirect', return_value=0)
     def test_enable_service(self, exec_mock):
         """Test enable_service"""

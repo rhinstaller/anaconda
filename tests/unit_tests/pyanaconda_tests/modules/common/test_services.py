@@ -502,3 +502,21 @@ class ServicesTasksTestCase(unittest.TestCase):
             assert "service-A" in enabled_services
             assert "service-C" in enabled_services
             assert "service-B" not in enabled_services
+
+    @patch("pyanaconda.modules.services.installation.enable_service")
+    @patch("pyanaconda.modules.services.installation.is_service_installed")
+    def test_configure_services_socket_unit(self, mock_is_installed, mock_enable):
+        """Test that socket-activated units can be enabled."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            mock_is_installed.return_value = True
+
+            task = ConfigureServicesTask(
+                sysroot=sysroot,
+                disabled_services=[],
+                enabled_services=["cockpit.socket"]
+            )
+
+            task.run()
+
+            mock_is_installed.assert_called_once_with("cockpit.socket", root=sysroot)
+            mock_enable.assert_called_once_with("cockpit.socket", root=sysroot)
