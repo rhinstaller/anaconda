@@ -76,6 +76,7 @@ class FlatpakManager:
 
         self._source = None
         self._skip_installation = True
+        self._ignore_missing = False
         # location of the local installation source ready for installation in flatpak format
         self._collection_location = None
         self._progress: Optional[ProgressReporter] = None
@@ -172,6 +173,14 @@ class FlatpakManager:
         else:
             self._source = None
 
+    def set_ignore_missing(self, ignore_missing: bool):
+        """Set whether missing flatpaks should be ignored.
+
+        When True, flatpak source errors are logged but do not raise
+        NonCriticalInstallationError — matching %packages --ignoremissing.
+        """
+        self._ignore_missing = ignore_missing
+
     def set_flatpak_refs(self, refs: Optional[List[str]]):
         """Set the Flatpak refs to be installed.
 
@@ -227,6 +236,9 @@ class FlatpakManager:
             log.error("Flatpak source not available for %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
+            if self._ignore_missing:
+                log.error("Ignoring Flatpak error due to %packages --ignoremissing flag")  # pylint: disable=logging-unsupported-format
+                return
             raise NonCriticalSourceSetupError(
                 _("Cannot install the following Flatpaks because the source "
                   "is not available: {refs}").format(
@@ -271,9 +283,11 @@ class FlatpakManager:
             log.error("Flatpak download failed for %s: %s",
                       ", ".join(self._flatpak_refs), e)
             self._skip_installation = True
+            if self._ignore_missing:
+                log.error("Ignoring Flatpak error due to %packages --ignoremissing flag")  # pylint: disable=logging-unsupported-format
+                return
             raise NonCriticalInstallationError(
-                _("Cannot download Flatpaks because the source is not "
-                  "available: {refs}").format(
+                _("Cannot download Flatpaks because the source is not available: {refs}").format(
                       refs=", ".join(self._flatpak_refs))
             ) from e
 
@@ -326,6 +340,10 @@ class FlatpakManager:
             self._progress = progress
             self._transaction.run()
         except GError as e:
+            log.error("Flatpak install failed: %s", e)
+            if self._ignore_missing:
+                log.error("Ignoring Flatpak error due to %packages --ignoremissing flag")  # pylint: disable=logging-unsupported-format
+                return
             raise NonCriticalInstallationError(_("Failed to install Flatpaks: {}").format(e)) from e
         finally:
             if self._transaction:
