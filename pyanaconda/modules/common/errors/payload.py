@@ -27,6 +27,12 @@ class SourceSetupError(AnacondaError):
     pass
 
 
+@dbus_error("NonCriticalSourceSetupError", namespace=PAYLOADS_NAMESPACE)
+class NonCriticalSourceSetupError(SourceSetupError):
+    """Non-critical error raised when a secondary source is unavailable."""
+    pass
+
+
 @dbus_error("SourceTearDownError", namespace=PAYLOADS_NAMESPACE)
 class SourceTearDownError(AnacondaError):
     """Error raised during the source tear down."""
