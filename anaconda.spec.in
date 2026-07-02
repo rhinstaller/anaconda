@@ -500,6 +500,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 02 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.52-1
+- fix: persist checkisomd5 media verification output in the journal (k.koukiou)
+  Resolves: RHEL-73812
+- fix: allow enabling socket and other systemd units via kickstart (k.koukiou)
+  Related: RHEL-61134
+
 * Mon Jun 29 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.51-1
 - gui: disable overlay scrolling on disk selection lists (k.koukiou)
   Resolves: RHEL-69902
