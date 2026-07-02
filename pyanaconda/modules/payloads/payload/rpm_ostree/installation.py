@@ -854,6 +854,7 @@ class DeployBootcTask(Task):
 
         log.debug("Executing bootc install command")
         # Install bootc directly to physroot
+        bootc_cmd = "bootc"
         bootc_args = [
             "install",
             "to-filesystem",
@@ -884,14 +885,19 @@ class DeployBootcTask(Task):
             self._physroot
         ])
 
+        bootc_output = []
         try:
             self.report_progress(_("Deploying image..."))
-            for line in execReadlines("bootc", bootc_args):
+            for line in execReadlines(bootc_cmd, bootc_args):
+                bootc_output.append(line)
                 self._parse_bootc_output(line)
         except OSError as e:
-            raise PayloadInstallationError(
-                "bootc installation failed: {}".format(str(e))
-            ) from e
+            error_message = "bootc installation failed, see the logs below:\n\n{logs}\n\nOriginal command:\n\n{bootc_cmd} {bootc_args}".format(
+                logs="\n".join(line for line in bootc_output),
+                bootc_cmd=bootc_cmd,
+                bootc_args=" ".join(cmd for cmd in bootc_args),
+            )
+            raise PayloadInstallationError(error_message) from e
 
         log.info("Bootc deploy complete")
         self.report_progress(_("Bootc deployment complete: {}").format(ref))
