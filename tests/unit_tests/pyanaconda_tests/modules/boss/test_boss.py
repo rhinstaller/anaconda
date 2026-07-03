@@ -233,6 +233,55 @@ class BossInterfaceTestCase(unittest.TestCase):
         task_paths = self.interface.InstallWithTasks()
         check_task_creation_list(task_paths, publisher, [RunInstallationTask])
 
+    @patch_dbus_publish_object
+    def test_install_with_tasks_returns_same_when_running(self, publisher):
+        """Test that InstallWithTasks returns the same task when running."""
+        task_paths_1 = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths_1[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        with patch.object(type(task), 'is_running', new_callable=lambda: property(lambda self: True)):
+            task_paths_2 = self.interface.InstallWithTasks()
+            assert task_paths_1 == task_paths_2
+
+    def test_install_with_tasks_creates_new_when_previous_finished(self):
+        """Test that InstallWithTasks creates a new task when previous finished."""
+        tasks_1 = self.module.install_with_tasks()
+        self.module._on_installation_stopped()
+        tasks_2 = self.module.install_with_tasks()
+        assert tasks_1[0] is not tasks_2[0]
+
+    @patch_dbus_publish_object
+    def test_active_installation_task_none(self, publisher):
+        """Test ActiveInstallationTask when no task is active."""
+        assert self.interface.ActiveInstallationTask == ""
+
+    @patch_dbus_publish_object
+    def test_active_installation_task_active(self, publisher):
+        """Test ActiveInstallationTask when a task is running."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        with patch.object(type(task), 'is_running', new_callable=lambda: property(lambda self: True)):
+            result = self.interface.ActiveInstallationTask
+            assert result == task_paths[0]
+
+    def test_active_installation_task_changed(self):
+        """Test ActiveInstallationTaskChanged signal."""
+        callback = Mock()
+        self.module.active_installation_task_changed.connect(callback)
+
+        self.module.install_with_tasks()
+
+        self.module._on_installation_started()
+        callback.assert_called()
+
+        callback.reset_mock()
+
+        self.module._on_installation_stopped()
+        callback.assert_called()
+
     def test_quit(self):
         """Test Quit."""
         assert self.interface.Quit() is None
