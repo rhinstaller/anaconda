@@ -1090,6 +1090,33 @@ class PullRemoteAndDeleteTask(Task):
             self.report_progress(_("Writing objects"))
 
 
+class FinalizeBootcTask(Task):
+    """Task to run bootc install finalize.
+    """
+
+    def __init__(self, physroot):
+        """Create a new task.
+
+        :param str physroot: a path to the physical root
+        """
+        super().__init__()
+        self._physroot = physroot
+
+    @property
+    def name(self):
+        return "Finalize bootc installation"
+
+    def run(self):
+        """Run bootc install finalize on the physical root."""
+        deployment_path = get_ostree_deployment_path(self._physroot)
+        if not deployment_path:
+            log.debug("No OSTree deployment found, skipping bootc install finalize")
+            return
+
+        log.debug("Running bootc install finalize on %s", self._physroot)
+        safe_exec_program("bootc", ["install", "finalize", self._physroot])
+
+
 class SetSystemRootTask(Task):
     """The installation task for setting up the system root."""
 
