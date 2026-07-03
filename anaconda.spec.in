@@ -500,6 +500,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 03 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.53-1
+- Revert "fix: persist checkisomd5 media verification output in the journal"
+  (k.koukiou)
+  Related: RHEL-73812
+
 * Thu Jul 02 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.52-1
 - fix: persist checkisomd5 media verification output in the journal (k.koukiou)
   Resolves: RHEL-73812
