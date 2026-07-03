@@ -24,10 +24,12 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
+from pyanaconda.modules.boss.installation import RunInstallationTask
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.structures.requirement import Requirement
 from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
+    check_task_creation_list,
     patch_dbus_get_proxy,
     patch_dbus_publish_object,
 )
@@ -224,6 +226,12 @@ class BossInterfaceTestCase(unittest.TestCase):
             ("B", "/task/3"),
             ("B", "/task/4"),
         ]
+
+    @patch_dbus_publish_object
+    def test_install_with_tasks(self, publisher):
+        """Test InstallWithTasks."""
+        task_paths = self.interface.InstallWithTasks()
+        check_task_creation_list(task_paths, publisher, [RunInstallationTask])
 
     def test_quit(self):
         """Test Quit."""
