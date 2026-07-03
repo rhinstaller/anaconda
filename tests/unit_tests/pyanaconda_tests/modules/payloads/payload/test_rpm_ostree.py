@@ -34,6 +34,7 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     ConfigureBootloader,
     CopyBootloaderDataTask,
     DeployOSTreeTask,
+    FinalizeBootcTask,
     InitOSTreeFsAndRepoTask,
     PrepareOSTreeMountTargetsTask,
     PullRemoteAndDeleteTask,
@@ -291,6 +292,24 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
 
         assert tasks[0]._sources == [rpm_source]
         assert tasks[1]._internal_mounts == ["/path/1", "/path/2"]
+
+    def test_bootc_tear_down_with_tasks(self):
+        """Test the tear_down_with_tasks method with bootc."""
+        bootc_source = SourceFactory.create_source(SourceType.BOOTC)
+
+        self.module.set_sources([bootc_source])
+        self.module._add_internal_mounts(["/path/1", "/path/2"])
+
+        tasks = self.module.tear_down_with_tasks()
+
+        check_instances(tasks, [
+            TearDownSourcesTask,
+            FinalizeBootcTask,
+            TearDownOSTreeMountTargetsTask
+        ])
+
+        assert tasks[0]._sources == [bootc_source]
+        assert tasks[2]._internal_mounts == ["/path/1", "/path/2"]
 
     def test_container_tear_down_with_tasks(self):
         """Test the tear_down_with_tasks method with ostreecontainer."""

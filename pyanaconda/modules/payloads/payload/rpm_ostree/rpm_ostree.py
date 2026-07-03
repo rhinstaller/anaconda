@@ -32,6 +32,7 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import (
     CopyBootloaderDataTask,
     DeployBootcTask,
     DeployOSTreeTask,
+    FinalizeBootcTask,
     InitOSTreeFsAndRepoTask,
     PrepareBootcMountTargetsTask,
     PrepareOSTreeMountTargetsTask,
@@ -265,6 +266,13 @@ class RPMOSTreeModule(PayloadBase):
         :return: a list of tasks
         """
         tasks = super().tear_down_with_tasks()
+
+        if self._get_source(SourceType.BOOTC):
+            tasks.append(
+                FinalizeBootcTask(
+                    physroot=conf.target.physical_root
+                )
+            )
 
         # Tear down mount points for both OSTree and bootc installs
         tasks.append(
