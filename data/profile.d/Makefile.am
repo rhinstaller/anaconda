@@ -20,16 +20,24 @@ dist_config_DATA    = \
 	almalinux.conf \
 	centos.conf \
 	circle.conf \
+	fedora-budgie.conf \
+	fedora-cinnamon.conf \
 	fedora-designsuite.conf \
 	fedora-eln.conf \
+	fedora-i3.conf \
 	fedora-iot.conf \
 	fedora-kde.conf \
 	fedora-kde-mobile.conf \
 	fedora-kinoite.conf \
+	fedora-lxde.conf \
+	fedora-lxqt.conf \
+	fedora-matecompiz.conf \
 	fedora-sericea.conf \
 	fedora-server.conf \
 	fedora-silverblue.conf \
+	fedora-sway.conf \
 	fedora-workstation.conf \
+	fedora-xfce.conf \
 	fedora.conf \
 	navix.conf \
 	ovirt.conf \
