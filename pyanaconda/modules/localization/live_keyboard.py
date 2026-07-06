@@ -92,11 +92,12 @@ class GnomeShellKeyboard(LiveSystemKeyboardBase):
         result = []
 
         for t in sources:
-            # keep only 'xkb' type and raise an error on 'ibus' variants which can't
-            # be used in localed
+            # keep only 'xkb' type and skip 'ibus' variants which can't
+            # be used in localed (e.g., 'anthy' for Japanese input)
             if t[0] != "xkb":
-                msg = _("The live system has layout '{}' which can't be used for installation.")
-                raise KeyboardConfigurationError(msg.format(t[1]))
+                log.debug("Skipping non-XKB layout '%s' (type '%s') - not usable for installation",
+                          t[1], t[0])
+                continue
 
             layout = t[1]
             # change layout variant from 'cz+qwerty' to 'cz (qwerty)'
