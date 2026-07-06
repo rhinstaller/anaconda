@@ -785,12 +785,19 @@ class DeployBootcTask(Task):
         entries = list(os.listdir(self._physroot))
         for entry in entries:
             path = os.path.join(self._physroot, entry)
-            # Try to unmount if it's a mount point, use lazy unmount for busy mounts
-            if os.path.ismount(path):
-                # Skip if /boot
-                if path == self._physroot + "/boot":
+            if entry == "boot":
+                if os.path.ismount(path):
                     log.debug("Bootc workaround: skip unmounting /boot")
                     continue
+                for boot_entry in os.listdir(path):
+                    boot_entry_path = os.path.join(path, boot_entry)
+                    if os.path.ismount(boot_entry_path):
+                        continue
+                    safe_exec_program("rm", ["-rf", boot_entry_path])
+                continue
+
+            # Try to unmount if it's a mount point, use lazy unmount for busy mounts
+            if os.path.ismount(path):
                 safe_exec_program("umount", ["-l", path])
 
             safe_exec_program("rm", ["-rf", path])
