@@ -32,6 +32,7 @@ from blivet.devices import (
     OpticalDevice,
     PartitionDevice,
     StorageDevice,
+    StratisPoolDevice,
     ZFCPDiskDevice,
     iScsiDiskDevice,
 )
@@ -394,6 +395,23 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             data = self.interface.GetDeviceData("dev1")
             assert data['attrs']['partition-type-name'] == "Microsoft reserved partition"
             assert data['attrs']['isleaf'] == "True"
+
+    def test_get_stratis_pool_device_data(self):
+        dev1 = StorageDevice("dev1", size=Size("50 GiB"))
+        self._add_device(dev1)
+
+        pool = StratisPoolDevice(
+            "pool1",
+            size=Size("50 GiB"),
+            parents=[dev1],
+            exists=True,
+            encrypted=True,
+        )
+        self._add_device(pool)
+
+        data = self.interface.GetDeviceData("STRATIS-pool1")
+        assert data['attrs']['encrypted'] == "True"
+        assert data['attrs']['has_key'] == "False"
 
     def test_get_format_data(self):
         """Test GetFormatData."""
