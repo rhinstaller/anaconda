@@ -21,7 +21,7 @@ from abc import ABC, abstractmethod
 from functools import partial
 
 from blivet.actionlist import ActionList
-from blivet.devices import PartitionDevice
+from blivet.devices import PartitionDevice, StratisPoolDevice
 from blivet.formats import get_format
 from blivet.size import Size
 
@@ -168,6 +168,10 @@ class DeviceTreeViewer(ABC):
         if isinstance(device, PartitionDevice):
             data.attrs["partition-type-name"] = self._get_attribute(device, "part_type_name")
             data.attrs["isleaf"] = self._get_attribute(device, "isleaf")
+
+        if isinstance(device, StratisPoolDevice):
+            data.attrs["encrypted"] = self._get_attribute(device, "encrypted")
+            data.attrs["has_key"] = self._get_attribute(device, "has_key")
 
     def _set_device_data_dasd(self, device, data):
         """Set data for a DASD device."""
