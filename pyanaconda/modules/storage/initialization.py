@@ -25,6 +25,7 @@ from blivet.static_data import luks_data
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.service import start_service
 
 __all__ = ["enable_installer_mode"]
 
@@ -87,6 +88,12 @@ def enable_installer_mode():
             lvm.disable_lvm_autoactivation()
         except RuntimeError as e:
             log.error("Failed to disable LVM auto-activation: %s", str(e))
+
+    # start stratisd, because it doesn't support DBus activation
+    try:
+        start_service("stratisd")
+    except (OSError, RuntimeError) as e:
+        log.error("Failed to start stratisd: %s", str(e))
 
 
 def _set_default_label_type():
