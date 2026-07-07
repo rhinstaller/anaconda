@@ -2,15 +2,20 @@
 # anaconda-generator: generate services needed for anaconda operation
 
 # only run in the Anaconda installation environment
-ANACONDA_TARGET="/lib/systemd/system/anaconda.target"
 CURRENT_DEFAULT_TARGET=$(readlink /etc/systemd/system/default.target)
 
-if ! { [ "$ANACONDA_TARGET" = "$CURRENT_DEFAULT_TARGET" ] || grep -q 'systemd.unit=anaconda.target' /proc/cmdline ;} ; then
+if ! { [ "/lib/systemd/system/anaconda.target" = "$CURRENT_DEFAULT_TARGET" ] ||
+       [ "/usr/lib/systemd/system/anaconda.target" = "$CURRENT_DEFAULT_TARGET" ] ||
+       grep -q 'systemd.unit=anaconda.target' /proc/cmdline ;} ; then
     exit 0
 fi
 
 # set up dirs
-systemd_dir=/lib/systemd/system
+if [ -d /usr/lib/systemd/system ]; then
+    systemd_dir=/usr/lib/systemd/system
+else
+    systemd_dir=/lib/systemd/system
+fi
 target_dir="$1/anaconda.target.wants"
 mkdir -p "$target_dir"
 
