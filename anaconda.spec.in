@@ -237,6 +237,9 @@ Requires: dosfstools
 Requires: e2fsprogs
 # External tooling for managing NVMe-FC devices in the installation environment
 Recommends: nvme-cli
+Requires: stratisd
+Requires: stratis-cli
+Requires: stratisd-dracut
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment
