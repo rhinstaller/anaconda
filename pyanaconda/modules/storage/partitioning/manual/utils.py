@@ -71,6 +71,20 @@ def recreate_btrfs_device(storage, device):
         return _recreate_btrfs_subvolume(storage, device)
 
 
+def _recreate_stratis_filesystem(storage, device):
+    """Recreate a stratis filesystem device by destroying and adding it.
+
+    :param storage: an instance of the Blivet's storage object
+    :param device: a StratisFilesystemDevice to recreate
+    """
+    storage.destroy_device(device)
+    new_fs = storage.new_stratis_filesystem(name=device.fsname,
+                                            parents=[device.pool],
+                                            size=device.size)
+    storage.create_device(new_fs)
+    return new_fs
+
+
 def reformat_device(storage, device, format_type=None, dependencies=None):
     dependencies = dependencies or {}
     mount_options = None
@@ -111,6 +125,9 @@ def reformat_device(storage, device, format_type=None, dependencies=None):
                   "subvolumes which cannot be reused: {}").format(device.raw_device.name,
                                                                   ", ".join(err)))
         device = recreate_btrfs_device(storage, device)
+        mount_options = device.format.options
+    elif device.raw_device.type == "stratis filesystem":
+        device = _recreate_stratis_filesystem(storage, device)
         mount_options = device.format.options
     else:
         storage.format_device(device, fmt)
