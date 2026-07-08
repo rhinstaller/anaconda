@@ -19,7 +19,6 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
-from pyanaconda.core.signal import Signal
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import (
@@ -44,8 +43,6 @@ class Boss(Service):
         self._module_manager = ModuleManager()
         self._kickstart_manager = KickstartManager()
         self._install_manager = InstallManager()
-        self._installation_task = None
-        self.active_installation_task_changed = Signal()
 
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
@@ -104,52 +101,19 @@ class Boss(Service):
         """
         return self._install_manager.collect_requirements()
 
-    def get_installation_task(self):
-        """Get the active installation task, if any.
-
-        :return: the active installation task or None
-        """
-        if self._installation_task is not None \
-                and self._installation_task.is_running:
-            return self._installation_task
-
-        return None
-
     def install_with_tasks(self):
         """Return installation tasks of this module.
 
-        If an installation task is already running, return
-        the existing task to allow reconnection. Otherwise,
-        create a new one.
+        FIXME: This is a temporary workaround for the Web UI.
 
-        :return: a list of installation tasks
+        :return: a list of DBus paths of the installation tasks
         """
-        if self._installation_task is not None:
-            return [self._installation_task]
 
-        self._installation_task = RunInstallationTask(
-            install_manager=self._install_manager,
-        )
-
-        self._installation_task.started_signal.connect(
-            self._on_installation_started
-        )
-        self._installation_task.stopped_signal.connect(
-            self._on_installation_stopped
-        )
-
-        return [self._installation_task]
-
-    def _on_installation_started(self):
-        """Handle the installation task start."""
-        log.info("The installation has started.")
-        self.active_installation_task_changed.emit()
-
-    def _on_installation_stopped(self):
-        """Handle the installation task stop."""
-        log.info("The installation has stopped.")
-        self._installation_task = None
-        self.active_installation_task_changed.emit()
+        return [
+            RunInstallationTask(
+                install_manager=self._install_manager,
+            )
+        ]
 
     def collect_configure_runtime_tasks(self):
         """Collect tasks for configuration of the runtime environment.

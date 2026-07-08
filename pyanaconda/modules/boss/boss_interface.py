@@ -45,29 +45,6 @@ def get_proxy_identification(proxy):
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
 
-    def connect_signals(self):
-        """Connect the signals."""
-        self.watch_property(
-            "ActiveInstallationTask",
-            self.implementation.active_installation_task_changed
-        )
-
-    @property
-    def ActiveInstallationTask(self) -> ObjPath:
-        """The active installation task.
-
-        If an installation task is currently running, return its
-        D-Bus object path. Otherwise, return an empty string.
-
-        :return: a D-Bus object path or an empty string
-        """
-        task = self.implementation.get_installation_task()
-
-        if task is None:
-            return ""
-
-        return TaskContainer.to_object_path(task)
-
     def GetModules(self) -> List[BusName]:
         """Get service names of running modules.
 
