@@ -135,6 +135,10 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
                                                     dependencies=requested_devices)
             if mount_options is not None:
                 mount_data.mount_options = mount_options
+            # Update device_spec to the new device's ID after reformatting
+            # This is needed because reformatting BTRFS volumes destroys
+            # the old device and creates a new one with a different UUID
+            mount_data.device_spec = device.device_id
 
         # add "mounted" swaps to fstab
         if device.format.type == "swap" and mount_point == "none":
