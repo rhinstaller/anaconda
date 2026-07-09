@@ -500,6 +500,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 09 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.54-1
+- modules: rpm_ostree: fix bootc install when /boot is on root partition
+  (k.koukiou)
+  Resolves: RHEL-147437
+- fix(bootc): show bootc error output in the installation error dialog
+  (bciconel)
+  Resolves: RHEL-162832
+- flatpak: honor %%packages --ignoremissing (bciconel)
+  Related: RHEL-101748
+- flatpak: surface errors when requested flatpaks cannot be installed
+  (bciconel)
+  Resolves: RHEL-101748
+
 * Fri Jul 03 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.53-1
 - Revert "fix: persist checkisomd5 media verification output in the journal"
   (k.koukiou)
