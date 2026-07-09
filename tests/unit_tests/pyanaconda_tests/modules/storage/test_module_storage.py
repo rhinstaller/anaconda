@@ -36,6 +36,8 @@ from pyanaconda.core.constants import (
     PARTITIONING_METHOD_CUSTOM,
     PARTITIONING_METHOD_INTERACTIVE,
     PARTITIONING_METHOD_MANUAL,
+    PAYLOAD_TYPE_DNF,
+    PAYLOAD_TYPE_RPM_OSTREE,
 )
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
@@ -394,7 +396,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_write_configuration_with_task(self, publisher):
         """Test WriteConfigurationWithTask."""
-        task_path = self.storage_interface.WriteConfigurationWithTask()
+        task_path = self.storage_interface.WriteConfigurationWithTask(PAYLOAD_TYPE_DNF)
         check_task_creation(task_path, publisher, WriteConfigurationTask)
 
     @patch_dbus_publish_object
@@ -1599,11 +1601,11 @@ class StorageTasksTestCase(unittest.TestCase):
             patched_conf.target.physical_root = d
 
             patched_conf.target.is_directory = True
-            WriteConfigurationTask(storage).run()
+            WriteConfigurationTask(storage, PAYLOAD_TYPE_DNF).run()
             assert not os.path.exists("{}/etc".format(d))
 
             patched_conf.target.is_directory = False
-            WriteConfigurationTask(storage).run()
+            WriteConfigurationTask(storage, PAYLOAD_TYPE_DNF).run()
             assert os.path.exists("{}/etc".format(d))
 
     @patch("pyanaconda.modules.storage.installation.conf")
@@ -1653,7 +1655,7 @@ class StorageTasksTestCase(unittest.TestCase):
 
     def test_adjust_luks_options(self):
         """Test adjusting crypttab options for LUKS devices."""
-        task = WriteConfigurationTask(Mock())
+        task = WriteConfigurationTask(Mock(), Mock())
 
         luks_dev = Mock()
         luks_dev.format.type = "luks"
@@ -1673,6 +1675,39 @@ class StorageTasksTestCase(unittest.TestCase):
         luks_dev.format.options = "discard,x-initrd.attach"
         task._adjust_luks_options(storage)
         assert luks_dev.format.options == "discard,x-initrd.attach"
+
+    def test_adjust_mount_options_for_rpm_ostree(self):
+        """Test adding ro to / and /boot for OSTree installations."""
+        root_dev = Mock()
+        root_dev.format.options = None
+        boot_dev = Mock()
+        boot_dev.format.options = "defaults"
+        storage = Mock(root_device=root_dev, boot_device=boot_dev)
+        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_DNF)
+
+        task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
+        assert root_dev.format.options is None
+        assert boot_dev.format.options == "defaults"
+
+        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_RPM_OSTREE)
+        task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
+        assert root_dev.format.options == "ro"
+        assert boot_dev.format.options == "ro"
+
+        root_dev.format.options = "defaults,rw"
+        boot_dev.format.options = "defaults,ro"
+        task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
+        assert root_dev.format.options == "defaults,rw"
+        assert boot_dev.format.options == "defaults,ro"
+
+        # boot on root: root_device and boot_device are the same object
+        unified_dev = Mock()
+        unified_dev.format.options = None
+        storage = Mock(root_device=unified_dev, boot_device=unified_dev)
+        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_RPM_OSTREE)
+        task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
+        assert unified_dev.format.options == "ro"
+
 
 class StorageValidationTasksTestCase(unittest.TestCase):
     """Test the storage validation tasks."""
