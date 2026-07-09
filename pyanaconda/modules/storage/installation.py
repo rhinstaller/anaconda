@@ -33,6 +33,7 @@ from blivet.util import get_current_entropy
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import make_directories
 from pyanaconda.core.util import execWithRedirect, join_paths
@@ -248,10 +249,15 @@ class MountFilesystemsTask(Task):
 class WriteConfigurationTask(Task):
     """Installation task for writing out the storage configuration."""
 
-    def __init__(self, storage):
-        """Create a new task."""
+    def __init__(self, storage, payload_type):
+        """Create a new task.
+
+        :param storage: the storage object
+        :param payload_type: a string with the payload type
+        """
         super().__init__()
         self._storage = storage
+        self._payload_type = payload_type
 
     @property
     def name(self):
@@ -280,6 +286,7 @@ class WriteConfigurationTask(Task):
 
         self._write_escrow_packets(storage, sysroot)
         self._adjust_luks_options(storage)
+        self._adjust_mount_options_for_rpm_ostree(storage, sysroot)
 
         storage.fsset.write()
 
@@ -332,6 +339,46 @@ class WriteConfigurationTask(Task):
             if device in root_ancestors:
                 log.debug("adding x-initrd.attach option for LUKS device containing / volume to /etc/crypttab")
                 self._add_luks_option(device, "x-initrd.attach")
+
+    @staticmethod
+    def _add_ro_mount_option(device):
+        """Add the ro mount option to a device unless ro or rw is already set."""
+        fmt = getattr(device, "format", None)
+        if not fmt or not hasattr(fmt, "options"):
+            return
+
+        opts = fmt.options
+        if not opts or opts == "defaults":
+            fmt.options = "ro"
+        else:
+            opt_list = opts.split(",")
+            if "ro" in opt_list or "rw" in opt_list:
+                return
+            fmt.options = opts + ",ro"
+
+        log.debug("Added 'ro' mount option for OSTree installation on %s: %s",
+                  getattr(fmt, "mountpoint", device.name),
+                  fmt.options)
+
+    def _adjust_mount_options_for_rpm_ostree(self, storage, sysroot):
+        """Set read-only mount options for OSTree/bootc installations.
+
+        OSTree expects the physical root and boot filesystems to be mounted
+        read-only at runtime. Use root_device and boot_device so
+        unified layouts (boot on root) are handled without duplicating
+        options on the same partition.
+
+        :type storage: an instance of InstallerStorage
+        :param sysroot: a path to the target OS installation
+        """
+        if self._payload_type != PAYLOAD_TYPE_RPM_OSTREE:
+            return
+
+        devices = {storage.root_device, storage.boot_device}
+        devices.discard(None)
+
+        for device in devices:
+            self._add_ro_mount_option(device)
 
     def _write_escrow_packets(self, storage, sysroot):
         """Write the escrow packets.

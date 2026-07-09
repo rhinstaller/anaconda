@@ -669,7 +669,7 @@ class RunInstallationTask(InstallationTask):
         early_storage.append_dbus_tasks(STORAGE, storage_proxy.InstallWithTasks())
 
         if payload_proxy.Type == PAYLOAD_TYPE_DNF:
-            conf_task = storage_proxy.WriteConfigurationWithTask()
+            conf_task = storage_proxy.WriteConfigurationWithTask(payload_proxy.Type)
             early_storage.append_dbus_tasks(STORAGE, [conf_task])
 
         installation_queue.append(early_storage)
@@ -743,7 +743,7 @@ class RunInstallationTask(InstallationTask):
                 _("Configuring storage"),
                 CATEGORY_STORAGE,
             )
-            conf_task = storage_proxy.WriteConfigurationWithTask()
+            conf_task = storage_proxy.WriteConfigurationWithTask(payload_proxy.Type)
             late_storage.append_dbus_tasks(STORAGE, [conf_task])
             installation_queue.append(late_storage)
 

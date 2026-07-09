@@ -385,14 +385,15 @@ class StorageService(KickstartService):
             MountFilesystemsTask(storage)
         ]
 
-    def write_configuration_with_task(self):
+    def write_configuration_with_task(self, payload_type):
         """Write the storage configuration with a task.
 
         FIXME: This is a temporary workaround.
 
+        :param payload_type: a string with the payload type
         :return: an installation task
         """
-        return WriteConfigurationTask(self.storage)
+        return WriteConfigurationTask(self.storage, payload_type)
 
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.

@@ -135,13 +135,14 @@ class StorageInterface(KickstartModuleInterface):
         """
         self.implementation.reset_partitioning()
 
-    def WriteConfigurationWithTask(self) -> ObjPath:
+    def WriteConfigurationWithTask(self, payload_type: Str) -> ObjPath:
         """Write the storage configuration with a task.
 
         FIXME: This is a temporary workaround.
 
+        :param payload_type: a string with the payload type
         :return: an installation task
         """
         return TaskContainer.to_object_path(
-            self.implementation.write_configuration_with_task()
+            self.implementation.write_configuration_with_task(payload_type)
         )
