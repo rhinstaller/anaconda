@@ -47,19 +47,20 @@ class BossInterface(InterfaceTemplate):
 
     def connect_signals(self):
         """Connect the signals."""
+        super().connect_signals()
         self.watch_property(
             "ActiveInstallationTask",
             self.implementation.active_installation_task_changed
         )
 
     @property
-    def ActiveInstallationTask(self) -> ObjPath:
+    def ActiveInstallationTask(self) -> Str:
         """The active installation task.
 
         If an installation task is currently running, return its
         D-Bus object path. Otherwise, return an empty string.
 
-        :return: a D-Bus object path or an empty string
+        :return: a D-Bus path or an empty string
         """
         task = self.implementation.get_installation_task()
 
