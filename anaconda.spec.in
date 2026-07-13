@@ -70,7 +70,8 @@ BuildRequires: s390utils-devel
 BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libxml2
 
-Requires: anaconda-gui = %{version}-%{release}
+Requires: (anaconda-gui = %{version}-%{release} if (fedora-release-identity-server or fedora-release-identity-basic))
+Requires: (anaconda-webui or anaconda-gui)
 Requires: anaconda-tui = %{version}-%{release}
 
 %description
