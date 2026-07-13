@@ -279,7 +279,7 @@ class WriteConfigurationTask(Task):
             os.mkdir("%s/etc" % sysroot)
 
         self._write_escrow_packets(storage, sysroot)
-        self._adjust_options_for_root_volume(storage, sysroot)
+        self._adjust_luks_options(storage)
 
         storage.fsset.write()
 
@@ -296,28 +296,42 @@ class WriteConfigurationTask(Task):
 
         self._write_s390_device_config(sysroot)
 
-    def _adjust_options_for_root_volume(self, storage, sysroot):
-        """Adjust options for the root volume.
+    def _add_luks_option(self, device, option):
+        """Add an option to a LUKS device's crypttab options if not already present.
 
-        Currently this only affects root volumes that are located on LUKS,
-        resulting in x-initrd.attach option being added for such volumes
-        into /etc/crypttab.
-
-        :type storage: an instance of InstallerStorage
-        :param sysroot: a path to the target OS installation
+        :param device: a storage device with a LUKS format
+        :param option: the option string to add
         """
+        if not device.format.options:
+            device.format.options = option
+        elif option not in device.format.options.split(","):
+            device.format.options += "," + option
 
-        # find the root device
+    def _adjust_luks_options(self, storage):
+        """Adjust crypttab options for all LUKS devices.
+
+        Ensures the discard option is set for all LUKS devices and adds
+        x-initrd.attach for LUKS devices that back the root volume.
+
+        :param storage: the storage object
+        :type storage: an instance of InstallerStorage
+        """
+        root_ancestors = set()
         if storage.root_device:
-            # check if it is on a LUKS volume
-            for m in storage.root_device.ancestors:
-                if m.format.type == "luks":
-                    log.debug("adding x-initrd.attach option for LUKS device containing / volume to /etc/crypttab")
-                    # handle options being empty
-                    if m.format.options:
-                        m.format.options += ",x-initrd.attach"
-                    else:
-                        m.format.options = "x-initrd.attach"
+            root_ancestors = {
+                m for m in storage.root_device.ancestors
+                if m.format.type == "luks"
+            }
+
+        for device in storage.devices:
+            if device.format.type != "luks":
+                continue
+
+            self._add_luks_option(device, "discard")
+
+            if device in root_ancestors:
+                log.debug("adding x-initrd.attach option for LUKS device containing / volume to /etc/crypttab")
+                self._add_luks_option(device, "x-initrd.attach")
 
     def _write_escrow_packets(self, storage, sysroot):
         """Write the escrow packets.
