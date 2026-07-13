@@ -1651,6 +1651,28 @@ class StorageTasksTestCase(unittest.TestCase):
                 dev4.format.lvmdevices_add.assert_not_called()
                 exists_mock.assert_called_once_with("/etc/lvm/devices/system.devices")
 
+    def test_adjust_luks_options(self):
+        """Test adjusting crypttab options for LUKS devices."""
+        task = WriteConfigurationTask(Mock())
+
+        luks_dev = Mock()
+        luks_dev.format.type = "luks"
+        luks_dev.format.options = None
+        storage = Mock(devices=[luks_dev], root_device=None)
+
+        # no options
+        task._adjust_luks_options(storage)
+        assert luks_dev.format.options == "discard"
+
+        # existing options
+        luks_dev.format.options = "x-initrd.attach"
+        task._adjust_luks_options(storage)
+        assert luks_dev.format.options == "x-initrd.attach,discard"
+
+        # already has discard
+        luks_dev.format.options = "discard,x-initrd.attach"
+        task._adjust_luks_options(storage)
+        assert luks_dev.format.options == "discard,x-initrd.attach"
 
 class StorageValidationTasksTestCase(unittest.TestCase):
     """Test the storage validation tasks."""
