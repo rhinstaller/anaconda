@@ -20,6 +20,7 @@
 from abc import ABC, abstractmethod
 from functools import partial
 
+from blivet.actionlist import ActionList
 from blivet.devices import PartitionDevice
 from blivet.formats import get_format
 from blivet.size import Size
@@ -347,19 +348,17 @@ class DeviceTreeViewer(ABC):
     def get_actions(self):
         """Get the device actions.
 
-        The actions are pruned and sorted.
+        The returned actions are pruned and sorted for display
+        without mutating the live action list.
 
         :return: a list of DeviceActionData
         """
-        actions = []
+        actions_copy = ActionList()
+        actions_copy._actions = self.storage.devicetree.actions.find()
+        actions_copy.prune()
+        actions_copy.sort()
 
-        self.storage.devicetree.actions.prune()
-        self.storage.devicetree.actions.sort()
-
-        for action in self.storage.devicetree.actions.find():
-            actions.append(self._get_action_data(action))
-
-        return actions
+        return [self._get_action_data(a) for a in actions_copy.find()]
 
     def _get_action_data(self, action):
         """Get the action data.
