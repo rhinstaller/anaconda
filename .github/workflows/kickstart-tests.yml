@@ -120,7 +120,7 @@ jobs:
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != '' && ! contains(github.event.comment.body, '--waive')
     runs-on: [self-hosted, kstest]
-    timeout-minutes: 300
+    timeout-minutes: 360
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
