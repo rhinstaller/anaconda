@@ -22,6 +22,7 @@ from pykickstart.constants import (
     AUTOPART_TYPE_LVM,
     AUTOPART_TYPE_LVM_THINP,
     AUTOPART_TYPE_PLAIN,
+    AUTOPART_TYPE_STRATIS,
 )
 
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
@@ -37,6 +38,7 @@ class PartitioningSpecificationTestCase(unittest.TestCase):
         assert spec.is_partition(AUTOPART_TYPE_LVM) is True
         assert spec.is_partition(AUTOPART_TYPE_LVM_THINP) is True
         assert spec.is_partition(AUTOPART_TYPE_BTRFS) is True
+        assert spec.is_partition(AUTOPART_TYPE_STRATIS) is True
 
     def test_is_volume(self):
         """Test the is_volume method."""
@@ -45,18 +47,28 @@ class PartitioningSpecificationTestCase(unittest.TestCase):
         assert spec.is_volume(AUTOPART_TYPE_LVM) is True
         assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is True
         assert spec.is_volume(AUTOPART_TYPE_BTRFS) is False
+        assert spec.is_volume(AUTOPART_TYPE_STRATIS) is False
 
         spec = PartSpec("/", lv=True, thin=True)
         assert spec.is_volume(AUTOPART_TYPE_PLAIN) is False
         assert spec.is_volume(AUTOPART_TYPE_LVM) is True
         assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is True
         assert spec.is_volume(AUTOPART_TYPE_BTRFS) is False
+        assert spec.is_volume(AUTOPART_TYPE_STRATIS) is False
 
         spec = PartSpec("/", btr=True)
         assert spec.is_volume(AUTOPART_TYPE_PLAIN) is False
         assert spec.is_volume(AUTOPART_TYPE_LVM) is False
         assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is False
         assert spec.is_volume(AUTOPART_TYPE_BTRFS) is True
+        assert spec.is_volume(AUTOPART_TYPE_STRATIS) is False
+
+        spec = PartSpec("/", stratis=True)
+        assert spec.is_volume(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_volume(AUTOPART_TYPE_LVM) is False
+        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is False
+        assert spec.is_volume(AUTOPART_TYPE_BTRFS) is False
+        assert spec.is_volume(AUTOPART_TYPE_STRATIS) is True
 
     def test_is_lvm_thin_volume(self):
         """Test the is_lvm_thin_volume method."""
@@ -65,9 +77,26 @@ class PartitioningSpecificationTestCase(unittest.TestCase):
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM) is False
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM_THINP) is False
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_BTRFS) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_STRATIS) is False
 
         spec = PartSpec("/", lv=True, thin=True)
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_PLAIN) is False
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM) is False
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM_THINP) is True
         assert spec.is_lvm_thin_volume(AUTOPART_TYPE_BTRFS) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_STRATIS) is False
+
+    def test_is_stratis_filesystem(self):
+        """Test the is_stratis_filesystem method."""
+        spec = PartSpec("/", stratis=True)
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_LVM) is False
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_LVM_THINP) is False
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_BTRFS) is False
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_STRATIS) is True
+
+        spec = PartSpec("/", stratis=False)
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_STRATIS) is False
+
+        spec = PartSpec("/")
+        assert spec.is_stratis_filesystem(AUTOPART_TYPE_STRATIS) is False

@@ -31,6 +31,7 @@ from pykickstart.constants import (
     AUTOPART_TYPE_LVM,
     AUTOPART_TYPE_LVM_THINP,
     AUTOPART_TYPE_PLAIN,
+    AUTOPART_TYPE_STRATIS,
 )
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -238,7 +239,10 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
         return devs
 
     for disk in disks:
-        if encrypted:
+        if scheme == AUTOPART_TYPE_STRATIS:
+            fmt_type = "stratis"
+            fmt_args = {}
+        elif encrypted:
             fmt_type = "luks"
             fmt_args = luks_fmt_args or {}
         else:
@@ -293,6 +297,7 @@ def get_part_spec(attrs):
         lv=True,
         thin=not swap,
         btr=not swap,
+        stratis=not swap,
         size=attrs.get("min") or attrs.get("size"),
         max_size=attrs.get("max"),
         grow="min" in attrs,
@@ -357,6 +362,9 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
             continue
 
         if request.btr and scheme == AUTOPART_TYPE_BTRFS:
+            continue
+
+        if request.stratis and scheme == AUTOPART_TYPE_STRATIS:
             continue
 
         if request.required_space and request.required_space > free:
@@ -435,8 +443,8 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
                                   parents=dev)
             storage.create_device(luks_dev)
 
-        if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_BTRFS) and \
-                implicit_devices:
+        if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_BTRFS,
+                     AUTOPART_TYPE_STRATIS) and implicit_devices:
             # doing LVM/BTRFS -- make sure the newly created partition fits in some
             # free space together with one of the implicitly requested partitions
             smallest_implicit = sorted(implicit_devices, key=lambda d: d.size)[0]
@@ -450,16 +458,12 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
     return implicit_devices
 
 
-def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
-    """Schedule creation of autopart lvm/btrfs volumes.
+def schedule_volumes(storage, devices, scheme, requests, encrypted=False,
+                     luks_fmt_args=None):
+    """Schedule creation of autopart lvm/btrfs/stratis volumes.
 
-    Schedules encryption of member devices if requested, schedules creation
-    of the container (:class:`blivet.devices.LVMVolumeGroupDevice` or
-    :class:`blivet.devices.BTRFSVolumeDevice`) then schedules creation of the
-    autopart volume requests.
-
-    If an appropriate bootloader stage1 device exists on the boot drive, any
-    autopart request to create another one will be skipped/discarded.
+    Dispatches to scheme-specific helpers that handle container and volume
+    creation for each partitioning scheme.
 
     :param storage: the storage object
     :type storage: an instance of InstallerStorage
@@ -471,87 +475,167 @@ def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
     :type requests: list of :class:`~.storage.partspec.PartSpec` instances
     :param encrypted: encrypt the scheduled partitions
     :type encrypted: bool
+    :param luks_fmt_args: arguments for the LUKS format constructor
+    :type luks_fmt_args: dict
     """
     if not devices:
         return
 
     if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
-        new_container = storage.new_vg
-        new_volume = storage.new_lv
-        format_name = "lvmpv"
-    else:
-        new_container = storage.new_btrfs
-        new_volume = storage.new_btrfs
-        format_name = "btrfs"
+        _schedule_lvm_volumes(storage, devices, scheme, requests, encrypted)
+    elif scheme == AUTOPART_TYPE_BTRFS:
+        _schedule_btrfs_volumes(storage, devices, requests, encrypted)
+    elif scheme == AUTOPART_TYPE_STRATIS:
+        _schedule_stratis_volumes(storage, devices, requests, encrypted, luks_fmt_args)
 
+
+def _encrypt_devices(storage, devices, format_name):
+    """Create the LUKS devices for encrypted members
+
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
+    :param devices: list of member partitions
+    :type devices: list of :class:`blivet.devices.PartitionDevice`
+    :param format_name: format type for the LUKS device
+    :type format_name: str
+    :return: list of LUKS devices
+    :rtype: list of :class:`blivet.devices.LUKSDevice`
+    """
+    luks_devices = []
+    for dev in devices:
+        luks_dev = LUKSDevice("luks-%s" % dev.name,
+                              fmt=get_format(format_name, device=dev.path),
+                              size=dev.size,
+                              parents=dev)
+        luks_devices.append(luks_dev)
+        storage.create_device(luks_dev)
+    return luks_devices
+
+
+def _schedule_lvm_volumes(storage, devices, scheme, requests, encrypted=False):
+    """Schedule creation of an LVM volume group and logical volumes.
+
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
+    :param devices: list of member partitions
+    :type devices: list of :class:`blivet.devices.PartitionDevice`
+    :param scheme: AUTOPART_TYPE_LVM or AUTOPART_TYPE_LVM_THINP
+    :type scheme: int
+    :param requests: list of partitioning requests
+    :type requests: list of :class:`~.storage.partspec.PartSpec` instances
+    :param encrypted: encrypt the member devices
+    :type encrypted: bool
+    """
     if encrypted:
-        pvs = []
-        for dev in devices:
-            pv = LUKSDevice("luks-%s" % dev.name,
-                            fmt=get_format(format_name, device=dev.path),
-                            size=dev.size,
-                            parents=dev)
-            pvs.append(pv)
-            storage.create_device(pv)
+        pvs = _encrypt_devices(storage, devices, "lvmpv")
     else:
         pvs = devices
 
-    # create a vg containing all of the autopart pvs
-    container = new_container(parents=pvs)
+    container = storage.new_vg(parents=pvs)
     storage.create_device(container)
 
-    #
-    # Convert requests into Device instances and schedule them for creation.
-    #
-    # Second pass, for LVs only.
+    thinp = scheme == AUTOPART_TYPE_LVM_THINP
     pool = None
+
     for request in requests:
-        btr = bool(scheme == AUTOPART_TYPE_BTRFS and request.btr)
-        lv = bool(scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP) and request.lv)
-        thinlv = bool(scheme == AUTOPART_TYPE_LVM_THINP and request.lv and request.thin)
-
-        if thinlv and pool is None:
-            # create a single thin pool in the vg
-            pool = storage.new_lv(parents=[container], thin_pool=True, grow=True)
-            storage.create_device(pool)
-
-            # make sure VG reserves space for the pool to grow if needed
-            container.thpool_reserve = DEFAULT_THPOOL_RESERVE
-
-        if not btr and not lv and not thinlv:
+        if not request.lv:
             continue
 
-        # required space isn't relevant on btrfs
-        if (lv or thinlv) and \
-           request.required_space and request.required_space > container.size:
+        thinlv = bool(thinp and request.thin)
+
+        if thinlv and pool is None:
+            pool = storage.new_lv(parents=[container], thin_pool=True, grow=True)
+            storage.create_device(pool)
+            container.thpool_reserve = DEFAULT_THPOOL_RESERVE
+
+        if request.required_space and request.required_space > container.size:
             continue
 
         if request.fstype is None:
-            if btr:
-                # btrfs volumes can only contain btrfs filesystems
-                request.fstype = "btrfs"
-            else:
-                request.fstype = storage.default_fstype
+            request.fstype = storage.default_fstype
 
-        kwargs = {"mountpoint": request.mountpoint,
-                  "fmt_type": request.fstype}
-        if lv or thinlv:
-            if thinlv:
-                parents = [pool]
-            else:
-                parents = [container]
-
-            kwargs.update({"parents": parents,
-                           "grow": request.grow,
-                           "maxsize": request.max_size,
-                           "size": request.size,
-                           "thin_volume": thinlv})
+        if thinlv:
+            parents = [pool]
         else:
-            kwargs.update({"parents": [container],
-                           "size": request.size,
-                           "subvol": True})
+            parents = [container]
 
-        dev = new_volume(**kwargs)
+        dev = storage.new_lv(parents=parents,
+                             mountpoint=request.mountpoint,
+                             fmt_type=request.fstype,
+                             grow=request.grow,
+                             maxsize=request.max_size,
+                             size=request.size,
+                             thin_volume=thinlv)
+        storage.create_device(dev)
 
-        # schedule the device for creation
+
+def _schedule_btrfs_volumes(storage, devices, requests, encrypted=False):
+    """Schedule creation of a Btrfs volume and subvolumes.
+
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
+    :param devices: list of member partitions
+    :type devices: list of :class:`blivet.devices.PartitionDevice`
+    :param requests: list of partitioning requests
+    :type requests: list of :class:`~.storage.partspec.PartSpec` instances
+    :param encrypted: encrypt the member devices
+    :type encrypted: bool
+    """
+    if encrypted:
+        members = _encrypt_devices(storage, devices, "btrfs")
+    else:
+        members = devices
+
+    container = storage.new_btrfs(parents=members)
+    storage.create_device(container)
+
+    for request in requests:
+        if not request.btr:
+            continue
+        dev = storage.new_btrfs(parents=[container],
+                                mountpoint=request.mountpoint,
+                                size=request.size,
+                                subvol=True)
+        storage.create_device(dev)
+
+
+def _schedule_stratis_volumes(storage, devices, requests, encrypted=False,
+                              luks_fmt_args=None):
+    """Schedule creation of a Stratis pool and filesystems.
+
+    Stratis handles encryption at the pool level, so no LUKS wrapping
+    of member devices is needed.
+
+    :param storage: the storage object
+    :type storage: an instance of InstallerStorage
+    :param devices: list of member partitions
+    :type devices: list of :class:`blivet.devices.PartitionDevice`
+    :param requests: list of partitioning requests
+    :type requests: list of :class:`~.storage.partspec.PartSpec` instances
+    :param encrypted: encrypt the Stratis pool
+    :type encrypted: bool
+    :param luks_fmt_args: arguments for encryption (passphrase)
+    :type luks_fmt_args: dict
+    """
+    pool_kwargs = {"parents": devices}
+
+    if encrypted:
+        pool_kwargs["encrypted"] = True
+        pool_kwargs["passphrase"] = (luks_fmt_args or {}).get("passphrase", "")
+
+    pool = storage.new_stratis_pool(**pool_kwargs)
+    storage.create_device(pool)
+
+    for request in requests:
+        if not request.stratis:
+            continue
+
+        if request.required_space and request.required_space > pool.size:
+            continue
+
+        dev = storage.new_stratis_filesystem(parents=[pool],
+                                             mountpoint=request.mountpoint,
+                                             size=request.size,
+                                             grow=request.grow,
+                                             maxsize=request.max_size)
         storage.create_device(dev)
