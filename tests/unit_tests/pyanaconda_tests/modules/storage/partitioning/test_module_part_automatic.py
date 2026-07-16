@@ -303,7 +303,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             ["/boot", "/", "/home"]
         assert [spec.fstype for spec in requests] == \
             ["xfs", "ext4", "ext4"]
-        assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
+        assert [Size("1GiB"), Size("1GiB"), Size("512MiB")] == \
             [spec.size for spec in requests]
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
