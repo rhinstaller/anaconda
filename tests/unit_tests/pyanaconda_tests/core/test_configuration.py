@@ -427,7 +427,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 'max': Size("70 GiB"),
             }, {
                 'name': '/home',
-                'min': Size("500 MiB"),
+                'min': Size("512 MiB"),
                 'free': Size("50 GiB"),
             }
         ]
