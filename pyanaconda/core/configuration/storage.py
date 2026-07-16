@@ -25,6 +25,7 @@ from pykickstart.constants import (
     AUTOPART_TYPE_LVM,
     AUTOPART_TYPE_LVM_THINP,
     AUTOPART_TYPE_PLAIN,
+    AUTOPART_TYPE_STRATIS,
 )
 
 from pyanaconda.core.configuration.base import Section
@@ -37,6 +38,7 @@ class PartitioningScheme(Enum):
     BTRFS = AUTOPART_TYPE_BTRFS
     LVM = AUTOPART_TYPE_LVM
     LVM_THINP = AUTOPART_TYPE_LVM_THINP
+    STRATIS = AUTOPART_TYPE_STRATIS
 
     @classmethod
     def from_name(cls, value):
@@ -130,6 +132,7 @@ class StorageSection(Section):
           1  BTRFS      Use the Btrfs scheme.
           2  LVM        Use the LVM scheme.
           3  LVM_THINP  Use LVM Thin Provisioning.
+          4  STRATIS    Use the Stratis scheme.
 
         :return: a partitioning scheme
         """

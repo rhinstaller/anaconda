@@ -23,14 +23,15 @@ from pykickstart.constants import (
     AUTOPART_TYPE_LVM,
     AUTOPART_TYPE_LVM_THINP,
     AUTOPART_TYPE_PLAIN,
+    AUTOPART_TYPE_STRATIS,
 )
 
 
 class PartSpec:
 
     def __init__(self, mountpoint=None, fstype=None, size=None, max_size=None,
-                 grow=False, btr=False, lv=False, thin=False, weight=0,
-                 required_space=0, encrypted=False, schemes=None):
+                 grow=False, btr=False, lv=False, thin=False, stratis=False,
+                 weight=0, required_space=0, encrypted=False, schemes=None):
         """ Create a new storage specification.  These are used to specify
             the default partitioning layout as an object before we have the
             storage system up and running.  The attributes are obvious
@@ -42,6 +43,8 @@ class PartSpec:
                   it will be allocated as a partition.
             thin -- Should this be allocated as a thin logical volume if it is
                     being allocated as a logical volume?
+            stratis -- Should this be allocated as a Stratis filesystem?
+                       If not, it will be allocated as a partition.
             weight -- An integer that modifies the sort algorithm for partition
                       requests.  A larger value means the partition will end up
                       closer to the front of the disk.  This is mainly used to
@@ -69,6 +72,7 @@ class PartSpec:
         self.lv = lv
         self.btr = btr
         self.thin = thin
+        self.stratis = stratis
         self.weight = weight
         self.required_space = required_space
         self.encrypted = encrypted
@@ -78,13 +82,15 @@ class PartSpec:
     def _to_string(self):
         s = ("%(type)s instance (%(id)s) -- \n"
              "  mountpoint = %(mountpoint)s  lv = %(lv)s"
-             "  thin = %(thin)s  btrfs = %(btrfs)s\n"
+             "  thin = %(thin)s  btrfs = %(btrfs)s"
+             "  stratis = %(stratis)s\n"
              "  weight = %(weight)s  fstype = %(fstype)s  encrypted = %(enc)s\n"
              "  size = %(size)s  max_size = %(max_size)s  grow = %(grow)s\n"
              "  required_space = %(required_space)s\n"
              "  schemes = %(schemes)s" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
               "mountpoint": self.mountpoint, "lv": self.lv, "btrfs": self.btr,
+              "stratis": self.stratis,
               "weight": self.weight, "fstype": self.fstype, "size": self.size,
               "enc": self.encrypted, "max_size": self.max_size, "grow": self.grow,
               "thin": self.thin, "required_space": self.required_space,
@@ -109,7 +115,8 @@ class PartSpec:
         if scheme == AUTOPART_TYPE_PLAIN:
             return False
 
-        return self.is_lvm_volume(scheme) or self.is_btrfs_subvolume(scheme)
+        return self.is_lvm_volume(scheme) or self.is_btrfs_subvolume(scheme) \
+            or self.is_stratis_filesystem(scheme)
 
     def is_lvm_volume(self, scheme):
         """Is the specified device an LVM volume in the given scheme?
@@ -137,6 +144,14 @@ class PartSpec:
         :return: True or False
         """
         return scheme == AUTOPART_TYPE_BTRFS and self.btr
+
+    def is_stratis_filesystem(self, scheme):
+        """Is the specified device a Stratis filesystem in the given scheme?
+
+        :param scheme: a partitioning scheme
+        :return: True or False
+        """
+        return scheme == AUTOPART_TYPE_STRATIS and self.stratis
 
     def __str__(self):
         return self._to_string()
