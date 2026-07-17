@@ -282,6 +282,63 @@ class BossInterfaceTestCase(unittest.TestCase):
         self.module._on_installation_stopped()
         callback.assert_called()
 
+    def test_installation_finished_default(self):
+        """Test InstallationFinished is False by default."""
+        assert self.interface.InstallationFinished is False
+
+    @patch_dbus_publish_object
+    def test_installation_finished_after_success(self, publisher):
+        """Test InstallationFinished is True after successful installation."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        task.succeeded_signal.emit()
+        assert self.interface.InstallationFinished is True
+
+    @patch_dbus_publish_object
+    def test_installation_finished_after_failure(self, publisher):
+        """Test InstallationFinished remains False after failed installation."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        task.stopped_signal.emit()
+        assert self.interface.InstallationFinished is False
+
+    @patch_dbus_publish_object
+    def test_installation_finished_signal(self, publisher):
+        """Test that installation_finished_changed signal is emitted on success."""
+        callback = Mock()
+        self.module.installation_finished_changed.connect(callback)
+
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        task.succeeded_signal.emit()
+        callback.assert_called_once()
+
+    @patch_dbus_publish_object
+    def test_installation_finished_signal_not_emitted_on_failure(self, publisher):
+        """Test that installation_finished_changed signal is not emitted on failure."""
+        callback = Mock()
+        self.module.installation_finished_changed.connect(callback)
+
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        task.stopped_signal.emit()
+        callback.assert_not_called()
+
+    def test_install_with_tasks_blocked_after_success(self):
+        """Test that install_with_tasks returns [] after successful completion."""
+        self.module.install_with_tasks()
+        self.module._on_installation_succeeded()
+        self.module._on_installation_stopped()
+        assert self.module.install_with_tasks() == []
+
     def test_quit(self):
         """Test Quit."""
         assert self.interface.Quit() is None
