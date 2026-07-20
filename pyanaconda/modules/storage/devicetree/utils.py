@@ -220,14 +220,7 @@ def find_mountable_partitions(devicetree):
     return devices
 
 
-def unlock_device(storage, device, passphrase):
-    """Unlock a LUKS device.
-
-    :param storage: an instance of the storage
-    :param device: a device to unlock
-    :param passphrase: a passphrase to use
-    :return: True if success, otherwise False
-    """
+def _unlock_luks(storage, device, passphrase):
     # Set the passphrase.
     device.format.passphrase = passphrase
 
@@ -261,6 +254,52 @@ def unlock_device(storage, device, passphrase):
         storage.devicetree.teardown_all()
 
         return True
+
+
+def _unlock_stratis(storage, device, passphrase):
+    # Set the passphrase.
+    device.passphrase = passphrase
+
+    try:
+        # Unlock the device.
+        device.setup()
+    except StorageError as err:
+        log.error("Failed to unlock %s: %s", device.name, err)
+
+        # Teardown the device.
+        device.teardown(recursive=True)
+
+        # Forget the wrong passphrase.
+        device.passphrase = None
+
+        return False
+    else:
+        # Save the passphrase.
+        storage.save_passphrase(device)
+
+        # Wait for the device.
+        # Otherwise, we could get a message about no Linux partitions.
+        time.sleep(2)
+
+        # Update the device tree.
+        storage.devicetree.populate()
+        storage.devicetree.teardown_all()
+
+        return True
+
+
+def unlock_device(storage, device, passphrase):
+    """Unlock an encrypted device.
+
+    :param storage: an instance of the storage
+    :param device: a device to unlock
+    :param passphrase: a passphrase to use
+    :return: True if success, otherwise False
+    """
+    if device.type == "stratis pool":
+        return _unlock_stratis(storage, device, passphrase)
+    else:
+        return _unlock_luks(storage, device, passphrase)
 
 
 def find_unconfigured_luks(storage):
