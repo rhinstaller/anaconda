@@ -523,6 +523,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 21 2026 github-actions <github-actions@github.com> - 45.13-1
+- Allow reboot from the live OS installation (k.koukiou)
+  Resolves: rhbz#2326672
+- fix(storage): avoid mutating the action list in get_actions() (k.koukiou)
+
 * Tue Jul 14 2026 github-actions <github-actions@github.com> - 45.12-1
 - anaconda-generator: `/usr`-support (cmdr)
 - webui boot.iso: stop installing slitherer in lorax build (k.koukiou)
