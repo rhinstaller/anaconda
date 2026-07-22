@@ -370,10 +370,10 @@ class BootLoader:
 
     def _is_valid_disklabel(self, device, disklabel_types=None):
         ret = True
-        if self.disklabel_types:
+        if disklabel_types:
             for disk in device.disks:
                 label_type = getattr(disk.format, "label_type", None)
-                if not label_type or label_type not in self.disklabel_types:
+                if not label_type or label_type not in disklabel_types:
                     types_str = ",".join(disklabel_types)
                     self.errors.append(_("%(name)s must have one of the following "
                                          "disklabel types: %(types)s.")
