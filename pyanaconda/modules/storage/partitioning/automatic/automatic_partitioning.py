@@ -16,13 +16,14 @@
 # Red Hat, Inc.
 #
 from blivet.errors import StorageError
-from blivet.partitioning import do_partitioning, grow_lvm
+from blivet.partitioning import do_partitioning, grow_lvm, grow_stratis
 from blivet.static_data import luks_data
 from pykickstart.constants import (
     AUTOPART_TYPE_BTRFS,
     AUTOPART_TYPE_LVM,
     AUTOPART_TYPE_LVM_THINP,
     AUTOPART_TYPE_PLAIN,
+    AUTOPART_TYPE_STRATIS,
 )
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -190,6 +191,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             AUTOPART_TYPE_LVM: "lvmlv",
             AUTOPART_TYPE_LVM_THINP: "lvmthinlv",
             AUTOPART_TYPE_PLAIN: "partition",
+            AUTOPART_TYPE_STRATIS: "stratis filesystem",
         }
         for mountpoint in request.reused_mount_points:
             if mountpoint in ["bootloader", "/boot/efi"]:
@@ -370,6 +372,9 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             if hasattr(device, "volume"):
                 log.debug("reusing volume %s for %s", device.volume, mountpoint)
                 return True
+            if hasattr(device, "pool"):
+                log.debug("reusing stratis pool %s for %s", device.pool, mountpoint)
+                return True
         return False
 
     @staticmethod
@@ -408,10 +413,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         # run the autopart function to allocate and grow partitions
         do_partitioning(storage, boot_disk=storage.bootloader.stage1_disk)
-        schedule_volumes(storage, devs, scheme, requests, encrypted)
+        schedule_volumes(storage, devs, scheme, requests, encrypted, luks_fmt_args)
 
-        # grow LVs
+        # grow LVs and stratis filesystems
         grow_lvm(storage)
+        grow_stratis(storage)
 
         # only newly added swaps should appear in the fstab
         new_swaps = (dev for dev in storage.swaps if not dev.format.exists)

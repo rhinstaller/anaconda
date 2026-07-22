@@ -50,6 +50,7 @@ SERVER_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     )
 ]
@@ -63,15 +64,17 @@ WORKSTATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
         mountpoint="/home",
-        size=Size("500MiB"), grow=True,
+        size=Size("512MiB"), grow=True,
         required_space=Size("50GiB"),
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True
     ),
 ]
@@ -83,6 +86,7 @@ WORKSTATIONPLUS_PARTITIONING = WORKSTATION_PARTITIONING + [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
         schemes={AUTOPART_TYPE_BTRFS}
     ),
@@ -97,15 +101,17 @@ ENTERPRISE_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
         mountpoint="/home",
-        size=Size("500MiB"), grow=True,
+        size=Size("512MiB"), grow=True,
         required_space=Size("50GiB"),
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True
     ),
     PartSpec(
@@ -123,6 +129,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -131,6 +138,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -139,6 +147,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -147,6 +156,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -155,6 +165,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -163,6 +174,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -171,6 +183,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(
@@ -179,6 +192,7 @@ VIRTUALIZATION_PARTITIONING = [
         btr=True,
         lv=True,
         thin=True,
+        stratis=True,
         encrypted=True,
     ),
     PartSpec(

@@ -30,6 +30,7 @@ from pykickstart.constants import (
     AUTOPART_TYPE_LVM,
     AUTOPART_TYPE_LVM_THINP,
     AUTOPART_TYPE_PLAIN,
+    AUTOPART_TYPE_STRATIS,
 )
 
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
@@ -303,7 +304,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             ["/boot", "/", "/home"]
         assert [spec.fstype for spec in requests] == \
             ["xfs", "ext4", "ext4"]
-        assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
+        assert [Size("1GiB"), Size("1GiB"), Size("512MiB")] == \
             [spec.size for spec in requests]
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
@@ -814,6 +815,29 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         with pytest.raises(StorageError):
             AutomaticPartitioningTask._check_reused_scheme(storage, request)
 
+        # Stratis scheme
+        request = Mock(
+            partitioning_scheme=AUTOPART_TYPE_STRATIS,
+            reused_mount_points=["/home"],
+        )
+        storage = Mock()
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="stratis filesystem")
+            }),
+        ]
+        AutomaticPartitioningTask._check_reused_scheme(storage, request)
+
+        # Stratis scheme with wrong device type
+        request.reused_mount_points = ["/home"]
+        storage.roots = [
+            Mock(mounts={
+                "/home": Mock(type="partition"),
+            }),
+        ]
+        with pytest.raises(StorageError):
+            AutomaticPartitioningTask._check_reused_scheme(storage, request)
+
     def _get_mocked_storage_w_existing_system(self,
                                               bootloader_type="efi",
                                               root_device_type="btrfs subvolume",
@@ -1096,7 +1120,7 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
             reformatted_mount_points=["/"],
         )
 
-        # Make sure there is no 'vg' or 'volume' attribute
+        # Make sure there is no 'vg' or 'volume' or 'pool' attribute
         home_device.mock_add_spec(['format', 'name'])
         root_device.mock_add_spec(['format', 'name'])
         assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is False
@@ -1107,6 +1131,10 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
 
         # / is on btrfs
         root_device.mock_add_spec(['format', 'name', 'volume'])
+        assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is True
+
+        # / is on stratis pool
+        root_device.mock_add_spec(['format', 'name', 'pool'])
         assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is True
 
 
@@ -1129,6 +1157,7 @@ class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
                 btr=True,
                 lv=True,
                 thin=True,
+                stratis=True,
                 encrypted=True
             ),
             PartSpec(
@@ -1192,3 +1221,19 @@ class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
                 requests=requests
             ) == \
             []
+
+        # Stratis also needs implicit partitions.
+        parted_disk_1.supportsFeature.return_value = True
+        parted_disk_1.maxPrimaryPartitionCount = 3
+        parted_disk_1.primaryPartitionCount = 3
+
+        parted_disk_2.supportsFeature.return_value = False
+        parted_disk_2.maxPrimaryPartitionCount = 3
+        parted_disk_2.primaryPartitionCount = 2
+
+        assert get_disks_for_implicit_partitions(
+                scheme=AUTOPART_TYPE_STRATIS,
+                disks=[disk_1, disk_2],
+                requests=requests
+            ) == \
+            [disk_1, disk_2]
