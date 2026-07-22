@@ -392,8 +392,6 @@ class InstallFromImageTask(Task):
         super().__init__()
         self._sysroot = sysroot
         self._mount_point = mount_point
-        self._log_rsync = False
-        self._rsync_progress = ""
 
     @property
     def name(self):
@@ -414,60 +412,41 @@ class InstallFromImageTask(Task):
         self.report_progress(_("Synchronizing writes to disk"))
         os.sync()
 
-        # Copy the mounted image to storage
-        cmd = "rsync"
-        args = [
-            "-pogAXtlHrDx",
-            "--stats",  # show statistics at end of process
-            "--info=flist2,name,progress2",  # show progress after each file
-            "--no-inc-recursive",  # force calculating total work in advance
-            "--exclude", "/dev/",
-            "--exclude", "/proc/",
-            "--exclude", "/tmp/*",
-            "--exclude", "/sys/",
-            "--exclude", "/run/",
-            "--exclude", "/boot/*rescue*",
-            "--exclude", "/boot/loader/",
-            "--exclude", "/boot/efi/",
-            # Fixup: exclude paths that fail with lremovexattr(security.selinux) on KIWI-built
-            # images. Remove after https://github.com/OSInside/kiwi-boxed-plugin/issues/99
-            "--exclude", "/boot/grub2/",
-            "--exclude", "/etc/sysconfig/",
-            "--exclude", "/usr/lib/grub/",
-            "--exclude", "/etc/machine-id",
-            "--exclude", "/etc/machine-info",
-            os.path.normpath(self._mount_point) + "/",
-            self._sysroot
-        ]
+        self.report_progress(_("Installing software..."))
 
-        try:
-            self.report_progress(_("Installing software..."))
-            for line in execReadlines(cmd, args):
-                self._parse_rsync_update(line)
-
-        except (OSError, RuntimeError) as e:
-            msg = "Failed to install image: {}".format(e)
-            raise PayloadInstallationError(msg) from None
+        self._run_rsync(
+            flags="-pogAXtlHrDx",
+            excludes=[
+                "/dev/",
+                "/proc/",
+                "/tmp/*",
+                "/sys/",
+                "/run/",
+                "/boot/*rescue*",
+                "/boot/loader/",
+                "/boot/efi/",
+                # Fixup: exclude paths that fail with lremovexattr(security.selinux) on KIWI-built
+                # images. Remove after https://github.com/OSInside/kiwi-boxed-plugin/issues/99
+                "/boot/grub2/",
+                "/etc/sysconfig/",
+                "/usr/lib/grub/",
+                "/etc/machine-id",
+                "/etc/machine-info",
+            ],
+            src=os.path.normpath(self._mount_point) + "/",
+            dest=self._sysroot,
+        )
 
         if os.path.exists(os.path.join(self._mount_point, "boot/efi")):
             # Handle /boot/efi separately due to FAT filesystem limitations
             # FAT cannot support permissions, ownership, symlinks, hard links,
             # xattrs, ACLs or modification times
-            args = [
-                "-rx",
-                "--stats",  # show statistics at end of process
-                "--info=flist2,name,progress2",  # show progress after each file
-                "--no-inc-recursive",  # force calculating total work in advance
-                "--exclude", "/boot/efi/loader/",
-                os.path.normpath(self._mount_point) + "/boot/efi/",
-                os.path.join(self._sysroot, "boot/efi")
-            ]
-
-            try:
-                execWithRedirect(cmd, args)
-            except (OSError, RuntimeError) as e:
-                msg = "Failed to install /boot/efi from image: {}".format(e)
-                raise PayloadInstallationError(msg) from None
+            self._run_rsync(
+                flags="-rx",
+                excludes=["/boot/efi/loader/"],
+                src=os.path.normpath(self._mount_point) + "/boot/efi/",
+                dest=os.path.join(self._sysroot, "boot/efi"),
+            )
 
         # Fixup: re-copy with -rx (no xattrs) paths that fail above on KIWI-built images.
         # Remove after https://github.com/OSInside/kiwi-boxed-plugin/issues/99 is fixed.
@@ -477,69 +456,41 @@ class InstallFromImageTask(Task):
                 continue
             dest_dir = os.path.join(self._sysroot, rel_src)
             os.makedirs(dest_dir, exist_ok=True)
-            try:
-                rc = execWithRedirect(cmd, [
-                    "-rx", "--no-inc-recursive",
-                    os.path.normpath(src_dir) + "/", dest_dir,
-                ])
-                if rc != 0:
-                    raise PayloadInstallationError(
-                        "Failed to install {} from image: rsync exited with {}".format(
-                            rel_src, rc
-                        )
-                    )
-            except OSError as e:
-                raise PayloadInstallationError(
-                    "Failed to install {} from image: {}".format(rel_src, e)
-                ) from None
+            self._run_rsync(
+                flags="-rx",
+                excludes=[],
+                src=os.path.normpath(src_dir) + "/",
+                dest=dest_dir,
+            )
 
-    def _parse_rsync_update(self, line):
-        """Try to extract progress from rsync output.
+    def _run_rsync(self, flags, excludes, src, dest):
+        """Run rsync with the given flags, excludes, source and destination.
 
-        This is called for every line. There are two things done here:
-
-        1) Extract progress. For rsync --info=progress2, the format is:
-
-           devel-tools/modify_install_iso/lib/__init__.py
-                   601.673  98%   14,32MB/s    0:00:00 (xfr#618, to-chk=3/858)
-
-           We are interested only in the second field of the last line, which holds the total
-           progress as a percentage, including the % sign. Unfortunately, rsync writes individual
-           file progress on the same line by overwriting it (essentially prints \r and the string
-           again), and after the transfer overwrites the same line with global progress.
-
-        2) Track whether the output should be logged. We want to see the statistics in logs, but
-           logging all output is too resource costly and can cause OOMs on low-end systems where
-           the journal is written to overlay in memory. Fortunately, the first empty line of output
-           comes after the transfers and before the statistics.
-
-        :param str line: line to process
+        :param str flags: rsync option flags (e.g. "-pogAXtlHrDx" or "-rx")
+        :param list excludes: list of exclude patterns
+        :param str src: source path (should end with "/" to copy contents)
+        :param str dest: destination path
+        :raises PayloadInstallationError: if rsync fails
         """
-        # Take only part after last ^M (python: \r)
-        line = line.rsplit("\r", 1)[-1].strip()
-
-        # Start logging after first empty line
-        if not line:
-            self._log_rsync = True
-            return
-
-        if self._log_rsync:
-            log.debug("rsync output: %s", line)
-
-        # other cases handled already, now also skip lines that are not progress
-        if "to-chk=" not in line:
-            return
+        args = [flags, "--stats", "--no-inc-recursive"]
+        for exc in excludes:
+            args += ["--exclude", exc]
+        args += [src, dest]
 
         try:
-            # second field has global progress
-            str_pct = line.split()[1]
-            if self._rsync_progress == str_pct:
-                return
-            self._rsync_progress = str_pct
-            log.debug("rsync progress: %s", self._rsync_progress)
-            self.report_progress(_("Installing software {}").format(self._rsync_progress))
-        except IndexError:
-            pass
+            # Log only the statistics section to avoid OOM on low-end systems
+            # where the journal is written to overlay in memory.
+            log_output = False
+            for line in execReadlines("rsync", args):
+                if not line.strip():
+                    log_output = True
+                    continue
+                if log_output:
+                    log.debug("rsync output: %s", line.strip())
+        except OSError as e:
+            raise PayloadInstallationError(
+                "Failed to install {} from image: {}".format(src, e)
+            ) from None
 
 
 class RemoveImageTask(Task):
