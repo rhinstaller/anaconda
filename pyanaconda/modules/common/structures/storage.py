@@ -212,6 +212,10 @@ class DeviceData(DBusData):
         Attributes for partitions:
             partition-type-name
 
+        Attributes for stratis pools:
+            encrypted
+            has_key
+
         :return: a dictionary of attributes
         """
         return self._attrs
