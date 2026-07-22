@@ -231,7 +231,7 @@ def device_matches(spec, devicetree=None, disks_only=False):
             matches.append(dev_name)
 
     log.debug("%s matches %s for devicetree=%s and disks_only=%s",
-              spec, matches, devicetree, disks_only)
+              str(spec), str(matches), str(devicetree), str(disks_only))
 
     return matches
 
