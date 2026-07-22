@@ -55,6 +55,11 @@ def exitHandler():
 
     from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
+    # On live OS with no explicit reboot/shutdown request,
+    # just exit anaconda and return to the live desktop.
+    if conf.system._is_live_os and data_reboot.action == -1:
+        return
+
     if data_reboot.kexec:
         util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
         while True:
