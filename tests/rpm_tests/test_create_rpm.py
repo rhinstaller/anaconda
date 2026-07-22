@@ -37,6 +37,7 @@ class InstalledFilesTestCase(RPMTestCase):
 
     ANACONDA_BUS_CONF = "anaconda-bus.conf"
     ANACONDA_GENERATOR = "anaconda-generator"
+    ANACONDA_SHELL_SERVICE = "anaconda-shell@.service"
 
     def test_pyanaconda_installed_files(self):
         rpms = self._apply_filters([RPMFilters.debug_exclude,
@@ -191,7 +192,8 @@ class InstalledFilesTestCase(RPMTestCase):
             [
                 FileFilters.src_systemd_only,
                 FileFilters.makefiles_exclude,
-                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_GENERATOR, f)
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_GENERATOR, f),
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_SHELL_SERVICE, f)
             ], self._get_source_files()
         )
 
