@@ -38,6 +38,7 @@ class InstalledFilesTestCase(RPMTestCase):
     ANACONDA_BUS_CONF = "anaconda-bus.conf"
     ANACONDA_GENERATOR = "anaconda-generator"
     ANACONDA_SHELL_SERVICE = "anaconda-shell@.service"
+    ANACONDA_LOGIND_CONF = "anaconda-logind.conf"
 
     def test_pyanaconda_installed_files(self):
         rpms = self._apply_filters([RPMFilters.debug_exclude,
@@ -193,7 +194,8 @@ class InstalledFilesTestCase(RPMTestCase):
                 FileFilters.src_systemd_only,
                 FileFilters.makefiles_exclude,
                 lambda f: FileFilters.specific_file_exclude(self.ANACONDA_GENERATOR, f),
-                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_SHELL_SERVICE, f)
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_SHELL_SERVICE, f),
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_LOGIND_CONF, f)
             ], self._get_source_files()
         )
 
@@ -223,6 +225,29 @@ class InstalledFilesTestCase(RPMTestCase):
             [
                 ModifyingFilters.remove_data_systemd_prefix,
                 lambda x: ModifyingFilters.apply_rpm_prefix("/usr/lib/systemd/system-generators",
+                                                            x)
+            ], src_files
+        )
+
+        self._check_files_in_rpm(src_files, rpm_files)
+
+    def test_anaconda_logind_conf_file(self):
+        rpm_files = self._get_install_img_deps_rpm_content()
+
+        rpm_files = filter(FileFilters.rpm_logind_only, rpm_files)
+
+        src_files = self._apply_filters(
+            [
+                FileFilters.src_systemd_only,
+                FileFilters.makefiles_exclude,
+                lambda f: FileFilters.specific_file_only(self.ANACONDA_LOGIND_CONF, f)
+            ], self._get_source_files()
+        )
+
+        src_files = self._apply_maps(
+            [
+                ModifyingFilters.remove_data_systemd_prefix,
+                lambda x: ModifyingFilters.apply_rpm_prefix("/usr/lib/systemd/logind.conf.d",
                                                             x)
             ], src_files
         )
@@ -263,6 +288,11 @@ class InstalledFilesTestCase(RPMTestCase):
     def _get_core_rpm_content(self):
         rpms = filter(RPMFilters.debug_exclude, self.rpm_paths)
         rpms = filter(RPMFilters.anaconda_core_only, rpms)
+        return self._get_rpms_content(rpms)
+
+    def _get_install_img_deps_rpm_content(self):
+        rpms = filter(RPMFilters.debug_exclude, self.rpm_paths)
+        rpms = filter(RPMFilters.anaconda_install_img_deps_only, rpms)
         return self._get_rpms_content(rpms)
 
     def _get_rpms_content(self, rpms):
@@ -365,6 +395,10 @@ class FileFilters:
         return "/systemd/system" in path
 
     @staticmethod
+    def rpm_logind_only(path):
+        return "/systemd/logind.conf.d" in path
+
+    @staticmethod
     def src_systemd_only(path):
         return "systemd/" in path
 
@@ -398,6 +432,10 @@ class RPMFilters:
     def anaconda_core_only(rpm):
         # includes debug package
         return "anaconda-core" in rpm
+
+    @staticmethod
+    def anaconda_install_img_deps_only(rpm):
+        return "anaconda-install-img-deps" in rpm
 
 
 class ModifyingFilters:

@@ -432,6 +432,7 @@ rm -rf \
 
 %files install-img-deps
 %{_unitdir}/anaconda-shell@.service
+%{_prefix}/lib/systemd/logind.conf.d/*
 
 # Allow the lang file to be empty here too
 %define _empty_manifest_terminate_build 0
