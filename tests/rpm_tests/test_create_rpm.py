@@ -37,6 +37,7 @@ class InstalledFilesTestCase(RPMTestCase):
 
     ANACONDA_BUS_CONF = "anaconda-bus.conf"
     ANACONDA_GENERATOR = "anaconda-generator"
+    ANACONDA_LOGIND_CONF = "anaconda-logind.conf"
 
     def test_pyanaconda_installed_files(self):
         rpms = self._apply_filters([RPMFilters.debug_exclude,
@@ -191,7 +192,8 @@ class InstalledFilesTestCase(RPMTestCase):
             [
                 FileFilters.src_systemd_only,
                 FileFilters.makefiles_exclude,
-                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_GENERATOR, f)
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_GENERATOR, f),
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_LOGIND_CONF, f)
             ], self._get_source_files()
         )
 
@@ -221,6 +223,29 @@ class InstalledFilesTestCase(RPMTestCase):
             [
                 ModifyingFilters.remove_data_systemd_prefix,
                 lambda x: ModifyingFilters.apply_rpm_prefix("/usr/lib/systemd/system-generators",
+                                                            x)
+            ], src_files
+        )
+
+        self._check_files_in_rpm(src_files, rpm_files)
+
+    def test_anaconda_logind_conf_file(self):
+        rpm_files = self._get_core_rpm_content()
+
+        rpm_files = filter(FileFilters.rpm_logind_only, rpm_files)
+
+        src_files = self._apply_filters(
+            [
+                FileFilters.src_systemd_only,
+                FileFilters.makefiles_exclude,
+                lambda f: FileFilters.specific_file_only(self.ANACONDA_LOGIND_CONF, f)
+            ], self._get_source_files()
+        )
+
+        src_files = self._apply_maps(
+            [
+                ModifyingFilters.remove_data_systemd_prefix,
+                lambda x: ModifyingFilters.apply_rpm_prefix("/usr/lib/systemd/logind.conf.d",
                                                             x)
             ], src_files
         )
@@ -361,6 +386,10 @@ class FileFilters:
     @staticmethod
     def rpm_systemd_only(path):
         return "/systemd/system" in path
+
+    @staticmethod
+    def rpm_logind_only(path):
+        return "/systemd/logind.conf.d" in path
 
     @staticmethod
     def src_systemd_only(path):
