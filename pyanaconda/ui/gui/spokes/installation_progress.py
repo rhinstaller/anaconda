@@ -65,8 +65,11 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
         return False
 
     def apply(self):
-        """There is nothing to apply."""
-        pass
+        runtime_proxy = RUNTIME.get_proxy()
+        reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
+        if reboot_data.action == -1:
+            reboot_data.action = KS_REBOOT
+            runtime_proxy.Reboot = RebootData.to_structure(reboot_data)
 
     def _on_installation_done(self):
         log.debug("The installation has finished.")
