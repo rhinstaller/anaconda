@@ -46,6 +46,8 @@ class Boss(Service):
         self._install_manager = InstallManager()
         self._installation_task = None
         self.active_installation_task_changed = Signal()
+        self._installation_finished = False
+        self.installation_finished_changed = Signal()
 
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
@@ -104,6 +106,11 @@ class Boss(Service):
         """
         return self._install_manager.collect_requirements()
 
+    @property
+    def installation_finished(self):
+        """Whether the installation has completed successfully."""
+        return self._installation_finished
+
     def get_installation_task(self):
         """Get the active installation task, if any.
 
@@ -119,13 +126,20 @@ class Boss(Service):
         """Return installation tasks of this module.
 
         If an installation task is already running, return
-        the existing task to allow reconnection. Otherwise,
-        create a new one.
+        the existing task to allow reconnection. If the
+        installation has already finished successfully,
+        return an empty list. Otherwise, create a new one.
 
         :return: a list of installation tasks
         """
         if self._installation_task is not None:
             return [self._installation_task]
+
+        # Safety net: the WebUI checks InstallationFinished before
+        # calling this method, so this branch should not be reached.
+        if self._installation_finished:
+            log.warning("The installation has already finished.")
+            return []
 
         self._installation_task = RunInstallationTask(
             install_manager=self._install_manager,
@@ -137,6 +151,9 @@ class Boss(Service):
         self._installation_task.stopped_signal.connect(
             self._on_installation_stopped
         )
+        self._installation_task.succeeded_signal.connect(
+            self._on_installation_succeeded
+        )
 
         return [self._installation_task]
 
@@ -144,6 +161,12 @@ class Boss(Service):
         """Handle the installation task start."""
         log.info("The installation has started.")
         self.active_installation_task_changed.emit()
+
+    def _on_installation_succeeded(self):
+        """Handle the installation task success."""
+        log.info("The installation has finished successfully.")
+        self._installation_finished = True
+        self.installation_finished_changed.emit()
 
     def _on_installation_stopped(self):
         """Handle the installation task stop."""

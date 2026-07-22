@@ -52,6 +52,10 @@ class BossInterface(InterfaceTemplate):
             "ActiveInstallationTask",
             self.implementation.active_installation_task_changed
         )
+        self.watch_property(
+            "InstallationFinished",
+            self.implementation.installation_finished_changed
+        )
 
     @property
     def ActiveInstallationTask(self) -> Str:
@@ -68,6 +72,14 @@ class BossInterface(InterfaceTemplate):
             return ""
 
         return TaskContainer.to_object_path(task)
+
+    @property
+    def InstallationFinished(self) -> Bool:
+        """Whether the installation has completed successfully.
+
+        :return: True if the installation finished, False otherwise
+        """
+        return self.implementation.installation_finished
 
     def GetModules(self) -> List[BusName]:
         """Get service names of running modules.
