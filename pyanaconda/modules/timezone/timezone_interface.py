@@ -196,7 +196,9 @@ class TimezoneInterface(KickstartModuleInterface):
 
         The timezone set via the Timezone property affects the returned data.
 
-        :return: a string representing the date and time in ISO 8601 format
+        :return: system time as ISO 8601 formatted string or ""
+                 if system time can't be determined, usually
+                 due to a valid timezone not being set
         """
         return self.implementation.get_system_date_time()
 
