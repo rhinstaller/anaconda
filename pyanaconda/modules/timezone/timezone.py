@@ -303,11 +303,18 @@ class TimezoneService(KickstartService):
     def get_system_date_time(self):
         """Get system time as a ISO 8601 formatted string.
 
-        :return: system time as ISO 8601 formatted string
+        :return: system time as ISO 8601 formatted string or ""
+                 if system time can't be determined, usually
+                 due to a valid timezone not being set
         :rtype: str
         """
-        # convert to the expected tzinfo format via get_timezone()
-        return datetime.datetime.now(get_timezone(self._timezone)).isoformat()
+        # check if timezone has been set
+        if self._timezone:
+            # convert to the expected tzinfo format via get_timezone()
+            return datetime.datetime.now(get_timezone(self._timezone)).isoformat()
+        else:
+            log.debug("can't determine system date & time - timezone not set")
+            return ""
 
     def set_system_date_time(self, date_time_spec):
         """Set system time based on a ISO 8601 formatted string.

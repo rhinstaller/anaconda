@@ -406,6 +406,15 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert self.timezone_interface.GetSystemDateTime() == "2023-06-22T18:49:36.878200"
         fake_date.isoformat.assert_called_once()
 
+    @patch("pyanaconda.modules.timezone.timezone.datetime")
+    def test_get_system_date_time_timezone_not_set(self, fake_datetime):
+        """Test getting system date and time if timezone is not set."""
+        # make sure Timezone is not set
+        self.timezone_module._timezone = None
+        # check empty string is returned when no timezone is set,
+        # which indicates we can't return a valid date and time
+        assert self.timezone_interface.GetSystemDateTime() == ""
+
     @patch("pyanaconda.modules.timezone.timezone.set_system_date_time")
     def test_set_system_date_time(self, fake_set_time):
         """Test setting system date and time."""
