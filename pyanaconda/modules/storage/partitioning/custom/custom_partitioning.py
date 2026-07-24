@@ -26,7 +26,7 @@ from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
 from blivet.errors import StorageError
 from blivet.formats import get_format
-from blivet.partitioning import do_partitioning, grow_lvm
+from blivet.partitioning import do_partitioning, grow_lvm, grow_stratis
 from blivet.size import Size
 from blivet.static_data import luks_data
 from bytesize.bytesize import KiB
@@ -101,6 +101,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         self._execute_volgroup(storage, data)
         self._execute_logvol(storage, data)
         self._execute_btrfs(storage, data)
+        self._execute_stratispool(storage, data)
+        self._execute_stratisfs(storage, data)
 
     def _execute_reqpart(self, storage, data):
         """Execute the reqpart command.
@@ -233,6 +235,18 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             if devicetree.get_device_by_name(kwargs["name"]):
                 raise StorageError(
                     _("Btrfs partition \"{}\" is defined multiple times.").format(kwargs["name"])
+                )
+
+            if partition_data.onPart:
+                data.onPart[kwargs["name"]] = partition_data.onPart
+        elif partition_data.mountpoint.startswith("stratis."):
+            ty = "stratis"
+            kwargs["name"] = partition_data.mountpoint
+            partition_data.mountpoint = ""
+
+            if devicetree.get_device_by_name(kwargs["name"]):
+                raise StorageError(
+                    _("Stratis partition \"{}\" is defined multiple times.").format(kwargs["name"])
                 )
 
             if partition_data.onPart:
@@ -502,6 +516,18 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             if devicetree.get_device_by_name(kwargs["name"]):
                 raise StorageError(
                     _("Btrfs partition \"{}\" is defined multiple "
+                      "times.").format(kwargs["name"])
+                )
+
+            raid_data.mountpoint = ""
+        elif raid_data.mountpoint.startswith("stratis."):
+            ty = "stratis"
+            kwargs["name"] = raid_data.mountpoint
+            data.onPart[kwargs["name"]] = devicename
+
+            if devicetree.get_device_by_name(kwargs["name"]):
+                raise StorageError(
+                    _("Stratis partition \"{}\" is defined multiple "
                       "times.").format(kwargs["name"])
                 )
 
@@ -1213,6 +1239,164 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 create_options=btrfs_data.mkfsopts
             )
 
+            storage.create_device(request)
+
+    def _execute_stratispool(self, storage, data):
+        """Execute the stratispool command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        for pool_data in data.stratispool.poolList:
+            self._execute_stratispool_data(storage, data, pool_data)
+
+    def _execute_stratispool_data(self, storage, data, pool_data):
+        """Execute the stratispool data.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        :param pool_data: an instance of StratisPoolData
+        """
+        devicetree = storage.devicetree
+
+        if pool_data.preexist:
+            device = devicetree.get_device_by_name(pool_data.name)
+            if not device:
+                raise StorageError(
+                    _("Stratis pool \"{}\" specified with --useexisting does "
+                      "not exist.").format(pool_data.name)
+                )
+            return
+
+        members = []
+        for member in pool_data.blockdevs:
+            dev = devicetree.resolve_device(member)
+            if not dev:
+                member_name = data.onPart.get(member, member)
+                dev = devicetree.resolve_device(member_name) or lookup_alias(devicetree, member)
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = dev.children[0]
+                except IndexError:
+                    dev = None
+
+            if dev and dev.format.type != "stratis":
+                raise StorageError(
+                    _("Stratis pool member \"{}\" has a format of \"{}\", but should "
+                      "have a format of \"stratis\".").format(member, dev.format.type)
+                )
+
+            if not dev:
+                raise StorageError(
+                    _("Tried to use undefined partition \"{}\" in Stratis pool "
+                      "specification.").format(member)
+                )
+
+            members.append(dev)
+
+        if not members:
+            raise StorageError(
+                _("Stratis pool \"{}\" defined without any member devices. Either specify "
+                  "member devices or use --useexisting.").format(pool_data.name)
+            )
+
+        if pool_data.name in (p.name for p in storage.stratis_pools):
+            raise StorageError(
+                _("The Stratis pool name \"{}\" is already in use.").format(pool_data.name)
+            )
+
+        pool_kwargs = {
+            "parents": members,
+            "name": pool_data.name,
+            "overprovisioning": pool_data.overprovisioning,
+        }
+
+        if pool_data.encrypted:
+            passphrase = self._get_passphrase(pool_data)
+            pool_kwargs["encrypted"] = True
+            pool_kwargs["passphrase"] = passphrase
+
+        request = storage.new_stratis_pool(**pool_kwargs)
+        storage.create_device(request)
+
+    def _execute_stratisfs(self, storage, data):
+        """Execute the stratisfs command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        for fs_data in data.stratisfs.fsList:
+            self._execute_stratisfs_data(storage, data, fs_data)
+
+        if data.stratisfs.fsList:
+            grow_stratis(storage)
+
+    def _execute_stratisfs_data(self, storage, data, fs_data):
+        """Execute the stratisfs data.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        :param fs_data: an instance of StratisFsData
+        """
+        devicetree = storage.devicetree
+
+        pool = devicetree.get_device_by_name(fs_data.poolname)
+        if not pool:
+            raise StorageError(
+                _("No Stratis pool exists with the name \"{}\". Specify pools "
+                  "before filesystems.").format(fs_data.poolname)
+            )
+
+        if fs_data.mountpoint in ("none", "None"):
+            fs_data.mountpoint = ""
+
+        self._check_mount_point(fs_data.mountpoint)
+
+        size = None
+        if fs_data.size:
+            size = self._get_size(fs_data.size, "MiB")
+
+        if fs_data.maxSizeMB:
+            maxsize = self._get_size(fs_data.maxSizeMB, "MiB")
+        else:
+            maxsize = None
+
+        if fs_data.preexist:
+            device = devicetree.get_device_by_name(
+                "%s/%s" % (pool.name, fs_data.name)
+            )
+            if not device:
+                raise StorageError(
+                    _("Stratis filesystem \"{}\" given in stratisfs command does "
+                      "not exist.").format(fs_data.name)
+                )
+
+            device.format.mountpoint = fs_data.mountpoint
+        else:
+            fs_name = "%s/%s" % (pool.name, fs_data.name)
+            if devicetree.get_device_by_name(fs_name):
+                raise StorageError(
+                    _("Stratis filesystem name \"{}\" is already in use in pool "
+                      "\"{}\".").format(fs_data.name, pool.name)
+                )
+
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if fs_data.mountpoint:
+                    device = storage.mountpoints[fs_data.mountpoint]
+                    storage.destroy_device(device)
+            except KeyError:
+                pass
+
+            request = storage.new_stratis_filesystem(
+                name=fs_data.name,
+                parents=[pool],
+                mountpoint=fs_data.mountpoint,
+                size=size,
+                grow=fs_data.grow,
+                maxsize=maxsize,
+            )
             storage.create_device(request)
 
     def _get_size(self, number, unit):

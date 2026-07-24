@@ -25,6 +25,8 @@ from blivet.devices import (
     LVMVolumeGroupDevice,
     MDRaidArrayDevice,
     PartitionDevice,
+    StratisFilesystemDevice,
+    StratisPoolDevice,
     TmpFSDevice,
 )
 from dasbus.server.publishable import Publishable
@@ -169,7 +171,9 @@ class PartitioningModule(KickstartBaseModule, Publishable):
             LVMLogicalVolumeDevice: ("LogVolData", "logvol"),
             LVMVolumeGroupDevice: ("VolGroupData", "volgroup"),
             MDRaidArrayDevice: ("RaidData", "raid"),
-            BTRFSDevice: ("BTRFSData", "btrfs")
+            BTRFSDevice: ("BTRFSData", "btrfs"),
+            StratisPoolDevice: ("StratisPoolData", "stratispool"),
+            StratisFilesystemDevice: ("StratisFsData", "stratisfs")
         }
 
         # List comprehension that builds device ancestors should not get None
