@@ -54,7 +54,7 @@ jobs:
     packages: [anaconda-fedora]
     dist_git_branches:
 {% for rel in fedora_releases %}
-      - {$ 'main' if rel.release == 'fedora-rawhide' else 'f' ~ (rel.release|replace('fedora-', '')) $}
+      - {$ 'rawhide' if rel.release == 'fedora-rawhide' else 'f' ~ (rel.release|replace('fedora-', '')) $}
 {% endfor %}
 {% endif %}
 {% if rhel_releases %}

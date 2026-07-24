@@ -51,7 +51,7 @@ jobs:
     trigger: release
     packages: [anaconda-fedora]
     dist_git_branches:
-      - main
+      - rawhide
 
   # Tests on PR (Fedora)
   - job: tests
