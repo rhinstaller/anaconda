@@ -95,4 +95,10 @@ class PartitioningFactory:
         if data.btrfs.seen:
             return PartitioningMethod.CUSTOM
 
+        if data.stratispool.seen:
+            return PartitioningMethod.CUSTOM
+
+        if data.stratisfs.seen:
+            return PartitioningMethod.CUSTOM
+
         return None

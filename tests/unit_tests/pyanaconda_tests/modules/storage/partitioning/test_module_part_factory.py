@@ -92,6 +92,14 @@ class PartitioningFactoryTestCase(unittest.TestCase):
                 "btrfs / --subvol --name=root fedora-btrfs"
             )
         self._check_method(
+            PartitioningMethod.CUSTOM,
+            "stratispool mypool stratis.01"
+        )
+        self._check_method(
+            PartitioningMethod.CUSTOM,
+            "stratisfs / --name=rootfs --poolname=mypool --size=10000"
+        )
+        self._check_method(
             None,
             ""
         )

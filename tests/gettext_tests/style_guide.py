@@ -54,7 +54,8 @@ expected_badness = {
         'mountpoint': 1,  # format string specifier
     },
     'pyanaconda/modules/storage/partitioning/custom/custom_partitioning.py': {
-        'btrfs': 1        # quoted filesystem type
+        'btrfs': 1,       # quoted filesystem type
+        'filesystem': 3   # stratis filesystem device
     },
     'pyanaconda/network.py': {
         'vlan': 1,        # format string specifier

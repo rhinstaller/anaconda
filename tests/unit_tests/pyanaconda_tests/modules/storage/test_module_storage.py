@@ -442,6 +442,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'raid',
                 'reqpart',
                 'snapshot',
+                'stratisfs',
+                'stratispool',
                 'volgroup',
                 'zerombr',
                 'zfcp',
@@ -1463,6 +1465,87 @@ class StorageInterfaceTestCase(unittest.TestCase):
         supported.return_value = True
         formattable.return_value = False
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch_dbus_publish_object
+    def test_stratispool_kickstart(self, publisher):
+        """Test the stratispool command."""
+        ks_in = """
+        stratispool mypool stratis.01 stratis.02
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def test_stratispool_encrypted_kickstart(self, publisher):
+        """Test the stratispool command with encryption."""
+        ks_in = """
+        stratispool mypool --encrypted --passphrase="secret" stratis.01
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def test_stratispool_useexisting_kickstart(self, publisher):
+        """Test the stratispool command with --useexisting."""
+        ks_in = """
+        stratispool mypool --useexisting
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def test_stratisfs_kickstart(self, publisher):
+        """Test the stratisfs command."""
+        ks_in = """
+        stratisfs / --name=rootfs --poolname=mypool --size=10000
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def test_stratisfs_grow_kickstart(self, publisher):
+        """Test the stratisfs command with --grow."""
+        ks_in = """
+        stratisfs /home --name=homefs --poolname=mypool --size=5000 --grow --maxsize=20000
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def test_stratisfs_useexisting_kickstart(self, publisher):
+        """Test the stratisfs command with --useexisting."""
+        ks_in = """
+        stratisfs /data --name=datafs --poolname=mypool --useexisting
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
+
+    @patch_dbus_publish_object
+    def test_stratis_full_kickstart(self, publisher):
+        """Test a full stratis kickstart with pool and filesystems."""
+        ks_in = """
+        part /boot --fstype=ext4 --size=1024
+        part stratis.01 --size=20000
+        stratispool mypool stratis.01
+        stratisfs / --name=rootfs --poolname=mypool --size=10000 --grow
+        stratisfs /home --name=homefs --poolname=mypool --size=5000
+        """
+        ks_out = ""
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.CUSTOM)
 
     @patch_dbus_publish_object
     @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
