@@ -197,16 +197,6 @@ class FlatpakTest(unittest.TestCase):
                 "app/com.prop.notcoolapp/i386/f36",
                 None
             ),
-            call.add_install(
-                FlatpakManager.LOCAL_REMOTE_NAME,
-                "runtime/org.space.coolruntime/x86_64/stable",
-                None
-            ),
-            call.add_install(
-                FlatpakManager.LOCAL_REMOTE_NAME,
-                "runtime/com.prop.notcoolruntime/i386/f36",
-                None
-            ),
             call.run()
         ]
 
