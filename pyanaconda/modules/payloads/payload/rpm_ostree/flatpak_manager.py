@@ -183,6 +183,8 @@ class FlatpakManager:
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_full_format():
+            if ref.startswith("runtime/"):
+                continue
             self._transaction.add_install(self.LOCAL_REMOTE_NAME, ref, None)
 
     def replace_installed_refs_remote(self, new_remote):
