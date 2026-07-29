@@ -80,7 +80,7 @@
                     <property name="wrap">True</property>
                     <property name="xalign">0</property>
                     <attributes>
-                      <attribute name="font-desc" value="Cantarell Bold 16"/>
+                      <attribute name="font-desc" value="Noto Sans Bold 16"/>
                     </attributes>
                   </object>
                   <packing>
@@ -101,7 +101,7 @@
                     <property name="label" translatable="yes">What language would you like to use during the installation process?</property>
                     <property name="xalign">0</property>
                     <attributes>
-                      <attribute name="font-desc" value="Cantarell 12"/>
+                      <attribute name="font-desc" value="Noto Sans 12"/>
                     </attributes>
                   </object>
                   <packing>
@@ -154,7 +154,7 @@
                                 <child>
                                   <object class="GtkCellRendererText" id="nativeNameRenderer">
                                     <property name="xalign">0.10000000149011612</property>
-                                    <property name="font">Cantarell 12</property>
+                                    <property name="font">Noto Sans 12</property>
                                   </object>
                                   <attributes>
                                     <attribute name="markup">0</attribute>
@@ -164,7 +164,7 @@
                                   <object class="GtkCellRendererText" id="englishNameRenderer">
                                     <property name="xalign">0.8999999761581421</property>
                                     <property name="ellipsize">end</property>
-                                    <property name="font">Cantarell Italic 14</property>
+                                    <property name="font">Noto Sans Italic 14</property>
                                     <property name="foreground">gray</property>
                                   </object>
                                   <attributes>
@@ -245,7 +245,7 @@
                                 <property name="sort_column_id">0</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="nativeNameRenderer1">
-                                    <property name="font">Cantarell 12</property>
+                                    <property name="font">Noto Sans 12</property>
                                   </object>
                                   <attributes>
                                     <attribute name="markup">0</attribute>
