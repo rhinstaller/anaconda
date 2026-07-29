@@ -78,7 +78,7 @@
                     <property name="label" translatable="yes">Select additional language support to be installed:</property>
                     <property name="xalign">0</property>
                     <attributes>
-                      <attribute name="font-desc" value="Cantarell 14"/>
+                      <attribute name="font-desc" value="Noto Sans 14"/>
                       <attribute name="weight" value="normal"/>
                       <attribute name="scale" value="1"/>
                     </attributes>
@@ -142,7 +142,7 @@
                                 <child>
                                   <object class="GtkCellRendererText" id="nativeNameRenderer">
                                     <property name="xalign">0.10000000149011612</property>
-                                    <property name="font">Cantarell 12</property>
+                                    <property name="font">Noto Sans 12</property>
                                   </object>
                                   <attributes>
                                     <attribute name="markup">0</attribute>
@@ -152,7 +152,7 @@
                                   <object class="GtkCellRendererText" id="englishNameRenderer">
                                     <property name="xalign">0.89999997615814209</property>
                                     <property name="ellipsize">end</property>
-                                    <property name="font">Cantarell Italic 14</property>
+                                    <property name="font">Noto Sans Italic 14</property>
                                     <property name="foreground">gray</property>
                                   </object>
                                   <attributes>
@@ -237,7 +237,7 @@
                                 <property name="sort_column_id">0</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="localeNativeNameRenderer">
-                                    <property name="font">Cantarell 12</property>
+                                    <property name="font">Noto Sans 12</property>
                                   </object>
                                   <attributes>
                                     <attribute name="markup">0</attribute>
