@@ -523,6 +523,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 29 2026 github-actions <github-actions@github.com> - 45.14-1
+- fix(live): don't reboot when exiting to the live desktop (k.koukiou)
+- gui: explicitly set KS_REBOOT in the progress spoke (k.koukiou)
+- Add read-only fstab options for OSTree root and boot (tfratrik)
+- fix(storage): ensure discard option in crypttab for all LUKS devices
+  (k.koukiou)
+  Resolves: rhbz#2367388
+
 * Tue Jul 21 2026 github-actions <github-actions@github.com> - 45.13-1
 - Allow reboot from the live OS installation (k.koukiou)
   Resolves: rhbz#2326672
