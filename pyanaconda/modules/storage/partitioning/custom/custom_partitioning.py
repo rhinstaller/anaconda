@@ -97,6 +97,11 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         # Start the partitioning.
         self._execute_reqpart(storage, data)
         self._execute_partition(storage, data)
+
+        # Allocated the partitions created by either reqpart or partition.
+        if data.reqpart.reqpart or data.partition.partitions:
+            do_partitioning(storage, boot_disk=storage.bootloader.stage1_disk)
+
         self._execute_raid(storage, data)
         self._execute_volgroup(storage, data)
         self._execute_logvol(storage, data)
@@ -143,9 +148,6 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         """
         for partition_data in data.partition.partitions:
             self._execute_partition_data(storage, data, partition_data)
-
-        if data.partition.partitions:
-            do_partitioning(storage, boot_disk=storage.bootloader.stage1_disk)
 
     def _execute_partition_data(self, storage, data, partition_data):
         """Execute the partition data.
