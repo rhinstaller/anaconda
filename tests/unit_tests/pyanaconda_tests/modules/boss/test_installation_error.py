@@ -75,7 +75,7 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
         task.run()
 
         assert len(received) == 1
-        assert received[0][1] == InstallationErrorDialogType.YES_NO.value
+        assert received[0][1] == InstallationErrorDialogType.YES_NO
         assert "queue error" in received[0][0]
 
     def test_script_error_uses_fatal_dialog(self):
@@ -94,6 +94,6 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
 
         assert result == ERROR_RAISE
         assert len(received) == 1
-        assert received[0][1] == InstallationErrorDialogType.FATAL_ERROR.value
+        assert received[0][1] == InstallationErrorDialogType.FATAL_ERROR
         assert "42" in received[0][0]
         assert "script failed" in received[0][0]
