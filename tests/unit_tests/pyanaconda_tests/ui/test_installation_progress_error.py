@@ -41,14 +41,14 @@ class InstallationProgressErrorMixinTestCase(unittest.TestCase):
         mocked_error_handler.ui = mock_ui
         mock_ui.showYesNoQuestion.return_value = True
 
-        spoke._on_error_raised("Installation failed", InstallationErrorDialogType.FATAL_ERROR.value)
+        spoke._on_error_raised("Installation failed", InstallationErrorDialogType.FATAL_ERROR)
         mock_ui.showError.assert_called_once_with("Installation failed")
         spoke._task_proxy.RespondToError.assert_called_with(False)
 
         mock_ui.reset_mock()
         spoke._task_proxy.reset_mock()
 
-        spoke._on_error_raised("Ignore this error?", InstallationErrorDialogType.YES_NO.value)
+        spoke._on_error_raised("Ignore this error?", InstallationErrorDialogType.YES_NO)
         mock_ui.showYesNoQuestion.assert_called_once_with("Ignore this error?")
         spoke._task_proxy.RespondToError.assert_called_once_with(True)
 
