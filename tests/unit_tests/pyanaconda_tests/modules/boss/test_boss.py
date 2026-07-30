@@ -16,9 +16,9 @@
 # Red Hat, Inc.
 #
 import tempfile
-import unittest
 from unittest.mock import Mock, patch
 
+import pytest
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import DEFAULT_LANG
@@ -26,6 +26,10 @@ from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.installation import RunInstallationTask
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
+from pyanaconda.modules.common.constants.installation import (
+    InstallationErrorDialogType,
+    InstallationStatus,
+)
 from pyanaconda.modules.common.structures.requirement import Requirement
 from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
@@ -35,10 +39,10 @@ from tests.unit_tests.pyanaconda_tests import (
 )
 
 
-class BossInterfaceTestCase(unittest.TestCase):
+class BossInterfaceTestCase:
     """Test DBus interface for the Boss module."""
 
-    def setUp(self):
+    def setup_method(self):
         """Set up the module."""
         self.module = Boss()
         self.interface = BossInterface(self.module)
@@ -244,12 +248,21 @@ class BossInterfaceTestCase(unittest.TestCase):
             task_paths_2 = self.interface.InstallWithTasks()
             assert task_paths_1 == task_paths_2
 
-    def test_install_with_tasks_creates_new_when_previous_finished(self):
-        """Test that InstallWithTasks creates a new task when previous finished."""
-        tasks_1 = self.module.install_with_tasks()
+    def test_install_with_tasks_returns_empty_after_succeeded(self):
+        """Test that InstallWithTasks returns [] after a successful installation."""
+        self.module.install_with_tasks()
+        self.module._on_installation_started()
+        self.module._on_installation_succeeded()
         self.module._on_installation_stopped()
-        tasks_2 = self.module.install_with_tasks()
-        assert tasks_1[0] is not tasks_2[0]
+        assert self.module.install_with_tasks() == []
+
+    def test_install_with_tasks_returns_empty_after_failed(self):
+        """Test that InstallWithTasks returns [] after a failed installation."""
+        self.module.install_with_tasks()
+        self.module._on_installation_started()
+        self.module._on_installation_failed()
+        self.module._on_installation_stopped()
+        assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_active_installation_task_none(self, publisher):
@@ -281,6 +294,120 @@ class BossInterfaceTestCase(unittest.TestCase):
 
         self.module._on_installation_stopped()
         callback.assert_called()
+
+    def test_installation_status_default(self):
+        """Test that InstallationStatus defaults to NOT_STARTED."""
+        assert self.interface.InstallationStatus == InstallationStatus.NOT_STARTED
+        assert self.module.installation_status == InstallationStatus.NOT_STARTED
+
+    @patch_dbus_publish_object
+    def test_installation_status_running(self, publisher):
+        """Test that InstallationStatus changes to RUNNING when started."""
+        callback = Mock()
+        self.module.installation_status_changed.connect(callback)
+
+        task_paths = self.interface.InstallWithTasks()
+        check_task_creation(task_paths[0], publisher, RunInstallationTask)
+
+        self.module._on_installation_started()
+
+        assert self.interface.InstallationStatus == InstallationStatus.RUNNING
+        assert self.module.installation_status == InstallationStatus.RUNNING
+        callback.assert_called()
+
+    @patch_dbus_publish_object
+    def test_installation_status_succeeded(self, publisher):
+        """Test that InstallationStatus changes to SUCCEEDED on success."""
+        callback = Mock()
+        self.module.installation_status_changed.connect(callback)
+
+        task_paths = self.interface.InstallWithTasks()
+        check_task_creation(task_paths[0], publisher, RunInstallationTask)
+
+        self.module._on_installation_started()
+        callback.reset_mock()
+
+        self.module._on_installation_succeeded()
+
+        assert self.interface.InstallationStatus == InstallationStatus.SUCCEEDED
+        assert self.module.installation_status == InstallationStatus.SUCCEEDED
+        callback.assert_called()
+
+    @pytest.mark.parametrize("error_type", [
+        InstallationErrorDialogType.FATAL_ERROR,
+        InstallationErrorDialogType.FATAL_ERROR.value,
+    ])
+    @patch_dbus_publish_object
+    def test_installation_status_failed(self, publisher, error_type):
+        """Test that InstallationStatus changes to FAILED on fatal error."""
+        status_callback = Mock()
+        self.module.installation_status_changed.connect(status_callback)
+
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        self.module._on_installation_started()
+        status_callback.reset_mock()
+
+        task.error_raised_signal.emit("Something went wrong", error_type)
+
+        assert self.interface.InstallationStatus == InstallationStatus.FAILED
+        assert self.module.installation_status == InstallationStatus.FAILED
+        status_callback.assert_called()
+
+    @patch_dbus_publish_object
+    def test_yesno_error_does_not_set_failed(self, publisher):
+        """Test that a YES_NO error does not change status to FAILED."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        self.module._on_installation_started()
+        task.error_raised_signal.emit("Non-fatal error", InstallationErrorDialogType.YES_NO)
+
+        assert self.module.installation_status == InstallationStatus.RUNNING
+
+    @patch_dbus_publish_object
+    def test_installation_failed_via_signal(self, publisher):
+        """Test that failed_signal sets status to FAILED."""
+        task_paths = self.interface.InstallWithTasks()
+        check_task_creation(task_paths[0], publisher, RunInstallationTask)
+
+        self.module._on_installation_started()
+        self.module._on_installation_failed()
+
+        assert self.module.installation_status == InstallationStatus.FAILED
+
+    @pytest.mark.parametrize("terminal_status", [
+        InstallationStatus.SUCCEEDED,
+        InstallationStatus.FAILED,
+    ])
+    def test_terminal_status_cannot_be_overwritten(self, terminal_status):
+        """Test that terminal states (SUCCEEDED, FAILED) cannot be changed."""
+        callback = Mock()
+        self.module.installation_status_changed.connect(callback)
+
+        self.module._set_installation_status(terminal_status)
+        callback.reset_mock()
+
+        self.module._set_installation_status(InstallationStatus.RUNNING)
+
+        assert self.module.installation_status == terminal_status
+        callback.assert_not_called()
+
+    @pytest.mark.parametrize("terminal_handler,expected_status", [
+        ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
+        ("_on_installation_failed", InstallationStatus.FAILED),
+    ])
+    def test_stopped_preserves_terminal_status(self, terminal_handler, expected_status):
+        """Test that _on_installation_stopped does not change terminal status."""
+        self.module._on_installation_started()
+        getattr(self.module, terminal_handler)()
+        self.module._on_installation_stopped()
+
+        assert self.module.installation_status == expected_status
+        assert self.module._installation_task is None
 
     def test_quit(self):
         """Test Quit."""
