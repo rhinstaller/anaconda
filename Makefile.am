@@ -89,6 +89,8 @@ CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --secur
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
 CONTAINER_ADD_ARGS ?=
+# Custom RPM packages to install in CI container (space-separated list of .rpm file paths)
+EXTRA_RPMS ?=
 # Glade was removed in RHEL from RHEL-10
 CONTAINER_CONFIGURE_ARGS ?= $(shell test "$(CI_TAG)" = "fedora-eln" -o "$(CI_TAG)" = "rhel-10" && echo "--env=CONFIGURE_ARGS=--disable-glade")
 
@@ -180,6 +182,10 @@ container-release:
 anaconda-ci-build:
 	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
+	mkdir $$TEMP/rpms/ && \
+	if [ -n "$(EXTRA_RPMS)" ]; then \
+		cp $(EXTRA_RPMS) $$TEMP/rpms/; \
+	fi && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \

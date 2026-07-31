@@ -23,6 +23,11 @@ or you can build your own image.
 
     make -f Makefile.am anaconda-ci-build
 
+To include extra RPM packages in the container (e.g. custom builds of
+dependencies), pass them via the ``EXTRA_RPMS`` variable::
+
+    make -f Makefile.am anaconda-ci-build EXTRA_RPMS="/path/to/custom-pkg.rpm /path/to/another.rpm"
+
 Then you are free to run the tests without dependency installation by
 running::
 
