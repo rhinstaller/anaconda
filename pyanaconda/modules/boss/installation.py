@@ -361,7 +361,7 @@ class RunInstallationTask(InstallationTask):
         if dialog_type == InstallationErrorDialogType.FATAL_ERROR:
             self._fatal_error_already_emitted = True
         self._error_response_event.clear()
-        self._error_raised_signal.emit(message, dialog_type.value)
+        self._error_raised_signal.emit(message, dialog_type)
         self._error_response_event.wait()
         return self._error_should_continue
 
