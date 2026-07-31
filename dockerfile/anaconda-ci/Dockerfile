@@ -28,6 +28,7 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
+COPY rpms/ /root/rpms/
 
 # Replace standalone systemd package with systemd as these are conflicting
 RUN set -ex; \
@@ -75,6 +76,11 @@ RUN set -ex; \
 
 RUN pip install --no-cache-dir --upgrade pip; \
   pip install --no-cache-dir -r /root/requirements.txt
+
+# Install custom RPM packages if provided
+RUN if ls /root/rpms/*.rpm 1>/dev/null 2>&1; then \
+  dnf install -y /root/rpms/*.rpm; \
+fi
 
 RUN mkdir /anaconda
 
