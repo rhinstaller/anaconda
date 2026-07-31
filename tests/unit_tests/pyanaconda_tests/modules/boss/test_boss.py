@@ -42,10 +42,11 @@ from tests.unit_tests.pyanaconda_tests import (
 class BossInterfaceTestCase:
     """Test DBus interface for the Boss module."""
 
-    def setup_method(self):
-        """Set up the module."""
+    @pytest.fixture(autouse=True)
+    def _setup(self, anaconda_run_dir):
         self.module = Boss()
         self.interface = BossInterface(self.module)
+        self._error_file = self.module._error_file
 
     def _add_module(self, service_name, available=True, proxy=None):
         """Add a DBus module."""
@@ -333,12 +334,18 @@ class BossInterfaceTestCase:
         assert self.module.installation_status == InstallationStatus.SUCCEEDED
         callback.assert_called()
 
-    @pytest.mark.parametrize("error_type", [
-        InstallationErrorDialogType.FATAL_ERROR,
-        InstallationErrorDialogType.FATAL_ERROR.value,
-    ])
+    @pytest.mark.parametrize(
+        "error_type,expected_status,expected_status_callback_count",
+        [
+            (InstallationErrorDialogType.FATAL_ERROR, InstallationStatus.FAILED, 1),
+            (InstallationErrorDialogType.FATAL_ERROR.value, InstallationStatus.FAILED, 1),
+            (InstallationErrorDialogType.YES_NO, InstallationStatus.RUNNING, 0),
+        ],
+    )
     @patch_dbus_publish_object
-    def test_installation_status_failed(self, publisher, error_type):
+    def test_installation_status_on_error(
+        self, publisher, error_type, expected_status, expected_status_callback_count
+    ):
         """Test that InstallationStatus changes to FAILED on fatal error."""
         status_callback = Mock()
         self.module.installation_status_changed.connect(status_callback)
@@ -352,9 +359,12 @@ class BossInterfaceTestCase:
 
         task.error_raised_signal.emit("Something went wrong", error_type)
 
-        assert self.interface.InstallationStatus == InstallationStatus.FAILED
-        assert self.module.installation_status == InstallationStatus.FAILED
-        status_callback.assert_called()
+        assert self.interface.InstallationStatus == expected_status
+        assert self.module.installation_status == expected_status
+        assert status_callback.call_count == expected_status_callback_count
+
+        assert self.interface.PendingErrorMessage == "Something went wrong"
+        assert self.interface.PendingErrorType == error_type
 
     @patch_dbus_publish_object
     def test_yesno_error_does_not_set_failed(self, publisher):
@@ -366,6 +376,8 @@ class BossInterfaceTestCase:
         self.module._on_installation_started()
         task.error_raised_signal.emit("Non-fatal error", InstallationErrorDialogType.YES_NO)
 
+        assert self.interface.PendingErrorMessage == "Non-fatal error"
+        assert self.interface.PendingErrorType == InstallationErrorDialogType.YES_NO
         assert self.module.installation_status == InstallationStatus.RUNNING
 
     @patch_dbus_publish_object
@@ -409,6 +421,114 @@ class BossInterfaceTestCase:
         assert self.module.installation_status == expected_status
         assert self.module._installation_task is None
 
+    def test_persist_error_message_writes_file(self):
+        """Test that a fatal error is persisted to disk."""
+        self.module._on_installation_started()
+        self.module._set_pending_error("disk full", InstallationErrorDialogType.FATAL_ERROR)
+
+        assert self._error_file.exists()
+        assert self._error_file.read_text() == "disk full"
+
+    def test_non_fatal_error_does_not_persist(self):
+        """Test that a YES_NO error is not persisted to disk."""
+        self.module._on_installation_started()
+        self.module._set_pending_error("ignore this?", InstallationErrorDialogType.YES_NO)
+
+        assert not self._error_file.exists()
+
+    def test_on_error_response_continue_clears_pending(self):
+        """Test that continuing past an error clears the pending error."""
+        self.module._on_installation_started()
+        self.module._set_pending_error("ignore this?", InstallationErrorDialogType.YES_NO)
+
+        callback = Mock()
+        self.module.pending_error_changed.connect(callback)
+
+        self.module._on_error_response(True)
+
+        assert self.interface.PendingErrorMessage == ""
+        assert self.interface.PendingErrorType == ""
+        callback.assert_called()
+
+    def test_on_error_response_abort_preserves_pending(self):
+        """Test that aborting does not overwrite the pending error."""
+        self.module._on_installation_started()
+        self.module._set_pending_error("ignore this?", InstallationErrorDialogType.YES_NO)
+
+        self.module._on_error_response(False)
+
+        assert self.interface.PendingErrorMessage == "ignore this?"
+
+    @patch_dbus_publish_object
+    def test_error_response_signal_wired_to_boss(self, publisher):
+        """Test that the task's error_response_signal is connected to Boss."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        self.module._on_installation_started()
+        self.module._set_pending_error("ignore?", InstallationErrorDialogType.YES_NO)
+
+        task.error_response_signal.emit(True)
+
+        assert self.interface.PendingErrorMessage == ""
+
+    def test_pending_error_changed_signal_emitted(self):
+        """Test that pending_error_changed fires on error."""
+        callback = Mock()
+        self.module.pending_error_changed.connect(callback)
+
+        self.module._on_installation_started()
+        self.module._set_pending_error("boom", InstallationErrorDialogType.FATAL_ERROR)
+
+        callback.assert_called()
+
+    @patch_dbus_publish_object
+    def test_thread_failed_callback_emits_when_no_prior_fatal(self, publisher):
+        """Test that _thread_failed_callback emits error when no prior fatal."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        callback = Mock()
+        task.error_raised_signal.connect(callback)
+
+        task._thread_failed_callback(None, RuntimeError("unexpected crash"), None)
+
+        callback.assert_called_once()
+        msg, error_type = callback.call_args[0]
+        assert "unexpected crash" in msg
+        assert error_type == InstallationErrorDialogType.FATAL_ERROR
+
+    @patch_dbus_publish_object
+    def test_thread_failed_callback_suppressed_after_fatal(self, publisher):
+        """Test that _thread_failed_callback skips emit if fatal already emitted."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        task._fatal_error_already_emitted = True
+
+        callback = Mock()
+        task.error_raised_signal.connect(callback)
+
+        task._thread_failed_callback(None, SystemExit(0), None)
+
+        callback.assert_not_called()
+
     def test_quit(self):
         """Test Quit."""
         assert self.interface.Quit() is None
+
+
+def test_load_initial_state_with_error_file(anaconda_run_dir):
+    """Test that Boss restores FAILED state from a persisted error file."""
+    (anaconda_run_dir / Boss.ERROR_FILE_NAME).write_text("disk full")
+
+    boss = Boss()
+    interface = BossInterface(boss)
+
+    assert boss.installation_status == InstallationStatus.FAILED
+    assert interface.InstallationStatus == InstallationStatus.FAILED
+    assert interface.PendingErrorMessage == "disk full"
+    assert interface.PendingErrorType == InstallationErrorDialogType.FATAL_ERROR

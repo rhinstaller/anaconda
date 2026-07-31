@@ -332,7 +332,9 @@ class RunInstallationTask(InstallationTask):
         self._install_manager = install_manager
         self._error_raised_signal = Signal()
         self._error_response_event = Event()
+        self._error_response_signal = Signal()
         self._error_should_continue = False
+        self._fatal_error_already_emitted = False
 
     @property
     def error_raised_signal(self):
@@ -342,12 +344,22 @@ class RunInstallationTask(InstallationTask):
         """
         return self._error_raised_signal
 
+    @property
+    def error_response_signal(self):
+        """Signal emitted when the user responds to a pending error.
+
+        Carries a boolean: True to continue, False to abort.
+        """
+        return self._error_response_signal
+
     def _show_dialog(self, message, dialog_type):
         """Emit error signal and block until UI responds.
 
         :param message: the error message to display
         :param dialog_type: the type of dialog to show
         """
+        if dialog_type == InstallationErrorDialogType.FATAL_ERROR:
+            self._fatal_error_already_emitted = True
         self._error_response_event.clear()
         self._error_raised_signal.emit(message, dialog_type.value)
         self._error_response_event.wait()
@@ -360,6 +372,21 @@ class RunInstallationTask(InstallationTask):
         """
         self._error_should_continue = should_continue
         self._error_response_event.set()
+        self._error_response_signal.emit(should_continue)
+
+    def _thread_failed_callback(self, *exc_info):
+        """Emit the fatal error before reporting the failure.
+
+        Skips emission if a fatal error was already emitted by _show_dialog
+        to avoid overwriting the original error message (e.g. ScriptError
+        emits via _show_dialog, then sys.exit triggers this callback with
+        a less informative SystemExit message).
+        """
+        if not self._fatal_error_already_emitted:
+            self._error_raised_signal.emit(
+                str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
+            )
+        super()._thread_failed_callback(*exc_info)
 
     @property
     def name(self):

@@ -45,7 +45,7 @@ class AnacondaLintConfig(CensorshipConfig):
         ]
 
         self.false_positives = [
-            FalsePositive(r"W0201.*tests/.*\.setup_method: Attribute .* defined outside __init__"),
+            FalsePositive(r"W0201.*tests/.*\._?setup(?:_method)?: Attribute .* defined outside __init__"),
             FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
 
             # TODO: BlockDev introspection needs to be added to pylint to handle these

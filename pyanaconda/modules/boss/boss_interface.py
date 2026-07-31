@@ -56,6 +56,14 @@ class BossInterface(InterfaceTemplate):
             "InstallationStatus",
             self.implementation.installation_status_changed
         )
+        self.watch_property(
+            "PendingErrorMessage",
+            self.implementation.pending_error_changed
+        )
+        self.watch_property(
+            "PendingErrorType",
+            self.implementation.pending_error_changed
+        )
 
     @property
     def ActiveInstallationTask(self) -> Str:
@@ -86,6 +94,29 @@ class BossInterface(InterfaceTemplate):
         :return: an integer value of InstallationStatus
         """
         return self.implementation.installation_status.value
+
+    @property
+    def PendingErrorMessage(self) -> Str:
+        """The pending error message awaiting a response.
+
+        Non-empty when an error dialog is waiting for the user
+        to respond, or when a fatal error has occurred. A
+        reconnecting client should read this to discover unhandled errors.
+
+        :return: an error message string or empty string
+        """
+        return self.implementation.pending_error_message
+
+    @property
+    def PendingErrorType(self) -> Str:
+        """The type of the pending error.
+
+        Possible values: "yesno" (non-critical, awaiting user decision),
+        "error" (fatal), or "" (no pending error).
+
+        :return: an error type string or empty string
+        """
+        return self.implementation.pending_error_type
 
     def GetModules(self) -> List[BusName]:
         """Get service names of running modules.

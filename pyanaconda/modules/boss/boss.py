@@ -17,6 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+from collections import namedtuple
+from pathlib import Path
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
@@ -40,6 +44,9 @@ log = get_module_logger(__name__)
 __all__ = ["Boss"]
 
 
+InitialState = namedtuple("InitialState", ["status", "error_message", "error_type"])
+
+
 class Boss(Service):
     """The Boss service."""
 
@@ -50,8 +57,12 @@ class Boss(Service):
         self._install_manager = InstallManager()
         self._installation_task = None
         self.active_installation_task_changed = Signal()
-        self._installation_status = InstallationStatus.NOT_STARTED
+        initial_state = self._load_initial_state()
+        self._installation_status = initial_state.status
         self.installation_status_changed = Signal()
+        self._pending_error_message = initial_state.error_message
+        self._pending_error_type = initial_state.error_type
+        self.pending_error_changed = Signal()
 
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
@@ -59,6 +70,21 @@ class Boss(Service):
 
         self._module_manager.module_observers_changed.connect(
             self._install_manager.on_module_observers_changed
+        )
+
+    ERROR_FILE_NAME = "installation-error-msg"
+
+    @property
+    def _error_file(self) -> Path:
+        rundir = Path(os.environ.get("ANACONDA_RUN_DIR", "/run/anaconda"))
+        return rundir / self.ERROR_FILE_NAME
+
+    def _load_initial_state(self):
+        err = self._error_file.read_text() if self._error_file.exists() else ""
+        return InitialState(
+            status=InstallationStatus.FAILED if err else InstallationStatus.NOT_STARTED,
+            error_message=err,
+            error_type=InstallationErrorDialogType.FATAL_ERROR if err else "",
         )
 
     def publish(self):
@@ -118,6 +144,26 @@ class Boss(Service):
         """
         return self._installation_status
 
+    @property
+    def pending_error_message(self):
+        """The error message awaiting a UI response or describing a fatal error.
+
+        Non-empty when a non-critical error dialog is waiting for the user,
+        or when a fatal error has occurred. A reconnecting client should
+        read this to discover unhandled errors.
+
+        :return: an error message string or empty string
+        """
+        return self._pending_error_message
+
+    @property
+    def pending_error_type(self):
+        """The type of the pending error (e.g. YES_NO or FATAL_ERROR).
+
+        :return: an InstallationErrorDialogType value or empty string
+        """
+        return self._pending_error_type
+
     def get_installation_task(self):
         """Get the active installation task, if any.
 
@@ -165,6 +211,9 @@ class Boss(Service):
         self._installation_task.error_raised_signal.connect(
             self._on_error_raised
         )
+        self._installation_task.error_response_signal.connect(
+            self._on_error_response
+        )
 
         return [self._installation_task]
 
@@ -186,6 +235,37 @@ class Boss(Service):
 
         self._installation_status = status
         self.installation_status_changed.emit()
+
+    def _set_pending_error(self, error_message, error_type):
+        """Store an error and notify listeners.
+
+        For fatal errors, also persist the message to disk (so it
+        survives a Boss restart) and transition to FAILED.
+        Non-critical errors are stored but do not change the status.
+        """
+        self._pending_error_message = error_message
+        self._pending_error_type = error_type
+        if error_type == InstallationErrorDialogType.FATAL_ERROR:
+            self._persist_error_message(error_message)
+            self._set_installation_status(InstallationStatus.FAILED)
+        self.pending_error_changed.emit()
+
+    def _persist_error_message(self, error_message):
+        self._error_file.write_text(error_message)
+
+    def _on_error_response(self, should_continue):
+        """Handle the user's response to a non-critical error.
+
+        On continue: clear the pending error so the UI returns to normal.
+        On abort: do nothing here — the task thread will fail and
+        _thread_failed_callback will emit the actual fatal error
+        with the proper exception message (not the non-critical dialog text).
+        """
+        if should_continue:
+            log.info("User chose to continue past the error.")
+            self._set_pending_error(error_message="", error_type="")
+        else:
+            log.info("User chose to abort.")
 
     def _on_installation_started(self):
         """Handle the installation task start."""
@@ -210,8 +290,7 @@ class Boss(Service):
         :param error_type: the error type string
         """
         log.info("Error raised: type=%s, message=%s", error_type, message[:80])
-        if error_type == InstallationErrorDialogType.FATAL_ERROR:
-            self._set_installation_status(InstallationStatus.FAILED)
+        self._set_pending_error(error_message=message, error_type=error_type)
 
     def _on_installation_stopped(self):
         """Handle the installation task stop."""

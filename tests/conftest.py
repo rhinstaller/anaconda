@@ -13,3 +13,12 @@ def change_working_directory():
     # this fixture allows calling pytest from project root
     tests_dir = Path(__file__).resolve().parent
     os.chdir(tests_dir)
+
+
+@pytest.fixture
+def anaconda_run_dir(tmp_path, monkeypatch):
+    """Set up an isolated /run/anaconda directory for tests."""
+    rundir = tmp_path / "rundir"
+    rundir.mkdir()
+    monkeypatch.setenv("ANACONDA_RUN_DIR", str(rundir))
+    return rundir
