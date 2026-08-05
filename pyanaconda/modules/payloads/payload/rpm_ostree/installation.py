@@ -227,6 +227,19 @@ class PrepareMountTargetsTaskBase(Task):
             # /usr is being mounted ro for ostree installs (in run()).
             self._setup_internal_bindmount('/boot', recurse=False)
 
+    def _handle_other_mount_points(self, existing_mount_points):
+        """Handle other mount points
+
+        Handle any admin-specified mount points beyond /, /var, and API mounts.
+        Sort by depth to handle parent directories before subdirectories.
+
+        :param [] existing_mount_points: a list of existing mount points
+        """
+        for mount in sorted(existing_mount_points, key=lambda p: p.count('/')):
+            if mount in ('/', '/var', "/dev", "/proc", "/run", "/sys"):
+                continue
+            self._setup_internal_bindmount(mount, recurse=False)
+
 
 class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
     """Task to prepare OSTree mount targets."""
@@ -288,22 +301,6 @@ class PrepareOSTreeMountTargetsTask(PrepareMountTargetsTaskBase):
         """
         for path in ("/dev", "/proc", "/run", "/sys"):
             self._setup_internal_bindmount(path)
-
-    def _handle_other_mount_points(self, existing_mount_points):
-        """Handle other mount points
-
-        Handle mounts like /boot (except avoid /boot/efi; we just need the toplevel), and any
-        admin-specified points like /home (really /var/home). Note we already handled /var
-        earlier. Avoid recursion since sub-mounts will be in the list too.  We sort by length as
-        a crude hack to try to simulate the tree relationship; it looks like this is handled in
-        blivet in a different way.
-
-        :param [] existing_mount_points: a list of existing mount points
-        """
-        for mount in sorted(existing_mount_points, key=len):
-            if mount in ('/', '/var', "/dev", "/proc", "/run", "/sys"):
-                continue
-            self._setup_internal_bindmount(mount, recurse=False)
 
     def run(self):
         """Run the task.
@@ -383,6 +380,9 @@ class PrepareBootcMountTargetsTask(PrepareMountTargetsTaskBase):
 
         # Create /var subdirectories (roothome and home) after bind mount
         self._fill_var_subdirectories()
+
+        # Handle other user-specified mount points (e.g. /var/tmp, /home, etc.)
+        self._handle_other_mount_points(mount_points)
 
         # Make sure /boot is accessible during %post scripts
         self._handle_boot_if_not_mount_point()
@@ -751,53 +751,45 @@ class DeployBootcTask(Task):
         return "Deploy bootc"
 
     def _clean_physroot(self):
-        """Clean the physical root directory for bootc installation.
+        """Clean non-mount entries from the physical root for bootc installation.
 
-        Unmounts all mount points under physroot (except /boot) and removes all entries,
-        ensuring it's empty for bootc installation.
+        Bootc's require_empty_rootdir() accepts only:
+        - lost+found
+        - directories that are mount points (on different filesystems)
+        - directories containing only mount points (recursively)
 
-        Raises PayloadInstallationError if user-specified mount points are
-        detected, as these are not yet supported.
+        This method removes entries that don't fit these criteria (e.g. /root, /proc, /sys
+        created by mkfs or blivet API mounts) while preserving user-specified mount points
+        and their parent directory hierarchy.
         """
-        log.debug("Bootc workaround: prepare clean root partition for bootc install")
+        log.debug("Bootc workaround: cleaning physroot for bootc install")
 
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        # Get mount points from device tree (includes user-specified mount points from kickstart)
-        user_mount_points = device_tree.GetMountPoints()
+        mount_points = device_tree.GetMountPoints()
 
-        # Standard mount points: / (root), /boot, /boot/efi, /home, /var
-        allowed_mount_points = {'/', '/boot', '/boot/efi', '/home', '/var'}
-
-        # Check for user-specified mount points
-        unsupported_mount_points = []
-        for mount_point_path in user_mount_points:
-            if mount_point_path in allowed_mount_points:
+        # Build a set of paths that must be preserved: mount points and their ancestors.
+        # For example, if /var/tmp is a mount point, both /var and /var/tmp are preserved.
+        preserve = set()
+        for mp in mount_points:
+            if mp == '/':
                 continue
-            unsupported_mount_points.append(mount_point_path)
-
-        if unsupported_mount_points:
-            mount_points_list = ", ".join(sorted(unsupported_mount_points))
-            raise PayloadInstallationError(
-                _("Bootc installation does not yet support user-specified mount points. "
-                  "Unsupported mount points: {}").format(mount_points_list)
-            )
+            # Add the mount point and all ancestor directories
+            parts = mp.strip('/').split('/')
+            for i in range(1, len(parts) + 1):
+                preserve.add('/' + '/'.join(parts[:i]))
 
         entries = list(os.listdir(self._physroot))
         for entry in entries:
             path = os.path.join(self._physroot, entry)
-            if entry == "boot":
-                if os.path.ismount(path):
-                    log.debug("Bootc workaround: skip unmounting /boot")
-                    continue
-                for boot_entry in os.listdir(path):
-                    boot_entry_path = os.path.join(path, boot_entry)
-                    if os.path.ismount(boot_entry_path):
-                        continue
-                    safe_exec_program("rm", ["-rf", boot_entry_path])
+            entry_mp = '/' + entry
+
+            if entry_mp in preserve:
+                log.debug("Preserving %s (mount point or ancestor)", path)
                 continue
 
-            # Try to unmount if it's a mount point, use lazy unmount for busy mounts
+            # Unmount API mounts (proc, sys, etc.) before removing
             if os.path.ismount(path):
+                log.debug("Unmounting %s", path)
                 safe_exec_program("umount", ["-l", path])
 
             safe_exec_program("rm", ["-rf", path])
@@ -847,9 +839,8 @@ class DeployBootcTask(Task):
         else:
             log.debug("/etc/ostree/prepare-root.conf is already present and will not be modified")
 
-        # After automatic partitioning sysroot and sysimage are mounted,
-        # but we need a clear directory structure expected by the bootc
-        # bootc requires the target to be a mount point and needs an empty directory with only /boot
+        # Remove non-mount entries from physroot (e.g. /root, API mounts like /proc, /sys)
+        # while preserving user mount points and their parent directories that bootc accepts.
         self._clean_physroot()
 
         log.debug("Executing bootc install command")
