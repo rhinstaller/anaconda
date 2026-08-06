@@ -110,10 +110,13 @@ class Service(BaseModule):
         log.debug("Start the loop.")
         self._loop.run()
 
+    def _deferred_stop(self):
+        DBus.disconnect()
+        self.loop.quit()
+
     def stop(self):
         """Stop the loop."""
-        DBus.disconnect()
-        Timer().timeout_sec(1, self.loop.quit)
+        Timer().timeout_sec(1, self._deferred_stop)
 
     def set_locale(self, locale):
         """Set the locale for the module.
