@@ -523,6 +523,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 06 2026 github-actions <github-actions@github.com> - 45.16-1
+- Fix a shutdown (Quit) race condition (rvykydal)
+- spec: Bump required blivet version to 3.14.0 (vtrefny)
+- storage: Make unlock_device work with both LUKS and Stratis (vtrefny)
+- storage: Introduce encrypted and has_key attrs for Stratis (vtrefny)
+- refactor: drop unnecessary .value call from StrEnum (bciconel)
+- feat(boss): persist pending errors for client reconnection (bciconel)
+
 * Tue Aug 04 2026 github-actions <github-actions@github.com> - 45.15-1
 - feat(boss): track installation status with enum (bciconel)
 - refactor: change InstallationErrorDialogType from Enum to StrEnum (bciconel)
