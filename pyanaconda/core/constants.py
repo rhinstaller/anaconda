@@ -72,6 +72,8 @@ WEBUI_VIEWER_PID_FILE = "/run/anaconda/webui_script.pid"
 # flag file for Web UI to signalize that Anaconda backend is ready to be used
 # FIXME: Web UI should monitor the initialization itself
 BACKEND_READY_FLAG_FILE = "/run/anaconda/backend_ready"
+# Remote authentication PIN for WebUI
+WEBUI_REMOTE_PIN_FILE = "/run/anaconda/remote-pin"
 
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
