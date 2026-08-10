@@ -39,9 +39,10 @@ class SimpleWebUITestCase(unittest.TestCase):
                                   pid_file,
                                   backend_file,
                                   pid_content="",
-                                  remote=0):
+                                  remote=0,
+                                  noauth=False):
         # prepare UI interface class
-        self.intf = CockpitUserInterface(None, None, remote)
+        self.intf = CockpitUserInterface(None, None, remote, noauth)
         self.intf._backend_ready_flag_file = backend_file
 
         open(backend_file, "wt").close()
@@ -165,7 +166,8 @@ class SimpleWebUITestCase(unittest.TestCase):
 
             mocked_startProgram.assert_called_once_with(
                 ["/usr/libexec/anaconda/webui-desktop",
-                 "-t", FIREFOX_THEME_DEFAULT, "-r", "1"],
+                 "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
+                 "-n", "0"],
                 reset_lang=False
             )
             # Check if backend flag file was removed after finish of run method
@@ -181,6 +183,22 @@ class SimpleWebUITestCase(unittest.TestCase):
             mocked_log.error.assert_any_call("Test error")
 
 
+        # test with remote + noauth
+        mocked_startProgram.reset_mock()
+        mocked_process.reset_mock()
+        mocked_process.communicate.return_value = ("Noauth output", "")
+        mocked_startProgram.return_value = mocked_process
+        with tempfile.TemporaryDirectory() as fd:
+            pid_file = os.path.join(fd, "anaconda.pid")
+            backend_file = os.path.join(fd, "backend_ready")
+            self._prepare_for_live_testing(pid_file, backend_file, remote=1, noauth=True)
+            self.intf.run()
+
+            mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
+                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
+                                                         "-n", "1"],
+                                                        reset_lang=False)
+
         # test with disabled remote
         mocked_startProgram.reset_mock()
         mocked_process.reset_mock()
@@ -193,7 +211,8 @@ class SimpleWebUITestCase(unittest.TestCase):
             self.intf.run()
 
             mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
-                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "0"],
+                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "0",
+                                                         "-n", "0"],
                                                         reset_lang=False)
             # check if backend flag file was removed after finish of run method
             assert os.path.exists(backend_file) is False

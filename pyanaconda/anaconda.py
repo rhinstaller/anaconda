@@ -216,7 +216,8 @@ class Anaconda:
             self._intf = CockpitUserInterface(
                 None,
                 self.payload,
-                self.opts.webui_remote
+                self.opts.webui_remote,
+                self.opts.webui_remote_noauth
             )
 
             # needs to be refreshed now we know if gui or tui will take place

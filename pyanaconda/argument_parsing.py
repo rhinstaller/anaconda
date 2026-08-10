@@ -516,6 +516,12 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("rdp.password"))
     ap.add_argument("--webui.remote", action="store_true", default=False, dest="webui_remote",
                     help=help_parser.help_text("webui.remote"))
+    ap.add_argument("--webui.remote.noauth", action="store_true", default=False,
+                    dest="webui_remote_noauth",
+                    help=help_parser.help_text("webui.remote.noauth"))
+    ap.add_argument("--webui.remote.pin", default="", metavar="REMOTE_PIN",
+                    dest="webui_remote_pin",
+                    help=help_parser.help_text("webui.remote.pin"))
 
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))

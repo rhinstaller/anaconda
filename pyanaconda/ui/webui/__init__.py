@@ -43,7 +43,7 @@ FIREFOX_THEME_LIVE = "live"
 class CockpitUserInterface(ui.UserInterface):
     """This is the main class for Cockpit user interface."""
 
-    def __init__(self, storage, payload, remote,
+    def __init__(self, storage, payload, remote, noauth=False,
                  productTitle="Anaconda",
                  quitMessage=QUIT_MESSAGE):
         """
@@ -59,6 +59,9 @@ class CockpitUserInterface(ui.UserInterface):
         :param remote: enable remote access to the anaconda-webui.
         :type remote: bool
 
+        :param noauth: disable authentication for remote access.
+        :type noauth: bool
+
         :param productTitle: the name of the product
         :type productTitle: str
 
@@ -72,6 +75,7 @@ class CockpitUserInterface(ui.UserInterface):
         super().__init__(storage, payload)
         self.productTitle = productTitle
         self.remote = remote
+        self.noauth = noauth
         self.quitMessage = quitMessage
         self._meh_interface = meh.ui.text.TextIntf()
         self._main_loop = None
@@ -131,11 +135,10 @@ class CockpitUserInterface(ui.UserInterface):
         profile_name = FIREFOX_THEME_DEFAULT
 
         try:
-            proc = startProgram(
-                ["/usr/libexec/anaconda/webui-desktop",
-                 "-t", profile_name, "-r", str(int(self.remote))],
-                reset_lang=False
-            )
+            cmd = ["/usr/libexec/anaconda/webui-desktop",
+                   "-t", profile_name, "-r", str(int(self.remote)),
+                   "-n", str(int(self.noauth))]
+            proc = startProgram(cmd, reset_lang=False)
 
             log.debug("cockpit web view has been started")
             with open(self._viewer_pid_file, "w") as f:

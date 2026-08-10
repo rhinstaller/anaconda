@@ -37,6 +37,7 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import constants, hw, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
+from pyanaconda.core.path import open_with_perm
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.flags import flags
 from pyanaconda.gnome_remote_desktop import GRDServer
@@ -423,6 +424,8 @@ def setup_display(anaconda, options):
         grd_server.rdp_password = rdp_creds.password
         grd_server.start_grd_rdp()
 
+    _setup_webui_remote_auth(options)
+
     # with Wayland running we can initialize the UI interface
     anaconda.initialize_interface()
 
@@ -442,3 +445,31 @@ def _set_gui_mode_on_rdp(anaconda, use_rdp):
         log.info("RDP requested via RDP question, switching Anaconda to GUI mode.")
     anaconda.display_mode = constants.DisplayModes.GUI
     flags.use_rd = use_rdp
+
+
+def _setup_webui_remote_auth(options):
+    """Set up authentication for remote WebUI access.
+
+    Must be called before anaconda.initialize_interface(), which triggers
+    webui-cockpit-ws.service and its ExecStartPre conf merge.
+    """
+    if not options.webui_remote:
+        return
+
+    if options.webui_remote_noauth and options.webui_remote_pin:
+        msg = "inst.webui.remote.noauth and inst.webui.remote.pin are mutually exclusive"
+        log.critical(msg)
+        raise SystemExit(msg)
+
+    if options.webui_remote_noauth:
+        log.info("WebUI remote access: authentication disabled by inst.webui.remote.noauth")
+        return
+
+    if not options.webui_remote_pin:
+        msg = "inst.webui.remote requires inst.webui.remote.pin=<PIN> to be set."
+        log.critical(msg)
+        raise SystemExit(msg)
+
+    with open_with_perm(constants.WEBUI_REMOTE_PIN_FILE, "w", 0o600) as f:
+        f.write(options.webui_remote_pin)
+    log.info("WebUI remote auth: wrote PIN file %s", constants.WEBUI_REMOTE_PIN_FILE)
