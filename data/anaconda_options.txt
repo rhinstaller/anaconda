@@ -112,6 +112,10 @@ Set password for the RDP session. To enable RDP access, also use the rdp and rdp
 
 rdp.password
 Set password for the RDP session. To enable RDP access, also use the rdp and rdp.username options.
+
+webui.remote
+Enable remote access to the Anaconda WebUI. Requires authentication by default.
+
 keymap
 Keyboard layout to use during installation and on the installed system. Valid KEYMAP values
 are those which can be used for the keyboard kickstart command.

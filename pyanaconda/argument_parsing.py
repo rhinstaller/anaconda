@@ -514,6 +514,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("rdp.username"))
     ap.add_argument("--rdp.password", default="", metavar="PASSWORD", dest="rdp_password",
                     help=help_parser.help_text("rdp.password"))
+    ap.add_argument("--webui.remote", action="store_true", default=False, dest="webui_remote",
+                    help=help_parser.help_text("webui.remote"))
 
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))
