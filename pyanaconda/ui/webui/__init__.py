@@ -56,8 +56,7 @@ class CockpitUserInterface(ui.UserInterface):
         :param payload: payload (usually dnf) reference
         :type payload: instance of payload handler
 
-        :param remote: if used run a cockpit-ws process to allow
-                       passwordless remote access to the anaconda-webui for easier testing.
+        :param remote: enable remote access to the anaconda-webui.
         :type remote: bool
 
         :param productTitle: the name of the product

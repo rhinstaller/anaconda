@@ -30,7 +30,6 @@ from pyanaconda.core.constants import (
     PAYLOAD_TYPE_RPM_OSTREE,
     DisplayModes,
 )
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import open_with_perm
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.services import PAYLOADS
@@ -217,7 +216,7 @@ class Anaconda:
             self._intf = CockpitUserInterface(
                 None,
                 self.payload,
-                "webui.remote" in kernel_arguments
+                self.opts.webui_remote
             )
 
             # needs to be refreshed now we know if gui or tui will take place
