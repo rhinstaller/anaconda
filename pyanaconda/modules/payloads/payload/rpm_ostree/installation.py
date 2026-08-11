@@ -929,6 +929,13 @@ class DeployOSTreeTask(Task):
 
         safe_exec_program(
             "ostree",
+            ["config",
+             "--repo=" + self._physroot + "/ostree/repo",
+             "set", "sysroot.bootprefix", "true"]
+        )
+
+        safe_exec_program(
+            "ostree",
             ["admin",
              "--sysroot=" + self._physroot,
              "os-init",
