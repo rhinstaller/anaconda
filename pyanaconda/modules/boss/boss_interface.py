@@ -82,16 +82,16 @@ class BossInterface(InterfaceTemplate):
         return TaskContainer.to_object_path(task)
 
     @property
-    def InstallationStatus(self) -> Int:
+    def InstallationStatus(self) -> Str:
         """The current installation status.
 
         Possible values:
-        1 - NOT_STARTED
-        2 - RUNNING
-        3 - SUCCEEDED
-        4 - FAILED
+        "not_started" - NOT_STARTED
+        "running"     - RUNNING
+        "succeeded"   - SUCCEEDED
+        "failed"      - FAILED
 
-        :return: an integer value of InstallationStatus
+        :return: a string value of InstallationStatus
         """
         return self.implementation.installation_status.value
 
