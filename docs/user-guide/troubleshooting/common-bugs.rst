@@ -493,7 +493,7 @@ Missing options of the ``repo`` command
 
         %pre
         # Generate the custom repo file.
-        cat >> /etc/anaconda.repos.d/custom.repo << EOF
+        cat >> /etc/yum.repos.d/custom.repo << EOF
 
         [my-custom-repo]
         name=My Custom Repository

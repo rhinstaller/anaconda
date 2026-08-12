@@ -79,7 +79,7 @@ it takes precedence over all other methods of finding the install.img. Otherwise
 to find the install.img first on any existing CD, and then from the location given by repo.
 If only the stage2 option is given without repo, Anaconda will use whatever repos the installed
 system would have enabled by default for installation. For instance, an install of a Fedora release
-will attempt to use the Fedora mirrorlist given by /etc/yum.repos.d/fedora.repo from that release.
+will attempt to use the Fedora mirrorlist given by fedora.repo from that release.
 
 addrepo
 This option adds additional repositories to the installation. These repositories are used during

@@ -160,8 +160,8 @@ class DNFManagerTestCase(unittest.TestCase):
         assert config.installroot == "/mnt/sysroot"
         assert config.persistdir == "/mnt/sysroot/var/lib/dnf"
         assert config.reposdir == (
-            "/etc/yum.repos.d",
-            "/etc/anaconda.repos.d"
+            "/usr/share/dnf5/repos.d",
+            "/etc/yum.repos.d"
         )
         self._check_variables(releasever="rawhide")
 
