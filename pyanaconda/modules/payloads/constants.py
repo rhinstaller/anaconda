@@ -44,8 +44,8 @@ from pyanaconda.core.constants import (
 
 # Locations of repo files.
 DNF_REPO_DIRS = [
+    '/usr/share/dnf5/repos.d',
     '/etc/yum.repos.d',
-    '/etc/anaconda.repos.d'
 ]
 
 
