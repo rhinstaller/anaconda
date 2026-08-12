@@ -969,7 +969,7 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
     permissions.reformat = \
         device.raw_device.exists \
         and not device.raw_device.format_immutable \
-        and is_supported_filesystem(request.format_type)
+        and (fmt.type is None or is_supported_filesystem(request.format_type))
 
     permissions.device_size = \
         device.resizable or (
