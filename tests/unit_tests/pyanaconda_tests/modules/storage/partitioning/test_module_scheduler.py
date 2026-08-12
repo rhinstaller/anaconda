@@ -36,6 +36,7 @@ from blivet.devices import (
     StorageDevice,
 )
 from blivet.errors import StorageError
+from blivet.flags import flags as blivet_flags
 from blivet.formats import get_format
 from blivet.formats.fs import BTRFS, FS
 from blivet.size import Size
@@ -508,6 +509,42 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
         for value in get_native(permissions).values():
             assert value is False
+
+    def test_generate_device_factory_permissions_no_format(self):
+        """Test GenerateDeviceFactoryPermissions for a device without a recognized format."""
+        with patch.object(blivet_flags, "testing", True):
+            dev1 = DiskDevice(
+                "dev1",
+                fmt=get_format("disklabel"),
+                size=Size("10 GiB"),
+                exists=True
+            )
+            dev2 = PartitionDevice(
+                "dev2",
+                size=Size("5 GiB"),
+                parents=[dev1],
+                fmt=get_format(None),
+                exists=True
+            )
+
+            self._add_device(dev1)
+            self._add_device(dev2)
+
+            # A partition without a recognized file system (raw/"Unknown") should
+            # still allow reformatting, so it can be assigned a supported file system.
+            request = self.module.generate_device_factory_request("dev2")
+            permissions = self.interface.GenerateDeviceFactoryPermissions(
+                DeviceFactoryRequest.to_structure(request)
+            )
+            assert get_native(permissions)['reformat'] is True
+
+            # An existing but unsupported file system (for example ntfs) should still
+            # disable reformatting.
+            request.format_type = "ntfs"
+            permissions = self.interface.GenerateDeviceFactoryPermissions(
+                DeviceFactoryRequest.to_structure(request)
+            )
+            assert get_native(permissions)['reformat'] is False
 
     def test_generate_device_factory_permissions_btrfs(self):
         """Test GenerateDeviceFactoryPermissions with btrfs."""
