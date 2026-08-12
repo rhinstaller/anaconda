@@ -524,6 +524,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 12 2026 github-actions <github-actions@github.com> - 45.18-1
+- Revert "tests: Temporarily ignore stratis kickstart commands" (vtrefny)
+- spec: Bump required version of pykickstart to 3.77 (vtrefny)
+- spec: Bump required blivet version to 3.14.1 (vtrefny)
+- storage: Add support for Stratis custom partitioning (vtrefny)
+- fix(ostree): set sysroot.bootprefix true before deploy (tfratrik)
+- spec: Enlarge the list of ISOs that use the Web UI (k.koukiou)
+- boss: Change InstallationStatus from IntEnum to StrEnum (bciconel)
+- Replace usage of MD5 password hash in tests (mkolman)
+
 * Tue Aug 11 2026 github-actions <github-actions@github.com> - 45.17-1
 - feat(bootc): support arbitrary mount points for bootc installations
   (rvykydal)
