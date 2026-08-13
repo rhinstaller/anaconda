@@ -246,7 +246,7 @@ def verify_opal_compatibility(storage, constraints, report_error, report_warning
     if arch.get_arch() == "ppc64le" and arch.is_powernv():
         # Check the kernel version.
         version = _get_opal_firmware_kernel_version()
-        if _check_opal_firmware_kernel_version(version, "5.10"):
+        if _check_opal_firmware_kernel_version(version, "5.19"):
             return
 
         # Is /boot on XFS?
