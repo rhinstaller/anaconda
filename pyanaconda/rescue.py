@@ -218,8 +218,16 @@ class Rescue(object):
             self.error = e
             return False
 
-        # turn on selinux also
-        if conf.security.selinux:
+        # Check if this is an OSTree/immutable system
+        deployment_path = get_ostree_deployment_path(conf.target.physical_root)
+        if deployment_path:
+            self.is_ostree = True
+            set_system_root(deployment_path)
+
+        # Set up for SELinux relabeling on reboot
+        # Skip for ostree/bootc systems - the root filesystem is immutable
+        # and SELinux relabeling is handled differently.
+        if conf.security.selinux and not self.is_ostree:
             # we have to catch the possible exception, because we
             # support read-only mounting
             try:
@@ -250,12 +258,6 @@ class Rescue(object):
 
         # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
         makeFStab()
-
-        # Check if this is an OSTree/immutable system
-        deployment_path = get_ostree_deployment_path(conf.target.physical_root)
-        if deployment_path:
-            self.is_ostree = True
-            set_system_root(deployment_path)
 
         # run %post if we've mounted everything
         if not self.ro and self._scripts:
