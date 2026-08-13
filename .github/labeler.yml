@@ -14,6 +14,11 @@ f45:
   - base-branch: 'main'
   - changed-files:
     - any-glob-to-any-file: ['**']
+f45:
+- all:
+  - base-branch: 'main'
+  - changed-files:
+    - any-glob-to-any-file: ['**']
 rhel-9:
 - all:
   - base-branch: 'rhel-9'
