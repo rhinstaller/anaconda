@@ -500,6 +500,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 13 2026 Adam Kankovsky <adamkankovsky@gmail.com> - 40.22.3.55-1
+
 * Thu Jul 09 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.54-1
 - modules: rpm_ostree: fix bootc install when /boot is on root partition
   (k.koukiou)
