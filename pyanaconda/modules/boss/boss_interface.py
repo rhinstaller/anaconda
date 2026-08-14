@@ -48,6 +48,7 @@ class BossInterface(InterfaceTemplate):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
+        self.implementation.module_properties_changed.connect(self.flush_changes)
         self.watch_property(
             "ActiveInstallationTask",
             self.implementation.active_installation_task_changed
