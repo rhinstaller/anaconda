@@ -500,6 +500,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 14 2026 Adam Kankovsky <adamkankovsky@gmail.com> - 40.22.3.56-1
+- feat(bootc): support arbitrary mount points for bootc installations
+  (rvykydal)
+  Resolves: RHEL-191455
+
 * Thu Aug 13 2026 Adam Kankovsky <adamkankovsky@gmail.com> - 40.22.3.55-1
 
 * Thu Jul 09 2026 Katerina Koukiou <k.koukiou@gmail.com> - 40.22.3.54-1
