@@ -523,6 +523,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 14 2026 github-actions <github-actions@github.com> - 45.19-1
+- spec: Use if/else rich dep to select anaconda-gui or anaconda-webui
+  (kkoukiou)
+- feat(webui): add authentication support for remote access (bciconel)
+- argument_parsing: Add webui.remote as a proper boot option (bciconel)
+
 * Wed Aug 12 2026 github-actions <github-actions@github.com> - 45.18-1
 - Revert "tests: Temporarily ignore stratis kickstart commands" (vtrefny)
 - spec: Bump required version of pykickstart to 3.77 (vtrefny)
