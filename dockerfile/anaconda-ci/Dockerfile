@@ -30,6 +30,12 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 COPY rpms/ /root/rpms/
 
+# FIXME: workaround — disable the fedora-cisco-openh264 repo so that freerdp falls back to
+# the stub openh264 in the main Fedora repo and dnf does not hit GPG key failures on it.
+# Remove this once the base image no longer ships the cisco repo enabled by default.
+RUN mkdir -p /etc/dnf/repos.override.d && \
+    printf '[fedora-cisco-openh264]\nenabled=0\n' > /etc/dnf/repos.override.d/disable-cisco-openh264.repo
+
 # Replace standalone systemd package with systemd as these are conflicting
 RUN set -ex; \
     dnf install -y systemd --allowerasing
@@ -41,10 +47,6 @@ RUN set -ex; \
   # Enable COPR repositories
   CI_TAG="${ci_tag}"; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
-    # disable fedora-cisco repository otherwise freerdp will depend on openh264 from fedora-cisco
-    # if fedora-cisco is not enabled it will fallback to stub library in main repository which is
-    # what we want
-    sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/fedora-cisco-openh264.repo; \
     dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
     dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
   fi; \
