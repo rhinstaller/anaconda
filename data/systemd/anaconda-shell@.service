@@ -18,3 +18,8 @@ TTYVTDisallocate=yes
 KillMode=process
 KillSignal=SIGHUP
 IgnoreSIGPIPE=no
+
+[Install]
+Alias=autovt@.service
+WantedBy=anaconda.target
+DefaultInstance=tty2

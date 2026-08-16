@@ -17,6 +17,7 @@
 
 systemddir = $(prefix)/lib/systemd/system
 generatordir = $(prefix)/lib/systemd/system-generators
+logindconfdir = $(prefix)/lib/systemd/logind.conf.d
 
 dist_systemd_DATA = anaconda.service \
                     anaconda-noshell.service \
@@ -33,6 +34,8 @@ dist_systemd_DATA = anaconda.service \
                     anaconda-pre.service \
                     anaconda-s390-device-config-import.service \
                     anaconda-fips.service
+
+dist_logindconf_DATA = anaconda-logind.conf
 
 dist_generator_SCRIPTS = anaconda-generator
 
