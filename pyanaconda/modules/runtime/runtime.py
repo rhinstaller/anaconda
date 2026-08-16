@@ -227,7 +227,7 @@ class RuntimeService(KickstartService):
             gnome_remote_desktop.shutdown_server()
 
         # Special case: inst.nokill stay alive and wait for manual Ctrl-Alt-Del
-        if "inst.nokill" in kernel_arguments:
+        if "nokill" in kernel_arguments:
             util.vtActivate(1)
             print("Anaconda halting due to inst.nokill flag.")
             print("The system will be rebooted when you press Ctrl-Alt-Delete.")
