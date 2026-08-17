@@ -29,7 +29,8 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 # the stub openh264 in the main Fedora repo and dnf does not hit GPG key failures on it.
 # Remove this once the base image no longer ships the cisco repo enabled by default.
 RUN mkdir -p /etc/dnf/repos.override.d && \
-    printf '[fedora-cisco-openh264]\nenabled=0\n' > /etc/dnf/repos.override.d/disable-cisco-openh264.repo
+    printf '[fedora-cisco-openh264]\nenabled=0\n' > /etc/dnf/repos.override.d/disable-cisco-openh264.repo && \
+    mkdir -p /etc/yum.repos.d
 
 # Replace standalone systemd package with systemd as these are conflicting
 RUN set -ex; \
