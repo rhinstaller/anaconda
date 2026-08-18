@@ -16,7 +16,7 @@ Type=oneshot
 ExecStart=/usr/libexec/anaconda/anaconda-pre-log-gen
 # RHEL-110525 (sysctl configuration/API does not work)
 ExecStart=/bin/dmesg --console-level emerg
-StandardInput=tty
+StandardInput=null
 StandardOutput=journal+console
 StandardError=journal+console
 TimeoutSec=0
