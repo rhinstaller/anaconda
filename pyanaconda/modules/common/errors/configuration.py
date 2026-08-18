@@ -49,3 +49,8 @@ class BootloaderConfigurationError(ConfigurationError):
 class KeyboardConfigurationError(ConfigurationError):
     """Exception for keyboard configuration errors."""
     pass
+
+@dbus_error("UnsupportedHashFunctionError", namespace=ANACONDA_NAMESPACE)
+class UnsupportedHashFunctionError(ConfigurationError):
+    """Exception for the case of unsupported hash function being used."""
+    pass

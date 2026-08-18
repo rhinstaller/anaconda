@@ -29,6 +29,7 @@ from pyanaconda.modules.common.errors.installation import (
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.modules.common.errors.subscription import SatelliteProvisioningError
+from pyanaconda.modules.common.errors.configuration import UnsupportedHashFunctionError
 
 log = get_module_logger(__name__)
 
@@ -124,6 +125,7 @@ class ErrorHandler:
 
             # General installation errors.
             NonCriticalInstallationError.__name__: self._non_critical_error_handler,
+            UnsupportedHashFunctionError.__name__: self._unsupported_hash_function_error_handler,
         }
 
     def _storage_install_handler(self, exn):
@@ -227,6 +229,14 @@ class ErrorHandler:
             return ERROR_CONTINUE
         else:
             return ERROR_RAISE
+
+    def _unsupported_hash_function_error_handler(self, exn):
+        message = _("The password for %s is using the MD5 hash function, "
+                    "which is no longer supported. Please use a different "
+                    "hash function, such as SHA512.")
+
+        self.ui.showError(message)
+        return ERROR_RAISE
 
     def _subscriptionTokenTransferErrorHandler(self, exn):
         message = _("Failed to enable Red Hat subscription on the "
