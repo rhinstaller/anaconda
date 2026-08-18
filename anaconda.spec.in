@@ -523,6 +523,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 18 2026 github-actions <github-actions@github.com> - 45.20-1
+
 * Fri Aug 14 2026 github-actions <github-actions@github.com> - 45.19-1
 - spec: Use if/else rich dep to select anaconda-gui or anaconda-webui
   (kkoukiou)
