@@ -1,3 +1,4 @@
+# testing https://github.com/rhinstaller/anaconda/pull/7250
 #!/usr/bin/python3
 #
 # anaconda: The Red Hat Linux Installation program
