@@ -44,6 +44,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define utillinuxver 2.15.1
 %define rpmostreever 2023.2
 %define s390utilscorever 2.31.0
+%define cockpitver 275
 
 BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
@@ -300,6 +301,27 @@ Requires: libselinux-utils
 Requires: selinux-policy-targeted
 Requires: policycoreutils
 Requires: policycoreutils-python-utils
+# Add Web UI depedencies to both make Web UI debuging easier
+# as well as to star preparing the boot.iso for the eventual
+# switch to Web UI as default.
+# NOTE: Once we can pull in the Web UI directly, then
+# we should be able to simplify this section.
+Requires: cockpit-storaged
+Requires: cockpit-networkmanager
+Requires: cockpit-bridge >= %{cockpitver}
+Requires: cockpit-ws >= %{cockpitver}
+Requires: anaconda-core  >= %{anacondacorever}
+Requires: python3-bugzilla
+# Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
+# it can often fall back to a diferent browser. This does not work in the limited installer
+# environment, so we need to make sure Firefox is available. Exclude on RHEL, only Flatpak version will be there.
+%if ! 0%{?rhel}
+Requires: (firefox if fedora-release-workstation)
+%endif
+%if 0%{?fedora}
+Requires: system-logos
+%endif
+BuildRequires: desktop-file-utils
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
