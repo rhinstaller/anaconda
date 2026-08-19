@@ -31,6 +31,12 @@
 # /kickstart-test --kstest-pr 1233 --testtype harddrive
 # ... run the tests of type harddrive with
 # https://github.com/rhinstaller/kickstart-tests/pull/1233 update of kickstart tests
+#
+#
+# To verify the PR head commit was not force-pushed after the trigger comment
+# (guards against TOCTOU attacks on fork PRs):
+#
+# /kickstart-test --check-head-timestamp --testtype smoke
 
 name: kickstart-tests
 on:
@@ -88,6 +94,14 @@ jobs:
           PR=${PR%"--"}
           # remove --kstest-pr option
           ARGS=$(echo "$ARGS" | sed -r -e "s#--kstest-pr( +|=)$PR ##" | sed 's/[[:space:]]*$//')
+          # parse --check-head-timestamp flag
+          CHECK_HEAD_TIMESTAMP=false
+          if echo "$ARGS" | grep -q -- '--check-head-timestamp'; then
+            CHECK_HEAD_TIMESTAMP=true
+            ARGS=$(echo "$ARGS" | sed 's/--check-head-timestamp//' | sed 's/^ *//;s/ *$//' | sed 's/  */ /g')
+          fi
+          echo "check_head_timestamp=${CHECK_HEAD_TIMESTAMP}" >> $GITHUB_OUTPUT
+
           echo "test selection arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
           echo "kickstart-tests PR: $PR"
@@ -101,6 +115,7 @@ jobs:
       # Query the head (fork) repository since pushedDate is only available
       # in the repo where the commit was actually pushed.
       - name: Verify head commit was pushed before the trigger comment
+        if: steps.parse_comment_args.outputs.check_head_timestamp == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMENT_TIME: ${{ github.event.comment.created_at }}
