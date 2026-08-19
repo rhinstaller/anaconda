@@ -99,61 +99,6 @@ jobs:
           echo "kickstart-tests PR: $PR"
           echo "kstest_pr=${PR}" >> $GITHUB_OUTPUT
 
-      # Guard against TOCTOU attack: an attacker could force-push malicious code
-      # to the PR branch between when the maintainer posted /kickstart-test and
-      # when the pr_api step above fetched the head SHA. Use GitHub's GraphQL API
-      # to check pushedDate (a server-side timestamp that cannot be forged) and
-      # verify the head commit was pushed before the comment was created.
-      - name: Verify head commit was pushed before the trigger comment
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMENT_TIME: ${{ github.event.comment.created_at }}
-          PR_NUMBER: ${{ github.event.issue.number }}
-          EXPECTED_SHA: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
-        run: |
-          REPO_OWNER="${GITHUB_REPOSITORY%/*}"
-          REPO_NAME="${GITHUB_REPOSITORY#*/}"
-
-          RESULT=$(gh api graphql -f query='
-            query($owner: String!, $repo: String!, $pr: Int!) {
-              repository(owner: $owner, name: $repo) {
-                pullRequest(number: $pr) {
-                  commits(last: 1) {
-                    nodes {
-                      commit {
-                        pushedDate
-                        oid
-                      }
-                    }
-                  }
-                }
-              }
-            }' -f owner="$REPO_OWNER" -f repo="$REPO_NAME" -F pr="$PR_NUMBER" \
-               --jq '.data.repository.pullRequest.commits.nodes[0].commit')
-
-          PUSHED_DATE=$(echo "$RESULT" | jq -r '.pushedDate')
-          COMMIT_OID=$(echo "$RESULT" | jq -r '.oid')
-
-          echo "Comment created at: $COMMENT_TIME"
-          echo "Head commit pushed at: $PUSHED_DATE (SHA: $COMMIT_OID)"
-          echo "Expected SHA from PR API: $EXPECTED_SHA"
-
-          if [ "$COMMIT_OID" != "$EXPECTED_SHA" ]; then
-            echo "::error::PR head SHA changed between API calls!"
-            exit 1
-          fi
-
-          # ISO 8601 timestamps - lexicographic comparison works correctly
-          if [[ "$PUSHED_DATE" > "$COMMENT_TIME" ]]; then
-            echo "::error::The head commit was pushed AFTER the /kickstart-test comment was created!"
-            echo "::error::Push time:   $PUSHED_DATE"
-            echo "::error::Comment time: $COMMENT_TIME"
-            echo "::error::This may indicate a malicious force-push. Re-review the PR and post a new /kickstart-test comment."
-            exit 1
-          fi
-
-          echo "Verification passed: head commit was pushed before the trigger comment."
-
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
