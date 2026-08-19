@@ -5,6 +5,11 @@
 #
 #   /test-check-head-timestamp
 #
+# Use --delay-seconds N to sleep before fetching the PR head SHA, giving
+# time to simulate a malicious force-push:
+#
+#   /test-check-head-timestamp --delay-seconds 120
+#
 # This will run the pr-info job with --check-head-timestamp enabled and report
 # whether the head commit timestamp verification passes or fails.
 
@@ -40,6 +45,27 @@ jobs:
           echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
           echo "allowed_user=true" >> $GITHUB_OUTPUT
 
+      # Parse --delay-seconds early, before the PR API call, so we can
+      # sleep before fetching the head SHA.
+      - name: Parse delay option
+        id: parse_delay
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          DELAY_SECONDS=0
+          DELAY_VALUE=$(echo "$BODY" | grep -oP '(?<=--delay-seconds[ =])\d+' || true)
+          if [ -n "$DELAY_VALUE" ]; then
+            DELAY_SECONDS="$DELAY_VALUE"
+          fi
+          echo "Delay before fetching PR info: ${DELAY_SECONDS}s"
+          echo "delay_seconds=${DELAY_SECONDS}" >> $GITHUB_OUTPUT
+
+      - name: Delay before fetching PR info
+        if: steps.parse_delay.outputs.delay_seconds != '0'
+        run: |
+          echo "Sleeping ${{ steps.parse_delay.outputs.delay_seconds }} seconds to allow simulating a force-push..."
+          sleep ${{ steps.parse_delay.outputs.delay_seconds }}
+
       - name: Get information for pull request
         uses: octokit/request-action@v2.x
         id: pr_api
@@ -64,6 +90,9 @@ jobs:
           PR=${PR%"--"}
           # remove --kstest-pr option
           ARGS=$(echo "$ARGS" | sed -r -e "s#--kstest-pr( +|=)$PR ##" | sed 's/[[:space:]]*$//')
+          # remove --delay-seconds option from ARGS (already parsed earlier)
+          ARGS=$(echo "$ARGS" | sed -r 's/--delay-seconds[= ][0-9]+//' | sed 's/^ *//;s/ *$//' | sed 's/  */ /g')
+
           echo "test selection arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
           echo "kickstart-tests PR: $PR"
