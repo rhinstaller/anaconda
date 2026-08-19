@@ -426,6 +426,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 19 2026 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.7.18-1
+- rescue: skip SELinux autorelabel for ostree/bootc systems (rvykydal)
+  Resolves: RHEL-191846
+- fix: use static string for tmux status line to reduce CPU usage (tfratrik)
+  Resolves: RHEL-188432
+
 * Mon Jun 29 2026 Katerina Koukiou <k.koukiou@gmail.com> - 34.25.7.17-1
 - rescue: Set system root to OSTree deployment path (k.koukiou)
   Related: RHEL-135123
