@@ -104,42 +104,36 @@ jobs:
       # when the pr_api step above fetched the head SHA. Use GitHub's GraphQL API
       # to check pushedDate (a server-side timestamp that cannot be forged) and
       # verify the head commit was pushed before the comment was created.
+      # Query the head (fork) repository since pushedDate is only available
+      # in the repo where the commit was actually pushed.
       - name: Verify head commit was pushed before the trigger comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMENT_TIME: ${{ github.event.comment.created_at }}
-          PR_NUMBER: ${{ github.event.issue.number }}
           EXPECTED_SHA: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+          HEAD_REPO_OWNER: ${{ fromJson(steps.pr_api.outputs.data).head.repo.owner.login }}
+          HEAD_REPO_NAME: ${{ fromJson(steps.pr_api.outputs.data).head.repo.name }}
         run: |
-          REPO_OWNER="${GITHUB_REPOSITORY%/*}"
-          REPO_NAME="${GITHUB_REPOSITORY#*/}"
-
-          RESULT=$(gh api graphql -f query='
-            query($owner: String!, $repo: String!, $pr: Int!) {
+          PUSHED_DATE=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $oid: GitObjectID!) {
               repository(owner: $owner, name: $repo) {
-                pullRequest(number: $pr) {
-                  commits(last: 1) {
-                    nodes {
-                      commit {
-                        pushedDate
-                        oid
-                      }
-                    }
+                object(oid: $oid) {
+                  ... on Commit {
+                    pushedDate
                   }
                 }
               }
-            }' -f owner="$REPO_OWNER" -f repo="$REPO_NAME" -F pr="$PR_NUMBER" \
-               --jq '.data.repository.pullRequest.commits.nodes[0].commit')
-
-          PUSHED_DATE=$(echo "$RESULT" | jq -r '.pushedDate')
-          COMMIT_OID=$(echo "$RESULT" | jq -r '.oid')
+            }' -f owner="$HEAD_REPO_OWNER" -f repo="$HEAD_REPO_NAME" \
+               -f oid="$EXPECTED_SHA" \
+               --jq '.data.repository.object.pushedDate')
 
           echo "Comment created at: $COMMENT_TIME"
-          echo "Head commit pushed at: $PUSHED_DATE (SHA: $COMMIT_OID)"
-          echo "Expected SHA from PR API: $EXPECTED_SHA"
+          echo "Head commit pushed at: $PUSHED_DATE (SHA: $EXPECTED_SHA)"
+          echo "Head repo: $HEAD_REPO_OWNER/$HEAD_REPO_NAME"
 
-          if [ "$COMMIT_OID" != "$EXPECTED_SHA" ]; then
-            echo "::error::PR head SHA changed between API calls!"
+          if [ "$PUSHED_DATE" = "null" ] || [ -z "$PUSHED_DATE" ]; then
+            echo "::error::Could not determine push time for commit $EXPECTED_SHA from $HEAD_REPO_OWNER/$HEAD_REPO_NAME."
+            echo "::error::This may indicate the fork was deleted or is inaccessible."
             exit 1
           fi
 
