@@ -42,7 +42,6 @@ from pyanaconda.core.constants import (
     THREAD_STORAGE,
 )
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.path import set_system_root
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.errors import errorHandler
 from pyanaconda.flags import flags
@@ -218,25 +217,14 @@ class Rescue:
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
             log.info("System has been mounted under: %s", conf.target.system_root)
-
-            # Mount /boot if it exists
-            # This is needed for OSTree deployments to be detected properly
-            boot_device = root.get_boot_device()
-            if boot_device:
-                boot_path = os.path.join(conf.target.system_root, "boot")
-                read_only = "ro" if self.ro else ""
-                self._device_tree_proxy.MountDevice(boot_device, boot_path, read_only)
         except MountFilesystemError as e:
             log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
             self.status = RescueModeStatus.MOUNT_FAILED
             self.error = e
             return False
 
-        # Check if this is an OSTree/atomic system
-        deployment_path = get_ostree_deployment_path(conf.target.physical_root)
-        if deployment_path:
-            self.is_ostree = True
-            set_system_root(deployment_path)
+        # Check if this is an OSTree/immutable system
+        self.is_ostree = get_ostree_deployment_path(conf.target.physical_root) is not None
 
         # Set up for SELinux relabeling on reboot
         # Skip for ostree/bootc systems - the root filesystem is immutable
