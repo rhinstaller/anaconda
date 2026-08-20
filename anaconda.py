@@ -24,6 +24,7 @@
 # A lot less messy now. :) (2016-10-13)
 
 # test https://github.com/rhinstaller/anaconda/pull/7258
+# update
 
 import atexit
 import os
