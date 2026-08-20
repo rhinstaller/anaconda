@@ -27,6 +27,7 @@
 # update
 # update 2
 # malicious update 1
+# malicious update 2
 
 import atexit
 import os
