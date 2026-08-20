@@ -25,6 +25,7 @@
 
 # test https://github.com/rhinstaller/anaconda/pull/7258
 # update
+# update 2
 
 import atexit
 import os
