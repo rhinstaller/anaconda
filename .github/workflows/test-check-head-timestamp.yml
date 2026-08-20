@@ -101,45 +101,41 @@ jobs:
       # Guard against TOCTOU attack: an attacker could force-push or push
       # new malicious commits to the PR branch between when the maintainer
       # posted the trigger comment and when the workflow fetched the head SHA.
-      # The PR timeline API returns events in chronological order. We check
-      # that no committed or head_ref_force_pushed events appear after our
-      # trigger comment in the timeline.
-      - name: Verify no push after the trigger comment
+      # Use the Check Suites API to get a server-side timestamp for when the
+      # head commit first appeared. GitHub creates check suites on the base
+      # repo when a PR is updated, with a created_at that cannot be forged.
+      - name: Verify head commit was not pushed after the trigger comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMENT_TIME: ${{ github.event.comment.created_at }}
-          PR_NUMBER: ${{ github.event.issue.number }}
+          EXPECTED_SHA: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
         run: |
           echo "Comment created at: $COMMENT_TIME"
+          echo "Head SHA: $EXPECTED_SHA"
 
-          # The timeline API returns events in chronological order.
-          # Extract event types that appear after our trigger comment.
-          # Our comment is identified by matching created_at timestamp.
-          EVENTS_AFTER_COMMENT=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/timeline" \
-            --paginate --jq '
-              [foreach .[] as $e (
-                {found: false, events: []};
-                if .found and ($e.event == "committed" or $e.event == "head_ref_force_pushed")
-                then .events += [$e]
-                elif $e.event == "commented" and $e.created_at == "'"$COMMENT_TIME"'"
-                then .found = true
-                else .
-                end;
-                .events
-              )] | last // []')
+          # Get the earliest check suite created_at for this commit.
+          # GitHub creates check suites on the base repo when a PR is
+          # updated, with a server-side timestamp that cannot be forged.
+          EARLIEST_CHECK_SUITE=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${EXPECTED_SHA}/check-suites" \
+            --jq '.check_suites | sort_by(.created_at) | .[0].created_at')
 
-          COUNT=$(echo "$EVENTS_AFTER_COMMENT" | jq 'length')
-          echo "Push events after trigger comment: $COUNT"
-          echo "$EVENTS_AFTER_COMMENT" | jq -r '.[] | "  \(.event) sha=\(.sha // "n/a")"'
+          echo "Earliest check suite created at: $EARLIEST_CHECK_SUITE"
 
-          if [ "$COUNT" -gt 0 ]; then
-            echo "::error::The PR was updated AFTER the trigger comment was created!"
-            echo "::error::$COUNT commit/force-push event(s) detected after the comment."
+          if [ "$EARLIEST_CHECK_SUITE" = "null" ] || [ -z "$EARLIEST_CHECK_SUITE" ]; then
+            echo "::error::No check suites found for commit $EXPECTED_SHA."
+            exit 1
+          fi
+
+          # ISO 8601 timestamps - lexicographic comparison works correctly
+          if [[ "$EARLIEST_CHECK_SUITE" > "$COMMENT_TIME" ]]; then
+            echo "::error::The head commit was pushed AFTER the trigger comment!"
+            echo "::error::Check suite time: $EARLIEST_CHECK_SUITE"
+            echo "::error::Comment time:     $COMMENT_TIME"
             echo "::error::Re-review the PR and post a new trigger comment."
             exit 1
           fi
 
-          echo "Verification passed: no pushes detected after the trigger comment."
+          echo "Verification passed: head commit existed before the trigger comment."
 
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
