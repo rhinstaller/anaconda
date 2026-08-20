@@ -98,13 +98,13 @@ jobs:
           echo "kickstart-tests PR: $PR"
           echo "kstest_pr=${PR}" >> $GITHUB_OUTPUT
 
-      # Guard against TOCTOU attack: an attacker could force-push malicious code
-      # to the PR branch between when the maintainer posted the trigger comment and
-      # when the pr_api step above fetched the head SHA. Check the PR's issue
-      # events for any head_ref_force_pushed event that occurred after the
-      # trigger comment was created. The created_at timestamp on these events
-      # is set by GitHub's servers and cannot be forged.
-      - name: Verify no force-push after the trigger comment
+      # Guard against TOCTOU attack: an attacker could force-push or push
+      # new malicious commits to the PR branch between when the maintainer
+      # posted the trigger comment and when the workflow fetched the head SHA.
+      # The PR timeline API returns events in chronological order. We check
+      # that no committed or head_ref_force_pushed events appear after our
+      # trigger comment in the timeline.
+      - name: Verify no push after the trigger comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMENT_TIME: ${{ github.event.comment.created_at }}
@@ -112,24 +112,34 @@ jobs:
         run: |
           echo "Comment created at: $COMMENT_TIME"
 
-          # Fetch all force-push events for this PR
-          FORCE_PUSHES=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/events" \
-            --paginate --jq '[.[] | select(.event == "head_ref_force_pushed") | .created_at]')
+          # The timeline API returns events in chronological order.
+          # Extract event types that appear after our trigger comment.
+          # Our comment is identified by matching created_at timestamp.
+          EVENTS_AFTER_COMMENT=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/timeline" \
+            --paginate --jq '
+              [foreach .[] as $e (
+                {found: false, events: []};
+                if .found and ($e.event == "committed" or $e.event == "head_ref_force_pushed")
+                then .events += [$e]
+                elif $e.event == "commented" and $e.created_at == "'"$COMMENT_TIME"'"
+                then .found = true
+                else .
+                end;
+                .events
+              )] | last // []')
 
-          echo "Force-push events found: $FORCE_PUSHES"
+          COUNT=$(echo "$EVENTS_AFTER_COMMENT" | jq 'length')
+          echo "Push events after trigger comment: $COUNT"
+          echo "$EVENTS_AFTER_COMMENT" | jq -r '.[] | "  \(.event) sha=\(.sha // "n/a")"'
 
-          # Check if any force-push happened after the comment
-          for PUSH_TIME in $(echo "$FORCE_PUSHES" | jq -r '.[]'); do
-            if [[ "$PUSH_TIME" > "$COMMENT_TIME" ]]; then
-              echo "::error::A force-push occurred AFTER the trigger comment was created!"
-              echo "::error::Force-push time: $PUSH_TIME"
-              echo "::error::Comment time:    $COMMENT_TIME"
-              echo "::error::This may indicate a malicious force-push. Re-review the PR and post a new trigger comment."
-              exit 1
-            fi
-          done
+          if [ "$COUNT" -gt 0 ]; then
+            echo "::error::The PR was updated AFTER the trigger comment was created!"
+            echo "::error::$COUNT commit/force-push event(s) detected after the comment."
+            echo "::error::Re-review the PR and post a new trigger comment."
+            exit 1
+          fi
 
-          echo "Verification passed: no force-push detected after the trigger comment."
+          echo "Verification passed: no pushes detected after the trigger comment."
 
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
