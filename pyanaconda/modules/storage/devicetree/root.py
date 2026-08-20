@@ -54,8 +54,15 @@ def mount_existing_system(storage, root_device, read_only=None):
     # Set up the sysroot.
     set_system_root(root_path)
 
+    # For OSTree deployments, the fstab lives in the deployment directory,
+    # not at the physical root. Find it by walking the directory tree.
+    fstab_root = _find_root_from_fstab(root_path)
+    if fstab_root and fstab_root != root_path:
+        set_system_root(fstab_root)
+
     # Mount the filesystems.
-    storage.fsset.parse_fstab(chroot=root_path)
+    sysroot = conf.target.system_root
+    storage.fsset.parse_fstab(chroot=sysroot)
     storage.fsset.mount_filesystems(root_path=root_path, read_only=read_only, skip_root=True)
 
     # Turn on swap.
