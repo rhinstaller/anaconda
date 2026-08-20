@@ -126,8 +126,11 @@ jobs:
             exit 1
           fi
 
-          # ISO 8601 timestamps - lexicographic comparison works correctly
-          if [[ "$EARLIEST_CHECK_SUITE" > "$COMMENT_TIME" ]]; then
+          # ISO 8601 timestamps - lexicographic comparison works correctly.
+          # Require check suite to be strictly before the comment: the commit
+          # must have been pushed before the maintainer typed the comment,
+          # so its check suite timestamp must be earlier.
+          if [[ ! "$EARLIEST_CHECK_SUITE" < "$COMMENT_TIME" ]]; then
             echo "::error::The head commit was pushed AFTER the trigger comment!"
             echo "::error::Check suite time: $EARLIEST_CHECK_SUITE"
             echo "::error::Comment time:     $COMMENT_TIME"
