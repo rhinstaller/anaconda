@@ -26,6 +26,7 @@
 # test https://github.com/rhinstaller/anaconda/pull/7258
 # update
 # update 2
+# malicious update 1
 
 import atexit
 import os
