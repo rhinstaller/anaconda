@@ -2,10 +2,10 @@
 # of rpmlint, which may not fit our project needs / specification
 Filters = [
     # Discard no-binary error for anaconda packages which cant be a noarch type
-    'anaconda.x86_64: E: no-binary',
-    'anaconda-core-debuginfo.x86_64: E: no-binary',
-    'anaconda-install-env-deps.x86_64: E: no-binary',
-    'anaconda-install-img-deps.x86_64: E: no-binary',
+    'anaconda.*: E: no-binary',
+    'anaconda-core-debuginfo.*: E: no-binary',
+    'anaconda-install-env-deps.*: E: no-binary',
+    'anaconda-install-img-deps.*: E: no-binary',
     # Discard explicite library dependencies
     'explicit-lib-dependency flatpak-libs',
     'explicit-lib-dependency libblockdev-lvm-dbus',
