@@ -23,6 +23,12 @@
 # ...still messy (2013-07-12)
 # A lot less messy now. :) (2016-10-13)
 
+# test https://github.com/rhinstaller/anaconda/pull/7258
+# update
+# update 2
+# malicious update 1
+# malicious update 2
+
 import atexit
 import os
 from pathlib import Path
