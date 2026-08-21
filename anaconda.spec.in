@@ -523,6 +523,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 21 2026 github-actions <github-actions@github.com> - 45.21-1
+- rescue: read fstab from sysroot for OSTree deployments (kkoukiou)
+- ci: Require check suite timestamp strictly before comment time (rvykydal)
+- ci: Use check suites API to detect both regular and force pushes (rvykydal)
+- ci: Detect both regular and force pushes via timeline API (rvykydal)
+- ci: Switch from pushedDate to issue events API for force-push detection
+  (rvykydal)
+- Handle relocation of packaged repo configs to /usr/share/dnf5 (awilliam)
+- ci: Add --delay-seconds to test-check-head-timestamp workflow (rvykydal)
+- ci: Add test workflow for head timestamp verification (rvykydal)
+- Allow reformat for partitions without a recognized filesystem (adamkankovsky)
+- boss: Emit PropertiesChanged signals for Boss properties (bciconel)
+- Revert "ci: Verify PR head commit was pushed before /kickstart-test comment"
+  (rvykydal)
+- ci: Verify PR head commit was pushed before /kickstart-test comment
+  (rvykydal)
+- rescue: skip SELinux autorelabel for ostree/bootc systems (rvykydal)
+- inst.nokill: make it work (cmdr)
+
 * Tue Aug 18 2026 github-actions <github-actions@github.com> - 45.20-1
 
 * Fri Aug 14 2026 github-actions <github-actions@github.com> - 45.19-1
