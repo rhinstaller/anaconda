@@ -500,6 +500,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 21 2026 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.57-1
+- Allow reformat for partitions without a recognized filesystem (tfratrik)
+  Resolves: RHEL-144461
+- rescue: read fstab from sysroot for OSTree deployments (kkoukiou)
+  Resolves: RHEL-245259
+- rescue: skip SELinux autorelabel for ostree/bootc systems (rvykydal)
+  Resolves: RHEL-191735
+- rescue: Set system root to OSTree deployment path (k.koukiou)
+  Related: RHEL-191735
+
 * Fri Aug 14 2026 Adam Kankovsky <adamkankovsky@gmail.com> - 40.22.3.56-1
 - feat(bootc): support arbitrary mount points for bootc installations
   (rvykydal)
