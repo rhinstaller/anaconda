@@ -88,10 +88,61 @@ jobs:
           PR=${PR%"--"}
           # remove --kstest-pr option
           ARGS=$(echo "$ARGS" | sed -r -e "s#--kstest-pr( +|=)$PR ##" | sed 's/[[:space:]]*$//')
+          # parse --check-timestamps flag
+          CHECK_TIMESTAMPS=false
+          if echo "$ARGS" | grep -q -- '--check-timestamps'; then
+            CHECK_TIMESTAMPS=true
+            ARGS=$(echo "$ARGS" | sed 's/--check-timestamps//' | sed 's/^ *//;s/ *$//' | sed 's/  */ /g')
+          fi
+          echo "check_timestamps=${CHECK_TIMESTAMPS}" >> $GITHUB_OUTPUT
+
           echo "test selection arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
           echo "kickstart-tests PR: $PR"
           echo "kstest_pr=${PR}" >> $GITHUB_OUTPUT
+
+      # Guard against TOCTOU attack: an attacker could force-push or push
+      # new malicious commits to the PR branch between when the maintainer
+      # posted the trigger comment and when the workflow fetched the head SHA.
+      # Use the Check Suites API to get a server-side timestamp for when the
+      # head commit first appeared. GitHub creates check suites on the base
+      # repo when a PR is updated, with a created_at that cannot be forged.
+      - name: Verify head commit was not pushed after the trigger comment
+        if: steps.parse_comment_args.outputs.check_timestamps == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT_TIME: ${{ github.event.comment.created_at }}
+          EXPECTED_SHA: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+        run: |
+          echo "Comment created at: $COMMENT_TIME"
+          echo "Head SHA: $EXPECTED_SHA"
+
+          # Get the earliest check suite created_at for this commit.
+          # GitHub creates check suites on the base repo when a PR is
+          # updated, with a server-side timestamp that cannot be forged.
+          EARLIEST_CHECK_SUITE=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${EXPECTED_SHA}/check-suites" \
+            --jq '.check_suites | sort_by(.created_at) | .[0].created_at')
+
+          echo "Earliest check suite created at: $EARLIEST_CHECK_SUITE"
+
+          if [ "$EARLIEST_CHECK_SUITE" = "null" ] || [ -z "$EARLIEST_CHECK_SUITE" ]; then
+            echo "::error::No check suites found for commit $EXPECTED_SHA."
+            exit 1
+          fi
+
+          # ISO 8601 timestamps - lexicographic comparison works correctly.
+          # Require check suite to be strictly before the comment: the commit
+          # must have been pushed before the maintainer typed the comment,
+          # so its check suite timestamp must be earlier.
+          if [[ ! "$EARLIEST_CHECK_SUITE" < "$COMMENT_TIME" ]]; then
+            echo "::error::The head commit was pushed AFTER the /kickstart-test comment!"
+            echo "::error::Check suite time: $EARLIEST_CHECK_SUITE"
+            echo "::error::Comment time:     $COMMENT_TIME"
+            echo "::error::Re-review the PR and post a new /kickstart-test comment."
+            exit 1
+          fi
+
+          echo "Verification passed: head commit existed before the trigger comment."
 
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
