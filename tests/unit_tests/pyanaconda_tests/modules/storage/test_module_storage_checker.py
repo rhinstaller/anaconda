@@ -176,7 +176,7 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
         """Check verify_opal_compatibility with a newer firmware."""
         mocked_arch.get_arch.return_value = "ppc64le"
         mocked_arch.is_powernv.return_value = True
-        version_getter.return_value = "5.10.50-openpower1-p59fd803"
+        version_getter.return_value = "5.19.50-openpower1-p59fd803"
         self._verify_opal_compatibility(message=None)
 
     @patch.object(XFS, "mountable", new_callable=PropertyMock)
