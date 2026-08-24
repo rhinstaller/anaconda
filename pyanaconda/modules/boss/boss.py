@@ -65,6 +65,7 @@ class Boss(Service):
         self.pending_error_changed = Signal()
         self.installation_status_changed.connect(self.module_properties_changed.emit)
         self.pending_error_changed.connect(self.module_properties_changed.emit)
+        self.active_installation_task_changed.connect(self.module_properties_changed.emit)
 
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
