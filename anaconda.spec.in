@@ -523,6 +523,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 24 2026 github-actions <github-actions@github.com> - 45.22-1
+- spec: add IOT to anaconda-gui variants in rich dep (kkoukiou)
+
 * Fri Aug 21 2026 github-actions <github-actions@github.com> - 45.21-1
 - rescue: read fstab from sysroot for OSTree deployments (kkoukiou)
 - ci: Require check suite timestamp strictly before comment time (rvykydal)
