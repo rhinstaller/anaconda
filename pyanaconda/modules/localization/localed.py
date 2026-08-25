@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import threading
 from abc import ABC
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -146,6 +147,10 @@ class LocaledWrapper(LocaledWrapperBase):
     It adds support for keymap and conversion methods between keymap and layouts.
     """
 
+    def __init__(self):
+        super().__init__()
+        self._convert_lock = threading.Lock()
+
     @property
     def keymap(self):
         """Get current VConsole keymap.
@@ -189,11 +194,12 @@ class LocaledWrapper(LocaledWrapperBase):
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
-        orig_layouts_variants = self.get_layouts_variants()
-        orig_keymap = self.keymap
-        converted_layouts = self.set_and_convert_keymap(keymap)
-        self.set_layouts(orig_layouts_variants)
-        self.set_keymap(orig_keymap)
+        with self._convert_lock:
+            orig_layouts_variants = self.get_layouts_variants()
+            orig_keymap = self.keymap
+            converted_layouts = self.set_and_convert_keymap(keymap)
+            self.set_layouts(orig_layouts_variants)
+            self.set_keymap(orig_keymap)
 
         return converted_layouts
 
@@ -242,11 +248,12 @@ class LocaledWrapper(LocaledWrapperBase):
 
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
-        orig_layouts_variants = self.get_layouts_variants()
-        orig_keymap = self.keymap
-        ret = self.set_and_convert_layouts(layouts_variants)
-        self.set_layouts(orig_layouts_variants)
-        self.set_keymap(orig_keymap)
+        with self._convert_lock:
+            orig_layouts_variants = self.get_layouts_variants()
+            orig_keymap = self.keymap
+            ret = self.set_and_convert_layouts(layouts_variants)
+            self.set_layouts(orig_layouts_variants)
+            self.set_keymap(orig_keymap)
 
         return ret
 
