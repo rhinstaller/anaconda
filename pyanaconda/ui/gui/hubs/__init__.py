@@ -123,8 +123,7 @@ class Hub(GUIObject, common.Hub):
 
         grid = Gtk.Grid(row_spacing=18, column_spacing=18, column_homogeneous=True,
                         margin_bottom=12, margin_left=12, margin_right=12,
-                        halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
-                        row_homogeneous=True)
+                        halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER)
 
         row_in_column = [-1] * self._gridColumns
 
