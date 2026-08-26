@@ -116,10 +116,18 @@ class DeviceTreeViewer(ABC):
 
         :param device_id: a device ID
         :return: an instance of DeviceData
-        :raise: UnknownDeviceError if the device is not found
         """
         # Find the device.
-        device = self._get_device(device_id)
+        device = self.storage.devicetree.get_device_by_device_id(
+            device_id, hidden=True, incomplete=True
+        )
+
+        # The device may disappear between GetDevices() and GetDeviceData() calls
+        # during active storage configuration (e.g. LVM/LUKS setup). Return empty
+        # data to avoid a dasbus traceback in the logs.
+        if not device:
+            log.debug("Device %s is no longer available.", device_id)
+            return DeviceData()
 
         # Collect the device data.
         data = DeviceData()
@@ -218,7 +226,17 @@ class DeviceTreeViewer(ABC):
         :param device_name: a name of the device
         :return: an instance of DeviceFormatData
         """
-        device = self._get_device(device_id)
+        device = self.storage.devicetree.get_device_by_device_id(
+            device_id, hidden=True, incomplete=True
+        )
+
+        # The device may disappear between GetDevices() and GetFormatData() calls
+        # during active storage configuration (e.g. LVM/LUKS setup). Return empty
+        # data to avoid a dasbus traceback in the logs.
+        if not device:
+            log.debug("Device %s is no longer available.", device_id)
+            return DeviceFormatData()
+
         return self._get_format_data(device.format)
 
     def _get_format_data(self, fmt):
