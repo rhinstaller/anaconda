@@ -150,11 +150,19 @@ class KeyboardInstallationTask(Task):
                 self._vc_keymap
             )
 
+        # Non-localed-supporting compositors (GNOME) handle layout switching
+        # via their own keybindings, not via XKB grp: options, so
+        # switch_options may be empty even with multiple layouts configured.
+        # Default to Alt+Shift for the console.
+        switch_options = self._switch_options
+        if len(x_layouts) >= 2 and not switch_options:
+            switch_options = ["grp:alt_shift_toggle"]
+
         if x_layouts:
             write_x_configuration(
                 self._localed_wrapper,
                 x_layouts,
-                self._switch_options,
+                switch_options,
                 X_CONF_DIR,
                 self._sysroot
             )
