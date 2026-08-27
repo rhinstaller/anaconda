@@ -36,6 +36,8 @@ LAYOUT_VARIANT_RE = re.compile(r'^\s*([/\w]+)\s*'  # layout plus
                                r'(?:(?:\(\s*([-\w]+)\s*\))'  # variant in parentheses
                                r'|(?:$))\s*')  # or nothing
 
+DEFAULT_LAYOUT_SWITCH_OPTIONS = ["grp:alt_shift_toggle"]
+
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""

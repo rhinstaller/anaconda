@@ -24,7 +24,11 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.keyboard import can_configure_keyboard, normalize_layout_variant
+from pyanaconda.keyboard import (
+    DEFAULT_LAYOUT_SWITCH_OPTIONS,
+    can_configure_keyboard,
+    normalize_layout_variant,
+)
 from pyanaconda.localization import (
     _build_layout_infos,
     _get_layout_variant_description,
@@ -468,11 +472,10 @@ class LocalizationService(KickstartService):
             self.set_compositor_layouts(new_layouts, self.switch_options or [])
 
         if len(new_layouts) >= 2 and not self.switch_options:
-            # initialize layout switching if needed
-            self.set_switch_options(["grp:alt_shift_toggle"])
+            self.set_switch_options(DEFAULT_LAYOUT_SWITCH_OPTIONS)
 
             if can_configure_keyboard():
-                self.set_compositor_layouts(new_layouts, ["grp:alt_shift_toggle"])
+                self.set_compositor_layouts(new_layouts, DEFAULT_LAYOUT_SWITCH_OPTIONS)
                 # activate the language-default layout instead of the additional
                 # one
                 self.set_compositor_selected_layout(new_layouts[0])

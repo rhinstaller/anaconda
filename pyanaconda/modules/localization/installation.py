@@ -22,6 +22,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_VC_FONT
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.util import execWithCapture
+from pyanaconda.keyboard import DEFAULT_LAYOUT_SWITCH_OPTIONS
 from pyanaconda.localization import find_best_locale_match, get_locale_console_fonts
 from pyanaconda.modules.common.errors.installation import (
     KeyboardInstallationError,
@@ -150,11 +151,15 @@ class KeyboardInstallationTask(Task):
                 self._vc_keymap
             )
 
+        switch_options = self._switch_options
+        if len(x_layouts) >= 2 and not switch_options:
+            switch_options = DEFAULT_LAYOUT_SWITCH_OPTIONS
+
         if x_layouts:
             write_x_configuration(
                 self._localed_wrapper,
                 x_layouts,
-                self._switch_options,
+                switch_options,
                 X_CONF_DIR,
                 self._sysroot
             )
