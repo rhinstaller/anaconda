@@ -69,7 +69,7 @@ class AssignGenericKeyboardSettingTask(Task):
 class GetMissingKeyboardConfigurationTask(Task):
     """Task for getting missing keyboard settings by conversion and default values."""
 
-    def __init__(self, localed_wrapper, x_layouts, vc_keymap):
+    def __init__(self, localed_wrapper, x_layouts, vc_keymap, compositor_wrapper=None):
         """Create a new task.
 
         :param localed_wrapper: instance of systemd-localed service wrapper
@@ -78,11 +78,15 @@ class GetMissingKeyboardConfigurationTask(Task):
         :type x_layouts: list(str)
         :param vc_keymap: virtual console keyboard mapping name
         :type vc_keymap: str
+        :param compositor_wrapper: instance of compositor localed wrapper to suppress
+                                   signals during conversion
+        :type compositor_wrapper: CompositorLocaledWrapper or None
         """
         super().__init__()
         self._localed_wrapper = localed_wrapper
         self._x_layouts = x_layouts
         self._vc_keymap = vc_keymap
+        self._compositor_wrapper = compositor_wrapper
 
     def for_publication(self):
         return KeyboardConfigurationTaskInterface(self)
@@ -99,6 +103,11 @@ class GetMissingKeyboardConfigurationTask(Task):
         :raises: KeyboardConfigurationError exception when we should use unsupported layouts
                  from Live
         """
+        if self._compositor_wrapper:
+            with self._compositor_wrapper.suppress_signals():
+                return get_missing_keyboard_configuration(self._localed_wrapper,
+                                                          self._x_layouts,
+                                                          self._vc_keymap)
         return get_missing_keyboard_configuration(self._localed_wrapper,
                                                   self._x_layouts,
                                                   self._vc_keymap)

@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from abc import ABC
+from contextlib import contextmanager
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
@@ -262,6 +263,7 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
 
         self._user_layouts_variants = []
         self._last_layouts_variants = []
+        self._suppress_signals = False
 
         self.compositor_layouts_changed = Signal()
         self.compositor_selected_layout_changed = Signal()
@@ -269,8 +271,27 @@ class CompositorLocaledWrapper(LocaledWrapperBase):
         # to reflect updates from the compositor
         self._localed_proxy.PropertiesChanged.connect(self._on_properties_changed)
 
+    @contextmanager
+    def suppress_signals(self):
+        """Suppress compositor signals during temporary localed modifications.
+
+        Use this when LocaledWrapper.convert_layouts() or similar conversion
+        methods temporarily modify localed state. Without suppression, the
+        PropertiesChanged signals from these temporary modifications can
+        create a feedback loop with the compositor and WebUI.
+        """
+        self._suppress_signals = True
+        try:
+            yield
+        finally:
+            self._suppress_signals = False
+
     def _on_properties_changed(self, interface, changed_props, invalid_props):  # noqa: F841
         if "X11Layout" in changed_props or "X11Variant" in changed_props:
+            if self._suppress_signals:
+                log.debug("Suppressing localed PropertiesChanged during conversion")
+                return
+
             layouts_variants = self._from_localed_format(changed_props["X11Layout"].get_string(),
                                                          changed_props["X11Variant"].get_string())
             # This part is a bit tricky. The signal processing here means that compositor has

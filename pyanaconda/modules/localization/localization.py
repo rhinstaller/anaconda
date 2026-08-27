@@ -354,6 +354,7 @@ class LocalizationService(KickstartService):
             localed_wrapper=self.localed_wrapper,
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
+            compositor_wrapper=self._localed_compositor_wrapper,
         )
         task.succeeded_signal.connect(lambda: self._update_settings_from_task(task.get_result()))
         return task
@@ -376,6 +377,7 @@ class LocalizationService(KickstartService):
             localed_wrapper=self.localed_wrapper,
             x_layouts=self.x_layouts,
             vc_keymap=self.vc_keymap,
+            compositor_wrapper=self._localed_compositor_wrapper,
         )
         return task
 
