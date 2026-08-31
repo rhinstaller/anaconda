@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock
 
 from pyanaconda.core.constants import CATEGORY_STORAGE, CATEGORY_SYSTEM
 from pyanaconda.installation_tasks import Task, TaskQueue
@@ -70,13 +70,23 @@ class InstallManagerTestCase(unittest.TestCase):
 
         callback = Mock()
         # pylint: disable=no-member
-        interface.CategoryChanged.connect(callback)
+        interface.PropertiesChanged.connect(callback)
         task.run()
 
-        callback.assert_has_calls([
-            call(CATEGORY_SYSTEM),
-            call(CATEGORY_STORAGE),
-        ])
+        assert callback.call_count == 2
+        assert interface.CurrentCategory == CATEGORY_STORAGE
+
+    def test_current_category_property(self):
+        """CurrentCategory reflects the most recently reported category."""
+        install_manager = Mock()
+        task = TestRunInstallation(install_manager)
+        interface = task.for_publication()
+
+        assert interface.CurrentCategory == ""
+
+        task.run()
+
+        assert interface.CurrentCategory == CATEGORY_STORAGE
 
     def test_error_raised_and_respond_to_error(self):
         """ErrorRaised and RespondToError are exposed via the DBus interface."""

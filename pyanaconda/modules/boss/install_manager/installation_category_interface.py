@@ -33,17 +33,17 @@ class CategoryReportTaskInterface(TaskInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.implementation.category_changed_signal.connect(self.CategoryChanged)
+        self.watch_property("CurrentCategory", self.implementation.category_changed_signal)
+        self.implementation.category_changed_signal.connect(self.flush_changes)
         self.implementation.error_raised_signal.connect(self.ErrorRaised)
 
-    @dbus_signal
-    def CategoryChanged(self, category: Str):
-        """Signal making progress for this task.
+    @property
+    def CurrentCategory(self) -> Str:
+        """Get the current installation category.
 
-        :param category: Number of the category. See pyanaconda/core/constants.py
-        InstallationCategories for info about a category indexes.
+        :returns: the name of the current category, or an empty string.
         """
-        pass
+        return self.implementation.current_category
 
     @dbus_signal
     def ErrorRaised(self, message: Str, detail_type: Str):

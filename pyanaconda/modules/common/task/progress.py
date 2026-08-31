@@ -35,6 +35,7 @@ class ProgressReporter(ABC):
         self.__progress_lock = Lock()
         self.__progress_step = 0
         self.__progress_msg = ""
+        self.__current_category = ""
 
     @property
     def progress(self):
@@ -61,12 +62,21 @@ class ProgressReporter(ABC):
         """Signal emits when the category of the task changes."""
         return self._category_changed_signal
 
+    @property
+    def current_category(self):
+        """Current installation category.
+
+        :returns: the name of the current category, or an empty string.
+        """
+        return self.__current_category
+
     @async_action_nowait
     def report_category(self, category):
         if category is None:
             return
         else:
-            self._category_changed_signal.emit(category)
+            self.__current_category = category
+            self._category_changed_signal.emit()
 
 
     @async_action_nowait
