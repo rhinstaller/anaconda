@@ -37,6 +37,12 @@
 # /kickstart-test --kstest-pr 1233 --testtype harddrive
 # ... run the tests of type harddrive with
 # https://github.com/rhinstaller/kickstart-tests/pull/1233 update of kickstart tests
+#
+#
+# By default the workflow verifies that the PR head commit was not pushed
+# after the trigger comment (TOCTOU protection). To skip this check:
+#
+# /kickstart-test --skip-timestamps-check --testtype smoke
 
 name: kickstart-tests
 on:
@@ -94,13 +100,13 @@ jobs:
           PR=${PR%"--"}
           # remove --kstest-pr option
           ARGS=$(echo "$ARGS" | sed -r -e "s#--kstest-pr( +|=)$PR ##" | sed 's/[[:space:]]*$//')
-          # parse --check-timestamps flag
-          CHECK_TIMESTAMPS=false
-          if echo "$ARGS" | grep -q -- '--check-timestamps'; then
-            CHECK_TIMESTAMPS=true
-            ARGS=$(echo "$ARGS" | sed 's/--check-timestamps//' | sed 's/^ *//;s/ *$//' | sed 's/  */ /g')
+          # parse --skip-timestamps-check flag
+          SKIP_TIMESTAMPS_CHECK=false
+          if echo "$ARGS" | grep -qw -- '--skip-timestamps-check'; then
+            SKIP_TIMESTAMPS_CHECK=true
+            ARGS=$(echo "$ARGS" | sed 's/--skip-timestamps-check\b//' | sed 's/^ *//;s/ *$//' | sed 's/  */ /g')
           fi
-          echo "check_timestamps=${CHECK_TIMESTAMPS}" >> $GITHUB_OUTPUT
+          echo "skip_timestamps_check=${SKIP_TIMESTAMPS_CHECK}" >> $GITHUB_OUTPUT
 
           echo "test selection arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
@@ -114,7 +120,7 @@ jobs:
       # head commit first appeared. GitHub creates check suites on the base
       # repo when a PR is updated, with a created_at that cannot be forged.
       - name: Verify head commit was not pushed after the trigger comment
-        if: steps.parse_comment_args.outputs.check_timestamps == 'true'
+        if: steps.parse_comment_args.outputs.skip_timestamps_check != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMENT_TIME: ${{ github.event.comment.created_at }}
