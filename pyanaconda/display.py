@@ -183,6 +183,29 @@ def check_rd_can_be_started(anaconda):
     return rd_startup_possible, error_messages
 
 
+def _print_compositor_journal_excerpt(lines=15):
+    """Print the last journal messages of the compositor.
+
+    The compositor's stdout and stderr go only to the journal, so when
+    its startup fails the console shows nothing actionable.  Print a
+    short excerpt so the failure can be reported without shell access.
+
+    :param int lines: maximum number of journal lines to print
+    """
+    try:
+        excerpt = util.execWithCapture(
+            "journalctl", ["-q", "-t", "gnome-kiosk", "-n", str(lines), "--no-pager"]
+        )
+    except (OSError, RuntimeError) as e:
+        log.warning("Could not read the compositor journal: %s", e)
+        excerpt = ""
+
+    if excerpt.strip():
+        print("\nLast messages from the compositor (gnome-kiosk):")
+        print(excerpt)
+    print("Full compositor logs: journalctl -t gnome-kiosk")
+
+
 def do_startup_wl_actions(timeout, headless=False):
     """Start the Wayland compositor.
 
@@ -255,9 +278,17 @@ def do_startup_wl_actions(timeout, headless=False):
 
         time.sleep(0.1)
 
+    still_running = False
     WatchProcesses.unwatch_process(childproc)
-    childproc.terminate()
-    raise TimeoutError("Timeout trying to start gnome-kiosk")
+    if childproc.poll() is None:
+        still_running = True
+        childproc.terminate()
+    raise TimeoutError(
+        "gnome-kiosk did not create the Wayland socket '{}' within {} seconds "
+        "(the compositor process {})".format(
+            constants.WAYLAND_SOCKET_NAME, timeout,
+            "was still running" if still_running else "had already exited")
+    )
 
 
 def set_resolution(runres):
@@ -377,20 +408,27 @@ def setup_display(anaconda, options):
             do_startup_wl_actions(wayland_timeout)
         except TimeoutError as e:
             log.warning("Wayland startup failed: %s", e)
-            print("\nWayland did not start in the expected time, falling back to text mode. "
-                  "There are multiple ways to avoid this issue:")
+            print("\nWayland startup failed: {}".format(e))
+            print("Falling back to text mode. There are multiple ways to avoid this issue:")
             wrapper = textwrap.TextWrapper(initial_indent=" * ", subsequent_indent="   ",
                                            width=os.get_terminal_size().columns - 3)
             for line in WAYLAND_TIMEOUT_ADVICE.split("\n"):
                 print(wrapper.fill(line))
+            _print_compositor_journal_excerpt()
             util.vtActivate(1)
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
             time.sleep(2)
 
         except (OSError, RuntimeError) as e:
+            # This includes ExitError from the process watcher.  The launch
+            # wrapper (run-in-new-session) propagates the compositor's exit
+            # status and re-raises its fatal signals, so the reported status
+            # is the compositor's.
             log.warning("Wayland startup failed: %s", e)
-            print("\nWayland startup failed, falling back to text mode.")
+            print("\nWayland startup failed: {}".format(e))
+            print("Falling back to text mode.")
+            _print_compositor_journal_excerpt()
             util.vtActivate(1)
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
