@@ -523,6 +523,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 01 2026 github-actions <github-actions@github.com> - 45.23-1
+- storage: Run do_partitioning for reqpart in custom partitioning (vtrefny)
+
 * Mon Aug 24 2026 github-actions <github-actions@github.com> - 45.22-1
 - spec: add IOT to anaconda-gui variants in rich dep (kkoukiou)
 
