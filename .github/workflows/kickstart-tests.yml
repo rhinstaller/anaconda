@@ -309,10 +309,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build anaconda-iso-creator container image
-        working-directory: ./anaconda
+      - name: Pull anaconda-iso-creator container image
         run: |
-          sudo -E make -f ./Makefile.am anaconda-iso-creator-build
+          sudo podman pull $ISO_BUILD_CONTAINER_NAME:$CI_TAG
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
