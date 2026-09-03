@@ -431,6 +431,8 @@ rm -rf \
 %define _empty_manifest_terminate_build 0
 
 %files install-img-deps
+%{_unitdir}/anaconda-shell@.service
+%{_prefix}/lib/systemd/logind.conf.d/*
 
 # Allow the lang file to be empty here too
 %define _empty_manifest_terminate_build 0
@@ -438,6 +440,7 @@ rm -rf \
 %files core -f %{name}.lang
 %license COPYING
 %{_unitdir}/*
+%exclude %{_unitdir}/anaconda-shell@.service
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
