@@ -86,9 +86,19 @@ def download_satellite_provisioning_script(satellite_url, proxy_url=None):
                      " provisioning script %s: %s",
                      proxy_url, e)
 
-    deadline = time.monotonic() + 90
+    # Retry with a progressively longer pause so NetworkManager has a chance
+    # to restore connectivity (for example after LACP renegotiation).
+    xdelay = util.xprogressive_delay()
+    start_time = time.monotonic()
+    retry_count = 0
+
     with util.requests_session() as session:
         while True:
+            if retry_count > 0:
+                log.debug("subscription: retrying Satellite provisioning script download (%d)",
+                          retry_count)
+                time.sleep(next(xdelay))
+
             try:
                 # NOTE: we explicitly don't verify SSL certificates while
                 #       downloading the provisioning script as the Satellite
@@ -103,18 +113,17 @@ def download_satellite_provisioning_script(satellite_url, proxy_url=None):
                     log.debug("subscription: Satellite provisioning script downloaded (%d characters)",
                               len(provisioning_script))
                     return provisioning_script
-
-                log.debug("subscription: server returned %i code when downloading"
-                          " Satellite provisioning script", result.status_code)
-                result.close()
-                return None
-            except RequestException as e:
-                if time.monotonic() >= deadline:
-                    log.debug("subscription: can't download Satellite provisioning script"
-                              " from %s with proxy: %s. Error: %s", script_url, proxies, e)
+                else:
+                    log.debug("subscription: server returned %i code when downloading"
+                              " Satellite provisioning script", result.status_code)
+                    result.close()
                     return None
-                log.debug("subscription: retrying Satellite provisioning script download: %s", e)
-                time.sleep(2)
+            except RequestException as e:
+                log.debug("subscription: can't download Satellite provisioning script"
+                          " from %s with proxy: %s. Error: %s", script_url, proxies, e)
+                if time.monotonic() - start_time >= constants.RHSM_SERVICE_TIMEOUT:
+                    return None
+                retry_count += 1
 
 
 def run_satellite_provisioning_script(provisioning_script=None, run_on_target_system=False):
