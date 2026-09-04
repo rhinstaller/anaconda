@@ -202,7 +202,111 @@ Failing hardware
         kernel: [sdb] tag#9 CDB: Read(10) 28 00 1d 04 10 00 00 00 08 00
         kernel: print_req_error: I/O error, dev sdb, sector 486805504
 
+    It may also manifest in a direct, user-facing error message, such as::
+
+        Installation of the system failed: Creating disklabel on /dev/nvme0n1 org.fedoraproject.Anaconda.Error: Input/output error during write on /dev/nvme0n1
+
 :Solution: It looks like a hardware failure. Please, check your hardware.
+    Check the disk named in the messages (for example ``/dev/sdb`` or ``/dev/nvme0n1``
+    above) and its cable, power supply, or USB adapter (if present).
+
+    From a live image, system installation medium or rescue mode run::
+
+        smartctl -x /dev/sdX
+
+    Replace ``sdX`` with the device from the logs. For NVMe disks, use a name
+    such as ``nvme0n1``. **If you report a bug, attach this output.**
+
+    Output from ``smartctl -x`` contains the drive's own overall assessment
+    and detailed health attributes (such as count of reallocated sectors)
+    and values. Attribute names may vary by vendor; use the name with the
+    closest match.
+
+    Consider replacing the disk if media attributes are unhealthy. If only
+    interface (cable, port, power supply, USB adapter) attributes are
+    worsening, reseat or replace the cable, try another port and check power.
+    If you are using USB-to-SATA or USB-to-NVMe adapters or enclosures, try
+    a different adapter or connect the disk directly to the motherboard if
+    possible. Such adapters are often not reliable and you may experience
+    issues like the above.
+
+    **Disk health is worsening** (back up data and replace the disk):
+
+    .. list-table::
+       :header-rows: 1
+       :widths: 40 25 35
+
+       * - Attribute
+         - Healthy
+         - Problem
+       * - ``Reallocated_Sector_Ct``
+         - Raw value ``0``
+         - Any value above 0, especially if it increases
+       * - ``Current_Pending_Sector``
+         - Raw value ``0``
+         - Any value above 0 (urgent; possible data loss)
+       * - ``Offline_Uncorrectable``
+         - Raw value ``0``
+         - Any value above 0
+       * - ``Reported_Uncorrect``
+         - Raw value ``0``
+         - Any value above 0
+       * - NVMe ``Media and Data Integrity Errors``
+         - ``0``
+         - Any value above 0
+
+    **SSD remaining life** (worn, not necessarily failing yet). Some attributes
+    count life *left* (``100`` is new), others count life *used* (``0`` is new):
+
+    .. list-table::
+       :header-rows: 1
+       :widths: 40 25 35
+
+       * - Attribute
+         - Healthy
+         - Problem
+       * - ``Wear_Leveling_Count``,
+           ``Media_Wearout_Indicator``,
+           ``SSD_Life_Left``,
+           ``Percent_Lifetime_Remain``
+         - Normalized value near ``100``
+         - Value near ``0`` (rated write life used up)
+       * - ``Percent_Lifetime_Used``; NVMe ``Percentage Used``
+         - Near ``0``
+         - Near ``100`` (rated write life used up)
+       * - ``Available_Reservd_Space``; NVMe ``Available Spare``
+         - Near ``100``
+         - At or below the spare threshold
+
+    **Connection problems** (cable, connector, port, power supply, or USB
+    adapter; try those before replacing the disk):
+
+    .. list-table::
+       :header-rows: 1
+       :widths: 40 25 35
+
+       * - Attribute
+         - Healthy
+         - Problem
+       * - ``UDMA_CRC_Error_Count``,
+           ``SATA_CRC_Error_Count``,
+           ``CRC_Error_Count``
+         - Raw value ``0``
+         - A count that keeps increasing
+       * - ``SATA_Downshift_Count``
+         - Raw value ``0``
+         - Any increase (the link fell back to a lower speed)
+       * - ``Command_Timeout``
+         - Raw value ``0``
+         - A count that keeps increasing
+
+    A CRC or timeout value that is not zero, but no longer grows, is often
+    a leftover from an old cable, malfunctioning USB adapter, or power glitch.
+    On some disks, ``Command_Timeout`` is stored as several small counters packed
+    into one number, so a huge raw value can mean only a few timeouts.
+    Cheap USB adapters may hide SMART data or report timeouts even when the
+    disk is healthy.
+
 :Example: `rhbz#1685047 <https://bugzilla.redhat.com/show_bug.cgi?id=1685047>`_
 
 LVM on disks with inconsistent sector size
