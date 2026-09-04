@@ -36,6 +36,8 @@ from pyanaconda.core.regexes import (
 )
 from pyanaconda.core.string import strip_accents
 
+from pyanaconda.modules.common.errors.configuration import UnsupportedHashFunctionError
+
 try:
     # Use the standalone (not deprecated) package when available
     import crypt_r
@@ -523,7 +525,16 @@ def set_user_password(username, password, is_crypted, lock, root="/"):
         proc = util.startProgram(["chpasswd", "-e"] + rootargs, stdin=subprocess.PIPE)
         proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
         if proc.returncode != 0:
-            raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
+            # Lets check if the password hash is using MD5
+            # - in version 4.2.0 of shadow utils all remaining support for MD5 password hashes
+            #   was removed
+            # - so if MD5 password hash is used, chpasswd will fail with return code 1
+            # - so check password hash type (based on the "$1$" prefix and raise a proper
+            #   error for the user to see & fix their password hash
+            if password.startswith("$1$"):
+                raise UnsupportedHashFunctionError()
+            else:
+                raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
 
     # Reset sp_lstchg to an empty string. On systems with no rtc, this
     # field can be set to 0, which has a special meaning that the password
