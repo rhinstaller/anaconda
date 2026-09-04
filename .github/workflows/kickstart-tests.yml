@@ -313,7 +313,30 @@ jobs:
         run: |
           sudo podman pull $ISO_BUILD_CONTAINER_NAME:$CI_TAG
 
+      - name: Check if RPM container rebuild is needed
+        id: need_rebuild
+        working-directory: ./anaconda
+        run: |
+          changed_files=$(git diff --name-only origin/${{ env.TARGET_BRANCH }}..HEAD)
+          echo -e "Changed files: \n$changed_files\n"
+
+          . .structure-config
+
+          echo "Paths forcing the rebuild:"
+          rebuild="false"
+          for iter_f in $changed_files ; do
+                  for rebuild_f in "${RPM_REBUILD_PATHS[@]}"; do
+                          if [[ "$iter_f" =~ "$rebuild_f" ]]; then
+                                  echo "$iter_f"
+                                  rebuild="true"
+                                  break
+                          fi
+                  done
+          done
+          echo "rebuild=$rebuild" >> $GITHUB_OUTPUT
+
       - name: Build anaconda-rpm container (for RPM build)
+        if: ${{ steps.need_rebuild.outputs.rebuild == 'true' }}
         working-directory: ./anaconda
         run: |
           make -f ./Makefile.am anaconda-rpm-build
