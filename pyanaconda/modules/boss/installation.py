@@ -33,6 +33,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     CATEGORY_BOOTLOADER,
     CATEGORY_ENVIRONMENT,
+    CATEGORY_FINALIZATION,
     CATEGORY_SOFTWARE,
     CATEGORY_STORAGE,
     CATEGORY_SYSTEM,
@@ -545,7 +546,7 @@ class RunInstallationTask(InstallationTask):
         generate_initramfs = TaskQueue(
             "Initramfs generation",
             _("Generating initramfs"),
-            CATEGORY_BOOTLOADER
+            CATEGORY_FINALIZATION
         )
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
@@ -588,7 +589,7 @@ class RunInstallationTask(InstallationTask):
             kexec_setup = TaskQueue(
                 "Kexec setup",
                 _("Setting up kexec"),
-                CATEGORY_BOOTLOADER
+                CATEGORY_FINALIZATION
             )
             kexec_setup.append(Task(
                 "Setup kexec",
@@ -600,7 +601,7 @@ class RunInstallationTask(InstallationTask):
         write_configs = TaskQueue(
             "Write configs and kickstarts",
             _("Storing configuration files and kickstarts"),
-            CATEGORY_SYSTEM
+            CATEGORY_FINALIZATION
         )
 
         # Write the kickstart file to the installed system (or, copy the input
@@ -621,7 +622,7 @@ class RunInstallationTask(InstallationTask):
         post_scripts = TaskQueue(
             "Post installation scripts",
             _("Running post-installation scripts"),
-            CATEGORY_SYSTEM
+            CATEGORY_FINALIZATION
         )
         scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
         post_scripts.append_dbus_tasks(RUNTIME, [
@@ -629,14 +630,20 @@ class RunInstallationTask(InstallationTask):
         ])
         configuration_queue.append(post_scripts)
 
-        configuration_queue.append(Task(
+        final_tasks = TaskQueue(
+            "Final installation tasks",
+            _("Finalizing installation"),
+            CATEGORY_FINALIZATION
+        )
+        final_tasks.append(Task(
             "Copy installation logs",
             CopyLogsTask(conf.target.system_root).run
         ))
-        configuration_queue.append(Task(
+        final_tasks.append(Task(
             "Set file contexts",
             SetContextsTask(conf.target.system_root).run
         ))
+        configuration_queue.append(final_tasks)
 
         return configuration_queue
 
