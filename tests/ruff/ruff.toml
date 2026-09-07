@@ -26,6 +26,7 @@ ignore = [
     "PLW0603", # Using the global statement to update `<variable>` is discouraged
     "PLR2004", # Magic value used in comparison, consider replacing <value> with a constant variable
     "PLR0913", # Too many arguments to function call (N > 5)
+    "PLR0917", # Too many positional arguments (N > 5)
     "PLR0915", # Too many statements (N > 50)
     "PLR0912", # Too many branches (N > 12)
     "PLR0911", # Too many return statements (N > 6)
