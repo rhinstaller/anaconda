@@ -490,16 +490,16 @@ class BootloaderModule(StorageSubscriberModule):
                 storage=self.storage,
                 mode=self.bootloader_mode
             ),
-            InstallBootloaderTask(
-                storage=self.storage,
-                mode=self.bootloader_mode,
-                payload_type=payload_type,
-                sysroot=conf.target.system_root
-            ),
             CreateBLSEntriesTask(
                 storage=self.storage,
                 payload_type=payload_type,
                 kernel_versions=kernel_versions,
+                sysroot=conf.target.system_root
+            ),
+            InstallBootloaderTask(
+                storage=self.storage,
+                mode=self.bootloader_mode,
+                payload_type=payload_type,
                 sysroot=conf.target.system_root
             )
         ]
