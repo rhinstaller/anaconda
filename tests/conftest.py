@@ -20,5 +20,9 @@ def anaconda_run_dir(tmp_path, monkeypatch):
     """Set up an isolated /run/anaconda directory for tests."""
     rundir = tmp_path / "rundir"
     rundir.mkdir()
-    monkeypatch.setenv("ANACONDA_RUN_DIR", str(rundir))
+    error_file = str(rundir / "installation-error-msg")
+    monkeypatch.setattr(
+        "pyanaconda.core.constants.ANACONDA_INSTALL_ERROR_MSG_FILE",
+        error_file,
+    )
     return rundir

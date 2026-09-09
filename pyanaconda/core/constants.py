@@ -66,6 +66,7 @@ ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 
 ANACONDA_CONFIG_DIR = "/etc/anaconda/"
 ANACONDA_CONFIG_TMP = "/run/anaconda/anaconda.conf"
+ANACONDA_INSTALL_ERROR_MSG_FILE = "/run/anaconda/installation-error-msg"
 
 # file to store pid of the web viewer app to show Anaconda locally
 WEBUI_VIEWER_PID_FILE = "/run/anaconda/webui_script.pid"

@@ -17,11 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 from collections import namedtuple
 from pathlib import Path
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.boss.boss_interface import BossInterface
@@ -75,12 +75,9 @@ class Boss(Service):
             self._install_manager.on_module_observers_changed
         )
 
-    ERROR_FILE_NAME = "installation-error-msg"
-
     @property
     def _error_file(self) -> Path:
-        rundir = Path(os.environ.get("ANACONDA_RUN_DIR", "/run/anaconda"))
-        return rundir / self.ERROR_FILE_NAME
+        return Path(constants.ANACONDA_INSTALL_ERROR_MSG_FILE)
 
     def _load_initial_state(self):
         err = self._error_file.read_text() if self._error_file.exists() else ""

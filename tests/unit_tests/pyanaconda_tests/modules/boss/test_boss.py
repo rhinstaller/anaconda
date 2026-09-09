@@ -16,11 +16,13 @@
 # Red Hat, Inc.
 #
 import tempfile
+from pathlib import Path
 from unittest.mock import Mock, patch
 
 import pytest
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.core import constants
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
@@ -523,7 +525,7 @@ class BossInterfaceTestCase:
 
 def test_load_initial_state_with_error_file(anaconda_run_dir):
     """Test that Boss restores FAILED state from a persisted error file."""
-    (anaconda_run_dir / Boss.ERROR_FILE_NAME).write_text("disk full")
+    Path(constants.ANACONDA_INSTALL_ERROR_MSG_FILE).write_text("disk full")
 
     boss = Boss()
     interface = BossInterface(boss)
