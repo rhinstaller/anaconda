@@ -35,6 +35,7 @@ from pyanaconda.core.constants import (
     ANACONDA_BUS_ADDR_FILE,
     ANACONDA_BUS_CONF_FILE,
     ANACONDA_CONFIG_TMP,
+    ANACONDA_INSTALL_ERROR_MSG_FILE,
     DBUS_ANACONDA_SESSION_ADDRESS,
 )
 from pyanaconda.core.dbus import DBus
@@ -88,6 +89,7 @@ class AnacondaDBusLauncher:
 
         self._stop_dbus_session(timeout)
         self._remove_bus_address_file()
+        self._remove_install_error_msg_file()
 
         self._remove_temporary_config()
 
@@ -178,6 +180,11 @@ class AnacondaDBusLauncher:
         f = ANACONDA_BUS_ADDR_FILE
         if os.path.exists(f):
             os.unlink(f)
+
+    def _remove_install_error_msg_file(self):
+        """Remove the file with the installation error message."""
+        if os.path.exists(ANACONDA_INSTALL_ERROR_MSG_FILE):
+            os.unlink(ANACONDA_INSTALL_ERROR_MSG_FILE)
 
     def _start_boss(self):
         """Start the boss."""
