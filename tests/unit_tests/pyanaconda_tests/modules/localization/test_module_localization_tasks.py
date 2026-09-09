@@ -25,6 +25,7 @@ from unittest.mock import Mock, call, create_autospec, patch
 import pytest
 
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, DEFAULT_VC_FONT
+from pyanaconda.keyboard import DEFAULT_LAYOUT_SWITCH_OPTIONS
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.errors.installation import KeyboardInstallationError
 from pyanaconda.modules.localization.installation import (
@@ -692,5 +693,33 @@ class LocalizationTasksTestCase(unittest.TestCase):
         )
         write_vc_mock.assert_called_once_with(
             vc_keymap_default,
+            sysroot
+        )
+
+    @patch("pyanaconda.modules.localization.installation.get_missing_keyboard_configuration")
+    @patch("pyanaconda.modules.localization.installation.write_x_configuration")
+    @patch("pyanaconda.modules.localization.installation.write_vc_configuration")
+    def test_keyboard_installation_task_default_switch_options(
+        self, write_vc_mock, write_x_mock, get_missing_mock
+    ):
+        """Multiple layouts with no switch options should default to alt_shift_toggle."""
+        localed = Mock()
+        sysroot = "/mnt/sysimage"
+        x_layouts = ["us", "cz (qwerty)"]
+        vc_keymap = "us"
+
+        task = KeyboardInstallationTask(
+            localed_wrapper=localed,
+            sysroot=sysroot,
+            x_layouts=x_layouts,
+            switch_options=[],
+            vc_keymap=vc_keymap
+        )
+        task.run()
+        write_x_mock.assert_called_once_with(
+            localed,
+            x_layouts,
+            DEFAULT_LAYOUT_SWITCH_OPTIONS,
+            X_CONF_DIR,
             sysroot
         )
