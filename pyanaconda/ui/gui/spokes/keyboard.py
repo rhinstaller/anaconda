@@ -154,6 +154,11 @@ class AddLayoutDialog(GUIObject):
         arranged_layouts = [DEFAULT_KEYBOARD] + sorted(common_layouts, key=self._sort_layout) + \
             sorted(list(set(available_layouts) - set(common_layouts)), key=self._sort_layout)
 
+        # 'custom' is an XKB placeholder with no keymap; skip it to avoid a
+        # crash when localed later tries to compile the layout.
+        arranged_layouts = [name for name in arranged_layouts
+            if keyboard.parse_layout_variant(name)[0] != "custom"]
+
         # we add arranged layouts in the treeview store
         gtk_batch_map(self._addLayout, arranged_layouts, args=(self._store,), batch_size=20)
 
