@@ -33,12 +33,14 @@ import langtable
 from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE
+from pyanaconda.core.dbus import SystemBus
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.constants.services import STORAGE, TIMEDATED
 
 log = get_module_logger(__name__)
 
@@ -52,6 +54,26 @@ ETC_ZONES = ['GMT+1', 'GMT+2', 'GMT+3', 'GMT+4', 'GMT+5', 'GMT+6', 'GMT+7',
 
 NTP_PACKAGE = "chrony"
 NTP_SERVICE = "chronyd"
+
+
+def is_system_clock_synchronized():
+    """Has the system clock already been synchronized to an external time source?
+
+    The kernel clears the STA_UNSYNC status flag once an NTP daemon has
+    disciplined the system clock. systemd-timedated exposes that flag as the
+    NTPSynchronized D-Bus property.
+
+    :return: True if the system clock has been synchronized, False otherwise
+    :rtype: bool
+    """
+    if not conf.system.provides_system_bus or not SystemBus.check_connection():
+        return False
+
+    try:
+        return TIMEDATED.get_proxy().NTPSynchronized
+    except Exception as e:  # pylint: disable=broad-except
+        log.warning("Could not query the clock synchronization status: %s", e)
+        return False
 
 
 def time_initialize(timezone_proxy):
@@ -71,6 +93,15 @@ def time_initialize(timezone_proxy):
         thread_manager.wait(THREAD_STORAGE)
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
         timezone_proxy.IsUTC = not bootloader_proxy.DetectWindows()
+
+    # The RTC is only a fallback source of time, so never let it overwrite a
+    # clock that chronyd has already synchronized over the network. We can get
+    # here long after chronyd was started, because guessing IsUTC above waits
+    # for the storage scan to finish.
+    if is_system_clock_synchronized():
+        log.debug("The system clock is already synchronized, "
+                  "not setting it from the RTC.")
+        return
 
     cmd = "hwclock"
     args = ["--hctosys"]

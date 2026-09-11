@@ -110,6 +110,14 @@ LOCALED = DBusServiceIdentifier(
     message_bus=SystemBus
 )
 
+TIMEDATED = DBusServiceIdentifier(
+    namespace=("org", "freedesktop", "timedate"),
+    service_version=1,
+    object_version=1,
+    interface_version=1,
+    message_bus=SystemBus
+)
+
 RHSM = DBusServiceIdentifier(
     namespace=RHSM_NAMESPACE,
     message_bus=SystemBus
