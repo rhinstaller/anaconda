@@ -35,6 +35,7 @@ dist_config_DATA    = \
 	fedora-sericea.conf \
 	fedora-server.conf \
 	fedora-silverblue.conf \
+	fedora-soas.conf \
 	fedora-sway.conf \
 	fedora-workstation.conf \
 	fedora-xfce.conf \
