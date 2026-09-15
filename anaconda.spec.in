@@ -526,6 +526,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 15 2026 github-actions <github-actions@github.com> - 45.25-1
+- progress: add a Finalization installation category (tfratrik)
+- progress: replace the CategoryChanged signal with a CurrentCategory property
+  (adamkankovsky)
+- anaconda-shell: logind dropin (cmdr)
+- anaconda-shell: alias to autovt (cmdr)
+- fix: clean up installation-error-msg file on installer quit (kkoukiou)
+- Add Fedora SoaS profile to override default firefox web engine with slitherer
+  (kkoukiou)
+  Resolves: rhbz#2531475
+- fix: default to grp:alt_shift_toggle when installing multiple layouts
+  (kkoukiou)
+  Resolves: rhbz#2508253
+- Show an error when unsupported password hash is used (mkolman)
+- anaconda-pre: don't require a tty (cmdr)
+
 * Tue Sep 08 2026 github-actions <github-actions@github.com> - 45.24-1
 - Fix GTK hub spoke grid overflowing at 1024x768 in French with Noto Sans
   (tfratrik)
