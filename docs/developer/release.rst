@@ -84,43 +84,15 @@ After merging the dist-git PR, **Packit will take over** and:
 
 ➡️  If this fails, continue with `Manual Step 4 <#manual-path-step-4-manual-koji-build>`_.
 
-Skipping a release of one of the packages 
-"""""""""""""""""""""""""""""""""""""""""
+Skipping the Koji build
+"""""""""""""""""""""""
 
-Triggering the `release workflow <https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml>`_
-in the anaconda repository only affects the anaconda package. It does not release anaconda-webui. To
-release anaconda-webui, you must follow its dedicated `release procedure
-<https://github.com/rhinstaller/anaconda-webui/blob/main/docs/release.rst>`_.
+If you need to do a combined Bodhi update with another package (e.g. ``anaconda-webui``) and want to
+handle the Koji build and Bodhi update manually, add the ``skip-build`` label to the dist-git pull
+request **before merging**. This prevents Packit from triggering the automatic Koji build.
 
-If you are releasing both packages, Packit will automatically handle a combined Koji side tag build
-and Bodhi update.
-
-However, if you are releasing only one of the two packages, you need to make sure that Koji has a
-tag for the latest released version of the other package — so that a coordinated side tag
-build can proceed.
-
-To do this:
-
-In the last merged dist-git pull request of the package you are not releasing, add the following
-comment::
-
-    /packit koji-tag
-
-📝 Note: This comment can be added before or after merging the PR — the timing doesn’t matter.
-
-This tells Packit to tag the most recent build of that package with the side tag used for the
-release of the other one.
-
-This process applies in both directions:
-
-* Releasing anaconda, but not anaconda-webui → tag the latest anaconda-webui PR.
-
-* Releasing anaconda-webui, but not anaconda → tag the latest anaconda PR.
-
-
-For more information, see the official `Packit multiple package release guide
-<https://packit.dev/docs/fedora-releases-guide/releasing-multiple-packages#skipping-release-of-some-packages>`_.
-
+You will then need to follow the `Manual Koji Build <#manual-path-step-4-manual-koji-build>`_ and
+`Manual Bodhi Update <#manual-bodhi-update>`_ steps below.
 
 Manual Path - Fallback
 ----------------------
@@ -167,19 +139,6 @@ If you already have a distgit checkout, you can do just:
       fedpkg switch-branch rawhide
       git pull
       fedpkg build
-
-If this update contains non backwards compatible changes that might break another package, ex
-`anaconda-webui` you need to follow the procedure below
-
-::
-
-      fedpkg switch-branch rawhide
-      git pull
-      fedpkg request-side-tag
-      fedpkg build --target=${SIDE_TAG}
-
-This process is documented in more detail in the
-`Fedora Packaging Guidelines <https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages>`_.
 
 This should start the package build in koji - wait for it to succeed or debug any failures.
 

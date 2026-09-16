@@ -87,6 +87,10 @@ jobs:
 
   - job: koji_build
     trigger: commit
+    require:
+      label:
+        absent:
+          - skip-build
     packages: [anaconda-fedora]
     dist_git_branches:
       - fedora-development
