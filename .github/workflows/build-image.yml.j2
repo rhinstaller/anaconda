@@ -209,7 +209,7 @@ jobs:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--boot.iso')
-    runs-on: [self-hosted, kstest]
+    runs-on: [self-hosted, bruno-test]
     timeout-minutes: 300
     env:
        STATUS_NAME: boot-iso
@@ -301,7 +301,7 @@ jobs:
   live-iso:
     needs: pr-info
     if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--live')
-    runs-on: [self-hosted, kstest]
+    runs-on: [self-hosted, bruno-test]
     timeout-minutes: 300
     env:
        STATUS_NAME: live-iso

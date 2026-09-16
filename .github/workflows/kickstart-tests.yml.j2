@@ -170,7 +170,7 @@ jobs:
     needs: [pr-info, define-matrix]
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != '' && ! contains(github.event.comment.body, '--waive')
-    runs-on: [self-hosted, kstest]
+    runs-on: [self-hosted, bruno-test]
     timeout-minutes: 360
     strategy:
       fail-fast: false
