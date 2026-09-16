@@ -48,6 +48,12 @@ name: kickstart-tests
 on:
   issue_comment:
     types: [created]
+  workflow_dispatch:
+    inputs:
+      test_args:
+        description: 'Test arguments (e.g., --testtype smoke)'
+        required: false
+        default: '--testtype smoke'
 
 permissions:
   contents: read
@@ -55,10 +61,11 @@ permissions:
 
 jobs:
   pr-info:
-    if: startsWith(github.event.comment.body, '/kickstart-test')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.comment.body, '/kickstart-test')
     runs-on: ubuntu-latest
     steps:
       - name: Query comment author repository permissions
+        if: github.event_name == 'issue_comment'
         uses: octokit/request-action@v2.x
         id: user_permission
         with:
@@ -70,13 +77,20 @@ jobs:
       # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
       # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
       - name: Check if user does have correct permissions
-        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        if: github.event_name == 'issue_comment' && contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
         id: check_user_perm
         run: |
           echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
           echo "allowed_user=true" >> $GITHUB_OUTPUT
 
+      - name: Set allowed_user for workflow_dispatch
+        if: github.event_name == 'workflow_dispatch'
+        id: check_user_perm_dispatch
+        run: |
+          echo "allowed_user=true" >> $GITHUB_OUTPUT
+
       - name: Get information for pull request
+        if: github.event_name == 'issue_comment'
         uses: octokit/request-action@v2.x
         id: pr_api
         with:
@@ -89,9 +103,17 @@ jobs:
         # Do not use comment body directly in the shell command to avoid possible code injection.
         env:
           BODY: ${{ github.event.comment.body }}
+          EVENT_NAME: ${{ github.event_name }}
+          WORKFLOW_ARGS: ${{ github.event.inputs.test_args }}
         run: |
-          # extract first line and cut out the "/kickstart-tests" first word
-          ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
+          # Determine arguments based on trigger type
+          if [ "$EVENT_NAME" == "workflow_dispatch" ]; then
+            ARGS="$WORKFLOW_ARGS"
+          else
+            # extract first line and cut out the "/kickstart-tests" first word
+            ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
+          fi
+          
           # parse --kstest-pr option
           OPTS="$(getopt -q -o "" --long kstest-pr: -- $ARGS)" || true
           PR=${OPTS#" --kstest-pr '"}
@@ -120,7 +142,7 @@ jobs:
       # head commit first appeared. GitHub creates check suites on the base
       # repo when a PR is updated, with a created_at that cannot be forged.
       - name: Verify head commit was not pushed after the trigger comment
-        if: steps.parse_comment_args.outputs.skip_timestamps_check != 'true'
+        if: github.event_name == 'issue_comment' && steps.parse_comment_args.outputs.skip_timestamps_check != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMENT_TIME: ${{ github.event.comment.created_at }}
@@ -157,11 +179,11 @@ jobs:
           echo "Verification passed: head commit existed before the trigger comment."
 
     outputs:
-      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
-      base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
-      sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+      allowed_user: ${{ github.event_name == 'workflow_dispatch' && 'true' || steps.check_user_perm.outputs.allowed_user }}
+      base_ref: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || fromJson(steps.pr_api.outputs.data).base.ref }}
+      sha: ${{ github.event_name == 'workflow_dispatch' && github.sha || fromJson(steps.pr_api.outputs.data).head.sha }}
       comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
-      target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      target_branch: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || fromJson(steps.pr_api.outputs.data).base.ref }}
       kstest_pr: ${{ steps.parse_comment_args.outputs.kstest_pr }}
 
   define-matrix:
