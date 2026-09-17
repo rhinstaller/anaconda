@@ -76,7 +76,7 @@ Next you need to edit the boot.iso build script to patch the templates & use the
      lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
            --volid Fedora-S-dvd-x86_64-rawh \
     +      --sharedir ./templates.d/99-generic/ \
-           -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
+           -s https://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
            -s file://$REPO_DIR/ \
            "$@" \
 
