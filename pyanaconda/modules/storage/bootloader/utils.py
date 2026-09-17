@@ -18,6 +18,8 @@
 import os
 from glob import glob
 
+from blivet import arch
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.product import get_product_name
@@ -221,6 +223,10 @@ def create_bls_entries(sysroot, storage, kernel_versions):
                     ["add", kernel, vmlinuz],
                     root=sysroot
                 )
+
+    # Skip grub2-mkconfig call on s390x, as it does not use GRUB2.
+    if arch.is_s390():
+        return
 
     # Update the bootloader configuration to make sure that the BLS
     # entries will have the correct kernel cmdline and not the value
