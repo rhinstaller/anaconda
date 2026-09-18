@@ -170,6 +170,49 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         msg = "Failed to install image: Fake!"
         assert str(cm.value) == msg
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_exit_code_23(self, exec_readlines, os_sync):
+        """Test that sender errors with exit code 23 give the corrupted media message."""
+        def sender_error_then_exit():
+            yield 'rsync: [sender] read errors mapping "usr/bin/bash": Structure needs cleaning (117)'
+            raise OSError("process '[rsync]' exited with status 23")
+
+        exec_readlines.return_value = sender_error_then_exit()
+
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
+
+        assert "exit code 23" in str(cm.value)
+        assert "corrupted installation media" in str(cm.value)
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_exit_code_23_no_sender_errors(
+        self, exec_readlines, os_sync
+    ):
+        """Test that exit code 23 without sender errors gives the generic message."""
+        exec_readlines.side_effect = OSError(
+            "process '[rsync]' exited with status 23"
+        )
+
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
+
+        assert "corrupted installation media" not in str(cm.value)
+
     def test_parse_rsync_update_logs_rsync_errors(self):
         """Test that rsync error lines are logged during the transfer phase."""
         task = InstallFromImageTask(sysroot="/mnt/root", mount_point="/mnt/image")
