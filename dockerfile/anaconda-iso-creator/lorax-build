@@ -71,7 +71,7 @@ if [ "$CI_TAG" = "fedora-eln" ]; then
                    -s ${ELN_BASE_URL}/1/AppStream/x86_64/os/"
     EXTRA_ARGS="--nomacboot"
 else
-    LORAX_SOURCES="-s http://dl.fedoraproject.org/pub/fedora/linux/development/$FEDORA_VERSION/Everything/x86_64/os/"
+    LORAX_SOURCES="-s https://dl.fedoraproject.org/pub/fedora/linux/development/$FEDORA_VERSION/Everything/x86_64/os/"
     EXTRA_ARGS=""
 fi
 

@@ -215,7 +215,7 @@ jobs:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--boot.iso')
-    runs-on: [self-hosted, kstest]
+    runs-on: [self-hosted, bruno-test]
     timeout-minutes: 300
     env:
        STATUS_NAME: boot-iso
@@ -269,7 +269,7 @@ jobs:
             WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env COCKPIT_PR=${{ needs.pr-info.outputs.cockpit_pr }}"
           fi
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
+          sudo -E podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
@@ -307,7 +307,7 @@ jobs:
   live-iso:
     needs: pr-info
     if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--live')
-    runs-on: [self-hosted, kstest]
+    runs-on: [self-hosted, bruno-test]
     timeout-minutes: 300
     env:
        STATUS_NAME: live-iso
