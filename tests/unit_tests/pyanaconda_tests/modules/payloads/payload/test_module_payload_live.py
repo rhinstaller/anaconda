@@ -170,6 +170,78 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         msg = "Failed to install image: Fake!"
         assert str(cm.value) == msg
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_exit_code_23(self, exec_readlines, os_sync):
+        """Test that sender errors with exit code 23 give the corrupted media message."""
+        def sender_error_then_exit():
+            yield 'rsync: [sender] read errors mapping "usr/bin/bash": Structure needs cleaning (117)'
+            raise OSError("process '[rsync]' exited with status 23")
+
+        exec_readlines.return_value = sender_error_then_exit()
+
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
+
+        assert "exit code 23" in str(cm.value)
+        assert "corrupted installation media" in str(cm.value)
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_exit_code_23_no_sender_errors(
+        self, exec_readlines, os_sync
+    ):
+        """Test that exit code 23 without sender errors gives the generic message."""
+        exec_readlines.side_effect = OSError(
+            "process '[rsync]' exited with status 23"
+        )
+
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
+
+        assert "corrupted installation media" not in str(cm.value)
+
+    def test_parse_rsync_update_logs_rsync_errors(self):
+        """Test that rsync error lines are logged during the transfer phase."""
+        task = InstallFromImageTask(sysroot="/mnt/root", mount_point="/mnt/image")
+
+        with patch(
+            "pyanaconda.modules.payloads.payload.live_image.installation.log"
+        ) as mock_log:
+            # A normal filename line before the empty line: not logged.
+            task._parse_rsync_update("usr/bin/bash")
+            mock_log.warning.assert_not_called()
+            mock_log.debug.assert_not_called()
+            assert not task._rsync_sender_errors
+
+            # A sender error line before the empty line: logged at warning,
+            # sender flag set.
+            task._parse_rsync_update(
+                'rsync: [sender] read errors mapping "usr/bin/bash": '
+                "Structure needs cleaning (117)"
+            )
+            mock_log.warning.assert_called_once()
+            assert task._rsync_sender_errors
+
+            # After the empty line, normal lines go to debug, not warning again.
+            mock_log.reset_mock()
+            task._parse_rsync_update("")  # triggers _log_rsync = True
+            task._parse_rsync_update("Number of files: 42")
+            mock_log.debug.assert_called_once()
+            mock_log.warning.assert_not_called()
+
 
 class InstallFromTarTaskTestCase(unittest.TestCase):
     """Test the InstallFromTarTask class."""

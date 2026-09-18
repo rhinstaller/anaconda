@@ -394,6 +394,7 @@ class InstallFromImageTask(Task):
         self._mount_point = mount_point
         self._log_rsync = False
         self._rsync_progress = ""
+        self._rsync_sender_errors = False
 
     @property
     def name(self):
@@ -446,7 +447,15 @@ class InstallFromImageTask(Task):
                 self._parse_rsync_update(line)
 
         except (OSError, RuntimeError) as e:
-            msg = "Failed to install image: {}".format(e)
+            if str(e).endswith("exited with status 23") and self._rsync_sender_errors:
+                msg = _(
+                    "Failed to install the live image: rsync could not read some files "
+                    "from the installation media (exit code 23). This is typically caused "
+                    "by corrupted installation media. Please try a different USB drive or "
+                    "optical disc, or re-download and re-flash the ISO image."
+                )
+            else:
+                msg = "Failed to install image: {}".format(e)
             raise PayloadInstallationError(msg) from None
 
         if os.path.exists(os.path.join(self._mount_point, "boot/efi")):
@@ -513,6 +522,10 @@ class InstallFromImageTask(Task):
            the journal is written to overlay in memory. Fortunately, the first empty line of output
            comes after the transfers and before the statistics.
 
+           rsync error lines (starting with "rsync:") are always logged at warning level
+           regardless of transfer phase, since they identify specific files that failed and
+           are rare even in failure cases.
+
         :param str line: line to process
         """
         # Take only part after last ^M (python: \r)
@@ -525,6 +538,10 @@ class InstallFromImageTask(Task):
 
         if self._log_rsync:
             log.debug("rsync output: %s", line)
+        elif line.startswith("rsync:"):
+            log.warning("rsync: %s", line)
+            if "[sender]" in line:
+                self._rsync_sender_errors = True
 
         # other cases handled already, now also skip lines that are not progress
         if "to-chk=" not in line:
