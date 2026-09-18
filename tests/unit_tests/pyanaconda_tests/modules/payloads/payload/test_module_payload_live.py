@@ -170,6 +170,35 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         msg = "Failed to install image: Fake!"
         assert str(cm.value) == msg
 
+    def test_parse_rsync_update_logs_rsync_errors(self):
+        """Test that rsync error lines are logged during the transfer phase."""
+        task = InstallFromImageTask(sysroot="/mnt/root", mount_point="/mnt/image")
+
+        with patch(
+            "pyanaconda.modules.payloads.payload.live_image.installation.log"
+        ) as mock_log:
+            # A normal filename line before the empty line: not logged.
+            task._parse_rsync_update("usr/bin/bash")
+            mock_log.warning.assert_not_called()
+            mock_log.debug.assert_not_called()
+            assert not task._rsync_sender_errors
+
+            # A sender error line before the empty line: logged at warning,
+            # sender flag set.
+            task._parse_rsync_update(
+                'rsync: [sender] read errors mapping "usr/bin/bash": '
+                "Structure needs cleaning (117)"
+            )
+            mock_log.warning.assert_called_once()
+            assert task._rsync_sender_errors
+
+            # After the empty line, normal lines go to debug, not warning again.
+            mock_log.reset_mock()
+            task._parse_rsync_update("")  # triggers _log_rsync = True
+            task._parse_rsync_update("Number of files: 42")
+            mock_log.debug.assert_called_once()
+            mock_log.warning.assert_not_called()
+
 
 class InstallFromTarTaskTestCase(unittest.TestCase):
     """Test the InstallFromTarTask class."""
