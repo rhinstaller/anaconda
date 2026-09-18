@@ -76,6 +76,55 @@ fi
 cat > "$newjob" <<__EOT__
 . /lib/url-lib.sh
 . /lib/anaconda-lib.sh
+
+ks_cert="\$(getarg inst.ks.cert=)"
+if [ -n "\$ks_cert" ] && [ ! -e /tmp/ks-cert.done ]; then
+    case "\$ks_cert" in
+        /*) ;;
+        *)
+            warn_critical "inst.ks.cert requires an absolute path: \$ks_cert"
+            rm \$job
+            return 0
+        ;;
+    esac
+
+    # The installation source is mounted at \$repodir by anaconda-diskroot.
+    cert_file="\$repodir\$ks_cert"
+    [ -r "\$cert_file" ] || return 0
+
+    # In the initramfs we cannot run update-ca-trust extract. Append the
+    # certificate directly, as the %certificate --type=anchor implementation does.
+    ca_bundle=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+    if [ ! -e "\$ca_bundle" ]; then
+        warn_critical "CA bundle \$ca_bundle not found for inst.ks.cert"
+        rm \$job
+        return 0
+    fi
+
+    # More than one network interface can create a kickstart fetch job. Use
+    # mkdir, which is atomic, to keep their certificate appends separate.
+    mkdir /tmp/ks-cert.lock 2>/dev/null || return 0
+
+    # Another job can finish importing the certificate while we wait for the lock.
+    if [ -e /tmp/ks-cert.done ]; then
+        rmdir /tmp/ks-cert.lock
+    elif {
+        printf '\\n'
+        cat "\$cert_file"
+        printf '\\n'
+    } >> "\$ca_bundle"; then
+        touch /tmp/ks-cert.done
+        rmdir /tmp/ks-cert.lock
+        info "anaconda: added kickstart CA certificate from \$ks_cert"
+    else
+        rmdir /tmp/ks-cert.lock
+        warn_critical "Failed to add kickstart CA certificate from \$ks_cert"
+        rm \$job
+        return 0
+    fi
+
+fi
+
 locations="$locations"
 
 info "anaconda: kickstart locations are: \$locations"
