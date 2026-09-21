@@ -424,7 +424,12 @@ def setup_display(anaconda, options):
         grd_server.rdp_password = rdp_creds.password
         grd_server.start_grd_rdp()
 
+    # Setup Web UI remote access options
     _setup_webui_remote_auth(options)
+    if options.webui_remote:
+        # switch back to tty1 so that the network address of the machine is visible
+        # TODO/FIXME: skip compositor startup & stay on tty1
+        util.vtActivate(1)
 
     # with Wayland running we can initialize the UI interface
     anaconda.initialize_interface()

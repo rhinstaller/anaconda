@@ -364,6 +364,29 @@ def clean_pstore():
             except OSError:
                 pass
 
+def _find_network_addresses():
+    """Find machine IP address.
+
+    :return: list of IP addresses or None if not found
+    :rtype: list of str
+    """
+
+    # NOTE: We can't easily share this with the RDP implementation
+    #       due to a circular dependency that happens if this would
+    #       be moved to util & imported from there.
+
+    # Network may be slow. Try for 5 seconds
+    tries = 5
+    ip_address_list = []
+    while tries:
+        for ip in network.get_ip_addresses():
+            ip_address_list.append(ip)
+        if ip_address_list:
+            break
+        time.sleep(1)
+        tries -= 1
+    # filter out localhost interface addresses
+    return [ ip for ip in ip_address_list if ip not in ("127.0.0.1", "::1")]
 
 def print_startup_note(options):
     """Print Anaconda version and short usage instructions.
@@ -404,6 +427,31 @@ def print_startup_note(options):
             print(text_mode_note)
         print(separate_attachements_note)
 
+    if options.webui_remote:
+        # make sure there is space before the remote access messages
+        print("\n")
+        print("Web UI remote access enabled.")
+        # now try to find out a network address & show it to the user
+        ip_address_list = []
+        # on demand import, like in prompt_for_ssh() above
+        import socket
+        try:
+            ip_address_list = _find_network_addresses()
+        except (socket.herror, ValueError) as e:
+            print("Web UI remote access: Could not find network address: %s" % e)
+        if  ip_address_list:
+            # show a correct note on how to connect
+            if  len(ip_address_list) == 1:
+                print("Point your Web browser to this network address:")
+            else:
+                print("Point your Web browser to one of these network addresses:")
+            # print the addresses
+            for ip in ip_address_list:
+                print(ip)
+        else:
+            print("Network address not found - check your network connection.")
+        # make sure there is space after the remote access messages in case other messages show up
+        print("\n")
 
 def live_startup():
     """Live environment startup tasks."""
