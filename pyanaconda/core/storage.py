@@ -121,7 +121,6 @@ AUTOPART_CHOICES = (
     (N_("Btrfs"), AUTOPART_TYPE_BTRFS),
     (N_("LVM"), AUTOPART_TYPE_LVM),
     (N_("LVM Thin Provisioning"), AUTOPART_TYPE_LVM_THINP),
-    (N_("Stratis"), AUTOPART_TYPE_STRATIS)
 )
 
 AUTOPART_DEVICE_TYPES = {
