@@ -528,6 +528,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 22 2026 github-actions <github-actions@github.com> - 45.27-1
+- bootloader: don't call grub2-mkconfig on s390x (lfauster)
+- bootloader: install bootloader only after creating BLS entries (lfauster)
+- spec: Add udisks2-btrfs and udisks2-lvm2 deps for Web UI (kkoukiou)
+  Resolves: rhbz#2537522
+- Show network address/-es for Web UI remote access (mkolman)
+- payload: improve error message for rsync exit code 23 (rvykydal)
+- payload: log rsync per-file errors during transfer (rvykydal)
+
 * Tue Sep 22 2026 github-actions <github-actions@github.com> - 45.26-1
 - Remove Stratis from UI autopart choices (vtrefny)
 - doc: Troubleshooting - detailed information on I/O errors (jikortus)
