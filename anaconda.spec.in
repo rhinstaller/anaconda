@@ -197,9 +197,11 @@ for live installations.
 %package install-env-deps
 Summary: Installation environment specific dependencies
 Requires: udisks2-iscsi
+Requires: (udisks2-lvm2 if cockpit-storaged)
 Requires: libblockdev-plugins-all >= %{libblockdevver}
 Requires: libblockdev-tools
 %if ! 0%{?rhel}
+Requires: (udisks2-btrfs if cockpit-storaged)
 Requires: libblockdev-lvm-dbus
 %endif
 # active directory/freeipa join support
