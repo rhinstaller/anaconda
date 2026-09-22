@@ -526,6 +526,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 22 2026 github-actions <github-actions@github.com> - 45.26-1
+- Remove Stratis from UI autopart choices (vtrefny)
+- doc: Troubleshooting - detailed information on I/O errors (jikortus)
+
 * Tue Sep 15 2026 github-actions <github-actions@github.com> - 45.25-1
 - progress: add a Finalization installation category (tfratrik)
 - progress: replace the CategoryChanged signal with a CurrentCategory property
