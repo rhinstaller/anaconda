@@ -20,6 +20,7 @@
 
 import os
 import tempfile
+import time
 
 from requests import RequestException
 
@@ -85,30 +86,44 @@ def download_satellite_provisioning_script(satellite_url, proxy_url=None):
                      " provisioning script %s: %s",
                      proxy_url, e)
 
+    # Retry with a progressively longer pause so NetworkManager has a chance
+    # to restore connectivity (for example after LACP renegotiation).
+    xdelay = util.xprogressive_delay()
+    start_time = time.monotonic()
+    retry_count = 0
+
     with util.requests_session() as session:
-        try:
-            # NOTE: we explicitly don't verify SSL certificates while
-            #       downloading the provisioning script as the Satellite
-            #       instance will most likely have it's own self signed certs that
-            #       will only be trusted once the provisioning script runs
-            result = session.get(script_url, headers=headers,
-                                 proxies=proxies, verify=False,
-                                 timeout=constants.NETWORK_CONNECTION_TIMEOUT)
-            if result.ok:
-                provisioning_script = result.text
-                result.close()
-                log.debug("subscription: Satellite provisioning script downloaded (%d characters)",
-                          len(provisioning_script))
-                return provisioning_script
-            else:
-                log.debug("subscription: server returned %i code when downloading"
-                          " Satellite provisioning script", result.status_code)
-                result.close()
-                return None
-        except RequestException as e:
-            log.debug("subscription: can't download Satellite provisioning script"
-                      " from %s with proxy: %s. Error: %s", script_url, proxies, e)
-            return None
+        while True:
+            if retry_count > 0:
+                log.debug("subscription: retrying Satellite provisioning script download (%d)",
+                          retry_count)
+                time.sleep(next(xdelay))
+
+            try:
+                # NOTE: we explicitly don't verify SSL certificates while
+                #       downloading the provisioning script as the Satellite
+                #       instance will most likely have it's own self signed certs that
+                #       will only be trusted once the provisioning script runs
+                result = session.get(script_url, headers=headers,
+                                     proxies=proxies, verify=False,
+                                     timeout=constants.NETWORK_CONNECTION_TIMEOUT)
+                if result.ok:
+                    provisioning_script = result.text
+                    result.close()
+                    log.debug("subscription: Satellite provisioning script downloaded (%d characters)",
+                              len(provisioning_script))
+                    return provisioning_script
+                else:
+                    log.debug("subscription: server returned %i code when downloading"
+                              " Satellite provisioning script", result.status_code)
+                    result.close()
+                    return None
+            except RequestException as e:
+                log.debug("subscription: can't download Satellite provisioning script"
+                          " from %s with proxy: %s. Error: %s", script_url, proxies, e)
+                if time.monotonic() - start_time >= constants.RHSM_SERVICE_TIMEOUT:
+                    return None
+                retry_count += 1
 
 
 def run_satellite_provisioning_script(provisioning_script=None, run_on_target_system=False):
