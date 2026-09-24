@@ -33,6 +33,15 @@
 # https://github.com/rhinstaller/kickstart-tests/pull/1233 update of kickstart tests
 #
 #
+# By default the tests run on any runner with the "kstest" label. To pin them
+# to a specific runner, use --runner with a label of that runner. The label
+# replaces "kstest", so the target runner does not need to be in the "kstest"
+# pool.
+#
+# /kickstart-test --runner kstest-staging --testtype smoke
+# ... run the tests of type smoke on a runner labelled "kstest-staging"
+#
+#
 # By default the workflow verifies that the PR head commit was not pushed
 # after the trigger comment (TOCTOU protection). To skip this check:
 #
@@ -102,6 +111,20 @@ jobs:
           fi
           echo "skip_timestamps_check=${SKIP_TIMESTAMPS_CHECK}" >> $GITHUB_OUTPUT
 
+          # parse --runner option; it replaces the default "kstest" runner label
+          RUNNER_LABEL=$(echo "$ARGS" | sed -n -r 's/.*--runner( +|=)([^ ]+).*/\2/p')
+          if [ -n "$RUNNER_LABEL" ]; then
+            if ! echo "$RUNNER_LABEL" | grep -qE '^[a-zA-Z0-9_-]+$'; then
+              echo "Invalid --runner label: '$RUNNER_LABEL'" >&2
+              exit 1
+            fi
+            ARGS=$(echo "$ARGS" | sed -r -e "s#--runner( +|=)$RUNNER_LABEL##" | sed 's/^ *//;s/ *$//' | sed 's/  */ /g')
+          else
+            RUNNER_LABEL=kstest
+          fi
+          echo "runner labels are: self-hosted, $RUNNER_LABEL"
+          echo "runner_labels=[\"self-hosted\",\"${RUNNER_LABEL}\"]" >> $GITHUB_OUTPUT
+
           echo "test selection arguments are: $ARGS"
           echo "comment_args=${ARGS}" >> $GITHUB_OUTPUT
           echo "kickstart-tests PR: $PR"
@@ -157,6 +180,7 @@ jobs:
       comment_args: ${{ steps.parse_comment_args.outputs.comment_args }}
       target_branch: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       kstest_pr: ${{ steps.parse_comment_args.outputs.kstest_pr }}
+      runner_labels: ${{ steps.parse_comment_args.outputs.runner_labels }}
 
   define-matrix:
     needs: pr-info
@@ -170,7 +194,7 @@ jobs:
     needs: [pr-info, define-matrix]
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.comment_args != '' && ! contains(github.event.comment.body, '--waive')
-    runs-on: [self-hosted, kstest]
+    runs-on: ${{ fromJSON(needs.pr-info.outputs.runner_labels) }}
     timeout-minutes: 360
     strategy:
       fail-fast: false
