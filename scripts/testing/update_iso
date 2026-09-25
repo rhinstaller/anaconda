@@ -12,6 +12,7 @@ import shutil
 import time
 import sys
 import subprocess
+import glob
 
 from pathlib import Path
 
@@ -251,6 +252,22 @@ def set_input_iso(args):
                                 f"{args.input_iso_path.stem}-updated{args.input_iso_path.suffix}")
     INPUT_ISO_REVISION_FILE = os.path.join(args.input_iso_path.parent, REVISION_FILE_NAME)
 
+def get_webui_RPMs(webui_checkout_path):
+    """Get RPMs from a WebUI checkout."""
+    rpm_paths = []
+    webui_rpm_path = os.path.join(webui_checkout_path, "tmp/rpms")
+    rpm_paths = glob.glob(os.path.join(webui_rpm_path,"*.rpm"))
+    if rpm_paths:
+        print("** adding %d WebUI RPMs from:" % len(rpm_paths))
+        print(webui_rpm_path)
+    else:
+        print("** no WebUI RPMs found, creating them now")
+        subprocess.run(["make", "create-updates.img"], cwd=webui_checkout_path, check=True)
+        rpm_paths = glob.glob(os.path.join(webui_rpm_path,"*.rpm"))
+        if rpm_paths:
+            print("** adding %d newly created WebUI RPMs from:" % len(rpm_paths))
+            print(webui_rpm_path)
+    return rpm_paths
 
 def main():
     parser = argparse.ArgumentParser(description="update Anaconda ISO image")
@@ -268,6 +285,8 @@ def main():
                         help='custom boot options to include in the updated ISO')
     parser.add_argument('-v', '--virt-install', action='store_true',
                         help='boot the updated iso with virt-install')
+    parser.add_argument('-w', '--webui-checkout', action='store', type=str,
+                        help='path to Anaconda WebUI checkout to include on the ISO')
     args = parser.parse_args()
 
     # Set INPUT_ISO and UPDATED_ISO based on user preferences
@@ -300,8 +319,13 @@ def main():
               "sure the input ISO has a matching Git revision file")
         sys.exit(1)
 
+    rpm_paths = args.rpm_paths
+    # Check if we should add WebUI RPMs
+    if args.webui_checkout:
+        rpm_paths.extend(get_webui_RPMs(args.webui_checkout))
+
     # Generate updates image
-    make_updates_image(base_git_revision, args.rpm_paths)
+    make_updates_image(base_git_revision, rpm_paths)
 
     # Check updates image has been generated and is in place
     check_updates_image_available()
