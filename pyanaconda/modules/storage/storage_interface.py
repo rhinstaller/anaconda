@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.interface import dbus_interface
+from dasbus.server.interface import dbus_interface, dbus_signal
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
@@ -40,6 +40,14 @@ class StorageInterface(KickstartModuleInterface):
         self.watch_property(
             "AppliedPartitioning", self.implementation.applied_partitioning_changed
         )
+        self.implementation.storage_changed.connect(
+            lambda storage: self.StorageChanged()
+        )
+
+    @dbus_signal
+    def StorageChanged(self):
+        """Signal emitted when the storage model changes."""
+        pass
 
     def ScanDevicesWithTask(self) -> ObjPath:
         """Scan all devices with a task.
