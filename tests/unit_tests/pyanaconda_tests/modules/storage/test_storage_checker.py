@@ -258,6 +258,7 @@ class StorageCheckerTests(unittest.TestCase):
             checks.verify_partition_format_sizes,
             checks.verify_bootloader,
             checks.verify_gpt_biosboot,
+            checks.verify_efivars_available,
             checks.verify_opal_compatibility,
             checks.verify_swap,
             checks.verify_swap_uuid,

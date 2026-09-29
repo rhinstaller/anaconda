@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 from collections import defaultdict
 
 from blivet import arch, blockdev, util
@@ -24,6 +25,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
+    EFIVARS_MOUNT_POINT,
     STORAGE_LUKS2_MIN_RAM,
     STORAGE_MIN_PARTITION_SIZES,
     STORAGE_MIN_RAM,
@@ -235,6 +237,48 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
                     "To continue, please create a 1MiB "
                     "'biosboot' type partition on the {} disk."
                 ).format(stage1.name))
+
+
+def verify_efivars_available(storage, constraints, report_error, report_warning):
+    """ Verify that UEFI variables are accessible.
+
+    Without them efibootmgr cannot create a boot entry for the installed
+    system, so fail before the disks are reformatted rather than after.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    if not arch.is_efi() or not conf.target.is_hardware:
+        return
+
+    if not storage.bootloader or storage.bootloader.skip_bootloader:
+        return
+
+    if os.path.ismount(EFIVARS_MOUNT_POINT):
+        return
+
+    msg = _("UEFI variables are not accessible. The boot entry for the "
+            "installed system cannot be created and the system will not boot.")
+
+    if arch.is_x86() and not _has_cpu_flag("nx"):
+        msg += " " + _("The CPU reports no NX (Execute Disable) support, which "
+                       "makes the kernel disable UEFI runtime services. Enable "
+                       "\"Execute Disable Bit\", \"NX\" or \"XD\" in the firmware "
+                       "setup and start the installation again.")
+
+    report_error(msg)
+
+
+def _has_cpu_flag(flag):
+    """ Is the given flag reported in /proc/cpuinfo? """
+    with open("/proc/cpuinfo") as f:
+        for line in f:
+            if line.startswith("flags"):
+                return flag in line.split()
+
+    return False
 
 
 def verify_opal_compatibility(storage, constraints, report_error, report_warning):
@@ -725,6 +769,7 @@ class StorageChecker:
         self.add_check(verify_partition_format_sizes)
         self.add_check(verify_bootloader)
         self.add_check(verify_gpt_biosboot)
+        self.add_check(verify_efivars_available)
         self.add_check(verify_opal_compatibility)
         self.add_check(verify_swap)
         self.add_check(verify_swap_uuid)

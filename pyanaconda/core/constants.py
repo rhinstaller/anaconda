@@ -38,6 +38,7 @@ ANACONDA_CLEANUP = "anaconda-cleanup"
 
 # System mount points.
 LIVE_MOUNT_POINT = "/run/initramfs/live"
+EFIVARS_MOUNT_POINT = "/sys/firmware/efi/efivars"
 
 # Source mount points.
 MOUNT_DIR = "/run/install"
