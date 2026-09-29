@@ -39,6 +39,7 @@ from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import EFIVARS_MOUNT_POINT
 from pyanaconda.modules.storage.platform import EFI, platform
 
 log = get_module_logger(__name__)
@@ -159,14 +160,21 @@ def get_system_filesystems(devicetree):
     ]
 
     if isinstance(platform, EFI):
-        device = NoDevice(
-            fmt=get_format(
-                "efivarfs",
-                device="efivarfs",
-                mountpoint="/sys/firmware/efi/efivars"
+        # The kernel creates the efivarfs mount point unconditionally, even when
+        # EFI runtime services are unavailable and mounting efivarfs would fail
+        # with EOPNOTSUPP. Our own mount is the only usable probe.
+        if os.path.ismount(EFIVARS_MOUNT_POINT):
+            device = NoDevice(
+                fmt=get_format(
+                    "efivarfs",
+                    device="efivarfs",
+                    mountpoint=EFIVARS_MOUNT_POINT
+                )
             )
-        )
-        devices.append(device)
+            devices.append(device)
+        else:
+            log.warning("%s is not mounted, UEFI variables are unavailable.",
+                        EFIVARS_MOUNT_POINT)
 
     if "/tmp" not in devicetree.mountpoints:
         device = NoDevice(

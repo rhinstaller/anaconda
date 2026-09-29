@@ -35,7 +35,9 @@ from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerI
 from pyanaconda.modules.storage.checker.utils import (
     _check_opal_firmware_kernel_version,
     _get_opal_firmware_kernel_version,
+    _has_cpu_flag,
     storage_checker,
+    verify_efivars_available,
     verify_lvm_destruction,
     verify_opal_compatibility,
 )
@@ -231,3 +233,98 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
             reporter.assert_not_called()
         else:
             reporter.assert_called_once_with(message)
+
+    EFIVARS_ERROR = \
+        "UEFI variables are not accessible. The boot entry for the " \
+        "installed system cannot be created and the system will not boot."
+
+    NX_HINT = \
+        " The CPU reports no NX (Execute Disable) support, which makes the " \
+        "kernel disable UEFI runtime services. Enable \"Execute Disable Bit\", " \
+        "\"NX\" or \"XD\" in the firmware setup and start the installation again."
+
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def test_efivars_verification_not_efi(self, mocked_arch):
+        """Check verify_efivars_available on a non-EFI system."""
+        mocked_arch.is_efi.return_value = False
+        self._verify_efivars_available(message=None)
+
+    @patch("pyanaconda.modules.storage.checker.utils.os.path.ismount")
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def test_efivars_verification_available(self, mocked_arch, ismount):
+        """Check verify_efivars_available with mounted efivarfs."""
+        mocked_arch.is_efi.return_value = True
+        ismount.return_value = True
+        self._verify_efivars_available(message=None)
+
+    @patch("pyanaconda.modules.storage.checker.utils.os.path.ismount")
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def test_efivars_verification_skip_bootloader(self, mocked_arch, ismount):
+        """Check verify_efivars_available with the bootloader installation disabled."""
+        mocked_arch.is_efi.return_value = True
+        ismount.return_value = False
+        self._verify_efivars_available(skip_bootloader=True, message=None)
+
+    @patch("pyanaconda.modules.storage.checker.utils._has_cpu_flag")
+    @patch("pyanaconda.modules.storage.checker.utils.os.path.ismount")
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def test_efivars_verification_unavailable(self, mocked_arch, ismount, has_cpu_flag):
+        """Check verify_efivars_available without EFI variables."""
+        mocked_arch.is_efi.return_value = True
+        mocked_arch.is_x86.return_value = True
+        ismount.return_value = False
+        has_cpu_flag.return_value = True
+
+        self._verify_efivars_available(message=self.EFIVARS_ERROR)
+
+    @patch("pyanaconda.modules.storage.checker.utils._has_cpu_flag")
+    @patch("pyanaconda.modules.storage.checker.utils.os.path.ismount")
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def test_efivars_verification_no_nx(self, mocked_arch, ismount, has_cpu_flag):
+        """Check verify_efivars_available with the NX support disabled."""
+        mocked_arch.is_efi.return_value = True
+        mocked_arch.is_x86.return_value = True
+        ismount.return_value = False
+        has_cpu_flag.return_value = False
+
+        self._verify_efivars_available(message=self.EFIVARS_ERROR + self.NX_HINT)
+
+        # The hint is x86 specific.
+        mocked_arch.is_x86.return_value = False
+        self._verify_efivars_available(message=self.EFIVARS_ERROR)
+
+    def _verify_efivars_available(self, skip_bootloader=False, message=None):
+        """Verify the availability of the EFI variables."""
+        storage = Mock()
+        storage.bootloader.skip_bootloader = skip_bootloader
+
+        reporter = Mock()
+        verify_efivars_available(
+            storage=storage,
+            constraints={},
+            report_error=reporter,
+            report_warning=None
+        )
+
+        if not message:
+            reporter.assert_not_called()
+        else:
+            reporter.assert_called_once_with(message)
+
+    def test_has_cpu_flag(self):
+        """Test the function for reading the CPU flags."""
+        patch_open = partial(patch, 'pyanaconda.modules.storage.checker.utils.open')
+
+        with patch_open(mock_open(read_data="flags\t\t: fpu vme nx pge\n")):
+            assert _has_cpu_flag("nx") is True
+
+        with patch_open(mock_open(read_data="flags\t\t: fpu vme pge\n")):
+            assert _has_cpu_flag("nx") is False
+
+        # A substring of another flag is not a match.
+        with patch_open(mock_open(read_data="flags\t\t: fpu nxfoo pge\n")):
+            assert _has_cpu_flag("nx") is False
+
+        # No flags at all, e.g. on some non-x86 architectures.
+        with patch_open(mock_open(read_data="processor\t: 0\n")):
+            assert _has_cpu_flag("nx") is False

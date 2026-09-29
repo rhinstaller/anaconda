@@ -91,8 +91,9 @@ class FSSetTestCase(unittest.TestCase):
             'tmpfs',
         ]
 
+    @patch("pyanaconda.modules.storage.devicetree.fsset.os.path.ismount", return_value=True)
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", EFI())
-    def test_collect_filesystems_efi(self):
+    def test_collect_filesystems_efi(self, ismount):
         """Test the collect_filesystems method with EFI."""
         devices = self.fsset.collect_filesystems()
         mount_points = self._get_mount_points(devices)
@@ -123,6 +124,17 @@ class FSSetTestCase(unittest.TestCase):
             'selinuxfs',
             'tmpfs',
         ]
+
+    @patch("pyanaconda.modules.storage.devicetree.fsset.os.path.ismount", return_value=False)
+    @patch("pyanaconda.modules.storage.devicetree.fsset.platform", EFI())
+    def test_collect_filesystems_efi_no_efivars(self, ismount):
+        """Test the collect_filesystems method with unavailable EFI variables."""
+        devices = self.fsset.collect_filesystems()
+        mount_points = self._get_mount_points(devices)
+        format_types = self._get_format_types(devices)
+
+        assert '/sys/firmware/efi/efivars' not in mount_points
+        assert 'efivarfs' not in format_types
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
     def test_collect_filesystems_tmp(self):
