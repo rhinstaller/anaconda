@@ -1624,9 +1624,23 @@ class StorageTasksTestCase(unittest.TestCase):
     def test_reset(self):
         """Test the reset."""
         storage = Mock()
+        storage.devices = []
         task = ScanDevicesTask(storage)
         task.run()
         storage.reset.assert_called_once()
+
+    def test_reset_unreadable_md_partition_table(self):
+        """Test the reset with an unreadable MD RAID partition table."""
+        device = Mock()
+        device.type = "mdarray"
+        device.format.type = "disklabel"
+        device.format.supported = False
+
+        storage = Mock()
+        storage.devices = [device]
+        task = ScanDevicesTask(storage)
+        task.run()
+        assert storage.reset.call_count == 2
 
     @patch("pyanaconda.modules.storage.installation.conf")
     def test_activate_filesystems(self, patched_conf):

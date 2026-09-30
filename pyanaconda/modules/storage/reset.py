@@ -62,10 +62,30 @@ class ScanDevicesTask(Task):
         try:
             self._reload_modules()
             self._reset_storage(self._storage)
+
+            # Reading the partition table of an MD RAID can fail right after
+            # the array was created outside of blivet (e.g. in Cockpit
+            # storage). The failure is cached in the format object, so reset
+            # the storage once more to re-read the partition table.
+            if self._has_unreadable_md_partition_table():
+                log.debug("Some MD RAID partition tables could not be read, rescanning")
+                self._reset_storage(self._storage)
         except UnusableConfigurationError as e:
             log.exception("Failed to scan devices: %s", e)
             message = "\n\n".join([str(e), _(e.suggestion)])
             raise UnusableStorageError(message) from None
+
+    def _has_unreadable_md_partition_table(self):
+        """Check for an MD RAID with an unreadable partition table.
+
+        :return: True if an MD RAID partition table could not be read
+        """
+        for device in self._storage.devices:
+            if device.type == "mdarray" and device.format.type == "disklabel" \
+                    and not device.format.supported:
+                return True
+
+        return False
 
     def _reload_modules(self):
         """Reload the additional modules."""
