@@ -22,7 +22,11 @@ from unittest.mock import patch
 
 from requests import RequestException
 
-from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, USER_AGENT
+from pyanaconda.core.constants import (
+    NETWORK_CONNECTION_TIMEOUT,
+    RHSM_SERVICE_TIMEOUT,
+    USER_AGENT,
+)
 from pyanaconda.modules.subscription.satellite import (
     PROVISIONING_SCRIPT_SUB_PATH,
     download_satellite_provisioning_script,
@@ -123,24 +127,31 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         )
         result.close.assert_called_once()
 
+    @patch("pyanaconda.modules.subscription.satellite.time.sleep")
+    @patch("pyanaconda.modules.subscription.satellite.time.monotonic")
     @patch("pyanaconda.core.util.requests_session")
-    def test_script_download_exception(self, get_session):
+    def test_script_download_exception(self, get_session, monotonic, sleep):
         """Test the download_satellite_provisioning_script function - exception."""
         # mock the Python Request session
         session = get_session.return_value.__enter__.return_value
         session.get.side_effect = RequestException()
+        # First sample is the start time. The next sample is still inside the
+        # window, so the download is retried. The last sample reaches the timeout.
+        monotonic.side_effect = [0, 0, RHSM_SERVICE_TIMEOUT]
         # run the download method
         script_text = download_satellite_provisioning_script("satellite.example.com")
         # if requests throw an exception, None should be returned instead of script text
         assert script_text is None
-        # check the session was called correctly
-        session.get.assert_called_once_with(
+        # the connection error is retried once, then the timeout stops the loop
+        assert session.get.call_count == 2
+        session.get.assert_called_with(
             'http://satellite.example.com' + PROVISIONING_SCRIPT_SUB_PATH,
             headers={"user-agent": USER_AGENT},
             proxies={},
             verify=False,
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
+        sleep.assert_called_once()
 
     def test_run_satellite_provisioning_script_no_script(self):
         """Test the run_satellite_provisioning_script function - no script."""
