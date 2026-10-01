@@ -4,6 +4,19 @@
 #
 # This workflow is inspired from:
 # https://github.com/cockpit-project/cockpit/blob/main/.github/workflows/trigger-anaconda.yml
+#
+# Only the e2e ("expensive") scenario is triggered automatically. The other
+# scenarios (bios, bootopts-net1, cockpit, dnf, other, storage) can be
+# triggered manually with a PR comment from an organization member:
+#
+# /webui-test storage
+# ... trigger the given scenario
+#
+# /webui-test storage cockpit
+# ... trigger multiple scenarios (space separated)
+#
+# /webui-test all
+# ... trigger all scenarios
 
 name: Anaconda Web UI
 on:
@@ -19,9 +32,16 @@ on:
       - 'data/conf.d/**/'
       - 'data/profile.d/**'
     branches: [ main, fedora-* ]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   define-matrix:
+    if: github.event_name == 'pull_request_target' || (github.event.issue.pull_request && startsWith(github.event.comment.body, '/webui-test'))
     uses: ./.github/workflows/define-matrix.yml
     with:
       target_branch: main  # Only run for releases that target main branch
@@ -29,6 +49,7 @@ jobs:
       ignore_releases: fedora-eln
 
   trigger-webui:
+    if: github.event_name == 'pull_request_target'
     needs: define-matrix
     runs-on: ubuntu-24.04
     # the default workflow token cannot read our org membership, for deciding who is allowed to trigger tests
@@ -82,12 +103,9 @@ jobs:
           REPO="${{ github.repository }}"
           TEST_OS="${{ matrix.release }}-boot"
 
-          # Keep this list in sync with ANACONDA_SCENARIOS in
-          # cockpit-project/bots (lib/testmap.py).
-          for SCENARIO in bios bootopts-net1 cockpit dnf expensive other storage; do
-            bots/tests-trigger --force --repo "$REPO" "$PR_NUMBER" \
-              "$TEST_OS/$SCENARIO-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui"
-          done
+          bots/tests-trigger --force --repo "$REPO" "$PR_NUMBER" \
+            "$TEST_OS/expensive-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui" 2>&1 | tee trigger-output.txt
+          exit "${PIPESTATUS[0]}"
 
       - name: Send a PR comment that the bots/tests-trigger needs to be manually triggered
         env:
@@ -96,13 +114,77 @@ jobs:
         run: |
           PR_NUMBER="${{ github.event.number }}"
           REPO="${{ github.repository }}"
+
+          echo "Failed to automatically trigger the Web UI tests for this PR:" > comment.txt
+          echo '```' >> comment.txt
+          cat trigger-output.txt >> comment.txt
+          echo '```' >> comment.txt
+          echo "" >> comment.txt
+          echo "If you have permission to trigger it yourself, comment \`/webui-test expensive\` to retry." >> comment.txt
+
+          gh pr comment "$PR_NUMBER" --repo "$REPO" -F comment.txt
+
+  pr-info:
+    if: github.event_name == 'issue_comment' && github.event.issue.pull_request && startsWith(github.event.comment.body, '/webui-test')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Parse requested scenarios
+        id: parse
+        # Do not use comment body directly in the shell command to avoid possible code injection.
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
+          # Keep this list in sync with ANACONDA_SCENARIOS in cockpit-project/bots (lib/testmap.py).
+          if [ "$ARGS" = "all" ]; then
+            ARGS="bios bootopts-net1 cockpit dnf expensive other storage"
+          fi
+          echo "scenarios=$ARGS" >> $GITHUB_OUTPUT
+
+    outputs:
+      pr_number: ${{ github.event.issue.number }}
+      scenarios: ${{ steps.parse.outputs.scenarios }}
+
+  trigger-webui-manual:
+    needs: [pr-info, define-matrix]
+    if: github.event_name == 'issue_comment' && needs.pr-info.outputs.scenarios != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.releases) }}
+    steps:
+      - name: Trigger requested anaconda-webui scenarios
+        id: trigger
+        env:
+          SCENARIOS: ${{ needs.pr-info.outputs.scenarios }}
+        run: |
+          git clone --depth=1 https://github.com/cockpit-project/bots
+          mkdir -p ~/.config/cockpit-dev
+          echo '${{ secrets.GITHUB_TOKEN }}' > ~/.config/cockpit-dev/github-token
+
+          PR_NUMBER="${{ needs.pr-info.outputs.pr_number }}"
+          REPO="${{ github.repository }}"
           TEST_OS="${{ matrix.release }}-boot"
 
-          echo "Only members of the Anaconda team can trigger the Web UI tests for this PR. Since you do not have permission, please ask an Anaconda team member to run the following commands:" > comment.txt
-          echo '```bash' >> comment.txt
-          for SCENARIO in bios bootopts-net1 cockpit dnf expensive other storage; do
-            echo "bots/tests-trigger --force --repo ${REPO} ${PR_NUMBER} ${TEST_OS}/${SCENARIO}-anaconda-pr-${PR_NUMBER}@rhinstaller/anaconda-webui" >> comment.txt
+          status=0
+          for SCENARIO in $SCENARIOS; do
+            bots/tests-trigger --force --repo "$REPO" "$PR_NUMBER" \
+              "$TEST_OS/$SCENARIO-anaconda-pr-$PR_NUMBER@rhinstaller/anaconda-webui" 2>&1 | tee -a trigger-output.txt
+            status=$((status + ${PIPESTATUS[0]}))
           done
+          exit $status
+
+      - name: Comment trigger failure on the PR
+        if: failure() && steps.trigger.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER="${{ needs.pr-info.outputs.pr_number }}"
+          REPO="${{ github.repository }}"
+
+          echo "Failed to trigger the requested Web UI test scenario(s) for ${{ matrix.release }}:" > comment.txt
+          echo '```' >> comment.txt
+          cat trigger-output.txt >> comment.txt
           echo '```' >> comment.txt
 
           gh pr comment "$PR_NUMBER" --repo "$REPO" -F comment.txt
