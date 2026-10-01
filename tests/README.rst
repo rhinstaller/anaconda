@@ -192,6 +192,17 @@ repository PR. See the `kickstart-tests.yml workflow`_ for supported
 options. For more detailed information on tests selection see the
 `kickstart launch script`_ documentation and-its ``--help``.
 
+Running anaconda-webui tests:
+_____________________________
+
+The `trigger-webui.yml workflow`_ automatically runs the e2e (``expensive``)
+anaconda-webui test scenario against an anaconda PR. The other scenarios
+(``bios``, ``bootopts-net1``, ``cockpit``, ``dnf``, ``other``, ``storage``)
+are not run automatically to avoid cluttering the PR with status checks.
+Users listed in the bots `allowlist`_ can trigger them on demand by sending a
+comment that starts with ``/webui-test <scenario> [<scenario> ...]`` to the
+pull request, or ``/webui-test all`` to trigger all scenarios.
+
 Container maintenance
 ---------------------
 
@@ -295,6 +306,8 @@ The launcher scripts are listed under `TESTS` in `tests/Makefile.am`.
 .. _pytest -k: https://docs.pytest.org/en/7.1.x/reference/reference.html#command-line-flags
 .. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
 .. _kickstart-tests.yml workflow: ../.github/workflows/kickstart-tests.yml
+.. _trigger-webui.yml workflow: ../.github/workflows/trigger-webui.yml
+.. _allowlist: https://github.com/cockpit-project/bots/blob/main/lib/allowlist.py
 .. _kickstart launch script: https://github.com/rhinstaller/kickstart-tests/blob/main/containers/runner/README.md
 .. _container-autoupdate.yml workflow: ../.github/workflows/container-autoupdate.yml
 .. _actions tab: https://github.com/rhinstaller/anaconda/actions?query=workflow%3A%22Refresh+container+images%22
