@@ -148,6 +148,28 @@ with an exception of the additional repositories added by kickstart (where
 this option.
 
 
+.. inst.ks.cert:
+
+inst.ks.cert
+^^^^^^^^^^^^
+
+Add a PEM CA certificate from the installation media to the initramfs trust
+store. The value is an absolute path on the installation media, for example
+``inst.ks.cert=/certs/company-ca.pem``. The certificate is imported before
+fetching ``inst.ks=https://...``.
+
+This option does not apply to ``inst.stage2`` or ``inst.repo`` URLs specified
+on the boot command line, which can be fetched before the kickstart. To use
+the certificate for stage2, specify the installation source with the ``url``
+kickstart command instead.
+
+This follows the same trust-store update principle as
+``%certificate --type=anchor``, but runs before the kickstart is downloaded.
+Use ``inst.ks.cert`` when the certificate is needed for the initial kickstart.
+Use ``%certificate --type=anchor`` when the certificate can be embedded in the
+kickstart and is needed after it is read, for example for HTTPS repositories.
+
+
 .. inst.proxy:
 
 inst.proxy
