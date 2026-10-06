@@ -52,34 +52,37 @@ jobs:
     trigger: release
     packages: [anaconda-fedora]
     dist_git_branches:
-      - rawhide
+      - f45
 
   # Tests on PR (Fedora)
   - job: tests
     trigger: pull_request
     packages: [anaconda-fedora]
     targets:
-      - fedora-rawhide
+      - fedora-45
 
   # COPR builds on PR (Fedora)
   - job: copr_build
     trigger: pull_request
     packages: [anaconda-fedora]
     targets:
-      - fedora-rawhide
-      - fedora-eln
+      - fedora-45
 
   # COPR builds on commit (Fedora): single job with multiple targets (add ELN on main)
   - job: copr_build
     trigger: commit
     packages: [anaconda-fedora]
     targets:
-      - fedora-rawhide
-      - fedora-eln
-    branch: main
+      - fedora-45
+    branch: fedora-45
     owner: "@rhinstaller"
     project: Anaconda
     preserve_project: True
+    additional_repos:
+      - "copr://@storage/blivet-daily"
+      # This repository contains fixup of Rawhide broken environment.
+      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
+      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
 
   - job: koji_build
     trigger: commit
