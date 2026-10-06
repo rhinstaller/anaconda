@@ -53,7 +53,6 @@ jobs:
     packages: [anaconda-fedora]
     dist_git_branches:
       - rawhide
-      - f45
 
   # Tests on PR (Fedora)
   - job: tests
@@ -61,7 +60,6 @@ jobs:
     packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
-      - fedora-45
 
   # COPR builds on PR (Fedora)
   - job: copr_build
@@ -69,7 +67,6 @@ jobs:
     packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
-      - fedora-45
       - fedora-eln
 
   # COPR builds on commit (Fedora): single job with multiple targets (add ELN on main)
@@ -78,7 +75,6 @@ jobs:
     packages: [anaconda-fedora]
     targets:
       - fedora-rawhide
-      - fedora-45
       - fedora-eln
     branch: main
     owner: "@rhinstaller"
