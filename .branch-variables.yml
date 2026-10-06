@@ -7,8 +7,8 @@
 # Follow "type hints" below or be sad. The choice is yours.
 
 distro_name: "fedora" # "fedora" or "rhel"
-distro_release: "rawhide" # "rawhide" or a number without quotation marks
-branch_name: "main"
+distro_release: "45" # "rawhide" or a number without quotation marks
+branch_name: "fedora-45"
 
 # The following only applies for rawhide.
 rawhide_fedora_version: 46 # number without quotation marks, or nothing if CI should not run for branched Fedora

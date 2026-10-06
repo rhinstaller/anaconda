@@ -26,7 +26,7 @@
 # conflicts on multiple places.
 
 CONTAINER_REGISTRY = quay.io
-CI_TAG ?= fedora-rawhide
+CI_TAG ?= fedora-45
 
 # Parse CI_TAG into distro and version (e.g., "fedora-41" or "rhel-9")
 CI_TAG_DISTRO := $(word 1,$(subst -, ,$(CI_TAG)))
@@ -45,13 +45,8 @@ BASE_CONTAINER = $(strip \
   ))
 
 
-# Name of the expected current git branch.
-# This could be main, fedora-XX, rhel-X ...
-GIT_BRANCH ?= main
+GIT_BRANCH ?= fedora-45
+L10N_DIR ?= f45
 
-# Directory for this anaconda branch in anaconda-l10n repository. This could be main, fXX, rhel-8 etc.
-L10N_DIR ?= main
-
-# COPR repo for use in container builds.
 COPR_REPO ?= \@rhinstaller/Anaconda
 
