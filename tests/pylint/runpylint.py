@@ -59,18 +59,8 @@ class AnacondaLintConfig(CensorshipConfig):
             FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
             FalsePositive(r"I1101.*: Module 'gi.repository.BlockDev' has no 'loop_get_backing_file' member"),
-            FalsePositive(r"E1120.*: _load_plugin_s390: No value for argument 'self' in function call"),
-
-            # TODO: NM introspection needs to be added to pylint to handle these
-            # https://github.com/pylint-dev/pylint/issues/10433
-            FalsePositive(r"E1120.*(?:network\.py|nm_client\.py|test_module_network_nm_client\.py|glib\.py|device_configuration\.py):.* No value for argument 'self' in .* call"),
-            FalsePositive(r"E1101.*(?:network\.py|nm_client\.py):.* Class .* has no .* member"),
-
-            # TODO: OStree introspection needs to be added to pylint to handle these
-            FalsePositive(r"E1120.*: PullRemoteAndDeleteTask.run: No value for argument 'self' in unbound method call"),
 
             # TODO: GTK introspection needs to be added to pylint to handle these
-            FalsePositive(r"E1120.*(?:MainWindow|GraphicalUserInterface|busyCursor|unbusyCursor|setup_gtk_direction|CreateNewPage|LangLocaleHandler).* No value for argument 'self' in .* call"),
             FalsePositive(fr"E1101.*(?:{'|'.join(gtk_instance_classes)}).* has no .* member.*"),
 
             # TODO: GI Repository introspection needs to be added to pylint to handle these
