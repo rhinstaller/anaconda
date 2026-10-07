@@ -76,9 +76,7 @@ class JIRAValidator:
 
         # Importing JIRA now will remove unnecessary requirements for Fedora use
         try:
-            # https://github.com/pylint-dev/pylint/issues/1727
-            # pylint: disable=unused-import
-            from jira import JIRA, JIRAError # pylint: disable=import-error
+            from jira import JIRA # pylint: disable=import-error
         except ModuleNotFoundError:
             print("Can't find jira python library. Please install it ideally by:\n", file=sys.stderr)
             print("dnf install python3-jira\n", file=sys.stderr)
@@ -106,10 +104,9 @@ class JIRAValidator:
     # pylint: disable=method-cache-max-size-none
     @cache
     def _query_RHEL_issue(self, bug):
+        from jira import JIRAError  # pylint: disable=import-error
         try:
             issue = self.jira.issue(bug)
-        # https://github.com/pylint-dev/pylint/issues/1727
-        # pylint: disable=undefined-variable
         except JIRAError as ex:
             raise ValueError(f"Error during JIRA query for bug {bug}: {ex.text}") from ex
 
