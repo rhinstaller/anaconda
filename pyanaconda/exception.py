@@ -251,9 +251,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         try:
             sync_run_task(onerror_task_proxy)
             sync_run_task(traceback_task_proxy)
-        # pylint: disable=bare-except
-        # ruff: noqa: E722
-        except:
+        except:  # pylint: disable=bare-except  # noqa: E722
             pass
 
     def runDebug(self, exc_info):
