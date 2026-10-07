@@ -127,7 +127,7 @@ def _get_verification_enabled(data):
         return data.gpg_verification_enabled
 
 
-class PrepareMountTargetsTaskBase(Task):
+class PrepareMountTargetsTaskBase(Task):  # pylint: disable=abstract-method
     """Base class for preparing mount targets.
 
     Provides common functionality for setting up bind mounts between physical root and sysroot.
