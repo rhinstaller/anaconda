@@ -54,6 +54,12 @@ COPY ["image-builder-build", "/"]
 COPY ["image-builder-build-webui", "/"]
 COPY ["add_webui_boot_entries.py", "/"]
 
+# TEMPORARY, drop before merging: symlink the old lorax-build(-webui)
+# entrypoint names to the new image-builder scripts, so that callers (other
+# open PRs, external CI triggers) still using --entrypoint=/lorax-build-webui
+# keep working while this migration is being tested.
+COPY ["lorax-build", "lorax-build-webui", "/"]
+
 RUN mkdir /anaconda-rpms /images
 
 WORKDIR /build
