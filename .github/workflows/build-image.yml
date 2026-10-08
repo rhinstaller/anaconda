@@ -259,7 +259,7 @@ jobs:
         run: |
           mkdir -p images
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--webui"* ]] ; then
-            WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
+            WEBUI_OPTIONAL_ARG="--entrypoint /image-builder-build-webui"
           fi
           WEBUI_PR_ARGS=""
           if [ -n "${{ needs.pr-info.outputs.anaconda_webui_pr }}" ]; then
@@ -268,7 +268,7 @@ jobs:
           if [ -n "${{ needs.pr-info.outputs.cockpit_pr }}" ]; then
             WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env COCKPIT_PR=${{ needs.pr-info.outputs.cockpit_pr }}"
           fi
-          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
