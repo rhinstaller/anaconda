@@ -371,7 +371,11 @@ def setup_display(anaconda, options):
     startup_utils.check_memory(anaconda, options)
 
     # check_memory may have changed the display mode
-    want_gui = anaconda.gui_mode and not (flags.preexisting_wayland or flags.use_rd)
+    # WebUI remote access does not need a local compositor at all - the user connects
+    # over the network to cockpit-ws, so stay on TTY1 and never start gnome-kiosk.
+    want_gui = anaconda.gui_mode and not (
+        flags.preexisting_wayland or flags.use_rd or options.webui_remote
+    )
     if want_gui:
         try:
             do_startup_wl_actions(wayland_timeout)
@@ -426,10 +430,6 @@ def setup_display(anaconda, options):
 
     # Setup Web UI remote access options
     _setup_webui_remote_auth(options)
-    if options.webui_remote:
-        # switch back to tty1 so that the network address of the machine is visible
-        # TODO/FIXME: skip compositor startup & stay on tty1
-        util.vtActivate(1)
 
     # with Wayland running we can initialize the UI interface
     anaconda.initialize_interface()
