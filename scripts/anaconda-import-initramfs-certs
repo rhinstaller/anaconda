@@ -1,5 +1,5 @@
 #! /bin/bash
-# Transfers CA certificates imported in initramfs via kickstart
+# Transfers CA certificates imported in initramfs via kickstart or inst.cert
 # to anaconda environment after switchroot.
 
 CERT_TRANSPORT_DIR=/run/install/certificates
