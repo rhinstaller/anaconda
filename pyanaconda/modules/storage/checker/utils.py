@@ -63,9 +63,28 @@ def verify_root(storage, constraints, report_error, report_warning):
                        "which is required for installation of %(prod_name)s "
                        "to continue.") % {"prod_name": get_product_name()})
 
-    if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/" \
-       and not root.format.is_empty:
-        report_error(_("You must create a new file system on the root device."))
+    teardown = False
+    check_empty = bool(root and root.format.exists and root.format.mountable
+                       and root.format.mountpoint == "/")
+    if check_empty and not root.status:
+        # if the root device is not active (e.g. deactivated LV), start it now
+        # so we can check whether the filesystem is empty
+        try:
+            root.setup()
+        except Exception as e:  # pylint: disable=broad-except
+            log.warning("Failed to activate root device for verification: %s", str(e))
+        else:
+            teardown = root.status
+
+    try:
+        if check_empty and root.status and not root.format.is_empty:
+            report_error(_("You must create a new file system on the root device."))
+    finally:
+        if teardown:
+            try:
+                root.teardown(recursive=True)
+            except Exception as e:  # pylint: disable=broad-except
+                log.warning("Failed to deactivate root device after verification: %s", str(e))
 
     if storage.root_device and constraints[STORAGE_ROOT_DEVICE_TYPES]:
         device_type = get_device_type(storage.root_device)
