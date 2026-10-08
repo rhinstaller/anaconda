@@ -450,7 +450,7 @@ container-iso-build:
 container-webui-iso-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The webui ISO builds are not supported on rhel-10!"; exit 99 )
 
-	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
+	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/image-builder-build-webui"
 
 # Build LIVE ISO from Anaconda RPM files build here
 container-live-iso-build:
