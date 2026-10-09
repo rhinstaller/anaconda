@@ -226,8 +226,8 @@ find_mount() {
 }
 
 when_diskdev_appears() {
-    local dev="${1#/dev/}" cmd=""; shift
-    cmd="/sbin/initqueue --settled --onetime --name $1 $*"
+    local dev="${1#/dev/}" name="$2"; shift 2
+    local cmd="/sbin/initqueue --settled --onetime --name $name $*"
     {
         printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
         printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
@@ -235,7 +235,8 @@ when_diskdev_appears() {
 }
 
 when_any_cdrom_appears() {
-    local cmd="/sbin/initqueue --settled --onetime --name autocd $*"
+    local name="$1"; shift
+    local cmd="/sbin/initqueue --settled --onetime --name $name $*"
     printf 'SUBSYSTEM=="block", ENV{ID_CDROM_MEDIA}=="1", RUN+="%s"\n' "$cmd" \
       >> $rulesfile
 }

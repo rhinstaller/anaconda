@@ -1,5 +1,5 @@
 [Unit]
-Description=Import of certificates added in initramfs stage of Anaconda via kickstart
+Description=Import of certificates added in initramfs stage of Anaconda via kickstart or inst.cert
 Before=NetworkManager.service
 Before=anaconda.target
 

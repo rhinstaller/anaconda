@@ -22,6 +22,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       python-deps \
                       kickstart_version.py \
                       anaconda-lib.sh \
+                      parse-anaconda-cert.sh \
                       parse-anaconda-options.sh \
                       parse-anaconda-repo.sh \
                       parse-anaconda-kickstart.sh \
@@ -29,6 +30,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       repo-genrules.sh \
                       kickstart-genrules.sh \
                       updates-genrules.sh \
+                      cert-genrules.sh \
                       anaconda-ks-sendheaders.sh \
                       anaconda-netroot.sh \
                       anaconda-diskroot \
@@ -46,6 +48,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       fetch-kickstart-net.sh \
                       fetch-kickstart-disk \
                       fetch-updates-disk \
+                      anaconda-fetch-cert \
                       parse-kickstart \
                       anaconda-modprobe.sh \
                       save-initramfs.sh \

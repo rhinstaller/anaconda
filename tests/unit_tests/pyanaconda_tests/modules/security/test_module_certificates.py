@@ -453,3 +453,89 @@ class CertificatesInterfaceTestCase(unittest.TestCase):
 
             # update-ca-trust should NOT have been called
             mock_exec.assert_not_called()
+
+    def test_collect_initramfs_certificates_no_dir(self):
+        """Test collect_initramfs_certificates when transport dir doesn't exist."""
+        module = CertificatesModule()
+        with patch(
+            "pyanaconda.modules.security.certificates.certificates.CERT_INITRAMFS_DIR",
+            "/nonexistent/path"
+        ):
+            module.collect_initramfs_certificates()
+        assert module.certificates == []
+
+    def test_collect_initramfs_certificates(self):
+        """Test collect_initramfs_certificates reads cert files."""
+        module = CertificatesModule()
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with open(os.path.join(tmpdir, "my-ca.pem"), 'w') as f:
+                f.write(CERT_RVTEST)
+
+            with patch(
+                "pyanaconda.modules.security.certificates.certificates.CERT_INITRAMFS_DIR",
+                tmpdir
+            ):
+                module.collect_initramfs_certificates()
+
+        assert len(module.certificates) == 1
+        cert = module.certificates[0]
+        assert cert.filename == "my-ca.pem"
+        assert cert.cert == CERT_RVTEST
+        assert cert.type == "anchor"
+
+    def test_collect_initramfs_certificates_dedup(self):
+        """Test that initramfs certs with same filename as kickstart are skipped."""
+        module = CertificatesModule()
+
+        # Pre-populate with a kickstart cert
+        ks_cert = CertificateData()
+        ks_cert.filename = "my-ca.pem"
+        ks_cert.cert = CERT_RVTEST
+        ks_cert.type = "anchor"
+        module.set_certificates([ks_cert])
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Same filename as kickstart cert
+            with open(os.path.join(tmpdir, "my-ca.pem"), 'w') as f:
+                f.write(CERT_RVTEST2)
+
+            with patch(
+                "pyanaconda.modules.security.certificates.certificates.CERT_INITRAMFS_DIR",
+                tmpdir
+            ):
+                module.collect_initramfs_certificates()
+
+        # Should still have only the original kickstart cert
+        assert len(module.certificates) == 1
+        assert module.certificates[0].cert == CERT_RVTEST
+
+    def test_collect_initramfs_certificates_merge(self):
+        """Test that initramfs and kickstart certs are merged."""
+        module = CertificatesModule()
+
+        # Pre-populate with a kickstart cert
+        ks_cert = CertificateData()
+        ks_cert.filename = "ks-cert.pem"
+        ks_cert.cert = CERT_RVTEST
+        ks_cert.dir = "/etc/pki/custom/"
+        module.set_certificates([ks_cert])
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with open(os.path.join(tmpdir, "inst-cert.pem"), 'w') as f:
+                f.write(CERT_RVTEST2)
+
+            with patch(
+                "pyanaconda.modules.security.certificates.certificates.CERT_INITRAMFS_DIR",
+                tmpdir
+            ):
+                module.collect_initramfs_certificates()
+
+        assert len(module.certificates) == 2
+        # Kickstart cert preserved
+        assert module.certificates[0].filename == "ks-cert.pem"
+        assert module.certificates[0].dir == "/etc/pki/custom/"
+        # Initramfs cert added
+        assert module.certificates[1].filename == "inst-cert.pem"
+        assert module.certificates[1].cert == CERT_RVTEST2
+        assert module.certificates[1].type == "anchor"

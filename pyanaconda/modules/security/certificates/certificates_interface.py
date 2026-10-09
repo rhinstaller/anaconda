@@ -42,6 +42,10 @@ class CertificatesInterface(KickstartModuleInterfaceTemplate):
         """
         return CertificateData.to_structure_list(self.implementation.certificates)
 
+    def CollectInitramfsCertificates(self) -> None:
+        """Collect certificates staged by inst.cert= in the initramfs."""
+        self.implementation.collect_initramfs_certificates()
+
     def ImportWithTask(self) -> ObjPath:
         """Import certificates in the installer environment
 

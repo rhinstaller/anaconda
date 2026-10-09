@@ -694,7 +694,12 @@ def initialize_security():
     if not flags.automatedInstall:
         security_proxy.FingerprintAuthEnabled = True
 
-    # Import certificates from kickstart
+    # Collect certificates from inst.cert= boot option (staged in initramfs
+    # at /run/install/certificates/) so they are installed to the target system.
+    certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
+    certificates_proxy.CollectInitramfsCertificates()
+
+    # Import certificates into the installer environment.
     # In most cases they have already been imported from kickstart
     # during the initramfs stage kickstart processing and passed to the
     # installer enviroment either from initramfs or early after
@@ -702,7 +707,6 @@ def initialize_security():
     # However they would not be already imported for example in case the
     # certificate is included by a snippet created in kickstart %pre
     # section.
-    certificates_proxy = SECURITY.get_proxy(CERTIFICATES)
     import_task_path = certificates_proxy.ImportWithTask()
     task_proxy = SECURITY.get_proxy(import_task_path)
     try:
