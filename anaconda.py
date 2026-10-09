@@ -36,6 +36,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.modules.common.structures.rescue import RescueData
 
+# TEST
 
 def exitHandler():
     # pylint: disable=possibly-used-before-assignment
