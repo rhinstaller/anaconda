@@ -1,17 +1,17 @@
 # Dockerfile to build boot.iso with Anaconda from the repository.
 # To find out how to build this container please look on the ./tests/README.rst file.
 # This container has to be started as --privileged and with precreated loop devices otherwise
-# lorax won't work correctly.
+# image-builder won't work correctly.
 #
 # Execution example:
 #
 # make -f ./Makefile.am container-rpms-scratch # Create Anaconda RPM in `pwd`/result/... directory.
 # sudo make -f ./Makefile.am anaconda-iso-creator-build
 #
-# # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+# # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
 # sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-iso-creator:main
 # or to build WebUI image:
-# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /lorax-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
+# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /image-builder-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
 #
 # note:
 # - add `--network=slirp4netns` if you need to share network with host computer to reach
@@ -31,27 +31,38 @@ FROM ${image}
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # Prepare environment and install build dependencies
+# (xorriso/erofs-utils/squashfs-tools/file are needed by image-builder-build-webui
+# to unpack/repack the Anaconda rootfs image inside an already-built boot.iso -
+# there is no upstream image-builder image type for the Web UI installer yet)
 RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   createrepo_c \
-# required for lorax-build-webui script
-  patch \
-  lorax; \
+  image-builder \
+  xorriso \
+  erofs-utils \
+  squashfs-tools \
+  file; \
   dnf clean all
 
 # Remove the container's restrictive %_install_langs macro (set by
-# glibc-minimal-langpack) so that lorax installs all translations
+# glibc-minimal-langpack) so that image-builder installs all translations
 # into the boot.iso, not just English.
 RUN rm /etc/rpm/macros.image-language-conf
 
-COPY ["lorax-build", "/"]
-COPY ["lorax-build-webui", "/"]
-COPY ["adjust-templates-for-webui.patch", "/"]
+COPY ["image-builder-build", "/"]
+COPY ["image-builder-build-webui", "/"]
+COPY ["add_webui_boot_entries.py", "/"]
 
-RUN mkdir /lorax /anaconda-rpms /images
+# TEMPORARY, drop before merging: symlink the old lorax-build(-webui)
+# entrypoint names to the new image-builder scripts, so that callers (other
+# open PRs, external CI triggers) still using --entrypoint=/lorax-build-webui
+# keep working while this migration is being tested.
+COPY ["lorax-build", "lorax-build-webui", "/"]
 
-WORKDIR /lorax
+RUN mkdir /anaconda-rpms /images
 
-# Exec form so `podman run ... -s <repo>` args are passed to lorax-build "$@".
-ENTRYPOINT ["/lorax-build"]
+WORKDIR /build
+
+# Exec form so `podman run ... -s <repo>` args are passed to image-builder-build "$@".
+ENTRYPOINT ["/image-builder-build"]

@@ -415,7 +415,7 @@ container-rpms-scratch:
 
 # Build ISO from Anaconda RPM files build here
 container-iso-build:
-	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in image-builder!"
 
 	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
 		echo "You need to have anaconda RPMs build first. Please run 'make -f ./Makefile.am container-rpms-scratch' before this command."; \
@@ -444,13 +444,13 @@ container-iso-build:
 	$(CONTAINER_ADD_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
 	$(ISO_CREATOR_NAME):$(CI_TAG)
-	@echo "ISO is stored in $(scrdir)/result/iso/"
+	@echo "ISO is stored in $(srcdir)/result/iso/"
 
 # Build WebUI ISO from Anaconda RPM files build here
 container-webui-iso-build:
 	@test "$(GIT_BRANCH)" != "rhel-10" || ( echo "The webui ISO builds are not supported on rhel-10!"; exit 99 )
 
-	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
+	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/image-builder-build-webui"
 
 # Build LIVE ISO from Anaconda RPM files build here
 container-live-iso-build:
@@ -478,7 +478,7 @@ container-live-iso-build:
 	$(CONTAINER_ADD_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
 	$(LIVE_ISO_CREATOR_NAME):$(CI_TAG)
-	@echo "ISO is stored in $(scrdir)/result/iso/"
+	@echo "ISO is stored in $(srcdir)/result/iso/"
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place

@@ -1,0 +1,183 @@
+#!/bin/bash
+#
+# Build a Web UI boot.iso. There is no "Web UI" image type in image-builder
+# (anaconda-webui isn't part of any upstream Fedora image-builder distro
+# definition yet), so this builds the plain boot.iso with image-builder
+# first (via image-builder-build) and then patches the result:
+#  - installs anaconda-webui/cockpit-ws/cockpit-bridge/firefox/dbus-glib
+#    into the ISO's Anaconda rootfs with `dnf --installroot`
+#  - turns the default boot menu entry into two Web UI entries: a default
+#    local one (inst.webui) and a remote one (inst.webui inst.webui.remote)
+#
+# To run this please do:
+#
+#   sudo make -f ./Makefile.am container-rpms-scratch
+#   sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /image-builder-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
+#
+#
+# Input directory:
+# /anaconda-rpms/ (Anaconda RPM files for the build)
+#
+# Output directory:
+# /images (Where the boot.iso will be stored)
+#
+{% if distro_name == "rhel" %}
+#
+# WARNING: this solution is not supported on RHEL/CentOS Stream
+#
+{% endif %}
+
+set -eux
+
+OUT_DIR=/images/
+REPO_DIR=/tmp/anaconda-rpms/
+
+. /etc/os-release
+
+if [ "$CI_TAG" = "fedora-rawhide" ]; then
+    FEDORA_VERSION="rawhide"
+else
+    FEDORA_VERSION=${CI_TAG#fedora-}
+fi
+
+# Check for COPR repositories from pull requests
+EXTRA_DNF_REPO_ARGS=()
+
+# Function to add COPR repository if PR variable is set
+add_copr_repo() {
+    local pr_var_name="$1"
+    local copr_project_path="$2"
+    local project_name="$3"
+    local pr_number="${!pr_var_name:-}"
+
+    if [ -n "${pr_number}" ]; then
+        local copr_url="https://download.copr.fedorainfracloud.org/results/packit/${copr_project_path}-${pr_number}/fedora-${FEDORA_VERSION}-x86_64/"
+        EXTRA_DNF_REPO_ARGS+=("--repofrompath=${project_name}-pr,${copr_url}")
+        echo "Using ${project_name} COPR from PR #${pr_number}: ${copr_url}"
+    fi
+}
+
+# Add COPR repositories for anaconda-webui and cockpit
+add_copr_repo "ANACONDA_WEBUI_PR" "rhinstaller-anaconda-webui" "anaconda-webui"
+add_copr_repo "COCKPIT_PR" "cockpit-project-cockpit" "cockpit"
+
+# Build the plain boot.iso first - same code path as the non-webui build.
+# We extract and unpack this same ISO ourselves below anyway (to patch in
+# the Web UI packages and boot menu), so skip image-builder-build's own
+# anaconda guardrail check here - we do the equivalent check further down
+# against the rootfs we already have unpacked, instead of paying for a
+# second full ISO extraction + rootfs unpack.
+SKIP_ANACONDA_GUARDRAIL=1 /image-builder-build "$@"
+
+STOCK_ISO="$OUT_DIR/boot.iso"
+WORKDIR=$(mktemp -d)
+ISO_TREE="$WORKDIR/iso-tree"
+ROOTFS_DIR="$WORKDIR/rootfs"
+mkdir -p "$ISO_TREE" "$ROOTFS_DIR"
+
+# Extract the whole ISO content as plain files (no loop mount needed to read it).
+xorriso -osirrox on -indev "$STOCK_ISO" -extract / "$ISO_TREE"
+
+# Locate the Anaconda rootfs image (erofs or squashfs, depending on distro
+# defaults - see iso_config.rootfs_type in image-builder's Fedora distrodef).
+ROOTFS_IMG=""
+ROOTFS_FORMAT=""
+while IFS= read -r -d '' candidate; do
+    if file -b "$candidate" | grep -qi erofs; then
+        ROOTFS_IMG="$candidate"
+        ROOTFS_FORMAT="erofs"
+        break
+    elif file -b "$candidate" | grep -qi squashfs; then
+        ROOTFS_IMG="$candidate"
+        ROOTFS_FORMAT="squashfs"
+        break
+    fi
+done < <(find "$ISO_TREE" -type f -print0)
+
+if [ -z "$ROOTFS_IMG" ]; then
+    echo "ERROR: could not locate the Anaconda rootfs image inside $STOCK_ISO" >&2
+    exit 1
+fi
+echo "Found Anaconda rootfs image: $ROOTFS_IMG ($ROOTFS_FORMAT)"
+ROOTFS_ISO_PATH="/${ROOTFS_IMG#$ISO_TREE/}"
+
+# Unpack the rootfs image
+case "$ROOTFS_FORMAT" in
+    erofs) fsck.erofs --extract="$ROOTFS_DIR" "$ROOTFS_IMG" ;;
+    squashfs) unsquashfs -f -d "$ROOTFS_DIR" "$ROOTFS_IMG" ;;
+esac
+
+# Guardrail (the one image-builder-build skipped for us, see above): make
+# sure the anaconda RPM that actually landed in the built anaconda-tree is
+# the one we just built, not whatever happens to be in the distro's
+# official repo with a higher NEVRA (image-builder's dependency solver has
+# no repo-priority knob, it just picks the newest NEVRA across all
+# configured repos - see docs/developer/image-builder-customization.rst).
+BUILT_ANACONDA_NVR=$(rpm -q --queryformat '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}' \
+    -p "$(ls $REPO_DIR/anaconda-[0-9]*.rpm | head -n1)")
+INSTALLED_ANACONDA_NVR=$(rpm --root="$ROOTFS_DIR" -q anaconda)
+if [ "$BUILT_ANACONDA_NVR" != "$INSTALLED_ANACONDA_NVR" ]; then
+    echo "ERROR: built anaconda RPM ${BUILT_ANACONDA_NVR} was not used by image-builder (got ${INSTALLED_ANACONDA_NVR})!" >&2
+    exit 1
+fi
+
+# Install the Web UI packages into the extracted rootfs, same way dnf would
+# during a normal image-builder/osbuild package-install stage: against the
+# container's own (host) dnf config (same Fedora release repos image-builder
+# itself just used) plus our freshly built anaconda RPMs and optional COPRs.
+for fs in dev proc sys; do
+    mount --bind "/$fs" "$ROOTFS_DIR/$fs"
+done
+trap 'for fs in dev proc sys; do umount -l "$ROOTFS_DIR/$fs" 2>/dev/null || true; done' EXIT
+
+dnf install -y --use-host-config --installroot="$ROOTFS_DIR" \
+    --repofrompath="anaconda-local,file://$REPO_DIR/" \
+    "${EXTRA_DNF_REPO_ARGS[@]}" \
+    anaconda-webui cockpit-ws cockpit-bridge firefox dbus-glib
+
+for fs in dev proc sys; do
+    umount -l "$ROOTFS_DIR/$fs"
+done
+trap - EXIT
+
+# Guardrail: make sure the anaconda-webui RPM that actually landed in the
+# rootfs is the one we just built, not whatever happens to be in the
+# distro's official repo with a higher NEVRA.
+webui_rpm=$(ls $REPO_DIR/anaconda-webui-[0-9]*.rpm 2>/dev/null | head -n1) || true
+if [ -n "${webui_rpm:-}" ]; then
+    built_nvr=$(rpm -q --queryformat '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}' -p "$webui_rpm")
+    installed_nvr=$(rpm --root="$ROOTFS_DIR" -q anaconda-webui)
+    if [ "$built_nvr" != "$installed_nvr" ]; then
+        echo "ERROR: built anaconda-webui RPM ${built_nvr} was not the one installed (got ${installed_nvr})!" >&2
+        exit 1
+    fi
+fi
+
+# Repack the rootfs image in the same format it came in.
+rm -f "$ROOTFS_IMG"
+case "$ROOTFS_FORMAT" in
+    erofs) mkfs.erofs -zlz4hc "$ROOTFS_IMG" "$ROOTFS_DIR" ;;
+    squashfs) mksquashfs "$ROOTFS_DIR" "$ROOTFS_IMG" -comp zstd ;;
+esac
+
+# Turn the first boot menu entry in each generated boot menu config into two
+# Web UI entries - a default local one and a remote one - and collect them
+# (plus the rootfs image) as the set of files to splice back into the ISO.
+UPDATE_ARGS=(-update "$ROOTFS_IMG" "$ROOTFS_ISO_PATH")
+while IFS= read -r -d '' cfg; do
+    python3 /add_webui_boot_entries.py "$cfg"
+    UPDATE_ARGS+=(-update "$cfg" "/${cfg#$ISO_TREE/}")
+done < <(find "$ISO_TREE" \( -iname 'grub.cfg' -o -iname 'isolinux.cfg' -o -iname 'grub2-bios.cfg' -o -iname 'grub2-efi.cfg' \) -print0)
+
+# Reassemble the ISO, replacing just the rootfs image and boot menu configs,
+# keeping the original El Torito boot catalog/boot images intact. xorriso
+# can't write to the same path it reads from, so build into a temp file and
+# move it over the original once done.
+
+NEW_ISO="$WORKDIR/boot.iso.new"
+xorriso -indev "$STOCK_ISO" -outdev "$NEW_ISO" \
+    -boot_image any replay \
+    "${UPDATE_ARGS[@]}"
+mv "$NEW_ISO" "$STOCK_ISO"
+
+rm -rf "$WORKDIR"
