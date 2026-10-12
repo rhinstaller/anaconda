@@ -488,11 +488,14 @@ class InstallerStorage(Blivet):
         """Return a template for suggest_container_name method."""
         prefix = prefix or ""  # make sure prefix is a string instead of None
 
-        # try to create a device name incorporating the hostname
+        # try to create a device name incorporating the hostname, unless it
+        # already matches the prefix (eg. the distribution's default
+        # hostname), which would produce a redundant name like "fedora_fedora"
         hostname = self._get_hostname()
+        short_hostname = hostname.split('.')[0].lower() if hostname else None
 
-        if hostname:
-            template = "%s_%s" % (prefix, hostname.split('.')[0].lower())
+        if short_hostname and short_hostname != prefix.lower():
+            template = "%s_%s" % (prefix, short_hostname)
             template = self.safe_device_name(template)
         else:
             template = prefix
