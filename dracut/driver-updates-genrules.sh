@@ -36,10 +36,10 @@ for dd in $DD_OEMDRV $DD_DISKS; do
         # this is a disk with path to specific RPM file on it
         if [ "${dd##*.}" = "rpm" ]; then
             splitsep ":" "$dd" dd_type dd_dev dd_path
-            when_diskdev_appears "$(disk_to_dev_path "$dd_type")" \
+            when_diskdev_appears "$(disk_to_dev_path "$dd_type")" driver-updates \
                 driver-updates --disk "$dd_whitespace_fix" \$devnode "$dd_dev"
         else
-            when_diskdev_appears "$(disk_to_dev_path "$dd")" \
+            when_diskdev_appears "$(disk_to_dev_path "$dd")" driver-updates \
                 driver-updates --disk "$dd_whitespace_fix" \$devnode
         fi
         wait_for_disks

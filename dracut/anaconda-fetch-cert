@@ -1,0 +1,82 @@
+#!/bin/bash
+# anaconda-fetch-cert - import certificates specified by inst.cert=
+#
+# Usage: anaconda-fetch-cert <dev> [<cert_path>]
+#
+# cdrom: mode (no cert_path): reads all cert paths from /tmp/cert_cdrom
+# hd: mode (cert_path given): imports the single specified certificate
+#
+# The certificate is treated as a CA trust anchor:
+# - copied to the anchors directory for the initramfs trust store
+# - appended to the CA bundle so curl/HTTPS trusts it immediately
+# - staged for transport to the installer environment after switchroot
+
+. /lib/anaconda-lib.sh
+
+dev="$1"
+cert_path="$2"  # optional: hd: mode passes the cert path as argument
+
+if [ -z "$dev" ]; then
+    warn_critical "anaconda-fetch-cert: no device specified"
+    exit 1
+fi
+
+# cdrom: mode - guard against multiple CDROM events firing the same import
+if [ -z "$cert_path" ]; then
+    [ -e /tmp/anaconda-cert-cdrom.done ] && exit 0
+    [ -f /tmp/cert_cdrom ] || exit 0
+fi
+
+CERT_ANCHOR_DIR="/etc/pki/ca-trust/source/anchors"
+CA_BUNDLE_PATH="/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+CERT_TRANSPORT_DIR="/run/install/certificates"
+
+import_cert() {
+    local tmpmnt="$1" cert_path="$2"
+    local certfile="$tmpmnt/${cert_path#/}"
+    local filename="${cert_path##*/}"
+
+    if [ ! -f "$certfile" ]; then
+        warn_critical "inst.cert: certificate '$cert_path' not found on $dev"
+        return
+    fi
+
+    info "anaconda: importing certificate $cert_path from $dev"
+
+    mkdir -p "$CERT_ANCHOR_DIR"
+    cp "$certfile" "$CERT_ANCHOR_DIR/$filename"
+
+    if [ -f "$CA_BUNDLE_PATH" ]; then
+        {
+            printf '\n'
+            cat "$certfile"
+            printf '\n'
+        } >> "$CA_BUNDLE_PATH"
+    else
+        warn "inst.cert: CA bundle $CA_BUNDLE_PATH not found, HTTPS may not trust this certificate"
+    fi
+
+    mkdir -p "$CERT_TRANSPORT_DIR/type/anchor"
+    cp "$certfile" "$CERT_TRANSPORT_DIR/type/anchor/$filename"
+}
+
+tmpmnt="$(mkuniqdir /run/anaconda cert-mnt)"
+if ! mount -o ro "$dev" "$tmpmnt"; then
+    warn_critical "anaconda-fetch-cert: failed to mount $dev"
+    rmdir "$tmpmnt"
+    exit 1
+fi
+
+if [ -n "$cert_path" ]; then
+    # hd: mode - import single cert passed as argument
+    import_cert "$tmpmnt" "$cert_path"
+else
+    # cdrom: mode - import all certs listed in /tmp/cert_cdrom
+    while IFS= read -r path; do
+        import_cert "$tmpmnt" "$path"
+    done < /tmp/cert_cdrom
+    true > /tmp/anaconda-cert-cdrom.done
+fi
+
+umount "$tmpmnt"
+rmdir "$tmpmnt"
