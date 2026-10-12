@@ -528,6 +528,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 12 2026 github-actions <github-actions@github.com> - 45.29-1
+- storage: Setup root device for filesystem emptiness verification (vtrefny)
+  Resolves: rhbz#2547382
+- po: update to pick up f45 translation branch (kkoukiou)
+- docs: Document the /webui-test PR comment trigger (adamkankovsky)
+- Add support for Web UI testing to update_iso script (mkolman)
+
 * Tue Sep 29 2026 github-actions <github-actions@github.com> - 45.28-1
 
 * Tue Sep 22 2026 github-actions <github-actions@github.com> - 45.27-1
