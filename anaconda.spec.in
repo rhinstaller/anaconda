@@ -528,6 +528,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 13 2026 github-actions <github-actions@github.com> - 46.2-1
+- storage: Setup root device for filesystem emptiness verification (vtrefny)
+  Resolves: rhbz#2547382
+- Don't start gnome-kiosk when WebUI remote access is requested (adamkankovsky)
+
 * Thu Oct 08 2026 Bruno <bciconel@redhat.com> - 46.1-1
 - fix: Fix pylint warning suppressions for pylint 4.1.2 (kkoukiou)
 - fix: Remove stale pylint false positives for s390, NM, OSTree, and GTK
