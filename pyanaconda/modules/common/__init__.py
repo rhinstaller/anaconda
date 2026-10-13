@@ -17,6 +17,7 @@
 #
 import sys
 
+from pyanaconda.anaconda_logging import AnacondaFileHandler, AnacondaStreamHandler
 from pyanaconda.core.path import set_mode
 
 __all__ = ["init"]
@@ -39,7 +40,7 @@ def init(log_filename=None, log_stream=sys.stderr):
 
     if log_stream:
         handlers.append(
-            logging.StreamHandler(log_stream)
+            AnacondaStreamHandler(log_stream)
         )
 
     if log_filename:
@@ -47,7 +48,7 @@ def init(log_filename=None, log_stream=sys.stderr):
         set_mode(log_filename)
 
         handlers.append(
-            logging.FileHandler(log_filename)
+            AnacondaFileHandler(log_filename)
         )
 
     logging.basicConfig(
