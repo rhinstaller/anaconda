@@ -43,7 +43,6 @@ from pykickstart.version import returnClassForVersion
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 from pyanaconda.core import util
-from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import VERSION
 from pyanaconda.core.kickstart.scripts import run_script
@@ -69,7 +68,7 @@ def check_kickstart_error():
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         print(e)
-        util.ipmi_report(IPMI_ABORTED)
+        util.ipmi_abort()
         sys.exit(1)
 
 
@@ -86,7 +85,7 @@ class AnacondaKSScript(KSScript):
                 flags.ksprompt = True
 
                 errorHandler.cb(ScriptError(self.lineno, err))
-                util.ipmi_report(IPMI_ABORTED)
+                util.ipmi_abort()
                 sys.exit(0)
             else:
                 return self.lineno, err
@@ -324,7 +323,7 @@ def parseKickstart(handler, f, strict_mode=False):
         print(_("\nAn error occurred during reading the kickstart file:"
                 "\n%s\n\nThe installer will now terminate.") % str(e).strip())
 
-        util.ipmi_report(IPMI_ABORTED)
+        util.ipmi_abort()
         time.sleep(10)
         sys.exit(1)
 

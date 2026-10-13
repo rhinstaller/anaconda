@@ -97,7 +97,7 @@ class IpmiErrorDialog(ErrorDialog):
 
     def input(self, args, key):
         """Call IPMI ABORTED. Everything else will be done by original implementation."""
-        util.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_abort()
         super().input(args, key)
 
 
