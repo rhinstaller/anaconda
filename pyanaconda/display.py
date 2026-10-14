@@ -45,7 +45,6 @@ from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.constants.services import NETWORK, RUNTIME
 from pyanaconda.modules.common.structures.rdp import RdpData
 from pyanaconda.mutter_display import MutterConfigError, MutterDisplay
-from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askrd import AskRDSpoke, RDPAuthSpoke
 
 log = get_module_logger(__name__)
@@ -103,7 +102,6 @@ def ask_rd_question(anaconda, message):
     """
     loop = GLibEventLoop()
     App.initialize(event_loop=loop)
-    loop.set_quit_callback(tui_quit_callback)
     # Get current RDP data from DBUS
     ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
     rdp_data = RdpData.from_structure(ui_proxy.Rdp)
@@ -126,7 +124,6 @@ def ask_for_rd_credentials(anaconda, username=None, password=None):
     """
     loop = GLibEventLoop()
     App.initialize(event_loop=loop)
-    loop.set_quit_callback(tui_quit_callback)
     ui_proxy = RUNTIME.get_proxy(USER_INTERFACE)
     rdp_data = RdpData.from_structure(ui_proxy.Rdp)
     spoke = RDPAuthSpoke(anaconda.ksdata, rdp_data, username=username, password=password)
