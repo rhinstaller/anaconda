@@ -14,6 +14,7 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
+from gi.repository import Gtk
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -21,7 +22,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.constants.installation import InstallationStatus
+from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
@@ -76,8 +78,18 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
         gtk_call_once(self._spinner.stop)
         gtk_call_once(self._spinner.hide)
 
-        # Finish the installation task. Re-raise tracebacks if any.
-        self._task_proxy.Finish()
+        # Boss owns the installation outcome and has already reported it, so
+        # don't call Finish(): it would re-raise the task's exception here and
+        # let the exception handler report the same outcome a second time.
+        if BOSS.get_proxy().InstallationStatus != InstallationStatus.SUCCEEDED.value:
+            log.error("The installation did not succeed.")
+            # If the user acknowledged the fatal error dialog, leave right away
+            # instead of making them click Quit again. Other failures keep the
+            # quit button available. The exit code is derived from Boss's
+            # outcome once the main loop returns.
+            if getattr(self, "_fatal_error_acknowledged", False):
+                gtk_call_once(Gtk.main_quit)
+            return
 
         if conf.license.eula:
             self.set_warning(_("Use of this product is subject to the license agreement "
@@ -135,7 +147,6 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
     def refresh(self):
         from pyanaconda.core.dbus import DBus
         from pyanaconda.core.threads import thread_manager
-        from pyanaconda.modules.common.constants.services import BOSS
 
         super().refresh()
 
