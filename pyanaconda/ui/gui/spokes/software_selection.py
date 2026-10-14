@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import sys
-
 import gi
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -31,8 +29,8 @@ from pyanaconda.core.constants import (
 )
 from pyanaconda.core.i18n import C_, CN_, _
 from pyanaconda.core.threads import thread_manager
-from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
@@ -459,8 +457,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if rc == 0:
             # Quit the installation.
-            ipmi_abort()
-            sys.exit(0)
+            BOSS.get_proxy().Quit()
+            Gtk.main_quit()
         elif rc == 1:
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
