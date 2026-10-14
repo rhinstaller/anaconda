@@ -302,7 +302,7 @@ class DBusTask(BaseTask):
             if isinstance(e, ScriptError):
                 flags.ksprompt = True
                 errorHandler.cb(e)
-                sys.exit(0)
+                sys.exit(1)
             else:
                 if errorHandler.cb(e) == ERROR_RAISE:
                     raise

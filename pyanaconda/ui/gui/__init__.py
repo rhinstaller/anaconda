@@ -858,7 +858,8 @@ class GraphicalUserInterface(UserInterface):
                 self._actions.pop(1)
 
             if not self._actions:
-                sys.exit(0)
+                Gtk.main_quit()
+                return
 
         nextAction.initialize()
         nextAction.window.set_beta(self._currentAction.window.get_beta())
