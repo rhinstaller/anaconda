@@ -15,11 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 
-from pyanaconda.modules.common.constants.installation import InstallationStatus
+from pyanaconda.installation_outcome import installation_outcome
+from pyanaconda.modules.common.constants.installation import (
+    InstallationFailureReason,
+    InstallationStatus,
+)
 
 anaconda = pytest.importorskip("anaconda")
 
@@ -52,3 +56,54 @@ class DetermineExitCodeTestCase:
             InstallationFailureReason="none",
         )
         assert anaconda.determine_exit_code(boss_proxy) == 0
+
+
+class ExitHandlerTestCase:
+
+    def setup_method(self):
+        installation_outcome.reporting_started = False
+
+    def teardown_method(self):
+        installation_outcome.reporting_started = False
+
+    def test_exit_handler_reports_unreported_outcome(self):
+        """The exit handler reports an outcome nobody else reported yet."""
+        boss_proxy = Mock(
+            InstallationStatus=InstallationStatus.FAILED.value,
+            InstallationFailureReason=InstallationFailureReason.UNHANDLED_EXCEPTION.value,
+        )
+        boss_cls = Mock()
+        boss_cls.get_proxy.return_value = boss_proxy
+
+        with patch("pyanaconda.modules.common.constants.services.BOSS", boss_cls), \
+                patch("pyanaconda.installation_outcome.report_installation_outcome") as report, \
+                patch("anaconda.cleanup_and_reboot"):
+            anaconda.exitHandler()
+
+        report.assert_called_once_with(
+            InstallationStatus.FAILED, InstallationFailureReason.UNHANDLED_EXCEPTION
+        )
+        assert installation_outcome.reporting_started
+
+    def test_exit_handler_skips_already_reported_outcome(self):
+        """The exit handler does not report an outcome already reported."""
+        installation_outcome.reporting_started = True
+
+        with patch("pyanaconda.modules.common.constants.services.BOSS") as boss_cls, \
+                patch("pyanaconda.installation_outcome.report_installation_outcome") as report, \
+                patch("anaconda.cleanup_and_reboot"):
+            anaconda.exitHandler()
+
+        boss_cls.get_proxy.assert_not_called()
+        report.assert_not_called()
+
+    def test_exit_handler_always_cleans_up(self):
+        """Cleanup still runs even if reading the outcome raises."""
+        with patch("pyanaconda.modules.common.constants.services.BOSS") as boss_cls, \
+                patch("anaconda.cleanup_and_reboot") as cleanup:
+            boss_cls.get_proxy.side_effect = RuntimeError("no D-Bus connection")
+
+            with pytest.raises(RuntimeError):
+                anaconda.exitHandler()
+
+        cleanup.assert_called_once()

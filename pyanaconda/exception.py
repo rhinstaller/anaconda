@@ -43,6 +43,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.errors import NonInteractiveError
+from pyanaconda.installation_outcome import installation_outcome
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.ui.communication import hubQ
 
@@ -108,16 +109,13 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
-            self._run_kickstart_scripts()
-            util.ipmi_report(IPMI_FAILED)
+            self._report_failure()
             sys.exit(1)
         elif isinstance(value, UnusableStorageError):
-            self._run_kickstart_scripts()
-            util.ipmi_report(IPMI_FAILED)
+            self._report_failure()
             sys.exit(1)
         elif isinstance(value, NonInteractiveError):
-            self._run_kickstart_scripts()
-            util.ipmi_report(IPMI_FAILED)
+            self._report_failure()
             sys.exit(1)
         else:
             # This will call postWriteHook.
@@ -193,8 +191,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     # to acknowledge the error; instead, print the error out and sleep
                     # for a few seconds before exiting the installer
                     print(cmdline_error_msg, flush=True)
-                    self._run_kickstart_scripts()
-                    util.ipmi_report(IPMI_FAILED)
+                    self._report_failure()
                     time.sleep(180)
                     sys.exit(1)
                 else:
@@ -229,8 +226,16 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 log.error("Failed to copy %s to %s/root", self.exnFile, conf.target.system_root)
 
         # run kickstart traceback scripts (if necessary)
-        self._run_kickstart_scripts()
+        self._report_failure()
 
+    def _report_failure(self):
+        """Run the diagnostic reporting for a fatal exception.
+
+        Marks installation_outcome as already reported, so the process exit
+        handler's fallback reporting doesn't repeat it.
+        """
+        installation_outcome.mark_reporting_started()
+        self._run_kickstart_scripts()
         util.ipmi_report(IPMI_FAILED)
 
     def _run_kickstart_scripts(self):

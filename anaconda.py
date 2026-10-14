@@ -38,6 +38,26 @@ from pyanaconda.modules.common.structures.rescue import RescueData
 
 
 def exitHandler():
+    try:
+        from pyanaconda.installation_outcome import installation_outcome
+
+        if not installation_outcome.reporting_started:
+            from pyanaconda.modules.common.constants.installation import (
+                InstallationFailureReason,
+                InstallationStatus,
+            )
+            from pyanaconda.modules.common.constants.services import BOSS as BOSS_SERVICE
+
+            boss = BOSS_SERVICE.get_proxy()
+            installation_outcome.report(
+                InstallationStatus(boss.InstallationStatus),
+                InstallationFailureReason(boss.InstallationFailureReason),
+            )
+    finally:
+        cleanup_and_reboot()
+
+
+def cleanup_and_reboot():
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
     runtime_proxy.Exit()
