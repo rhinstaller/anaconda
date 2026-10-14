@@ -19,7 +19,6 @@
 
 import os
 import re
-import sys
 
 import gi
 
@@ -40,7 +39,6 @@ from pyanaconda.core.product import (
     get_product_name,
     get_product_version,
 )
-from pyanaconda.core.util import ipmi_abort
 from pyanaconda.modules.common.constants.services import LOCALIZATION, TIMEZONE
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -288,8 +286,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
                 rc = dialog.run()
 
             if rc != 1:
-                ipmi_abort()
-                sys.exit(0)
+                Gtk.main_quit()
+                return
 
         StandaloneSpoke._on_continue_clicked(self, window, user_data)
 

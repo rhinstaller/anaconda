@@ -23,11 +23,11 @@ from simpleline.render.adv_widgets import (
     GetPasswordInputScreen,
     YesNoDialog,
 )
-from simpleline.render.screen import Prompt, UIScreen
+from simpleline.render.screen import InputState, Prompt, UIScreen
 from simpleline.render.screen_handler import ScreenHandler
 
 from pyanaconda import input_checking
-from pyanaconda.core import constants, util
+from pyanaconda.core import constants
 from pyanaconda.core.i18n import _
 from pyanaconda.core.users import crypt_password
 from pyanaconda.ui import common
@@ -84,7 +84,7 @@ def report_check_func():
     return outer_wrapper
 
 
-class IpmiErrorDialog(ErrorDialog):
+class InstallationErrorDialog(ErrorDialog):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -96,9 +96,8 @@ class IpmiErrorDialog(ErrorDialog):
         self.input_manager.skip_concurrency_check = True
 
     def input(self, args, key):
-        """Call IPMI ABORTED. Everything else will be done by original implementation."""
-        util.ipmi_report(constants.IPMI_ABORTED)
-        super().input(args, key)
+        """Close the dialog instead of terminating the installer."""
+        return InputState.PROCESSED_AND_CLOSE
 
 
 class TUIObject(UIScreen, common.UIObject):
