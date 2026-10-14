@@ -270,7 +270,7 @@ class Rescue:
                 flags.ksprompt = True
                 errorHandler.cb(e)
                 util.ipmi_abort()
-                sys.exit(0)
+                sys.exit(1)
             pass
 
         self.status = RescueModeStatus.MOUNTED
