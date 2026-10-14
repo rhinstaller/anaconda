@@ -86,7 +86,7 @@ class AnacondaKSScript(KSScript):
 
                 errorHandler.cb(ScriptError(self.lineno, err))
                 util.ipmi_abort()
-                sys.exit(0)
+                sys.exit(1)
             else:
                 return self.lineno, err
 

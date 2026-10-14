@@ -717,6 +717,31 @@ class BossInterfaceTestCase:
         assert self.module.installation_status == terminal_status
 
 
+class DetermineExitCodeTestCase:
+
+    @pytest.fixture
+    def installer(self):
+        return pytest.importorskip("anaconda")
+
+    @pytest.mark.parametrize("status", [
+        InstallationStatus.FAILED,
+        InstallationStatus.ABORTED,
+        InstallationStatus.RUNNING,
+    ])
+    def test_non_success_is_nonzero(self, installer, status):
+        boss_proxy = Mock(spec=["InstallationStatus"], InstallationStatus=status.value)
+        assert installer.determine_exit_code(boss_proxy) == 1
+
+    def test_success_is_zero(self, installer):
+        boss_proxy = Mock(InstallationStatus=InstallationStatus.SUCCEEDED.value)
+        assert installer.determine_exit_code(boss_proxy) == 0
+
+    def test_not_started_is_zero(self, installer):
+        """No installation was attempted (e.g. rescue mode) -- not a failure."""
+        boss_proxy = Mock(InstallationStatus=InstallationStatus.NOT_STARTED.value)
+        assert installer.determine_exit_code(boss_proxy) == 0
+
+
 def test_load_initial_state_with_error_file(anaconda_run_dir):
     """Test that Boss restores FAILED state from a persisted error file."""
     Path(constants.ANACONDA_INSTALL_ERROR_MSG_FILE).write_text("disk full")
