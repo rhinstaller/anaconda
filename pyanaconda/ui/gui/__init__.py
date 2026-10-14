@@ -47,6 +47,7 @@ from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.flags import flags
 from pyanaconda.keyboard import can_configure_keyboard
+from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda.ui.gui.utils import (
@@ -784,10 +785,6 @@ class GraphicalUserInterface(UserInterface):
             dlg.run()
             dlg.window.destroy()
 
-        # the dialog has the only button -- "Exit installer", so just do so
-        util.ipmi_abort()
-        sys.exit(1)
-
     @async_action_wait
     def showDetailedError(self, message, details, buttons=None):
         from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
@@ -897,7 +894,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exited.emit(self._currentAction)
-            util.ipmi_abort()
+            BOSS.get_proxy().Quit()
             Gtk.main_quit()
 
 
