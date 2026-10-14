@@ -831,6 +831,62 @@ class MiscTests(unittest.TestCase):
         scripts_proxy_mock.RunScriptsWithTask.assert_called_once_with(4)
         sync_run_mock.assert_called_once_with(task_proxy_mock)
 
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.core.util.RUNTIME.get_proxy")
+    def test_run_kickstart_error_scripts_with_traceback(self, get_proxy_mock, sync_run_mock):
+        """Test that run_kickstart_error_scripts(True) runs onerror then traceback."""
+        from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_TRACEBACK
+
+        onerror_path = "/org/fedora/Task/1"
+        traceback_path = "/org/fedora/Task/2"
+
+        scripts_proxy_mock = Mock()
+        scripts_proxy_mock.RunScriptsWithTask.side_effect = lambda t: {
+            KS_SCRIPT_ONERROR: onerror_path,
+            KS_SCRIPT_TRACEBACK: traceback_path,
+        }[t]
+
+        onerror_proxy_mock = Mock()
+        traceback_proxy_mock = Mock()
+
+        get_proxy_mock.side_effect = lambda path: {
+            SCRIPTS: scripts_proxy_mock,
+            onerror_path: onerror_proxy_mock,
+            traceback_path: traceback_proxy_mock,
+        }[path]
+
+        util.run_kickstart_error_scripts(include_traceback=True)
+
+        assert scripts_proxy_mock.RunScriptsWithTask.call_args_list == [
+            unittest.mock.call(KS_SCRIPT_ONERROR),
+            unittest.mock.call(KS_SCRIPT_TRACEBACK),
+        ]
+        assert sync_run_mock.call_args_list == [
+            unittest.mock.call(onerror_proxy_mock),
+            unittest.mock.call(traceback_proxy_mock),
+        ]
+
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.core.util.RUNTIME.get_proxy")
+    def test_run_kickstart_error_scripts_without_traceback(self, get_proxy_mock, sync_run_mock):
+        """Test that run_kickstart_error_scripts(False) only runs onerror."""
+        fake_task_path = "/org/fedora/Task/1"
+
+        scripts_proxy_mock = Mock()
+        scripts_proxy_mock.RunScriptsWithTask.return_value = fake_task_path
+
+        task_proxy_mock = Mock()
+
+        get_proxy_mock.side_effect = lambda path: {
+            SCRIPTS: scripts_proxy_mock,
+            fake_task_path: task_proxy_mock,
+        }[path]
+
+        util.run_kickstart_error_scripts(include_traceback=False)
+
+        scripts_proxy_mock.RunScriptsWithTask.assert_called_once()
+        sync_run_mock.assert_called_once_with(task_proxy_mock)
+
     def test_dracut_eject(self):
         """Test writing the device eject dracut shutdown hook."""
         devname = "/some/device"
