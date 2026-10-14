@@ -372,7 +372,9 @@ class BossInterfaceTestCase:
         self.module._on_installation_started()
         status_callback.reset_mock()
 
-        task.error_raised_signal.emit("Something went wrong", error_type)
+        task.error_raised_signal.emit(
+            "Something went wrong", error_type, InstallationFailureReason.NONE
+        )
 
         assert self.interface.InstallationStatus == InstallationStatus.RUNNING
         assert self.module.installation_status == InstallationStatus.RUNNING
@@ -419,7 +421,10 @@ class BossInterfaceTestCase:
         task = task_proxy.implementation
 
         self.module._on_installation_started()
-        task.error_raised_signal.emit("Non-fatal error", InstallationErrorDialogType.YES_NO)
+        task.error_raised_signal.emit(
+            "Non-fatal error", InstallationErrorDialogType.YES_NO,
+            InstallationFailureReason.NONE,
+        )
 
         assert self.interface.PendingErrorMessage == "Non-fatal error"
         assert self.interface.PendingErrorType == InstallationErrorDialogType.YES_NO

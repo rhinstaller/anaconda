@@ -103,7 +103,10 @@ class InstallManagerTestCase(unittest.TestCase):
         # pylint: disable=no-member
         interface.ErrorRaised.connect(callback)
 
-        task.error_raised_signal.emit("queue error", InstallationErrorDialogType.YES_NO)
+        task.error_raised_signal.emit(
+            "queue error", InstallationErrorDialogType.YES_NO,
+            InstallationFailureReason.NONE,
+        )
         callback.assert_called_once_with("queue error", InstallationErrorDialogType.YES_NO)
 
         interface.RespondToError(True)

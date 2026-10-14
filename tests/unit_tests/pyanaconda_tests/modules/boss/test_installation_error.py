@@ -21,8 +21,14 @@ from unittest.mock import Mock
 
 from pyanaconda.errors import ERROR_RAISE, ScriptError, errorHandler
 from pyanaconda.installation_tasks import Task, TaskQueue
+from pyanaconda.modules.boss.install_manager.installation_category_interface import (
+    CategoryReportTaskInterface,
+)
 from pyanaconda.modules.boss.installation import RunInstallationTask, _RemoteErrorUI
-from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
+from pyanaconda.modules.common.constants.installation import (
+    InstallationErrorDialogType,
+    InstallationFailureReason,
+)
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError
 
 
@@ -58,7 +64,7 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
         task = TestRunInstallationWithErrors(Mock(), Mock())
         received = []
 
-        def handler(message, detail_type):
+        def handler(message, detail_type, failure_reason):
             received.append((message, detail_type))
             task.respond_to_error(True)
 
@@ -83,7 +89,7 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
         task = RunInstallationTask(Mock(), Mock())
         received = []
 
-        def handler(message, detail_type):
+        def handler(message, detail_type, failure_reason):
             received.append((message, detail_type))
             task.respond_to_error(False)
 
@@ -97,3 +103,26 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
         assert received[0][1] == InstallationErrorDialogType.FATAL_ERROR
         assert "42" in received[0][0]
         assert "script failed" in received[0][0]
+
+    def test_error_raised_dbus_signal_drops_failure_reason(self):
+        """The public ErrorRaised D-Bus signal only takes (message, detail_type).
+
+        The internal error_raised_signal carries a third argument (the
+        InstallationFailureReason) for Boss's own classification, which must
+        not be forwarded to the D-Bus signal -- its signature is part of the
+        public API used by GUI/TUI/WebUI.
+        """
+        task = RunInstallationTask(Mock(), Mock())
+        interface = CategoryReportTaskInterface(task)
+
+        callback = Mock()
+        interface.ErrorRaised.connect(callback)
+
+        task.error_raised_signal.emit(
+            "boom", InstallationErrorDialogType.FATAL_ERROR,
+            InstallationFailureReason.INSTALLATION_ERROR,
+        )
+
+        callback.assert_called_once_with(
+            "boom", InstallationErrorDialogType.FATAL_ERROR
+        )
