@@ -349,11 +349,11 @@ def report_installation_outcome(status, failure_reason):
         util.run_kickstart_error_scripts(include_traceback=False)
     elif status == InstallationStatus.FAILED:
         if failure_reason == InstallationFailureReason.INSTALLATION_ERROR:
-            util.run_kickstart_error_scripts(include_traceback=False)
             util.ipmi_report(IPMI_ABORTED)
+            util.run_kickstart_error_scripts(include_traceback=False)
         else:
-            util.run_kickstart_error_scripts(include_traceback=True)
             util.ipmi_report(IPMI_FAILED)
+            util.run_kickstart_error_scripts(include_traceback=True)
     else:
         log.warning("Unexpected terminal installation status: %s", status)
 
