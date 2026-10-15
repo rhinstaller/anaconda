@@ -20,7 +20,7 @@ import os
 import shlex
 
 from blivet import util as blivet_util
-from blivet.errors import StorageError
+from blivet.errors import FSError, StorageError
 from blivet.fstab import FSTabManager
 from blivet.storage_log import log_exception_info
 
@@ -33,6 +33,28 @@ from pyanaconda.modules.storage.devicetree.fsset import BlkidTab, CryptTab
 log = get_module_logger(__name__)
 
 __all__ = ["Root", "find_existing_installations", "mount_existing_system"]
+
+
+def _mount_system_filesystems_into_chroot(storage, chroot_path):
+    """Mount blivet system filesystems under a nested rescue chroot.
+
+    ``mount_filesystems`` already mounts ``system_filesystems`` under the
+    physical root. OSTree rescue tells users to chroot into the deployment
+    path (``fstab_root``); remount the same devices there via
+    ``device.format.setup(chroot=...)`` so /proc, /sys, /dev, /run (and
+    related API mounts) are available inside that chroot.
+
+    :param storage: blivet storage model with an FSSet
+    :param str chroot_path: absolute path to the OSTree deployment
+    """
+    for device in storage.fsset.system_filesystems:
+        if not device.format.mountable or not device.format.mountpoint:
+            continue
+        try:
+            device.format.setup(chroot=chroot_path)
+        except (OSError, FSError) as e:
+            log.warning("Failed to mount %s in rescue chroot: %s",
+                        device.format.mountpoint, e)
 
 
 def mount_existing_system(storage, root_device, read_only=None):
@@ -65,6 +87,13 @@ def mount_existing_system(storage, root_device, read_only=None):
     sysroot = conf.target.system_root
     storage.fsset.parse_fstab(chroot=sysroot)
     storage.fsset.mount_filesystems(root_path=root_path, read_only=read_only, skip_root=True)
+
+    # For OSTree deployments, mount API filesystems into the deployment
+    # path so they are available inside the rescue chroot (RHEL-253218).
+    if fstab_root and fstab_root != root_path:
+        _mount_system_filesystems_into_chroot(storage, fstab_root)
+        log.info("Mounted system filesystems into OSTree rescue chroot: %s",
+                 fstab_root)
 
     # Turn on swap.
     if not conf.target.is_image or not read_only:
