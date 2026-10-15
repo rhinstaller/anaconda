@@ -30,6 +30,10 @@ Options:
                                     container (same as make container-webui-iso-build):
                                       ANACONDA_WEBUI_PR=<n>  COCKPIT_PR=<n>
 
+Optional env vars for any boot.iso build (see also make container-iso-build):
+  IMAGE_BUILDER_PR=<n>              Use image-builder from the given PR's packit
+                                    COPR instead of the released one, e.g. 2765
+
 EOF
 }
 

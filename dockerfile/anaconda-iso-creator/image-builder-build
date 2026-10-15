@@ -52,6 +52,28 @@ if [ "$CI_TAG" = "fedora-eln" ]; then
     echo "fedora-eln is not supported by the image-builder based build yet" >&2
     exit 1
 fi
+
+# Optionally swap in an image-builder built from a pull request, so blueprint
+# customizations that are not released yet can be tested. IMAGE_BUILDER_PR is
+# the pull request number (e.g. IMAGE_BUILDER_PR=2765), looked up in the
+# packit COPR - mirroring the ANACONDA_WEBUI_PR/COCKPIT_PR handling in
+# image-builder-build-webui - so nothing has to be hardcoded here.
+if [ -n "${IMAGE_BUILDER_PR:-}" ]; then
+    if [ "$CI_TAG" = "fedora-rawhide" ]; then
+        FEDORA_VERSION="rawhide"
+    else
+        FEDORA_VERSION=${CI_TAG#fedora-}
+    fi
+    IMAGE_BUILDER_COPR_URL="https://download.copr.fedorainfracloud.org/results/packit/osbuild-image-builder-${IMAGE_BUILDER_PR}/fedora-${FEDORA_VERSION}-x86_64/"
+    echo "Using image-builder COPR from PR #${IMAGE_BUILDER_PR}: ${IMAGE_BUILDER_COPR_URL}"
+    # --allow-vendor-change: the COPR build and the distro build can have the
+    # same version but a different vendor, which dnf would otherwise refuse to
+    # replace. --nogpgcheck: the COPR repo key is not imported here.
+    dnf upgrade -y --allow-vendor-change --nogpgcheck \
+        --repofrompath="image-builder-pr,${IMAGE_BUILDER_COPR_URL}" \
+        image-builder
+fi
+
 # image-builder doesn't know the "fedora-rawhide" alias, only numbered
 # versions (e.g. "fedora-46") - VERSION_ID from /etc/os-release of this
 # very container is already the current Rawhide version number, so use that

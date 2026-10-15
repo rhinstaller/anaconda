@@ -64,6 +64,15 @@ the installer environment as an additional transaction, and that is what
    the original El Torito boot catalog, so only the boot configs actually
    change).
 
+``customizations.installer.packages`` is not in a released image-builder yet.
+To build a Web UI boot.iso with it, pass the image-builder pull request number
+to the ISO build via the ``IMAGE_BUILDER_PR`` environment variable (e.g.
+``IMAGE_BUILDER_PR=2765``): ``image-builder-build`` then replaces the
+container's image-builder with the one from that PR's packit COPR before
+building. This mirrors the ``ANACONDA_WEBUI_PR``/``COCKPIT_PR`` handling and
+keeps no PR number baked into the scripts; once a release with the feature
+lands in the distro repos, just leave ``IMAGE_BUILDER_PR`` unset.
+
 Known behavior difference: ISO volume label
 ---------------------------------------------
 

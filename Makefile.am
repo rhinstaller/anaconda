@@ -432,11 +432,16 @@ container-iso-build:
 		echo "ERROR: COCKPIT_PR must be numeric, got: $$COCKPIT_PR"; \
 		exit 1; \
 	fi
+	@if [ -n "$$IMAGE_BUILDER_PR" ] && ! echo "$$IMAGE_BUILDER_PR" | grep -q '^[0-9][0-9]*$$'; then \
+		echo "ERROR: IMAGE_BUILDER_PR must be numeric, got: $$IMAGE_BUILDER_PR"; \
+		exit 1; \
+	fi
 
 	mkdir -p result/iso
 	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
 	$(if $(ANACONDA_WEBUI_PR),--env ANACONDA_WEBUI_PR="$$ANACONDA_WEBUI_PR") \
 	$(if $(COCKPIT_PR),--env COCKPIT_PR="$$COCKPIT_PR") \
+	$(if $(IMAGE_BUILDER_PR),--env IMAGE_BUILDER_PR="$$IMAGE_BUILDER_PR") \
 	--rm \
 	--privileged \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
