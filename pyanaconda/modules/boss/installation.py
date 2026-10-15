@@ -37,6 +37,9 @@ from pyanaconda.core.constants import (
     CATEGORY_SOFTWARE,
     CATEGORY_STORAGE,
     CATEGORY_SYSTEM,
+    IPMI_ABORTED,
+    IPMI_FAILED,
+    IPMI_FINISHED,
     PAYLOAD_LIVE_TYPES,
     PAYLOAD_TYPE_DNF,
 )
@@ -57,6 +60,7 @@ from pyanaconda.modules.boss.install_manager.installation_category_interface imp
 from pyanaconda.modules.common.constants.installation import (
     InstallationErrorDialogType,
     InstallationFailureReason,
+    InstallationStatus,
 )
 from pyanaconda.modules.common.constants.objects import (
     BOOTLOADER,
@@ -325,15 +329,48 @@ class _RemoteErrorUI:
         self._task._show_dialog(message, InstallationErrorDialogType.FATAL_ERROR)
 
 
+def report_installation_outcome(status, failure_reason):
+    """Report a terminal installation outcome via IPMI and kickstart scripts.
+
+    Sends the IPMI event matching the outcome and runs the %onerror (and,
+    for an unhandled exception, also the %traceback) kickstart scripts.
+
+    The calls can block for a while, so this must never run on the D-Bus
+    event loop of a service that is expected to stay responsive. Call it
+    either from a worker thread (the installation task) or during shutdown.
+
+    :param status: a terminal InstallationStatus value
+    :param failure_reason: an InstallationFailureReason value
+    """
+    if status == InstallationStatus.SUCCEEDED:
+        util.ipmi_report(IPMI_FINISHED)
+    elif status == InstallationStatus.ABORTED:
+        util.ipmi_report(IPMI_ABORTED)
+        util.run_kickstart_error_scripts(include_traceback=False)
+    elif status == InstallationStatus.FAILED:
+        if failure_reason == InstallationFailureReason.INSTALLATION_ERROR:
+            util.run_kickstart_error_scripts(include_traceback=False)
+            util.ipmi_report(IPMI_ABORTED)
+        else:
+            util.run_kickstart_error_scripts(include_traceback=True)
+            util.ipmi_report(IPMI_FAILED)
+    else:
+        log.warning("Unexpected terminal installation status: %s", status)
+
+
 class RunInstallationTask(InstallationTask):
     """Task to run the installation queue."""
 
-    def __init__(self, install_manager):
+    def __init__(self, install_manager, report_outcome):
         """Create a new task.
+
+        :param install_manager: an install manager
+        :param report_outcome: a callable reporting the terminal outcome
         """
         super().__init__()
         self._total_steps = 0
         self._install_manager = install_manager
+        self._report_outcome = report_outcome
         self._error_raised_signal = Signal()
         self._error_response_event = Event()
         self._error_response_signal = Signal()
@@ -404,7 +441,13 @@ class RunInstallationTask(InstallationTask):
             self._error_raised_signal.emit(
                 str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
             )
-        super()._thread_failed_callback(*exc_info)
+        try:
+            self._report_outcome(
+                InstallationStatus.FAILED, self._failure_reason
+            )
+        finally:
+            # Always report the failure, even if the diagnostic scripts fail.
+            super()._thread_failed_callback(*exc_info)
 
     @property
     def name(self):
@@ -417,8 +460,16 @@ class RunInstallationTask(InstallationTask):
         return self._total_steps
 
     def run(self):
-        """Run the task."""
+        """Run the installation and report its outcome.
+
+        This runs in the task's worker thread, so the (possibly slow) IPMI
+        report and kickstart error scripts never block the D-Bus loop. A
+        failure is reported from _thread_failed_callback instead.
+        """
         self._run_installation()
+        self._report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
 
     def for_publication(self):
         """Return a DBus representation."""
