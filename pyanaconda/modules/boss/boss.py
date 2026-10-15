@@ -121,27 +121,17 @@ class Boss(Service):
     def stop(self):
         """Stop all modules and then stop the boss.
 
-        This only tears down the modules. It deliberately does not decide or
-        report the installation outcome: that is left to the code that
-        actually knows it (the installation task on success/failure, or an
-        explicit user-initiated abort), so a plain shutdown never fabricates
-        an ABORTED result -- for example when no installation was attempted
-        at all (rescue mode, or a WebUI quit before the install started).
+        If the installation hasn't reached a terminal state yet, record it
+        as aborted before tearing down the modules.
         """
+        self.report_outcome(
+            InstallationStatus.ABORTED, self._installation_failure_reason
+        )
         self._module_manager.stop_modules()
         super().stop()
 
     def report_outcome(self, status, failure_reason):
         """Report a terminal installation outcome, at most once.
-
-        The installation task calls this from its worker thread when it
-        finishes; an explicit user abort calls it from the D-Bus main loop.
-        The first caller wins, so a user-initiated abort racing with a
-        finishing task still produces exactly one report.
-
-        The status is committed before the (possibly failing) IPMI/kickstart
-        reporting runs, so a reporting failure can never retroactively turn
-        an already-reached SUCCEEDED/ABORTED back into FAILED.
 
         :param status: a terminal InstallationStatus value
         :param failure_reason: an InstallationFailureReason value
@@ -150,7 +140,15 @@ class Boss(Service):
             if self._outcome_reported:
                 return
             self._outcome_reported = True
-            self._set_installation_status(status)
+            if not self._set_installation_status(status):
+                return
+
+        if status == InstallationStatus.FAILED:
+            log.error("The installation has failed: %s.", failure_reason.value)
+        elif status == InstallationStatus.SUCCEEDED:
+            log.info("The installation has succeeded.")
+        else:
+            log.info("The installation has been aborted.")
 
         report_installation_outcome(status, failure_reason)
 
@@ -254,12 +252,6 @@ class Boss(Service):
         self._installation_task.started_signal.connect(
             self._on_installation_started
         )
-        self._installation_task.succeeded_signal.connect(
-            self._on_installation_succeeded
-        )
-        self._installation_task.failed_signal.connect(
-            self._on_installation_failed
-        )
         self._installation_task.stopped_signal.connect(
             self._on_installation_stopped
         )
@@ -279,6 +271,7 @@ class Boss(Service):
         The signal is only emitted when the status actually changes.
 
         :param status: the new InstallationStatus value
+        :return: True if the status changed, otherwise False
         """
         if self._installation_status in (
             InstallationStatus.SUCCEEDED,
@@ -287,13 +280,14 @@ class Boss(Service):
         ):
             log.debug("Ignoring status change to %s — already in terminal state %s.",
                        status, self._installation_status)
-            return
+            return False
 
         if self._installation_status == status:
-            return
+            return False
 
         self._installation_status = status
         self.installation_status_changed.emit()
+        return True
 
     def _set_pending_error(self, error_message, error_type):
         """Store an error and notify listeners.
@@ -331,21 +325,6 @@ class Boss(Service):
         log.info("The installation has started.")
         self._set_installation_status(InstallationStatus.RUNNING)
         self.active_installation_task_changed.emit()
-
-    def _on_installation_succeeded(self):
-        """Log the installation task success.
-
-        The terminal outcome is recorded and reported by the task itself.
-        """
-        log.info("The installation has succeeded.")
-
-    def _on_installation_failed(self):
-        """Log the installation task failure.
-
-        The terminal outcome and its reason are recorded and reported by
-        the task itself, see _on_error_raised.
-        """
-        log.error("The installation has failed.")
 
     def _on_error_raised(self, message, error_type):
         """Handle errors raised during installation.
