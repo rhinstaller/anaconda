@@ -55,7 +55,7 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
 
     def test_non_critical_error_forwarded_during_installation(self):
         """Non-critical errors during installation are forwarded to the UI."""
-        task = TestRunInstallationWithErrors(Mock())
+        task = TestRunInstallationWithErrors(Mock(), Mock())
         received = []
 
         def handler(message, detail_type):
@@ -80,7 +80,7 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
 
     def test_script_error_uses_fatal_dialog(self):
         """Script errors are forwarded as fatal error dialogs."""
-        task = RunInstallationTask(Mock())
+        task = RunInstallationTask(Mock(), Mock())
         received = []
 
         def handler(message, detail_type):

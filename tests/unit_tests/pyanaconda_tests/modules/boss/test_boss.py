@@ -51,6 +51,16 @@ class BossInterfaceTestCase:
         self.interface = BossInterface(self.module)
         self._error_file = self.module._error_file
 
+    @pytest.fixture(autouse=True)
+    def _patch_outcome_reporting(self):
+        """Don't report the installation outcome for real.
+
+        Reporting reaches the %onerror/%traceback scripts via the D-Bus
+        Scripts module, which isn't available in unit tests.
+        """
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            yield
+
     def _add_module(self, service_name, available=True, proxy=None):
         """Add a DBus module."""
         if proxy is None:
@@ -554,26 +564,59 @@ class BossInterfaceTestCase:
         callback.assert_not_called()
 
     def test_quit(self):
-        """Test Quit."""
+        """Test that Quit only tears down and does not decide the outcome."""
         assert self.interface.Quit() is None
-        assert self.module.installation_status == InstallationStatus.ABORTED
+        assert self.module.installation_status == InstallationStatus.NOT_STARTED
 
-    def test_stop_sets_aborted_from_not_started(self):
-        """Test that stopping before installing sets ABORTED."""
+    def test_stop_does_not_change_not_started(self):
+        """Test that stopping before installing does not fabricate ABORTED."""
         self.module.stop()
 
-        assert self.module.installation_status == InstallationStatus.ABORTED
+        assert self.module.installation_status == InstallationStatus.NOT_STARTED
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_report_outcome_at_most_once(self, report_mock):
+        """Test that only the first reported outcome is used."""
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+        self.module.report_outcome(
+            InstallationStatus.ABORTED, InstallationFailureReason.NONE
+        )
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_running_install_and_quit_reports_once(self, report_mock):
+        """Test that a finishing task plus a user quit report a single outcome.
+
+        The task's worker thread reports SUCCEEDED; a subsequent Quit must
+        not report ABORTED (or anything) a second time.
+        """
+        self.module._on_installation_started()
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+        self.module._on_installation_succeeded()
+
+        self.module.stop()
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
 
     @patch_dbus_publish_object
-    def test_stop_sets_aborted_from_running(self, publisher):
-        """Test that stopping while running sets ABORTED."""
+    def test_stop_does_not_change_running(self, publisher):
+        """Test that stopping a running install does not fabricate an outcome."""
         task_paths = self.interface.InstallWithTasks()
         check_task_creation(task_paths[0], publisher, RunInstallationTask)
         self.module._on_installation_started()
 
         self.module.stop()
 
-        assert self.module.installation_status == InstallationStatus.ABORTED
+        assert self.module.installation_status == InstallationStatus.RUNNING
 
     @pytest.mark.parametrize("terminal_handler,expected_status", [
         ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
@@ -584,7 +627,8 @@ class BossInterfaceTestCase:
         self.module._on_installation_started()
         getattr(self.module, terminal_handler)()
 
-        self.module.stop()
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            self.module.stop()
 
         assert self.module.installation_status == expected_status
 

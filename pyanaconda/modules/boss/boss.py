@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import threading
 from collections import namedtuple
 from pathlib import Path
 
@@ -28,6 +29,7 @@ from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import (
     RunInstallationTask,
+    report_installation_outcome,
 )
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager import ModuleManager
@@ -60,6 +62,8 @@ class Boss(Service):
         self._install_manager = InstallManager()
         self._installation_task = None
         self.active_installation_task_changed = Signal()
+        self._outcome_lock = threading.Lock()
+        self._outcome_reported = False
         initial_state = self._load_initial_state()
         self._installation_status = initial_state.status
         self.installation_status_changed = Signal()
@@ -118,13 +122,33 @@ class Boss(Service):
     def stop(self):
         """Stop all modules and then stop the boss.
 
-        If the installation hasn't reached a terminal state yet (it never
-        started, or it is still running), record that it was aborted by the
-        user, as opposed to having failed or succeeded.
+        This only tears down the modules. It deliberately does not decide or
+        report the installation outcome: that is left to the code that
+        actually knows it (the installation task on success/failure, or an
+        explicit user-initiated abort), so a plain shutdown never fabricates
+        an ABORTED result -- for example when no installation was attempted
+        at all (rescue mode, or a WebUI quit before the install started).
         """
-        self._set_installation_status(InstallationStatus.ABORTED)
         self._module_manager.stop_modules()
         super().stop()
+
+    def report_outcome(self, status, failure_reason):
+        """Report a terminal installation outcome, at most once.
+
+        The installation task calls this from its worker thread when it
+        finishes; an explicit user abort calls it from the D-Bus main loop.
+        The first caller wins, so a user-initiated abort racing with a
+        finishing task still produces exactly one report.
+
+        :param status: a terminal InstallationStatus value
+        :param failure_reason: an InstallationFailureReason value
+        """
+        with self._outcome_lock:
+            if self._outcome_reported:
+                return
+            self._outcome_reported = True
+
+        report_installation_outcome(status, failure_reason)
 
     def read_kickstart_file(self, path):
         """Read the specified kickstart file.
@@ -220,6 +244,7 @@ class Boss(Service):
 
         self._installation_task = RunInstallationTask(
             install_manager=self._install_manager,
+            report_outcome=self.report_outcome,
         )
 
         self._installation_task.started_signal.connect(
@@ -250,6 +275,7 @@ class Boss(Service):
         The signal is only emitted when the status actually changes.
 
         :param status: the new InstallationStatus value
+        :return: True if the status was changed, False otherwise
         """
         if self._installation_status in (
             InstallationStatus.SUCCEEDED,
@@ -258,13 +284,14 @@ class Boss(Service):
         ):
             log.debug("Ignoring status change to %s — already in terminal state %s.",
                        status, self._installation_status)
-            return
+            return False
 
         if self._installation_status == status:
-            return
+            return False
 
         self._installation_status = status
         self.installation_status_changed.emit()
+        return True
 
     def _set_pending_error(self, error_message, error_type,
                             failure_reason=InstallationFailureReason.NONE):
