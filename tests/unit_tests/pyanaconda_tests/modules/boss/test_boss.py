@@ -269,7 +269,6 @@ class BossInterfaceTestCase:
         self.module.report_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
-        self.module._on_installation_succeeded()
         self.module._on_installation_stopped()
         assert self.module.install_with_tasks() == []
 
@@ -280,7 +279,6 @@ class BossInterfaceTestCase:
         self.module.report_outcome(
             InstallationStatus.FAILED, InstallationFailureReason.INSTALLATION_ERROR
         )
-        self.module._on_installation_failed()
         self.module._on_installation_stopped()
         assert self.module.install_with_tasks() == []
 
@@ -350,7 +348,6 @@ class BossInterfaceTestCase:
         self.module.report_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
-        self.module._on_installation_succeeded()
 
         assert self.interface.InstallationStatus == InstallationStatus.SUCCEEDED
         assert self.module.installation_status == InstallationStatus.SUCCEEDED
@@ -407,7 +404,6 @@ class BossInterfaceTestCase:
         self.module.report_outcome(
             InstallationStatus.FAILED, InstallationFailureReason.INSTALLATION_ERROR
         )
-        self.module._on_installation_failed()
 
         assert self.module.installation_status == InstallationStatus.FAILED
         assert self.module.installation_failure_reason == \
@@ -560,15 +556,15 @@ class BossInterfaceTestCase:
         callback.assert_not_called()
 
     def test_quit(self):
-        """Test that Quit only tears down and does not decide the outcome."""
+        """Test that Quit records ABORTED when there is no terminal outcome."""
         assert self.interface.Quit() is None
-        assert self.module.installation_status == InstallationStatus.NOT_STARTED
+        assert self.module.installation_status == InstallationStatus.ABORTED
 
-    def test_stop_does_not_change_not_started(self):
-        """Test that stopping before installing does not fabricate ABORTED."""
+    def test_stop_sets_aborted_from_not_started(self):
+        """Test that stopping before installing sets ABORTED."""
         self.module.stop()
 
-        assert self.module.installation_status == InstallationStatus.NOT_STARTED
+        assert self.module.installation_status == InstallationStatus.ABORTED
 
     @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
     def test_report_outcome_at_most_once(self, report_mock):
@@ -595,7 +591,6 @@ class BossInterfaceTestCase:
         self.module.report_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
-        self.module._on_installation_succeeded()
 
         self.module.stop()
 
@@ -603,16 +598,20 @@ class BossInterfaceTestCase:
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
 
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
     @patch_dbus_publish_object
-    def test_stop_does_not_change_running(self, publisher):
-        """Test that stopping a running install does not fabricate an outcome."""
+    def test_stop_sets_aborted_from_running(self, publisher, report_mock):
+        """Test that stopping a running install sets and reports ABORTED."""
         task_paths = self.interface.InstallWithTasks()
         check_task_creation(task_paths[0], publisher, RunInstallationTask)
         self.module._on_installation_started()
 
         self.module.stop()
 
-        assert self.module.installation_status == InstallationStatus.RUNNING
+        assert self.module.installation_status == InstallationStatus.ABORTED
+        report_mock.assert_called_once_with(
+            InstallationStatus.ABORTED, self.module.installation_failure_reason
+        )
 
     @pytest.mark.parametrize("terminal_status", [
         InstallationStatus.SUCCEEDED,
