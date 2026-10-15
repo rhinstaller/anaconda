@@ -27,47 +27,42 @@ instead of the one under test. (The manifest JSON that ``--with-manifest``
 would produce isn't used for this - its exact layout/filename isn't stable
 enough to rely on.)
 
-Why the Web UI boot.iso can't be "just a blueprint"
------------------------------------------------------
+The Web UI boot.iso build
+-------------------------
 
-Unlike lorax, where any package could be added with a simple ``-i`` flag,
-image-builder blueprints cannot add packages to the Anaconda installer
-environment itself (``package_sets.installer`` in image-builder's distro
-definition) for *any* Fedora image type - blueprint ``[[packages]]`` only
-ever add packages to the system being *installed*, never to the live
-Anaconda environment that runs off the ISO. There's also no supported,
-non-experimental way to define a brand new image type (image-builder's
-``IMAGE_BUILDER_EXPERIMENTAL=yamldir=...`` override replaces *all* of
-image-builder's built-in distro data, not just adds one type, and upstream
-explicitly says it "should never be used in production").
+There is no ``anaconda-webui`` upstream image-builder image type, so the Web
+UI boot.iso is built from the same ``everything-network-installer`` type as
+the plain one, with a blueprint that adds the extra packages to the Anaconda
+installer environment.
 
-Since there is no ``anaconda-webui`` upstream image-builder type to begin
-with, ``image-builder-build-webui`` instead:
+Older image-builder blueprints could not do that: blueprint ``[[packages]]``
+only ever add packages to the system being *installed*, never to the live
+Anaconda environment that runs off the ISO. Image-builder PR #2765 added a
+``customizations.installer.packages`` customization which is installed into
+the installer environment as an additional transaction, and that is what
+``image-builder-build-webui`` uses.
 
-1. Builds the plain boot.iso with ``image-builder-build`` (same guardrail as
-   above also applies here, for both ``anaconda`` and ``anaconda-webui``).
-2. Extracts it with ``xorriso``.
-3. Finds the Anaconda rootfs image inside it (``erofs`` or ``squashfs``,
-   whichever the distro definition currently uses), unpacks it, and installs
-   ``anaconda-webui``, ``cockpit-ws``, ``cockpit-bridge``, ``firefox`` and
-   ``dbus-glib`` into it with ``dnf --installroot`` (using the same repos as
-   the main build, plus any COPR builds requested via ``ANACONDA_WEBUI_PR``/
-   ``COCKPIT_PR``).
-4. Repacks the rootfs image, then turns the first boot menu entry in the
-   generated boot menu configs (``grub.cfg``/``isolinux.cfg``) into **two**
-   separate entries - a default local one (``inst.webui``) and a remote one
-   (``inst.webui inst.webui.remote``) - mirroring what the old lorax
-   ``adjust-templates-for-webui.patch`` did. This is done with a small
+``image-builder-build-webui``:
+
+1. Builds the boot.iso with ``image-builder-build`` (same code path as the
+   plain build) while passing ``--blueprint`` - a small generated blueprint
+   listing ``anaconda-webui``, ``cockpit-ws``, ``cockpit-bridge``,
+   ``firefox`` and ``dbus-glib`` under
+   ``customizations.installer.packages``.
+2. Passes any COPR builds requested via ``ANACONDA_WEBUI_PR``/
+   ``COCKPIT_PR`` to image-builder as additional ``--extra-repo``
+   repositories, so those packages are picked up from the COPR too.
+3. Extracts the built ISO with ``xorriso`` and turns the first boot menu
+   entry in the generated boot menu configs (``grub.cfg``/``isolinux.cfg``)
+   into **two** separate entries - a default local one (``inst.webui``) and a
+   remote one (``inst.webui inst.webui.remote``) - mirroring what the old
+   lorax ``adjust-templates-for-webui.patch`` did. This is done with a small
    embedded Python script that duplicates the ``menuentry``/``label`` block,
-   not a plain kernel-cmdline append.
-5. Reassembles the ISO with ``xorriso -boot_image any replay`` (which replays
-   the original El Torito boot catalog, so only the rootfs image and the
-   boot configs actually change).
-
-This is intentionally the *only* place this build patches anything after
-the fact - the plain boot.iso stays a pure, unmodified image-builder build.
-If anaconda-webui ever gets a proper upstream image-builder image type, this
-whole post-processing step should be dropped in favor of that.
+   not a plain kernel-cmdline append. It is still needed because a blueprint
+   cannot change the installer's boot arguments.
+4. Reassembles the ISO with ``xorriso -boot_image any replay`` (which replays
+   the original El Torito boot catalog, so only the boot configs actually
+   change).
 
 Known behavior difference: ISO volume label
 ---------------------------------------------
