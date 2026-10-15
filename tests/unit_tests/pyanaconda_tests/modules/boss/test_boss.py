@@ -574,6 +574,52 @@ class BossInterfaceTestCase:
 
         assert self.module.installation_status == InstallationStatus.NOT_STARTED
 
+    def test_request_abort(self):
+        """Test RequestAbort."""
+        assert self.interface.RequestAbort() is None
+        assert self.module.installation_status == InstallationStatus.ABORTED
+
+    def test_request_abort_sets_aborted_from_running(self):
+        """Test that RequestAbort while running sets ABORTED, like stop()."""
+        self.module._on_installation_started()
+
+        self.module.request_abort()
+
+        assert self.module.installation_status == InstallationStatus.ABORTED
+
+    @pytest.mark.parametrize("terminal_handler,expected_status", [
+        ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
+        ("_on_installation_failed", InstallationStatus.FAILED),
+    ])
+    def test_request_abort_does_not_override_terminal_status(
+        self, terminal_handler, expected_status
+    ):
+        """Test that RequestAbort after a terminal status does not change it."""
+        self.module._on_installation_started()
+        getattr(self.module, terminal_handler)()
+
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            self.module.request_abort()
+
+        assert self.module.installation_status == expected_status
+
+    def test_request_abort_does_not_stop_modules(self):
+        """Test that RequestAbort, unlike stop(), does not tear down modules."""
+        self.module._module_manager.stop_modules = Mock()
+
+        self.module.request_abort()
+
+        self.module._module_manager.stop_modules.assert_not_called()
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_request_abort_reports_aborted(self, report_mock):
+        """Test that RequestAbort reports the ABORTED outcome."""
+        self.module.request_abort()
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.ABORTED, self.module.installation_failure_reason
+        )
+
     @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
     def test_report_outcome_at_most_once(self, report_mock):
         """Test that only the first reported outcome is used."""

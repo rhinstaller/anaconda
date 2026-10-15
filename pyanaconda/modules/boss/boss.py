@@ -132,6 +132,23 @@ class Boss(Service):
         self._module_manager.stop_modules()
         super().stop()
 
+    def request_abort(self):
+        """Record that the user requested to abort the installation.
+
+        This is the explicit user-initiated abort path, kept separate from
+        stop(), so that only a real user quit fabricates the ABORTED outcome.
+
+        TODO: aborting a running installation task isn't supported yet
+        (e.g. disk partitioning is not necessarily safe to interrupt
+        mid-write); this always marks the installation as ABORTED. Once it's
+        possible to safely stop a running task, honor the request by doing
+        that first, before setting the terminal status.
+        """
+        if self._set_installation_status(InstallationStatus.ABORTED):
+            self.report_outcome(
+                InstallationStatus.ABORTED, self._installation_failure_reason
+            )
+
     def report_outcome(self, status, failure_reason):
         """Report a terminal installation outcome, at most once.
 

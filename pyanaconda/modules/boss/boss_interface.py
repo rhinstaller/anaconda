@@ -233,3 +233,12 @@ class BossInterface(InterfaceTemplate):
     def Quit(self):
         """Stop all modules and then stop the boss."""
         self.implementation.stop()
+
+    def RequestAbort(self):
+        """Request that the installation be aborted.
+
+        Unlike Quit(), this does not stop all modules immediately -- it
+        records the user's intent to abort and reports the ABORTED outcome
+        without tearing down the modules.
+        """
+        self.implementation.request_abort()
