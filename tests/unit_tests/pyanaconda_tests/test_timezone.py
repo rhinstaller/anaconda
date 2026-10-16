@@ -84,6 +84,30 @@ class TerritoryTimezones(unittest.TestCase):
         assert timezone.get_preferred_timezone("nonexistent") is None
 
 
+class ClockFloor(unittest.TestCase):
+
+    @freeze_time("2020-01-01")
+    @patch('pyanaconda.timezone.execWithRedirect')
+    def test_clock_behind_buildstamp(self, exec_mock):
+        """Clock older than the given timestamp should be advanced."""
+        timezone.enforce_clock_floor(1700000000)
+        exec_mock.assert_called_once_with("/usr/bin/date", ["--set=@1700000000"])
+
+    @freeze_time("2026-10-15")
+    @patch('pyanaconda.timezone.execWithRedirect')
+    def test_clock_ahead_of_buildstamp(self, exec_mock):
+        """Clock newer than the given timestamp should not be changed."""
+        timezone.enforce_clock_floor(1700000000)
+        exec_mock.assert_not_called()
+
+    @patch('pyanaconda.timezone.execWithRedirect')
+    @patch('pyanaconda.timezone.os.path.getmtime', side_effect=OSError)
+    def test_no_buildstamp_file(self, getmtime_mock, exec_mock):
+        """Missing buildstamp file should be handled gracefully."""
+        timezone._enforce_buildstamp_clock_floor()
+        exec_mock.assert_not_called()
+
+
 class SystemTime(unittest.TestCase):
     @freeze_time("2021-01-01")
     @patch('pyanaconda.timezone.execWithRedirect')

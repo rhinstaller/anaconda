@@ -23,6 +23,7 @@ configuration, valid timezones recognition etc.
 """
 
 import datetime
+import os
 import time
 import zoneinfo
 from collections import OrderedDict
@@ -79,6 +80,45 @@ def time_initialize(timezone_proxy):
         args.append("--localtime")
 
     execWithRedirect(cmd, args)
+
+    _enforce_buildstamp_clock_floor()
+
+
+def _enforce_buildstamp_clock_floor():
+    """Advance the system clock if it is earlier than the /.buildstamp mtime."""
+    try:
+        floor_timestamp = os.path.getmtime("/.buildstamp")
+    except OSError:
+        log.debug("Clock floor: /.buildstamp not found, skipping.")
+        return
+
+    enforce_clock_floor(floor_timestamp)
+
+
+def enforce_clock_floor(build_timestamp):
+    """Advance the system clock if it is earlier than the given timestamp.
+
+    On systems without a working RTC (e.g. Raspberry Pi with dead battery),
+    the hardware clock may report a date far in the past. This causes RPM
+    GPG signature verification to fail because the keys appear not yet valid.
+
+    :param build_timestamp: a Unix epoch timestamp to use as a lower bound
+    :type build_timestamp: int or float or None
+    """
+    if build_timestamp is None:
+        return
+
+    current_time = time.time()
+    if current_time >= build_timestamp:
+        return
+
+    log.warning(
+        "System time (%s) is earlier than the compose build time (%s). "
+        "Advancing the clock.",
+        time.asctime(time.gmtime(current_time)),
+        time.asctime(time.gmtime(build_timestamp)),
+    )
+    execWithRedirect("/usr/bin/date", ["--set=@{}".format(int(build_timestamp))])
 
 
 def get_preferred_timezone(territory):
