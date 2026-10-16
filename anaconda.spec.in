@@ -426,6 +426,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 16 2026 Katerina Koukiou <kkoukiou@redhat.com> - 35.1.7.20-1
+
 * Fri Oct 16 2026 Katerina Koukiou <kkoukiou@redhat.com> - 34.25.7.20-1
 - Wait for network when downloading Satellite provisioning script (abjo25)
   Resolves: RHEL-282587
