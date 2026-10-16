@@ -500,6 +500,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 16 2026 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.58-1
+- Bump petitboot firmware kernel version check to 5.19 (ppc64le) (tfratrik)
+  Resolves: RHEL-43310
+- Wait for network when downloading Satellite provisioning script (abjo25)
+  Resolves: RHEL-282596
+- Mount system filesystems into the OSTree rescue chroot
+  (69140827+Vaibhavbhope)
+  Resolves: RHEL-253218
+
 * Fri Aug 21 2026 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.57-1
 - Allow reformat for partitions without a recognized filesystem (tfratrik)
   Resolves: RHEL-144461
