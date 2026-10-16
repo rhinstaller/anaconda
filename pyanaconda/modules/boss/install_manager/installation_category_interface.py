@@ -35,7 +35,11 @@ class CategoryReportTaskInterface(TaskInterface):
         super().connect_signals()
         self.watch_property("CurrentCategory", self.implementation.category_changed_signal)
         self.implementation.category_changed_signal.connect(self.flush_changes)
-        self.implementation.error_raised_signal.connect(self.ErrorRaised)
+        # The internal signal also carries an InstallationFailureReason for Boss's
+        # own classification, which isn't part of the public D-Bus signal.
+        self.implementation.error_raised_signal.connect(
+            lambda message, detail_type, reason: self.ErrorRaised(message, detail_type)
+        )
 
     @property
     def CurrentCategory(self) -> Str:

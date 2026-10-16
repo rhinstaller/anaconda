@@ -23,8 +23,6 @@ import time
 from dasbus.error import DBusError
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util
-from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.core.signal import Signal
 from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.flags import flags
@@ -304,7 +302,6 @@ class DBusTask(BaseTask):
             if isinstance(e, ScriptError):
                 flags.ksprompt = True
                 errorHandler.cb(e)
-                util.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
             else:
                 if errorHandler.cb(e) == ERROR_RAISE:

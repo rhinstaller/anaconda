@@ -22,10 +22,16 @@ from unittest.mock import Mock
 from pyanaconda.core.constants import CATEGORY_STORAGE, CATEGORY_SYSTEM
 from pyanaconda.installation_tasks import Task, TaskQueue
 from pyanaconda.modules.boss.installation import RunInstallationTask
-from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
+from pyanaconda.modules.common.constants.installation import (
+    InstallationErrorDialogType,
+    InstallationFailureReason,
+)
 
 
 class TestRunInstallation(RunInstallationTask):
+
+    def __init__(self, install_manager):
+        super().__init__(install_manager, report_outcome=Mock())
 
     def _prepare_configuration(self):
         configuration_queue = TaskQueue("Configuration queue")
@@ -97,7 +103,10 @@ class InstallManagerTestCase(unittest.TestCase):
         # pylint: disable=no-member
         interface.ErrorRaised.connect(callback)
 
-        task.error_raised_signal.emit("queue error", InstallationErrorDialogType.YES_NO)
+        task.error_raised_signal.emit(
+            "queue error", InstallationErrorDialogType.YES_NO,
+            InstallationFailureReason.NONE,
+        )
         callback.assert_called_once_with("queue error", InstallationErrorDialogType.YES_NO)
 
         interface.RespondToError(True)

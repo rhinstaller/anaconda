@@ -30,6 +30,7 @@ from pyanaconda.modules.boss.installation import RunInstallationTask
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.constants.installation import (
     InstallationErrorDialogType,
+    InstallationFailureReason,
     InstallationStatus,
 )
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -49,6 +50,16 @@ class BossInterfaceTestCase:
         self.module = Boss()
         self.interface = BossInterface(self.module)
         self._error_file = self.module._error_file
+
+    @pytest.fixture(autouse=True)
+    def _patch_outcome_reporting(self):
+        """Don't report the installation outcome for real.
+
+        Reporting reaches the %onerror/%traceback scripts via the D-Bus
+        Scripts module, which isn't available in unit tests.
+        """
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            yield
 
     def _add_module(self, service_name, available=True, proxy=None):
         """Add a DBus module."""
@@ -337,18 +348,20 @@ class BossInterfaceTestCase:
         callback.assert_called()
 
     @pytest.mark.parametrize(
-        "error_type,expected_status,expected_status_callback_count",
+        "error_type",
         [
-            (InstallationErrorDialogType.FATAL_ERROR, InstallationStatus.FAILED, 1),
-            (InstallationErrorDialogType.FATAL_ERROR.value, InstallationStatus.FAILED, 1),
-            (InstallationErrorDialogType.YES_NO, InstallationStatus.RUNNING, 0),
+            InstallationErrorDialogType.FATAL_ERROR,
+            InstallationErrorDialogType.FATAL_ERROR.value,
+            InstallationErrorDialogType.YES_NO,
         ],
     )
     @patch_dbus_publish_object
-    def test_installation_status_on_error(
-        self, publisher, error_type, expected_status, expected_status_callback_count
-    ):
-        """Test that InstallationStatus changes to FAILED on fatal error."""
+    def test_installation_status_on_error(self, publisher, error_type):
+        """Test that a raised error does not change InstallationStatus by itself.
+
+        The status only transitions to FAILED once the installation task
+        actually terminates (see test_installation_failed_after_fatal_error).
+        """
         status_callback = Mock()
         self.module.installation_status_changed.connect(status_callback)
 
@@ -359,14 +372,46 @@ class BossInterfaceTestCase:
         self.module._on_installation_started()
         status_callback.reset_mock()
 
-        task.error_raised_signal.emit("Something went wrong", error_type)
+        task.error_raised_signal.emit(
+            "Something went wrong", error_type, InstallationFailureReason.NONE
+        )
 
-        assert self.interface.InstallationStatus == expected_status
-        assert self.module.installation_status == expected_status
-        assert status_callback.call_count == expected_status_callback_count
+        assert self.interface.InstallationStatus == InstallationStatus.RUNNING
+        assert self.module.installation_status == InstallationStatus.RUNNING
+        status_callback.assert_not_called()
 
         assert self.interface.PendingErrorMessage == "Something went wrong"
         assert self.interface.PendingErrorType == error_type
+
+    @patch_dbus_publish_object
+    def test_installation_failed_after_fatal_error(self, publisher):
+        """Test that FAILED and INSTALLATION_ERROR are set once the task finishes."""
+        task_paths = self.interface.InstallWithTasks()
+        task_proxy = check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        task = task_proxy.implementation
+
+        self.module._on_installation_started()
+        task.error_raised_signal.emit(
+            "Something went wrong",
+            InstallationErrorDialogType.FATAL_ERROR,
+            InstallationFailureReason.INSTALLATION_ERROR,
+        )
+        assert self.module.installation_status == InstallationStatus.RUNNING
+
+        self.module._on_installation_failed()
+
+        assert self.module.installation_status == InstallationStatus.FAILED
+        assert self.interface.InstallationFailureReason == \
+            InstallationFailureReason.INSTALLATION_ERROR
+
+    def test_installation_failed_unhandled_exception_reason(self):
+        """Test that a failure with no prior error defaults to UNHANDLED_EXCEPTION."""
+        self.module._on_installation_started()
+        self.module._on_installation_failed()
+
+        assert self.module.installation_status == InstallationStatus.FAILED
+        assert self.interface.InstallationFailureReason == \
+            InstallationFailureReason.UNHANDLED_EXCEPTION
 
     @patch_dbus_publish_object
     def test_yesno_error_does_not_set_failed(self, publisher):
@@ -376,7 +421,10 @@ class BossInterfaceTestCase:
         task = task_proxy.implementation
 
         self.module._on_installation_started()
-        task.error_raised_signal.emit("Non-fatal error", InstallationErrorDialogType.YES_NO)
+        task.error_raised_signal.emit(
+            "Non-fatal error", InstallationErrorDialogType.YES_NO,
+            InstallationFailureReason.NONE,
+        )
 
         assert self.interface.PendingErrorMessage == "Non-fatal error"
         assert self.interface.PendingErrorType == InstallationErrorDialogType.YES_NO
@@ -396,9 +444,10 @@ class BossInterfaceTestCase:
     @pytest.mark.parametrize("terminal_status", [
         InstallationStatus.SUCCEEDED,
         InstallationStatus.FAILED,
+        InstallationStatus.ABORTED,
     ])
     def test_terminal_status_cannot_be_overwritten(self, terminal_status):
-        """Test that terminal states (SUCCEEDED, FAILED) cannot be changed."""
+        """Test that terminal states (SUCCEEDED, FAILED, ABORTED) cannot be changed."""
         callback = Mock()
         self.module.installation_status_changed.connect(callback)
 
@@ -498,9 +547,10 @@ class BossInterfaceTestCase:
         task._thread_failed_callback(None, RuntimeError("unexpected crash"), None)
 
         callback.assert_called_once()
-        msg, error_type = callback.call_args[0]
+        msg, error_type, failure_reason = callback.call_args[0]
         assert "unexpected crash" in msg
         assert error_type == InstallationErrorDialogType.FATAL_ERROR
+        assert failure_reason == InstallationFailureReason.UNHANDLED_EXCEPTION
 
     @patch_dbus_publish_object
     def test_thread_failed_callback_suppressed_after_fatal(self, publisher):
@@ -519,8 +569,119 @@ class BossInterfaceTestCase:
         callback.assert_not_called()
 
     def test_quit(self):
-        """Test Quit."""
+        """Test that Quit only tears down and does not decide the outcome."""
         assert self.interface.Quit() is None
+        assert self.module.installation_status == InstallationStatus.NOT_STARTED
+
+    def test_stop_does_not_change_not_started(self):
+        """Test that stopping before installing does not fabricate ABORTED."""
+        self.module.stop()
+
+        assert self.module.installation_status == InstallationStatus.NOT_STARTED
+
+    def test_request_abort(self):
+        """Test RequestAbort."""
+        assert self.interface.RequestAbort() is None
+        assert self.module.installation_status == InstallationStatus.ABORTED
+
+    def test_request_abort_sets_aborted_from_running(self):
+        """Test that RequestAbort while running sets ABORTED, like stop()."""
+        self.module._on_installation_started()
+
+        self.module.request_abort()
+
+        assert self.module.installation_status == InstallationStatus.ABORTED
+
+    @pytest.mark.parametrize("terminal_handler,expected_status", [
+        ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
+        ("_on_installation_failed", InstallationStatus.FAILED),
+    ])
+    def test_request_abort_does_not_override_terminal_status(
+        self, terminal_handler, expected_status
+    ):
+        """Test that RequestAbort after a terminal status does not change it."""
+        self.module._on_installation_started()
+        getattr(self.module, terminal_handler)()
+
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            self.module.request_abort()
+
+        assert self.module.installation_status == expected_status
+
+    def test_request_abort_does_not_stop_modules(self):
+        """Test that RequestAbort, unlike stop(), does not tear down modules."""
+        self.module._module_manager.stop_modules = Mock()
+
+        self.module.request_abort()
+
+        self.module._module_manager.stop_modules.assert_not_called()
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_request_abort_reports_aborted(self, report_mock):
+        """Test that RequestAbort reports the ABORTED outcome."""
+        self.module.request_abort()
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.ABORTED, self.module.installation_failure_reason
+        )
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_report_outcome_at_most_once(self, report_mock):
+        """Test that only the first reported outcome is used."""
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+        self.module.report_outcome(
+            InstallationStatus.ABORTED, InstallationFailureReason.NONE
+        )
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_running_install_and_quit_reports_once(self, report_mock):
+        """Test that a finishing task plus a user quit report a single outcome.
+
+        The task's worker thread reports SUCCEEDED; a subsequent Quit must
+        not report ABORTED (or anything) a second time.
+        """
+        self.module._on_installation_started()
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+        self.module._on_installation_succeeded()
+
+        self.module.stop()
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+
+    @patch_dbus_publish_object
+    def test_stop_does_not_change_running(self, publisher):
+        """Test that stopping a running install does not fabricate an outcome."""
+        task_paths = self.interface.InstallWithTasks()
+        check_task_creation(task_paths[0], publisher, RunInstallationTask)
+        self.module._on_installation_started()
+
+        self.module.stop()
+
+        assert self.module.installation_status == InstallationStatus.RUNNING
+
+    @pytest.mark.parametrize("terminal_handler,expected_status", [
+        ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
+        ("_on_installation_failed", InstallationStatus.FAILED),
+    ])
+    def test_stop_does_not_override_terminal_status(self, terminal_handler, expected_status):
+        """Test that stopping after a terminal status does not change it."""
+        self.module._on_installation_started()
+        getattr(self.module, terminal_handler)()
+
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            self.module.stop()
+
+        assert self.module.installation_status == expected_status
 
 
 def test_load_initial_state_with_error_file(anaconda_run_dir):
@@ -534,3 +695,5 @@ def test_load_initial_state_with_error_file(anaconda_run_dir):
     assert interface.InstallationStatus == InstallationStatus.FAILED
     assert interface.PendingErrorMessage == "disk full"
     assert interface.PendingErrorType == InstallationErrorDialogType.FATAL_ERROR
+    # The original reason isn't persisted across a restart.
+    assert interface.InstallationFailureReason == InstallationFailureReason.UNHANDLED_EXCEPTION

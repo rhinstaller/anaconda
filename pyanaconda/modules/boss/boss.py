@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import threading
 from collections import namedtuple
 from pathlib import Path
 
@@ -28,12 +29,14 @@ from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import (
     RunInstallationTask,
+    report_installation_outcome,
 )
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.common.base import Service
 from pyanaconda.modules.common.constants.installation import (
     InstallationErrorDialogType,
+    InstallationFailureReason,
     InstallationStatus,
 )
 from pyanaconda.modules.common.constants.services import BOSS
@@ -44,7 +47,9 @@ log = get_module_logger(__name__)
 __all__ = ["Boss"]
 
 
-InitialState = namedtuple("InitialState", ["status", "error_message", "error_type"])
+InitialState = namedtuple(
+    "InitialState", ["status", "error_message", "error_type", "failure_reason"]
+)
 
 
 class Boss(Service):
@@ -57,11 +62,15 @@ class Boss(Service):
         self._install_manager = InstallManager()
         self._installation_task = None
         self.active_installation_task_changed = Signal()
+        self._outcome_lock = threading.Lock()
+        self._outcome_reported = False
         initial_state = self._load_initial_state()
         self._installation_status = initial_state.status
         self.installation_status_changed = Signal()
         self._pending_error_message = initial_state.error_message
         self._pending_error_type = initial_state.error_type
+        self._pending_failure_reason = initial_state.failure_reason
+        self._installation_failure_reason = initial_state.failure_reason
         self.pending_error_changed = Signal()
         self.installation_status_changed.connect(self.module_properties_changed.emit)
         self.pending_error_changed.connect(self.module_properties_changed.emit)
@@ -85,6 +94,9 @@ class Boss(Service):
             status=InstallationStatus.FAILED if err else InstallationStatus.NOT_STARTED,
             error_message=err,
             error_type=InstallationErrorDialogType.FATAL_ERROR if err else "",
+            # The original reason isn't persisted, so it can't be recovered here.
+            failure_reason=InstallationFailureReason.UNHANDLED_EXCEPTION if err
+            else InstallationFailureReason.NONE,
         )
 
     def publish(self):
@@ -108,9 +120,52 @@ class Boss(Service):
         return self._module_manager.start_modules_with_task()
 
     def stop(self):
-        """Stop all modules and then stop the boss."""
+        """Stop all modules and then stop the boss.
+
+        This only tears down the modules. It deliberately does not decide or
+        report the installation outcome: that is left to the code that
+        actually knows it (the installation task on success/failure, or an
+        explicit user-initiated abort), so a plain shutdown never fabricates
+        an ABORTED result -- for example when no installation was attempted
+        at all (rescue mode, or a WebUI quit before the install started).
+        """
         self._module_manager.stop_modules()
         super().stop()
+
+    def request_abort(self):
+        """Record that the user requested to abort the installation.
+
+        This is the explicit user-initiated abort path, kept separate from
+        stop(), so that only a real user quit fabricates the ABORTED outcome.
+
+        TODO: aborting a running installation task isn't supported yet
+        (e.g. disk partitioning is not necessarily safe to interrupt
+        mid-write); this always marks the installation as ABORTED. Once it's
+        possible to safely stop a running task, honor the request by doing
+        that first, before setting the terminal status.
+        """
+        if self._set_installation_status(InstallationStatus.ABORTED):
+            self.report_outcome(
+                InstallationStatus.ABORTED, self._installation_failure_reason
+            )
+
+    def report_outcome(self, status, failure_reason):
+        """Report a terminal installation outcome, at most once.
+
+        The installation task calls this from its worker thread when it
+        finishes; an explicit user abort calls it from the D-Bus main loop.
+        The first caller wins, so a user-initiated abort racing with a
+        finishing task still produces exactly one report.
+
+        :param status: a terminal InstallationStatus value
+        :param failure_reason: an InstallationFailureReason value
+        """
+        with self._outcome_lock:
+            if self._outcome_reported:
+                return
+            self._outcome_reported = True
+
+        report_installation_outcome(status, failure_reason)
 
     def read_kickstart_file(self, path):
         """Read the specified kickstart file.
@@ -164,6 +219,14 @@ class Boss(Service):
         """
         return self._pending_error_type
 
+    @property
+    def installation_failure_reason(self):
+        """The reason for a FAILED installation status.
+
+        :return: an InstallationFailureReason value
+        """
+        return self._installation_failure_reason
+
     def get_installation_task(self):
         """Get the active installation task, if any.
 
@@ -188,12 +251,17 @@ class Boss(Service):
         if self._installation_task is not None:
             return [self._installation_task]
 
-        if self._installation_status in [InstallationStatus.SUCCEEDED, InstallationStatus.FAILED]:
+        if self._installation_status in (
+            InstallationStatus.SUCCEEDED,
+            InstallationStatus.FAILED,
+            InstallationStatus.ABORTED,
+        ):
             log.debug("install_with_tasks was called, but the installation is already finished.")
             return []
 
         self._installation_task = RunInstallationTask(
             install_manager=self._install_manager,
+            report_outcome=self.report_outcome,
         )
 
         self._installation_task.started_signal.connect(
@@ -220,34 +288,42 @@ class Boss(Service):
     def _set_installation_status(self, status):
         """Set the installation status if the transition is valid.
 
-        Terminal states (SUCCEEDED, FAILED) cannot be overwritten.
+        Terminal states (SUCCEEDED, FAILED, ABORTED) cannot be overwritten.
         The signal is only emitted when the status actually changes.
 
         :param status: the new InstallationStatus value
+        :return: True if the status was changed, False otherwise
         """
-        if self._installation_status in (InstallationStatus.SUCCEEDED, InstallationStatus.FAILED):
+        if self._installation_status in (
+            InstallationStatus.SUCCEEDED,
+            InstallationStatus.FAILED,
+            InstallationStatus.ABORTED,
+        ):
             log.debug("Ignoring status change to %s — already in terminal state %s.",
                        status, self._installation_status)
-            return
+            return False
 
         if self._installation_status == status:
-            return
+            return False
 
         self._installation_status = status
         self.installation_status_changed.emit()
+        return True
 
-    def _set_pending_error(self, error_message, error_type):
+    def _set_pending_error(self, error_message, error_type,
+                            failure_reason=InstallationFailureReason.NONE):
         """Store an error and notify listeners.
 
         For fatal errors, also persist the message to disk (so it
-        survives a Boss restart) and transition to FAILED.
-        Non-critical errors are stored but do not change the status.
+        survives a Boss restart). The installation status only
+        transitions to FAILED once the installation task actually
+        terminates, see _on_installation_failed.
         """
         self._pending_error_message = error_message
         self._pending_error_type = error_type
         if error_type == InstallationErrorDialogType.FATAL_ERROR:
+            self._pending_failure_reason = failure_reason
             self._persist_error_message(error_message)
-            self._set_installation_status(InstallationStatus.FAILED)
         self.pending_error_changed.emit()
 
     def _persist_error_message(self, error_message):
@@ -281,16 +357,24 @@ class Boss(Service):
     def _on_installation_failed(self):
         """Handle the installation task failure."""
         log.error("The installation has failed.")
+        if self._pending_failure_reason != InstallationFailureReason.NONE:
+            self._installation_failure_reason = self._pending_failure_reason
+        else:
+            self._installation_failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
         self._set_installation_status(InstallationStatus.FAILED)
 
-    def _on_error_raised(self, message, error_type):
+    def _on_error_raised(self, message, error_type,
+                          failure_reason=InstallationFailureReason.NONE):
         """Handle errors raised during installation.
 
         :param message: the error message
         :param error_type: the error type string
+        :param failure_reason: an InstallationFailureReason value
         """
         log.info("Error raised: type=%s, message=%s", error_type, message[:80])
-        self._set_pending_error(error_message=message, error_type=error_type)
+        self._set_pending_error(
+            error_message=message, error_type=error_type, failure_reason=failure_reason
+        )
 
     def _on_installation_stopped(self):
         """Handle the installation task stop."""

@@ -65,6 +65,10 @@ class BossInterface(InterfaceTemplate):
             "PendingErrorType",
             self.implementation.pending_error_changed
         )
+        self.watch_property(
+            "InstallationFailureReason",
+            self.implementation.installation_status_changed
+        )
 
     @property
     def ActiveInstallationTask(self) -> Str:
@@ -91,10 +95,24 @@ class BossInterface(InterfaceTemplate):
         "running"     - RUNNING
         "succeeded"   - SUCCEEDED
         "failed"      - FAILED
+        "aborted"     - ABORTED
 
         :return: a string value of InstallationStatus
         """
         return self.implementation.installation_status.value
+
+    @property
+    def InstallationFailureReason(self) -> Str:
+        """The reason for a FAILED installation status.
+
+        Possible values:
+        "none"                 - NONE (installation hasn't failed)
+        "installation_error"   - INSTALLATION_ERROR
+        "unhandled_exception"  - UNHANDLED_EXCEPTION
+
+        :return: a string value of InstallationFailureReason
+        """
+        return self.implementation.installation_failure_reason.value
 
     @property
     def PendingErrorMessage(self) -> Str:
@@ -215,3 +233,12 @@ class BossInterface(InterfaceTemplate):
     def Quit(self):
         """Stop all modules and then stop the boss."""
         self.implementation.stop()
+
+    def RequestAbort(self):
+        """Request that the installation be aborted.
+
+        Unlike Quit(), this does not stop all modules immediately -- it
+        records the user's intent to abort and reports the ABORTED outcome
+        without tearing down the modules.
+        """
+        self.implementation.request_abort()
