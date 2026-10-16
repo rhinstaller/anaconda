@@ -528,6 +528,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 16 2026 github-actions <github-actions@github.com> - 45.30-1
+- Advance system clock using buildstamp on RTC-less systems (kkoukiou)
+  Resolves: rhbz#2544626
+
 * Mon Oct 12 2026 github-actions <github-actions@github.com> - 45.29-1
 - storage: Setup root device for filesystem emptiness verification (vtrefny)
   Resolves: rhbz#2547382
