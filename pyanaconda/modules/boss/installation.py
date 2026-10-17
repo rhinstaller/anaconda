@@ -54,7 +54,10 @@ from pyanaconda.kexec import setup_kexec
 from pyanaconda.modules.boss.install_manager.installation_category_interface import (
     CategoryReportTaskInterface,
 )
-from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
+from pyanaconda.modules.common.constants.installation import (
+    InstallationErrorDialogType,
+    InstallationFailureReason,
+)
 from pyanaconda.modules.common.constants.objects import (
     BOOTLOADER,
     CERTIFICATES,
@@ -341,7 +344,8 @@ class RunInstallationTask(InstallationTask):
     def error_raised_signal(self):
         """Signal emitted when an error needs user interaction.
 
-        Carries the error message string and InstallationErrorDialogType value.
+        Carries the error message string, the InstallationErrorDialogType
+        value, and an InstallationFailureReason value.
         """
         return self._error_raised_signal
 
@@ -359,10 +363,12 @@ class RunInstallationTask(InstallationTask):
         :param message: the error message to display
         :param dialog_type: the type of dialog to show
         """
+        failure_reason = InstallationFailureReason.NONE
         if dialog_type == InstallationErrorDialogType.FATAL_ERROR:
             self._fatal_error_already_emitted = True
+            failure_reason = InstallationFailureReason.INSTALLATION_ERROR
         self._error_response_event.clear()
-        self._error_raised_signal.emit(message, dialog_type)
+        self._error_raised_signal.emit(message, dialog_type, failure_reason)
         self._error_response_event.wait()
         return self._error_should_continue
 
@@ -381,11 +387,15 @@ class RunInstallationTask(InstallationTask):
         Skips emission if a fatal error was already emitted by _show_dialog
         to avoid overwriting the original error message (e.g. ScriptError
         emits via _show_dialog, then sys.exit triggers this callback with
-        a less informative SystemExit message).
+        a less informative SystemExit message). When it was not already
+        emitted, the thread crashed with an unhandled exception that never
+        went through the normal error-reporting flow.
         """
         if not self._fatal_error_already_emitted:
             self._error_raised_signal.emit(
-                str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
+                str(exc_info[1]),
+                InstallationErrorDialogType.FATAL_ERROR,
+                InstallationFailureReason.UNHANDLED_EXCEPTION,
             )
         super()._thread_failed_callback(*exc_info)
 
