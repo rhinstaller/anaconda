@@ -25,7 +25,11 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.installation import InstallationStatus
+from pyanaconda.installation_outcome import installation_outcome
+from pyanaconda.modules.common.constants.installation import (
+    InstallationFailureReason,
+    InstallationStatus,
+)
 from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
@@ -135,17 +139,29 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         if self._stepped:
             print('')
 
-        # Boss owns the installation outcome and has already reported it, so
-        # don't call Finish(): it would re-raise the task's exception here and
-        # let the exception handler report the same outcome a second time.
-        if BOSS.get_proxy().InstallationStatus != InstallationStatus.SUCCEEDED.value:
+        # Boss only records the installation outcome; it never reports it via
+        # IPMI/kickstart scripts.
+        boss_proxy = BOSS.get_proxy()
+        status = boss_proxy.InstallationStatus
+        if status != InstallationStatus.SUCCEEDED.value:
             log.error("The installation did not succeed.")
+            reason = boss_proxy.InstallationFailureReason
+            if (status == InstallationStatus.FAILED.value
+                    and reason == InstallationFailureReason.UNHANDLED_EXCEPTION.value):
+                # Re-raise the task's exception here so python-meh can handle
+                # it with full diagnostics.
+                self._task_proxy.Finish()
+                return
             # Don't show the success message, but still stop show_all() from
             # waiting for ScreenReadySignal forever.
             self._installation_failed = True
             loop = App.get_event_loop()
             loop.enqueue_signal(ScreenReadySignal(self))
             return
+
+        installation_outcome.report(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
 
         if conf.license.eula:
             # Notify user about the EULA (if any).

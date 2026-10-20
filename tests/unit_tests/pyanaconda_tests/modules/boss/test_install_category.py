@@ -28,7 +28,7 @@ from pyanaconda.modules.common.constants.installation import InstallationErrorDi
 class TestRunInstallation(RunInstallationTask):
 
     def __init__(self, install_manager):
-        super().__init__(install_manager, report_outcome=Mock())
+        super().__init__(install_manager, record_outcome=Mock())
 
     def _prepare_configuration(self):
         configuration_queue = TaskQueue("Configuration queue")
