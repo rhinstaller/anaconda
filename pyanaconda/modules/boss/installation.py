@@ -360,16 +360,16 @@ def report_installation_outcome(status, failure_reason):
 class RunInstallationTask(InstallationTask):
     """Task to run the installation queue."""
 
-    def __init__(self, install_manager, report_outcome):
+    def __init__(self, install_manager, record_outcome):
         """Create a new task.
 
         :param install_manager: an install manager
-        :param report_outcome: a callable reporting the terminal outcome
+        :param record_outcome: a callable recording the terminal outcome
         """
         super().__init__()
         self._total_steps = 0
         self._install_manager = install_manager
-        self._report_outcome = report_outcome
+        self._record_outcome = record_outcome
         self._error_raised_signal = Signal()
         self._error_response_event = Event()
         self._error_response_signal = Signal()
@@ -426,7 +426,7 @@ class RunInstallationTask(InstallationTask):
         self._error_response_signal.emit(should_continue)
 
     def _thread_failed_callback(self, *exc_info):
-        """Emit the fatal error before reporting the failure.
+        """Emit the fatal error before recording the failure.
 
         Skips emission if a fatal error was already emitted by _show_dialog
         to avoid overwriting the original error message (e.g. ScriptError
@@ -440,7 +440,9 @@ class RunInstallationTask(InstallationTask):
             self._error_raised_signal.emit(
                 str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
             )
-        self._report_outcome(InstallationStatus.FAILED, self._failure_reason)
+        if self._failure_reason == InstallationFailureReason.NONE:
+            self._failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
+        self._record_outcome(InstallationStatus.FAILED, self._failure_reason)
         super()._thread_failed_callback(*exc_info)
 
     @property
@@ -454,12 +456,12 @@ class RunInstallationTask(InstallationTask):
         return self._total_steps
 
     def run(self):
-        """Run the installation and report its outcome.
+        """Run the installation and record its outcome.
 
-        A failure is reported from _thread_failed_callback instead.
+        A failure is recorded from _thread_failed_callback instead.
         """
         self._run_installation()
-        self._report_outcome(
+        self._record_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
 
