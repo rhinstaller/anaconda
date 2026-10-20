@@ -22,7 +22,11 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.installation import InstallationStatus
+from pyanaconda.installation_outcome import installation_outcome
+from pyanaconda.modules.common.constants.installation import (
+    InstallationFailureReason,
+    InstallationStatus,
+)
 from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -78,11 +82,19 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
         gtk_call_once(self._spinner.stop)
         gtk_call_once(self._spinner.hide)
 
-        # Boss owns the installation outcome and has already reported it, so
-        # don't call Finish(): it would re-raise the task's exception here and
-        # let the exception handler report the same outcome a second time.
-        if BOSS.get_proxy().InstallationStatus != InstallationStatus.SUCCEEDED.value:
+        # Boss only records the installation outcome; it never reports it via
+        # IPMI/kickstart scripts.
+        boss_proxy = BOSS.get_proxy()
+        status = boss_proxy.InstallationStatus
+        if status != InstallationStatus.SUCCEEDED.value:
             log.error("The installation did not succeed.")
+            reason = boss_proxy.InstallationFailureReason
+            if (status == InstallationStatus.FAILED.value
+                    and reason == InstallationFailureReason.UNHANDLED_EXCEPTION.value):
+                # Re-raise the task's exception here so python-meh can handle
+                # it with full diagnostics.
+                self._task_proxy.Finish()
+                return
             # If the user acknowledged the fatal error dialog, leave right away
             # instead of making them click Quit again. Other failures keep the
             # quit button available. The exit code is derived from Boss's
@@ -90,6 +102,10 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
             if getattr(self, "_fatal_error_acknowledged", False):
                 gtk_call_once(Gtk.main_quit)
             return
+
+        installation_outcome.report(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
 
         if conf.license.eula:
             self.set_warning(_("Use of this product is subject to the license agreement "
