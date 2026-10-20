@@ -78,7 +78,6 @@ class ProductHelperTestCase(unittest.TestCase):
         trimmed_versions = [
             ("8.0.0", "8.0"),
             ("rawhide", "rawhide"),
-            ("development", "rawhide"),
             ("7.6", "7.6"),
             ("7", "7"),
             ("8.0.0.1", "8.0"),
@@ -149,7 +148,7 @@ class ProductTestCase(unittest.TestCase):
     @patch.dict("os.environ", clear=True, values={
         "ANACONDA_ISFINAL": "True",
         "ANACONDA_PRODUCTNAME": "TestProduct",
-        "ANACONDA_PRODUCTVERSION": "development"
+        "ANACONDA_PRODUCTVERSION": "rawhide"
     })
     @patch("pyanaconda.core.product.configparser.open", side_effect=FileNotFoundError)
     def test_env(self, mock_cfp_open):
