@@ -39,10 +39,6 @@ def trim_product_version_for_ui(version):
     if version.count('.') >= 2:
         version = '.'.join(version.split('.')[:2])
 
-    # Correctly report Rawhide
-    if version == "development":
-        version = "rawhide"
-
     return version
 
 
