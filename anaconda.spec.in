@@ -528,6 +528,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 20 2026 github-actions <github-actions@github.com> - 46.3-1
+- Bump petitboot firmware kernel version check to 5.19 (ppc64le) (tfratrik)
+- Advance system clock using buildstamp on RTC-less systems (kkoukiou)
+  Resolves: rhbz#2544626
+- Mount system filesystems into the OSTree rescue chroot
+  (69140827+Vaibhavbhope)
+- Wait for network when downloading Satellite provisioning script (abjo25)
+- storage: Avoid redundant "fedora_fedora" container name (adamkankovsky)
+  Resolves: rhbz#2536260
+
 * Tue Oct 13 2026 github-actions <github-actions@github.com> - 46.2-1
 - storage: Setup root device for filesystem emptiness verification (vtrefny)
   Resolves: rhbz#2547382
