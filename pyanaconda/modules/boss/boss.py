@@ -47,6 +47,12 @@ InitialState = namedtuple(
     "InitialState", ["status", "error_message", "error_type", "failure_reason"]
 )
 
+TERMINAL_STATUSES = (
+    InstallationStatus.SUCCEEDED,
+    InstallationStatus.FAILED,
+    InstallationStatus.ABORTED,
+)
+
 
 class Boss(Service):
     """The Boss service."""
@@ -113,23 +119,31 @@ class Boss(Service):
         return self._module_manager.start_modules_with_task()
 
     def stop(self):
-        """Stop all modules and then stop the boss.
+        """Report the installation outcome and stop all services."""
+        if self._pending_error_type == InstallationErrorDialogType.FATAL_ERROR:
+            self.record_outcome(
+                InstallationStatus.FAILED,
+                self._installation_failure_reason,
+            )
+        elif self._installation_status == InstallationStatus.RUNNING:
+            self.record_outcome(
+                InstallationStatus.ABORTED,
+                InstallationFailureReason.NONE,
+            )
 
-        If the installation hasn't reached a terminal state yet, record it
-        as aborted before tearing down the modules.
-        """
-        self.report_outcome(
-            InstallationStatus.ABORTED, self._installation_failure_reason
-        )
         self._module_manager.stop_modules()
         super().stop()
 
-    def report_outcome(self, status, failure_reason):
-        """Report a terminal installation outcome, at most once.
+    def record_outcome(self, status, failure_reason):
+        """Record, log, and report a terminal installation outcome.
 
         :param status: a terminal InstallationStatus value
         :param failure_reason: an InstallationFailureReason value
         """
+        if self._installation_status in TERMINAL_STATUSES:
+            return
+
+        self._installation_failure_reason = failure_reason
         if not self._set_installation_status(status):
             return
 
@@ -229,17 +243,13 @@ class Boss(Service):
         if self._installation_task is not None:
             return [self._installation_task]
 
-        if self._installation_status in (
-            InstallationStatus.SUCCEEDED,
-            InstallationStatus.FAILED,
-            InstallationStatus.ABORTED,
-        ):
+        if self._installation_status in TERMINAL_STATUSES:
             log.debug("install_with_tasks was called, but the installation is already finished.")
             return []
 
         self._installation_task = RunInstallationTask(
             install_manager=self._install_manager,
-            report_outcome=self.report_outcome,
+            record_outcome=self.record_outcome,
         )
 
         self._installation_task.started_signal.connect(
@@ -266,11 +276,7 @@ class Boss(Service):
         :param status: the new InstallationStatus value
         :return: True if the status changed, otherwise False
         """
-        if self._installation_status in (
-            InstallationStatus.SUCCEEDED,
-            InstallationStatus.FAILED,
-            InstallationStatus.ABORTED,
-        ):
+        if self._installation_status in TERMINAL_STATUSES:
             log.debug("Ignoring status change to %s — already in terminal state %s.",
                        status, self._installation_status)
             return False
@@ -329,6 +335,9 @@ class Boss(Service):
         :param message: the error message
         :param error_type: the error type string
         """
+        if self._installation_status in TERMINAL_STATUSES:
+            return
+
         log.info("Error raised: type=%s, message=%s", error_type, message[:80])
         if error_type == InstallationErrorDialogType.FATAL_ERROR:
             reason = InstallationFailureReason.INSTALLATION_ERROR
