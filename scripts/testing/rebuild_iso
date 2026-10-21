@@ -25,10 +25,14 @@ Options:
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
  -l, --live                         Build Live ISO instead of boot.iso
- -w, --webui                        Build WebUI boot.iso (lorax entrypoint /lorax-build-webui).
+ -w, --webui                        Build WebUI boot.iso (image-builder entrypoint /image-builder-build-webui).
                                     Incompatible with --live. Optional env vars for the ISO
                                     container (same as make container-webui-iso-build):
                                       ANACONDA_WEBUI_PR=<n>  COCKPIT_PR=<n>
+
+Optional env vars for any boot.iso build (see also make container-iso-build):
+  IMAGE_BUILDER_PR=<n>              Use image-builder from the given PR's packit
+                                    COPR instead of the released one, e.g. 2765
 
 EOF
 }
