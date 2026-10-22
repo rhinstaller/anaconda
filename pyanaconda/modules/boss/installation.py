@@ -54,7 +54,10 @@ from pyanaconda.kexec import setup_kexec
 from pyanaconda.modules.boss.install_manager.installation_category_interface import (
     CategoryReportTaskInterface,
 )
-from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
+from pyanaconda.modules.common.constants.installation import (
+    InstallationErrorDialogType,
+    InstallationFailureReason,
+)
 from pyanaconda.modules.common.constants.objects import (
     BOOTLOADER,
     CERTIFICATES,
@@ -336,12 +339,14 @@ class RunInstallationTask(InstallationTask):
         self._error_response_signal = Signal()
         self._error_should_continue = False
         self._fatal_error_already_emitted = False
+        self._failure_reason = InstallationFailureReason.NONE
 
     @property
     def error_raised_signal(self):
         """Signal emitted when an error needs user interaction.
 
-        Carries the error message string and InstallationErrorDialogType value.
+        Carries the error message string and the InstallationErrorDialogType
+        value.
         """
         return self._error_raised_signal
 
@@ -353,6 +358,14 @@ class RunInstallationTask(InstallationTask):
         """
         return self._error_response_signal
 
+    @property
+    def failure_reason(self):
+        """The reason for the task failure.
+
+        :return: an InstallationFailureReason value
+        """
+        return self._failure_reason
+
     def _show_dialog(self, message, dialog_type):
         """Emit error signal and block until UI responds.
 
@@ -361,6 +374,7 @@ class RunInstallationTask(InstallationTask):
         """
         if dialog_type == InstallationErrorDialogType.FATAL_ERROR:
             self._fatal_error_already_emitted = True
+            self._failure_reason = InstallationFailureReason.INSTALLATION_ERROR
         self._error_response_event.clear()
         self._error_raised_signal.emit(message, dialog_type)
         self._error_response_event.wait()
@@ -381,9 +395,12 @@ class RunInstallationTask(InstallationTask):
         Skips emission if a fatal error was already emitted by _show_dialog
         to avoid overwriting the original error message (e.g. ScriptError
         emits via _show_dialog, then sys.exit triggers this callback with
-        a less informative SystemExit message).
+        a less informative SystemExit message). When it was not already
+        emitted, the thread crashed with an unhandled exception that never
+        went through the normal error-reporting flow.
         """
         if not self._fatal_error_already_emitted:
+            self._failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
             self._error_raised_signal.emit(
                 str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
             )

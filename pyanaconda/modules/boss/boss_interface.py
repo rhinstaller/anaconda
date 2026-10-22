@@ -91,6 +91,7 @@ class BossInterface(InterfaceTemplate):
         "running"     - RUNNING
         "succeeded"   - SUCCEEDED
         "failed"      - FAILED
+        "aborted"     - ABORTED
 
         :return: a string value of InstallationStatus
         """

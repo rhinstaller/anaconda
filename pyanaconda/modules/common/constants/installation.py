@@ -26,6 +26,15 @@ class InstallationStatus(StrEnum):
     RUNNING = "running"
     SUCCEEDED = "succeeded"
     FAILED = "failed"
+    ABORTED = "aborted"
+
+
+class InstallationFailureReason(StrEnum):
+    """Reason for a FAILED installation status."""
+
+    NONE = "none"
+    INSTALLATION_ERROR = "installation_error"
+    UNHANDLED_EXCEPTION = "unhandled_exception"
 
 
 class InstallationErrorDialogType(StrEnum):
