@@ -240,14 +240,14 @@ class Boss(Service):
         """Store an error and notify listeners.
 
         For fatal errors, also persist the message to disk (so it
-        survives a Boss restart) and transition to FAILED.
-        Non-critical errors are stored but do not change the status.
+        survives a Boss restart). The installation status only
+        transitions to FAILED once the installation task actually
+        terminates, see _on_installation_failed.
         """
         self._pending_error_message = error_message
         self._pending_error_type = error_type
         if error_type == InstallationErrorDialogType.FATAL_ERROR:
             self._persist_error_message(error_message)
-            self._set_installation_status(InstallationStatus.FAILED)
         self.pending_error_changed.emit()
 
     def _persist_error_message(self, error_message):
