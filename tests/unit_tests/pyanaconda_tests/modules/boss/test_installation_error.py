@@ -21,6 +21,9 @@ from unittest.mock import Mock
 
 from pyanaconda.errors import ERROR_RAISE, ScriptError, errorHandler
 from pyanaconda.installation_tasks import Task, TaskQueue
+from pyanaconda.modules.boss.install_manager.installation_category_interface import (
+    CategoryReportTaskInterface,
+)
 from pyanaconda.modules.boss.installation import RunInstallationTask, _RemoteErrorUI
 from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError
@@ -97,3 +100,19 @@ class InstallationErrorHandlerTestCase(unittest.TestCase):
         assert received[0][1] == InstallationErrorDialogType.FATAL_ERROR
         assert "42" in received[0][0]
         assert "script failed" in received[0][0]
+
+    def test_error_raised_dbus_signal_arguments(self):
+        """The ErrorRaised D-Bus signal takes (message, detail_type)."""
+        task = RunInstallationTask(Mock())
+        interface = CategoryReportTaskInterface(task)
+
+        callback = Mock()
+        interface.ErrorRaised.connect(callback)
+
+        task.error_raised_signal.emit(
+            "boom", InstallationErrorDialogType.FATAL_ERROR
+        )
+
+        callback.assert_called_once_with(
+            "boom", InstallationErrorDialogType.FATAL_ERROR
+        )
