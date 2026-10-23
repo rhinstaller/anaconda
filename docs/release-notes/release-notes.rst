@@ -5,6 +5,73 @@ This document describes major installer-related changes in Fedora releases.
 
 A guide on adding new entries is in the release documentation.
 
+Fedora 45
+#########
+
+Changes in the graphical interface
+-----------------------------------
+
+Default font switched from Cantarell to Noto Sans
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The GTK installer UI default font has been changed from Cantarell to Noto Sans.
+
+See also:
+    - https://issues.redhat.com/browse/INSTALLER-4826
+    - https://github.com/rhinstaller/anaconda/pull/7209
+
+Changes in kickstart support
+-----------------------------
+
+Stratis storage support
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda now supports creating Stratis pools and filesystems, mainly via kickstart with limited support in the Anaconda Web UI.
+
+In kickstart automatic partitioning via the (``autopart --type=stratis``) command can be used or custom layout created via the new ``stratispool`` and ``stratisfs`` kickstart commands.
+
+UI support in the Web UI is provided via the storage editor. No support for Stratis is available or planned in the old (GTK) graphical interface.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/7183
+    - https://github.com/rhinstaller/anaconda/pull/7215
+
+Certificate anchor type support
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``%certificate`` kickstart section now supports ``--type=anchor``, which places
+certificates in ``/etc/pki/ca-trust/source/anchors/`` and runs ``update-ca-trust``.
+Anchor certificates are also appended to the CA bundle in the initramfs, enabling
+HTTPS repository access with custom CAs during early boot.
+
+See also:
+    - https://issues.redhat.com/browse/RHEL-143387
+    - https://github.com/rhinstaller/anaconda/pull/7068
+
+General changes
+---------------
+
+bootc: support for arbitrary mount points
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Bootc installations are no longer restricted to a hardcoded allowlist of mount points
+(``/``, ``/boot``, ``/boot/efi``, ``/home``, ``/var``). Users can now specify arbitrary
+mount points for bootc installations.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/7220
+
+Architecture and hardware support changes
+-----------------------------------------
+
+Add loongarch64 support
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Added UEFI boot support for LoongArch 64-bit (loongarch64) architecture.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/7117
+
 Fedora 44
 #########
 
