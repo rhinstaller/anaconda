@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import set_system_root
 from pyanaconda.modules.common.task import Task
 
 __all__ = ["TeardownDiskImagesTask", "UnmountFilesystemsTask"]
@@ -38,6 +39,10 @@ class UnmountFilesystemsTask(Task):
     def run(self):
         """Run the task."""
         if conf.target.is_hardware:
+            # For system installations (not directory or image), tear
+            # down the rbind at system_root but leave the filesystem
+            # mounts for systemd's shutdown ordering.
+            set_system_root(None)
             return
 
         self._storage.umount_filesystems(swapoff=False)
