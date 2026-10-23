@@ -34,7 +34,7 @@ import tempfile
 import types
 
 import requests
-from pykickstart.constants import KS_SCRIPT_ONERROR
+from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_TRACEBACK
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
@@ -45,7 +45,6 @@ from pyanaconda.core.constants import (
     DRACUT_REPO_DIR,
     DRACUT_SHUTDOWN_EJECT,
     IPMI_ABORTED,
-    IPMI_FAILED,
     PACKAGES_LIST_FILE,
 )
 from pyanaconda.core.live_user import get_live_user
@@ -628,23 +627,27 @@ def ipmi_report(event):
 
 def ipmi_abort():
     ipmi_report(IPMI_ABORTED)
-    runOnErrorScripts()
+    run_kickstart_error_scripts(include_traceback=False)
 
 
-def ipmi_failed():
-    ipmi_report(IPMI_FAILED)
-    runOnErrorScripts()
+def run_kickstart_error_scripts(include_traceback):
+    """Run the %onerror (and, optionally, %traceback) kickstart scripts.
 
-
-def runOnErrorScripts():
+    :param include_traceback: also run the %traceback scripts
+    """
     from pyanaconda.modules.common.task import sync_run_task
     scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
 
-    # OnError script call
     onerror_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_ONERROR)
     onerror_task_proxy = RUNTIME.get_proxy(onerror_task_path)
     sync_run_task(onerror_task_proxy)
     log.info("All kickstart %%onerror script(s) have been run")
+
+    if include_traceback:
+        traceback_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_TRACEBACK)
+        traceback_task_proxy = RUNTIME.get_proxy(traceback_task_path)
+        sync_run_task(traceback_task_proxy)
+        log.info("All kickstart %%traceback script(s) have been run")
 
 
 def requests_session():

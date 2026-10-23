@@ -22,9 +22,7 @@ from simpleline.event_loop import AbstractSignal, ExitMainLoop
 from simpleline.render.prompt import Prompt
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import RUNTIME
@@ -134,8 +132,6 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
 
         # Finish the installation task. Re-raise tracebacks if any.
         self._task_proxy.Finish()
-
-        util.ipmi_report(IPMI_FINISHED)
 
         if conf.license.eula:
             # Notify user about the EULA (if any).

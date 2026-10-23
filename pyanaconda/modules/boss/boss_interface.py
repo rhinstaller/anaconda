@@ -214,5 +214,9 @@ class BossInterface(InterfaceTemplate):
         return list(map(get_proxy_identification, proxies))
 
     def Quit(self):
-        """Stop all modules and then stop the boss."""
+        """Stop all modules and then stop the boss.
+
+        If the installation hasn't reached a terminal state yet, record it
+        as aborted.
+        """
         self.implementation.stop()
