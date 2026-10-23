@@ -37,7 +37,6 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     ANACONDA_CLEANUP,
-    IPMI_ABORTED,
     QUIT_MESSAGE,
     THREAD_STORAGE,
 )
@@ -271,8 +270,8 @@ class Rescue:
             except ScriptError as e:
                 flags.ksprompt = True
                 errorHandler.cb(e)
-                util.ipmi_report(IPMI_ABORTED)
-                sys.exit(0)
+                util.ipmi_abort()
+                sys.exit(1)
             pass
 
         self.status = RescueModeStatus.MOUNTED

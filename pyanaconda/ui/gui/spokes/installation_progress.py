@@ -14,16 +14,20 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
+from gi.repository import Gtk
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.installation_outcome import installation_outcome
+from pyanaconda.modules.common.constants.installation import (
+    InstallationFailureReason,
+    InstallationStatus,
+)
+from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
@@ -78,10 +82,30 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
         gtk_call_once(self._spinner.stop)
         gtk_call_once(self._spinner.hide)
 
-        # Finish the installation task. Re-raise tracebacks if any.
-        self._task_proxy.Finish()
+        # Boss only records the installation outcome; it never reports it via
+        # IPMI/kickstart scripts.
+        boss_proxy = BOSS.get_proxy()
+        status = boss_proxy.InstallationStatus
+        if status != InstallationStatus.SUCCEEDED.value:
+            log.error("The installation did not succeed.")
+            reason = boss_proxy.InstallationFailureReason
+            if (status == InstallationStatus.FAILED.value
+                    and reason == InstallationFailureReason.UNHANDLED_EXCEPTION.value):
+                # Re-raise the task's exception here so python-meh can handle
+                # it with full diagnostics.
+                self._task_proxy.Finish()
+                return
+            # If the user acknowledged the fatal error dialog, leave right away
+            # instead of making them click Quit again. Other failures keep the
+            # quit button available. The exit code is derived from Boss's
+            # outcome once the main loop returns.
+            if getattr(self, "_fatal_error_acknowledged", False):
+                gtk_call_once(Gtk.main_quit)
+            return
 
-        util.ipmi_report(IPMI_FINISHED)
+        installation_outcome.report(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
 
         if conf.license.eula:
             self.set_warning(_("Use of this product is subject to the license agreement "
@@ -139,7 +163,6 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
     def refresh(self):
         from pyanaconda.core.dbus import DBus
         from pyanaconda.core.threads import thread_manager
-        from pyanaconda.modules.common.constants.services import BOSS
 
         super().refresh()
 

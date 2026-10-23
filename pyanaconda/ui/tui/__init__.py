@@ -31,14 +31,14 @@ from simpleline.render.screen_handler import ScreenHandler
 
 from pyanaconda import ui
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import IPMI_ABORTED, QUIT_MESSAGE
+from pyanaconda.core.constants import QUIT_MESSAGE
 from pyanaconda.core.threads import thread_manager
-from pyanaconda.core.util import ipmi_report
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.signals import SendMessageSignal
 from pyanaconda.ui.tui.spokes import StandaloneSpoke
-from pyanaconda.ui.tui.tuiobject import IpmiErrorDialog
+from pyanaconda.ui.tui.tuiobject import InstallationErrorDialog
 
 log = get_module_logger(__name__)
 
@@ -73,7 +73,7 @@ def exception_msg_handler(signal, data):
 
 
 def tui_quit_callback(data):
-    ipmi_report(IPMI_ABORTED)
+    BOSS.get_proxy().Quit()
 
 
 class TextUserInterface(ui.UserInterface):
@@ -283,8 +283,8 @@ class TextUserInterface(ui.UserInterface):
     def showError(self, message):
         """Display an error dialog with the given message.
 
-        After this dialog is displayed, anaconda will quit. There is no return value.
-        This method must be implemented by all UserInterface subclasses.
+        This method does not terminate anaconda. This method must be
+        implemented by all UserInterface subclasses.
 
         In the code, this method should be used sparingly and only for
         critical errors that anaconda cannot figure out how to recover from.
@@ -297,10 +297,10 @@ class TextUserInterface(ui.UserInterface):
 
         if flags.automatedInstall and not flags.ksprompt:
             log.error(message)
-            # If we're in cmdline mode, just exit.
+            # There is no TUI to display the dialog in cmdline mode.
             return
 
-        error_window = IpmiErrorDialog(message)
+        error_window = InstallationErrorDialog(message)
         ScreenHandler.push_screen_modal(error_window)
 
     def showDetailedError(self, message, details, buttons=None):

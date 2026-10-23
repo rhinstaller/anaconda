@@ -54,6 +54,7 @@ from pyanaconda.core.service import start_service
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import (
     get_anaconda_version_string,
+    ipmi_abort,
     ipmi_report,
     persistent_root_image,
     setenv,
@@ -713,7 +714,7 @@ def initialize_security():
                 "\n%s\n") % str(e).strip())
 
         print(_("The installation cannot continue"))
-        ipmi_report(IPMI_ABORTED)
+        ipmi_abort()
         sys.exit(1)
 
 

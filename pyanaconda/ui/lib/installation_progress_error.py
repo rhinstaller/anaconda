@@ -44,6 +44,9 @@ class InstallationProgressErrorMixin:
 
         if dialog_type == InstallationErrorDialogType.FATAL_ERROR:
             errorHandler.ui.showError(message)
+            # Remember that the user explicitly acknowledged the fatal error,
+            # so the GUI can leave as soon as the installation task stops.
+            self._fatal_error_acknowledged = True
             self._task_proxy.RespondToError(False)
         elif dialog_type == InstallationErrorDialogType.YES_NO:
             answer = errorHandler.ui.showYesNoQuestion(message)

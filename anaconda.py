@@ -38,6 +38,26 @@ from pyanaconda.modules.common.structures.rescue import RescueData
 
 
 def exitHandler():
+    try:
+        from pyanaconda.installation_outcome import installation_outcome
+
+        if not installation_outcome.reporting_started:
+            from pyanaconda.modules.common.constants.installation import (
+                InstallationFailureReason,
+                InstallationStatus,
+            )
+            from pyanaconda.modules.common.constants.services import BOSS as BOSS_SERVICE
+
+            boss = BOSS_SERVICE.get_proxy()
+            installation_outcome.report(
+                InstallationStatus(boss.InstallationStatus),
+                InstallationFailureReason(boss.InstallationFailureReason),
+            )
+    finally:
+        cleanup_and_reboot()
+
+
+def cleanup_and_reboot():
     # pylint: disable=possibly-used-before-assignment
     # pylint: disable=used-before-assignment
     runtime_proxy.Exit()
@@ -151,6 +171,35 @@ def setup_environment():
     # show vi instead of nano. Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1889674
     if "EDITOR" not in os.environ and os.path.isfile("/etc/profile.d/nano-default-editor.sh"):
         os.environ["EDITOR"] = "/usr/bin/nano"
+
+
+def determine_exit_code(boss_proxy):
+    """Map the Boss installation outcome to a process exit code.
+
+    :param boss_proxy: a DBus proxy of the Boss service
+    :return: 0 if the installation succeeded or was not attempted, otherwise 1
+    """
+    from pyanaconda import anaconda_loggers as loggers_module
+    from pyanaconda.modules.common.constants.installation import InstallationStatus
+
+    logger = loggers_module.get_main_logger()
+    status = boss_proxy.InstallationStatus
+
+    if status == InstallationStatus.NOT_STARTED.value:
+        # No installation was ever attempted (e.g. rescue mode, or any other
+        # workflow that never drives Boss's install task) and nothing failed.
+        return 0
+
+    if status != InstallationStatus.SUCCEEDED.value:
+        message = "Installation result: FAILURE (status=%s, reason=%s)" % (
+            status, boss_proxy.InstallationFailureReason
+        )
+        logger.error(message)
+        print(message)
+        return 1
+
+    return 0
+
 
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
@@ -603,5 +652,8 @@ if __name__ == "__main__":
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()
+
+    from pyanaconda.modules.common.constants.services import BOSS
+    sys.exit(determine_exit_code(BOSS.get_proxy()))
 
 # vim:tw=78:ts=4:et:sw=4
