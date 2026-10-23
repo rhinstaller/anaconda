@@ -422,6 +422,30 @@ class StorageInterfaceTestCase(unittest.TestCase):
             assert isinstance(obj, TaskInterface)
             assert isinstance(obj.implementation, task_classes[i])
 
+    @patch("pyanaconda.modules.storage.teardown.set_system_root")
+    @patch("pyanaconda.modules.storage.teardown.conf")
+    def test_unmount_filesystems_hardware(self, patched_conf, set_root):
+        """Test UnmountFilesystemsTask tears down sysroot rbind on hardware."""
+        storage = Mock()
+        patched_conf.target.is_hardware = True
+
+        UnmountFilesystemsTask(storage).run()
+
+        set_root.assert_called_once_with(None)
+        storage.umount_filesystems.assert_not_called()
+
+    @patch("pyanaconda.modules.storage.teardown.set_system_root")
+    @patch("pyanaconda.modules.storage.teardown.conf")
+    def test_unmount_filesystems_nonhardware(self, patched_conf, set_root):
+        """Test UnmountFilesystemsTask fully unmounts for non-hardware."""
+        storage = Mock()
+        patched_conf.target.is_hardware = False
+
+        UnmountFilesystemsTask(storage).run()
+
+        set_root.assert_not_called()
+        storage.umount_filesystems.assert_called_once_with(swapoff=False)
+
     def test_kickstart_properties(self):
         """Test kickstart properties."""
         assert self.storage_interface.KickstartCommands == \
