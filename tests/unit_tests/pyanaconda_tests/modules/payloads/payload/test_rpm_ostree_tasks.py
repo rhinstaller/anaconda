@@ -883,7 +883,8 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
                             "--sysroot=/sysroot",
                             "--image=url",
                             "--transport=oci",
-                            "--stateroot=osname"]),
+                            "--stateroot=osname"],
+                 env_add={"LC_ALL": "C.UTF-8"}),
         ])
         # no need to mock RpmOstree.varsubst_basearch(), since "ref" won't change
 
@@ -902,7 +903,8 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
             call("ostree", ["container", "image", "deploy",
                             "--sysroot=/sysroot",
                             "--image=url",
-                            "--transport=oci"]),
+                            "--transport=oci"],
+                 env_add={"LC_ALL": "C.UTF-8"}),
         ])
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execProgram")
@@ -920,7 +922,8 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
             call("ostree", ["container", "image", "deploy",
                             "--sysroot=/sysroot",
                             "--image=url",
-                            "--stateroot=osname"]),
+                            "--stateroot=osname"],
+                 env_add={"LC_ALL": "C.UTF-8"}),
         ])
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execProgram")
@@ -940,7 +943,8 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
                             "--image=url",
                             "--transport=oci",
                             "--stateroot=osname",
-                            "--no-signature-verification"]),
+                            "--no-signature-verification"],
+                 env_add={"LC_ALL": "C.UTF-8"}),
         ])
 
 

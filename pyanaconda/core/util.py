@@ -301,8 +301,8 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
             raise TimeoutError("Timeout trying to start %s" % argv[0])
 
 
-def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
-                 binary_output=False, filter_stderr=False):
+def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, env_add=None,
+                 log_output=True, binary_output=False, filter_stderr=False):
     """ Run an external program, log the output and return it to the caller
 
         NOTE/WARNING: UnicodeDecodeError will be raised if the output of the of the
@@ -313,6 +313,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
         :param stdin: The file object to read stdin from.
         :param stdout: Optional file object to write the output to.
         :param env_prune: environment variable to remove before execution
+        :param env_add: environment variables added for the execution
         :param log_output: whether to log the output of command
         :param binary_output: whether to treat the output of command as binary data
         :param filter_stderr: whether to exclude the contents of stderr from the returned output
@@ -325,7 +326,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             stderr = subprocess.STDOUT
 
         proc = startProgram(argv, root=root, stdin=stdin, stdout=subprocess.PIPE, stderr=stderr,
-                            env_prune=env_prune)
+                            env_prune=env_prune, env_add=env_add)
 
         (output_string, err_string) = proc.communicate()
         if not binary_output:
@@ -419,7 +420,7 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr)[1]
 
-def execProgram(command, argv, stdin=None, root='/', env_prune=None,
+def execProgram(command, argv, stdin=None, root='/', env_prune=None, env_add=None,
                 log_output=True, filter_stderr=False):
     """ Run an external program and capture standard out and err as well as the return code.
 
@@ -428,14 +429,15 @@ def execProgram(command, argv, stdin=None, root='/', env_prune=None,
         :param stdin: The file object to read stdin from.
         :param root: The directory to chroot to before running command.
         :param env_prune: environment variable to remove before execution
+        :param env_add: environment variables added for the execution
         :param log_output: Whether to log the output of command
         :param filter_stderr: Whether stderr should be excluded from the returned output
         :return: Tuple of the return code and the output of the command
     """
     argv = [command] + argv
 
-    return _run_program(argv, stdin=stdin, root=root, env_prune=env_prune, log_output=log_output,
-                        filter_stderr=filter_stderr)
+    return _run_program(argv, stdin=stdin, root=root, env_prune=env_prune, env_add=env_add,
+                        log_output=log_output, filter_stderr=filter_stderr)
 
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):

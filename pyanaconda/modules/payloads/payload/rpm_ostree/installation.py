@@ -601,9 +601,12 @@ class DeployOSTreeTask(Task):
             if not self._data.signature_verification_enabled:
                 args.append("--no-signature-verification")
 
+            # startProgram() sets LC_ALL=C. Override it so libarchive accepts
+            # non-ASCII UTF-8 paths. RHELAI-6998
             safe_exec_program(
                 "ostree",
-                args
+                args,
+                env_add={"LC_ALL": "C.UTF-8"},
             )
         else:
             log.info("ostree admin deploy starting")
