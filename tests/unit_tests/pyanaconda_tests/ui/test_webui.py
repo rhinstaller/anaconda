@@ -16,14 +16,19 @@
 # Red Hat, Inc.
 #
 import os
+import signal
+import subprocess
+import sys
 import tempfile
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import ANY, Mock, patch
 
 import pytest
 from meh.ui.text import TextIntf
 
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE
+from pyanaconda.core.glib import idle_add, source_remove
+from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.ui.webui import FIREFOX_THEME_DEFAULT, CockpitUserInterface
 
 
@@ -146,83 +151,119 @@ class SimpleWebUITestCase(unittest.TestCase):
 
             assert os.path.exists(backend_file) is False
 
+    @patch("pyanaconda.ui.webui.PidWatcher.watch_process")
+    @patch("pyanaconda.ui.webui.create_main_loop")
     @patch("pyanaconda.ui.webui.startProgram")
     @patch("pyanaconda.ui.webui.conf")
     @patch("pyanaconda.ui.webui.log")
-    def test_run_not_on_live(self, mocked_log, mocked_conf, mocked_startProgram):
-        """Test webui run call on boot iso and verify logging."""
-        # Execution is different for boot.iso than live environment
+    def test_run_not_on_live(self, mocked_log, mocked_conf, mocked_startProgram,
+                             mocked_create_main_loop, mocked_watch_process):
+        """Test boot ISO arguments, output logging and child exit handling."""
         mocked_conf.system.provides_liveuser = False
-        mocked_process = Mock()
-        mocked_process.pid = 12345
-        mocked_process.communicate.return_value = ("Test output", "Test error")
-        mocked_startProgram.return_value = mocked_process
+        main_loop = mocked_create_main_loop.return_value
 
-        with tempfile.TemporaryDirectory() as fd:
-            pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file, remote=1)
-            self.intf.run()
+        for remote, noauth, status, returncode in (
+            (1, False, 0, 0),
+            (1, True, 7 << 8, 7),
+            (0, False, signal.SIGTERM, -signal.SIGTERM),
+        ):
+            with self.subTest(remote=remote, noauth=noauth, status=status):
+                mocked_startProgram.reset_mock()
+                mocked_watch_process.reset_mock()
+                main_loop.reset_mock()
+                mocked_log.reset_mock()
+                proc = Mock(pid=12345, returncode=None)
 
-            mocked_startProgram.assert_called_once_with(
-                ["/usr/libexec/anaconda/webui-desktop",
-                 "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
-                 "-n", "0"],
-                reset_lang=False
+                def start_program(cmd, stdout, reset_lang, proc=proc):
+                    stdout.write("Test output\nTest error\nUnicode output: café".encode("utf-8"))
+                    return proc
+
+                def run_loop(proc=proc, status=status):
+                    pid, callback = mocked_watch_process.call_args.args
+                    assert pid == proc.pid
+                    callback(pid, status)
+
+                mocked_startProgram.side_effect = start_program
+                main_loop.run.side_effect = run_loop
+
+                with tempfile.TemporaryDirectory() as fd:
+                    pid_file = os.path.join(fd, "anaconda.pid")
+                    backend_file = os.path.join(fd, "backend_ready")
+                    self._prepare_for_live_testing(
+                        pid_file, backend_file, remote=remote, noauth=noauth
+                    )
+                    self.intf.run()
+
+                    mocked_startProgram.assert_called_once_with(
+                        ["/usr/libexec/anaconda/webui-desktop",
+                         "-t", FIREFOX_THEME_DEFAULT, "-r", str(remote),
+                         "-n", str(int(noauth))],
+                        stdout=ANY, reset_lang=False
+                    )
+                    assert os.path.exists(backend_file) is False
+                    with open(pid_file, "rt") as f:
+                        assert f.read() == "12345"
+
+                assert proc.returncode == returncode
+                proc.communicate.assert_not_called()
+                proc.wait.assert_not_called()
+                proc.poll.assert_not_called()
+                main_loop.run.assert_called_once_with()
+                main_loop.quit.assert_called_once_with()
+                mocked_log.info.assert_any_call("Test output")
+                mocked_log.info.assert_any_call("Test error")
+                mocked_log.info.assert_any_call("Unicode output: café")
+                assert mocked_log.warning.called == (status != 0)
+
+    @patch("pyanaconda.ui.webui.startProgram")
+    @patch("pyanaconda.ui.webui.log")
+    def test_run_webui_main_loop(self, mocked_log, mocked_startProgram):
+        """Run an idle callback while the child waits and produces large output."""
+        with tempfile.TemporaryDirectory() as directory:
+            marker = os.path.join(directory, "continue")
+            self.intf._viewer_pid_file = os.path.join(directory, "viewer.pid")
+            # Bound the child's lifetime even if output or the main thread blocks.
+            script = (
+                "import os, signal, sys, time\n"
+                "signal.alarm(10)\n"
+                "sys.stdout.write('x' * (2 * 1024 * 1024))\n"
+                "sys.stdout.flush()\n"
+                "while not os.path.exists(sys.argv[1]): time.sleep(0.01)\n"
+                "sys.stderr.write('\\nTest error\\n')\n"
             )
-            # Check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
+            proc = None
+            watcher = PidWatcher()
 
-            with open(pid_file, "rt") as f:
-                assert f.readlines() == ["12345"]
+            def start_program(cmd, stdout, reset_lang):
+                nonlocal proc
+                proc = subprocess.Popen(
+                    [sys.executable, "-c", script, marker],
+                    stdout=stdout, stderr=subprocess.STDOUT
+                )
+                return proc
 
-            # Verify that logging calls were made for stdout and stderr
-            mocked_log.debug.assert_called_with("cockpit web view has been started")
-            mocked_log.info.assert_any_call("Test output")
-            mocked_log.error.assert_any_call("Errors from webui-desktop:")
-            mocked_log.error.assert_any_call("Test error")
+            def on_idle():
+                open(marker, "w").close()
+                return False
 
+            mocked_startProgram.side_effect = start_program
+            idle_id = idle_add(on_idle)
+            try:
+                with patch("pyanaconda.ui.webui.PidWatcher", return_value=watcher):
+                    self.intf._run_webui()
+            finally:
+                if not os.path.exists(marker):
+                    source_remove(idle_id)
+                if proc is not None and proc.returncode is None:
+                    # Stop GLib waiting before reaping a child left behind by a failure.
+                    watcher.cancel()
+                    proc.kill()
+                    proc.wait(timeout=5)
 
-        # test with remote + noauth
-        mocked_startProgram.reset_mock()
-        mocked_process.reset_mock()
-        mocked_process.communicate.return_value = ("Noauth output", "")
-        mocked_startProgram.return_value = mocked_process
-        with tempfile.TemporaryDirectory() as fd:
-            pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file, remote=1, noauth=True)
-            self.intf.run()
-
-            mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
-                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "1",
-                                                         "-n", "1"],
-                                                        reset_lang=False)
-
-        # test with disabled remote
-        mocked_startProgram.reset_mock()
-        mocked_process.reset_mock()
-        mocked_process.communicate.return_value = ("Another output", "")
-        mocked_startProgram.return_value = mocked_process
-        with tempfile.TemporaryDirectory() as fd:
-            pid_file = os.path.join(fd, "anaconda.pid")
-            backend_file = os.path.join(fd, "backend_ready")
-            self._prepare_for_live_testing(pid_file, backend_file)
-            self.intf.run()
-
-            mocked_startProgram.assert_called_once_with(["/usr/libexec/anaconda/webui-desktop",
-                                                         "-t", FIREFOX_THEME_DEFAULT, "-r", "0",
-                                                         "-n", "0"],
-                                                        reset_lang=False)
-            # check if backend flag file was removed after finish of run method
-            assert os.path.exists(backend_file) is False
-
-            with open(pid_file, "rt") as f:
-                assert f.readlines() == ["12345"]
-
-            # Verify that logging calls were made for stdout
-            mocked_log.debug.assert_called_with("cockpit web view has been started")
-            mocked_log.info.assert_any_call("Another output")
+            assert os.path.exists(marker)
+            assert proc.returncode == 0
+            mocked_log.info.assert_any_call("x" * (2 * 1024 * 1024))
+            mocked_log.info.assert_any_call("Test error")
 
     @patch("pyanaconda.ui.webui.PidWatcher.watch_process")
     @patch("pyanaconda.ui.webui.create_main_loop")

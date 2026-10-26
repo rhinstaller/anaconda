@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 import os
+import tempfile
 from contextlib import contextmanager
 
 import meh
@@ -130,40 +131,40 @@ class CockpitUserInterface(ui.UserInterface):
             os.remove(self._backend_ready_flag_file)
 
     def _run_webui(self):
-        # FIXME: This part should be start event loop (could use the WatchProcesses class)
         # FIXME: We probably want to move this to early execution similar to what we have on live
         profile_name = FIREFOX_THEME_DEFAULT
+        self._main_loop = create_main_loop()
 
         try:
-            cmd = ["/usr/libexec/anaconda/webui-desktop",
-                   "-t", profile_name, "-r", str(int(self.remote)),
-                   "-n", str(int(self.noauth))]
-            proc = startProgram(cmd, reset_lang=False)
+            # Avoid filling an unread pipe while the main loop runs.
+            # startProgram merges stderr into stdout by default.
+            with tempfile.TemporaryFile() as output:
+                cmd = ["/usr/libexec/anaconda/webui-desktop",
+                       "-t", profile_name, "-r", str(int(self.remote)),
+                       "-n", str(int(self.noauth))]
+                proc = startProgram(cmd, stdout=output, reset_lang=False)
 
-            log.debug("cockpit web view has been started")
-            with open(self._viewer_pid_file, "w") as f:
-                f.write(repr(proc.pid))
+                log.debug("cockpit web view has been started")
+                with open(self._viewer_pid_file, "w") as f:
+                    f.write(repr(proc.pid))
 
-            (output_string, err_string) = proc.communicate()
+                def on_process_closed(pid, status):
+                    # GLib reaps the child; don't wait for it again through Popen.
+                    proc.returncode = os.waitstatus_to_exitcode(status)
+                    self._webui_desktop_closed(pid, status)
 
-            if type(output_string) is bytes:
-                output_string = output_string.decode("utf-8")
+                PidWatcher().watch_process(proc.pid, on_process_closed)
+                self._main_loop.run()
 
-            if output_string and output_string[-1] != "\n":
-                output_string = output_string + "\n"
-
-            if output_string:
-                for line in output_string.splitlines():
+                output.seek(0)
+                for line in output.read().decode("utf-8").splitlines():
                     log.info(line)
-
-            if err_string:
-                log.error("Errors from webui-desktop:")
-                for line in err_string.splitlines():
-                    log.error(line)
 
         except OSError as e:
             log.error(".... %s", e)
             raise
+
+        log.debug("web-ui: cockpit web view has finished running")
 
     def _watch_webui_on_live(self):
         """Watch webui-desktop script process on Live.
