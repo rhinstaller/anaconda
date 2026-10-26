@@ -17,9 +17,7 @@
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
@@ -80,8 +78,6 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
 
         # Finish the installation task. Re-raise tracebacks if any.
         self._task_proxy.Finish()
-
-        util.ipmi_report(IPMI_FINISHED)
 
         if conf.license.eula:
             self.set_warning(_("Use of this product is subject to the license agreement "
