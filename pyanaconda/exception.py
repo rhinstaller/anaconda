@@ -31,7 +31,6 @@ import gi
 from meh import Config
 from meh.dump import ReverseExceptionDump
 from meh.handler import ExceptionHandler
-from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_TRACEBACK
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
 
@@ -44,10 +43,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.errors import NonInteractiveError
-from pyanaconda.modules.common.constants.objects import SCRIPTS
-from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.ui.communication import hubQ
 
 log = get_module_logger(__name__)
@@ -238,21 +234,16 @@ class AnacondaExceptionHandler(ExceptionHandler):
         util.ipmi_report(IPMI_FAILED)
 
     def _run_kickstart_scripts(self):
-        """Run the %traceback and %onerror kickstart scripts."""
-        scripts_proxy = RUNTIME.get_proxy(SCRIPTS)
+        """Run the %onerror and %traceback kickstart scripts.
 
-        # OnError script call
-        onerror_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_ONERROR)
-        onerror_task_proxy = RUNTIME.get_proxy(onerror_task_path)
-
-        # Traceback script call
-        traceback_task_path = scripts_proxy.RunScriptsWithTask(KS_SCRIPT_TRACEBACK)
-        traceback_task_proxy = RUNTIME.get_proxy(traceback_task_path)
+        A failure of these diagnostic scripts must not interrupt the
+        handling of the original exception, so any error is logged and
+        swallowed.
+        """
         try:
-            sync_run_task(onerror_task_proxy)
-            sync_run_task(traceback_task_proxy)
-        except:  # pylint: disable=bare-except  # noqa: E722
-            pass
+            util.run_kickstart_error_scripts(include_traceback=True)
+        except Exception:  # pylint: disable=broad-except
+            log.exception("Failed to run the kickstart error scripts.")
 
     def runDebug(self, exc_info):
         if conf.system.can_switch_tty and self._intf_tty_num != 1:

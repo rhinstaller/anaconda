@@ -51,6 +51,16 @@ class BossInterfaceTestCase:
         self.interface = BossInterface(self.module)
         self._error_file = self.module._error_file
 
+    @pytest.fixture(autouse=True)
+    def _patch_outcome_reporting(self):
+        """Don't report the installation outcome for real.
+
+        Reporting reaches the %onerror/%traceback scripts via the D-Bus
+        Scripts module, which isn't available in unit tests.
+        """
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            yield
+
     def _add_module(self, service_name, available=True, proxy=None):
         """Add a DBus module."""
         if proxy is None:
@@ -256,7 +266,9 @@ class BossInterfaceTestCase:
         """Test that InstallWithTasks returns [] after a successful installation."""
         self.module.install_with_tasks()
         self.module._on_installation_started()
-        self.module._on_installation_succeeded()
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
         self.module._on_installation_stopped()
         assert self.module.install_with_tasks() == []
 
@@ -264,7 +276,9 @@ class BossInterfaceTestCase:
         """Test that InstallWithTasks returns [] after a failed installation."""
         self.module.install_with_tasks()
         self.module._on_installation_started()
-        self.module._on_installation_failed()
+        self.module.report_outcome(
+            InstallationStatus.FAILED, InstallationFailureReason.INSTALLATION_ERROR
+        )
         self.module._on_installation_stopped()
         assert self.module.install_with_tasks() == []
 
@@ -331,7 +345,9 @@ class BossInterfaceTestCase:
         self.module._on_installation_started()
         callback.reset_mock()
 
-        self.module._on_installation_succeeded()
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
 
         assert self.interface.InstallationStatus == InstallationStatus.SUCCEEDED
         assert self.module.installation_status == InstallationStatus.SUCCEEDED
@@ -385,7 +401,9 @@ class BossInterfaceTestCase:
         )
         assert self.module.installation_status == InstallationStatus.RUNNING
 
-        self.module._on_installation_failed()
+        self.module.report_outcome(
+            InstallationStatus.FAILED, InstallationFailureReason.INSTALLATION_ERROR
+        )
 
         assert self.module.installation_status == InstallationStatus.FAILED
         assert self.module.installation_failure_reason == \
@@ -405,17 +423,6 @@ class BossInterfaceTestCase:
         assert self.interface.PendingErrorType == InstallationErrorDialogType.YES_NO
         assert self.module.installation_status == InstallationStatus.RUNNING
 
-    @patch_dbus_publish_object
-    def test_installation_failed_via_signal(self, publisher):
-        """Test that failed_signal sets status to FAILED."""
-        task_paths = self.interface.InstallWithTasks()
-        check_task_creation(task_paths[0], publisher, RunInstallationTask)
-
-        self.module._on_installation_started()
-        self.module._on_installation_failed()
-
-        assert self.module.installation_status == InstallationStatus.FAILED
-
     @pytest.mark.parametrize("terminal_status", [
         InstallationStatus.SUCCEEDED,
         InstallationStatus.FAILED,
@@ -434,17 +441,20 @@ class BossInterfaceTestCase:
         assert self.module.installation_status == terminal_status
         callback.assert_not_called()
 
-    @pytest.mark.parametrize("terminal_handler,expected_status", [
-        ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
-        ("_on_installation_failed", InstallationStatus.FAILED),
+    @pytest.mark.parametrize("terminal_status", [
+        InstallationStatus.SUCCEEDED,
+        InstallationStatus.FAILED,
+        InstallationStatus.ABORTED,
     ])
-    def test_stopped_preserves_terminal_status(self, terminal_handler, expected_status):
+    def test_stopped_preserves_terminal_status(self, terminal_status):
         """Test that _on_installation_stopped does not change terminal status."""
         self.module._on_installation_started()
-        getattr(self.module, terminal_handler)()
+        self.module.report_outcome(
+            terminal_status, InstallationFailureReason.NONE
+        )
         self.module._on_installation_stopped()
 
-        assert self.module.installation_status == expected_status
+        assert self.module.installation_status == terminal_status
         assert self.module._installation_task is None
 
     def test_persist_error_message_writes_file(self):
@@ -546,7 +556,7 @@ class BossInterfaceTestCase:
         callback.assert_not_called()
 
     def test_quit(self):
-        """Test Quit."""
+        """Test that Quit records ABORTED when there is no terminal outcome."""
         assert self.interface.Quit() is None
         assert self.module.installation_status == InstallationStatus.ABORTED
 
@@ -556,9 +566,42 @@ class BossInterfaceTestCase:
 
         assert self.module.installation_status == InstallationStatus.ABORTED
 
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_report_outcome_at_most_once(self, report_mock):
+        """Test that only the first reported outcome is used."""
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+        self.module.report_outcome(
+            InstallationStatus.ABORTED, InstallationFailureReason.NONE
+        )
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
+    def test_running_install_and_quit_reports_once(self, report_mock):
+        """Test that a finishing task plus a user quit report a single outcome.
+
+        The task's worker thread reports SUCCEEDED; a subsequent Quit must
+        not report ABORTED (or anything) a second time.
+        """
+        self.module._on_installation_started()
+        self.module.report_outcome(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+
+        self.module.stop()
+
+        report_mock.assert_called_once_with(
+            InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
+        )
+
+    @patch("pyanaconda.modules.boss.boss.report_installation_outcome")
     @patch_dbus_publish_object
-    def test_stop_sets_aborted_from_running(self, publisher):
-        """Test that stopping while running sets ABORTED."""
+    def test_stop_sets_aborted_from_running(self, publisher, report_mock):
+        """Test that stopping a running install sets and reports ABORTED."""
         task_paths = self.interface.InstallWithTasks()
         check_task_creation(task_paths[0], publisher, RunInstallationTask)
         self.module._on_installation_started()
@@ -566,19 +609,26 @@ class BossInterfaceTestCase:
         self.module.stop()
 
         assert self.module.installation_status == InstallationStatus.ABORTED
+        report_mock.assert_called_once_with(
+            InstallationStatus.ABORTED, self.module.installation_failure_reason
+        )
 
-    @pytest.mark.parametrize("terminal_handler,expected_status", [
-        ("_on_installation_succeeded", InstallationStatus.SUCCEEDED),
-        ("_on_installation_failed", InstallationStatus.FAILED),
+    @pytest.mark.parametrize("terminal_status", [
+        InstallationStatus.SUCCEEDED,
+        InstallationStatus.FAILED,
+        InstallationStatus.ABORTED,
     ])
-    def test_stop_does_not_override_terminal_status(self, terminal_handler, expected_status):
+    def test_stop_does_not_override_terminal_status(self, terminal_status):
         """Test that stopping after a terminal status does not change it."""
         self.module._on_installation_started()
-        getattr(self.module, terminal_handler)()
+        self.module.report_outcome(
+            terminal_status, InstallationFailureReason.NONE
+        )
 
-        self.module.stop()
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
+            self.module.stop()
 
-        assert self.module.installation_status == expected_status
+        assert self.module.installation_status == terminal_status
 
 
 def test_load_initial_state_with_error_file(anaconda_run_dir):
