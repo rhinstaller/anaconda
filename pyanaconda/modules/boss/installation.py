@@ -335,9 +335,8 @@ def report_installation_outcome(status, failure_reason):
     Sends the IPMI event matching the outcome and runs the %onerror (and,
     for an unhandled exception, also the %traceback) kickstart scripts.
 
-    The calls can block for a while, so this must never run on the D-Bus
-    event loop of a service that is expected to stay responsive. Call it
-    either from a worker thread (the installation task) or during shutdown.
+    The calls can block for a while, so call this from the installation
+    worker or during shutdown, rather than on the running D-Bus event loop.
 
     :param status: a terminal InstallationStatus value
     :param failure_reason: an InstallationFailureReason value
@@ -441,13 +440,8 @@ class RunInstallationTask(InstallationTask):
             self._error_raised_signal.emit(
                 str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
             )
-        try:
-            self._report_outcome(
-                InstallationStatus.FAILED, self._failure_reason
-            )
-        finally:
-            # Always report the failure, even if the diagnostic scripts fail.
-            super()._thread_failed_callback(*exc_info)
+        self._report_outcome(InstallationStatus.FAILED, self._failure_reason)
+        super()._thread_failed_callback(*exc_info)
 
     @property
     def name(self):
@@ -462,9 +456,7 @@ class RunInstallationTask(InstallationTask):
     def run(self):
         """Run the installation and report its outcome.
 
-        This runs in the task's worker thread, so the (possibly slow) IPMI
-        report and kickstart error scripts never block the D-Bus loop. A
-        failure is reported from _thread_failed_callback instead.
+        A failure is reported from _thread_failed_callback instead.
         """
         self._run_installation()
         self._report_outcome(
