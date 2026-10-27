@@ -108,16 +108,13 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
-            self._run_kickstart_scripts()
-            util.ipmi_report(IPMI_FAILED)
+            self._report_failure(dump_info)
             sys.exit(1)
         elif isinstance(value, UnusableStorageError):
-            self._run_kickstart_scripts()
-            util.ipmi_report(IPMI_FAILED)
+            self._report_failure(dump_info)
             sys.exit(1)
         elif isinstance(value, NonInteractiveError):
-            self._run_kickstart_scripts()
-            util.ipmi_report(IPMI_FAILED)
+            self._report_failure(dump_info)
             sys.exit(1)
         else:
             # This will call postWriteHook.
@@ -193,8 +190,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     # to acknowledge the error; instead, print the error out and sleep
                     # for a few seconds before exiting the installer
                     print(cmdline_error_msg, flush=True)
-                    self._run_kickstart_scripts()
-                    util.ipmi_report(IPMI_FAILED)
+                    self._report_failure(dump_info)
                     time.sleep(180)
                     sys.exit(1)
                 else:
@@ -229,17 +225,18 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 log.error("Failed to copy %s to %s/root", self.exnFile, conf.target.system_root)
 
         # run kickstart traceback scripts (if necessary)
-        self._run_kickstart_scripts()
+        self._report_failure(dump_info)
 
+    def _report_failure(self, dump_info):
+        """Report a fatal exception unless Boss already reported this failure."""
+        if getattr(dump_info.exc_info.value, "installation_outcome_reported", False):
+            return
+
+        self._run_kickstart_scripts()
         util.ipmi_report(IPMI_FAILED)
 
     def _run_kickstart_scripts(self):
-        """Run the %onerror and %traceback kickstart scripts.
-
-        A failure of these diagnostic scripts must not interrupt the
-        handling of the original exception, so any error is logged and
-        swallowed.
-        """
+        """Run diagnostic scripts without interrupting exception handling."""
         try:
             util.run_kickstart_error_scripts(include_traceback=True)
         except Exception:  # pylint: disable=broad-except

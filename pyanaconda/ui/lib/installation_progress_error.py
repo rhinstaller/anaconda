@@ -26,6 +26,16 @@ log = get_module_logger(__name__)
 class InstallationProgressErrorMixin:
     """Handle installation errors forwarded from the Boss process over D-Bus."""
 
+    def _finish_failed_installation(self):
+        """Re-raise the task failure for diagnostics without repeating Boss reporting."""
+        try:
+            self._task_proxy.Finish()
+        except Exception as error:
+            # The exception handler still creates diagnostics, but Boss has
+            # already sent the IPMI event and run the kickstart error scripts.
+            error.installation_outcome_reported = True
+            raise
+
     def _on_error_raised(self, message, detail_type):
         """Handle an error that needs user interaction.
 

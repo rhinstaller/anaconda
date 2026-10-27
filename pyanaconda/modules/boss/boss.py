@@ -26,10 +26,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.install_manager import InstallManager
-from pyanaconda.modules.boss.installation import (
-    RunInstallationTask,
-    report_installation_outcome,
-)
+from pyanaconda.modules.boss.installation import RunInstallationTask, report_installation_outcome
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.common.base import Service
@@ -143,7 +140,10 @@ class Boss(Service):
         else:
             log.info("The installation has been aborted.")
 
-        report_installation_outcome(status, failure_reason)
+        try:
+            report_installation_outcome(status, failure_reason)
+        except Exception:  # pylint: disable=broad-except
+            log.exception("Failed to report the installation outcome.")
 
     def read_kickstart_file(self, path):
         """Read the specified kickstart file.
