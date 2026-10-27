@@ -143,7 +143,10 @@ class Boss(Service):
         else:
             log.info("The installation has been aborted.")
 
-        report_installation_outcome(status, failure_reason)
+        try:
+            report_installation_outcome(status, failure_reason)
+        except Exception:  # pylint: disable=broad-except
+            log.exception("Failed to report the installation outcome.")
 
     def read_kickstart_file(self, path):
         """Read the specified kickstart file.

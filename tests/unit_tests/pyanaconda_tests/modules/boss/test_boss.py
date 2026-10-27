@@ -58,8 +58,8 @@ class BossInterfaceTestCase:
         Reporting reaches the %onerror/%traceback scripts via the D-Bus
         Scripts module, which isn't available in unit tests.
         """
-        with patch("pyanaconda.modules.boss.boss.report_installation_outcome"):
-            yield
+        with patch("pyanaconda.modules.boss.boss.report_installation_outcome") as report:
+            yield report
 
     def _add_module(self, service_name, available=True, proxy=None):
         """Add a DBus module."""
@@ -554,6 +554,17 @@ class BossInterfaceTestCase:
         task._thread_failed_callback(None, SystemExit(0), None)
 
         callback.assert_not_called()
+
+    def test_reporting_failure_does_not_interrupt_shutdown(self, _patch_outcome_reporting):
+        """A diagnostic script failure must not prevent stopping the services."""
+        _patch_outcome_reporting.side_effect = RuntimeError("diagnostic script failed")
+        with patch.object(self.module._module_manager, "stop_modules") as stop_modules:
+            self.module.stop()
+
+        stop_modules.assert_called_once_with()
+        _patch_outcome_reporting.assert_called_once_with(
+            InstallationStatus.ABORTED, InstallationFailureReason.NONE
+        )
 
     def test_quit(self):
         """Test that Quit records ABORTED when there is no terminal outcome."""

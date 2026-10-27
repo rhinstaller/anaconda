@@ -38,7 +38,6 @@ from pyanaconda.core.constants import (
     CATEGORY_STORAGE,
     CATEGORY_SYSTEM,
     IPMI_ABORTED,
-    IPMI_FAILED,
     IPMI_FINISHED,
     PAYLOAD_LIVE_TYPES,
     PAYLOAD_TYPE_DNF,
@@ -332,8 +331,8 @@ class _RemoteErrorUI:
 def report_installation_outcome(status, failure_reason):
     """Report a terminal installation outcome via IPMI and kickstart scripts.
 
-    Sends the IPMI event matching the outcome and runs the %onerror (and,
-    for an unhandled exception, also the %traceback) kickstart scripts.
+    Sends the IPMI event matching the outcome and runs the %onerror scripts.
+    Unhandled exceptions are reported by exception.py after Finish() raises.
 
     The calls can block for a while, so this must never run on the D-Bus
     event loop of a service that is expected to stay responsive. Call it
@@ -351,9 +350,6 @@ def report_installation_outcome(status, failure_reason):
         if failure_reason == InstallationFailureReason.INSTALLATION_ERROR:
             util.ipmi_report(IPMI_ABORTED)
             util.run_kickstart_error_scripts(include_traceback=False)
-        else:
-            util.ipmi_report(IPMI_FAILED)
-            util.run_kickstart_error_scripts(include_traceback=True)
     else:
         log.warning("Unexpected terminal installation status: %s", status)
 
