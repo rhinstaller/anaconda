@@ -528,6 +528,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 27 2026 github-actions <github-actions@github.com> - 46.4-1
+- Remove "development" to "rawhide" version workaround (kkoukiou)
+- boss: Support aborted installations and a failure reason (adamkankovsky)
+- boss: Set FAILED only when the installation task finishes (adamkankovsky)
+- Use Anaconda log handlers in DBus modules (ajorgens)
+
 * Tue Oct 20 2026 github-actions <github-actions@github.com> - 46.3-1
 - Bump petitboot firmware kernel version check to 5.19 (ppc64le) (tfratrik)
 - Advance system clock using buildstamp on RTC-less systems (kkoukiou)
