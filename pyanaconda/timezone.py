@@ -22,7 +22,7 @@ configuration, valid timezones recognition etc.
 
 """
 
-import datetime
+import datetime as dt
 import os
 import time
 import zoneinfo
@@ -239,7 +239,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     time.tzset()
 
     # get the right values
-    now = datetime.datetime.now(tz)
+    now = dt.datetime.now(tz)
     year = year if year is not None else now.year
     month = month if month is not None else now.month
     day = day if day is not None else now.day
@@ -247,7 +247,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     minute = minute if minute is not None else now.minute
     second = now.second
 
-    set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
+    set_date = dt.datetime(year, month, day, hour, minute, second, tzinfo=tz)
     epoch_seconds = int(set_date.timestamp())
 
     log.info("Setting system time to %s UTC", time.asctime(time.gmtime(epoch_seconds)))

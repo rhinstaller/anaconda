@@ -389,7 +389,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert sorted(result["foo"]) == ['bar', 'baz']
         get_all_tz.assert_called_once()
 
-    @patch("pyanaconda.modules.timezone.timezone.datetime")
+    @patch("pyanaconda.modules.timezone.timezone.dt")
     def test_get_system_date_time(self, fake_datetime):
         """Test getting system date and time."""
         # use a non-default timezone
@@ -406,7 +406,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert self.timezone_interface.GetSystemDateTime() == "2023-06-22T18:49:36.878200"
         fake_date.isoformat.assert_called_once()
 
-    @patch("pyanaconda.modules.timezone.timezone.datetime")
+    @patch("pyanaconda.modules.timezone.timezone.dt")
     def test_get_system_date_time_timezone_not_set(self, fake_datetime):
         """Test getting system date and time if timezone is not set."""
         # make sure Timezone is not set
