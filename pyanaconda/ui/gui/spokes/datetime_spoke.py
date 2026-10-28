@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 import copy
-import datetime
+import datetime as dt
 import functools
 import locale as locale_mod
 import re
@@ -284,15 +284,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _initialize(self):
         # a bit hacky way, but should return the translated strings
         for i in range(1, 32):
-            day = datetime.date(2000, 1, i).strftime(self._day_format)
+            day = dt.date(2000, 1, i).strftime(self._day_format)
             self.add_to_store_idx(self._daysStore, i, day)
 
         for i in range(1, 13):
-            month = datetime.date(2000, i, 1).strftime(self._month_format)
+            month = dt.date(2000, i, 1).strftime(self._month_format)
             self.add_to_store_idx(self._monthsStore, i, month)
 
         for i in range(1990, 2051):
-            year = datetime.date(i, 1, 1).strftime(self._year_format)
+            year = dt.date(i, 1, 1).strftime(self._year_format)
             self.add_to_store_idx(self._yearsStore, i, year)
 
         cities = set()
@@ -432,7 +432,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return True
 
         try:
-            datetime.date(years_model[years_iter][0],
+            dt.date(years_model[years_iter][0],
                           months_model[months_iter][0], day)
             return True
         except ValueError:
@@ -492,7 +492,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         return (hours + correction) % 24
 
     def _update_datetime(self):
-        now = datetime.datetime.now(self._tz)
+        now = dt.datetime.now(self._tz)
         if self._radioButton24h.get_active():
             self._hoursLabel.set_text("%0.2d" % now.hour)
         else:

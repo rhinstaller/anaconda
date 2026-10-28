@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-import datetime
+import datetime as dt
 
 from pykickstart.errors import KickstartParseError
 
@@ -311,7 +311,7 @@ class TimezoneService(KickstartService):
         # check if timezone has been set
         if self._timezone:
             # convert to the expected tzinfo format via get_timezone()
-            return datetime.datetime.now(get_timezone(self._timezone)).isoformat()
+            return dt.datetime.now(get_timezone(self._timezone)).isoformat()
         else:
             log.debug("can't determine system date & time - timezone not set")
             return ""
@@ -323,7 +323,7 @@ class TimezoneService(KickstartService):
         """
         log.debug("Setting system time to: %s, with timezone: %s", date_time_spec, self._timezone)
         # first convert the ISO 8601 time string to a Python date object
-        date = datetime.datetime.fromisoformat(date_time_spec)
+        date = dt.datetime.fromisoformat(date_time_spec)
         # set the date to the system
         set_system_date_time(
             year=date.year,
