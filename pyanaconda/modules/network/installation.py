@@ -70,6 +70,8 @@ class HostnameConfigurationTask(Task):
         return "Configure hostname"
 
     def run(self):
+        if not self._hostname:
+            return
         _write_config_file(
             self._sysroot, self.HOSTNAME_CONF_FILE_PATH,
             "{}\n".format(self._hostname),

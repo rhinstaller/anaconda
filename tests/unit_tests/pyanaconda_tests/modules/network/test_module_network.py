@@ -1111,6 +1111,30 @@ class HostnameConfigurationTaskTestCase(unittest.TestCase):
 
             shutil.rmtree(hostname_dir)
 
+    def test_hostname_config_task_empty_hostname(self):
+        """Test that empty hostname does not overwrite existing /etc/hostname."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            hostname_file_path = os.path.normpath(sysroot + HostnameConfigurationTask.HOSTNAME_CONF_FILE_PATH)
+            hostname_dir = os.path.dirname(hostname_file_path)
+            os.makedirs(hostname_dir)
+
+            with open(hostname_file_path, "w") as f:
+                f.write("payload-hostname\n")
+
+            task = HostnameConfigurationTask(
+                sysroot=sysroot,
+                hostname="",
+                overwrite=True
+            )
+
+            task.run()
+
+            with open(hostname_file_path, "r") as f:
+                content = f.read()
+            assert content == "payload-hostname\n"
+
+            shutil.rmtree(hostname_dir)
+
     def test_hostname_config_dir_not_exist(self):
         """Test hostname configuration task with missing target system directory."""
         with tempfile.TemporaryDirectory() as sysroot:
