@@ -1,0 +1,14 @@
+Port 22
+PermitRootLogin yes
+IgnoreRhosts yes
+StrictModes yes
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd yes
+XAuthLocation /bin/xauth
+KeepAlive yes
+SyslogFacility AUTHPRIV
+RSAAuthentication yes
+PasswordAuthentication yes
+PermitEmptyPasswords yes
+PermitUserEnvironment yes

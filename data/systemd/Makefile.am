@@ -35,6 +35,9 @@ dist_systemd_DATA = anaconda.service \
                     anaconda-s390-device-config-import.service \
                     anaconda-fips.service
 
+sshdconfigdir = $(sysconfdir)/ssh
+dist_sshdconfig_DATA = sshd_config.anaconda
+
 dist_logindconf_DATA = anaconda-logind.conf
 
 dist_generator_SCRIPTS = anaconda-generator
