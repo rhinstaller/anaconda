@@ -444,6 +444,7 @@ rm -rf \
 %{_unitdir}/*
 %exclude %{_unitdir}/anaconda-shell@.service
 %{_prefix}/lib/systemd/system-generators/*
+%config %{_sysconfdir}/ssh/sshd_config.anaconda
 %{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
