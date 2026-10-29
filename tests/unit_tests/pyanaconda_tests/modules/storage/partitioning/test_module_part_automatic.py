@@ -18,10 +18,13 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import ANY, Mock, call, patch
+from unittest.mock import ANY, Mock, PropertyMock, call, patch
 
 import pytest
+from blivet.devices import BTRFSSubVolumeDevice, BTRFSVolumeDevice, LUKSDevice, StorageDevice
 from blivet.errors import StorageError
+from blivet.formats import get_format
+from blivet.formats.fs import BTRFS
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -38,6 +41,7 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.storage.devicetree import create_storage
+from pyanaconda.modules.storage.devicetree.root import Root
 from pyanaconda.modules.storage.partitioning.automatic.automatic_interface import (
     AutoPartitioningInterface,
 )
@@ -56,6 +60,7 @@ from pyanaconda.modules.storage.partitioning.automatic.utils import (
 )
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.modules.storage.platform import X86EFI
 from tests.unit_tests.pyanaconda_tests import (
     check_dbus_object_creation,
     check_dbus_property,
@@ -1136,6 +1141,151 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         # / is on stratis pool
         root_device.mock_add_spec(['format', 'name', 'pool'])
         assert AutomaticPartitioningTask._implicit_partitions_reused(storage, request) is True
+
+    @staticmethod
+    def _get_storage(boot_layout, encrypted=False):
+        storage = create_storage()
+        storage._bootloader = Mock(stage2_format_types=["ext4", "btrfs"])
+
+        member = StorageDevice(
+            "vda3", size=Size("20GiB"), fmt=get_format("btrfs", exists=True), exists=True
+        )
+        devices = [member]
+        if encrypted:
+            member.format = get_format("luks", exists=True)
+            member = LUKSDevice(
+                "luks-vda3", parents=[member], fmt=get_format("btrfs", exists=True), exists=True
+            )
+            devices.append(member)
+
+        volume = BTRFSVolumeDevice("fedora", parents=[member], exists=True)
+        root = BTRFSSubVolumeDevice(
+            "root", parents=[volume], fmt=get_format("btrfs", exists=True), exists=True
+        )
+        mounts = {"/": root}
+        devices.extend([volume, root])
+
+        if boot_layout in ("subvolume", "nested", "nested_home"):
+            parent = root if boot_layout != "subvolume" else volume
+            name = "boot" if parent == volume else "root/boot"
+            boot = BTRFSSubVolumeDevice(
+                name, parents=[parent], fmt=get_format("btrfs", exists=True), exists=True
+            )
+            mounts["/boot"] = boot
+            devices.append(boot)
+        elif boot_layout == "partition":
+            boot = StorageDevice("vda2", fmt=get_format("ext4", exists=True), exists=True)
+            mounts["/boot"] = boot
+            devices.append(boot)
+
+        home_parent = mounts["/boot"] if boot_layout == "nested_home" else volume
+        home_name = "root/boot/home" if boot_layout == "nested_home" else "home"
+        home = BTRFSSubVolumeDevice(
+            home_name, parents=[home_parent], fmt=get_format("btrfs", exists=True), exists=True
+        )
+        mounts["/home"] = home
+        devices.append(home)
+
+        for device in devices:
+            storage.devicetree._add_device(device)
+
+        storage.roots = [Root(mounts=mounts, mountopts={"/home": f"subvol={home.name}"})]
+        return storage
+
+    @staticmethod
+    def _get_request():
+        request = PartitioningRequest()
+        request.partitioning_scheme = AUTOPART_TYPE_BTRFS
+        request.reused_mount_points = ["/home"]
+        request.reformatted_mount_points = ["/"]
+        request.removed_mount_points = ["/boot", "bootloader"]
+        return request
+
+    # Planning actions and inspecting mountpoints should not require host Btrfs support.
+    @patch.object(BTRFS, "formattable", new_callable=PropertyMock, return_value=True)
+    @patch.object(BTRFS, "_mount_class", return_value=Mock(available=True, options=["defaults"]))
+    @patch("blivet.devices.btrfs.BTRFSDevice._external_dependencies", [])
+    @patch.object(AutomaticPartitioningTask, "_do_autopart")
+    @patch.object(AutomaticPartitioningTask, "_remove_bootloader_partitions")
+    @patch("pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning."
+           "NonInteractivePartitioningTask._clear_partitions")
+    @patch("pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning."
+           "find_existing_installations")
+    @patch("pyanaconda.modules.storage.partitioning.automatic.utils.platform", new_callable=X86EFI)
+    def test_reinstall_btrfs_boot(self, platform, find_roots, clear_partitions,
+                                 remove_bootloader, do_autopart, mount_class, formattable):
+        for boot_layout in ("directory", "subvolume", "nested"):
+            with self.subTest(boot_layout=boot_layout):
+                remove_bootloader.reset_mock()
+                storage = self._get_storage(boot_layout)
+                request = self._get_request()
+                original_request = PartitioningRequest.to_structure(request)
+                old_root = storage.roots[0].mounts["/"]
+                home = storage.roots[0].mounts["/home"]
+                find_roots.return_value = storage.roots
+
+                task = AutomaticPartitioningTask(storage, request)
+                task._clear_partitions(storage)
+                effective_request = PartitioningRequest.to_structure(task._request)
+                task._configure_partitioning(storage)
+
+                # Autopart only needs to allocate the ESP, not a new physical /boot.
+                specs = do_autopart.call_args.args[2]
+                assert [(spec.mountpoint, spec.fstype) for spec in specs] == [("/boot/efi", "efi")]
+                assert do_autopart.call_args.args[-1] is False
+                remove_bootloader.assert_called_once_with(storage)
+
+                new_root = storage.mountpoints["/"]
+                assert new_root is not old_root
+                assert new_root.volume is home.volume
+                assert not new_root.exists
+                assert storage.mountpoints["/home"] is home
+                assert home.exists
+
+                if boot_layout == "subvolume":
+                    new_boot = storage.mountpoints["/boot"]
+                    assert new_boot.volume is home.volume
+                    assert not new_boot.exists
+                else:
+                    assert "/boot" not in storage.mountpoints
+
+                # Neither adjusting the boot plan nor collecting specs mutates the
+                # original request, which can be used for another partitioning attempt.
+                assert PartitioningRequest.to_structure(request) == original_request
+                assert PartitioningRequest.to_structure(task._request) == effective_request
+
+    def test_reuse_request_requires_btrfs_boot_support(self):
+        storage = self._get_storage("directory")
+        storage._bootloader.stage2_format_types = ["ext4", "xfs"]
+        request = self._get_request()
+
+        assert AutomaticPartitioningTask._get_reuse_request(storage, request) is request
+
+    def test_reuse_request_keeps_separate_plain_boot(self):
+        storage = self._get_storage("partition")
+        request = self._get_request()
+
+        assert AutomaticPartitioningTask._get_reuse_request(storage, request) is request
+
+    @patch("blivet.devices.dm.blockdev.dm.map_exists", return_value=False)
+    def test_reuse_request_requires_unencrypted_boot(self, map_exists):
+        storage = self._get_storage("directory", encrypted=True)
+        request = self._get_request()
+
+        assert AutomaticPartitioningTask._get_reuse_request(storage, request) is request
+
+    def test_nested_home_is_protected(self):
+        storage = self._get_storage("nested_home")
+        request = AutomaticPartitioningTask._get_reuse_request(storage, self._get_request())
+        # Avoid the unrelated ESP handling in this in-memory device tree.
+        request.removed_mount_points.remove("bootloader")
+        home = storage.roots[0].mounts["/home"]
+
+        with pytest.raises(StorageError, match="nested subvolumes which cannot be reused"):
+            AutomaticPartitioningTask._clear_existing_mountpoints(storage, request)
+
+        assert home in storage.devices
+        assert list(storage.devicetree.actions) == []
 
 
 class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
