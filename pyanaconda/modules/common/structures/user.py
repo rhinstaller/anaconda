@@ -207,7 +207,7 @@ class UserData(DBusData):
     def homedir(self) -> Str:
         """The home directory of the user.
 
-        If not provided, this defaults to /home/.
+        If not provided, this defaults to the HOME base from /etc/default/useradd.
 
         For example: 'user_home'
 
