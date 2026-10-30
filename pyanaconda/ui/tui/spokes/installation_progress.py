@@ -25,7 +25,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
@@ -58,6 +58,7 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         self.title = N_("Progress")
         self._task_proxy = None
         self._stepped = False
+        self._installation_failed = False
         self.initialize_done()
 
     @property
@@ -91,7 +92,6 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         super().show_all()
         from pyanaconda.core.dbus import DBus
         from pyanaconda.core.threads import thread_manager
-        from pyanaconda.modules.common.constants.services import BOSS
 
         # Wait for background threads to finish
         if thread_manager.running > 1:
@@ -105,6 +105,7 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
 
         self._task_proxy.ProgressChanged.connect(self._on_progress_changed)
         self._task_proxy.ErrorRaised.connect(self._on_error_raised)
+        self._task_proxy.Failed.connect(self._on_installation_failed)
         self._task_proxy.Stopped.connect(self._on_installation_done)
 
         self._task_proxy.Start()
@@ -115,6 +116,10 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         loop = App.get_event_loop()
         loop.process_signals(return_after=ScreenReadySignal)
 
+        # The installation failed; quit instead of showing the success screen.
+        if self._installation_failed:
+            raise ExitMainLoop()
+
         runtime_proxy = RUNTIME.get_proxy()
         reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
         # kickstart install, continue automatically if reboot or shutdown selected
@@ -123,6 +128,9 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
             # what it gets, it just quits.
             raise ExitMainLoop()
 
+    def _on_installation_failed(self):
+        self._installation_failed = True
+
     def _on_installation_done(self):
         log.debug("The installation has finished.")
 
@@ -130,8 +138,13 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         if self._stepped:
             print('')
 
-        # Finish the installation task. Re-raise tracebacks if any.
+        # Re-raise unexpected failures for the exception handler.
         self._task_proxy.Finish()
+
+        if self._installation_failed:
+            loop = App.get_event_loop()
+            loop.enqueue_signal(ScreenReadySignal(self))
+            return
 
         if conf.license.eula:
             # Notify user about the EULA (if any).

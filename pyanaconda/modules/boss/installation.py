@@ -51,6 +51,7 @@ from pyanaconda.core.path import (
 from pyanaconda.core.service import is_service_installed
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect, restorecon
+from pyanaconda.errors import HandledInstallationError
 from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.modules.boss.install_manager.installation_category_interface import (
@@ -427,13 +428,17 @@ class RunInstallationTask(InstallationTask):
 
         Skips emission if a fatal error was already emitted by _show_dialog
         to avoid overwriting the original error message (e.g. ScriptError
-        emits via _show_dialog, then sys.exit triggers this callback with
-        a less informative SystemExit message). When it was not already
-        emitted, the thread crashed with an unhandled exception that never
-        went through the normal error-reporting flow.
+        emits via _show_dialog, then HandledInstallationError triggers this
+        callback). When it was not already emitted, the thread crashed with
+        an unhandled exception that never went through the normal
+        error-reporting flow.
         """
+        self._failure_reason = (
+            InstallationFailureReason.INSTALLATION_ERROR
+            if isinstance(exc_info[1], HandledInstallationError)
+            else InstallationFailureReason.UNHANDLED_EXCEPTION
+        )
         if not self._fatal_error_already_emitted:
-            self._failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
             self._error_raised_signal.emit(
                 str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
             )
@@ -466,6 +471,13 @@ class RunInstallationTask(InstallationTask):
         self._report_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
+
+    def finish(self):
+        """Finish without re-raising an installation error already handled by the UI."""
+        try:
+            super().finish()
+        except HandledInstallationError:
+            pass
 
     def for_publication(self):
         """Return a DBus representation."""
@@ -946,6 +958,12 @@ class RunInstallationTask(InstallationTask):
         errorHandler.ui = _RemoteErrorUI(self)
         try:
             queue.start()
+        except Exception as error:
+            # ERROR_RAISE also covers unknown errors; only mapped errors
+            # have gone through an expected installation error handler.
+            if type(error).__name__ in errorHandler.map:
+                raise HandledInstallationError(str(error)) from error
+            raise
         finally:
             errorHandler.ui = previous_ui
 
