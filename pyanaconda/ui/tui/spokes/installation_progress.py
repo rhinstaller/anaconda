@@ -25,7 +25,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.services import RUNTIME
+from pyanaconda.modules.common.constants.installation import InstallationStatus
+from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
@@ -58,6 +59,7 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         self.title = N_("Progress")
         self._task_proxy = None
         self._stepped = False
+        self._installation_failed = False
         self.initialize_done()
 
     @property
@@ -91,7 +93,6 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         super().show_all()
         from pyanaconda.core.dbus import DBus
         from pyanaconda.core.threads import thread_manager
-        from pyanaconda.modules.common.constants.services import BOSS
 
         # Wait for background threads to finish
         if thread_manager.running > 1:
@@ -115,6 +116,10 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         loop = App.get_event_loop()
         loop.process_signals(return_after=ScreenReadySignal)
 
+        # The installation failed; quit instead of showing the success screen.
+        if self._installation_failed:
+            raise ExitMainLoop()
+
         runtime_proxy = RUNTIME.get_proxy()
         reboot_data = RebootData.from_structure(runtime_proxy.Reboot)
         # kickstart install, continue automatically if reboot or shutdown selected
@@ -130,8 +135,19 @@ class ProgressSpoke(StandaloneTUISpoke, InstallationProgressErrorMixin):
         if self._stepped:
             print('')
 
-        # Finish the installation task. Re-raise tracebacks if any.
-        self._task_proxy.Finish()
+        self._finish_installation()
+
+        # Boss has recorded and reported the installation outcome.
+        boss_proxy = BOSS.get_proxy()
+        status = boss_proxy.InstallationStatus
+        if status != InstallationStatus.SUCCEEDED.value:
+            log.error("The installation did not succeed.")
+            # Don't show the success message, but still stop show_all() from
+            # waiting for ScreenReadySignal forever.
+            self._installation_failed = True
+            loop = App.get_event_loop()
+            loop.enqueue_signal(ScreenReadySignal(self))
+            return
 
         if conf.license.eula:
             # Notify user about the EULA (if any).

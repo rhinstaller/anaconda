@@ -22,10 +22,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import C_, _
 from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.installation import (
-    InstallationFailureReason,
-    InstallationStatus,
-)
+from pyanaconda.modules.common.constants.installation import InstallationStatus
 from pyanaconda.modules.common.constants.services import BOSS, RUNTIME
 from pyanaconda.modules.common.structures.reboot import RebootData
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -81,18 +78,13 @@ class ProgressSpoke(StandaloneSpoke, InstallationProgressErrorMixin):
         gtk_call_once(self._spinner.stop)
         gtk_call_once(self._spinner.hide)
 
+        self._finish_installation()
+
         # Boss has recorded and reported the installation outcome.
         boss_proxy = BOSS.get_proxy()
         status = boss_proxy.InstallationStatus
         if status != InstallationStatus.SUCCEEDED.value:
             log.error("The installation did not succeed.")
-            reason = boss_proxy.InstallationFailureReason
-            if (status == InstallationStatus.FAILED.value
-                    and reason == InstallationFailureReason.UNHANDLED_EXCEPTION.value):
-                # Re-raise the task's exception here so python-meh can handle
-                # it with full diagnostics.
-                self._finish_failed_installation()
-                return
             # The fatal error dialog already confirmed quitting; don't ask again.
             if getattr(self, "_fatal_error_acknowledged", False):
                 gtk_call_once(Gtk.main_quit)

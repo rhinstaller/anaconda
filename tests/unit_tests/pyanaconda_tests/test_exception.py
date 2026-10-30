@@ -24,7 +24,7 @@ class ExceptionReportingTestCase:
         spoke._task_proxy.Finish.side_effect = failure
 
         with pytest.raises(RuntimeError) as raised:
-            spoke._finish_failed_installation()
+            spoke._finish_installation()
 
         assert raised.value is failure
         dump_info = SimpleNamespace(exc_info=SimpleNamespace(value=raised.value))
