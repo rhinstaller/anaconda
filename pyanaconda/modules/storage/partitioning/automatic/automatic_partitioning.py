@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
+
 from blivet.errors import StorageError
 from blivet.partitioning import do_partitioning, grow_lvm, grow_stratis
 from blivet.static_data import luks_data
@@ -181,7 +183,49 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # Check that partitioning scheme matches
         self._check_reused_scheme(storage, self._request)
 
+        self._request = self._get_reuse_request(storage, self._request)
         self._clear_existing_mountpoints(storage, self._request)
+
+    @classmethod
+    def _get_reuse_request(cls, storage, request):
+        """Preserve the Btrfs boot layout when reusing an existing installation.
+
+        Removing a subvolume only frees space inside its Btrfs volume, so we
+        cannot rely on it to make room for a new physical /boot partition.
+        """
+        if (request.partitioning_scheme != AUTOPART_TYPE_BTRFS
+                or not request.reused_mount_points
+                or "/" not in request.reformatted_mount_points
+                or "/boot" not in request.removed_mount_points):
+            return request
+
+        if "btrfs" not in storage.bootloader.stage2_format_types:
+            return request
+
+        root_device = cls._get_mountpoint_device(storage, "/")
+        boot_device = cls._get_mountpoint_device(storage, "/boot", required=False)
+        boot_filesystem = boot_device or root_device
+
+        if (boot_filesystem.type not in ("btrfs volume", "btrfs subvolume")
+                or boot_filesystem.encrypted):
+            return request
+
+        # Adjust a private request, leaving the module's original request intact.
+        request = copy.deepcopy(request)
+        request.removed_mount_points.remove("/boot")
+
+        if (boot_device is None or boot_device == root_device
+                or boot_device.depends_on(root_device)):
+            # Recreating the root also removes any nested /boot subvolume.
+            # Let /boot become a directory in the new root filesystem. Keeping
+            # this removal in reformat_device also protects nested reused data.
+            if "/boot" not in request.excluded_mount_points:
+                request.excluded_mount_points.append("/boot")
+        else:
+            # Recreate a separate Btrfs boot filesystem in its original volume.
+            request.reformatted_mount_points.append("/boot")
+
+        return request
 
     @classmethod
     def _check_reused_scheme(cls, storage, request):
