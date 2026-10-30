@@ -16,8 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import importlib
 import unittest
 from unittest.mock import Mock, patch
+
+import pytest
 
 from pyanaconda.modules.common.constants.installation import InstallationErrorDialogType
 from pyanaconda.ui.lib.installation_progress_error import InstallationProgressErrorMixin
@@ -59,3 +62,23 @@ class InstallationProgressErrorMixinTestCase(unittest.TestCase):
         mock_ui.showError.assert_not_called()
         mock_ui.showYesNoQuestion.assert_not_called()
         spoke._task_proxy.RespondToError.assert_called_once_with(False)
+
+
+@pytest.mark.parametrize("ui", ["gui", "tui"])
+def test_failed_progress_finishes_without_success_screen(ui, capsys):
+    module = importlib.import_module(f"pyanaconda.ui.{ui}.spokes.installation_progress")
+    spoke = Mock(_installation_failed=False, _stepped=False)
+    module.ProgressSpoke._on_installation_failed(spoke)
+
+    with patch.object(module, "gtk_call_once" if ui == "gui" else "App") as dispatcher:
+        module.ProgressSpoke._on_installation_done(spoke)
+
+    spoke._task_proxy.Finish.assert_called_once_with()
+    if ui == "gui":
+        dispatcher.assert_any_call(module.Gtk.main_quit)
+        spoke._progressNotebook.set_current_page.assert_not_called()
+    else:
+        enqueue = dispatcher.get_event_loop.return_value.enqueue_signal
+        enqueue.assert_called_once()
+        assert isinstance(enqueue.call_args.args[0], module.ScreenReadySignal)
+    assert capsys.readouterr().out == ""

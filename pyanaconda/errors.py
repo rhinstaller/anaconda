@@ -40,6 +40,10 @@ class ScriptError(Exception):
         self.details = details
 
 
+class HandledInstallationError(Exception):
+    """Stop the installation after an expected error has been handled."""
+
+
 class NonInteractiveError(Exception):
     pass
 

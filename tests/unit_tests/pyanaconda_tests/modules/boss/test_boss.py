@@ -20,10 +20,14 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import pytest
+from dasbus.error import DBusError
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from gi.repository import GLib
 
 from pyanaconda.core import constants
 from pyanaconda.core.constants import DEFAULT_LANG
+from pyanaconda.errors import HandledInstallationError
+from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.installation import RunInstallationTask
@@ -33,6 +37,13 @@ from pyanaconda.modules.common.constants.installation import (
     InstallationFailureReason,
     InstallationStatus,
 )
+from pyanaconda.modules.common.errors.installation import (
+    BootloaderInstallationError,
+    NonCriticalInstallationError,
+    PayloadInstallationError,
+    StorageInstallationError,
+)
+from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
@@ -551,9 +562,73 @@ class BossInterfaceTestCase:
         callback = Mock()
         task.error_raised_signal.connect(callback)
 
-        task._thread_failed_callback(None, SystemExit(0), None)
+        task._thread_failed_callback(None, HandledInstallationError("already displayed"), None)
 
         callback.assert_not_called()
+
+    @pytest.mark.parametrize("dbus_task", [True, False])
+    @pytest.mark.parametrize("error, should_continue, reason", [
+        (ScriptError("42\nscript failed"), False, InstallationFailureReason.INSTALLATION_ERROR),
+        (PayloadInstallationError("payload failed"), False, InstallationFailureReason.INSTALLATION_ERROR),
+        (StorageInstallationError("storage failed"), False, InstallationFailureReason.INSTALLATION_ERROR),
+        (BootloaderInstallationError("bootloader failed"), False, InstallationFailureReason.INSTALLATION_ERROR),
+        (NonCriticalInstallationError("optional task failed"), False, InstallationFailureReason.INSTALLATION_ERROR),
+        (NonCriticalInstallationError("optional task failed"), True, InstallationFailureReason.NONE),
+        (RuntimeError("unexpected crash"), False, InstallationFailureReason.UNHANDLED_EXCEPTION),
+        (DBusError("unknown remote error"), False, InstallationFailureReason.UNHANDLED_EXCEPTION),
+    ])
+    def test_installation_finish(self, dbus_task, error, should_continue, reason,
+                                 _patch_outcome_reporting):
+        """Task signals and Finish distinguish handled failures, crashes, and continuing."""
+        task = self.module.install_with_tasks()[0]
+        interface = task.for_publication()
+        installation_queue = TaskQueue("Installation")
+        installation_queue.append(DBusTask(Mock()) if dbus_task
+                                  else Task("Install", Mock(side_effect=error)))
+        configuration_queue = TaskQueue("Configuration")
+        configuration_queue.append(Task("Configure", lambda: None))
+        task._prepare_installation = lambda: installation_queue
+        task._prepare_configuration = lambda: configuration_queue
+
+        signals = Mock()
+        interface.Failed.connect(signals.failed)
+        interface.Succeeded.connect(signals.succeeded)
+        interface.Stopped.connect(signals.stopped)
+        task.error_raised_signal.connect(lambda *_args: task.respond_to_error(should_continue))
+
+        loop = GLib.MainLoop()
+        interface.Stopped.connect(loop.quit)
+        timeout = GLib.timeout_add_seconds(5, loop.quit)
+        succeeded = reason == InstallationFailureReason.NONE
+        status = InstallationStatus.SUCCEEDED if succeeded else InstallationStatus.FAILED
+
+        try:
+            with patch("pyanaconda.installation_tasks.sync_run_task", side_effect=error), \
+                    patch("pyanaconda.flags.flags.ksprompt", True):
+                interface.Start()
+                loop.run()
+
+            signals.stopped.assert_called_once_with()
+            assert signals.failed.call_count == (0 if succeeded else 1)
+            assert signals.succeeded.call_count == (1 if succeeded else 0)
+            assert self.module.installation_status == status
+            assert self.module.installation_failure_reason == reason
+            _patch_outcome_reporting.assert_called_once_with(status, reason)
+
+            if reason == InstallationFailureReason.UNHANDLED_EXCEPTION:
+                with pytest.raises(type(error)) as raised:
+                    interface.Finish()
+                assert raised.value is error
+            else:
+                assert interface.Finish() is None
+        finally:
+            if signals.stopped.called:
+                GLib.source_remove(timeout)
+            # Consume a stored failure even if a preceding assertion failed.
+            try:
+                task.finish()
+            except Exception:
+                pass
 
     def test_reporting_failure_does_not_interrupt_shutdown(self, _patch_outcome_reporting):
         """A diagnostic script failure must not prevent stopping the services."""

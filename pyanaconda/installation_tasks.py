@@ -17,7 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import sys
 import time
 
 from dasbus.error import DBusError
@@ -301,11 +300,8 @@ class DBusTask(BaseTask):
             # Handle a remote error.
             if isinstance(e, ScriptError):
                 flags.ksprompt = True
-                errorHandler.cb(e)
-                sys.exit(0)
-            else:
-                if errorHandler.cb(e) == ERROR_RAISE:
-                    raise
+            if errorHandler.cb(e) == ERROR_RAISE:
+                raise
         finally:
             # Disconnect from the signal.
             self._task_proxy.ProgressChanged.disconnect()
