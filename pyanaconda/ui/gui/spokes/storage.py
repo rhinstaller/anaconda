@@ -16,13 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import sys
-
 import gi
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import constants, util
+from pyanaconda.core import constants
 from pyanaconda.core.async_utils import async_action_nowait, async_action_wait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
@@ -928,8 +926,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             if rc == 0:
                 # Quit.
-                util.ipmi_abort()
-                sys.exit(0)
+                Gtk.main_quit()
 
         elif self.errors:
             label = _("The following errors were encountered when checking your storage "
@@ -949,8 +946,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             if rc == 0:
                 # Quit.
-                util.ipmi_abort()
-                sys.exit(0)
+                Gtk.main_quit()
         elif self.warnings:
             label = _("The following warnings were encountered when checking your storage "
                       "configuration.  These are not fatal, but you may wish to make "

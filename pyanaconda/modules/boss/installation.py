@@ -52,7 +52,7 @@ from pyanaconda.core.path import (
 from pyanaconda.core.service import is_service_installed
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect, restorecon
-from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
+from pyanaconda.installation_tasks import DBusTask, HandledInstallationError, Task, TaskQueue
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.modules.boss.install_manager.installation_category_interface import (
     CategoryReportTaskInterface,
@@ -335,9 +335,8 @@ def report_installation_outcome(status, failure_reason):
     Sends the IPMI event matching the outcome and runs the %onerror (and,
     for an unhandled exception, also the %traceback) kickstart scripts.
 
-    The calls can block for a while, so this must never run on the D-Bus
-    event loop of a service that is expected to stay responsive. Call it
-    either from a worker thread (the installation task) or during shutdown.
+    The calls can block for a while, so call this from the installation
+    worker or during shutdown, rather than on the running D-Bus event loop.
 
     :param status: a terminal InstallationStatus value
     :param failure_reason: an InstallationFailureReason value
@@ -361,16 +360,16 @@ def report_installation_outcome(status, failure_reason):
 class RunInstallationTask(InstallationTask):
     """Task to run the installation queue."""
 
-    def __init__(self, install_manager, report_outcome):
+    def __init__(self, install_manager, record_outcome):
         """Create a new task.
 
         :param install_manager: an install manager
-        :param report_outcome: a callable reporting the terminal outcome
+        :param record_outcome: a callable recording the terminal outcome
         """
         super().__init__()
         self._total_steps = 0
         self._install_manager = install_manager
-        self._report_outcome = report_outcome
+        self._record_outcome = record_outcome
         self._error_raised_signal = Signal()
         self._error_response_event = Event()
         self._error_response_signal = Signal()
@@ -427,27 +426,24 @@ class RunInstallationTask(InstallationTask):
         self._error_response_signal.emit(should_continue)
 
     def _thread_failed_callback(self, *exc_info):
-        """Emit the fatal error before reporting the failure.
+        """Emit the fatal error before recording the failure.
 
         Skips emission if a fatal error was already emitted by _show_dialog
         to avoid overwriting the original error message (e.g. ScriptError
-        emits via _show_dialog, then sys.exit triggers this callback with
-        a less informative SystemExit message). When it was not already
-        emitted, the thread crashed with an unhandled exception that never
-        went through the normal error-reporting flow.
+        emits via _show_dialog, then HandledInstallationError triggers this
+        callback). When it was not already emitted, the thread crashed with
+        an unhandled exception that never went through the normal
+        error-reporting flow.
         """
         if not self._fatal_error_already_emitted:
             self._failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
             self._error_raised_signal.emit(
                 str(exc_info[1]), InstallationErrorDialogType.FATAL_ERROR
             )
-        try:
-            self._report_outcome(
-                InstallationStatus.FAILED, self._failure_reason
-            )
-        finally:
-            # Always report the failure, even if the diagnostic scripts fail.
-            super()._thread_failed_callback(*exc_info)
+        if self._failure_reason == InstallationFailureReason.NONE:
+            self._failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
+        self._record_outcome(InstallationStatus.FAILED, self._failure_reason)
+        super()._thread_failed_callback(*exc_info)
 
     @property
     def name(self):
@@ -460,16 +456,21 @@ class RunInstallationTask(InstallationTask):
         return self._total_steps
 
     def run(self):
-        """Run the installation and report its outcome.
+        """Run the installation and record its outcome.
 
-        This runs in the task's worker thread, so the (possibly slow) IPMI
-        report and kickstart error scripts never block the D-Bus loop. A
-        failure is reported from _thread_failed_callback instead.
+        A failure is recorded from _thread_failed_callback instead.
         """
         self._run_installation()
-        self._report_outcome(
+        self._record_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
+
+    def finish(self):
+        """Finish without re-raising an installation error already handled by the UI."""
+        try:
+            super().finish()
+        except HandledInstallationError:
+            pass
 
     def for_publication(self):
         """Return a DBus representation."""
