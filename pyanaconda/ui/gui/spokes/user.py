@@ -25,7 +25,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PASSWORD_POLICY_USER
 from pyanaconda.core.i18n import CN_, _
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
-from pyanaconda.core.users import check_groupname, crypt_password, guess_username
+from pyanaconda.core.path import join_paths
+from pyanaconda.core.users import check_groupname, crypt_password, get_default_home_base, guess_username
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.util import is_module_available
@@ -116,7 +117,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         if self.user.homedir:
             homedir = self.user.homedir
         elif self.user.name:
-            homedir = "/home/" + self.user.name
+            homedir = join_paths(get_default_home_base(conf.target.system_root), self.user.name)
         else:
             # this state shouldn't happen
             raise ValueError("Can't resolve home directory")

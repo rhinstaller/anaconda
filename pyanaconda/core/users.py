@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import configparser
 import os
 import os.path
 import re
@@ -27,7 +28,7 @@ from random import SystemRandom as sr
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import make_directories, open_with_perm
+from pyanaconda.core.path import join_paths, make_directories, open_with_perm
 from pyanaconda.core.regexes import (
     GROUPLIST_FANCY_PARSE,
     GROUPLIST_SIMPLE_VALID,
@@ -47,6 +48,26 @@ except ImportError:
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
+
+
+def get_default_home_base(root="/"):
+    """Read the system-configured base directory for user home directories.
+
+    Reads the HOME setting from /etc/default/useradd in the given root.
+    Falls back to /home if the file is missing or has no HOME setting.
+
+    :param str root: the target system root path
+    :returns: the base path for home directories (e.g. "/home")
+    :rtype: str
+    """
+    path = root + "/etc/default/useradd"
+    parser = configparser.ConfigParser()
+    try:
+        with open(path, "r") as f:
+            parser.read_string("[useradd]\n" + f.read())
+        return parser.get("useradd", "HOME")
+    except (OSError, configparser.Error):
+        return "/home"
 
 
 def crypt_password(password):
@@ -360,7 +381,8 @@ def create_user(username, password=False, is_crypted=False, lock=False,
     :param bool lock: Is the new account locked by default?
                       Defaults to False.
     :param str homedir: The home directory for the new user.
-                        Defaults to /home/<name>.
+                        Defaults to the HOME base from /etc/default/useradd,
+                        followed by the username.
     :param int uid: The UID for the new user.
                     If none is given, the next available one is used.
     :param int gid: The GID for the new user.
@@ -381,14 +403,14 @@ def create_user(username, password=False, is_crypted=False, lock=False,
 
     # resolve the optional arguments that need a default that can't be
     # reasonably set in the function signature
+    if root is None:
+        root = conf.target.system_root
+
     if not homedir:
-        homedir = "/home/" + username
+        homedir = join_paths(get_default_home_base(root), username)
 
     if groups is None:
         groups = []
-
-    if root is None:
-        root = conf.target.system_root
 
     if check_user_exists(username, root):
         raise ValueError("User %s already exists" % username)

@@ -362,6 +362,18 @@ class UserCreateTest(unittest.TestCase):
         assert grp_fields is not None
         assert grp_fields[2] == "1047"
 
+    def test_create_user_custom_home_base(self):
+        """Create a user with a custom HOME base from /etc/default/useradd."""
+        with open(self.tmpdir + "/etc/default/useradd", "w") as f:
+            f.write("HOME=/var/home\n")
+
+        users.create_user("test_user", root=self.tmpdir)
+
+        pwd_fields = self._readFields("/etc/passwd", "test_user")
+        assert pwd_fields is not None
+        assert pwd_fields[5] == "/var/home/test_user"
+        assert os.path.isdir(self.tmpdir + "/var/home/test_user")
+
 
 class ReownHomedirTest(unittest.TestCase):
     """Tests for _reown_homedir"""
