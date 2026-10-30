@@ -323,6 +323,9 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         """
         specs = []
         swap = None
+        skipped = set(request.excluded_mount_points)
+        skipped.update(request.reused_mount_points)
+        skipped.update(request.reformatted_mount_points)
 
         # Create partitioning specs based on the default configuration.
         for spec in get_default_partitioning():
@@ -331,9 +334,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
                 continue
 
             # Skip excluded or reused mount points.
-            skipped = request.excluded_mount_points
-            skipped.extend(request.reused_mount_points)
-            skipped.extend(request.reformatted_mount_points)
             if (spec.mountpoint or spec.fstype) in skipped:
                 continue
 
