@@ -26,6 +26,16 @@ log = get_module_logger(__name__)
 class InstallationProgressErrorMixin:
     """Handle installation errors forwarded from the Boss process over D-Bus."""
 
+    def _finish_installation(self):
+        """Finish the task, preserving diagnostics without repeating Boss reporting."""
+        try:
+            self._task_proxy.Finish()
+        except Exception as error:
+            # The exception handler still creates diagnostics, but Boss has
+            # already sent the IPMI event and run the kickstart error scripts.
+            error.installation_outcome_reported = True
+            raise
+
     def _on_error_raised(self, message, detail_type):
         """Handle an error that needs user interaction.
 
@@ -44,6 +54,9 @@ class InstallationProgressErrorMixin:
 
         if dialog_type == InstallationErrorDialogType.FATAL_ERROR:
             errorHandler.ui.showError(message)
+            # Remember that the user explicitly acknowledged the fatal error,
+            # so the GUI can leave as soon as the installation task stops.
+            self._fatal_error_acknowledged = True
             self._task_proxy.RespondToError(False)
         elif dialog_type == InstallationErrorDialogType.YES_NO:
             answer = errorHandler.ui.showYesNoQuestion(message)

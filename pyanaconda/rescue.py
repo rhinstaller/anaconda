@@ -57,7 +57,6 @@ from pyanaconda.modules.common.structures.storage import (
 )
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.payloads.payload.rpm_ostree.util import get_ostree_deployment_path
-from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 
 log = get_module_logger(__name__)
@@ -271,7 +270,7 @@ class Rescue:
                 flags.ksprompt = True
                 errorHandler.cb(e)
                 util.ipmi_abort()
-                sys.exit(0)
+                sys.exit(1)
             pass
 
         self.status = RescueModeStatus.MOUNTED
@@ -618,7 +617,6 @@ def start_rescue_mode_ui(anaconda):
     # if needed, so we run UI even for kickstarts (automated install).
     loop = GLibEventLoop()
     App.initialize(event_loop=loop)
-    loop.set_quit_callback(tui_quit_callback)
     spoke = RescueModeSpoke(rescue)
     ScreenHandler.schedule_screen(spoke)
     App.run()
