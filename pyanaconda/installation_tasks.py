@@ -17,7 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import sys
 import time
 
 from dasbus.error import DBusError
@@ -30,6 +29,10 @@ from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.task import sync_run_task
 
 log = get_module_logger(__name__)
+
+
+class HandledInstallationError(Exception):
+    """Stop the installation after an error has already been shown to the user."""
 
 
 class BaseTask:
@@ -302,7 +305,7 @@ class DBusTask(BaseTask):
             if isinstance(e, ScriptError):
                 flags.ksprompt = True
                 errorHandler.cb(e)
-                sys.exit(0)
+                raise HandledInstallationError(str(e)) from e
             else:
                 if errorHandler.cb(e) == ERROR_RAISE:
                     raise

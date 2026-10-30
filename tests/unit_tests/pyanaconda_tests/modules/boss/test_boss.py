@@ -21,9 +21,11 @@ from unittest.mock import Mock, patch
 
 import pytest
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from gi.repository import GLib
 
 from pyanaconda.core import constants
 from pyanaconda.core.constants import DEFAULT_LANG
+from pyanaconda.installation_tasks import DBusTask, HandledInstallationError, TaskQueue
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.installation import RunInstallationTask
@@ -33,6 +35,7 @@ from pyanaconda.modules.common.constants.installation import (
     InstallationFailureReason,
     InstallationStatus,
 )
+from pyanaconda.modules.common.errors.runtime import ScriptError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
@@ -546,9 +549,60 @@ class BossInterfaceTestCase:
         callback = Mock()
         task.error_raised_signal.connect(callback)
 
-        task._thread_failed_callback(None, SystemExit(0), None)
+        task._thread_failed_callback(None, HandledInstallationError("already displayed"), None)
 
         callback.assert_not_called()
+
+    @pytest.mark.parametrize("handled", [True, False])
+    def test_failed_installation_finish(self, handled, _patch_reporting):
+        """A handled failure keeps Failed but Finish only propagates unexpected errors."""
+        task = RunInstallationTask(Mock(), self.module.record_outcome)
+        interface = task.for_publication()
+        installation_queue = TaskQueue("Installation")
+        installation_queue.append(DBusTask(Mock()))
+        task._prepare_installation = lambda: installation_queue
+        task._prepare_configuration = lambda: TaskQueue("Configuration")
+
+        signals = Mock()
+        interface.Failed.connect(signals.failed)
+        interface.Succeeded.connect(signals.succeeded)
+        interface.Stopped.connect(signals.stopped)
+        task.error_raised_signal.connect(lambda *_args: task.respond_to_error(False))
+
+        loop = GLib.MainLoop()
+        interface.Stopped.connect(loop.quit)
+        timeout = GLib.timeout_add_seconds(5, loop.quit)
+        error = ScriptError("42\nscript failed") if handled else RuntimeError("unexpected crash")
+        reason = (InstallationFailureReason.INSTALLATION_ERROR if handled
+                  else InstallationFailureReason.UNHANDLED_EXCEPTION)
+
+        try:
+            with patch("pyanaconda.installation_tasks.sync_run_task", side_effect=error), \
+                    patch("pyanaconda.installation_tasks.flags.ksprompt"):
+                interface.Start()
+                loop.run()
+
+            signals.stopped.assert_called_once_with()
+            signals.failed.assert_called_once_with()
+            signals.succeeded.assert_not_called()
+            assert self.module.installation_status == InstallationStatus.FAILED
+            assert self.module.installation_failure_reason == reason
+            _patch_reporting.assert_called_once_with(InstallationStatus.FAILED, reason)
+
+            if handled:
+                assert interface.Finish() is None
+            else:
+                with pytest.raises(RuntimeError) as raised:
+                    interface.Finish()
+                assert raised.value is error
+        finally:
+            if signals.stopped.called:
+                GLib.source_remove(timeout)
+            # Consume a stored failure even if a preceding assertion failed.
+            try:
+                task.finish()
+            except RuntimeError:
+                pass
 
     def test_quit_keeps_not_started(self):
         """Test that Quit before an installation does not record an outcome."""

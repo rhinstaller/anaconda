@@ -52,7 +52,7 @@ from pyanaconda.core.path import (
 from pyanaconda.core.service import is_service_installed
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect, restorecon
-from pyanaconda.installation_tasks import DBusTask, Task, TaskQueue
+from pyanaconda.installation_tasks import DBusTask, HandledInstallationError, Task, TaskQueue
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.modules.boss.install_manager.installation_category_interface import (
     CategoryReportTaskInterface,
@@ -430,10 +430,10 @@ class RunInstallationTask(InstallationTask):
 
         Skips emission if a fatal error was already emitted by _show_dialog
         to avoid overwriting the original error message (e.g. ScriptError
-        emits via _show_dialog, then sys.exit triggers this callback with
-        a less informative SystemExit message). When it was not already
-        emitted, the thread crashed with an unhandled exception that never
-        went through the normal error-reporting flow.
+        emits via _show_dialog, then HandledInstallationError triggers this
+        callback). When it was not already emitted, the thread crashed with
+        an unhandled exception that never went through the normal
+        error-reporting flow.
         """
         if not self._fatal_error_already_emitted:
             self._failure_reason = InstallationFailureReason.UNHANDLED_EXCEPTION
@@ -464,6 +464,13 @@ class RunInstallationTask(InstallationTask):
         self._record_outcome(
             InstallationStatus.SUCCEEDED, InstallationFailureReason.NONE
         )
+
+    def finish(self):
+        """Finish without re-raising an installation error already handled by the UI."""
+        try:
+            super().finish()
+        except HandledInstallationError:
+            pass
 
     def for_publication(self):
         """Return a DBus representation."""

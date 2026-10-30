@@ -26,8 +26,8 @@ log = get_module_logger(__name__)
 class InstallationProgressErrorMixin:
     """Handle installation errors forwarded from the Boss process over D-Bus."""
 
-    def _finish_failed_installation(self):
-        """Re-raise the task failure for diagnostics without repeating Boss reporting."""
+    def _finish_installation(self):
+        """Finish the task, preserving diagnostics without repeating Boss reporting."""
         try:
             self._task_proxy.Finish()
         except Exception as error:
