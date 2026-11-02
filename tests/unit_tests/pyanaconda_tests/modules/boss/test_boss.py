@@ -627,7 +627,7 @@ class BossInterfaceTestCase:
             # Consume a stored failure even if a preceding assertion failed.
             try:
                 task.finish()
-            except Exception:
+            except (RuntimeError, DBusError):
                 pass
 
     def test_reporting_failure_does_not_interrupt_shutdown(self, _patch_outcome_reporting):
