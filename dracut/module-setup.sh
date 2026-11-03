@@ -37,6 +37,7 @@ install() {
 
     # anaconda
     inst "$moddir/anaconda-lib.sh" "/lib/anaconda-lib.sh"
+    inst_hook cmdline 24 "$moddir/parse-anaconda-cert.sh"
     inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
     inst_hook cmdline 26 "$moddir/parse-anaconda-kickstart.sh"
     inst_hook cmdline 27 "$moddir/parse-anaconda-repo.sh"
@@ -46,6 +47,8 @@ install() {
     inst_hook pre-trigger 50 "$moddir/repo-genrules.sh"
     inst_hook pre-trigger 50 "$moddir/kickstart-genrules.sh"
     inst_hook pre-trigger 50 "$moddir/updates-genrules.sh"
+    inst_hook pre-trigger 50 "$moddir/cert-genrules.sh"
+    inst "$moddir/anaconda-fetch-cert" "/sbin/anaconda-fetch-cert"
     inst_hook initqueue/settled 00 "$moddir/anaconda-ks-sendheaders.sh"
     inst_hook initqueue/online 00 "$moddir/anaconda-ifcfg.sh"
     inst_hook initqueue/online 80 "$moddir/anaconda-netroot.sh"

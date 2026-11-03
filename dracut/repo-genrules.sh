@@ -9,12 +9,12 @@ case "$root" in
     # anaconda-disk:<device>[:<path>]
     splitsep ":" "$root" f diskdev diskpath
     diskdev=$(disk_to_dev_path "$diskdev")
-    when_diskdev_appears "$diskdev" \
+    when_diskdev_appears "$diskdev" anaconda-diskroot \
         anaconda-diskroot "\$env{DEVNAME}" "$diskpath"
   ;;
   anaconda-auto-cd)
     # special catch-all rule for CDROMs
-    when_any_cdrom_appears \
+    when_any_cdrom_appears autocd \
         anaconda-diskroot "\$env{DEVNAME}"
     # HACK: anaconda demands that CDROMs be mounted at /mnt/install/source
     ln -s repo /run/install/source
