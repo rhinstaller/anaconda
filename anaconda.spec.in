@@ -42,6 +42,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
 %define utillinuxver 2.15.1
+%define ostreever 2026.1
 %define rpmostreever 2023.2
 %define s390utilscorever 2.31.0
 
@@ -285,7 +286,7 @@ Requires: brltty
 Requires: python3-pam
 # dependencies for rpm-ostree payload module
 Requires: rpm-ostree >= %{rpmostreever}
-Requires: ostree
+Requires: ostree >= %{ostreever}
 # used by ostree command for native containers
 Requires: skopeo
 # External tooling for managing NVMe-FC devices in the installation environment
