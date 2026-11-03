@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
+
 from blivet.errors import StorageError
 from blivet.partitioning import do_partitioning, grow_lvm, grow_stratis
 from blivet.static_data import luks_data
@@ -181,7 +183,61 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # Check that partitioning scheme matches
         self._check_reused_scheme(storage, self._request)
 
+        self._request = self._get_reuse_request(storage, self._request)
         self._clear_existing_mountpoints(storage, self._request)
+
+    @classmethod
+    def _get_reuse_request(cls, storage, request):
+        """Preserve a supported boot layout when reusing an installation.
+
+        Reformat an existing boot filesystem in place, or keep boot files in
+        the reformatted root, instead of allocating a new /boot partition.
+        This matters for Btrfs: removing a subvolume only frees space inside
+        its volume, not disk space for a new physical partition.
+        """
+        # Only adjust reinstalls that reuse existing data and would remove /boot.
+        if (not request.reused_mount_points
+                or "/boot" not in request.removed_mount_points):
+            return request
+
+        root_device = cls._get_mountpoint_device(storage, "/")
+        boot_device = cls._get_mountpoint_device(storage, "/boot", required=False)
+        # A boot directory or nested subvolume is cleared along with root.
+        boot_in_root = (boot_device is None or boot_device == root_device
+                        or boot_device.depends_on(root_device))
+
+        # A newly allocated root might have a different format or device type.
+        if boot_in_root and "/" not in request.reformatted_mount_points:
+            return request
+
+        boot_filesystem = root_device if boot_in_root else boot_device
+        bootloader = storage.bootloader
+        # The bootloader must be able to read the preserved filesystem format.
+        if boot_filesystem.format.type not in bootloader.stage2_format_types:
+            return request
+
+        # A supported format alone is not enough on an unsupported device type.
+        if boot_filesystem.type not in bootloader.stage2_device_types:
+            return request
+
+        # Encrypted boot files also require bootloader decryption support.
+        if boot_filesystem.encrypted and not bootloader.encryption_support:
+            return request
+
+        # Adjust a private request, leaving the module's original request intact.
+        request = copy.deepcopy(request)
+        request.removed_mount_points.remove("/boot")
+
+        if boot_in_root:
+            # Reformatting root also clears /boot, including nested subvolumes.
+            # Leave their removal to reformat_device to protect reused data.
+            if "/boot" not in request.excluded_mount_points:
+                request.excluded_mount_points.append("/boot")
+        else:
+            # Reformat a separate /boot in place instead of allocating a new one.
+            request.reformatted_mount_points.append("/boot")
+
+        return request
 
     @classmethod
     def _check_reused_scheme(cls, storage, request):
