@@ -968,8 +968,7 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
                             "--sysroot=/sysroot",
                             "--image=url",
                             "--transport=oci",
-                            "--stateroot=osname"],
-                 env_add={"LC_ALL": "C.UTF-8"}),
+                            "--stateroot=osname"]),
             call("ostree", ["config", "--repo=/sysroot/ostree/repo",
                             "set", "sysroot.readonly", "true"])
         ])
@@ -990,8 +989,7 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
             call("ostree", ["container", "image", "deploy",
                             "--sysroot=/sysroot",
                             "--image=url",
-                            "--transport=oci"],
-                 env_add={"LC_ALL": "C.UTF-8"}),
+                            "--transport=oci"]),
             call("ostree", ["config", "--repo=/sysroot/ostree/repo",
                             "set", "sysroot.readonly", "true"])
         ])
@@ -1011,8 +1009,7 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
             call("ostree", ["container", "image", "deploy",
                             "--sysroot=/sysroot",
                             "--image=url",
-                            "--stateroot=osname"],
-                 env_add={"LC_ALL": "C.UTF-8"}),
+                            "--stateroot=osname"]),
             call("ostree", ["config", "--repo=/sysroot/ostree/repo",
                             "set", "sysroot.readonly", "true"])
         ])
@@ -1034,8 +1031,7 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
                             "--image=url",
                             "--transport=oci",
                             "--stateroot=osname",
-                            "--no-signature-verification"],
-                 env_add={"LC_ALL": "C.UTF-8"}),
+                            "--no-signature-verification"]),
             call("ostree", ["config", "--repo=/sysroot/ostree/repo",
                             "set", "sysroot.readonly", "true"])
         ])
