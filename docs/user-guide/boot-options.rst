@@ -197,6 +197,40 @@ This specifies the location for driver rpms. May be specified multiple times.
 Locations may be specified using any of the formats allowed for
 `inst.repo`_.
 
+.. inst.cert:
+
+inst.cert
+^^^^^^^^^
+
+Import a CA trust anchor certificate from the installation medium or any other
+disk device before any HTTPS network fetches (kickstart, stage2) take place.
+The certificate is treated as a CA trust anchor, equivalent to using the
+kickstart ``%certificate`` section with ``--type anchor``.
+
+The certificate is:
+
+- trusted immediately in the installer environment
+- installed into the target system during installation
+
+May be specified multiple times to import several certificates.
+
+``inst.cert=cdrom:<path>``
+    Import a certificate from the CD/DVD installation medium. The ``<path>``
+    is relative to the root of the medium.
+
+    Example: ``inst.cert=cdrom:/certs/my-ca.pem``
+
+``inst.cert=hd:<device>:<path>``
+    Import a certificate from a disk device (USB stick, hard drive partition).
+    The ``<device>`` may be specified using any of the formats described in
+    `diskdev`_.
+
+    Examples:
+
+    - ``inst.cert=hd:sdb1:/my-ca.pem``
+    - ``inst.cert=hd:LABEL=MYUSB:/certs/ca.pem``
+    - ``inst.cert=hd:UUID=1234-5678:/ca-bundle.pem``
+
 inst.multilib
 ^^^^^^^^^^^^^
 

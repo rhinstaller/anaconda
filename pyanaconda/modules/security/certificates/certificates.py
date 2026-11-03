@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+
 from pykickstart.parser import Certificate
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -33,6 +35,8 @@ from pyanaconda.modules.security.certificates.certificates_interface import (
 from pyanaconda.modules.security.certificates.installation import ImportCertificatesTask
 
 log = get_module_logger(__name__)
+
+CERT_INITRAMFS_DIR = "/run/install/certificates/type/anchor"
 
 
 class CertificatesModule(KickstartBaseModule):
@@ -61,6 +65,38 @@ class CertificatesModule(KickstartBaseModule):
                 cert_data.type = cert.type
             certificates.append(cert_data)
         self.set_certificates(certificates)
+
+    def collect_initramfs_certificates(self):
+        """Collect certificates staged by inst.cert= in the initramfs.
+
+        Reads certificate files from /run/install/certificates/type/anchor/
+        and merges them into the certificates list. Skips any filename already
+        present from kickstart to avoid duplicates.
+        """
+        cert_dir = CERT_INITRAMFS_DIR
+        if not os.path.isdir(cert_dir):
+            return
+
+        new_certs = list(self._certificates)
+        existing_filenames = {c.filename for c in new_certs}
+
+        for filename in sorted(os.listdir(cert_dir)):
+            if filename in existing_filenames:
+                log.debug("Skipping initramfs cert %s, already from kickstart.", filename)
+                continue
+            filepath = os.path.join(cert_dir, filename)
+            if not os.path.isfile(filepath):
+                continue
+            with open(filepath, 'r') as f:
+                content = f.read()
+            cert_data = CertificateData()
+            cert_data.filename = filename
+            cert_data.cert = content
+            cert_data.type = "anchor"
+            new_certs.append(cert_data)
+            log.info("Collected initramfs certificate %s (type=anchor).", filename)
+
+        self.set_certificates(new_certs)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""

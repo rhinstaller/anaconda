@@ -12,11 +12,11 @@ case "${kickstart%%:*}" in
         splitsep ":" "$kickstart" kstype ksdev kspath
         if [ "$kstype" = "cdrom" ] && [ -z "$kspath" ]; then
             kspath="$ksdev"
-            when_any_cdrom_appears \
+            when_any_cdrom_appears autocd \
                 fetch-kickstart-disk "\$env{DEVNAME}" "$kspath"
         else
             ksdev=$(disk_to_dev_path "$ksdev")
-            when_diskdev_appears "$ksdev" \
+            when_diskdev_appears "$ksdev" fetch-kickstart-disk \
                 fetch-kickstart-disk "\$env{DEVNAME}" "$kspath"
         fi
         # "cdrom:" also means "wait forever for kickstart" because rhbz#1168902
@@ -34,7 +34,7 @@ case "${kickstart%%:*}" in
     ;;
     "")
         if [ -z "$kickstart" ] && [ -z "$(getarg inst.ks=)" ]; then
-            when_diskdev_appears "$(disk_to_dev_path LABEL=OEMDRV)" \
+            when_diskdev_appears "$(disk_to_dev_path LABEL=OEMDRV)" fetch-kickstart-disk \
                 fetch-kickstart-disk "\$env{DEVNAME}" "/ks.cfg"
             wait_for_disks
         fi
