@@ -41,7 +41,7 @@ class SourcesTestCase(unittest.TestCase):
 
         # filter not interesting content
         comment_regex = re.compile(r'#[^\n]*')
-        log_regex = re.compile(r'\b(info|warn|error) +"[^"]*')
+        log_regex = re.compile(r'\b(info|warn\w*|error) +"[^"]*')
 
         # remove pyanaconda dir
         dracut_dir_path = join_paths(os.path.split(REPO_DIR)[0], "dracut")
