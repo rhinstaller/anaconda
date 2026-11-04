@@ -15,16 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import configparser
-import os
 from collections import namedtuple
 from functools import cache
+
+from pyanaconda.core.os_release import get_os_release_value
 
 ProductData = namedtuple("ProductData", [
     "is_final_release",
     "name",
     "version",
     "short_name",
+    "variant",
 ])
 
 
@@ -60,38 +61,35 @@ def shorten_product_name(long_name):
 
 @cache
 def get_product_values():
-    """Provide product data based on available inputs.
+    """Provide product data from the installation environment's os-release.
 
-    Order of precedence for the values is:
-      1) Buildstamp file specified by the PRODBUILDPATH environment variable
-      2) Buildstamp file /.buildstamp
-      3) Environment variable ANACONDA_ISFINAL
-      4) In absence of any data, fall back to "false"
+    NAME, VERSION_ID and VARIANT provide the product name, version and variant.
+    Missing or empty values default to "anaconda", "bluesky" and "", respectively.
+    ID provides the short name, falling back to shortening the product name.
+
+    The final release flag is read from RELEASE_TYPE in the installation
+    environment's os-release files. Development and experimental releases are
+    not final; other non-empty values are treated as stable. If RELEASE_TYPE
+    is missing or empty, the release is not final.
 
     :return: Data about product
     :rtype: ProductData
     """
 
-    # First, load in the defaults.  In order of precedence:  contents of
-    # .buildstamp, environment, stupid last ditch hardcoded defaults.
-    config = configparser.ConfigParser()
-    config.add_section("Main")
-    config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
-    config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
-    config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
-
-    # Now read in the .buildstamp file, wherever it may be.
-    config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
+    release_type = get_os_release_value("RELEASE_TYPE")
+    is_final_release = release_type not in (None, "", "development", "experiment")
 
     # Set up some variables we import throughout, applying a couple transforms as necessary.
-    is_final_release = config.getboolean("Main", "IsFinal")
-    product_name = config.get("Main", "Product")
-    product_version = trim_product_version_for_ui(config.get("Main", "Version"))
+    product_name = get_os_release_value("NAME") or "anaconda"
+    product_version = trim_product_version_for_ui(get_os_release_value("VERSION_ID") or "bluesky")
+    product_variant = get_os_release_value("VARIANT") or ""
 
     # for use in device names, eg: "fedora", "rhel"
-    product_short_name = shorten_product_name(product_name)
+    product_short_name = get_os_release_value("ID") or shorten_product_name(product_name)
 
-    result = ProductData(is_final_release, product_name, product_version, product_short_name)
+    result = ProductData(
+        is_final_release, product_name, product_version, product_short_name, product_variant
+    )
     return result
 
 
@@ -109,3 +107,13 @@ def get_product_short_name():
 
 def get_product_version():
     return get_product_values().version
+
+
+def get_product_variant():
+    return get_product_values().variant
+
+
+def get_product_user_agent():
+    """Build the installer User-Agent from product metadata."""
+    product = get_product_values()
+    return "{} (anaconda)/{}".format(product.name, product.version)

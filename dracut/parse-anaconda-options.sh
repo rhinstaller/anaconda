@@ -10,19 +10,12 @@ mkdir -p "$repodir" "$isodir"
 # add some modules
 modprobe -q edd
 
-# get some info from .buildstamp
-buildstamp=/run/initramfs/.buildstamp
-[ -f /.buildstamp ] && buildstamp=/.buildstamp
-if [ ! -f $buildstamp ]; then
-    warn ".buildstamp missing"
-else
-    product=$(config_get Main Product < $buildstamp)
-    version=$(config_get Main Version < $buildstamp)
-    # TODO: this is silly. There should be an "Arch" item in there..
-    uuid=$(config_get Main UUID < $buildstamp)
-    strstr "$uuid" "." && arch=${uuid##*.}
-fi
-[ -z "$arch" ] && arch=$(uname -m)
+# Use the same os-release reader as the installer runtime.
+product=$(python3 /sbin/os_release.py NAME)
+product=${product:-anaconda}
+version=$(python3 /sbin/os_release.py VERSION_ID)
+version=${version:-bluesky}
+arch=$(uname -m)
 echo Loading "$product" "$version" "$arch" installer...
 
 # set HTTP headers so server(s) will recognize us

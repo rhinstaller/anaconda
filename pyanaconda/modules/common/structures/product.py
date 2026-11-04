@@ -29,6 +29,7 @@ class ProductData(DBusData):
         self._name = ""
         self._version = ""
         self._short_name = ""
+        self._variant = ""
 
     @property
     def is_final_release(self) -> Bool:
@@ -77,3 +78,12 @@ class ProductData(DBusData):
     @short_name.setter
     def short_name(self, value: Str):
         self._short_name = value
+
+    @property
+    def variant(self) -> Str:
+        """The product variant from os-release, or an empty string if unspecified."""
+        return self._variant
+
+    @variant.setter
+    def variant(self, value: Str):
+        self._variant = value

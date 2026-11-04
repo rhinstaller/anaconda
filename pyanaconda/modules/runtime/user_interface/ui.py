@@ -201,5 +201,6 @@ class UIModule(KickstartBaseModule):
         product_data.name = product_values.name
         product_data.version = product_values.version
         product_data.short_name = product_values.short_name
+        product_data.variant = product_values.variant
 
         return product_data
