@@ -27,7 +27,7 @@ from requests import RequestException
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories
+from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 
 log = get_module_logger(__name__)
@@ -173,7 +173,7 @@ def run_satellite_provisioning_script(provisioning_script=None, run_on_target_sy
         sysroot = "/"
 
     # create the tempfile containing the script in the sysroot in /tmp, just in case
-    sysroot_tmp = util.join_paths(sysroot, "/tmp")
+    sysroot_tmp = join_paths(sysroot, "/tmp")
     # make sure the path exists
     make_directories(sysroot_tmp)
     with tempfile.NamedTemporaryFile(mode="w+t", dir=sysroot_tmp, prefix="satellite-") as tf:

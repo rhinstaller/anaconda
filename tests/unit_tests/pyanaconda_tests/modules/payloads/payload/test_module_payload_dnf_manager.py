@@ -46,6 +46,7 @@ from pyanaconda.modules.payloads.payload.dnf.dnf_manager import (
     DNFManager,
     MetadataError,
 )
+from tests.unit_tests.pyanaconda_tests import patch_product_values
 
 
 class DNF5TestCase(unittest.TestCase):
@@ -149,6 +150,7 @@ class DNFManagerTestCase(unittest.TestCase):
         """Test the clear_cache method."""
         self.dnf_manager.clear_cache()
 
+    @patch_product_values(version="42")
     def test_set_default_configuration(self):
         """Test the default configuration of the DNF base."""
         config = self._get_configuration()
@@ -163,7 +165,7 @@ class DNFManagerTestCase(unittest.TestCase):
             "/usr/share/dnf5/repos.d",
             "/etc/yum.repos.d"
         )
-        self._check_variables(releasever="rawhide")
+        self._check_variables(releasever="42")
 
     def test_configure_proxy(self):
         """Test the proxy configuration."""

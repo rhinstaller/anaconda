@@ -209,6 +209,7 @@ if __name__ == "__main__":
     from pyanaconda.core import constants, path, util
     from pyanaconda.core.i18n import _
     from pyanaconda.core.kernel import kernel_arguments
+    from pyanaconda.core.os_release import get_os_release_value
     # init threading before Gtk can do anything and before we start using threads
     from pyanaconda.core.threads import thread_manager
 
@@ -247,8 +248,8 @@ if __name__ == "__main__":
         )
     else:
         conf.set_from_detected_profile(
-            util.get_os_release_value("ID"),
-            util.get_os_release_value("VARIANT_ID"),
+            get_os_release_value("ID"),
+            get_os_release_value("VARIANT_ID"),
         )
 
     conf.set_from_files()

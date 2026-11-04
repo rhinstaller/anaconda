@@ -388,6 +388,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
             self.metadata.load_data(data)
 
+    @patch("pyanaconda.modules.payloads.base.utils.USER_AGENT", "TestProduct (anaconda)/1.0")
     @patch("requests.Session.get")
     def test_load_data_ssl(self, session_getter):
         """Test the load_data method with SSL configuration."""
@@ -405,13 +406,14 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         session_getter.assert_called_once_with(
             "http://path/.treeinfo",
-            headers={"user-agent": "anaconda (anaconda)/bluesky"},
+            headers={"user-agent": "TestProduct (anaconda)/1.0"},
             proxies={},
             verify="file.cert",
             cert=("client.cert", "client.key"),
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
 
+    @patch("pyanaconda.modules.payloads.base.utils.USER_AGENT", "TestProduct (anaconda)/1.0")
     @patch("requests.Session.get")
     def test_load_data_proxy(self, session_getter):
         """Test the load_data method with proxy configuration."""
@@ -426,7 +428,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         session_getter.assert_called_once_with(
             "http://path/.treeinfo",
-            headers={"user-agent": "anaconda (anaconda)/bluesky"},
+            headers={"user-agent": "TestProduct (anaconda)/1.0"},
             proxies={
                 'http': 'http://user:pass@example.com:3128',
                 'https': 'http://user:pass@example.com:3128',
@@ -437,6 +439,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
 
+    @patch("pyanaconda.modules.payloads.base.utils.USER_AGENT", "TestProduct (anaconda)/1.0")
     @patch("requests.Session.get")
     def test_load_data_invalid_proxy(self, session_getter):
         """Test the load_data method with invalid proxy configuration."""
@@ -451,7 +454,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         session_getter.assert_called_once_with(
             "http://path/.treeinfo",
-            headers={"user-agent": "anaconda (anaconda)/bluesky"},
+            headers={"user-agent": "TestProduct (anaconda)/1.0"},
             proxies={},
             verify=True,
             cert=None,

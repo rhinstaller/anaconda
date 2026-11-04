@@ -22,7 +22,7 @@ from pykickstart.errors import KickstartVersionError
 from pykickstart.version import DEFAULT_VERSION, stringToVersion
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.util import get_os_release_value
+from pyanaconda.core.os_release import get_os_release_value
 
 log = get_module_logger(__name__)
 

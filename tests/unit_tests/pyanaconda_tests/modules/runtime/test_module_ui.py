@@ -16,10 +16,12 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import patch
 
 from dasbus.structure import compare_data
 from dasbus.typing import Bool, Str, UInt16, get_variant
 
+from pyanaconda.core.product import ProductData as CoreProductData
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.common.structures.product import ProductData
@@ -70,19 +72,25 @@ class UIInterfaceTestCase(unittest.TestCase):
             {"luks": policy}
         )
 
-    def test_product_data_property(self):
+    @patch("pyanaconda.modules.runtime.user_interface.ui.get_product_values")
+    def test_product_data_property(self, product_values):
         """Test the ProductData property."""
-        # Fetch the ProductData from the DBus interface
-        product_data = ProductData.from_structure(self.interface.ProductData)
+        for is_final in (False, True):
+            with self.subTest(is_final=is_final):
+                product_values.return_value = CoreProductData(
+                    is_final, "Test Product", "43", "tp", "Everything"
+                )
+                product_data = ProductData.from_structure(self.interface.ProductData)
 
-        # Check if the product data has the correct structure
-        assert isinstance(product_data, ProductData)
-        assert isinstance(product_data.is_final_release, Bool)
-        assert isinstance(product_data.name, Str)
-        assert isinstance(product_data.version, Str)
-        assert isinstance(product_data.short_name, Str)
+                assert isinstance(product_data, ProductData)
+                assert isinstance(product_data.is_final_release, Bool)
+                assert isinstance(product_data.name, Str)
+                assert isinstance(product_data.version, Str)
+                assert isinstance(product_data.short_name, Str)
+                assert isinstance(product_data.variant, Str)
 
-        assert product_data.is_final_release is False
-        assert product_data.name == "anaconda"
-        assert product_data.version == "bluesky"
-        assert product_data.short_name == "anaconda"
+                assert product_data.is_final_release is is_final
+                assert product_data.name == "Test Product"
+                assert product_data.version == "43"
+                assert product_data.short_name == "tp"
+                assert product_data.variant == "Everything"
