@@ -174,6 +174,21 @@ and also records Anaconda Git revision that was used to build the image.
 
 This should take about 15 minutes on modern hardware.
 
+To build a plain or Web UI boot.iso, run::
+
+  ./scripts/testing/rebuild_iso
+  ./scripts/testing/rebuild_iso --webui
+
+For remote Web UI access, use ``--remote PIN``, which implies ``--webui``::
+
+  ./scripts/testing/rebuild_iso --remote 'my-access-pin'
+
+Remote mode requires ``mkksiso`` from the host's ``lorax`` package. It adds
+``inst.webui.remote inst.webui.remote.pin=PIN`` to the existing boot entries.
+The PIN must be non-empty and does not have to be numeric. Quote it when
+passing spaces or shell metacharacters on the command line.
+The resulting ISO is stored in ``result/iso/boot.iso``.
+
 See --help for further information.
 
 The ``update_iso`` script
@@ -192,10 +207,17 @@ For the most common use case ("I have changed the Anaconda source and want to se
 The script also has a few command line options that might come handy:
 
 * ``-b, --boot-options`` makes it possible to add additional boot options to the boot.iso boot menu
+* ``-r, --remote PIN`` enables remote Web UI access with the given non-empty PIN;
+  the input ISO must already contain Web UI. This also replaces previous remote
+  authentication boot options, so a PIN can be changed when updating an ISO.
 * ``-k, --ks-file`` add the specified kickstart file to the updated boot.iso and use it for installation
 * ``-v, --virt-install`` boot the updated iso in a temporary VM for super fast & simple debugging
 * ``-t, --tag`` use a specific Git revision when generating the updates image
 * You can specify custom ISO image (requirement for Live ISO usage) as optional positional parameter.
+
+For example, to update a Web UI ISO and enable remote access::
+
+  ./scripts/testing/update_iso --remote 'my-access-pin'
 
 Updating an externally built boot.iso with the ``update_iso`` script
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

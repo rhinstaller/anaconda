@@ -70,10 +70,6 @@ cat > "$BLUEPRINT" <<'EOF'
 [customizations.installer]
 packages = [
   { name = "anaconda-webui" },
-  { name = "cockpit-ws" },
-  { name = "cockpit-bridge" },
-  { name = "firefox" },
-  { name = "dbus-glib" },
 ]
 EOF
 

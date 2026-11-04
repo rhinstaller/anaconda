@@ -37,8 +37,7 @@ RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   createrepo_c \
-  'image-builder >= 89' \
-  osbuild-virt-deps; \
+  'image-builder >= 89'; \
   dnf clean all
 
 RUN image-builder version
