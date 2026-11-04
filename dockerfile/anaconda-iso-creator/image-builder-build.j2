@@ -34,16 +34,20 @@ INPUT_RPMS=/anaconda-rpms/
 OUT_DIR=/images/
 REPO_DIR=/tmp/anaconda-rpms/
 
-# create repo from provided Anaconda RPMs
+# Create a local repo when RPMs are provided. Daily builds can explicitly
+# allow repository-only builds with ALLOW_MISSING_ANACONDA_RPMS=1.
+LOCAL_REPO_ARGS=()
 shopt -s nullglob
 ANACONDA_RPMS=("$INPUT_RPMS"/anaconda-*.rpm)
-if [ ! -f "${ANACONDA_RPMS[0]:-}" ]; then
+if [ -f "${ANACONDA_RPMS[0]:-}" ]; then
+    mkdir -p "$REPO_DIR"
+    cp -a "$INPUT_RPMS"/*.rpm "$REPO_DIR"
+    createrepo_c "$REPO_DIR"
+    LOCAL_REPO_ARGS=(--extra-repo "file://$REPO_DIR/")
+elif [ "${ALLOW_MISSING_ANACONDA_RPMS:-0}" != "1" ]; then
     echo "No rebuilt Anaconda RPMs found in $INPUT_RPMS; refusing to build with distribution RPMs only." >&2
     exit 1
 fi
-mkdir -p "$REPO_DIR"
-cp -a "$INPUT_RPMS"/*.rpm "$REPO_DIR"
-createrepo_c "$REPO_DIR"
 
 . /etc/os-release
 
@@ -68,7 +72,7 @@ mkdir -p output
 # Stream type of the same latter name.
 image-builder build everything-network-installer \
       --distro "$IMAGE_BUILDER_DISTRO" \
-      --extra-repo "file://$REPO_DIR/" \
+      "${LOCAL_REPO_ARGS[@]}" \
       --output-dir output \
       "$@" || {
           status=$?

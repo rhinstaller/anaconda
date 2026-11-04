@@ -18,7 +18,7 @@ Developer Guides
 
    commit-log
    debugging
-   lorax-template-patching
+   image-builder-customization
    configuration-files
    driverdisc
    iscsi
