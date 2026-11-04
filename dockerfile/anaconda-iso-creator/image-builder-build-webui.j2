@@ -1,0 +1,80 @@
+#!/bin/bash
+#
+# Build a Web UI boot.iso. There is no "Web UI" image type in image-builder
+# (anaconda-webui isn't part of any upstream Fedora image-builder distro
+# definition yet), so this builds the plain boot.iso with image-builder while
+# asking it - through the blueprint's customizations.installer.packages
+# customization - to install the Web UI packages into the Anaconda installer
+# environment itself. Web UI is selected automatically when installed.
+# Use scripts/testing/rebuild_iso or scripts/testing/update_iso with --remote
+# to configure remote access instead of adding another boot menu entry.
+#
+# To run this please do:
+#
+#   sudo make -f ./Makefile.am container-rpms-scratch
+#   sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /image-builder-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
+#
+#
+# Input directory:
+# /anaconda-rpms/ (Anaconda RPM files for the build)
+#
+# Output directory:
+# /images (Where the boot.iso will be stored)
+#
+{% if distro_name == "rhel" %}
+#
+# WARNING: this solution is not supported on RHEL/CentOS Stream
+#
+{% endif %}
+
+set -eux
+
+BLUEPRINT=/tmp/webui-blueprint.toml
+
+. /etc/os-release
+
+if [ "$CI_TAG" = "fedora-rawhide" ]; then
+    FEDORA_VERSION="rawhide"
+else
+    FEDORA_VERSION=${CI_TAG#fedora-}
+fi
+
+# Check for COPR repositories from pull requests
+EXTRA_REPO_ARGS=()
+
+# Function to add COPR repository if PR variable is set
+add_copr_repo() {
+    local pr_var_name="$1"
+    local copr_project_path="$2"
+    local project_name="$3"
+    local pr_number="${!pr_var_name:-}"
+
+    if [ -n "${pr_number}" ]; then
+        local copr_url="https://download.copr.fedorainfracloud.org/results/packit/${copr_project_path}-${pr_number}/fedora-${FEDORA_VERSION}-x86_64/"
+        EXTRA_REPO_ARGS+=("--extra-repo" "${copr_url}")
+        echo "Using ${project_name} COPR from PR #${pr_number}: ${copr_url}"
+    fi
+}
+
+# Add COPR repositories for anaconda-webui and cockpit
+add_copr_repo "ANACONDA_WEBUI_PR" "rhinstaller-anaconda-webui" "anaconda-webui"
+add_copr_repo "COCKPIT_PR" "cockpit-project-cockpit" "cockpit"
+
+# Blueprint asking image-builder to install the Web UI packages into the
+# Anaconda installer environment as part of the build itself, instead of
+# patching them in afterwards. The freshly built Anaconda RPMs (added as an
+# extra repo by image-builder-build) and the COPRs above are available to it.
+cat > "$BLUEPRINT" <<'EOF'
+[customizations.installer]
+packages = [
+  { name = "anaconda-webui" },
+  { name = "cockpit-ws" },
+  { name = "cockpit-bridge" },
+  { name = "firefox" },
+  { name = "dbus-glib" },
+]
+EOF
+
+# Build the pure image-builder boot.iso - same code path as the non-webui
+# build - with the Web UI packages baked into the Anaconda environment.
+/image-builder-build --blueprint "$BLUEPRINT" "${EXTRA_REPO_ARGS[@]}" "$@"
