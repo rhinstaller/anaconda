@@ -1,17 +1,17 @@
 # Dockerfile to build boot.iso with Anaconda from the repository.
 # To find out how to build this container please look on the ./tests/README.rst file.
 # This container has to be started as --privileged and with precreated loop devices otherwise
-# lorax won't work correctly.
+# image-builder won't work correctly.
 #
 # Execution example:
 #
 # make -f ./Makefile.am container-rpms-scratch # Create Anaconda RPM in `pwd`/result/... directory.
 # sudo make -f ./Makefile.am anaconda-iso-creator-build
 #
-# # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+# # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
 # sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-iso-creator:main
 # or to build WebUI image:
-# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /lorax-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
+# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z --entrypoint /image-builder-build-webui quay.io/rhinstaller/anaconda-iso-creator:main
 #
 # note:
 # - add `--network=slirp4netns` if you need to share network with host computer to reach
@@ -25,33 +25,35 @@
 #   registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest # private source
 #   registry.access.redhat.com/ubi8/ubi # public source
 ARG image
+
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
-# Prepare environment and install build dependencies
+# Require installer package customization support while allowing newer releases.
+# The image-builder RPM pulls in its matching osbuild runtime dependencies.
 RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   createrepo_c \
-# required for lorax-build-webui script
-  patch \
-  lorax; \
+  'image-builder >= 89' \
+  osbuild-virt-deps; \
   dnf clean all
 
+RUN image-builder version
+
 # Remove the container's restrictive %_install_langs macro (set by
-# glibc-minimal-langpack) so that lorax installs all translations
+# glibc-minimal-langpack) so that image-builder installs all translations
 # into the boot.iso, not just English.
 RUN rm /etc/rpm/macros.image-language-conf
 
-COPY ["lorax-build", "/"]
-COPY ["lorax-build-webui", "/"]
-COPY ["adjust-templates-for-webui.patch", "/"]
+COPY ["image-builder-build", "/"]
+COPY ["image-builder-build-webui", "/"]
 
-RUN mkdir /lorax /anaconda-rpms /images
+RUN mkdir /anaconda-rpms /images
 
-WORKDIR /lorax
+WORKDIR /build
 
-# Exec form so `podman run ... -s <repo>` args are passed to lorax-build "$@".
-ENTRYPOINT ["/lorax-build"]
+# Exec form so `podman run ... -s <repo>` args are passed to image-builder-build "$@".
+ENTRYPOINT ["/image-builder-build"]
