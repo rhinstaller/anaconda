@@ -15,7 +15,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-# Test the Python-based signal and slot implementation.
+# Test product metadata loading.
 #
 
 import unittest
@@ -104,11 +104,10 @@ class ProductTestCase(unittest.TestCase):
     def setUp(self):
         # can't have the cache returning the same thing across all tests
         get_product_values.cache_clear()
-
-    @classmethod
-    def tearDownClass(cls):
-        # invalidate cache also for all tests run after this
-        get_product_values.cache_clear()
+        self.addCleanup(get_product_values.cache_clear)
+        self.os_release = self.enterContext(patch(
+            "pyanaconda.core.product.get_os_release_value", return_value=None
+        ))
 
     @patch.dict("os.environ", clear=True)
     @patch.object(pyanaconda.core.product.configparser.ConfigParser, "read")
@@ -154,14 +153,70 @@ class ProductTestCase(unittest.TestCase):
     def test_env(self, mock_cfp_open):
         """Test product values loaded from environment variables."""
         values = get_product_values()
-        expected = ProductData(True, "TestProduct", "rawhide", "testproduct")
+        expected = ProductData(False, "TestProduct", "rawhide", "testproduct")
         assert values == expected
 
         # cached values are kept within single test fixture
-        assert get_product_is_final_release() is True
+        assert get_product_is_final_release() is False
         assert get_product_name() == "TestProduct"
         assert get_product_version() == "rawhide"
         assert get_product_short_name() == "testproduct"
 
         # caching means ConfigParser.read() calls open() twice, and subsequent calls are cached
         assert mock_cfp_open.call_count == 2
+
+    @patch.dict("os.environ", clear=True, values={"ANACONDA_ISFINAL": "invalid"})
+    def test_os_release(self):
+        """Only RELEASE_TYPE determines final status, ignoring legacy flags."""
+        for release_type, expected in (
+            ("stable", True),
+            ("lts", True),
+            ("development", False),
+            ("experiment", False),
+            ("unknown", True),
+            (None, False),
+            ("", False),
+        ):
+            with self.subTest(release_type=release_type):
+                get_product_values.cache_clear()
+                self.os_release.reset_mock()
+                self.os_release.return_value = release_type
+
+                with patch("pyanaconda.core.product.configparser.open", new=mock_multi_open([
+                    make_buildstamp(is_final="invalid"), ""
+                ])):
+                    assert get_product_values() == ProductData(
+                        expected, "Fedora", "Rawhide", "fedora"
+                    )
+                    assert get_product_is_final_release() is expected
+
+                self.os_release.assert_called_once_with("RELEASE_TYPE")
+
+    @patch.dict("os.environ", clear=True)
+    def test_os_release_ignores_buildstamp(self):
+        """Missing or empty RELEASE_TYPE ignores the buildstamp IsFinal flag."""
+        for release_type in (None, ""):
+            for is_final in (False, True):
+                with self.subTest(release_type=release_type, is_final=is_final):
+                    get_product_values.cache_clear()
+                    self.os_release.return_value = release_type
+
+                    with patch.dict("os.environ", ANACONDA_ISFINAL=str(not is_final)):
+                        with patch("pyanaconda.core.product.configparser.open",
+                                   new=mock_multi_open([
+                                       make_buildstamp(is_final=is_final), ""
+                                   ])):
+                            assert get_product_is_final_release() is False
+
+    @patch.dict("os.environ", clear=True)
+    @patch("pyanaconda.core.product.configparser.open", side_effect=FileNotFoundError)
+    def test_os_release_ignores_env(self, mock_cfp_open):
+        """Missing or empty RELEASE_TYPE ignores ANACONDA_ISFINAL."""
+        for release_type in (None, ""):
+            for is_final in (False, True):
+                with self.subTest(release_type=release_type, is_final=is_final):
+                    get_product_values.cache_clear()
+                    self.os_release.return_value = release_type
+
+                    with patch.dict("os.environ", ANACONDA_ISFINAL=str(is_final)):
+                        assert get_product_is_final_release() is False

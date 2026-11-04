@@ -20,6 +20,8 @@ import os
 from collections import namedtuple
 from functools import cache
 
+from pyanaconda.core.os_release import get_os_release_value
+
 ProductData = namedtuple("ProductData", [
     "is_final_release",
     "name",
@@ -62,11 +64,16 @@ def shorten_product_name(long_name):
 def get_product_values():
     """Provide product data based on available inputs.
 
-    Order of precedence for the values is:
+    The final release flag is read from RELEASE_TYPE in the installation
+    environment's os-release files. Development and experimental releases are
+    not final; other non-empty values are treated as stable. If RELEASE_TYPE
+    is missing or empty, the release is not final.
+
+    Order of precedence for product name and version is:
       1) Buildstamp file specified by the PRODBUILDPATH environment variable
       2) Buildstamp file /.buildstamp
-      3) Environment variable ANACONDA_ISFINAL
-      4) In absence of any data, fall back to "false"
+      3) Environment variables ANACONDA_PRODUCTNAME and ANACONDA_PRODUCTVERSION
+      4) Defaults "anaconda" and "bluesky", respectively
 
     :return: Data about product
     :rtype: ProductData
@@ -76,15 +83,16 @@ def get_product_values():
     # .buildstamp, environment, stupid last ditch hardcoded defaults.
     config = configparser.ConfigParser()
     config.add_section("Main")
-    config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
     config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
     config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
     # Now read in the .buildstamp file, wherever it may be.
     config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
 
+    release_type = get_os_release_value("RELEASE_TYPE")
+    is_final_release = release_type not in (None, "", "development", "experiment")
+
     # Set up some variables we import throughout, applying a couple transforms as necessary.
-    is_final_release = config.getboolean("Main", "IsFinal")
     product_name = config.get("Main", "Product")
     product_version = trim_product_version_for_ui(config.get("Main", "Version"))
 
