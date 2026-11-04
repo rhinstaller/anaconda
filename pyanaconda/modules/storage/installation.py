@@ -35,8 +35,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.core.i18n import _
-from pyanaconda.core.path import make_directories
-from pyanaconda.core.util import execWithRedirect, join_paths
+from pyanaconda.core.path import join_paths, make_directories
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, NVME
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import StorageInstallationError
