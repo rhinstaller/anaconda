@@ -9,6 +9,7 @@
 import argparse
 import os
 import shutil
+import shlex
 import time
 import sys
 import subprocess
@@ -176,11 +177,12 @@ def fix_permission():
     """
     os.system(f"sudo chown -v --reference='.' '{UPDATED_ISO}'")
 
-def generate_updated_iso(ks_file, custom_boot_options):
+def generate_updated_iso(ks_file, custom_boot_options, remote_pin=None):
     """Generate an updated boot ISO with an optional kickstart file and custom boot options.
 
     :param str ks_file: path a kickstart file
-    :param str custom_boot_options: custom boot optiuons to be added
+    :param str custom_boot_options: custom boot options to be added
+    :param str remote_pin: enable remote WebUI access with this PIN
     """
     # Prepare time stamp
     timestamp_option = generate_image_timestamp_option()
@@ -190,15 +192,21 @@ def generate_updated_iso(ks_file, custom_boot_options):
 
     # Combine boot options
     combined_boot_options = f'{timestamp_option} {custom_boot_options}' if custom_boot_options else timestamp_option
+    if remote_pin is not None:
+        pin_option = shlex.quote(f'inst.webui.remote.pin={remote_pin}')
+        combined_boot_options += f' inst.webui.remote {pin_option}'
 
-    # Build the mkksiso command
+    # Build the mkksiso command. Remote mode replaces any previous remote
+    # authentication options, so the ISO has a single, consistent PIN setting.
+    command = ['sudo', MKKSISO, '-a', UPDATES_FOLDER, '-c', combined_boot_options]
+    if remote_pin is not None:
+        command.extend(['-r', 'inst.webui.remote inst.webui.remote.pin inst.webui.remote.noauth'])
     if ks_file_path:
-        command = f'sudo {MKKSISO} -a "{UPDATES_FOLDER}" -c "{combined_boot_options}" --ks "{ks_file_path}" "{INPUT_ISO}" "{UPDATED_ISO}"'
-    else:
-        command = f'sudo {MKKSISO} -a "{UPDATES_FOLDER}" -c "{combined_boot_options}" "{INPUT_ISO}" "{UPDATED_ISO}"'
+        command.extend(['--ks', ks_file_path])
+    command.extend([str(INPUT_ISO), str(UPDATED_ISO)])
 
     # Execute the command
-    os.system(command)
+    subprocess.run(command, check=True)
 
 def check_virt_install_available():
     """Check if virt-install is available on the system.
@@ -283,11 +291,21 @@ def main():
                         help='path to the kickstart file')
     parser.add_argument('-b', '--boot-options', action='store', type=str,
                         help='custom boot options to include in the updated ISO')
+    parser.add_argument('-r', '--remote', metavar='PIN',
+                        help='enable remote WebUI access with the given non-empty PIN;'
+                        ' requires an ISO with WebUI installed')
     parser.add_argument('-v', '--virt-install', action='store_true',
                         help='boot the updated iso with virt-install')
     parser.add_argument('-w', '--webui-checkout', action='store', type=str,
                         help='path to Anaconda WebUI checkout to include on the ISO')
     args = parser.parse_args()
+    if args.remote is not None:
+        if not args.remote:
+            parser.error('--remote requires a non-empty PIN')
+        if any(option.split('=')[0] in {
+                'inst.webui.remote', 'inst.webui.remote.pin', 'inst.webui.remote.noauth'
+        } for option in (args.boot_options or '').split()):
+            parser.error('--remote cannot be combined with remote WebUI options in --boot-options')
 
     # Set INPUT_ISO and UPDATED_ISO based on user preferences
     set_input_iso(args)
@@ -342,7 +360,7 @@ def main():
         os.remove(UPDATED_ISO)
 
     # Generate updated ISO
-    generate_updated_iso(args.ks_file, args.boot_options)
+    generate_updated_iso(args.ks_file, args.boot_options, args.remote)
 
     # Check the updated ISO has been generated
     check_updated_iso_available()

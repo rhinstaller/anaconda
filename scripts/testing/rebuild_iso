@@ -25,10 +25,12 @@ Options:
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
  -l, --live                         Build Live ISO instead of boot.iso
- -w, --webui                        Build WebUI boot.iso (lorax entrypoint /lorax-build-webui).
+ -w, --webui                        Build WebUI boot.iso (image-builder entrypoint /image-builder-build-webui).
                                     Incompatible with --live. Optional env vars for the ISO
                                     container (same as make container-webui-iso-build):
                                       ANACONDA_WEBUI_PR=<n>  COCKPIT_PR=<n>
+ -r, --remote PIN                   Enable remote WebUI access with the given non-empty PIN.
+                                    Implies --webui; requires mkksiso (lorax) on the host.
 
 EOF
 }
@@ -39,11 +41,13 @@ BOOT_ISO_GIT_REVISION="result/iso/iso.git_rev"
 
 BUILD_TARGET="boot.iso"
 WEBUI_BOOT_ISO=0
+REMOTE_PIN=""
 
 COPY_RPMS=""
 
 # parse arguments
-eval set -- "$(getopt -o ha:lw --long help,add-rpms:,live,webui -- "$@")"
+PARSED_ARGS=$(getopt -o ha:lwr: --long help,add-rpms:,live,webui,remote: -- "$@")
+eval set -- "$PARSED_ARGS"
 
 while true; do
     case "${1:-}" in
@@ -51,6 +55,15 @@ while true; do
         -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
         -l|--live) BUILD_TARGET="live" ;;
         -w|--webui) WEBUI_BOOT_ISO=1 ;;
+        -r|--remote)
+            shift
+            REMOTE_PIN="$1"
+            if [ -z "$REMOTE_PIN" ]; then
+                echo "error: --remote requires a non-empty PIN." >&2
+                exit 1
+            fi
+            WEBUI_BOOT_ISO=1
+            ;;
         --) shift; break ;;
     esac
     shift
@@ -58,6 +71,11 @@ done
 
 if [ "$BUILD_TARGET" = "live" ] && [ "$WEBUI_BOOT_ISO" = "1" ]; then
     echo "error: --webui cannot be used with --live (WebUI variant is boot.iso only)." >&2
+    exit 1
+fi
+
+if [ -n "$REMOTE_PIN" ] && ! command -v mkksiso >/dev/null; then
+    echo "error: mkksiso tool not found, please install the lorax package first." >&2
     exit 1
 fi
 
@@ -91,4 +109,17 @@ if [ "$BUILD_TARGET" = "boot.iso" ]; then
 elif [ "$BUILD_TARGET" = "live" ]; then
     make -f ./Makefile.am anaconda-live-iso-creator-build
     make -f ./Makefile.am container-live-iso-build
+fi
+
+if [ -n "$REMOTE_PIN" ]; then
+    # mkksiso parses -c with shlex, independently of the shell's quoting.
+    REMOTE_PIN_ARG=$(python3 -c 'import shlex, sys; print(shlex.quote("inst.webui.remote.pin=" + sys.argv[1]))' "$REMOTE_PIN")
+    REMOTE_ISO_DIR=$(mktemp -d "result/iso/remote-iso.XXXXXX")
+    trap 'rm -rf "$REMOTE_ISO_DIR"' EXIT
+    # mkksiso updates the existing boot entries, including the EFI boot image.
+    sudo mkksiso -r "inst.webui.remote inst.webui.remote.pin inst.webui.remote.noauth" \
+        -c "inst.webui.remote $REMOTE_PIN_ARG" \
+        "$BOOT_ISO" "$REMOTE_ISO_DIR/boot.iso"
+    sudo chown --reference="$BOOT_ISO" "$REMOTE_ISO_DIR/boot.iso"
+    mv "$REMOTE_ISO_DIR/boot.iso" "$BOOT_ISO"
 fi
