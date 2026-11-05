@@ -362,12 +362,12 @@ class WriteConfigurationTask(Task):
                   fmt.options)
 
     def _adjust_mount_options_for_rpm_ostree(self, storage, sysroot):
-        """Set read-only mount options for OSTree/bootc installations.
+        """Set read-only mount option on /boot for OSTree/bootc installations.
 
-        OSTree expects the physical root and boot filesystems to be mounted
-        read-only at runtime. Use root_device and boot_device so
-        unified layouts (boot on root) are handled without duplicating
-        options on the same partition.
+        OSTree expects the boot filesystem to be mounted read-only at
+        runtime.  The root filesystem is excluded from fstab entirely
+        (its options are passed via rootflags= instead), so only /boot
+        needs the ro option here.
 
         :type storage: an instance of InstallerStorage
         :param sysroot: a path to the target OS installation
@@ -375,11 +375,8 @@ class WriteConfigurationTask(Task):
         if self._payload_type != PAYLOAD_TYPE_RPM_OSTREE:
             return
 
-        devices = {storage.root_device, storage.boot_device}
-        devices.discard(None)
-
-        for device in devices:
-            self._add_ro_mount_option(device)
+        if storage.boot_device is not None:
+            self._add_ro_mount_option(storage.boot_device)
 
     def _exclude_root_from_fstab_for_rpm_ostree(self, storage):
         """Exclude the root filesystem from fstab for OSTree/bootc installations.
