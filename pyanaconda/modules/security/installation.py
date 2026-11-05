@@ -25,7 +25,10 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.core.path import join_paths, make_directories
 from pyanaconda.modules.common.constants.services import SECURITY
-from pyanaconda.modules.common.errors.installation import SecurityInstallationError
+from pyanaconda.modules.common.errors.installation import (
+    NonCriticalInstallationError,
+    SecurityInstallationError,
+)
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.security.constants import SELinuxMode
 
@@ -386,7 +389,7 @@ def run_auth_tool(cmd, args, root, required=True):
     :param bool required: require the tool to be present and run
                           (False makes the function pass if the tool is not available)
     :raises: SecurityInstallationError if the tool which is required is not found
-    :raises: RuntimeError if the run of the tool fails
+    :raises: NonCriticalInstallationError if the run of the tool fails
     """
     if not os.path.lexists(root + cmd):
         msg = "{} is missing. Cannot setup authentication.".format(cmd)
@@ -395,11 +398,12 @@ def run_auth_tool(cmd, args, root, required=True):
         else:
             log.error(msg)
             return
-    try:
-        log.debug("Configuring authentication: %s %s", cmd, args)
-        util.execWithRedirect(cmd, args, root=root)
-    except RuntimeError as msg:
-        log.error("Error running %s %s: %s", cmd, args, msg)
+    log.debug("Configuring authentication: %s %s", cmd, args)
+    rc, output = util.execProgram(cmd, args, root=root)
+    if rc != 0:
+        msg = "Error running {} {}: {}".format(cmd, " ".join(args), output)
+        log.error(msg)
+        raise NonCriticalInstallationError(msg)
 
 
 class ConfigureFingerprintAuthTask(Task):

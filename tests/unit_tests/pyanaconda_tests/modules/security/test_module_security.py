@@ -933,8 +933,8 @@ class SecurityTasksTestCase(unittest.TestCase):
             execWithRedirect.assert_not_called()
 
     @patch("pyanaconda.modules.security.installation.SECURITY.get_proxy")
-    @patch("pyanaconda.core.util.execWithRedirect")
-    def test_configure_fingerprint_auth_task(self, execWithRedirect, get_proxy):
+    @patch("pyanaconda.core.util.execProgram")
+    def test_configure_fingerprint_auth_task(self, execProgram, get_proxy):
         proxy = SimpleNamespace(Authselect=[])
         get_proxy.return_value = proxy
 
@@ -957,21 +957,22 @@ class SecurityTasksTestCase(unittest.TestCase):
                 fingerprint_auth_enabled=True
             )
             task.run()
-            execWithRedirect.assert_not_called()
+            execProgram.assert_not_called()
 
             # The authselect command is missing
-            execWithRedirect.reset_mock()
+            execProgram.reset_mock()
             os.mknod(pam_so_path)
             task = ConfigureFingerprintAuthTask(
                 sysroot=sysroot,
                 fingerprint_auth_enabled=True
             )
             task.run()
-            execWithRedirect.assert_not_called()
+            execProgram.assert_not_called()
             os.remove(pam_so_path)
 
             # Authselect command and pam library are there
-            execWithRedirect.reset_mock()
+            execProgram.reset_mock()
+            execProgram.return_value = (0, "")
             proxy.Authselect = []
             os.mknod(pam_so_path)
             os.mknod(authselect_path)
@@ -980,7 +981,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                 fingerprint_auth_enabled=True
             )
             task.run()
-            execWithRedirect.assert_called_once_with(
+            execProgram.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
                 AUTHSELECT_ARGS,
                 root=sysroot
@@ -990,7 +991,8 @@ class SecurityTasksTestCase(unittest.TestCase):
             os.remove(authselect_path)
 
             # Authselect command and pam library are there
-            execWithRedirect.reset_mock()
+            execProgram.reset_mock()
+            execProgram.return_value = (0, "")
             proxy.Authselect = []
             os.mknod(pam_so_64_path)
             os.mknod(authselect_path)
@@ -999,7 +1001,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                 fingerprint_auth_enabled=True
             )
             task.run()
-            execWithRedirect.assert_called_once_with(
+            execProgram.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
                 AUTHSELECT_ARGS,
                 root=sysroot
@@ -1008,8 +1010,8 @@ class SecurityTasksTestCase(unittest.TestCase):
             os.remove(pam_so_64_path)
             os.remove(authselect_path)
 
-    @patch('pyanaconda.core.util.execWithRedirect')
-    def test_configure_authselect_task(self, execWithRedirect):
+    @patch('pyanaconda.core.util.execProgram')
+    def test_configure_authselect_task(self, execProgram):
         """Test the configure authselect task."""
         with tempfile.TemporaryDirectory() as sysroot:
 
@@ -1018,24 +1020,25 @@ class SecurityTasksTestCase(unittest.TestCase):
             os.makedirs(authselect_dir)
 
             # The authselect command is missing
-            execWithRedirect.reset_mock()
+            execProgram.reset_mock()
             task = ConfigureAuthselectTask(
                 sysroot=sysroot,
                 authselect_options=["select", "sssd", "with-mkhomedir"]
             )
             with pytest.raises(SecurityInstallationError):
                 task.run()
-            execWithRedirect.assert_not_called()
+            execProgram.assert_not_called()
 
             # The authselect command is there
-            execWithRedirect.reset_mock()
+            execProgram.reset_mock()
+            execProgram.return_value = (0, "")
             os.mknod(authselect_path)
             task = ConfigureAuthselectTask(
                 sysroot=sysroot,
                 authselect_options=["select", "sssd", "with-mkhomedir"]
             )
             task.run()
-            execWithRedirect.assert_called_once_with(
+            execProgram.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
                 ["select", "sssd", "with-mkhomedir", "--force"],
                 root=sysroot
