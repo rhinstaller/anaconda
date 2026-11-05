@@ -1784,36 +1784,34 @@ class StorageTasksTestCase(unittest.TestCase):
         assert luks_dev.format.options == "discard,x-initrd.attach"
 
     def test_adjust_mount_options_for_rpm_ostree(self):
-        """Test adding ro to / and /boot for OSTree installations."""
+        """Test adding ro to /boot for OSTree installations."""
         root_dev = Mock()
         root_dev.format.options = None
         boot_dev = Mock()
         boot_dev.format.options = "defaults"
         storage = Mock(root_device=root_dev, boot_device=boot_dev)
-        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_DNF)
 
+        # DNF payload should not touch anything
+        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_DNF)
         task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
         assert root_dev.format.options is None
         assert boot_dev.format.options == "defaults"
 
+        # RPM_OSTREE should only add ro to boot, not root
         task = WriteConfigurationTask(storage, PAYLOAD_TYPE_RPM_OSTREE)
         task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
-        assert root_dev.format.options == "ro"
+        assert root_dev.format.options is None
         assert boot_dev.format.options == "ro"
 
-        root_dev.format.options = "defaults,rw"
+        # Existing ro/rw should not be duplicated
         boot_dev.format.options = "defaults,ro"
         task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
-        assert root_dev.format.options == "defaults,rw"
         assert boot_dev.format.options == "defaults,ro"
 
-        # boot on root: root_device and boot_device are the same object
-        unified_dev = Mock()
-        unified_dev.format.options = None
-        storage = Mock(root_device=unified_dev, boot_device=unified_dev)
+        # No boot device should not crash
+        storage = Mock(root_device=root_dev, boot_device=None)
         task = WriteConfigurationTask(storage, PAYLOAD_TYPE_RPM_OSTREE)
         task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
-        assert unified_dev.format.options == "ro"
 
     def test_exclude_root_from_fstab_for_rpm_ostree(self):
         """Test that / is excluded from fstab for OSTree installations."""
