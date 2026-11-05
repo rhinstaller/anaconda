@@ -337,6 +337,7 @@ class FSSet:
         self.crypt_tab = None
         self.blkid_tab = None
         self._fstab_swaps = set()
+        self._fstab_exclude_mountpoints = set()
         self._system_filesystems = []
 
         # unrecognized or ignored entries in fstab (blivet.fstab.FSTabEntry)
@@ -660,6 +661,12 @@ class FSSet:
             if isinstance(device, OpticalDevice):
                 continue
 
+            if device.format.mountable and \
+                    device.format.mountpoint in self._fstab_exclude_mountpoints:
+                log.debug("Skipping excluded mountpoint %s from fstab",
+                          device.format.mountpoint)
+                continue
+
             try:
                 new_entry = fstab.entry_from_device(device)
             except ValueError:
@@ -703,3 +710,11 @@ class FSSet:
         :type devices: iterable providing StorageDevice instances holding a swap format
         """
         self._fstab_swaps = set(devices)
+
+    def exclude_from_fstab(self, mountpoint):
+        """Exclude a mountpoint from fstab generation.
+
+        :param mountpoint: mountpoint path to exclude (e.g. "/")
+        :type mountpoint: str
+        """
+        self._fstab_exclude_mountpoints.add(mountpoint)

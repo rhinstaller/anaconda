@@ -696,20 +696,18 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.LOCALIZATION")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def test_btrfs_run(self, devdata_mock, storage_mock, localization_mock,
+    def test_btrfs_run(self, storage_mock, localization_mock,
                        symlink_mock, rename_mock, exec_mock):
-        """Test OSTree bootloader config task, no BTRFS"""
+        """Test OSTree bootloader config task, BTRFS"""
         exec_mock.return_value = [0, ""]
 
         storage_proxy_mock = storage_mock.get_proxy()
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-id"
+        storage_proxy_mock.GetDeviceMountOptions.return_value = "subvol=root,compress=zstd:1,ro"
         localization_proxy_mock = localization_mock.get_proxy()
         localization_proxy_mock.VirtualConsoleKeymap = "cs"
-        devdata_mock.from_structure.return_value.type = "btrfs subvolume"
-        devdata_mock.from_structure.return_value.name = "device-name"
 
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(sysroot + "/boot/grub2")
@@ -735,7 +733,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                  "BOOTLOADER-ARGS",
                  "root=FSTAB-SPEC",
                  "vconsole.keymap=cs",
-                 "rootflags=subvol=device-name",
+                 "rootflags=subvol=root,compress=zstd:1",
                  "rw"
                  ],
                 root=sysroot
@@ -746,8 +744,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.LOCALIZATION")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def test_nonbtrfs_run(self, devdata_mock, storage_mock, localization_mock,
+    def test_nonbtrfs_run(self, storage_mock, localization_mock,
                           symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, no BTRFS"""
         exec_mock.return_value = [0, ""]
@@ -756,10 +753,9 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-id"
+        storage_proxy_mock.GetDeviceMountOptions.return_value = ""
         localization_proxy_mock = localization_mock.get_proxy()
         localization_proxy_mock.VirtualConsoleKeymap = "cs"
-        devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
-        devdata_mock.from_structure.return_value.name = "device-name"
 
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(sysroot + "/boot/grub2")
@@ -809,6 +805,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-id"
+        storage_proxy_mock.GetDeviceMountOptions.return_value = ""
         storage_proxy_mock.Drive = "btldr-drv"
         storage_proxy_mock.KeepBootOrder = False
         localization_proxy_mock = localization_mock.get_proxy()
@@ -869,6 +866,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-name"
+        storage_proxy_mock.GetDeviceMountOptions.return_value = ""
         storage_proxy_mock.Drive = "btldr-drv"
         storage_proxy_mock.KeepBootOrder = True
         localization_proxy_mock = localization_mock.get_proxy()

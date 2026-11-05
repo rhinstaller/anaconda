@@ -287,6 +287,7 @@ class WriteConfigurationTask(Task):
         self._write_escrow_packets(storage, sysroot)
         self._adjust_luks_options(storage)
         self._adjust_mount_options_for_rpm_ostree(storage, sysroot)
+        self._exclude_root_from_fstab_for_rpm_ostree(storage)
 
         storage.fsset.write()
 
@@ -379,6 +380,22 @@ class WriteConfigurationTask(Task):
 
         for device in devices:
             self._add_ro_mount_option(device)
+
+    def _exclude_root_from_fstab_for_rpm_ostree(self, storage):
+        """Exclude the root filesystem from fstab for OSTree/bootc installations.
+
+        On OSTree/bootc systems the root filesystem is an overlay managed by
+        ostree/composefs.  A / entry in fstab causes systemd-remount-fs to
+        fail because overlay mounts do not support reconfiguration.  Root
+        mount options are passed via the rootflags= kernel argument instead.
+
+        :type storage: an instance of InstallerStorage
+        """
+        if self._payload_type != PAYLOAD_TYPE_RPM_OSTREE:
+            return
+
+        storage.fsset.exclude_from_fstab("/")
+        log.debug("Excluded / from fstab for rpm-ostree payload")
 
     def _write_escrow_packets(self, storage, sysroot):
         """Write the escrow packets.
