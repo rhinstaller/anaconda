@@ -660,17 +660,22 @@ class ConfigureBootloader(Task):
         localization = LOCALIZATION.get_proxy()
 
         root_id = device_tree.GetRootDevice()
-        root_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(root_id)
-        )
 
         set_kargs_args = ["admin", "instutil", "set-kargs", "--merge"]
         set_kargs_args.extend(bootloader.GetArguments())
         set_kargs_args.append("root=" + device_tree.GetFstabSpec(root_id))
         set_kargs_args.append("vconsole.keymap=" + localization.VirtualConsoleKeymap)
 
-        if root_data.type == "btrfs subvolume":
-            set_kargs_args.append("rootflags=subvol=" + root_data.name)
+        # Root is excluded from fstab for ostree/bootc; pass its mount options
+        # (e.g. subvol=, compress=) as rootflags= instead.  Strip ro/rw since
+        # rw is set as a separate karg below.
+        mount_options = device_tree.GetDeviceMountOptions(root_id)
+        if mount_options:
+            rootflags = ",".join(
+                o for o in mount_options.split(",") if o not in ("ro", "rw")
+            )
+            if rootflags:
+                set_kargs_args.append("rootflags=" + rootflags)
 
         set_kargs_args.append("rw")
 

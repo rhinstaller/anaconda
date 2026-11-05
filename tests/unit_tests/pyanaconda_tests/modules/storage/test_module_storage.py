@@ -1815,6 +1815,21 @@ class StorageTasksTestCase(unittest.TestCase):
         task._adjust_mount_options_for_rpm_ostree(storage, "/mnt/sysroot")
         assert unified_dev.format.options == "ro"
 
+    def test_exclude_root_from_fstab_for_rpm_ostree(self):
+        """Test that / is excluded from fstab for OSTree installations."""
+        storage = Mock()
+
+        # DNF payload should not exclude anything
+        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_DNF)
+        task._exclude_root_from_fstab_for_rpm_ostree(storage)
+        storage.fsset.exclude_from_fstab.assert_not_called()
+
+        # RPM_OSTREE payload should exclude /
+        storage.reset_mock()
+        task = WriteConfigurationTask(storage, PAYLOAD_TYPE_RPM_OSTREE)
+        task._exclude_root_from_fstab_for_rpm_ostree(storage)
+        storage.fsset.exclude_from_fstab.assert_called_once_with("/")
+
 
 class StorageValidationTasksTestCase(unittest.TestCase):
     """Test the storage validation tasks."""
