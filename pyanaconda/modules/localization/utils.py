@@ -17,6 +17,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.localization import layout_supports_ascii
 from pyanaconda.modules.localization.live_keyboard import get_live_keyboard_instance
 
 log = get_module_logger(__name__)
@@ -67,8 +68,20 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
 def _resolve_missing_by_conversion(localed_wrapper, x_layouts, vc_keymap):
     if not vc_keymap:
         vc_keymap = localed_wrapper.convert_layouts(x_layouts)
-        log.debug("Missing virtual console keymap value %s converted from %s X layouts",
-                  vc_keymap, x_layouts)
+        if not vc_keymap and all(
+            layout_supports_ascii(layout.replace(" ", "")) for layout in x_layouts
+        ):
+            # systemd-localed failed to find a mapping in kbd-model-map for the
+            # given X layout(s). For ASCII-compatible layouts (e.g. 'au', 'za')
+            # fall back to the default keyboard — this is safe because the keys
+            # are identical to 'us'. For non-ASCII layouts we must not fall back
+            # silently, as the user could end up with an untypable passphrase.
+            log.warning("Failed to convert X layouts %s to a VConsole keymap, "
+                        "falling back to %s", x_layouts, DEFAULT_KEYBOARD)
+            vc_keymap = DEFAULT_KEYBOARD
+        else:
+            log.debug("Missing virtual console keymap value %s converted from %s X layouts",
+                      vc_keymap, x_layouts)
     if not x_layouts:
         x_layouts = localed_wrapper.convert_keymap(vc_keymap)
         log.debug("Missing X layouts value %s converted from %s virtual console keymap",
