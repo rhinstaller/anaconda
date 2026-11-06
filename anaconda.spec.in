@@ -500,6 +500,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 06 2026 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.59-1
+- anaconda: Remove manual start of `systemd --user` (k.koukiou)
+  Resolves: RHEL-239592
+- s390x: Reapply RAID1 support for the ZIPL stage2 device (dan)
+  Resolves: RHEL-83924
+- fix: Raise NonCriticalInstallationError on auth tool failure (kkoukiou)
+  Resolves: RHEL-108749
+- fix: Tear down sysroot rbind mount on hardware to prevent iSCSI data
+  corruption (kkoukiou)
+  Resolves: RHEL-283579
+- users: Read default home base from /etc/default/useradd instead of hardcoding
+  /home (kkoukiou)
+  Resolves: RHEL-38541
+
 * Fri Oct 16 2026 Katerina Koukiou <kkoukiou@redhat.com> - 40.22.3.58-1
 - Bump petitboot firmware kernel version check to 5.19 (ppc64le) (tfratrik)
   Resolves: RHEL-43310
