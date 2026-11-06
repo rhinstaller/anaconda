@@ -18,6 +18,8 @@
 systemddir = $(prefix)/lib/systemd/system
 generatordir = $(prefix)/lib/systemd/system-generators
 logindconfdir = $(prefix)/lib/systemd/logind.conf.d
+pipewireserviceconfdir = $(prefix)/lib/systemd/user/pipewire.service.d
+pipewiresocketconfdir = $(prefix)/lib/systemd/user/pipewire.socket.d
 
 dist_systemd_DATA = anaconda.service \
                     anaconda-noshell.service \
@@ -39,6 +41,8 @@ sshdconfigdir = $(sysconfdir)/ssh
 dist_sshdconfig_DATA = sshd_config.anaconda
 
 dist_logindconf_DATA = anaconda-logind.conf
+dist_pipewireserviceconf_DATA = user/pipewire.service.d/allowroot.conf
+dist_pipewiresocketconf_DATA = user/pipewire.socket.d/allowroot.conf
 
 dist_generator_SCRIPTS = anaconda-generator
 

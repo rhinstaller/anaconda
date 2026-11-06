@@ -197,7 +197,8 @@ class InstalledFilesTestCase(RPMTestCase):
                 lambda f: FileFilters.specific_file_exclude(self.ANACONDA_GENERATOR, f),
                 lambda f: FileFilters.specific_file_exclude(self.ANACONDA_SHELL_SERVICE, f),
                 lambda f: FileFilters.specific_file_exclude(self.ANACONDA_LOGIND_CONF, f),
-                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_SSHD_CONFIG, f)
+                lambda f: FileFilters.specific_file_exclude(self.ANACONDA_SSHD_CONFIG, f),
+                lambda f: not f.startswith("data/systemd/user/")
             ], self._get_source_files()
         )
 
@@ -255,6 +256,13 @@ class InstalledFilesTestCase(RPMTestCase):
         )
 
         self._check_files_in_rpm(src_files, rpm_files)
+
+    def test_pipewire_allowroot_files(self):
+        rpm_files = self._get_install_img_deps_rpm_content()
+
+        for unit in ("service", "socket"):
+            self.assertIn("/usr/lib/systemd/user/pipewire.{}.d/allowroot.conf".format(unit),
+                          rpm_files)
 
     def _check_files_in_rpm(self, src_files, rpm_files):
         src_files = self._check_and_return_as_list(src_files)
