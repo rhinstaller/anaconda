@@ -85,21 +85,27 @@ class JIRAValidator:
 
             sys.exit(2)
 
-        token = self._read_token(TOKEN_PATH)
-        self.jira = JIRA("https://issues.redhat.com/", token_auth=token)
+        email, token = self._read_credentials(TOKEN_PATH)
+        self.jira = JIRA("https://redhat.atlassian.net/", basic_auth=(email, token))
 
     @staticmethod
-    def _read_token(token_path):
+    def _read_credentials(token_path):
         token_path = os.path.expanduser(token_path)
         try:
             with open(token_path, "r", encoding="utf-8") as f:
-                return f.read().strip()
+                lines = f.read().strip().splitlines()
         except FileNotFoundError:
-            print(f"Token can't be found! Please generate your JIRA token in {TOKEN_PATH}", file=sys.stderr)
-            print("Please generate the token here: https://issues.redhat.com/secure/ViewProfile.jspa?selectedTab=com.atlassian.pats.pats-plugin:jira-user-personal-access-tokens")
+            print(f"Credentials file not found: {TOKEN_PATH}", file=sys.stderr)
+            print("Please create it with your email on the first line and API token on the second line.", file=sys.stderr)
+            print("Generate an API token here: https://redhat.atlassian.net/manage-profile/security/api-tokens", file=sys.stderr)
             sys.exit(1)
 
-        return None
+        if len(lines) < 2:
+            print(f"Invalid credentials file format in {TOKEN_PATH}", file=sys.stderr)
+            print("Expected two lines: email on line 1, API token on line 2.", file=sys.stderr)
+            sys.exit(1)
+
+        return lines[0].strip(), lines[1].strip()
 
     # pylint: disable=method-cache-max-size-none
     @cache
