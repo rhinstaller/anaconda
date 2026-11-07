@@ -174,6 +174,18 @@ and also records Anaconda Git revision that was used to build the image.
 
 This should take about 15 minutes on modern hardware.
 
+Use ``--webui`` to include Web UI, or ``--remote PIN`` to build a Web UI ISO
+with remote access enabled and the given non-empty PIN (it need not be numeric)::
+
+  ./scripts/testing/rebuild_iso --remote 'my-access-pin'
+
+Remote mode implies ``--webui`` and requires ``mkksiso`` from the ``lorax``
+package on the host. It updates the existing boot entries in
+``result/iso/boot.iso`` instead of adding a separate remote menu entry.
+The build container requires image-builder version 89 or newer;
+see the `image-builder customization guide
+<docs/developer/image-builder-customization.rst>`_ for details.
+
 See --help for further information.
 
 The ``update_iso`` script
@@ -192,6 +204,9 @@ For the most common use case ("I have changed the Anaconda source and want to se
 The script also has a few command line options that might come handy:
 
 * ``-b, --boot-options`` makes it possible to add additional boot options to the boot.iso boot menu
+* ``-r, --remote PIN`` enables remote Web UI access with the given non-empty PIN;
+  the input ISO must already contain Web UI. This also replaces previous remote
+  authentication boot options, so a PIN can be changed when updating an ISO.
 * ``-k, --ks-file`` add the specified kickstart file to the updated boot.iso and use it for installation
 * ``-v, --virt-install`` boot the updated iso in a temporary VM for super fast & simple debugging
 * ``-t, --tag`` use a specific Git revision when generating the updates image
