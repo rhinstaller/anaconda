@@ -42,6 +42,7 @@ from pyanaconda.core.constants import (
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
+from pyanaconda.modules.common.structures.partitioning import PartitioningSchemeData
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
@@ -310,6 +311,31 @@ class StorageInterfaceTestCase(unittest.TestCase):
             in_value=self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_MANUAL),
             setter=self.storage_interface.ApplyPartitioning
         )
+
+    @patch_dbus_publish_object
+    def test_get_partitioning_schemes(self, published):
+        """Test GetDefaultPartitioningScheme and GetSupportedPartitioningSchemes."""
+        schemes = PartitioningSchemeData.from_structure_list(
+            self.storage_interface.GetSupportedPartitioningSchemes()
+        )
+        assert schemes
+        for scheme in schemes:
+            assert scheme.scheme_id
+
+        default = self.storage_interface.GetDefaultPartitioningScheme()
+        assert default in [scheme.scheme_id for scheme in schemes]
+
+    @patch_dbus_publish_object
+    def test_get_file_system_types(self, published):
+        """Test GetDefaultFileSystemType and GetSupportedFileSystemTypes."""
+        types = self.storage_interface.GetSupportedFileSystemTypes()
+        assert "ext4" in types
+        # Not mountable, not formattable or not Linux native.
+        assert "swap" not in types
+        assert "vfat" not in types
+        assert "biosboot" not in types
+
+        assert self.storage_interface.GetDefaultFileSystemType() in types
 
     @patch_dbus_publish_object
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
