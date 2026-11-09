@@ -24,6 +24,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import PartitioningContainer, TaskContainer
+from pyanaconda.modules.common.structures.partitioning import PartitioningSchemeData
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 
 
@@ -122,6 +123,36 @@ class StorageInterface(KickstartModuleInterface):
             return ""
 
         return PartitioningContainer.to_object_path(partitioning)
+
+    def GetDefaultPartitioningScheme(self) -> Str:
+        """Get the default automatic partitioning scheme.
+
+        :return: a scheme name, for example 'BTRFS'
+        """
+        return self.implementation.get_default_partitioning_scheme()
+
+    def GetSupportedPartitioningSchemes(self) -> List[Structure]:
+        """Get automatic partitioning schemes supported on this system.
+
+        :return: a list of scheme metadata structures
+        """
+        return PartitioningSchemeData.to_structure_list(
+            self.implementation.get_supported_partitioning_schemes()
+        )
+
+    def GetDefaultFileSystemType(self) -> Str:
+        """Get the default file system type for automatic partitioning.
+
+        :return: a file system type, for example 'ext4'
+        """
+        return self.implementation.get_default_file_system_type()
+
+    def GetSupportedFileSystemTypes(self) -> List[Str]:
+        """Get the file system types an automatic partitioning request can ask for.
+
+        :return: a list of file system types
+        """
+        return self.implementation.get_supported_file_system_types()
 
     @emits_properties_changed
     def ResetPartitioning(self):

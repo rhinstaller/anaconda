@@ -22,7 +22,11 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.configuration.anaconda import conf
 
-__all__ = ["MountPointRequest", "PartitioningRequest"]
+__all__ = [
+    "MountPointRequest",
+    "PartitioningRequest",
+    "PartitioningSchemeData",
+]
 
 
 class PartitioningRequest(DBusData):
@@ -442,3 +446,37 @@ class MountPointRequest(DBusData):
     @format_options.setter
     def format_options(self, options: Str):
         self._format_options = options
+
+
+class PartitioningSchemeData(DBusData):
+    """Metadata about an automatic partitioning scheme.
+
+    No user-visible strings are reported. A user interface runs in its own
+    locale, which is not the one of this service, so it has to translate the
+    names of the schemes itself.
+    """
+
+    def __init__(self):
+        self._scheme_id = ""
+        self._has_file_system_type = False
+
+    @property
+    def scheme_id(self) -> Str:
+        """Identifier of the partitioning scheme.
+
+        For example: 'BTRFS'
+        """
+        return self._scheme_id
+
+    @scheme_id.setter
+    def scheme_id(self, scheme_id: Str):
+        self._scheme_id = scheme_id
+
+    @property
+    def has_file_system_type(self) -> Bool:
+        """Does the scheme accept a root file system type in autopart requests?"""
+        return self._has_file_system_type
+
+    @has_file_system_type.setter
+    def has_file_system_type(self, has_file_system_type: Bool):
+        self._has_file_system_type = has_file_system_type
