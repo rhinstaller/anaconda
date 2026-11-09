@@ -45,6 +45,11 @@ from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.nvme import NVMEModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
+from pyanaconda.modules.storage.partitioning.schemes import (
+    get_default_partitioning_scheme_name,
+    get_supported_file_system_types,
+    get_supported_partitioning_schemes,
+)
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.platform import platform
 from pyanaconda.modules.storage.reset import ScanDevicesTask
@@ -348,6 +353,22 @@ class StorageService(KickstartService):
         self._set_storage_playground(None)
         self._set_applied_partitioning(None)
         self.partitioning_reset.emit()
+
+    def get_default_partitioning_scheme(self):
+        """Get the default automatic partitioning scheme name."""
+        return get_default_partitioning_scheme_name()
+
+    def get_supported_partitioning_schemes(self):
+        """Get metadata for automatic partitioning schemes supported here."""
+        return get_supported_partitioning_schemes()
+
+    def get_default_file_system_type(self):
+        """Get the default file system type for automatic partitioning."""
+        return self.storage.default_fstype
+
+    def get_supported_file_system_types(self):
+        """Get the file system types an automatic partitioning request can ask for."""
+        return get_supported_file_system_types()
 
     def collect_requirements(self):
         """Return installation requirements for this module.
