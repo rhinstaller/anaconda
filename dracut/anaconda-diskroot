@@ -36,6 +36,9 @@ run_checkisomd5() {
                 die "Media check failed!"
                 exit 1
             fi
+            if [ "$rc" = "0" ]; then
+                info "checkisomd5: media check passed for $livedev"
+            fi
             [ -x /bin/plymouth ] && /bin/plymouth --show-splash
         fi
     fi
