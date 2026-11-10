@@ -71,6 +71,10 @@ class TimezonesListings(unittest.TestCase):
             for zone in zones:
                 assert timezone.parse_timezone(region + "/" + zone) == (region, zone)
 
+    def test_legacy_timezones(self):
+        """Legacy single-word timezones should be valid."""
+        assert timezone.is_valid_timezone("Japan")
+
 class TerritoryTimezones(unittest.TestCase):
     def test_string_valid_territory_zone(self):
         """Check if the returned value is string for a valid territory."""

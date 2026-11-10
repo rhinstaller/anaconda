@@ -378,15 +378,16 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.timezone_module._set_geolocation_result(result)
         assert self.timezone_module.geolocation_result == result
 
+    @patch("pyanaconda.modules.timezone.timezone.all_timezones")
     @patch("pyanaconda.modules.timezone.timezone.get_all_regions_and_timezones")
-    def test_get_timezones(self, get_all_tz):
+    def test_get_timezones(self, get_all_tz, all_tz):
         """Test getting a listing of all valid timezones."""
         get_all_tz.return_value = OrderedDict([("foo", {"bar", "baz"})])
-        # as the timezones for a region are listed as a set, we need to be a bit careful
-        # when comparing the results
+        all_tz.return_value = {"foo/bar", "foo/baz", "Japan"}
         result = self.timezone_interface.GetAllValidTimezones()
-        assert list(result.keys()) == ["foo"]
+        assert sorted(result.keys()) == ["", "foo"]
         assert sorted(result["foo"]) == ['bar', 'baz']
+        assert result[""] == ["Japan"]
         get_all_tz.assert_called_once()
 
     @patch("pyanaconda.modules.timezone.timezone.dt")
