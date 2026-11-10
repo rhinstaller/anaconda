@@ -53,6 +53,7 @@ from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.timezone import (
     NTP_PACKAGE,
+    all_timezones,
     get_all_regions_and_timezones,
     get_timezone,
     set_system_date_time,
@@ -181,15 +182,20 @@ class TimezoneService(KickstartService):
     def get_all_valid_timezones(self):
         """Get all valid timezones.
 
-        :return: list of valid timezones
-        :rtype: list of str
+        :return: a dictionary of timezone lists per region
+        :rtype: dict
         """
         timezone_dict = get_all_regions_and_timezones()
-        # convert to a dict of lists for easier transfer over DBus
-        # - change the nested sets to lists
         new_timezone_dict = {}
         for region in timezone_dict:
             new_timezone_dict[region] = list(timezone_dict[region])
+
+        # Include legacy single-word timezones (e.g. "Japan", "Cuba")
+        # under an empty-string key so the Web UI can validate them.
+        legacy = sorted(tz for tz in all_timezones() if "/" not in tz)
+        if legacy:
+            new_timezone_dict[""] = legacy
+
         return new_timezone_dict
 
     @property
