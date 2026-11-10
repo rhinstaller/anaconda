@@ -62,10 +62,26 @@ class ParseKickstartTestCase(BaseTestCase):
     @classmethod
     def setUpClass(cls):
         cls.command = os.path.abspath(os.path.join(os.environ["top_srcdir"], "dracut/parse-kickstart"))
+        # os_release.py lives in pyanaconda/core/ in the source tree;
+        # make install copies it to the dracut module directory (see
+        # dist_dracut_DATA in dracut/Makefile.am).  Replicate that here
+        # so the subprocess can import it by bare name.  We cannot add
+        # pyanaconda/core/ directly because other files there (string.py)
+        # shadow the standard library.
+        cls._os_release_dir = tempfile.mkdtemp()
+        src = os.path.join(os.environ["top_srcdir"], "pyanaconda", "core", "os_release.py")
+        shutil.copy(src, cls._os_release_dir)
+        cls.env = os.environ.copy()
+        cls.env["PYTHONPATH"] = cls._os_release_dir + os.pathsep + cls.env.get("PYTHONPATH", "")
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls._os_release_dir)
 
     def execParseKickstart(self, ks_file):
         try:
-            output = subprocess.check_output([self.command, "--tmpdir", self.tmpdir, ks_file], universal_newlines=True)
+            output = subprocess.check_output([self.command, "--tmpdir", self.tmpdir, ks_file],
+                                             universal_newlines=True, env=self.env)
         except subprocess.CalledProcessError as e:
             return str(e).splitlines()
         return str(output).splitlines()
