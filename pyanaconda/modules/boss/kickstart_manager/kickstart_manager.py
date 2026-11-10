@@ -20,6 +20,7 @@ from pykickstart.errors import KickstartError
 from pykickstart.version import makeVersion
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.modules.boss.kickstart_manager.parser import (
     VALID_SECTIONS_ANACONDA,
     SplitKickstartParser,
@@ -73,7 +74,7 @@ class KickstartManager:
 
     def _split_to_elements(self, path):
         """Split the kickstart given by path into elements."""
-        handler = makeVersion()
+        handler = makeVersion(VERSION)
         parser = SplitKickstartParser(handler, valid_sections=VALID_SECTIONS_ANACONDA)
         return parser.split(path)
 
