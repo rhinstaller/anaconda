@@ -138,6 +138,13 @@ class CommandVersionTestCase(unittest.TestCase):
         parse_kickstart_path = os.path.join(os.environ['top_srcdir'], 'dracut', 'parse-kickstart')
         temp_module_name = "parse_kickstart_for_dracut_test"
 
+        # dracut's kickstart_version imports os_release by bare name;
+        # make install copies it next to kickstart_version.py (see
+        # dist_dracut_DATA in dracut/Makefile.am).  Replicate that here
+        # so the in-process import finds it.
+        from pyanaconda.core import os_release
+        sys.modules.setdefault("os_release", os_release)
+
         # Make sure we can import the script: Copy it to a temporary directory, to a file with no
         # slashes in name, and extension .py.
         with tempfile.TemporaryDirectory() as tempdir:

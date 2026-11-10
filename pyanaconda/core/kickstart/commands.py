@@ -26,10 +26,7 @@
 from pyanaconda.core.kickstart.version import VERSION
 from pykickstart.handlers.control import commandMap, dataMap
 
-# Hardcoded imports for commands that need special handling
-from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
-
-# Get the command and data maps for the default version
+# Get the command and data maps for the detected version
 _commands = commandMap[VERSION]
 _data = dataMap[VERSION]
 
@@ -41,6 +38,7 @@ Bootloader = _commands['bootloader']
 BTRFS = _commands['btrfs']
 Cdrom = _commands['cdrom']
 ClearPart = _commands['clearpart']
+DisplayMode = _commands['cmdline']
 DriverDisk = _commands['driverdisk']
 Module = _commands['module']
 Eula = _commands['eula']
