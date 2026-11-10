@@ -532,6 +532,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 10 2026 github-actions <github-actions@github.com> - 46.6-1
+- fix: Log checkisomd5 media check pass result to the journal (kkoukiou)
+- anaconda: `pipewire` dropin for `allowroot` (cmdr)
+  Resolves: rhbz#2567769
+- fix: Only add ro mount option to /boot, not root, for ostree (kkoukiou)
+- fix: Skip root fstab entry and pass rootflags for ostree/bootc (kkoukiou)
+  Resolves: rhbz#2332319
+- fix: Raise NonCriticalInstallationError on auth tool failure (kkoukiou)
+- Revert "Fix ostree container deploy failing on non-ASCII pathnames"
+  (kkoukiou)
+- Require ostree >= 2026.1 for UTF-8 pathname support (kkoukiou)
+- storage: Preserve supported boot layouts during reinstall (adamkankovsky)
+- storage: Avoid mutating the request when collecting autopart specs
+  (adamkankovsky)
+- docs: add release note for inst.cert boot option (rvykydal)
+- dracut: add inst.cert= boot option to import CA certificates early (rvykydal)
+- fix: Tear down sysroot rbind mount before exit (kkoukiou)
+- Unify installer exit codes with the Boss installation outcome (adamkankovsky)
+
 * Tue Nov 03 2026 github-actions <github-actions@github.com> - 46.5-1
 - users: Read default home base from /etc/default/useradd instead of hardcoding
   /home (kkoukiou)
