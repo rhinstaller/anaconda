@@ -221,9 +221,8 @@ anaconda-release-build: anaconda-rpm-build
 	--tag $(RELEASE_NAME):$(CI_TAG) \
 	$(RELEASE_DOCKERFILE)
 
-# Use the same rootful image storage as container-iso-build.
 anaconda-iso-creator-build:
-	sudo $(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
+	$(CONTAINER_ENGINE) build --env CI_TAG=$(CI_TAG) \
 	$(CONTAINER_BUILD_ARGS) \
 	--pull=newer \
 	$(CONTAINER_ADD_ARGS) \
