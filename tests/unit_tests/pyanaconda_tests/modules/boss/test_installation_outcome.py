@@ -26,6 +26,8 @@ class InstallationOutcomeTestCase:
                 patch("pyanaconda.modules.boss.installation.util.run_kickstart_error_scripts", calls.scripts):
             report_installation_outcome(status, reason)
 
+        # pylint: disable=no-member
+        # Pylint can't infer that calls.ipmi and calls.scripts are Mocks
         if event is None:
             calls.ipmi.assert_not_called()
         else:
