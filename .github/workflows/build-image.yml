@@ -16,6 +16,9 @@
 # If more are present at once, all variants are built.
 # If --live is used without variant, Workstation is assumed.
 #
+# To select the boot.iso flavor, add:
+# --boot-variant <Everything|Server> (default: Everything; network installer)
+#
 # To use webui on boot.iso, add also:
 # --webui
 #
@@ -33,6 +36,14 @@ on:
     types: [created]
   # be able to start this action manually from a actions tab when needed
   workflow_dispatch:
+    inputs:
+      boot_variant:
+        description: Boot ISO flavor (network installer)
+        type: choice
+        default: Everything
+        options:
+          - Everything
+          - Server
 
 permissions:
   contents: read
@@ -98,6 +109,7 @@ jobs:
         # Do not use comment body directly in the shell command to avoid possible code injection.
         env:
           BODY: ${{ github.event.comment.body }}
+          BOOT_ISO_VARIANT: ${{ inputs.boot_variant || 'Everything' }}
         run: |
           # extract first line and cut out the "/build-image" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
@@ -106,6 +118,24 @@ jobs:
             ARGS="$ARGS --boot.iso"
             echo "adding implicit --boot.iso, arguments now are: $ARGS"
           fi
+
+          # Select the boot.iso flavor independently of the Live ISO variant.
+          if [[ " $ARGS " =~ [[:space:]]--boot-variant[[:space:]] ]]; then
+            if [[ " $ARGS " =~ [[:space:]]--boot-variant[[:space:]]+([^[:space:]]+) ]]; then
+              BOOT_ISO_VARIANT="${BASH_REMATCH[1]}"
+            else
+              echo "::error::--boot-variant requires Everything or Server"
+              exit 1
+            fi
+            if ! [[ "$ARGS" == *"--boot.iso"* ]]; then
+              echo "::error::--boot-variant requires a boot.iso build"
+              exit 1
+            fi
+          fi
+          case "$BOOT_ISO_VARIANT" in
+            Everything|Server) ;;
+            *) echo "::error::Unsupported boot variant: $BOOT_ISO_VARIANT (expected Everything or Server)"; exit 1 ;;
+          esac
 
           # Extract --image parameter if present
           IMAGE_TAG=""
@@ -157,6 +187,7 @@ jobs:
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
           echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
           echo "live_variant=${LIVE_VARIANT}" >> $GITHUB_OUTPUT
+          echo "boot_variant=${BOOT_ISO_VARIANT}" >> $GITHUB_OUTPUT
           echo "anaconda_webui_pr=${ANACONDA_WEBUI_PR}" >> $GITHUB_OUTPUT
           echo "cockpit_pr=${COCKPIT_PR}" >> $GITHUB_OUTPUT
 
@@ -207,6 +238,7 @@ jobs:
       args: ${{ steps.parse_args.outputs.args }}
       ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
       live_variant: ${{ steps.parse_args.outputs.live_variant }}
+      boot_variant: ${{ steps.parse_args.outputs.boot_variant }}
       anaconda_webui_pr: ${{ steps.parse_args.outputs.anaconda_webui_pr }}
       cockpit_pr: ${{ steps.parse_args.outputs.cockpit_pr }}
       image_description: ${{ steps.image_description.outputs.image_description }}
@@ -221,6 +253,7 @@ jobs:
        STATUS_NAME: boot-iso
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
+       BOOT_ISO_VARIANT: ${{ needs.pr-info.outputs.boot_variant }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -270,13 +303,14 @@ jobs:
           fi
           # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
+            --env BOOT_ISO_VARIANT="$BOOT_ISO_VARIANT" \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
             $WEBUI_OPTIONAL_ARG \
             $WEBUI_PR_ARGS \
             $ISO_BUILD_CONTAINER_NAME:$CI_TAG
-          mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
+          mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-${BOOT_ISO_VARIANT}-boot.iso"
 
       - name: Collect logs
         if: always()
@@ -289,7 +323,7 @@ jobs:
       - name: Upload image
         uses: actions/upload-artifact@v7
         with:
-          name: boot.iso image for ${{ needs.pr-info.outputs.image_description }}
+          name: boot.iso (${{ needs.pr-info.outputs.boot_variant }}) image for ${{ needs.pr-info.outputs.image_description }}
           path: |
             images/*.iso
 
@@ -450,7 +484,7 @@ jobs:
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--boot.iso"* ]] ; then
             # <job>.result can be success, failure, cancelled, or skipped
             # https://docs.github.com/en/actions/learn-github-actions/contexts#jobs-context
-            echo -e "- \`boot.iso\`: ${{ needs.boot-iso.result }}\n" >> comment.txt
+            echo -e "- \`boot.iso\` (${{ needs.pr-info.outputs.boot_variant }}): ${{ needs.boot-iso.result }}\n" >> comment.txt
           fi
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--live"* ]] ; then
             echo -e "- Live (${{ needs.pr-info.outputs.live_variant }}): ${{ needs.live-iso.result }}\n" >> comment.txt

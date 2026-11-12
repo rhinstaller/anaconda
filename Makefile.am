@@ -435,6 +435,7 @@ container-iso-build:
 
 	mkdir -p result/iso
 	sudo $(CONTAINER_ENGINE) run --env CI_TAG=$(CI_TAG) \
+	$(if $(BOOT_ISO_VARIANT),--env BOOT_ISO_VARIANT="$(BOOT_ISO_VARIANT)") \
 	$(if $(ANACONDA_WEBUI_PR),--env ANACONDA_WEBUI_PR="$$ANACONDA_WEBUI_PR") \
 	$(if $(COCKPIT_PR),--env COCKPIT_PR="$$COCKPIT_PR") \
 	--rm \

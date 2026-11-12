@@ -25,6 +25,8 @@ Options:
  -a, --add-rpms                     Add additional RPMs (for example anaconda-webui package)
                                     these packages have to be already requested to be in ISO
  -l, --live                         Build Live ISO instead of boot.iso
+     --boot-variant VARIANT         Boot ISO flavor: Everything (default) or Server.
+                                     Incompatible with --live; supports --webui and --remote.
  -w, --webui                        Build WebUI boot.iso (image-builder entrypoint /image-builder-build-webui).
                                     Incompatible with --live. Optional env vars for the ISO
                                     container (same as make container-webui-iso-build):
@@ -42,11 +44,13 @@ BOOT_ISO_GIT_REVISION="result/iso/iso.git_rev"
 BUILD_TARGET="boot.iso"
 WEBUI_BOOT_ISO=0
 REMOTE_PIN=""
+BOOT_VARIANT="${BOOT_ISO_VARIANT:-Everything}"
+BOOT_VARIANT_REQUESTED=0
 
 COPY_RPMS=""
 
 # parse arguments
-PARSED_ARGS=$(getopt -o ha:lwr: --long help,add-rpms:,live,webui,remote: -- "$@")
+PARSED_ARGS=$(getopt -o ha:lwr: --long help,add-rpms:,live,webui,remote:,boot-variant: -- "$@")
 eval set -- "$PARSED_ARGS"
 
 while true; do
@@ -54,6 +58,7 @@ while true; do
         -h|--help) help; exit 0 ;;
         -a|--add-rpms) shift; COPY_RPMS="$COPY_RPMS $1" ;;
         -l|--live) BUILD_TARGET="live" ;;
+        --boot-variant) shift; BOOT_VARIANT="$1"; BOOT_VARIANT_REQUESTED=1 ;;
         -w|--webui) WEBUI_BOOT_ISO=1 ;;
         -r|--remote)
             shift
@@ -68,6 +73,16 @@ while true; do
     esac
     shift
 done
+
+case "$BOOT_VARIANT" in
+    Everything|Server) ;;
+    *) echo "error: --boot-variant must be Everything or Server." >&2; exit 1 ;;
+esac
+if [ "$BUILD_TARGET" = "live" ] && [ "$BOOT_VARIANT_REQUESTED" = "1" ]; then
+    echo "error: --boot-variant cannot be used with --live." >&2
+    exit 1
+fi
+export BOOT_ISO_VARIANT="$BOOT_VARIANT"
 
 if [ "$BUILD_TARGET" = "live" ] && [ "$WEBUI_BOOT_ISO" = "1" ]; then
     echo "error: --webui cannot be used with --live (WebUI variant is boot.iso only)." >&2
