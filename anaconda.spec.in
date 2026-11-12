@@ -206,6 +206,7 @@ Requires: libblockdev-lvm-dbus
 %endif
 # active directory/freeipa join support
 Requires: realmd
+Requires: subscription-manager-cockpit
 Requires: isomd5sum >= %{isomd5sumver}
 %ifarch x86_64
 Recommends: fcoe-utils >= %{fcoeutilsver}
@@ -314,6 +315,8 @@ Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
 Requires: adwaita-icon-theme
+Requires: subscription-manager
+Requires: anaconda-webui
 Requires: tecla
 Requires: nm-connection-editor
 %ifnarch s390 s390x
