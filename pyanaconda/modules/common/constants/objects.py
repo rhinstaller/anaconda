@@ -157,6 +157,11 @@ RHSM_SYSPURPOSE = DBusObjectIdentifier(
     basename="Syspurpose"
 )
 
+RHSM_ENTITLEMENT = DBusObjectIdentifier(
+    namespace=RHSM_NAMESPACE,
+    basename="Entitlement"
+)
+
 # Security objects
 CERTIFICATES = DBusObjectIdentifier(
     namespace=SECURITY_NAMESPACE,
