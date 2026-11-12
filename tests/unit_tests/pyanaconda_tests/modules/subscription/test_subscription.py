@@ -1132,8 +1132,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         observer = Mock()
         observer.get_proxy = Mock()
         self.subscription_module._rhsm_observer = observer
-        config_proxy = Mock()
-        observer.get_proxy.return_value = config_proxy
+        mocked_proxy = Mock()
+        mocked_proxy.GetStatus.return_value='{"status_id": "unknown"}'
+        observer.get_proxy.return_value = mocked_proxy
 
         task_classes = [
             RestoreRHSMDefaultsTask,
@@ -1146,7 +1147,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # RestoreRHSMDefaultsTask
         obj = task_objs[0]
-        assert obj.implementation._rhsm_config_proxy == config_proxy
+        assert obj.implementation._rhsm_config_proxy == mocked_proxy
 
         # TransferSubscriptionTokensTask
         obj = task_objs[1]
@@ -1175,8 +1176,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         observer = Mock()
         observer.get_proxy = Mock()
         self.subscription_module._rhsm_observer = observer
-        config_proxy = Mock()
-        observer.get_proxy.return_value = config_proxy
+        mocked_proxy = Mock()
+        mocked_proxy.GetStatus.return_value='{"status_id": "Valid"}'
+        observer.get_proxy.return_value = mocked_proxy
 
         task_classes = [
             RestoreRHSMDefaultsTask,
@@ -1189,7 +1191,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # RestoreRHSMDefaultsTask
         obj = task_objs[0]
-        assert obj.implementation._rhsm_config_proxy == config_proxy
+        assert obj.implementation._rhsm_config_proxy == mocked_proxy
 
         # TransferSubscriptionTokensTask
         obj = task_objs[1]
