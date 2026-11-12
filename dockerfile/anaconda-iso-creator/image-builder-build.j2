@@ -63,6 +63,33 @@ fi
 # regardless of whether CI_TAG says "fedora-rawhide" or "fedora-<N>".
 IMAGE_BUILDER_DISTRO="fedora-${VERSION_ID}"
 
+# Match Fedora's pungi-fedora Everything installer label, including the
+# "dvd" marker used by libosinfo to identify installation media.
+# https://forge.fedoraproject.org/releng/pungi-fedora/src/branch/main/fedora.conf
+ISO_VOLID_VERSION="$VERSION_ID"
+if [ "$CI_TAG" = "fedora-rawhide" ]; then
+    ISO_VOLID_VERSION="rawh"
+fi
+
+# Let image-builder set both the ISO volume ID and the bootloader's stage2
+# reference through the supported customizations.iso blueprint option.
+# $arch is expanded by image-builder for the selected target architecture.
+BLUEPRINT=/tmp/installer-blueprint.toml
+cat > "$BLUEPRINT" <<EOF
+[customizations.iso]
+volume_id = "Fedora-E-dvd-\$arch-${ISO_VOLID_VERSION}"
+EOF
+
+if [ "${IMAGE_BUILDER_WEBUI:-0}" = "1" ]; then
+    cat >> "$BLUEPRINT" <<'EOF'
+
+[customizations.installer]
+packages = [
+  { name = "anaconda-webui" },
+]
+EOF
+fi
+
 mkdir -p output
 # "everything-network-installer" is Fedora's generic, interactive,
 # network-install Anaconda boot.iso - the image-builder equivalent of what
@@ -72,6 +99,7 @@ mkdir -p output
 # Stream type of the same latter name.
 image-builder build everything-network-installer \
       --distro "$IMAGE_BUILDER_DISTRO" \
+      --blueprint "$BLUEPRINT" \
       "${LOCAL_REPO_ARGS[@]}" \
       --output-dir output \
       "$@" || {
