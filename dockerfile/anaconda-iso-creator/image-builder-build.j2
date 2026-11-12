@@ -17,6 +17,23 @@
 
 set -eux
 
+# Select the Fedora network installer flavor (also used by the Web UI build).
+BOOT_ISO_VARIANT="${BOOT_ISO_VARIANT:-Everything}"
+case "$BOOT_ISO_VARIANT" in
+    Everything)
+        IMAGE_BUILDER_TYPE="everything-network-installer"
+        ISO_VARIANT_LABEL="E"
+        ;;
+    Server)
+        IMAGE_BUILDER_TYPE="server-network-installer"
+        ISO_VARIANT_LABEL="S"
+        ;;
+    *)
+        echo "Unsupported BOOT_ISO_VARIANT: $BOOT_ISO_VARIANT (expected Everything or Server)" >&2
+        exit 1
+        ;;
+esac
+
 # pre-create loop devices manually. In the container you can't use losetup for that.
 mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
 mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
@@ -63,7 +80,7 @@ fi
 # regardless of whether CI_TAG says "fedora-rawhide" or "fedora-<N>".
 IMAGE_BUILDER_DISTRO="fedora-${VERSION_ID}"
 
-# Match Fedora's pungi-fedora Everything installer label, including the
+# Match Fedora's pungi-fedora installer label for the selected variant, including the
 # "dvd" marker used by libosinfo to identify installation media.
 # https://forge.fedoraproject.org/releng/pungi-fedora/src/branch/main/fedora.conf
 ISO_VOLID_VERSION="$VERSION_ID"
@@ -77,7 +94,7 @@ fi
 BLUEPRINT=/tmp/installer-blueprint.toml
 cat > "$BLUEPRINT" <<EOF
 [customizations.iso]
-volume_id = "Fedora-E-dvd-\$arch-${ISO_VOLID_VERSION}"
+volume_id = "Fedora-${ISO_VARIANT_LABEL}-dvd-\$arch-${ISO_VOLID_VERSION}"
 EOF
 
 if [ "${IMAGE_BUILDER_WEBUI:-0}" = "1" ]; then
@@ -91,13 +108,10 @@ EOF
 fi
 
 mkdir -p output
-# "everything-network-installer" is Fedora's generic, interactive,
-# network-install Anaconda boot.iso - the image-builder equivalent of what
-# lorax's runtime-install.tmpl built (the upstream distrodef literally notes
-# "Based on lorax runtime-install.tmpl"). Not to be confused with the
-# "network-installer" image_func name used internally, or the RHEL/CentOS
-# Stream type of the same latter name.
-image-builder build everything-network-installer \
+# Both flavors are interactive network installers. The Server type also
+# includes fedora-release-server to select Anaconda's Server configuration.
+echo "Building $BOOT_ISO_VARIANT boot.iso using $IMAGE_BUILDER_TYPE (Web UI: ${IMAGE_BUILDER_WEBUI:-0})"
+image-builder build "$IMAGE_BUILDER_TYPE" \
       --distro "$IMAGE_BUILDER_DISTRO" \
       --blueprint "$BLUEPRINT" \
       "${LOCAL_REPO_ARGS[@]}" \
