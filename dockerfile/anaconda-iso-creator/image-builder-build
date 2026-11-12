@@ -81,9 +81,27 @@ fi
 # reference through the supported customizations.iso blueprint option.
 # $arch is expanded by image-builder for the selected target architecture.
 BLUEPRINT=/tmp/installer-blueprint.toml
+if [ "$ID" = "fedora" ]; then
+    # The flavors select Fedora-specific installer package sets and labels.
+    case "${FEDORA_VARIANT:-Everything}" in
+        Everything)
+            IMAGE_TYPE="everything-network-installer"
+            ISO_VARIANT_LABEL="E"
+            ;;
+        Server)
+            IMAGE_TYPE="server-network-installer"
+            ISO_VARIANT_LABEL="S"
+            ;;
+        *)
+            echo "Unsupported FEDORA_VARIANT: $FEDORA_VARIANT (expected Everything or Server)" >&2
+            exit 1
+            ;;
+    esac
+    ISO_VOLID="Fedora-${ISO_VARIANT_LABEL}-dvd-\$arch-${ISO_VOLID_VERSION}"
+fi
 cat > "$BLUEPRINT" <<EOF
 [customizations.iso]
-volume_id = "Fedora-E-dvd-\$arch-${ISO_VOLID_VERSION}"
+volume_id = "${ISO_VOLID}"
 EOF
 
 if [ "${IMAGE_BUILDER_WEBUI:-0}" = "1" ]; then
@@ -103,7 +121,7 @@ mkdir -p output
 # "Based on lorax runtime-install.tmpl"). Not to be confused with the
 # "network-installer" image_func name used internally, or the RHEL/CentOS
 # Stream type of the same latter name.
-image-builder build everything-network-installer \
+image-builder build "$IMAGE_TYPE" \
       --distro "$IMAGE_BUILDER_DISTRO" \
       --blueprint "$BLUEPRINT" \
       "${LOCAL_REPO_ARGS[@]}" \

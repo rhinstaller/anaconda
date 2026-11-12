@@ -32,6 +32,8 @@ Options:
  -r, --remote PIN                   Enable remote WebUI access with the given non-empty PIN.
                                     Implies --webui; requires mkksiso (lorax) on the host.
 
+Set FEDORA_VARIANT=Server to build the Server boot.iso instead of Everything.
+
 EOF
 }
 
