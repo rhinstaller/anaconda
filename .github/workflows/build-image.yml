@@ -8,13 +8,13 @@
 # Build a bootable image from a PR triggered by a "/build-image" comment or manually.
 #
 # Choose type of the image with these options:
-# --boot.iso
+# --boot.iso [variant]  (Everything, Server; network installer)
 # --live [variant]  (Workstation, KDE, Xfce, Cinnamon, MATE, LXDE, LXQt, Sway, Budgie, i3)
 # --updates.img
 #
 # If none of these is present, --boot.iso is assumed.
 # If more are present at once, all variants are built.
-# If --live is used without variant, Workstation is assumed.
+# The default variants are Everything for --boot.iso and Workstation for --live.
 #
 # To use webui on boot.iso, add also:
 # --webui
@@ -33,6 +33,14 @@ on:
     types: [created]
   # be able to start this action manually from a actions tab when needed
   workflow_dispatch:
+    inputs:
+      boot_variant:
+        description: Boot ISO flavor (network installer)
+        type: choice
+        default: Everything
+        options:
+          - Everything
+          - Server
 
 permissions:
   contents: read
@@ -98,6 +106,7 @@ jobs:
         # Do not use comment body directly in the shell command to avoid possible code injection.
         env:
           BODY: ${{ github.event.comment.body }}
+          DEFAULT_BOOT_VARIANT: ${{ inputs.boot_variant || 'Everything' }}
         run: |
           # extract first line and cut out the "/build-image" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
@@ -105,6 +114,35 @@ jobs:
           if ! [[ "$ARGS" == *"--boot.iso"* || "$ARGS" == *"--live"* || "$ARGS" == *"--updates.img"* ]] ; then
             ARGS="$ARGS --boot.iso"
             echo "adding implicit --boot.iso, arguments now are: $ARGS"
+          fi
+
+          read -r -a ARG_WORDS <<< "$ARGS"
+          iso_variant() {
+            local option="$1" default="$2"
+            shift 2
+            while (($#)); do
+              if [[ "$1" == "$option" ]]; then
+                local next="${2:-}"
+                if [[ -n "$next" && "$next" != --* ]]; then
+                  printf '%s\n' "$next"
+                  return
+                fi
+                break
+              fi
+              shift
+            done
+            printf '%s\n' "$default"
+          }
+
+          BOOT_VARIANT=$(iso_variant --boot.iso "$DEFAULT_BOOT_VARIANT" "${ARG_WORDS[@]}")
+          LIVE_VARIANT=$(iso_variant --live Workstation "${ARG_WORDS[@]}")
+          case "$BOOT_VARIANT" in
+            Everything|Server) ;;
+            *) echo "::error::Unsupported boot variant (expected Everything or Server)"; exit 1 ;;
+          esac
+          if ! [[ "$LIVE_VARIANT" =~ ^[[:alnum:]]+$ ]]; then
+            echo "::error::Invalid Live ISO variant"
+            exit 1
           fi
 
           # Extract --image parameter if present
@@ -121,17 +159,6 @@ jobs:
           else
             CI_TAG=$(make -f Makefile.am -s print-CI_TAG)
           fi
-
-          # Extract --live variant (Workstation, KDE, Xfce, etc.)
-          LIVE_VARIANT="Workstation"
-          if [[ "$ARGS" == *"--live"* ]]; then
-            # Extract variant after --live (first word that doesn't start with --)
-            EXTRACTED=$(echo "$ARGS" | sed -n 's/.*--live[[:space:]]\+\([A-Za-z]*\).*/\1/p')
-            if [[ -n "$EXTRACTED" ]]; then
-              LIVE_VARIANT="$EXTRACTED"
-            fi
-          fi
-          echo "live_variant=${LIVE_VARIANT}"
 
           # Extract --anaconda-webui-pr number if present
           ANACONDA_WEBUI_PR=""
@@ -157,6 +184,7 @@ jobs:
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
           echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
           echo "live_variant=${LIVE_VARIANT}" >> $GITHUB_OUTPUT
+          echo "boot_variant=${BOOT_VARIANT}" >> $GITHUB_OUTPUT
           echo "anaconda_webui_pr=${ANACONDA_WEBUI_PR}" >> $GITHUB_OUTPUT
           echo "cockpit_pr=${COCKPIT_PR}" >> $GITHUB_OUTPUT
 
@@ -207,6 +235,7 @@ jobs:
       args: ${{ steps.parse_args.outputs.args }}
       ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
       live_variant: ${{ steps.parse_args.outputs.live_variant }}
+      boot_variant: ${{ steps.parse_args.outputs.boot_variant }}
       anaconda_webui_pr: ${{ steps.parse_args.outputs.anaconda_webui_pr }}
       cockpit_pr: ${{ steps.parse_args.outputs.cockpit_pr }}
       image_description: ${{ steps.image_description.outputs.image_description }}
@@ -221,6 +250,7 @@ jobs:
        STATUS_NAME: boot-iso
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
+       FEDORA_VARIANT: ${{ needs.pr-info.outputs.boot_variant }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -270,13 +300,14 @@ jobs:
           fi
           # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
+             --env FEDORA_VARIANT \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
             $WEBUI_OPTIONAL_ARG \
             $WEBUI_PR_ARGS \
             $ISO_BUILD_CONTAINER_NAME:$CI_TAG
-          mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
+           mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-${FEDORA_VARIANT}-boot.iso"
 
       - name: Collect logs
         if: always()
@@ -289,7 +320,7 @@ jobs:
       - name: Upload image
         uses: actions/upload-artifact@v7
         with:
-          name: boot.iso image for ${{ needs.pr-info.outputs.image_description }}
+          name: boot.iso (${{ needs.pr-info.outputs.boot_variant }}) image for ${{ needs.pr-info.outputs.image_description }}
           path: |
             images/*.iso
 
@@ -450,7 +481,7 @@ jobs:
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--boot.iso"* ]] ; then
             # <job>.result can be success, failure, cancelled, or skipped
             # https://docs.github.com/en/actions/learn-github-actions/contexts#jobs-context
-            echo -e "- \`boot.iso\`: ${{ needs.boot-iso.result }}\n" >> comment.txt
+            echo -e "- \`boot.iso\` (${{ needs.pr-info.outputs.boot_variant }}): ${{ needs.boot-iso.result }}\n" >> comment.txt
           fi
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--live"* ]] ; then
             echo -e "- Live (${{ needs.pr-info.outputs.live_variant }}): ${{ needs.live-iso.result }}\n" >> comment.txt
