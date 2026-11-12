@@ -31,8 +31,6 @@
 
 set -eux
 
-BLUEPRINT=/tmp/webui-blueprint.toml
-
 . /etc/os-release
 
 if [ "$CI_TAG" = "fedora-rawhide" ]; then
@@ -62,17 +60,7 @@ add_copr_repo() {
 add_copr_repo "ANACONDA_WEBUI_PR" "rhinstaller-anaconda-webui" "anaconda-webui"
 add_copr_repo "COCKPIT_PR" "cockpit-project-cockpit" "cockpit"
 
-# Blueprint asking image-builder to install the Web UI packages into the
-# Anaconda installer environment as part of the build itself, instead of
-# patching them in afterwards. The freshly built Anaconda RPMs (added as an
-# extra repo by image-builder-build) and the COPRs above are available to it.
-cat > "$BLUEPRINT" <<'EOF'
-[customizations.installer]
-packages = [
-  { name = "anaconda-webui" },
-]
-EOF
-
-# Build the pure image-builder boot.iso - same code path as the non-webui
-# build - with the Web UI packages baked into the Anaconda environment.
-/image-builder-build --blueprint "$BLUEPRINT" "${EXTRA_REPO_ARGS[@]}" "$@"
+# Use the common installer's blueprint so that the Web UI packages and ISO
+# metadata are configured together. Local RPMs and the COPRs above remain
+# available to image-builder when installing the Web UI packages.
+IMAGE_BUILDER_WEBUI=1 /image-builder-build "${EXTRA_REPO_ARGS[@]}" "$@"
