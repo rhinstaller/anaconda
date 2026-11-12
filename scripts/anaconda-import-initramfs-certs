@@ -2,5 +2,15 @@
 # Transfers CA certificates imported in initramfs via kickstart
 # to anaconda environment after switchroot.
 
+CERT_TRANSPORT_DIR=/run/install/certificates
+
 # certificates dumped to the specified file are copied to root
-cp -rv /run/install/certificates/path/* / || true
+cp -rv ${CERT_TRANSPORT_DIR}/path/* / || true
+
+# Import anchor certificates and update the system trust store
+ANCHOR_DIR=${CERT_TRANSPORT_DIR}/type/anchor
+if [ -d "${ANCHOR_DIR}" ]; then
+    if cp -rv ${ANCHOR_DIR}/* /etc/pki/ca-trust/source/anchors/ 2>/dev/null; then
+        update-ca-trust extract || echo "WARNING: update-ca-trust extract failed" >&2
+    fi
+fi
