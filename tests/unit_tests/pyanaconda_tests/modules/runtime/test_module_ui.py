@@ -16,10 +16,13 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import mock_open, patch
 
 from dasbus.structure import compare_data
 from dasbus.typing import Bool, Str, UInt16, get_variant
 
+from pyanaconda.core.product import ProductData as CoreProductData
+from pyanaconda.core.product import get_product_values
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.modules.common.structures.product import ProductData
@@ -70,19 +73,55 @@ class UIInterfaceTestCase(unittest.TestCase):
             {"luks": policy}
         )
 
-    def test_product_data_property(self):
+    @patch("pyanaconda.modules.runtime.user_interface.ui.get_product_values")
+    def test_product_data_property(self, product_values):
         """Test the ProductData property."""
-        # Fetch the ProductData from the DBus interface
-        product_data = ProductData.from_structure(self.interface.ProductData)
+        for is_final in (False, True):
+            with self.subTest(is_final=is_final):
+                product_values.return_value = CoreProductData(
+                    is_final, "Test Product", "43", "tp", "Everything"
+                )
+                product_data = ProductData.from_structure(self.interface.ProductData)
 
-        # Check if the product data has the correct structure
-        assert isinstance(product_data, ProductData)
-        assert isinstance(product_data.is_final_release, Bool)
-        assert isinstance(product_data.name, Str)
-        assert isinstance(product_data.version, Str)
-        assert isinstance(product_data.short_name, Str)
+                assert isinstance(product_data, ProductData)
+                assert isinstance(product_data.is_final_release, Bool)
+                assert isinstance(product_data.name, Str)
+                assert isinstance(product_data.version, Str)
+                assert isinstance(product_data.short_name, Str)
+                assert isinstance(product_data.variant, Str)
 
-        assert product_data.is_final_release is False
-        assert product_data.name == "anaconda"
-        assert product_data.version == "bluesky"
-        assert product_data.short_name == "anaconda"
+                assert product_data.is_final_release is is_final
+                assert product_data.name == "Test Product"
+                assert product_data.version == "43"
+                assert product_data.short_name == "tp"
+                assert product_data.variant == "Everything"
+
+    @patch.dict("os.environ", clear=True)
+    def test_product_data_release_type(self):
+        """Expose os-release metadata to Web UI."""
+        self.addCleanup(get_product_values.cache_clear)
+
+        for release_type, expected in (
+            ("development", False),
+            ("experiment", False),
+            ("stable", True),
+            ("lts", True),
+            ("unknown", True),
+            ("", False),
+            (None, False),
+        ):
+            with self.subTest(release_type=release_type):
+                get_product_values.cache_clear()
+                os_release = mock_open(read_data=(
+                    'NAME="Fedora"\nVERSION_ID=46\nVARIANT="Everything"\nBUILD_ID=devel\n'
+                    + (f'RELEASE_TYPE="{release_type}"\n' if release_type is not None else "")
+                ))
+
+                with patch("pyanaconda.core.os_release.open", os_release):
+                    product_data = ProductData.from_structure(self.interface.ProductData)
+
+                assert product_data.is_final_release is expected
+                assert product_data.name == "Fedora"
+                assert product_data.version == "46"
+                assert product_data.short_name == "fedora"
+                assert product_data.variant == "Everything"

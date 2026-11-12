@@ -24,9 +24,10 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, USER_AGENT
+from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import ProxyString, ProxyStringError, rpm_version_key
+from pyanaconda.core.product import get_product_user_agent
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -77,7 +78,7 @@ def get_downloader_for_repo_configuration(session, data: RepoConfigurationData):
             log.debug("Failed to parse the proxy '%s': %s", proxy_url, e)
 
     # Prepare headers.
-    headers = {"user-agent": USER_AGENT}
+    headers = {"user-agent": get_product_user_agent()}
 
     # Return a partial function.
     return partial(

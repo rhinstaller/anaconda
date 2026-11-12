@@ -74,6 +74,7 @@ from tests.unit_tests.pyanaconda_tests import (
     check_task_creation,
     check_task_creation_list,
     patch_dbus_publish_object,
+    patch_product_values,
     reset_boot_loader_factory,
 )
 
@@ -354,6 +355,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
                 ),
             ])
 
+    @patch_product_values()
     def test_configure(self):
         """Test the final configuration of the boot loader."""
         bootloader = Mock()
@@ -397,7 +399,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
         assert isinstance(image, LinuxBootLoaderImage)
         assert image == bootloader.default
         assert image.version == version
-        assert image.label == "anaconda"
+        assert image.label == "Test Product"
         assert image.device == storage.root_device
 
     def test_collect_kernel_arguments(self):

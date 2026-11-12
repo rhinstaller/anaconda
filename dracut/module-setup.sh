@@ -70,6 +70,8 @@ install() {
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
     # this is imported by parse-kickstart and is easiest to just dump into the same directory
     inst "$moddir/kickstart_version.py" "/sbin/kickstart_version.py"
+    # Share the runtime's metadata reader without importing the installer package.
+    inst_simple "$moddir/os_release.py" "/sbin/os_release.py"
     # Driver Update Disks
     inst_hook cmdline 29 "$moddir/parse-anaconda-dd.sh"
     inst_hook pre-trigger 55 "$moddir/driver-updates-genrules.sh"
@@ -105,7 +107,7 @@ install() {
                 ;;
             *) inst "$dep" ;;
         esac
-    done < <(PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py")
+    done < <(PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py" "$moddir/os_release.py")
 
     # Install discovered certificate bundles
     for _crt in "${!_crts[@]}"; do

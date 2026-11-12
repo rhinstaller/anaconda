@@ -29,6 +29,7 @@ from dasbus.server.template import BasicInterfaceTemplate
 from dasbus.typing import get_native
 from gi.repository import GLib
 
+from pyanaconda.core.product import ProductData
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.task import TaskInterface
@@ -232,6 +233,23 @@ def check_dbus_object_creation(path, publisher, klass, index=0):
     assert isinstance(obj.implementation, klass)
     assert isinstance(obj, BasicInterfaceTemplate)
     return obj
+
+
+def patch_product_values(*, name="Test Product", version="1.0", short_name="testproduct",
+                         variant="", is_final_release=False):
+    """Provide product metadata independent of the host.
+
+    Use as a decorator or context manager. Product getters and consumers
+    continue to run with the supplied data.
+    """
+    values = ProductData(
+        is_final_release=is_final_release,
+        name=name,
+        version=version,
+        short_name=short_name,
+        variant=variant,
+    )
+    return patch("pyanaconda.core.product.get_product_values", new=lambda: values)
 
 
 def patch_dbus_publish_object(func):

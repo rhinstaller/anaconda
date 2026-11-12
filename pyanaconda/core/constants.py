@@ -22,7 +22,7 @@ import string
 from enum import Enum
 
 from pyanaconda.core.i18n import N_
-from pyanaconda.core.product import get_product_name, get_product_version
+from pyanaconda.core.product import get_product_name, get_product_user_agent
 
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
@@ -108,7 +108,7 @@ NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 NETWORK_CAPABILITY_TEAM = 1
 
 # Anaconda user agent
-USER_AGENT = "%s (anaconda)/%s" % (get_product_name(), get_product_version())
+USER_AGENT = get_product_user_agent()
 
 # Thread names
 THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"

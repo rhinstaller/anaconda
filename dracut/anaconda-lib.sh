@@ -17,7 +17,7 @@ warn_critical() {
 # config_get SECTION KEY < FILE
 # read an .ini-style config file, find the KEY in the given SECTION, and return
 # the value provided for that key.
-# ex: product=$(config_get Main Product < /.buildstamp)
+# ex: stage2=$(config_get stage2 mainimage < /run/install/repo/.treeinfo)
 config_get() {
     local section="$1" key="$2" cursec="" k="" v=""
     while read -r line; do
