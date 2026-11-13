@@ -20,11 +20,13 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.users import guess_username
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.completeness import IncompletenessReason
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.common.structures.user import UserData
@@ -69,6 +71,34 @@ class UsersService(KickstartService):
         self._ssh_keys = []
 
         self._rootpw_seen = False
+
+        # Completeness depends on the root password and on whether some
+        # other admin user exists, so both have to re-publish it.
+        self.root_password_is_set_changed.connect(self.notify_completeness_changed)
+        self.root_account_locked_changed.connect(self.notify_completeness_changed)
+        self.users_changed.connect(self.notify_completeness_changed)
+        self.seed_completeness()
+
+    @property
+    def incompleteness(self):
+        """Reasons why this module is not ready to install.
+
+        The installation needs some way to administer the system. The rule
+        used to be split between the spoke's completed ("is the root
+        password set") and its mandatory ("unless an admin user exists"),
+        but both facts belong to this module, so it is one question here.
+
+        :return: a list of IncompletenessReason
+        """
+        if self.root_password_is_set or self.check_admin_user_exists:
+            return []
+
+        return [
+            IncompletenessReason.for_unconfigured(
+                "users.no-admin-user",
+                _("No root password is set and no administrator user exists."),
+            )
+        ]
 
     def publish(self):
         """Publish the module."""

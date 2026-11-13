@@ -25,6 +25,7 @@ from pyanaconda.core import constants
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.boss.boss_interface import BossInterface
+from pyanaconda.modules.boss.completeness_manager import CompletenessManager
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import (
     RunInstallationTask,
@@ -59,6 +60,7 @@ class Boss(Service):
         self._module_manager = ModuleManager()
         self._kickstart_manager = KickstartManager()
         self._install_manager = InstallManager()
+        self._completeness_manager = CompletenessManager()
         self._installation_task = None
         self.active_installation_task_changed = Signal()
         initial_state = self._load_initial_state()
@@ -78,6 +80,10 @@ class Boss(Service):
 
         self._module_manager.module_observers_changed.connect(
             self._install_manager.on_module_observers_changed
+        )
+
+        self._module_manager.module_observers_changed.connect(
+            self._completeness_manager.on_module_observers_changed
         )
 
     @property
@@ -171,6 +177,29 @@ class Boss(Service):
         :return: a list of requirements
         """
         return self._install_manager.collect_requirements()
+
+    def collect_completeness(self):
+        """Collect the completeness of the modules.
+
+        :return: a list of ModuleCompleteness
+        """
+        return self._completeness_manager.collect_completeness()
+
+    @property
+    def ready_to_install(self):
+        """Is every mandatory module complete?
+
+        :return: True if no mandatory module blocks the installation
+        """
+        return self._completeness_manager.is_ready_to_install()
+
+    @property
+    def blocking_reasons(self):
+        """The reasons that block the installation.
+
+        :return: a list of IncompletenessReason
+        """
+        return self._completeness_manager.collect_blocking_reasons()
 
     @property
     def installation_status(self):

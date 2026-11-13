@@ -120,9 +120,20 @@ def check_kickstart_interface(interface, ks_in=None, ks_out=None, ks_valid=True)
     ks_generated = clear_version_from_kickstart_string(interface.GenerateKickstart()).strip()
     assert ks_out == ks_generated
 
-    # Test the properties changed callback.
+    # Test the properties changed callback. Reading a kickstart can change
+    # the completeness of the module too, and dasbus batches the properties
+    # of one interface into a single signal, so look for Kickstarted among
+    # everything reported for the base interface rather than on its own.
     if ks_in is not None:
-        callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
+        reported = {}
+
+        for call in callback.call_args_list:
+            call_interface, changed, _invalid = call.args
+
+            if call_interface == KICKSTART_MODULE.interface_name:
+                reported.update(changed)
+
+        assert reported.get('Kickstarted') is True
     else:
         callback.assert_not_called()
 

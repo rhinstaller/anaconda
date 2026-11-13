@@ -25,11 +25,17 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.core.constants import NETWORK_CAPABILITY_TEAM
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
-from pyanaconda.modules.common.constants.services import HOSTNAME, NETWORK
+from pyanaconda.modules.common.constants.services import (
+    HOSTNAME,
+    NETWORK,
+    PAYLOADS,
+)
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.completeness import IncompletenessReason
 from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.network.config_file import (
@@ -115,6 +121,74 @@ class NetworkService(KickstartService):
         self._ifname_option_values = []
         self._disable_ipv6 = False
         self._apply_boot_options(kernel_arguments)
+
+        self.connected_changed.connect(self.notify_completeness_changed)
+
+    @property
+    def mandatory(self):
+        """Should this module being incomplete block the installation?
+
+        The network does not decide on its own that it matters. It matters
+        when another module has published that it needs the network — today
+        that is the payload, through Payloads.IsNetworkRequired. Nothing
+        here knows *why* the network is needed, so a new consumer does not
+        have to be added to a rules table.
+
+        :return: True if something requires the network
+        """
+        required, known = self._is_network_required()
+        # If we cannot tell yet, assume we matter and report a busy reason,
+        # so that nobody samples a Mandatory that is about to flip.
+        return required or not known
+
+    @property
+    def incompleteness(self):
+        """Reasons why this module is not ready to install.
+
+        :return: a list of IncompletenessReason
+        """
+        if not conf.system.can_configure_network:
+            # We cannot configure the network, so we cannot require it.
+            return []
+
+        _required, known = self._is_network_required()
+
+        if not known:
+            return [
+                IncompletenessReason.for_busy(
+                    "network.requirement-unknown",
+                    _("Checking whether the installation needs a network."),
+                )
+            ]
+
+        if self.connected:
+            return []
+
+        if self.is_connecting():
+            return [
+                IncompletenessReason.for_busy(
+                    "network.connecting",
+                    _("Connecting to the network."),
+                )
+            ]
+
+        return [
+            IncompletenessReason.for_unconfigured(
+                "network.not-connected",
+                _("The system is not connected to a network."),
+            )
+        ]
+
+    def _is_network_required(self):
+        """Has another module published that it needs the network?
+
+        :return: a tuple of (is required, is the answer known)
+        """
+        try:
+            return bool(PAYLOADS.get_proxy().IsNetworkRequired()), True
+        except Exception as e:  # pylint: disable=broad-except
+            log.debug("Cannot tell whether the network is required yet: %s", e)
+            return False, False
 
     def publish(self):
         """Publish the module."""

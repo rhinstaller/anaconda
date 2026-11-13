@@ -1642,6 +1642,82 @@ class StorageModuleTestCase(unittest.TestCase):
         assert self.storage_module.storage.protected_devices == ["b", "c"]
 
 
+class StorageCompletenessTestCase(unittest.TestCase):
+    """Test the completeness of the storage module."""
+
+    def setUp(self):
+        """Set up the module."""
+        # Creating the storage model starts up nvme, which needs a
+        # privileged read of the host NQN that the tests don't need.
+        with patch("blivet.nvme.nvme.startup"):
+            self.storage_module = StorageService()
+
+    def test_busy_before_the_initial_scan(self):
+        """Test that a module that was not scanned yet is busy, not broken."""
+        assert self.storage_module.complete is False
+        assert [(r.kind, r.id) for r in self.storage_module.incompleteness] == [
+            ("busy", "storage.scanning")
+        ]
+
+    def test_busy_while_scanning(self):
+        """Test that a running scan keeps the module busy."""
+        task = self.storage_module.scan_devices_with_task()
+        task.started_signal.emit()
+
+        assert [(r.kind, r.id) for r in self.storage_module.incompleteness] == [
+            ("busy", "storage.scanning")
+        ]
+
+        task.stopped_signal.emit()
+        assert [r.id for r in self.storage_module.incompleteness] \
+            == ["storage.no-root-device"]
+
+    def test_unconfigured_without_a_root_device(self):
+        """Test that a scanned module without a root device is unconfigured."""
+        task = self.storage_module.scan_devices_with_task()
+        task.started_signal.emit()
+        task.stopped_signal.emit()
+
+        assert self.storage_module.complete is False
+        assert [(r.kind, r.id) for r in self.storage_module.incompleteness] == [
+            ("unconfigured", "storage.no-root-device")
+        ]
+
+    def test_complete_with_a_root_device(self):
+        """Test that a scanned module with a root device is complete."""
+        task = self.storage_module.scan_devices_with_task()
+        task.started_signal.emit()
+        task.stopped_signal.emit()
+
+        with patch.object(self.storage_module._device_tree_module, "get_root_device",
+                          return_value=Mock()):
+            assert self.storage_module.complete is True
+            assert self.storage_module.incompleteness == []
+
+    def test_a_failed_scan_closes_the_busy_window(self):
+        """Test that a scan that failed doesn't leave the module busy forever."""
+        task = self.storage_module.scan_devices_with_task()
+        task.started_signal.emit()
+        # A failed task emits the stopped signal without the succeeded one.
+        task.stopped_signal.emit()
+
+        assert [r.kind for r in self.storage_module.incompleteness] == ["unconfigured"]
+
+    def test_the_completeness_is_published(self):
+        """Test that a change of the completeness is published."""
+        emitted = []
+        self.storage_module.completeness_changed.connect(lambda: emitted.append(1))
+
+        task = self.storage_module.scan_devices_with_task()
+        task.started_signal.emit()
+        # Still busy, nothing new to say.
+        assert emitted == []
+
+        task.stopped_signal.emit()
+        # Busy became unconfigured.
+        assert len(emitted) == 1
+
+
 class StorageTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
 

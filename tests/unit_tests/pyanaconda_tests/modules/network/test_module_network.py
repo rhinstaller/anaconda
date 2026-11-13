@@ -2223,3 +2223,102 @@ class InstallationTaskTestCase(unittest.TestCase):
                 bla
                 """
             )
+
+
+class NetworkCompletenessTestCase(unittest.TestCase):
+    """Test the completeness of the Network module."""
+
+    def setUp(self):
+        self.network_module = NetworkService()
+
+        # The tests don't run in an installation environment, so the network
+        # would be reported as unconfigurable and never incomplete.
+        self.conf_patcher = patch("pyanaconda.modules.network.network.conf")
+        mocked_conf = self.conf_patcher.start()
+        mocked_conf.system.can_configure_network = True
+
+        # NetworkManager is not running here, so the module would assume
+        # that the system is connected no matter what the tests set.
+        self.nm_patcher = patch.object(NetworkService, "nm_available", True)
+        self.nm_patcher.start()
+
+    def tearDown(self):
+        self.conf_patcher.stop()
+        self.nm_patcher.stop()
+
+    def _set_network_required(self, required):
+        """Make the payload answer the question about the network."""
+        payloads_proxy = Mock()
+        payloads_proxy.IsNetworkRequired.return_value = required
+        return patch(
+            "pyanaconda.modules.network.network.PAYLOADS.get_proxy",
+            return_value=payloads_proxy
+        )
+
+    def _set_network_unavailable(self):
+        """Make the payload unable to answer."""
+        return patch(
+            "pyanaconda.modules.network.network.PAYLOADS.get_proxy",
+            side_effect=ConnectionError("No payload yet.")
+        )
+
+    def test_mandatory_follows_the_payload(self):
+        """Test that the network matters only if something needs it."""
+        with self._set_network_required(True):
+            assert self.network_module.mandatory is True
+
+        with self._set_network_required(False):
+            assert self.network_module.mandatory is False
+
+    def test_mandatory_if_the_requirement_is_unknown(self):
+        """Test that an unknown requirement keeps the module mandatory."""
+        with self._set_network_unavailable():
+            assert self.network_module.mandatory is True
+
+    def test_busy_if_the_requirement_is_unknown(self):
+        """Test the reason reported before the payload can answer."""
+        with self._set_network_unavailable():
+            reasons = self.network_module.incompleteness
+
+        assert [(r.kind, r.id) for r in reasons] == [
+            ("busy", "network.requirement-unknown")
+        ]
+
+    def test_complete_if_connected(self):
+        """Test that a connected module is complete."""
+        self.network_module.set_connected(True)
+
+        with self._set_network_required(True):
+            assert self.network_module.incompleteness == []
+            assert self.network_module.complete is True
+
+    def test_busy_if_connecting(self):
+        """Test that a module that is still connecting is busy."""
+        self.network_module.set_connected(False)
+
+        with self._set_network_required(True), \
+                patch.object(self.network_module, "is_connecting", return_value=True):
+            reasons = self.network_module.incompleteness
+
+        assert [(r.kind, r.id) for r in reasons] == [("busy", "network.connecting")]
+
+    def test_unconfigured_if_not_connected(self):
+        """Test that a module that gave up connecting is unconfigured."""
+        self.network_module.set_connected(False)
+
+        with self._set_network_required(True), \
+                patch.object(self.network_module, "is_connecting", return_value=False):
+            reasons = self.network_module.incompleteness
+
+        assert [(r.kind, r.id) for r in reasons] == [
+            ("unconfigured", "network.not-connected")
+        ]
+        assert self.network_module.complete is False
+
+    @patch("pyanaconda.modules.network.network.conf")
+    def test_complete_if_the_network_cannot_be_configured(self, mocked_conf):
+        """Test that we don't require what we cannot configure."""
+        mocked_conf.system.can_configure_network = False
+        self.network_module.set_connected(False)
+
+        assert self.network_module.incompleteness == []

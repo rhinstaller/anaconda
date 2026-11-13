@@ -25,6 +25,7 @@ from textwrap import dedent
 from dasbus.typing import Bool, List, Str, UInt32, get_variant
 
 from pyanaconda.core.constants import ID_MODE_USE_DEFAULT, ID_MODE_USE_VALUE
+from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.user import UserData
@@ -161,7 +162,14 @@ class UsersInterfaceTestCase(unittest.TestCase):
         assert self.users_interface.IsRootPasswordCrypted is True
         assert self.users_interface.IsRootPasswordSet is True
         assert self.users_interface.IsRootAccountLocked is True
-        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        # Setting the root password also makes the module complete.
+        assert self.callback.call_count == 2
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        self.callback.assert_any_call(KICKSTART_MODULE.interface_name, {
+            'Complete': True,
+            'Incompleteness': [],
+            'Mandatory': True,
+        }, [])
 
     def test_set_crypted_roopw_and_unlock(self):
         """Test if setting crypted root password & unlocking it from kickstart works correctly."""
@@ -170,7 +178,14 @@ class UsersInterfaceTestCase(unittest.TestCase):
         assert self.users_interface.IsRootPasswordSet is True
         assert self.users_interface.IsRootAccountLocked is True
         assert self.users_interface.CanChangeRootPassword is True
-        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        # Setting the root password also makes the module complete.
+        assert self.callback.call_count == 2
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        self.callback.assert_any_call(KICKSTART_MODULE.interface_name, {
+            'Complete': True,
+            'Incompleteness': [],
+            'Mandatory': True,
+        }, [])
 
         # this should not be a valid admin user for interactive install
         assert not self.users_interface.CheckAdminUserExists()
@@ -198,7 +213,14 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
         assert self.users_interface.IsRootPasswordSet is True
         assert self.users_interface.IsRootAccountLocked is True
-        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        # Setting the root password also makes the module complete.
+        assert self.callback.call_count == 2
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        self.callback.assert_any_call(KICKSTART_MODULE.interface_name, {
+            'Complete': True,
+            'Incompleteness': [],
+            'Mandatory': True,
+        }, [])
 
         # clear it
         self.users_interface.ClearRootPassword()
@@ -206,14 +228,29 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # check if it looks cleared
         assert self.users_interface.IsRootPasswordSet is False
         assert self.users_interface.IsRootAccountLocked is True
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
-                                                                'IsRootAccountLocked': True}, [])
+        # The completeness changes in the middle of clearing the password,
+        # which flushes the properties reported so far, so the two come in
+        # two signals instead of one.
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootAccountLocked': True}, [])
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootPasswordSet': False}, [])
+
+        # Clearing the password makes the module incomplete again.
+        assert self.users_interface.Complete is False
+        assert [r['id'].unpack() for r in self.users_interface.Incompleteness] \
+            == ['users.no-admin-user']
 
     def test_clear_unlocked_rootpw(self):
         """Test clearing of unlocked root password."""
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
-        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        # Setting the root password also makes the module complete.
+        assert self.callback.call_count == 2
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        self.callback.assert_any_call(KICKSTART_MODULE.interface_name, {
+            'Complete': True,
+            'Incompleteness': [],
+            'Mandatory': True,
+        }, [])
 
         self.users_interface.IsRootAccountLocked = False
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
@@ -227,8 +264,16 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # check if it looks cleared
         assert self.users_interface.IsRootPasswordSet is False
         assert self.users_interface.IsRootAccountLocked is True
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
-                                                                'IsRootAccountLocked': True}, [])
+        # The completeness changes in the middle of clearing the password,
+        # which flushes the properties reported so far, so the two come in
+        # two signals instead of one.
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootAccountLocked': True}, [])
+        self.callback.assert_any_call(USERS.interface_name, {'IsRootPasswordSet': False}, [])
+
+        # Clearing the password makes the module incomplete again.
+        assert self.users_interface.Complete is False
+        assert [r['id'].unpack() for r in self.users_interface.Incompleteness] \
+            == ['users.no-admin-user']
 
     def test_allow_root_password_ssh_login(self):
         """Test if root password SSH login can be allowed."""
@@ -621,6 +666,52 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """Test SetRootPasswordWithTask."""
         task_path = self.users_interface.SetRootPasswordWithTask()
         check_task_creation(task_path, publisher, SetRootPasswordTask)
+
+
+class UsersCompletenessTestCase(unittest.TestCase):
+    """Test the completeness of the Users module."""
+
+    def setUp(self):
+        self.users_module = UsersService()
+
+    def test_incomplete_without_an_admin(self):
+        """Test that a module without any admin user is unconfigured."""
+        assert self.users_module.complete is False
+        assert self.users_module.mandatory is True
+        assert [(r.kind, r.id) for r in self.users_module.incompleteness] == [
+            ("unconfigured", "users.no-admin-user")
+        ]
+
+    def test_complete_with_a_root_password(self):
+        """Test that a root password completes the module."""
+        self.users_module.set_root_password("abcef", crypted=False)
+        assert self.users_module.complete is True
+        assert self.users_module.incompleteness == []
+
+    def test_complete_with_an_admin_user(self):
+        """Test that an unlocked user in wheel completes the module."""
+        user = UserData()
+        user.name = "user1"
+        user.groups = ["wheel"]
+        user.lock = False
+
+        self.users_module.set_users([user])
+        assert self.users_module.complete is True
+        assert self.users_module.incompleteness == []
+
+    def test_completeness_is_published_once(self):
+        """Test that the completeness is published only when it changes."""
+        emitted = []
+        self.users_module.completeness_changed.connect(lambda: emitted.append(1))
+
+        self.users_module.set_root_password("abcef", crypted=False)
+        assert len(emitted) == 1
+
+        self.users_module.set_root_password("ghijk", crypted=False)
+        assert len(emitted) == 1
+
+        self.users_module.clear_root_password()
+        assert len(emitted) == 2
 
 
 class UsersDataTestCase(unittest.TestCase):

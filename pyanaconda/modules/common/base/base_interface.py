@@ -26,6 +26,7 @@ from pyanaconda.modules.common.base.base_template import (
 )
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.structures.completeness import IncompletenessReason
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -41,6 +42,9 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """Connect the signals."""
         super().connect_signals()
         self.watch_property("Kickstarted", self.implementation.kickstarted_changed)
+        self.watch_property("Complete", self.implementation.completeness_changed)
+        self.watch_property("Mandatory", self.implementation.completeness_changed)
+        self.watch_property("Incompleteness", self.implementation.completeness_changed)
 
     @property
     def KickstartCommands(self) -> List[Str]:
@@ -100,6 +104,38 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         :return: a kickstart string
         """
         return self.implementation.generate_kickstart()
+
+    @property
+    def Complete(self) -> Bool:
+        """Would this module block an installation started right now?
+
+        Has exactly one meaning — ready to install. The difference
+        between "busy" and "misconfigured" is carried by the reasons
+        in Incompleteness, not by a second boolean.
+
+        :return: True if the module is ready to install, otherwise False
+        """
+        return self.implementation.complete
+
+    @property
+    def Mandatory(self) -> Bool:
+        """Should this module being incomplete block the installation?
+
+        :return: True if incompleteness blocks the installation
+        """
+        return self.implementation.mandatory
+
+    @property
+    def Incompleteness(self) -> List[Structure]:
+        """Reasons why this module is not ready to install.
+
+        Empty if and only if Complete is True.
+
+        :return: a list of DBus structures of the type IncompletenessReason
+        """
+        return IncompletenessReason.to_structure_list(
+            self.implementation.incompleteness
+        )
 
     def CollectRequirements(self) -> List[Structure]:
         """Return installation requirements of this module.
