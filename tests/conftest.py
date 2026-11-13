@@ -26,3 +26,17 @@ def anaconda_run_dir(tmp_path, monkeypatch):
         error_file,
     )
     return rundir
+
+
+@pytest.fixture
+def dnf_logdir(tmp_path, monkeypatch):
+    """Replace /tmp/dnf.log with a temporary path."""
+    # libdnf5 doesn't expose a way to change permissions in this log file
+    # and it causes issues when running certain tests in a rootless container
+    logdir = tmp_path / "dnflog"
+    logdir.mkdir()
+    monkeypatch.setattr(
+        "pyanaconda.modules.payloads.payload.dnf.dnf_manager.DNF_LOG_DIR",
+        logdir,
+    )
+    return logdir
