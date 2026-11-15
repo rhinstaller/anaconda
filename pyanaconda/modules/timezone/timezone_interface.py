@@ -38,6 +38,7 @@ class TimezoneInterface(KickstartModuleInterface):
         super().connect_signals()
         self.watch_property("Timezone", self.implementation.timezone_changed)
         self.watch_property("IsUTC", self.implementation.is_utc_changed)
+        self.watch_property("RTCHeuristic", self.implementation.rtc_heuristic_changed)
         self.watch_property("NTPEnabled", self.implementation.ntp_enabled_changed)
         self.watch_property("TimeSources", self.implementation.time_sources_changed)
         self.watch_property("GeolocationResult", self.implementation.geolocation_result_changed)
@@ -111,6 +112,26 @@ class TimezoneInterface(KickstartModuleInterface):
         :param is_utc: Is the hardware clock set to UTC?
         """
         self.implementation.set_is_utc(is_utc)
+
+    @property
+    def RTCHeuristic(self) -> Bool:
+        """Are we guessing the RTC mode heuristically?
+
+        Otherwise, someone explicitly told us whether the RTC is UTC or
+        localtime.
+
+        :return: True if we're guessing the RTC mode, False if we've been told explicitly.
+        """
+        return self.implementation.rtc_heuristic
+
+    @RTCHeuristic.setter
+    @emits_properties_changed
+    def RTCHeuristic(self, is_heuristic: Bool):
+        """Set if we are guessing the RTC heuristically.
+
+        :param is_heuristic: Are we guessing?
+        """
+        self.implementation.set_rtc_heuristic(is_heuristic)
 
     @property
     def NTPEnabled(self) -> Bool:
