@@ -21,13 +21,14 @@ import os
 import tempfile
 import unittest
 from shutil import copyfile, copytree
-from unittest.mock import patch
+from unittest.mock import patch, create_autospec
 
 import pytest
 
 from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.installation import (
     ConfigureHardwareClockTask,
     ConfigureNTPTask,
@@ -157,11 +158,15 @@ class TimezoneTasksTestCase(unittest.TestCase):
         if make_zoneinfo:
             copytree("/usr/share/zoneinfo", sysroot + "/usr/share/zoneinfo")
 
-    def _execute_task(self, sysroot, timezone, is_utc):
+    def _execute_task(self, sysroot, tz, is_utc):
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.timezone = tz
+        service.is_utc = is_utc
+        service.set_timezone.side_effect = lambda value: setattr(service, "timezone", value)
+
         task = ConfigureTimezoneTask(
             sysroot=sysroot,
-            timezone=timezone,
-            is_utc=is_utc
+            timezone_service=service,
         )
         task.run()
 
@@ -362,7 +367,9 @@ class TimezoneHardwareClockTasksTestCase(unittest.TestCase):
             )
 
     def _execute_task(self, is_utc):
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.is_utc = is_utc
         task = ConfigureHardwareClockTask(
-            is_utc=is_utc
+            timezone_service=service,
         )
         task.run()

@@ -307,11 +307,11 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
         # ConfigureHardwareClockTask
         obj = task_objs[0]
-        assert obj.implementation._is_utc is False
+        assert obj.implementation._timezone_service.is_utc is False
         # ConfigureTimezoneTask
         obj = task_objs[1]
-        assert obj.implementation._timezone == "America/New_York"
-        assert obj.implementation._is_utc is False
+        assert obj.implementation._timezone_service.timezone == "America/New_York"
+        assert obj.implementation._timezone_service.is_utc is False
         # ConfigureNTPTask
         obj = task_objs[2]
         assert obj.implementation._ntp_enabled is True
@@ -348,12 +348,12 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
         # ConfigureHardwareClockTask
         obj = task_objs[0]
-        assert obj.implementation._is_utc is True
+        assert obj.implementation._timezone_service.is_utc is True
 
         # ConfigureTimezoneTask
         obj = task_objs[1]
-        assert obj.implementation._timezone == "Asia/Tokyo"
-        assert obj.implementation._is_utc is True
+        assert obj.implementation._timezone_service.timezone == "Asia/Tokyo"
+        assert obj.implementation._timezone_service.is_utc is True
 
         # ConfigureNTPTask
         obj = task_objs[2]

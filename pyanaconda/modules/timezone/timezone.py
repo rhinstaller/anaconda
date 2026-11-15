@@ -258,12 +258,11 @@ class TimezoneService(KickstartService):
         """
         return [
             ConfigureHardwareClockTask(
-                is_utc=self.is_utc
+                timezone_service=self,
             ),
             ConfigureTimezoneTask(
                 sysroot=conf.target.system_root,
-                timezone=self.timezone,
-                is_utc=self.is_utc
+                timezone_service=self,
             ),
             ConfigureNTPTask(
                 sysroot=conf.target.system_root,

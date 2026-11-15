@@ -36,13 +36,13 @@ log = get_module_logger(__name__)
 class ConfigureHardwareClockTask(Task):
     """Installation task for setting the Hardware Clock from the System Clock."""
 
-    def __init__(self, is_utc):
+    def __init__(self, timezone_service):
         """Create a new task.
 
-        :param bool is_utc: Indicate which timescale the Hardware Clock is set to
+        :param TimezoneService timezone_service: The TimezoneService that knows the RTC mode
         """
         super().__init__()
-        self._is_utc = is_utc
+        self._timezone_service = timezone_service
 
     @property
     def name(self):
@@ -57,7 +57,7 @@ class ConfigureHardwareClockTask(Task):
         if conf.system.can_set_hardware_clock:
             cmd = "hwclock"
             args = ["--systohc"]
-            if self._is_utc:
+            if self._timezone_service.is_utc:
                 args.append("--utc")
             else:
                 args.append("--local")
@@ -68,17 +68,15 @@ class ConfigureHardwareClockTask(Task):
 class ConfigureTimezoneTask(Task):
     """Installation task for timezone configuration."""
 
-    def __init__(self, sysroot, timezone, is_utc):
+    def __init__(self, sysroot, timezone_service):
         """Create a new task.
 
         :param str sysroot: a path to the root of the installed system
-        :param str timezone: time zone to set
-        :param bool is_utc: whether time is UTC or local
+        :param TimezoneService timezone_service: The TimezoneService that knows the RTC mode and timezone
         """
         super().__init__()
         self._sysroot = sysroot
-        self._timezone = timezone
-        self._is_utc = is_utc
+        self._timezone_service = timezone_service
 
     @property
     def name(self):
@@ -92,17 +90,18 @@ class ConfigureTimezoneTask(Task):
 
     def _correct_timezone(self):
         """Ensure the timezone is valid."""
-        if not is_valid_timezone(self._timezone):
+        tz = self._timezone_service.timezone
+        if not is_valid_timezone(tz):
             # this should never happen, but for pity's sake
             log.warning("Timezone %s set in kickstart is not valid, "
-                        "falling back to default (America/New_York).", self._timezone)
-            self._timezone = "America/New_York"
+                        "falling back to default (America/New_York).", tz)
+            self._timezone_service.set_timezone("America/New_York")
 
     def _make_timezone_symlink(self):
         """Create the symlink that actually defines timezone."""
 
         # we want to create a relative symlink
-        tz_file = "/usr/share/zoneinfo/" + self._timezone
+        tz_file = "/usr/share/zoneinfo/" + self._timezone_service.timezone
         rooted_tz_file = os.path.normpath(self._sysroot + tz_file)
         relative_path = os.path.normpath("../" + tz_file)
         link_path = os.path.normpath(self._sysroot + "/etc/localtime")
@@ -142,7 +141,7 @@ class ConfigureTimezoneTask(Task):
             with open(os.path.normpath(self._sysroot + "/etc/adjtime"), "w") as fobj:
                 fobj.write(lines[0])
                 fobj.write(lines[1])
-                if self._is_utc:
+                if self._timezone_service.is_utc:
                     fobj.write("UTC\n")
                 else:
                     fobj.write("LOCAL\n")
