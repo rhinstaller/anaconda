@@ -44,6 +44,7 @@ from pyanaconda.modules.timezone.installation import (
     ConfigureHardwareClockTask,
     ConfigureNTPTask,
     ConfigureTimezoneTask,
+    RTCHeuristicTask,
 )
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
@@ -90,6 +91,13 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self._check_dbus_property(
             "IsUTC",
             True
+        )
+
+    def test_rtc_heuristic_property(self):
+        """Test the RTCHeuristic property."""
+        self._check_dbus_property(
+            "RTCHeuristic",
+            False
         )
 
     def test_ntp_property(self):
@@ -298,6 +306,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
     def test_install_with_tasks_default(self, publisher):
         """Test install tasks - module in default state."""
         task_classes = [
+            RTCHeuristicTask,
             ConfigureHardwareClockTask,
             ConfigureTimezoneTask,
             ConfigureNTPTask,
@@ -305,15 +314,19 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         task_paths = self.timezone_interface.InstallWithTasks()
         task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
-        # ConfigureHardwareClockTask
+        # RTCHeuristicTask
         obj = task_objs[0]
+        assert obj.implementation._timezone_service is self.timezone_module
+        # ConfigureHardwareClockTask
+        obj = task_objs[1]
+        assert obj.implementation._timezone_service is self.timezone_module
         assert obj.implementation._timezone_service.is_utc is False
         # ConfigureTimezoneTask
-        obj = task_objs[1]
+        obj = task_objs[2]
         assert obj.implementation._timezone_service.timezone == "America/New_York"
         assert obj.implementation._timezone_service.is_utc is False
         # ConfigureNTPTask
-        obj = task_objs[2]
+        obj = task_objs[3]
         assert obj.implementation._ntp_enabled is True
         assert obj.implementation._ntp_servers == []
 
@@ -339,6 +352,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
             TimeSourceData.to_structure_list([server, pool])
 
         task_classes = [
+            RTCHeuristicTask,
             ConfigureHardwareClockTask,
             ConfigureTimezoneTask,
             ConfigureNTPTask,
@@ -346,17 +360,21 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         task_paths = self.timezone_interface.InstallWithTasks()
         task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
-        # ConfigureHardwareClockTask
         obj = task_objs[0]
+        assert obj.implementation._timezone_service is self.timezone_module
+
+        # ConfigureHardwareClockTask
+        obj = task_objs[1]
+        assert obj.implementation._timezone_service is self.timezone_module
         assert obj.implementation._timezone_service.is_utc is True
 
         # ConfigureTimezoneTask
-        obj = task_objs[1]
+        obj = task_objs[2]
         assert obj.implementation._timezone_service.timezone == "Asia/Tokyo"
         assert obj.implementation._timezone_service.is_utc is True
 
         # ConfigureNTPTask
-        obj = task_objs[2]
+        obj = task_objs[3]
         assert obj.implementation._ntp_enabled is False
         assert len(obj.implementation._ntp_servers) == 2
         assert compare_data(obj.implementation._ntp_servers[0], server)
