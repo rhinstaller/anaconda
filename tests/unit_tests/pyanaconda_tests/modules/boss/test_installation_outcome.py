@@ -31,7 +31,7 @@ class InstallationOutcomeTestCase:
         else:
             calls.ipmi.assert_called_once_with(event)
         if traceback is None:
-            calls.scripts.assert_not_called()
+            calls.scripts.assert_not_called()  # pylint: disable=no-member
         else:
-            calls.scripts.assert_called_once_with(include_traceback=traceback)
+            calls.scripts.assert_called_once_with(include_traceback=traceback)  # pylint: disable=no-member
             assert calls.mock_calls[0][0] == "ipmi"
