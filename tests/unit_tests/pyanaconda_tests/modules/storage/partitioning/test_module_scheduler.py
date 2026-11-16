@@ -68,6 +68,7 @@ from tests.unit_tests.pyanaconda_tests import (
 )
 
 
+@pytest.mark.usefixtures("no_lvm_probe")
 class DeviceTreeSchedulerTestCase(unittest.TestCase):
     """Test DBus interface of the device tree scheduler."""
 
