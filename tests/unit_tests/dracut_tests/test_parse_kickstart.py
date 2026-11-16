@@ -36,6 +36,16 @@ yNWXfdraC/AfMM8fqsxlVJM=
 
 CERT_TRANSPORT_DIR = "/run/install/certificates"
 
+# parse-kickstart dumps certificates to hardcoded absolute paths
+# (CERT_TRANSPORT_DIR, /etc/pki/ca-trust/...). Because it runs as a subprocess,
+# those paths cannot be patched from the test process, so these tests need to
+# run as root. See the --tmpdir override in dracut/parse-kickstart for the
+# pattern that would make the paths injectable instead.
+requires_root = unittest.skipIf(
+    os.geteuid() != 0,
+    "certificate dumping must be run as root"
+)
+
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         # create the directory used for file/folder tests
@@ -262,6 +272,7 @@ class ParseKickstartTestCase(BaseTestCase):
             # Anaconda adds `\n` to the value when dumping it
             assert f.read() == content+'\n'
 
+    @requires_root
     def test_certificate(self):
         filename = "rvtest.pem"
         cdir = os.path.join(self.tmpdir, "cert_dir/subdir")
@@ -285,6 +296,7 @@ class ParseKickstartTestCase(BaseTestCase):
         transport_file = os.path.join(CERT_TRANSPORT_DIR, cert_file)
         self._check_cert_file(transport_file, content)
 
+    @requires_root
     def test_certificate_existing(self):
         filename = "rvtest.pem"
         cdir = os.path.join(self.tmpdir, "cert_dir/subdir")
@@ -312,6 +324,7 @@ class ParseKickstartTestCase(BaseTestCase):
         transport_file = os.path.join(CERT_TRANSPORT_DIR, cert_file)
         self._check_cert_file(transport_file, content)
 
+    @requires_root
     def test_certificate_anchor(self):
         filename = "rvtest2.pem"
         content = CERT_CONTENT
