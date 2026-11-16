@@ -377,6 +377,7 @@ class UserCreateTest(unittest.TestCase):
         assert os.path.isdir(self.tmpdir + "/var/home/test_user")
 
 
+@unittest.skipIf(os.geteuid() != 0, "chowning to arbitrary uids must be run as root")
 class ReownHomedirTest(unittest.TestCase):
     """Tests for _reown_homedir"""
     def _make_dir(self, root, name, uid, gid):
