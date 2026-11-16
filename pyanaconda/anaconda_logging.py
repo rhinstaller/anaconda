@@ -320,6 +320,10 @@ class AnacondaLog:
         if not os.access(vport, os.W_OK):
             return
 
+        # FIXME: Drop when rsyslog >= 8.2610.0 is available (rhbz#2540022)
+        # Resolve symlinks so rsyslog doesn't fail with O_NOFOLLOW (ELOOP).
+        vport = os.path.realpath(vport)
+
         with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
             cfgfile.write(template % (vport,))
         self.restartSyslog()
