@@ -31,6 +31,7 @@ from pyanaconda.core.path import make_directories, set_system_root
 from pyanaconda.core.util import execProgram, execReadlines, execWithRedirect
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DEVICE_TREE
 from pyanaconda.modules.common.constants.services import LOCALIZATION, STORAGE
+from pyanaconda.modules.storage.constants import BootloaderMode
 from pyanaconda.modules.common.errors.installation import (
     BootloaderInstallationError,
     PayloadInstallationError,
@@ -596,6 +597,13 @@ class ConfigureBootloader(Task):
         return "Configure OSTree bootloader"
 
     def run(self):
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        mode = BootloaderMode(bootloader.BootloaderMode)
+
+        if mode in (BootloaderMode.DISABLED, BootloaderMode.SKIPPED):
+            log.debug("The OSTree bootloader configuration is skipped.")
+            return
+
         if have_bootupd(self._sysroot):
             self._install_bootupd()
         else:

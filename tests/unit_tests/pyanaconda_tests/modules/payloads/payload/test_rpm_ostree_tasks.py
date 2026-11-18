@@ -702,6 +702,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         exec_mock.return_value = [0, ""]
 
         storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.BootloaderMode = 1
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-id"
@@ -750,6 +751,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         exec_mock.return_value = [0, ""]
 
         storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.BootloaderMode = 1
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-id"
@@ -802,6 +804,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         have_bootupd_mock.return_value = True
 
         storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.BootloaderMode = 1
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-id"
@@ -863,6 +866,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
         have_bootupd_mock.return_value = True
 
         storage_proxy_mock = storage_mock.get_proxy()
+        storage_proxy_mock.BootloaderMode = 1
         storage_proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         storage_proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
         storage_proxy_mock.GetRootDevice.return_value = "device-name"
@@ -909,11 +913,13 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execProgram")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.conf")
-    def test_dir_run(self, conf_mock, symlink_mock, rename_mock, exec_mock):
+    def test_dir_run(self, conf_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, dirinstall"""
         exec_mock.return_value = [0, ""]
         conf_mock.target.is_directory = True
+        storage_mock.get_proxy().BootloaderMode = 1
 
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(sysroot + "/boot/grub2")
@@ -930,6 +936,19 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 "../loader/grub.cfg",
                 sysroot + "/boot/grub2/grub.cfg"
             )
+            exec_mock.assert_not_called()
+
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execProgram")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    def test_skipped_bootloader(self, storage_mock, exec_mock):
+        """Test OSTree bootloader config task is skipped when bootloader location is none."""
+        storage_mock.get_proxy().BootloaderMode = 2
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            task = ConfigureBootloader(sysroot)
+            task.run()
+
             exec_mock.assert_not_called()
 
 
