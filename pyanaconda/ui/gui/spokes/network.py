@@ -57,6 +57,7 @@ from pyanaconda.ui.gui.utils import (
     really_hide,
     really_show,
 )
+from pyanaconda.ui.lib.completeness import is_module_busy
 
 log = get_module_logger(__name__)
 
@@ -1556,17 +1557,18 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def completed(self):
-        # TODO: check also if source requires updates when implemented
-        # If we can't configure network, don't require it
-        return (not conf.system.can_configure_network
-                or self._network_module.IsConnecting()
-                or self._network_module.Connected)
+        # The module decides whether the network is good enough. A module
+        # that is only busy is still connecting, and a user cannot do
+        # anything about that, so don't hold them on the hub for it.
+        return self._network_module.Complete or is_module_busy(self._network_module)
 
     @property
     def mandatory(self):
-        # the network spoke should be mandatory only if it is running
-        # during the installation and if the installation source requires network
-        return ANACONDA_ENVIRON in anaconda_flags.environs and self.payload.needs_network
+        # The module knows whether anything requires the network. The spoke
+        # only adds that the question is irrelevant outside of an
+        # installation, which is not something a module can know.
+        return ANACONDA_ENVIRON in anaconda_flags.environs \
+            and self._network_module.Mandatory
 
     @property
     def status(self):
@@ -1710,11 +1712,16 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        return (not conf.system.can_configure_network
-                or self._network_module.Connected
-                or self._network_module.IsConnecting()
-                or not (self.payload.source_type != conf.payload.default_source
-                        and self.payload.needs_network))
+        # The module knows whether anything requires the network and
+        # whether it is good enough. The spoke only adds that the default
+        # source is never a reason to stop and ask the user.
+        if self.payload.source_type == conf.payload.default_source:
+            return True
+
+        if not self._network_module.Mandatory:
+            return True
+
+        return self._network_module.Complete or is_module_busy(self._network_module)
 
     def initialize(self):
         register_secret_agent(self)
