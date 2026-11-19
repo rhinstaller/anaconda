@@ -142,6 +142,82 @@ class Service(BaseModule):
 class KickstartBaseModule(BaseModule):
     """Implementation of a base kickstart module."""
 
+    def __init__(self):
+        super().__init__()
+        self.completeness_changed = Signal()
+        # Watching a property only queues it. Flush the queue too, so that
+        # a completeness that changed on its own, without any DBus call to
+        # flush it, still reaches the clients.
+        self.completeness_changed.connect(self.module_properties_changed.emit)
+        self._reported_completeness = None
+
+    def seed_completeness(self):
+        """Record the current completeness as already published.
+
+        Call this at the end of __init__, once the inputs exist, so that
+        the first real change is compared against the module's initial
+        state rather than against nothing.
+        """
+        self._reported_completeness = self._get_completeness_state()
+
+    def notify_completeness_changed(self):
+        """Re-publish the completeness if it actually changed.
+
+        Connect this to whatever signals feed into the module's answer.
+        The inputs change far more often than the answer does, so the
+        state is compared before emitting to keep clients from waking up
+        for a value they already have.
+
+        """
+        state = self._get_completeness_state()
+
+        if state == self._reported_completeness:
+            return
+
+        self._reported_completeness = state
+        self.completeness_changed.emit()
+
+    def _get_completeness_state(self):
+        """Return a comparable snapshot of the reported completeness."""
+        return (
+            self.complete,
+            self.mandatory,
+            [(r.kind, r.id, r.message, r.context) for r in self.incompleteness],
+        )
+
+    @property
+    def complete(self):
+        """Would this module block an installation started right now?
+
+        Derived from the reasons rather than tracked separately, so the
+        two cannot disagree. Subclasses override incompleteness, not this.
+
+        :return: True if the module is ready to install, otherwise False
+        """
+        return not self.incompleteness
+
+    @property
+    def mandatory(self):
+        """Should this module being incomplete block the installation?
+
+        Modules are mandatory unless they say otherwise.
+
+        :return: True if incompleteness blocks the installation
+        """
+        return True
+
+    @property
+    def incompleteness(self):
+        """Reasons why this module is not ready to install.
+
+        A module that cannot yet tell whether it is complete — or what
+        its mandatory value is — reports a busy reason rather than
+        guessing, so that a caller can distinguish "not yet" from "no".
+
+        :return: a list of IncompletenessReason
+        """
+        return []
+
     def process_kickstart(self, data):
         """Process the kickstart data.
 

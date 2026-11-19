@@ -26,3 +26,34 @@ def anaconda_run_dir(tmp_path, monkeypatch):
         error_file,
     )
     return rundir
+
+
+@pytest.fixture
+def dnf_logdir(tmp_path, monkeypatch):
+    """Replace /tmp/dnf.log with a temporary path."""
+    # libdnf5 doesn't expose a way to change permissions in this log file
+    # and it causes issues when running certain tests in a rootless container
+    logdir = tmp_path / "dnflog"
+    logdir.mkdir()
+    # libdnf5 config setters require a str, they reject a Path.
+    monkeypatch.setattr(
+        "pyanaconda.modules.payloads.payload.dnf.dnf_manager.DNF_LOG_DIR",
+        str(logdir),
+    )
+    return logdir
+
+
+@pytest.fixture
+def no_lvm_probe(monkeypatch):
+    """Stop blivet from probing the host for real LVM information.
+
+    blivet caches LVM state in process-global singletons, which shell out to
+    lvs/pvs/vgs on first access. That needs device-mapper access, so in a
+    rootless container it raises LVMError instead of returning empty data --
+    even for tests that only exercise name-generation logic. Serving an empty
+    cache keeps these tests hermetic and rootless.
+    """
+    from blivet.static_data.lvm_info import LVsInfo, PVsInfo, VGsInfo
+
+    for cls in (LVsInfo, PVsInfo, VGsInfo):
+        monkeypatch.setattr(cls, "cache", property(lambda x: {}))

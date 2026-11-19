@@ -71,6 +71,7 @@ log = get_module_logger(__name__)
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
+DNF_LOG_DIR = '/tmp/'
 
 # Bonus to required free space which depends on block size and
 # rpm database size estimation. Every file could be aligned to
@@ -150,7 +151,7 @@ class DNFManager:
         config.reposdir = DNF_REPO_DIRS
         config.cachedir = DNF_CACHE_DIR
         config.pluginconfpath = DNF_PLUGINCONF_DIR
-        config.logdir = '/tmp/'
+        config.logdir = DNF_LOG_DIR
         base.get_logger().add_logger(libdnf5.logger.create_file_logger(base, "dnf.log"))
 
         # Set installer defaults

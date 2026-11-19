@@ -65,7 +65,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return self._users_module.IsRootPasswordSet
+        # The module decides. It knows both about the root password and
+        # about admin users, so the "mandatory unless an admin user was
+        # requested" rule lives there and not here.
+        return self._users_module.Complete
 
     @property
     def showable(self):
@@ -73,8 +76,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def mandatory(self):
-        """Only mandatory if no admin user has been requested."""
-        return not self._users_module.CheckAdminUserExists()
+        return self._users_module.Mandatory
 
     @property
     def status(self):

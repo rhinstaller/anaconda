@@ -25,6 +25,10 @@ from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.custom_typing import BusName
+from pyanaconda.modules.common.structures.completeness import (
+    IncompletenessReason,
+    ModuleCompleteness,
+)
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -170,6 +174,43 @@ class BossInterface(InterfaceTemplate):
         """
         return Requirement.to_structure_list(
             self.implementation.collect_requirements()
+        )
+
+    def CollectCompleteness(self) -> List[Structure]:
+        """Collect the completeness of the modules.
+
+        Modules that are not running are left out. A module that fails to
+        answer is reported as incomplete with an invalid reason.
+
+        :return: a list of DBus structures of the type ModuleCompleteness
+        """
+        return ModuleCompleteness.to_structure_list(
+            self.implementation.collect_completeness()
+        )
+
+    @property
+    def ReadyToInstall(self) -> Bool:
+        """Is every mandatory module complete?
+
+        Only meaningful once the system has settled. While any reason in
+        BlockingReasons is of the kind "busy", a False answer here means
+        "ask again" rather than "the installation cannot start".
+
+        :return: True if no mandatory module blocks the installation
+        """
+        return self.implementation.ready_to_install
+
+    @property
+    def BlockingReasons(self) -> List[Structure]:
+        """The reasons that block the installation.
+
+        Aggregated from the mandatory modules that are not complete. Each
+        reason names the module that reported it.
+
+        :return: a list of DBus structures of the type IncompletenessReason
+        """
+        return IncompletenessReason.to_structure_list(
+            self.implementation.blocking_reasons
         )
 
     def InstallWithTasks(self) -> List[ObjPath]:

@@ -19,6 +19,7 @@ import unittest
 from unittest.mock import Mock, PropertyMock, patch
 
 import libdnf5
+import pytest
 
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
@@ -28,6 +29,7 @@ from pyanaconda.modules.payloads.payload.dnf.validation import (
 )
 
 
+@pytest.mark.usefixtures("dnf_logdir")
 class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
     """Test the validation task for checking the packages selection."""
 

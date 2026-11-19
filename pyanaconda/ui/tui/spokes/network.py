@@ -43,6 +43,7 @@ from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.lib.completeness import is_module_busy
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
 
@@ -257,16 +258,17 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def completed(self):
         """ Check whether this spoke is complete or not."""
-        # If we can't configure network, don't require it
-        return (not conf.system.can_configure_network
-                or self._network_module.IsConnecting()
-                or self._network_module.Connected)
+        # The module decides whether the network is good enough. A module
+        # that is only busy is still connecting, and a user cannot do
+        # anything about that, so don't hold them on the hub for it.
+        return self._network_module.Complete or is_module_busy(self._network_module)
 
     @property
     def mandatory(self):
-        # the network spoke should be mandatory only if it is running
-        # during the installation and if the installation source requires network
-        return ANACONDA_ENVIRON in flags.environs and self.payload.needs_network
+        # The module knows whether anything requires the network. The spoke
+        # only adds that the question is irrelevant outside of an
+        # installation, which is not something a module can know.
+        return ANACONDA_ENVIRON in flags.environs and self._network_module.Mandatory
 
     @property
     def status(self):

@@ -21,11 +21,13 @@ from blivet import __version__ as blivet_version
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
+from pyanaconda.modules.common.structures.completeness import IncompletenessReason
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 from pyanaconda.modules.storage.bootloader import BootloaderModule
@@ -135,9 +137,67 @@ class StorageService(KickstartService):
             self.on_protected_devices_changed
         )
 
+        # Publishing the module is not the same as being ready to answer.
+        # The initial device scan is driven from outside this process, so
+        # between publish and that scan there is no root device and no
+        # running task. Report that window as busy rather than as a
+        # misconfiguration, or a headless driver would abort a perfectly
+        # good kickstart on a startup race.
+        #
+        # FIXME: The cheap fix. The correct one is to move the initiation of
+        # the scan into this module so nothing external has to arm it.
+        self._initial_scan_done = False
+        self._running_scan_tasks = 0
+
+        self.storage_changed.connect(
+            lambda _storage: self.notify_completeness_changed()
+        )
+        self.applied_partitioning_changed.connect(self.notify_completeness_changed)
+
         # After connecting modules to signals, create the initial
         # storage model. It will be propagated to all modules.
         self._set_storage(create_storage())
+        self.seed_completeness()
+
+    @property
+    def incompleteness(self):
+        """Reasons why this module is not ready to install.
+
+        :return: a list of IncompletenessReason
+        """
+        if not self._initial_scan_done or self._running_scan_tasks:
+            return [
+                IncompletenessReason.for_busy(
+                    "storage.scanning",
+                    _("Scanning the storage devices."),
+                )
+            ]
+
+        if not self._device_tree_module.get_root_device():
+            return [
+                IncompletenessReason.for_unconfigured(
+                    "storage.no-root-device",
+                    _("No root device has been configured."),
+                )
+            ]
+
+        return []
+
+    def _on_scan_started(self):
+        """Handle the start of a device scan."""
+        self._running_scan_tasks += 1
+        self.notify_completeness_changed()
+
+    def _on_scan_stopped(self):
+        """Handle the end of a device scan.
+
+        A scan that failed still closes the initialization window. The
+        module then reports what it actually has, which is better than
+        staying busy forever.
+        """
+        self._running_scan_tasks = max(0, self._running_scan_tasks - 1)
+        self._initial_scan_done = True
+        self.notify_completeness_changed()
 
     def publish(self):
         """Publish the module."""
@@ -261,6 +321,8 @@ class StorageService(KickstartService):
         # Create the task.
         task = ScanDevicesTask(storage)
         task.succeeded_signal.connect(lambda: self._set_storage(storage))
+        task.started_signal.connect(self._on_scan_started)
+        task.stopped_signal.connect(self._on_scan_stopped)
         return task
 
     def create_partitioning(self, method: PartitioningMethod):

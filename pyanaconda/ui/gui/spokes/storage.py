@@ -70,6 +70,7 @@ from pyanaconda.ui.gui.spokes.lib.storage_dialogs import (
 )
 from pyanaconda.ui.gui.utils import ignoreEscape
 from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.ui.lib.completeness import is_module_busy
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import (
     apply_disk_selection,
@@ -302,7 +303,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def completed(self):
-        return self.ready and not self.errors and self._device_tree.GetRootDevice()
+        # The module decides whether the storage is good enough. The spoke
+        # only adds what the module cannot see: the UI threads it is
+        # waiting for and the errors of its own validation.
+        return self.ready and not self.errors and self._storage_module.Complete
 
     @property
     def ready(self):
@@ -316,9 +320,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def status(self):
         """ A short string describing the current status of storage setup. """
-        if not self.ready:
+        if not self.ready or is_module_busy(self._storage_module):
             return _("Processing...")
-        elif flags.automatedInstall and not self._device_tree.GetRootDevice():
+        elif flags.automatedInstall and not self._storage_module.Complete:
             return _("Kickstart insufficient")
         elif not self._disk_select_module.SelectedDisks:
             return _("No disks selected")
