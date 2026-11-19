@@ -128,6 +128,36 @@ def remove_device(storage, device):
     storage.recursive_remove(device)
 
 
+def reclaim_space(storage, request):
+    """Free the space the user reclaimed for the partitioning.
+
+    Remove or shrink the devices requested by the user. Skip devices that
+    are already removed or already small enough, so the same request can
+    be applied to any storage model, including the one the user reclaimed
+    the space on.
+
+    :param storage: a storage model
+    :param request: a partitioning request
+    """
+    for name in request.removed_devices:
+        device = storage.devicetree.get_device_by_name(name)
+
+        if device is None:
+            log.debug("The device %s is already removed.", name)
+            continue
+
+        remove_device(storage, device)
+
+    for name, size in request.shrunk_devices.items():
+        device = storage.devicetree.get_device_by_name(name)
+
+        if device is None:
+            log.debug("The device %s is already removed.", name)
+            continue
+
+        shrink_device(storage, device, Size(size))
+
+
 def get_candidate_disks(storage):
     """Return a list of disks to be used for autopart/reqpart.
 
