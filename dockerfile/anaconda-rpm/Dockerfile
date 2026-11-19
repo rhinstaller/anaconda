@@ -37,6 +37,8 @@ RUN set -ex; \
     dnf install -y systemd --allowerasing
 
 # Prepare environment and install build dependencies
+# Use Fedora dependencies on ARM64: the default Blivet and Anaconda COPRs
+# don't publish aarch64 chroots.
 RUN set -ex; \
   dnf update -y; \
   # Install dependencies
@@ -50,12 +52,16 @@ RUN set -ex; \
   rpm-build \
   rpmlint; \
   CI_TAG=${ci_tag}; \
+  if [ "$(rpm --eval '%{_arch}')" = x86_64 ]; then \
+    if ! grep -q VARIANT.*eln /etc/os-release; then \
+      dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
+      dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
+    fi; \
+    dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
+  fi; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
-    dnf copr enable -y @storage/blivet-daily ${CI_TAG}-x86_64; \
-    dnf copr enable -y @storage/udisks-daily ${CI_TAG}-x86_64; \
     dnf install -y python3-polib; \
   fi; \
-  dnf copr enable -y ${copr_repo} ${CI_TAG}-x86_64; \
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf clean all; \

@@ -15,6 +15,7 @@
 # If none of these is present, --boot.iso is assumed.
 # If more are present at once, all variants are built.
 # The default variants are Everything for --boot.iso and Workstation for --live.
+# --arch <x86_64|aarch64> selects the boot.iso architecture (default: x86_64).
 #
 # To use webui on boot.iso, add also:
 # --webui
@@ -41,6 +42,13 @@ on:
         options:
           - Everything
           - Server
+      boot_arch:
+        description: Boot ISO architecture
+        type: choice
+        default: x86_64
+        options:
+          - x86_64
+          - aarch64
 
 permissions:
   contents: read
@@ -107,6 +115,7 @@ jobs:
         env:
           BODY: ${{ github.event.comment.body }}
           DEFAULT_BOOT_VARIANT: ${{ inputs.boot_variant || 'Everything' }}
+          DEFAULT_BOOT_ARCH: ${{ inputs.boot_arch || 'x86_64' }}
         run: |
           # extract first line and cut out the "/build-image" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
@@ -117,7 +126,7 @@ jobs:
           fi
 
           read -r -a ARG_WORDS <<< "$ARGS"
-          iso_variant() {
+          option_value() {
             local option="$1" default="$2"
             shift 2
             while (($#)); do
@@ -134,8 +143,8 @@ jobs:
             printf '%s\n' "$default"
           }
 
-          BOOT_VARIANT=$(iso_variant --boot.iso "$DEFAULT_BOOT_VARIANT" "${ARG_WORDS[@]}")
-          LIVE_VARIANT=$(iso_variant --live Workstation "${ARG_WORDS[@]}")
+          BOOT_VARIANT=$(option_value --boot.iso "$DEFAULT_BOOT_VARIANT" "${ARG_WORDS[@]}")
+          LIVE_VARIANT=$(option_value --live Workstation "${ARG_WORDS[@]}")
           case "$BOOT_VARIANT" in
             Everything|Server) ;;
             *) echo "::error::Unsupported boot variant (expected Everything or Server)"; exit 1 ;;
@@ -144,6 +153,18 @@ jobs:
             echo "::error::Invalid Live ISO variant"
             exit 1
           fi
+          BOOT_ARCH="$DEFAULT_BOOT_ARCH"
+          if [[ " $ARGS " =~ [[:space:]]--arch[[:space:]] ]]; then
+            if ! [[ " $ARGS " =~ [[:space:]]--boot\.iso[[:space:]] ]]; then
+              echo "::error::--arch requires a boot.iso build"
+              exit 1
+            fi
+            BOOT_ARCH=$(option_value --arch "" "${ARG_WORDS[@]}")
+          fi
+          case "$BOOT_ARCH" in
+            x86_64|aarch64) ;;
+            *) echo "::error::Expected --arch x86_64 or --arch aarch64"; exit 1 ;;
+          esac
 
           # Extract --image parameter if present
           IMAGE_TAG=""
@@ -179,12 +200,12 @@ jobs:
             echo "::error::--anaconda-webui-pr and --cockpit-pr require --webui to be specified"
             exit 1
           fi
-
           echo "args=${ARGS}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
           echo "ci_tag=${CI_TAG}" >> $GITHUB_OUTPUT
           echo "live_variant=${LIVE_VARIANT}" >> $GITHUB_OUTPUT
           echo "boot_variant=${BOOT_VARIANT}" >> $GITHUB_OUTPUT
+          echo "boot_arch=${BOOT_ARCH}" >> $GITHUB_OUTPUT
           echo "anaconda_webui_pr=${ANACONDA_WEBUI_PR}" >> $GITHUB_OUTPUT
           echo "cockpit_pr=${COCKPIT_PR}" >> $GITHUB_OUTPUT
 
@@ -236,6 +257,7 @@ jobs:
       ci_tag: ${{ steps.parse_args.outputs.ci_tag }}
       live_variant: ${{ steps.parse_args.outputs.live_variant }}
       boot_variant: ${{ steps.parse_args.outputs.boot_variant }}
+      boot_arch: ${{ steps.parse_args.outputs.boot_arch }}
       anaconda_webui_pr: ${{ steps.parse_args.outputs.anaconda_webui_pr }}
       cockpit_pr: ${{ steps.parse_args.outputs.cockpit_pr }}
       image_description: ${{ steps.image_description.outputs.image_description }}
@@ -244,13 +266,14 @@ jobs:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--boot.iso')
-    runs-on: [self-hosted, kstest]
+    runs-on: ${{ fromJSON(needs.pr-info.outputs.boot_arch == 'aarch64' && '["ubuntu-24.04-arm"]' || '["self-hosted", "kstest", "X64"]') }}
     timeout-minutes: 300
     env:
-       STATUS_NAME: boot-iso
+       STATUS_NAME: ${{ needs.pr-info.outputs.boot_arch == 'aarch64' && 'boot-iso (aarch64)' || 'boot-iso' }}
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        CI_TAG: ${{ needs.pr-info.outputs.ci_tag }}
        FEDORA_VARIANT: ${{ needs.pr-info.outputs.boot_variant }}
+       BOOT_ARCH: ${{ needs.pr-info.outputs.boot_arch }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -258,7 +281,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          context: ${{ env.STATUS_NAME }}
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -269,6 +292,13 @@ jobs:
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
+
+      - name: Verify native build architecture
+        run: |
+          if [[ "$(uname -m)" != "$BOOT_ARCH" ]]; then
+            echo "::error::Expected a native $BOOT_ARCH runner"
+            exit 1
+          fi
 
       - name: Build anaconda-iso-creator container image
         run: |
@@ -286,6 +316,8 @@ jobs:
           cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
       - name: Build the ISO image
+        env:
+          IMAGE_DESCRIPTION: ${{ needs.pr-info.outputs.image_description }}
         run: |
           mkdir -p images
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--webui"* ]] ; then
@@ -307,20 +339,20 @@ jobs:
             $WEBUI_OPTIONAL_ARG \
             $WEBUI_PR_ARGS \
             $ISO_BUILD_CONTAINER_NAME:$CI_TAG
-           mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-${FEDORA_VARIANT}-boot.iso"
+           mv images/boot.iso "images/${IMAGE_DESCRIPTION}-${FEDORA_VARIANT}-${BOOT_ARCH}-boot.iso"
 
       - name: Collect logs
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: 'logs'
+          name: boot-iso logs (${{ needs.pr-info.outputs.boot_arch }})
           path: |
            images/*.log
 
       - name: Upload image
         uses: actions/upload-artifact@v7
         with:
-          name: boot.iso (${{ needs.pr-info.outputs.boot_variant }}) image for ${{ needs.pr-info.outputs.image_description }}
+          name: boot.iso (${{ needs.pr-info.outputs.boot_variant }}, ${{ needs.pr-info.outputs.boot_arch }}) image for ${{ needs.pr-info.outputs.image_description }}
           path: |
             images/*.iso
 
@@ -329,7 +361,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          context: ${{ env.STATUS_NAME }}
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -481,7 +513,7 @@ jobs:
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--boot.iso"* ]] ; then
             # <job>.result can be success, failure, cancelled, or skipped
             # https://docs.github.com/en/actions/learn-github-actions/contexts#jobs-context
-            echo -e "- \`boot.iso\` (${{ needs.pr-info.outputs.boot_variant }}): ${{ needs.boot-iso.result }}\n" >> comment.txt
+            echo -e "- \`boot.iso\` (${{ needs.pr-info.outputs.boot_variant }}, ${{ needs.pr-info.outputs.boot_arch }}): ${{ needs.boot-iso.result }}\n" >> comment.txt
           fi
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--live"* ]] ; then
             echo -e "- Live (${{ needs.pr-info.outputs.live_variant }}): ${{ needs.live-iso.result }}\n" >> comment.txt

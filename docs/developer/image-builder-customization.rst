@@ -53,6 +53,22 @@ When running the container directly, pass ``--env FEDORA_VARIANT=Server``
 to ``podman run``. The local output path remains ``result/iso/boot.iso``;
 workflow artifact and ISO filenames include the selected variant.
 
+Selecting the boot ISO architecture
+----------------------------------
+
+Use ``--arch aarch64`` in a PR comment, or select ``aarch64`` in the manual
+workflow's ``boot_arch`` choice. The default is ``x86_64``. For example::
+
+    /build-image --boot.iso Server --arch aarch64
+
+The ARM build uses the native ``ubuntu-24.04-arm`` runner for both the Anaconda
+RPMs and the ISO. It uses Fedora's RPM build dependencies instead of the
+x86_64 COPRs. ``--webui`` works on both architectures. When requesting
+``--anaconda-webui-pr`` or ``--cockpit-pr``, the requested PR must publish
+RPMs for the selected architecture.
+The architecture selection does not affect Live ISO or updates.img builds.
+For a local ARM build, run the usual build commands on an aarch64 host.
+
 The Web UI boot.iso build
 -------------------------
 
