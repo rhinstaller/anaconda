@@ -298,14 +298,17 @@ jobs:
         run: |
           sudo -E make -f ./Makefile.am anaconda-iso-creator-build
 
-      - name: Build anaconda-rpm container (for RPM build)
-        run: |
-          make -f ./Makefile.am anaconda-rpm-build
-
       - name: Build Anaconda RPM files
         run: |
+          build=(make -f ./Makefile.am)
+          # The Ubuntu ARM runner cannot start rootless Podman build containers.
+          # Build and run the RPM builder in the same rootful image store.
+          if [[ "$BOOT_ARCH" == aarch64 ]]; then
+            build=(sudo -E "${build[@]}")
+          fi
+          "${build[@]}" anaconda-rpm-build
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
-          make -f ./Makefile.am container-rpms-scratch
+          "${build[@]}" container-rpms-scratch
           mkdir -p ./anaconda_rpms/
           cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
