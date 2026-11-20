@@ -93,6 +93,23 @@ class EFIBase:
         ret = self._efi_config_dir.replace('efi/', '')
         return "\\" + ret.replace('/', '\\')
 
+    @staticmethod
+    def _log_efi_nvram_space():
+        """Log EFI NVRAM space usage for diagnostics.
+
+        :return: True if NVRAM appears to be full, False otherwise
+        """
+        buf = util.execWithCapture("df", ["/sys/firmware/efi/efivars/"])
+        log.info("EFI NVRAM usage:\n%s", buf)
+
+        try:
+            st = os.statvfs("/sys/firmware/efi/efivars/")
+            free_bytes = st.f_bavail * st.f_frsize
+            return free_bytes < 4096
+        except OSError as e:
+            log.warning("Failed to query EFI NVRAM space: %s", e)
+            return False
+
     def _add_single_efi_boot_target(self, partition):
         boot_disk = partition.disk
         boot_part_num = str(partition.parted_partition.number)
@@ -106,6 +123,12 @@ class EFIBase:
             root=conf.target.system_root
         )
         if rc != 0:
+            if self._log_efi_nvram_space():
+                raise BootLoaderError(_(
+                    "Failed to create a new EFI boot entry because the NVRAM "
+                    "is full. Try clearing NVRAM or removing stale boot entries "
+                    "in the firmware setup, or updating the firmware."
+                ))
             raise BootLoaderError("Failed to set new efi boot target. This is most "
                                   "likely a kernel or firmware bug.")
 
@@ -135,6 +158,12 @@ class EFIBase:
 
                 rc = self.efibootmgr("-b", slot_id, "-B")
                 if rc:
+                    if self._log_efi_nvram_space():
+                        raise BootLoaderError(_(
+                            "Failed to remove an EFI boot entry because the NVRAM "
+                            "is full. Try clearing NVRAM or removing stale boot "
+                            "entries in the firmware setup, or updating the firmware."
+                        ))
                     raise BootLoaderError("Failed to remove old efi boot entry. This is most "
                                           "likely a kernel or firmware bug.")
 
