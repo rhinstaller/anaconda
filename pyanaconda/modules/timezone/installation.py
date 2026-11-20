@@ -17,6 +17,8 @@
 #
 import os
 import os.path
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from blivet import arch
 
@@ -36,13 +38,13 @@ log = get_module_logger(__name__)
 class ConfigureHardwareClockTask(Task):
     """Installation task for setting the Hardware Clock from the System Clock."""
 
-    def __init__(self, is_utc):
+    def __init__(self, timezone_service):
         """Create a new task.
 
-        :param bool is_utc: Indicate which timescale the Hardware Clock is set to
+        :param TimezoneService timezone_service: The TimezoneService that knows the RTC mode
         """
         super().__init__()
-        self._is_utc = is_utc
+        self._timezone_service = timezone_service
 
     @property
     def name(self):
@@ -57,7 +59,7 @@ class ConfigureHardwareClockTask(Task):
         if conf.system.can_set_hardware_clock:
             cmd = "hwclock"
             args = ["--systohc"]
-            if self._is_utc:
+            if self._timezone_service.is_utc:
                 args.append("--utc")
             else:
                 args.append("--local")
@@ -68,17 +70,15 @@ class ConfigureHardwareClockTask(Task):
 class ConfigureTimezoneTask(Task):
     """Installation task for timezone configuration."""
 
-    def __init__(self, sysroot, timezone, is_utc):
+    def __init__(self, sysroot, timezone_service):
         """Create a new task.
 
         :param str sysroot: a path to the root of the installed system
-        :param str timezone: time zone to set
-        :param bool is_utc: whether time is UTC or local
+        :param TimezoneService timezone_service: The TimezoneService that knows the RTC mode and timezone
         """
         super().__init__()
         self._sysroot = sysroot
-        self._timezone = timezone
-        self._is_utc = is_utc
+        self._timezone_service = timezone_service
 
     @property
     def name(self):
@@ -92,17 +92,18 @@ class ConfigureTimezoneTask(Task):
 
     def _correct_timezone(self):
         """Ensure the timezone is valid."""
-        if not is_valid_timezone(self._timezone):
+        tz = self._timezone_service.timezone
+        if not is_valid_timezone(tz):
             # this should never happen, but for pity's sake
             log.warning("Timezone %s set in kickstart is not valid, "
-                        "falling back to default (America/New_York).", self._timezone)
-            self._timezone = "America/New_York"
+                        "falling back to default (America/New_York).", tz)
+            self._timezone_service.set_timezone("America/New_York")
 
     def _make_timezone_symlink(self):
         """Create the symlink that actually defines timezone."""
 
         # we want to create a relative symlink
-        tz_file = "/usr/share/zoneinfo/" + self._timezone
+        tz_file = "/usr/share/zoneinfo/" + self._timezone_service.timezone
         rooted_tz_file = os.path.normpath(self._sysroot + tz_file)
         relative_path = os.path.normpath("../" + tz_file)
         link_path = os.path.normpath(self._sysroot + "/etc/localtime")
@@ -142,7 +143,7 @@ class ConfigureTimezoneTask(Task):
             with open(os.path.normpath(self._sysroot + "/etc/adjtime"), "w") as fobj:
                 fobj.write(lines[0])
                 fobj.write(lines[1])
-                if self._is_utc:
+                if self._timezone_service.is_utc:
                     fobj.write("UTC\n")
                 else:
                     fobj.write("LOCAL\n")
@@ -219,3 +220,101 @@ class ConfigureNTPTask(Task):
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration without chrony package: %s",
                             ntperr)
+
+
+class ChronyUnavailable(Exception):
+    pass
+
+
+class RTCHeuristicTask(Task):
+    """Installation task to heuristically determine the RTC mode."""
+
+    # How close do two times have to be for us to consider them basically the same?
+    TIME_NEAR_TOLERANCE = timedelta(minutes=2)
+
+    def __init__(self, timezone_service):
+        """Create a new task.
+
+        :param TimezoneService timezone_service: The TimezoneService to set the RTC mode on.
+        """
+        super().__init__()
+        self._timezone_service = timezone_service
+
+    @property
+    def name(self):
+        return "Determine RTC mode"
+
+    def run(self):
+        """Perform the work of guessing the RTC mode."""
+        if not self._timezone_service.rtc_heuristic:
+            return
+
+        ntp_utc = self._chrony_utc()
+        rtc = self._read_rtc()
+        if not ntp_utc or not rtc:
+            return # Can't guess
+
+        tz = self._timezone_service.timezone
+        if tz:
+            try:
+                ntp_local = ntp_utc.astimezone(ZoneInfo(tz))
+            except ZoneInfoNotFoundError:
+                return
+
+            utc_plausible = self._time_near(rtc, ntp_utc)
+            local_plausible = self._time_near(rtc, ntp_local)
+
+            # If one choice is clearly better, choose it and adjust
+            # the system time to match.
+            if utc_plausible and not local_plausible:
+                self._timezone_service.set_is_utc(True)
+                util.execProgram('hwclock', ['--hctosys', '--utc'])
+            elif local_plausible and not utc_plausible:
+                self._timezone_service.set_is_utc(False)
+                util.execProgram('hwclock', ['--hctosys', '--local'])
+            # Otherwise we can't choose, just keep the previous choice
+
+    def _chrony_utc_once(self):
+        """Read the UTC time from chrony, or None if unsynced."""
+        status, out = util.execProgram('chronyc', ['-c', 'tracking'])
+        if status != 0:
+            raise ChronyUnavailable()
+
+        fields = out.rstrip().split(',')
+        status = fields[13]
+        if status == "Not synchronised":
+            return None
+
+        offset = float(fields[4])
+        return datetime.now(timezone.utc) + timedelta(seconds=offset)
+
+    def _chrony_utc(self):
+        """Read the UTC time from chrony, best-effort syncing if necessary."""
+        try:
+            utc = self._chrony_utc_once()
+            if not utc:
+                # In time_initialize, we may call `hwclock --hctosys`. Chrony detects
+                # this external change, and unsyncs temporarily. It will generally
+                # resync within 2-4 minutes on its own. It then will start adjusting
+                # the sysclock, though usually very slowly.
+                #
+                # If we're in that gap, accelerate resync so we can measure UTC.
+                # This could potentially bring forward chrony changing sysclock,
+                # but since we already allow that to happen during installation,
+                # it shouldn't be a problem.
+                util.execProgram('chronyc', ['burst', '3/10'])
+                util.execProgram('chronyc', ['waitsync', '10', '0', '0', '1'])
+                utc = self._chrony_utc_once()
+            return utc
+        except ChronyUnavailable:
+            return None
+
+    def _read_rtc(self):
+        """Read the RTC time."""
+        status, out = util.execProgram("hwclock", ["--show", "--utc"], env_add={"TZ": "UTC0"})
+        if status != 0:
+            return None
+        return datetime.fromisoformat(out.strip())
+
+    def _time_near(self, t1, t2):
+        return abs(t1.replace(tzinfo=None) - t2.replace(tzinfo=None)) < self.TIME_NEAR_TOLERANCE
