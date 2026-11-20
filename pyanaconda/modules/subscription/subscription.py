@@ -24,6 +24,7 @@
 
 import copy
 import warnings
+import json
 
 from dasbus.typing import get_native
 from pykickstart.errors import KickstartParseWarning
@@ -42,6 +43,7 @@ from pyanaconda.modules.common.constants.objects import (
     RHSM_CONFIG,
     RHSM_REGISTER_SERVER,
     RHSM_SYSPURPOSE,
+    RHSM_ENTITLEMENT,
 )
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.containers import TaskContainer
@@ -546,6 +548,47 @@ class SubscriptionService(KickstartService):
         self.module_properties_changed.emit()
         log.debug("Simple Content Access enabled set to: %s", sca_enabled)
 
+
+    def sync_subscription_state(self):
+        """Synchronize subscription state from RHSM.
+
+        Poll RHSM to check if we have perhaps been registered from the Web UI
+        or CLI & update subscription status.
+
+        For register/unregister events initiated by this DBus module we
+        always know the end state, but for externally triggered events we
+        need to sync with RHSM to update the current state.
+
+        In general, this sync needs to be done at least once before the
+        installation tasks are configured so that subscription token transfer
+        is enabled.
+        """
+        log.debug("Checking RHSM subscription state.")
+        rhsm_entitlement_proxy=self.rhsm_observer.get_proxy(RHSM_ENTITLEMENT)
+        rhsm_status = rhsm_entitlement_proxy.GetStatus("", "")
+        is_actually_subscribed = None
+        if rhsm_status:
+            # RHSM status is returned in JSON format
+            try:
+                status_json = json.loads(rhsm_status)
+                status_id = status_json.get("status_id", "")
+                log.debug("Got RHSM entitlement status JSON.")
+                if status_id and status_id != "unknown":
+                    is_actually_subscribed = True
+                else:
+                    is_actually_subscribed = False
+            except json.decoder.JSONDecodeError:
+                log.warning("subscription: failed to parse GetStatus() JSON output")
+                # handle possible garbage in returned JSON
+
+            if is_actually_subscribed is not None:
+                # we actually got a valid reply from RHSM!
+                log.debug("Subscribed according to RHSM: %s.", is_actually_subscribed)
+                self.set_subscription_attached(is_actually_subscribed)
+            else:
+                log.debug("Failed to fetch subscription status from RHSM.")
+
+
     # tasks
 
     def install_with_tasks(self):
@@ -565,6 +608,10 @@ class SubscriptionService(KickstartService):
 
         :returns: list of installation tasks
         """
+        # Poll RHSM to check if we have perhaps been registered from
+        # the Web UI or CLI & update subscription status.
+        self.sync_subscription_state()
+
         return [
             RestoreRHSMDefaultsTask(
                 rhsm_config_proxy=self.rhsm_observer.get_proxy(RHSM_CONFIG)

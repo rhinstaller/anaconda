@@ -214,3 +214,7 @@ class SubscriptionInterface(KickstartModuleInterface):
         return TaskContainer.to_object_path(
             self.implementation.retrieve_organizations_with_task()
         )
+
+    def SyncSubscriptionState(self):
+        """Sync subscription state of the Subscription DBus module with RHSM."""
+        return self.implementation.sync_rhsm_state()
