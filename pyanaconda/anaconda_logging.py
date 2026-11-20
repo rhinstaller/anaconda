@@ -157,7 +157,7 @@ class AnacondaPrefixFilter(logging.Filter):
 
 
 class AnacondaLog:
-    SYSLOG_CFGFILE = "/etc/rsyslog.conf"
+    SYSLOG_CFGFILE = "/etc/rsyslog.d/anaconda.conf"
 
     def __init__(self, write_to_journal=False):
         self.remote_syslog = None
@@ -324,12 +324,8 @@ class AnacondaLog:
         if not os.access(vport, os.W_OK):
             return
 
-        with open(self.SYSLOG_CFGFILE, 'r') as f:
-            conf = f.read()
-
         with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
-            if "anaconda_syslog" not in conf:
-                cfgfile.write(self.SYSLOG_TEMPLATE)
+            cfgfile.write(self.SYSLOG_TEMPLATE)
             cfgfile.write("*.* %s;anaconda_syslog\n" % vport)
         self.restartSyslog()
 
