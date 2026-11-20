@@ -157,7 +157,7 @@ class AnacondaPrefixFilter(logging.Filter):
 
 
 class AnacondaLog:
-    SYSLOG_CFGFILE = "/etc/rsyslog.conf"
+    SYSLOG_CFGFILE = "/etc/rsyslog.d/anaconda.conf"
 
     def __init__(self, write_to_journal=False):
         self.remote_syslog = None
@@ -312,16 +312,21 @@ class AnacondaLog:
             cfgfile.write(forward_line)
         self.restartSyslog()
 
+    SYSLOG_TEMPLATE = (
+        '$template anaconda_syslog, "%timestamp:8:$:date-rfc3164%'
+        ',%timestamp:1:3:date-subseconds%'
+        ' %syslogseverity-text:::uppercase% %programname%:%msg%\\n"\n'
+    )
+
     def setupVirtio(self, vport):
         """Setup virtio rsyslog logging.
         """
-        template = "*.* %s;anaconda_syslog\n"
-
         if not os.access(vport, os.W_OK):
             return
 
         with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
-            cfgfile.write(template % (vport,))
+            cfgfile.write(self.SYSLOG_TEMPLATE)
+            cfgfile.write("*.* %s;anaconda_syslog\n" % vport)
         self.restartSyslog()
 
 
