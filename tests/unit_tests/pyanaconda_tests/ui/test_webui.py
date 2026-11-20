@@ -29,7 +29,7 @@ from meh.ui.text import TextIntf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.core.glib import idle_add, source_remove
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.ui.webui import FIREFOX_THEME_DEFAULT, CockpitUserInterface
+from pyanaconda.ui.webui import CockpitUserInterface
 
 
 class SimpleWebUITestCase(unittest.TestCase):
@@ -196,7 +196,7 @@ class SimpleWebUITestCase(unittest.TestCase):
 
                     mocked_startProgram.assert_called_once_with(
                         ["/usr/libexec/anaconda/webui-desktop",
-                         "-t", FIREFOX_THEME_DEFAULT, "-r", str(remote),
+                         "-t", "default", "-r", str(remote),
                          "-n", str(int(noauth))],
                         stdout=ANY, reset_lang=False
                     )
@@ -270,7 +270,6 @@ class SimpleWebUITestCase(unittest.TestCase):
     @patch("pyanaconda.ui.webui.conf")
     def test_run_on_live_success(self, mocked_conf, mocked_create_main_loop, mocked_watch_process):
         """Test webui run call on live environment."""
-        # Execution is different for live because we need to start FF early as possible
         mocked_conf.system.provides_liveuser = True
         mocked_main_loop = Mock()
 
