@@ -324,15 +324,25 @@ jobs:
           if [ -n "${{ needs.pr-info.outputs.anaconda_webui_pr }}" ]; then
             WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env ANACONDA_WEBUI_PR=${{ needs.pr-info.outputs.anaconda_webui_pr }}"
           fi
-          if [ -n "${{ needs.pr-info.outputs.cockpit_pr }}" ]; then
-            WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env COCKPIT_PR=${{ needs.pr-info.outputs.cockpit_pr }}"
-          fi
-          # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
-             --env FEDORA_VARIANT \
-            --tmpfs /var/tmp:rw,mode=1777 \
-            -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
-            -v `pwd`/images:/images:z \
+           if [ -n "${{ needs.pr-info.outputs.cockpit_pr }}" ]; then
+             WEBUI_PR_ARGS="$WEBUI_PR_ARGS --env COCKPIT_PR=${{ needs.pr-info.outputs.cockpit_pr }}"
+           fi
+           CACHE_ARGS=()
+           if [[ "$BOOT_ARCH" == aarch64 ]]; then
+             # The hosted ARM runner's default tmpfs is too small for osbuild
+             # to keep its intermediate trees and the final ISO together.
+             CACHE_DIR="$RUNNER_TEMP/image-builder-cache"
+             mkdir -p "$CACHE_DIR"
+             df -h "$CACHE_DIR"
+             CACHE_ARGS=(--volume "$CACHE_DIR:/var/cache/image-builder:z")
+           fi
+           # /var/tmp tmpfs speeds up the build and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+           sudo podman run -i --rm --privileged --env CI_TAG=$CI_TAG \
+             --env FEDORA_VARIANT="$FEDORA_VARIANT" \
+             --tmpfs /var/tmp:rw,mode=1777 \
+             -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
+             -v `pwd`/images:/images:z \
+             "${CACHE_ARGS[@]}" \
             $WEBUI_OPTIONAL_ARG \
             $WEBUI_PR_ARGS \
             $ISO_BUILD_CONTAINER_NAME:$CI_TAG

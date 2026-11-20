@@ -49,10 +49,12 @@ mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
 # fails with "Operation not supported" when the container's root filesystem
 # sits on a backend that doesn't support SELinux xattrs (e.g. overlay on top
 # of btrfs - a known podman/btrfs limitation, independent of this build).
-# Use tmpfs for the cache to work around this SELinux xattr limitation.
-# Cache contents consume RAM/swap as they grow, increasing build memory usage.
+# Use tmpfs unless the caller mounted a separate filesystem for the cache.
+# A disk-backed mount lets memory-constrained builders avoid the tmpfs limit.
 mkdir -p /var/cache/image-builder
-mount -t tmpfs tmpfs /var/cache/image-builder
+if ! mountpoint -q /var/cache/image-builder; then
+    mount -t tmpfs tmpfs /var/cache/image-builder
+fi
 
 INPUT_RPMS=/anaconda-rpms/
 OUT_DIR=/images/
