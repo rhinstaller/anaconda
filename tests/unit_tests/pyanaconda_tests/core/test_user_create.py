@@ -25,6 +25,8 @@ from unittest.mock import patch
 
 import pytest
 
+from tests.unit_tests.pyanaconda_tests import requires_root
+
 try:
     import crypt_r
 except ImportError:
@@ -34,7 +36,7 @@ from pyanaconda.core import users
 from pyanaconda.core.path import make_directories, touch
 
 
-@unittest.skipIf(os.geteuid() != 0, "user creation must be run as root")
+@requires_root("user creation must be run as root")
 class UserCreateTest(unittest.TestCase):
     def setUp(self):
         # Create a temporary directory with empty passwd and group files
@@ -377,7 +379,7 @@ class UserCreateTest(unittest.TestCase):
         assert os.path.isdir(self.tmpdir + "/var/home/test_user")
 
 
-@unittest.skipIf(os.geteuid() != 0, "chowning to arbitrary uids must be run as root")
+@requires_root("chowning to arbitrary uids must be run as root")
 class ReownHomedirTest(unittest.TestCase):
     """Tests for _reown_homedir"""
     def _make_dir(self, root, name, uid, gid):

@@ -15,10 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+
+import os
 import re
 from collections import defaultdict
 
 import gi
+import pytest
 
 gi.require_version("GLib", "2.0")
 from contextlib import ContextDecorator
@@ -318,3 +321,10 @@ class reset_boot_loader_factory(ContextDecorator):
         from pyanaconda.modules.storage.bootloader import BootLoaderFactory
         BootLoaderFactory.set_default_class(None)
         return False
+
+
+def requires_root(reason):
+    """Skips a test if it requires root when running as non-root."""
+    uid = getattr(os, "geteuid", None)
+    is_non_root = uid is not None and uid() != 0
+    return pytest.mark.skipif(is_non_root, reason=reason)
