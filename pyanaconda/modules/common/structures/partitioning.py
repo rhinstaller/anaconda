@@ -39,6 +39,8 @@ class PartitioningRequest(DBusData):
         self._reformatted_mount_points = []
         self._reused_mount_points = []
         self._removed_mount_points = []
+        self._removed_devices = []
+        self._shrunk_devices = {}
         self._hibernation = False
 
         self._encrypted = False
@@ -170,6 +172,43 @@ class PartitioningRequest(DBusData):
     @removed_mount_points.setter
     def removed_mount_points(self, mount_points: List[Str]):
         self._removed_mount_points = mount_points
+
+    @property
+    def removed_devices(self) -> List[Str]:
+        """Removed devices.
+
+        Destroy the devices before the partitioning is created.
+
+        The user chooses the devices to remove in the reclaim space dialog.
+
+        For example: vda2, fedora-root
+
+        :return: a list of device names
+        """
+        return self._removed_devices
+
+    @removed_devices.setter
+    def removed_devices(self, devices: List[Str]):
+        self._removed_devices = devices
+
+    @property
+    def shrunk_devices(self) -> Dict[Str, UInt64]:
+        """Shrunk devices.
+
+        Shrink the devices to the given sizes before the partitioning
+        is created. The sizes are in bytes.
+
+        The user chooses the devices to shrink in the reclaim space dialog.
+
+        For example: {vda2: 10737418240}
+
+        :return: a dictionary of device names and sizes
+        """
+        return self._shrunk_devices
+
+    @shrunk_devices.setter
+    def shrunk_devices(self, devices: Dict[Str, UInt64]):
+        self._shrunk_devices = devices
 
     @property
     def encrypted(self) -> Bool:

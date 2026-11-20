@@ -42,6 +42,7 @@ from pyanaconda.modules.storage.partitioning.automatic.utils import (
     get_disks_for_implicit_partitions,
     get_part_spec,
     get_pbkdf_args,
+    reclaim_space,
     schedule_implicit_partitions,
     schedule_partitions,
     schedule_volumes,
@@ -174,6 +175,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         return True
 
     def _clear_partitions(self, storage):
+        # Free the space the user reclaimed before anything else looks at
+        # the existing layout, so the partitioning starts from the reclaimed
+        # storage instead of the scanned one.
+        reclaim_space(storage, self._request)
+
         super()._clear_partitions(storage)
 
         # Make sure disk selection is taken into account when finding installations

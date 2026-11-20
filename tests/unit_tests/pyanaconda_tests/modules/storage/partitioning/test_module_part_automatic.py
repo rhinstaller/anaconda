@@ -65,6 +65,7 @@ from pyanaconda.modules.storage.partitioning.automatic.resizable_module import (
 from pyanaconda.modules.storage.partitioning.automatic.utils import (
     get_default_partitioning,
     get_disks_for_implicit_partitions,
+    reclaim_space,
 )
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -119,6 +120,8 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             'reformatted-mount-points': get_variant(List[Str], ['/']),
             'removed-mount-points': get_variant(List[Str], ['/boot', 'bootloader']),
             'reused-mount-points': get_variant(List[Str], ['/home']),
+            'removed-devices': get_variant(List[Str], ['vda3']),
+            'shrunk-devices': get_variant(Dict[Str, UInt64], {'vda2': 10737418240}),
             'hibernation': get_variant(Bool, False),
             'encrypted': get_variant(Bool, True),
             'passphrase': get_variant(Str, '123456'),
@@ -1432,9 +1435,57 @@ class AutomaticPartitioningTaskReuseTestCase(unittest.TestCase):
         assert home in storage.devices
         assert list(storage.devicetree.actions) == []
 
+    @patch("pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning."
+           "find_existing_installations")
+    @patch("pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning."
+           "reclaim_space")
+    @patch("pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning."
+           "NonInteractivePartitioningTask._clear_partitions")
+    def test_reclaim_space_before_clearing(self, clear_partitions, reclaim_space, find_roots):
+        """Test that the reclaimed space is freed before the layout is cleared."""
+        storage = Mock()
+        find_roots.return_value = []
+        request = PartitioningRequest()
+        request.removed_devices = ["vda3"]
+
+        manager = Mock()
+        manager.attach_mock(reclaim_space, "reclaim_space")
+        manager.attach_mock(clear_partitions, "clear_partitions")
+
+        task = AutomaticPartitioningTask(storage, request)
+        task._clear_partitions(storage)
+
+        # The existing layout has to be freed first, so the partitioning does
+        # not see the devices the user reclaimed the space from.
+        assert manager.mock_calls[:2] == [
+            call.reclaim_space(storage, request),
+            call.clear_partitions(storage),
+        ]
+
 
 class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
     """Test the automatic partitioning utils."""
+
+    @patch("pyanaconda.modules.storage.partitioning.automatic.utils.shrink_device")
+    @patch("pyanaconda.modules.storage.partitioning.automatic.utils.remove_device")
+    def test_reclaim_space(self, remove_device, shrink_device):
+        """Test the reclaim_space function."""
+        storage = Mock()
+        removed = Mock()
+        shrunk = Mock()
+        devices = {"vda2": shrunk, "vda3": removed}
+        storage.devicetree.get_device_by_name.side_effect = devices.get
+
+        request = PartitioningRequest()
+        request.removed_devices = ["vda3", "vda4"]
+        request.shrunk_devices = {"vda2": 10737418240, "vda5": 5242880}
+
+        reclaim_space(storage, request)
+
+        # Devices that are already gone are skipped, so the request can be
+        # applied to the storage model the user reclaimed the space on.
+        remove_device.assert_called_once_with(storage, removed)
+        shrink_device.assert_called_once_with(storage, shrunk, Size(10737418240))
 
     def test_get_disks_for_implicit_partitions(self):
         """Test the get_disks_for_implicit_partitions function."""
