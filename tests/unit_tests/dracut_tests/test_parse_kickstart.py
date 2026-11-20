@@ -22,6 +22,8 @@ import subprocess
 import tempfile
 import unittest
 
+from tests.unit_tests.pyanaconda_tests import requires_root
+
 CERT_CONTENT = """-----BEGIN CERTIFICATE-----
 MIIBjTCCATOgAwIBAgIUWR5HO3v/0I80Ne0jQWVZFODuWLEwCgYIKoZIzj0EAwIw
 FDESMBAGA1UEAwwJUlZURVNUIENBMB4XDTI0MTEyMDEzNTk1N1oXDTM0MTExODEz
@@ -36,15 +38,6 @@ yNWXfdraC/AfMM8fqsxlVJM=
 
 CERT_TRANSPORT_DIR = "/run/install/certificates"
 
-# parse-kickstart dumps certificates to hardcoded absolute paths
-# (CERT_TRANSPORT_DIR, /etc/pki/ca-trust/...). Because it runs as a subprocess,
-# those paths cannot be patched from the test process, so these tests need to
-# run as root. See the --tmpdir override in dracut/parse-kickstart for the
-# pattern that would make the paths injectable instead.
-requires_root = unittest.skipIf(
-    os.geteuid() != 0,
-    "certificate dumping must be run as root"
-)
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
@@ -272,7 +265,12 @@ class ParseKickstartTestCase(BaseTestCase):
             # Anaconda adds `\n` to the value when dumping it
             assert f.read() == content+'\n'
 
-    @requires_root
+    # parse-kickstart dumps certificates to hardcoded absolute paths
+    # (CERT_TRANSPORT_DIR, /etc/pki/ca-trust/...). Because it runs as a subprocess,
+    # those paths cannot be patched from the test process, so these tests need to
+    # run as root. See the --tmpdir override in dracut/parse-kickstart for the
+    # pattern that would make the paths injectable instead.
+    @requires_root("certificate dumping must be run as root")
     def test_certificate(self):
         filename = "rvtest.pem"
         cdir = os.path.join(self.tmpdir, "cert_dir/subdir")
