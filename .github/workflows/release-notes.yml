@@ -6,8 +6,7 @@ on:
     types: [ "synchronize", "reopened", "labeled", "unlabeled" ]
 
 permissions:
-  contents: read
-  pull-requests: write
+  pull-requests: read
 
 jobs:
   release-note-check:
@@ -16,27 +15,15 @@ jobs:
     name: Release notes present
 
     steps:
-      - name: Clone Anaconda repository
-        uses: actions/checkout@v7
-        with:
-          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
-          # without ref is doing the rebase for us.
-          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-
       - name: Check commits for release note changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          BASE=$(git merge-base origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
-          echo "Common ancestor commit with ${{ github.event.pull_request.base.ref }} is: $BASE"
-
-          # filter AM = Added or Modified; we need only changes that can add release notes
-          FILES=$(git diff --name-only --diff-filter=AM $BASE ${{ github.event.pull_request.head.sha }})
-          printf "Files added or modified since that commit: \n$FILES\n"
-
-          NOTES=$(echo "$FILES" | grep docs/release-notes)
+          NOTES=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files?per_page=100" \
+            --jq '.[] | select(.status == "added" or .status == "modified") | .filename | select(startswith("docs/release-notes/"))')
           if [[ ! -z $NOTES ]] ; then
-            printf "Detected release notes: \n$NOTES\n"
+            printf "Detected release notes: %q\n" "$NOTES"
           else
             echo "No changes to release notes found, but the label 'release notes required' is present."
             echo "Add a release note file to make the test pass."
