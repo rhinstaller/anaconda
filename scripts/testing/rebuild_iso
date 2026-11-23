@@ -117,8 +117,8 @@ if [ -n "$REMOTE_PIN" ]; then
     REMOTE_ISO_DIR=$(mktemp -d "result/iso/remote-iso.XXXXXX")
     trap 'rm -rf "$REMOTE_ISO_DIR"' EXIT
     # mkksiso updates the existing boot entries, including the EFI boot image.
-    sudo mkksiso -r "inst.webui.remote inst.webui.remote.pin inst.webui.remote.noauth" \
-        -c "inst.webui.remote $REMOTE_PIN_ARG" \
+    sudo mkksiso -r "inst.webui.remote.pin inst.webui.remote.noauth" \
+        -c "$REMOTE_PIN_ARG" \
         "$BOOT_ISO" "$REMOTE_ISO_DIR/boot.iso"
     sudo chown --reference="$BOOT_ISO" "$REMOTE_ISO_DIR/boot.iso"
     mv "$REMOTE_ISO_DIR/boot.iso" "$BOOT_ISO"

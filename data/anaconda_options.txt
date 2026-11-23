@@ -113,18 +113,13 @@ Set password for the RDP session. To enable RDP access, also use the rdp and rdp
 rdp.password
 Set password for the RDP session. To enable RDP access, also use the rdp and rdp.username options.
 
-webui.remote
-Enable remote access to the Anaconda WebUI. Requires authentication by default.
-
 webui.remote.noauth
-Disable authentication for remote WebUI access. When set, remote connections
-to the Anaconda WebUI are allowed without a password. This option is meant
-only for testing/debugging purposes and should be avoided in real installations
-for security concerns.
+Enable remote WebUI access without authentication. Use only for testing or
+debugging on a trusted network. Cannot be combined with inst.webui.remote.pin.
 
 webui.remote.pin
-Set the PIN for remote WebUI access. Required when inst.webui.remote is set
-and inst.webui.remote.noauth is not set.
+Enable remote WebUI access with the specified non-empty PIN. Cannot be
+combined with inst.webui.remote.noauth.
 
 keymap
 Keyboard layout to use during installation and on the installed system. Valid KEYMAP values

@@ -34,6 +34,7 @@ from systemd import journal
 
 from pyanaconda import startup_utils
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.argument_parsing import is_webui_remote_enabled
 from pyanaconda.core import constants, hw, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
@@ -371,7 +372,7 @@ def setup_display(anaconda, options):
     # WebUI remote access does not need a local compositor at all - the user connects
     # over the network to cockpit-ws, so stay on TTY1 and never start gnome-kiosk.
     want_gui = anaconda.gui_mode and not (
-        flags.preexisting_wayland or flags.use_rd or options.webui_remote
+        flags.preexisting_wayland or flags.use_rd or is_webui_remote_enabled(options)
     )
     if want_gui:
         try:
@@ -455,7 +456,7 @@ def _setup_webui_remote_auth(options):
     Must be called before anaconda.initialize_interface(), which triggers
     webui-cockpit-ws.service and its ExecStartPre conf merge.
     """
-    if not options.webui_remote:
+    if not is_webui_remote_enabled(options):
         return
 
     if options.webui_remote_noauth and options.webui_remote_pin:
@@ -466,11 +467,6 @@ def _setup_webui_remote_auth(options):
     if options.webui_remote_noauth:
         log.info("WebUI remote access: authentication disabled by inst.webui.remote.noauth")
         return
-
-    if not options.webui_remote_pin:
-        msg = "inst.webui.remote requires inst.webui.remote.pin=<PIN> to be set."
-        log.critical(msg)
-        raise SystemExit(msg)
 
     with open_with_perm(constants.WEBUI_REMOTE_PIN_FILE, "w", 0o600) as f:
         f.write(options.webui_remote_pin)

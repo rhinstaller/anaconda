@@ -315,6 +315,7 @@ class ArgparseTest(unittest.TestCase):
         opts = self._parseCmdline([])
         assert opts.webui_remote_noauth is False
         assert opts.webui_remote_pin == ""
+        assert not argument_parsing.is_webui_remote_enabled(opts)
 
         opts = self._parseCmdline(['--webui.remote.noauth'])
         assert opts.webui_remote_noauth is True
@@ -327,10 +328,12 @@ class ArgparseTest(unittest.TestCase):
         boot_cmdline = KernelArguments.from_string("inst.webui.remote.noauth")
         opts = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.webui_remote_noauth is True
+        assert argument_parsing.is_webui_remote_enabled(opts)
 
         boot_cmdline = KernelArguments.from_string("inst.webui.remote.pin=secret123")
         opts = self._parseCmdline([], boot_cmdline=boot_cmdline)
         assert opts.webui_remote_pin == "secret123"
+        assert argument_parsing.is_webui_remote_enabled(opts)
 
     def test_webui_remote_auth_requires_inst_prefix(self):
         """Test webui.remote auth options are ignored without inst. prefix."""
