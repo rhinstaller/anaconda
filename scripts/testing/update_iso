@@ -194,13 +194,13 @@ def generate_updated_iso(ks_file, custom_boot_options, remote_pin=None):
     combined_boot_options = f'{timestamp_option} {custom_boot_options}' if custom_boot_options else timestamp_option
     if remote_pin is not None:
         pin_option = shlex.quote(f'inst.webui.remote.pin={remote_pin}')
-        combined_boot_options += f' inst.webui.remote {pin_option}'
+        combined_boot_options += f' {pin_option}'
 
     # Build the mkksiso command. Remote mode replaces any previous remote
     # authentication options, so the ISO has a single, consistent PIN setting.
     command = ['sudo', MKKSISO, '-a', UPDATES_FOLDER, '-c', combined_boot_options]
     if remote_pin is not None:
-        command.extend(['-r', 'inst.webui.remote inst.webui.remote.pin inst.webui.remote.noauth'])
+        command.extend(['-r', 'inst.webui.remote.pin inst.webui.remote.noauth'])
     if ks_file_path:
         command.extend(['--ks', ks_file_path])
     command.extend([str(INPUT_ISO), str(UPDATED_ISO)])
@@ -303,7 +303,7 @@ def main():
         if not args.remote:
             parser.error('--remote requires a non-empty PIN')
         if any(option.split('=')[0] in {
-                'inst.webui.remote', 'inst.webui.remote.pin', 'inst.webui.remote.noauth'
+                'inst.webui.remote.pin', 'inst.webui.remote.noauth'
         } for option in (args.boot_options or '').split()):
             parser.error('--remote cannot be combined with remote WebUI options in --boot-options')
 

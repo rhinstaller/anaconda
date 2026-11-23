@@ -593,18 +593,17 @@ Set password for the RDP session. To enable RDP access, also use the
 inst.webui.remote.noauth
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Disable authentication for remote WebUI access. When ``inst.webui.remote`` is set,
-authentication is required by default. ATTENTION: this option exists mostly for debugging
-purposes and its use is NOT ENCOURAGED for security concerns. Despite these warnings, if
-you decide to use it, make sure to only do it in a secure network.
+Enable remote access to the Anaconda WebUI without authentication. Use this option
+only for testing or debugging on a trusted network. Do not combine it with
+``inst.webui.remote.pin``.
 
 .. inst.webui.remote.pin:
 
 inst.webui.remote.pin
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
-Set the pin for remote access to the Anaconda WebUI. Required when
-``inst.webui.remote`` is set and ``inst.webui.remote.noauth`` is not set.
+Use ``inst.webui.remote.pin=<PIN>`` to enable remote access to the Anaconda WebUI
+with the specified non-empty PIN. Do not combine it with ``inst.webui.remote.noauth``.
 
 .. inst.xdriver:
 

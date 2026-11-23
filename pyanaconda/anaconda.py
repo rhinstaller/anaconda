@@ -23,6 +23,7 @@ import threading
 from tempfile import mkstemp
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
+from pyanaconda.argument_parsing import is_webui_remote_enabled
 from pyanaconda.core import constants
 from pyanaconda.core.constants import (
     ADDON_PATHS,
@@ -216,7 +217,7 @@ class Anaconda:
             self._intf = CockpitUserInterface(
                 None,
                 self.payload,
-                self.opts.webui_remote,
+                is_webui_remote_enabled(self.opts),
                 self.opts.webui_remote_noauth
             )
 

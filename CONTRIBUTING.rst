@@ -184,7 +184,7 @@ For remote Web UI access, use ``--remote PIN``, which implies ``--webui``::
   ./scripts/testing/rebuild_iso --remote 'my-access-pin'
 
 Remote mode requires ``mkksiso`` from the host's ``lorax`` package. It adds
-``inst.webui.remote inst.webui.remote.pin=PIN`` to the existing boot entries.
+``inst.webui.remote.pin=PIN`` to the existing boot entries.
 The PIN must be non-empty and does not have to be numeric. Quote it when
 passing spaces or shell metacharacters on the command line.
 The resulting ISO is stored in ``result/iso/boot.iso``.

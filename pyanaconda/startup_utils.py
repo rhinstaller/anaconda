@@ -28,6 +28,7 @@ from dasbus.typing import Int, get_variant
 
 from pyanaconda import anaconda_logging, kickstart, network, ntp
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+from pyanaconda.argument_parsing import is_webui_remote_enabled
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import (
     DRACUT_ERRORS_PATH,
@@ -428,7 +429,7 @@ def print_startup_note(options):
             print(text_mode_note)
         print(separate_attachements_note)
 
-    if options.webui_remote:
+    if is_webui_remote_enabled(options):
         # make sure there is space before the remote access messages
         print("\n")
         print("Web UI remote access enabled.")

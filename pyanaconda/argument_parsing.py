@@ -260,6 +260,11 @@ class AnacondaArgumentParser(ArgumentParser):
         return namespace
 
 
+def is_webui_remote_enabled(options):
+    """Report whether the parsed options request remote WebUI access."""
+    return options.webui_remote_noauth or bool(options.webui_remote_pin)
+
+
 def name_path_pairs(image_specs):
     """Processes and verifies image file specifications. Generates pairs
        of names and paths.
@@ -514,8 +519,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("rdp.username"))
     ap.add_argument("--rdp.password", default="", metavar="PASSWORD", dest="rdp_password",
                     help=help_parser.help_text("rdp.password"))
-    ap.add_argument("--webui.remote", action="store_true", default=False, dest="webui_remote",
-                    help=help_parser.help_text("webui.remote"))
     ap.add_argument("--webui.remote.noauth", action="store_true", default=False,
                     dest="webui_remote_noauth",
                     help=help_parser.help_text("webui.remote.noauth"))
