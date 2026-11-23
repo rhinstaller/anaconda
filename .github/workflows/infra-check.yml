@@ -20,44 +20,38 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'infrastructure') && github.event.pull_request.merged != 'true'
     runs-on: ubuntu-24.04
     name: Infra tags in commit messages
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
 
     steps:
       - name: Clone Anaconda repository
         uses: actions/checkout@v7
         with:
-          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
-          # without ref is doing the rebase for us.
-          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-
-      - name: Rebase to current
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
-          git rebase origin/${{ github.event.pull_request.base.ref }}
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
 
       - name: Check if all commits have infra postfix or prefix
         run: |
-          # get commit headers of all the commits added in this PR
-          for i in "$(git log --oneline --pretty=format:%s origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
+          commits=$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/commits?per_page=100")
+          subjects=$(jq -r '[.[][]] | if length >= 250 then error("GitHub commit limit reached")
+            else .[] | .commit.message | split("\n")[0] end' <<< "$commits")
+          while IFS= read -r i; do
 
             if ! ( [[ $i =~ \(#infra\)$ ]]  || [[ $i =~ ^infra: ]] ); then
-              echo "$i --> Is missing 'infra:' prefix or '(#infra)' postfix"
+              printf "%q --> Is missing 'infra:' prefix or '(#infra)' postfix\n" "$i"
               exit 1
             fi
-          done
+          done <<< "$subjects"
 
       - name: Check if all changed files are infra related
         run: |
           set -eu
-          changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
-          # print for debugging
-          echo "-------- Changed files --------"
-          echo "$changed_files"
-          echo "-------------------------------"
-          echo "--- Files with failed check ---"
+          files=$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files?per_page=100")
+          if (( $(jq '[.[][]] | length' <<< "$files") >= 3000 )); then
+            echo "Cannot check all files: reached the GitHub API limit."
+            exit 1
+          fi
 
           # load infrastructure file list
           . .structure-config
@@ -65,7 +59,7 @@ jobs:
           failed_check="no"
           echo -e 'Infrastructure check **failed** on these files. Please do a double check of these files before merge!\n' > ./message.txt
 
-          for f in $changed_files; do
+          while IFS= read -r -d '' f; do
             matched="no"
 
             for infra_f in "${INFRASTRUCTURE_FILES[@]}"; do
@@ -76,20 +70,21 @@ jobs:
             done
 
             if [ $matched == "no" ]; then
-              echo "$f" | tee -a ./message.txt
+              printf '    %q\n' "$f" | tee -a ./message.txt
               failed_check="yes"
             fi
 
-          done
+          done < <(jq -j '.[][] | .filename, "\u0000"' <<< "$files")
 
           # Label related actions should only trigger comment if the "infrastructure" label triggered it specifically.
           skip_comment="no"
-          if ([ "${{ github.event.action }}" == "labeled" ] || [ "${{ github.event.action }}" == "unlabeled" ]) && [ "${{ github.event.label.name }}" != "infrastructure" ]; then
+          if [[ ( $ACTION == labeled || $ACTION == unlabeled ) && $LABEL_NAME != infrastructure ]]; then
             skip_comment="yes"
           fi
 
           if [ "$failed_check" == "yes" ] && [ "$skip_comment" != "yes" ]; then
-              gh pr comment ${{ github.event.pull_request.number }} -F ./message.txt
+              gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" -F ./message.txt
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTION: ${{ github.event.action }}
+          LABEL_NAME: ${{ github.event.label.name }}
