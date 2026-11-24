@@ -48,6 +48,9 @@ from pyanaconda.core.constants import (
     PACKAGES_LIST_FILE,
 )
 from pyanaconda.core.live_user import get_live_user
+from pyanaconda.core.os_release import (  # noqa: F401 # pylint: disable=unused-import
+    get_os_release_value,  # Compatibility export for Initial Setup.
+)
 from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.errors import RemovedModuleError
 from pyanaconda.modules.common.constants.objects import SCRIPTS
