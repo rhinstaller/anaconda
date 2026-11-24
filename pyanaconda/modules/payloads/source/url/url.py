@@ -19,6 +19,8 @@
 #
 import copy
 
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import (
     URL_TYPE_BASEURL,
@@ -107,7 +109,10 @@ class URLSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
         repo_data.ssl_configuration.client_cert_path = data.url.sslclientcert or ""
         repo_data.ssl_configuration.client_key_path = data.url.sslclientkey or ""
 
-        self.set_configuration(repo_data)
+        try:
+            self.set_configuration(repo_data)
+        except InvalidValueError as e:
+            raise KickstartParseError(str(e), lineno=data.url.lineno) from None
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -137,8 +142,12 @@ class URLSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
 
         if not is_protocol_supported:
             raise InvalidValueError(
-                "Invalid protocol of an URL source: '{}'"
-                "".format(configuration.url)
+                "Invalid protocol of an URL source: '{}'. "
+                "Supported protocols are: {}."
+                "".format(
+                    configuration.url,
+                    ", ".join(p.rstrip(":") for p in self.supported_protocols)
+                )
             )
 
         if configuration.type not in URL_TYPES:
