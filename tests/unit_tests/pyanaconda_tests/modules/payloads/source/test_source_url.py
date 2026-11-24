@@ -68,7 +68,9 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             self.interface.Configuration = \
                 RepoConfigurationData.to_structure(data)
 
-        assert str(cm.value) == "Invalid protocol of an URL source: 'unknown://test'"
+        assert str(cm.value) == \
+            "Invalid protocol of an URL source: 'unknown://test'. " \
+            "Supported protocols are: http, https, ftp, file."
 
     def test_set_invalid_url_type(self):
         """Test a configuration with an invalid URL type."""
