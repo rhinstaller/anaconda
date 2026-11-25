@@ -532,6 +532,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 25 2026 github-actions <github-actions@github.com> - 46.8-1
+- Report invalid url kickstart sources as kickstart errors (kkoukiou)
+- Run Subscription module on Fedora ELN (mkolman)
+- Restore the os-release helper export for Initial Setup (adamkankovsky)
+- Drop the standalone inst.webui.remote boot option (adamkankovsky)
+- Use rsyslog drop-in config instead of appending to rsyslog.conf (kkoukiou)
+- Define anaconda_syslog rsyslog template in setupVirtio() (kkoukiou)
+- storage: let UIs ask which autopart schemes are available (tfratrik)
+- core: Read product metadata from os-release (adamkankovsky)
+
 * Tue Nov 17 2026 github-actions <github-actions@github.com> - 46.7-1
 - Include legacy single-word timezones in DBus catalog (kkoukiou)
 - scripts: Configure remote Web UI access in ISO helpers (adamkankovsky)
