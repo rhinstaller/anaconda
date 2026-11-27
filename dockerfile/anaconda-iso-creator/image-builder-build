@@ -97,6 +97,7 @@ if [ "${IMAGE_BUILDER_WEBUI:-0}" = "1" ]; then
 [customizations.installer]
 packages = [
   { name = "anaconda-webui" },
+  { name = "firefox" },
 ]
 EOF
 fi
