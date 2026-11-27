@@ -58,32 +58,37 @@ fi
 
 . /etc/os-release
 
-if [ "$CI_TAG" = "fedora-eln" ]; then
-    echo "fedora-eln is not supported by the image-builder based build yet" >&2
-    exit 1
-fi
-
 # image-builder doesn't know the "fedora-rawhide" alias, only numbered
 # versions (e.g. "fedora-46") - VERSION_ID from /etc/os-release of this
 # very container is already the current Rawhide version number, so use that
 # regardless of whether CI_TAG says "fedora-rawhide" or "fedora-<N>".
-IMAGE_BUILDER_DISTRO="fedora-${VERSION_ID}"
+IMAGE_BUILDER_DISTRO="${ID}-${VERSION_ID}"
 
 # Match Fedora's pungi-fedora Everything installer label, including the
 # "dvd" marker used by libosinfo to identify installation media.
 # https://forge.fedoraproject.org/releng/pungi-fedora/src/branch/main/fedora.conf
-ISO_VOLID_VERSION="$VERSION_ID"
-if [ "$CI_TAG" = "fedora-rawhide" ]; then
-    ISO_VOLID_VERSION="rawh"
+# ELN uses its own label without a version.
+# $arch is expanded by image-builder for the selected target architecture.
+if [ "$CI_TAG" = "fedora-eln" ]; then
+    ISO_VOLID="Fedora-ELN-\$arch-dvd"
+    # ELN (distro "eln-11") follows the RHEL image definitions, which name
+    # the generic network-install boot.iso "network-installer".
+    IMAGE_TYPE="network-installer"
+else
+    IMAGE_TYPE="everything-network-installer"
+    ISO_VOLID_VERSION="$VERSION_ID"
+    if [ "$CI_TAG" = "fedora-rawhide" ]; then
+        ISO_VOLID_VERSION="rawh"
+    fi
+    ISO_VOLID="Fedora-E-dvd-\$arch-${ISO_VOLID_VERSION}"
 fi
 
 # Let image-builder set both the ISO volume ID and the bootloader's stage2
 # reference through the supported customizations.iso blueprint option.
-# $arch is expanded by image-builder for the selected target architecture.
 BLUEPRINT=/tmp/installer-blueprint.toml
 cat > "$BLUEPRINT" <<EOF
 [customizations.iso]
-volume_id = "Fedora-E-dvd-\$arch-${ISO_VOLID_VERSION}"
+volume_id = "${ISO_VOLID}"
 EOF
 
 if [ "${IMAGE_BUILDER_WEBUI:-0}" = "1" ]; then
@@ -92,6 +97,7 @@ if [ "${IMAGE_BUILDER_WEBUI:-0}" = "1" ]; then
 [customizations.installer]
 packages = [
   { name = "anaconda-webui" },
+  { name = "firefox" },
 ]
 EOF
 fi
@@ -102,8 +108,8 @@ mkdir -p output
 # lorax's runtime-install.tmpl built (the upstream distrodef literally notes
 # "Based on lorax runtime-install.tmpl"). Not to be confused with the
 # "network-installer" image_func name used internally, or the RHEL/CentOS
-# Stream type of the same latter name.
-image-builder build everything-network-installer \
+# Stream/ELN type of the same latter name, which is used for ELN above.
+image-builder build "$IMAGE_TYPE" \
       --distro "$IMAGE_BUILDER_DISTRO" \
       --blueprint "$BLUEPRINT" \
       "${LOCAL_REPO_ARGS[@]}" \
