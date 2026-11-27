@@ -64,6 +64,7 @@ jobs:
         container-type: ['ci', 'rpm', 'iso-creator']
     env:
       CI_TAG: '${{ inputs.container-tag }}'
+      PODMAN_SUDO: ${{ matrix.container-type == 'iso-creator' && 'sudo' || '' }}
     timeout-minutes: 60
     steps:
       - name: Checkout anaconda repository
@@ -99,13 +100,13 @@ jobs:
             test-logs/coverage-*.log
 
       - name: Login to container registry
-        run: podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
+        run: $PODMAN_SUDO podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
 
         # we can hardcode the path to the image here because this will be executed only for main image
       - name: Add latest tag for fedora-rawhide container
         if: ${{ inputs.container-tag == 'fedora-rawhide' }}
         run: |
-          podman tag quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:${{ inputs.container-tag }} quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:latest
+          $PODMAN_SUDO podman tag quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:${{ inputs.container-tag }} quay.io/rhinstaller/anaconda-${{ matrix.container-type }}:latest
           CI_TAG=latest make -f Makefile.am anaconda-${{ matrix.container-type }}-push
 
       - name: Push container to registry
