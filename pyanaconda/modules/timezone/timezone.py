@@ -48,6 +48,7 @@ from pyanaconda.modules.timezone.installation import (
     ConfigureHardwareClockTask,
     ConfigureNTPTask,
     ConfigureTimezoneTask,
+    RTCHeuristicTask,
 )
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
@@ -76,6 +77,9 @@ class TimezoneService(KickstartService):
 
         self.is_utc_changed = Signal()
         self._is_utc = False
+
+        self.rtc_heuristic_changed = Signal()
+        self._rtc_heuristic = False
 
         self.ntp_enabled_changed = Signal()
         self._ntp_enabled = True
@@ -210,6 +214,18 @@ class TimezoneService(KickstartService):
         log.debug("UTC is set to %s.", is_utc)
 
     @property
+    def rtc_heuristic(self):
+        """Are we guessing the RTC mode heuristically?"""
+        return self._rtc_heuristic
+
+    def set_rtc_heuristic(self, is_heuristic):
+        """Set if we're guessing the RTC mode heuristically."""
+        self._rtc_heuristic = is_heuristic
+        self.rtc_heuristic_changed.emit()
+        if is_heuristic:
+            log.debug("Guessing RTC mode heuristically")
+
+    @property
     def ntp_enabled(self):
         """Enable automatic starting of NTP service."""
         return self._ntp_enabled
@@ -257,13 +273,15 @@ class TimezoneService(KickstartService):
         :return: list of installation tasks
         """
         return [
+            RTCHeuristicTask(
+                timezone_service=self,
+            ),
             ConfigureHardwareClockTask(
-                is_utc=self.is_utc
+                timezone_service=self,
             ),
             ConfigureTimezoneTask(
                 sysroot=conf.target.system_root,
-                timezone=self.timezone,
-                is_utc=self.is_utc
+                timezone_service=self,
             ),
             ConfigureNTPTask(
                 sysroot=conf.target.system_root,

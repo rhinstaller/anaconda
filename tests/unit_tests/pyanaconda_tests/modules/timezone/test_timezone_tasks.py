@@ -20,8 +20,9 @@
 import os
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from shutil import copyfile, copytree
-from unittest.mock import patch
+from unittest.mock import call, create_autospec, patch
 
 import pytest
 
@@ -29,10 +30,13 @@ from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.timezone.installation import (
+    ChronyUnavailable,
     ConfigureHardwareClockTask,
     ConfigureNTPTask,
     ConfigureTimezoneTask,
+    RTCHeuristicTask,
 )
+from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
 
 
@@ -157,11 +161,15 @@ class TimezoneTasksTestCase(unittest.TestCase):
         if make_zoneinfo:
             copytree("/usr/share/zoneinfo", sysroot + "/usr/share/zoneinfo")
 
-    def _execute_task(self, sysroot, timezone, is_utc):
+    def _execute_task(self, sysroot, tz, is_utc):
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.timezone = tz
+        service.is_utc = is_utc
+        service.set_timezone.side_effect = lambda value: setattr(service, "timezone", value)
+
         task = ConfigureTimezoneTask(
             sysroot=sysroot,
-            timezone=timezone,
-            is_utc=is_utc
+            timezone_service=service,
         )
         task.run()
 
@@ -362,7 +370,234 @@ class TimezoneHardwareClockTasksTestCase(unittest.TestCase):
             )
 
     def _execute_task(self, is_utc):
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.is_utc = is_utc
         task = ConfigureHardwareClockTask(
-            is_utc=is_utc
+            timezone_service=service,
         )
         task.run()
+
+    @patch("pyanaconda.modules.timezone.installation.util.execWithRedirect")
+    def test_is_utc_propagation(self, mock_exec):
+        """Test that updates to IsUTC from earlier tasks are used by ConfigureHardwareClockTask."""
+
+        # Pretend we've discovered an NTFS partition
+        service = TimezoneService()
+        service.set_is_utc(False)
+
+        tasks = service.install_with_tasks()
+        task = next(t for t in tasks if isinstance(t, ConfigureHardwareClockTask))
+        assert service.is_utc is False
+
+        # After task generation, the heuristic task updates is_utc
+        service.set_is_utc(True)
+
+        with patch("pyanaconda.modules.timezone.installation.conf") as mock_conf:
+            mock_conf.system.can_set_hardware_clock = True
+            task.run()
+            # And we use the updated value
+            mock_exec.assert_called_once_with('hwclock', ['--systohc', '--utc'])
+
+class TimezoneRTCHeuristicTasksTestCase(unittest.TestCase):
+    def test_run_no_heuristic(self):
+        """Test that in non-heuristic mode, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = False
+        service.timezone = None
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T18:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    def test_run_no_ntp_time(self):
+        """Test that with no NTP time available, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = 'America/New_York'
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T18:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=None):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    def test_run_no_rtc_time(self):
+        """Test that with no RTC time available, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = 'America/New_York'
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=None), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    def test_run_no_timezone(self):
+        """Test that with no timezone available, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = None
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T18:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    def test_run_bad_tz(self):
+        """Test that with a bad timezone, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = "Not/Real"
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T18:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    @patch('pyanaconda.modules.timezone.installation.util.execProgram')
+    def test_run_choose_local(self, mock_exec):
+        """Test that if RTC time matches local time, run selects local time."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = "America/New_York"
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T18:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_called_once_with(False)
+        mock_exec.assert_called_once_with('hwclock', ['--hctosys', '--local'])
+
+    @patch('pyanaconda.modules.timezone.installation.util.execProgram')
+    def test_run_choose_utc(self, mock_exec):
+        """Test that if RTC time matches UTC time, run selects UTC time."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = "America/New_York"
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T23:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_called_once_with(True)
+        mock_exec.assert_called_once_with('hwclock', ['--hctosys', '--utc'])
+
+    def test_run_no_match(self):
+        """Test that if RTC time matches neither local nor UTC time, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = "America/New_York"
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T22:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    def test_run_both_match(self):
+        """Test that if RTC time matches both local and UTC time, run does nothing."""
+        service = create_autospec(TimezoneService, spec_set=True, instance=True)
+        service.rtc_heuristic = True
+        service.timezone = "Europe/London"
+        task = RTCHeuristicTask(timezone_service=service)
+        with patch.object(task, "_read_rtc", return_value=datetime.fromisoformat("2026-11-15T23:20:00")), \
+            patch.object(task, "_chrony_utc", return_value=datetime.fromisoformat("2026-11-15T23:21:10+0000")):
+            task.run()
+        service.set_is_utc.assert_not_called()
+
+    def test_read_rtc(self):
+        """Test that reading from the RTC calls hwclock correctly."""
+        task = RTCHeuristicTask(None)
+        with patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock:
+            mock.return_value = (0, "2026-11-16 00:47:44.898808+00:00\n")
+            ret = task._read_rtc()
+            assert ret == datetime.fromisoformat("2026-11-16 00:47:44.898808+00:00")
+            mock.assert_called_once_with('hwclock', ['--show', '--utc'], env_add={"TZ": "UTC0"})
+
+    def test_read_rtc_fail(self):
+        """Test that reading from the RTC just returns None on failure."""
+        task = RTCHeuristicTask(None)
+        with patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock:
+            mock.return_value = (-1, "")
+            ret = task._read_rtc()
+            assert ret is None
+            mock.assert_called_once_with('hwclock', ['--show', '--utc'], env_add={"TZ": "UTC0"})
+
+    def test_chrony_utc_once_slow(self):
+        """Test that if chrony finds the sysclock is slow, _chrony_utc_once calculates UTC correctly."""
+        task = RTCHeuristicTask(None)
+        with patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock_exec, \
+            patch('pyanaconda.modules.timezone.installation.datetime') as mock_datetime:
+            mock_exec.return_value = (0, "CE6C0083,206.108.0.131,2,1794790582.575424911,9351.443359375,-0.000001402,965.307922363,3.459,-0.004,0.862,0.027274847,0.000706511,129.2,Normal\n")
+            mock_datetime.now.return_value = datetime.fromisoformat("2026-11-15T22:23:30+0000")
+            ret = task._chrony_utc_once()
+            assert ret == datetime.fromisoformat("2026-11-16T00:59:21.443359375+0000")
+            mock_exec.assert_called_once_with('chronyc', ['-c', 'tracking'])
+
+    def test_chrony_utc_once_fast(self):
+        """Test that if chrony finds the sysclock is fast, _chrony_utc_once calculates UTC correctly."""
+        task = RTCHeuristicTask(None)
+        with patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock_exec, \
+            patch('pyanaconda.modules.timezone.installation.datetime') as mock_datetime:
+            mock_exec.return_value = (0, "CE6C0083,206.108.0.131,2,1794790582.575424911,-10.3,-0.000001402,965.307922363,3.459,-0.004,0.862,0.027274847,0.000706511,129.2,Normal\n")
+            mock_datetime.now.return_value = datetime.fromisoformat("2026-11-15T22:23:30+0000")
+            ret = task._chrony_utc_once()
+            assert ret == datetime.fromisoformat("2026-11-15T22:23:19.7+0000")
+            mock_exec.assert_called_once_with('chronyc', ['-c', 'tracking'])
+
+    def test_chrony_utc_once_unsynced(self):
+        """Test that if chrony is unsynced, _chrony_utc_once returns None."""
+        task = RTCHeuristicTask(None)
+        with patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock_exec:
+            mock_exec.return_value = (0, "CE6C0083,206.108.0.131,2,1794790582.575424911,-10.3,-0.000001402,965.307922363,3.459,-0.004,0.862,0.027274847,0.000706511,129.2,Not synchronised\n")
+            ret = task._chrony_utc_once()
+            assert ret is None
+            mock_exec.assert_called_once_with('chronyc', ['-c', 'tracking'])
+
+    def test_chrony_utc_once_no_chrony(self):
+        """Test that if chrony isn't running _chrony_utc_once raises an exception."""
+        task = RTCHeuristicTask(None)
+        with patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock_exec:
+            mock_exec.return_value = (-1, "")
+            with self.assertRaises(ChronyUnavailable):
+                task._chrony_utc_once()
+            mock_exec.assert_called_once_with('chronyc', ['-c', 'tracking'])
+
+    def test_chrony_utc_synced(self):
+        """Test that if chrony is synced, _chrony_utc finds UTC time immediately."""
+        task = RTCHeuristicTask(None)
+        t = datetime.now(timezone.utc)
+        with patch.object(task, "_chrony_utc_once") as mock:
+            mock.return_value = t
+            assert task._chrony_utc() == t
+            mock.assert_called_once()
+
+    def test_chrony_utc_resync(self):
+        """Test that if chrony has reset, _chrony_utc tries to make it sync."""
+        task = RTCHeuristicTask(None)
+        t = datetime.now(timezone.utc)
+        with patch.object(task, "_chrony_utc_once") as mock_chrony_utc_once, \
+            patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock_exec:
+            mock_chrony_utc_once.side_effect = [None, t]
+            assert task._chrony_utc() == t
+            assert mock_chrony_utc_once.call_count == 2
+            assert mock_exec.mock_calls == [
+                call('chronyc', ['burst', '3/10']),
+                call('chronyc', ['waitsync', '10', '0', '0', '1']),
+            ]
+
+    def test_chrony_utc_no_sync(self):
+        task = RTCHeuristicTask(None)
+        with patch.object(task, "_chrony_utc_once") as mock_chrony_utc_once, \
+            patch('pyanaconda.modules.timezone.installation.util.execProgram') as mock_exec:
+            mock_chrony_utc_once.side_effect = [None, None]
+            assert task._chrony_utc() is None
+            assert mock_chrony_utc_once.call_count == 2
+            assert mock_exec.mock_calls == [
+                call('chronyc', ['burst', '3/10']),
+                call('chronyc', ['waitsync', '10', '0', '0', '1']),
+            ]
+
+    def test_chrony_utc_no_chrony(self):
+        task = RTCHeuristicTask(None)
+        with patch.object(task, "_chrony_utc_once") as mock_chrony_utc_once:
+            mock_chrony_utc_once.side_effect = ChronyUnavailable
+            assert task._chrony_utc() is None
+            mock_chrony_utc_once.assert_called_once()

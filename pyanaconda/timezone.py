@@ -71,6 +71,7 @@ def time_initialize(timezone_proxy):
         thread_manager.wait(THREAD_STORAGE)
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
         timezone_proxy.IsUTC = not bootloader_proxy.DetectWindows()
+        timezone_proxy.RTCHeuristic = True
 
     cmd = "hwclock"
     args = ["--hctosys"]
