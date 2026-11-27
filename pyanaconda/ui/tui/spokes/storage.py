@@ -334,6 +334,9 @@ class StorageSpoke(NormalTUISpoke):
                     ScreenHandler.push_screen_modal(new_spoke)
                     self._partitioning = new_spoke.partitioning
                     self.apply()
+                    # Ask for a passphrase if the partitioning requests
+                    # encryption without one (a no-op otherwise).
+                    self.run_passphrase_dialog()
                     self.execute()
 
                 return InputState.PROCESSED_AND_CLOSE
@@ -627,6 +630,9 @@ class PartitionSchemeSpoke(NormalTUISpoke):
             box = CheckboxWidget(title=_(scheme), completed=(value == self._selected_scheme_value))
             self._container.add(box, self._set_part_scheme_callback, value)
 
+        box = CheckboxWidget(title=_("Encrypt my data"), completed=self._request.encrypted)
+        self._container.add(box, self._set_encryption_callback, None)
+
         self.window.add_with_separator(self._container)
 
         message = _("Select a partition scheme configuration.")
@@ -635,6 +641,9 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def _set_part_scheme_callback(self, data):
         self._selected_scheme_value = data
         self._request.partitioning_scheme = data
+
+    def _set_encryption_callback(self, data):
+        self._request.encrypted = not self._request.encrypted
 
     def input(self, args, key):
         """ Grab the choice and update things. """
