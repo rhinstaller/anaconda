@@ -38,8 +38,6 @@ from pyanaconda.core.util import startProgram
 
 log = get_module_logger(__name__)
 
-FIREFOX_THEME_DEFAULT = "default"
-FIREFOX_THEME_LIVE = "live"
 
 class CockpitUserInterface(ui.UserInterface):
     """This is the main class for Cockpit user interface."""
@@ -132,7 +130,6 @@ class CockpitUserInterface(ui.UserInterface):
 
     def _run_webui(self):
         # FIXME: We probably want to move this to early execution similar to what we have on live
-        profile_name = FIREFOX_THEME_DEFAULT
         self._main_loop = create_main_loop()
 
         try:
@@ -140,7 +137,7 @@ class CockpitUserInterface(ui.UserInterface):
             # startProgram merges stderr into stdout by default.
             with tempfile.TemporaryFile() as output:
                 cmd = ["/usr/libexec/anaconda/webui-desktop",
-                       "-t", profile_name, "-r", str(int(self.remote)),
+                       "-t", "default", "-r", str(int(self.remote)),
                        "-n", str(int(self.noauth))]
                 proc = startProgram(cmd, stdout=output, reset_lang=False)
 
@@ -169,10 +166,8 @@ class CockpitUserInterface(ui.UserInterface):
     def _watch_webui_on_live(self):
         """Watch webui-desktop script process on Live.
 
-        It takes long time to start Firefox after the user interaction (on live even 20+ seconds).
-        To avoid that, we are starting the webui-desktop script early in the liveinst script.
-        Here we are just watching if the process is still running. If the browser is closed
-        Anaconda main process will stop.
+        The liveinst script starts webui-desktop early. Stop Anaconda when its
+        browser window closes.
         """
         log.debug("web-ui: watching webui-desktop pid on live environment")
         pid = -1
