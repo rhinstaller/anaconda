@@ -17,7 +17,7 @@
 #
 import unittest
 from collections import OrderedDict
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from freezegun import freeze_time
 
@@ -180,3 +180,29 @@ class SystemTime(unittest.TestCase):
             None, None, None, 19, 15, "Asia/Aden"
         )
         exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609517700"])
+
+
+class TimeInitialization(unittest.TestCase):
+    """Test when the installer may set the system clock from the RTC."""
+
+    def test_preserve_synchronized_time_and_guess_rtc_mode(self):
+        """Keep NTP time but still determine the RTC mode for the installed system."""
+        timezone_proxy = Mock(IsUTC=False)
+
+        with (
+            patch.object(timezone, "conf") as conf,
+            patch.object(timezone.SystemBus, "check_connection", return_value=True),
+            patch.object(timezone, "TIMEDATED") as timedated,
+            patch.object(timezone.arch, "is_s390", return_value=False),
+            patch.object(timezone.flags, "automatedInstall", False),
+            patch.object(timezone.thread_manager, "wait"),
+            patch.object(timezone, "STORAGE") as storage,
+            patch.object(timezone, "execWithRedirect") as exec_mock,
+        ):
+            conf.system.provides_system_bus = True
+            timedated.get_proxy.return_value.NTPSynchronized = True
+            storage.get_proxy.return_value.DetectWindows.return_value = False
+            timezone.time_initialize(timezone_proxy)
+
+        assert timezone_proxy.IsUTC is True
+        exec_mock.assert_not_called()
