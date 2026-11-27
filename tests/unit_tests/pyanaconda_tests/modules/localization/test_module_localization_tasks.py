@@ -345,6 +345,39 @@ class LocalizationTasksTestCase(unittest.TestCase):
                 localed=mocked_localed,
                 live_keyboard=None
             )
+        # X layouts available but conversion to VConsole keymap fails for an
+        # ASCII-compatible layout (e.g. 'au' missing from systemd's kbd-model-map)
+        # Should fall back to DEFAULT_KEYBOARD
+        with self._create_localed_mock(
+                convert_layouts_output="",
+                convert_keymap_output=["us"],
+                expected_convert_layouts_input=["au"],
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=["au"],
+                input_vc_keymap="",
+                result_x_layouts=["au"],
+                result_vc_keymap=DEFAULT_KEYBOARD,
+                localed=mocked_localed,
+                live_keyboard=None
+            )
+        # X layouts available but conversion fails for a non-ASCII layout
+        # Must NOT fall back, as it could cause untypable passphrases
+        with self._create_localed_mock(
+                convert_layouts_output="",
+                convert_keymap_output=[],
+                expected_convert_layouts_input=["ru"],
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=["ru"],
+                input_vc_keymap="",
+                result_x_layouts=["ru"],
+                result_vc_keymap="",
+                localed=mocked_localed,
+                live_keyboard=None
+            )
         # Only virtual console keymap available
         with self._create_localed_mock(
                 convert_layouts_output="",
